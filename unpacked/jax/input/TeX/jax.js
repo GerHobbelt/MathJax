@@ -44,7 +44,7 @@
     Push: function () {
       var i, m, item, top;
       for (i = 0, m = arguments.length; i < m; i++) {
-        item = arguments[i];
+        item = arguments[i]; if (!item) continue;
         if (item instanceof MML.mbase) {item = STACKITEM.mml(item)}
         item.global = this.global;
         top = (this.data.length ? this.Top().checkItem(item) : true);
@@ -424,6 +424,7 @@
         '%':   'Comment',
         '&':   'Entry',
         '#':   'Hash',
+        '\u00A0': 'Space',
         '\u2019': 'Prime'
       },
       
@@ -916,7 +917,7 @@
         leqalignno:        ['Matrix',null,null,"right left right",MML.LENGTH.THICKMATHSPACE+" 3em",".5em",'D'],
 
         //  TeX substitution macros
-        bmod:              ['Macro','\\mathbin{\\mmlToken{mo}{mod}}'],
+        bmod:              ['Macro','\\mmlToken{mo}[lspace="thickmathspace" rspace="thickmathspace"]{mod}'],
         pmod:              ['Macro','\\pod{\\mmlToken{mi}{mod}\\kern 6mu #1}',1],
         mod:               ['Macro','\\mathchoice{\\kern18mu}{\\kern12mu}{\\kern12mu}{\\kern12mu}\\mmlToken{mi}{mod}\\,\\,#1',1],
         pod:               ['Macro','\\mathchoice{\\kern18mu}{\\kern8mu}{\\kern8mu}{\\kern8mu}(#1)',1],
@@ -933,8 +934,10 @@
         mathsf:            ['Macro','{\\sf #1}',1],
         mathtt:            ['Macro','{\\tt #1}',1],
         textrm:            ['Macro','\\mathord{\\rm\\text{#1}}',1],
-        textit:            ['Macro','\\mathord{\\it{\\text{#1}}}',1],
-        textbf:            ['Macro','\\mathord{\\bf{\\text{#1}}}',1],
+        textit:            ['Macro','\\mathord{\\it\\text{#1}}',1],
+        textbf:            ['Macro','\\mathord{\\bf\\text{#1}}',1],
+        textsf:            ['Macro','\\mathord{\\sf\\text{#1}}',1],
+        texttt:            ['Macro','\\mathord{\\tt\\text{#1}}',1],
         pmb:               ['Macro','\\rlap{#1}\\kern1px{#1}',1],
         TeX:               ['Macro','T\\kern-.14em\\lower.5ex{E}\\kern-.115em X'],
         LaTeX:             ['Macro','L\\kern-.325em\\raise.21em{\\scriptstyle{A}}\\kern-.17em\\TeX'],
@@ -944,11 +947,12 @@
         not:                'Not',
         dots:               'Dots',
         space:              'Tilde',
+        '\u00A0':           'Tilde',
         
 
         //  LaTeX
-        begin:              'Begin',
-        end:                'End',
+        begin:              'BeginEnd',
+        end:                'BeginEnd',
 
         newcommand:        ['Extension','newcommand'],
         renewcommand:      ['Extension','newcommand'],
@@ -1486,7 +1490,7 @@
     
     Lap: function (name) {
       var mml = MML.mpadded(this.ParseArg(name)).With({width: 0});
-      if (name === "\\llap") {mml.lspace = "-1 width"}
+      if (name === "\\llap") {mml.lspace = "-1width"}
       this.Push(MML.TeXAtom(mml));
     },
     
@@ -1531,7 +1535,7 @@
     MakeBig: function (name,mclass,size) {
       size *= TEXDEF.p_height;
       size = String(size).replace(/(\.\d\d\d).+/,'$1')+"em";
-      var delim = this.GetDelimiter(name);
+      var delim = this.GetDelimiter(name,true);
       this.Push(MML.TeXAtom(MML.mo(delim).With({
         minsize: size, maxsize: size,
         fence: true, stretchy: true, symmetric: true
@@ -1667,7 +1671,7 @@
         }
       } else {
         if (n) {this.Push(MML.mspace().With({depth:n}))}
-        this.Push(MML.mo().With({linebreak:MML.LINEBREAK.NEWLINE}));
+        this.Push(MML.mspace().With({linebreak:MML.LINEBREAK.NEWLINE}));
       }
     },
     emPerInch: 7.2,
@@ -1709,25 +1713,30 @@
     *   LaTeX environments
     */
 
-    Begin: function (name) {
-      var env = this.GetArgument(name);
-      if (env.match(/[^a-z*]/i))
-        {TEX.Error(["InvalidEnv","Invalid environment name '%1'",env])}
+    BeginEnd: function (name) {
+      var env = this.GetArgument(name), isEnd = false;
+      if (env.match(/^\\end\\/)) {isEnd = true; env = env.substr(5)} // special \end{} for \newenvironment environments
+      if (env.match(/\\/i)) {TEX.Error(["InvalidEnv","Invalid environment name '%1'",env])}
       var cmd = this.envFindName(env);
-      if (!cmd)
-        {TEX.Error(["UnknownEnv","Unknown environment '%1'",env])}
-      if (++this.macroCount > TEX.config.MAXMACROS) {
-        TEX.Error(["MaxMacroSub2",
-                   "MathJax maximum substitution count exceeded; " +
-                   "is there a recursive latex environment?"]);
-      }
+      if (!cmd) {TEX.Error(["UnknownEnv","Unknown environment '%1'",env])}
       if (!(cmd instanceof Array)) {cmd = [cmd]}
-      var mml = STACKITEM.begin().With({name: env, end: cmd[1], parse:this});
-      if (cmd[0] && this[cmd[0]]) {mml = this[cmd[0]].apply(this,[mml].concat(cmd.slice(2)))}
+      var end = (cmd[1] instanceof Array ? cmd[1][0] : cmd[1]);
+      var mml = STACKITEM.begin().With({name: env, end: end, parse:this});
+      if (name === "\\end") {
+        if (!isEnd && cmd[1] instanceof Array && this[cmd[1][1]]) {
+          mml = this[cmd[1][1]].apply(this,[mml].concat(cmd.slice(2)));
+        } else {
+          mml = STACKITEM.end().With({name: env});
+        }
+      } else {
+        if (++this.macroCount > TEX.config.MAXMACROS) {
+          TEX.Error(["MaxMacroSub2",
+                     "MathJax maximum substitution count exceeded; " +
+                     "is there a recursive latex environment?"]);
+        }
+        if (cmd[0] && this[cmd[0]]) {mml = this[cmd[0]].apply(this,[mml].concat(cmd.slice(2)))}
+      }
       this.Push(mml);
-    },
-    End: function (name) {
-      this.Push(STACKITEM.end().With({name: this.GetArgument(name)}));
     },
     envFindName: function (name) {return TEXDEF.environment[name]},
     
@@ -1805,7 +1814,7 @@
      *   Check if the next character is a space
      */
     nextIsSpace: function () {
-      return this.string.charAt(this.i).match(/[ \n\r\t]/);
+      return this.string.charAt(this.i).match(/\s/);
     },
     
     /*
@@ -1886,11 +1895,12 @@
     /*
      *  Get the name of a delimiter (check it in the delimiter list).
      */
-    GetDelimiter: function (name) {
+    GetDelimiter: function (name,braceOK) {
       while (this.nextIsSpace()) {this.i++}
-      var c = this.string.charAt(this.i);
-      if (this.i < this.string.length) {
-        this.i++; if (c == "\\") {c += this.GetCS(name)}
+      var c = this.string.charAt(this.i); this.i++;
+      if (this.i <= this.string.length) {
+        if (c == "\\") {c += this.GetCS(name)}
+        else if (c === "{" && braceOK) {this.i--; c = this.GetArgument(name)}
         if (TEXDEF.delimiter[c] != null) {return this.convertDelimiter(c)}
       }
       TEX.Error(["MissingOrUnrecognizedDelim",
@@ -2125,8 +2135,7 @@
      *  Create an mrow that has stretchy delimiters at either end, as needed
      */
     fenced: function (open,mml,close) {
-      var mrow = MML.mrow();
-      mrow.open = open; mrow.close = close;
+      var mrow = MML.mrow().With({open:open, close:close, texClass:MML.TEXCLASS.INNER});
       if (open) {mrow.Append(MML.mo(open).With({fence:true, stretchy:true, texClass:MML.TEXCLASS.OPEN}))}
       if (mml.type === "mrow") {mrow.Append.apply(mrow,mml.data)} else {mrow.Append(mml)}
       if (close) {mrow.Append(MML.mo(close).With({fence:true, stretchy:true, texClass:MML.TEXCLASS.CLOSE}))}

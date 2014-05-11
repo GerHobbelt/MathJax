@@ -45,7 +45,7 @@
     button: {
       x: -4, y: -3,          // menu button offsets
       wx: -2,                // button offset for full-width equations
-      src: AJAX.fileURL(OUTPUT.imageDir+"/MenuArrow-15.png")  // button image
+      src: AJAX.urlRev(OUTPUT.imageDir+"/MenuArrow-15.png")  // button image
     },
     fadeinInc: .2,           // increment for fade-in
     fadeoutInc: .05,         // increment for fade-out
@@ -114,10 +114,9 @@
     False: function (event) {
       if (!event) {event = window.event}
       if (event) {
-        if (event.preventDefault) {event.preventDefault()}
+        if (event.preventDefault) {event.preventDefault()} else {event.returnValue = false}
         if (event.stopPropagation) {event.stopPropagation()}
         event.cancelBubble = true;
-        event.returnValue = false;
       }
       return false;
     },
@@ -440,8 +439,10 @@
     //  Preload images so they show up with the menu
     //
     getImages: function () {
-      var menu = new Image();
-      menu.src = CONFIG.button.src;
+      if (SETTINGS.discoverable) {
+        var menu = new Image();
+        menu.src = CONFIG.button.src;
+      }
     }
 
   };
