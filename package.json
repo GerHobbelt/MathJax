@@ -1,0 +1,12 @@
+{
+  "name": "MathJax",
+  "version": "2.4.0-electron.0.1.0",
+  "description": "Lean MathJax distribution for Electron",
+  "main": "MathJax.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Galadirith/MathJax.git"
+  },
+  "author": "Galadirith",
+  "license": "Apache Licence, Version 2.0"
+}
