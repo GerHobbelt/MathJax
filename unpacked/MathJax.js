@@ -1202,7 +1202,7 @@ MathJax.Localization = {
     function (string,regex) {
       var result = [], match, last = 0;
       regex.lastIndex = 0;
-      while (match = regex.exec(string)) {
+      while ((match = regex.exec(string))) {
         result.push(string.substr(last,match.index-last));
         result.push.apply(result,match.slice(1));
         last = match.index + match[0].length;
@@ -3063,8 +3063,8 @@ MathJax.Hub.Startup = {
         }
       }
       CONFIG.root = scripts[i].src.replace(/(^|\/)[^\/]*(\?.*)?$/,'')
-        // convert rackspace to cdn.mathjax.org now that it supports https protocol
-        .replace(/^(https?:)\/\/[0-9a-f]+(-[0-9a-f]+)?.ssl.cf1.rackcdn.com\//,"$1//cdn.mathjax.org/");
+        // convert mathjax/latest to mathjax/x.y-latest so that all files are the same version
+        .replace(/^(https?:\/\/cdn.mathjax.org\/mathjax\/)(latest)/,"$1"+BASE.version.split(/\./).slice(0,2).join(".")+"-$2");
       BASE.Ajax.config.root = CONFIG.root;
       break;
     }
@@ -3075,8 +3075,8 @@ MathJax.Hub.Startup = {
     isMac:       (navigator.platform.substr(0,3) === "Mac"),
     isPC:        (navigator.platform.substr(0,3) === "Win"),
     isMSIE:      ("ActiveXObject" in window && "clipboardData" in window),
-    isFirefox:   (AGENT.match(/Gecko\//) && !AGENT.match(/like Gecko/)),
-    isSafari:    (AGENT.match(/ (Apple)?WebKit\//) != null &&
+    isFirefox:   (!!AGENT.match(/Gecko\//) && !AGENT.match(/like Gecko/)),
+    isSafari:    (!!AGENT.match(/ (Apple)?WebKit\//) && !AGENT.match(/ like iPhone /) &&
                      (!window.chrome || window.chrome.loadTimes == null)),
     isChrome:    (window.chrome != null && window.chrome.loadTimes != null),
     isOpera:     (window.opera != null && window.opera.version != null),
@@ -3117,9 +3117,10 @@ MathJax.Hub.Startup = {
   }};
   
   //
-  //  Initial browser-specific info (e.g., touch up version or name)
+  //  Initial browser-specific info (e.g., touch up version or name, check for MathPlayer, etc.)
+  //  Wrap in try/catch just in case of error (see issue #1155).
   //
-  HUB.Browser.Select({
+  try {HUB.Browser.Select({
     Safari: function (browser) {
       var v = parseInt((String(browser.version).split("."))[0]);
       if (v > 85) {browser.webkit = browser.version}
@@ -3195,7 +3196,9 @@ MathJax.Hub.Startup = {
         } catch (err) {}
       }
     }
-  });
+  });} catch (err) {
+    console.error(err.message);
+  }
   HUB.Browser.Select(MathJax.Message.browsers);
 
   if (BASE.AuthorConfig && typeof BASE.AuthorConfig.AuthorInit === "function") {BASE.AuthorConfig.AuthorInit()}
