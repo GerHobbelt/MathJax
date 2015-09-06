@@ -1149,6 +1149,7 @@ MathJax.Localization = {
     // the languages that use a remap but are not translated at all.
     //
     "ast": {menuTitle: "asturianu"},
+    "bg": {menuTitle: "\u0431\u044A\u043B\u0433\u0430\u0440\u0441\u043A\u0438"},
     "bcc": {menuTitle: "\u0628\u0644\u0648\u0686\u06CC"},
     "br": {menuTitle: "brezhoneg"},
     "ca": {menuTitle: "catal\u00E0"},
@@ -1170,6 +1171,7 @@ MathJax.Localization = {
     "kn": {menuTitle: "\u0C95\u0CA8\u0CCD\u0CA8\u0CA1"},
     "ko": {menuTitle: "\uD55C\uAD6D\uC5B4"},
     "lb": {menuTitle: "L\u00EBtzebuergesch"},
+    "lt": {menuTitle: "lietuvi\u0173"},
     "mk": {menuTitle: "\u043C\u0430\u043A\u0435\u0434\u043E\u043D\u0441\u043A\u0438"},
     "nl": {menuTitle: "Nederlands"},
     "oc": {menuTitle: "occitan"},
@@ -1178,6 +1180,7 @@ MathJax.Localization = {
     "pt-br": {menuTitle: "portugu\u00EAs do Brasil"},
     "ru": {menuTitle: "\u0440\u0443\u0441\u0441\u043A\u0438\u0439"},
     "sco": {menuTitle: "Scots"},
+    "scn": {menuTitle: "sicilianu"},
     "sl": {menuTitle: "sloven\u0161\u010Dina"},
     "sv": {menuTitle: "svenska"},
     "tr": {menuTitle: "T\u00FCrk\u00E7e"},
@@ -1975,7 +1978,7 @@ MathJax.Hub = {
   getJaxFor: function (element) {
     if (typeof(element) === 'string') {element = document.getElementById(element)}
     if (element && element.MathJax) {return element.MathJax.elementJax}
-    if (element && element.isMathJax) {
+    if (this.isMathJaxNode(element)) {
       while (element && !element.jaxID) {element = element.parentNode}
       if (element) {return MathJax.OutputJax[element.jaxID].getJaxFromMath(element)}
     }
@@ -1984,13 +1987,16 @@ MathJax.Hub = {
   
   isJax: function (element) {
     if (typeof(element) === 'string') {element = document.getElementById(element)}
-    if (element && element.isMathJax) {return 1}
-    if (element && element.tagName != null && element.tagName.toLowerCase() === 'script') {
+    if (this.isMathJaxNode(element.tagName)) {return 1}
+    if (element && (element.tagName||"").toLowerCase() === 'script') {
       if (element.MathJax) 
         {return (element.MathJax.state === MathJax.ElementJax.STATE.PROCESSED ? 1 : -1)}
       if (element.type && this.inputJax[element.type.replace(/ *;(.|\s)*/,"")]) {return -1}
     }
     return 0;
+  },
+  isMathJaxNode: function (element) {
+    return !!element && (element.isMathJax || (element.tagName||"").substr(0,4) === "MJX-");
   },
   
   setRenderer: function (renderer,type) {
@@ -2172,13 +2178,15 @@ MathJax.Hub = {
         if (!script.MathJax.elementJax || script.MathJax.state === STATE.UPDATE) {
           this.checkScriptSiblings(script);                 // remove preJax/postJax etc.
           var type = script.type.replace(/ *;(.|\s)*/,"");  // the input jax type
-          jax = this.inputJax[type].Process(script,state);  // run the input jax
+          var input = this.inputJax[type];                  // the input jax itself
+          jax = input.Process(script,state);                // run the input jax
           if (typeof jax === 'function') {                  // if a callback was returned
             if (jax.called) continue;                       //   go back and call Process() again
             this.RestartAfter(jax);                         //   wait for the callback
           }
-          jax.Attach(script,this.inputJax[type].id);        // register the jax on the script
+          jax = jax.Attach(script,input.id);                // register the jax on the script
           this.saveScript(jax,state,script,STATE);          // add script to state
+          this.postInputHooks.Execute(jax,input.id,script); // run global jax filters
         } else if (script.MathJax.state === STATE.OUTPUT) {
           this.saveScript(script.MathJax.elementJax,state,script,STATE); // add script to state
         }
@@ -2198,6 +2206,7 @@ MathJax.Hub = {
     state.start = new Date().getTime(); state.i = state.j = 0;
     return null;
   },
+  postInputHooks: MathJax.Callback.Hooks(true),  // hooks to run after element jax is created
   saveScript: function (jax,state,script,STATE) {
     //
     //  Check that output jax exists
@@ -2326,20 +2335,22 @@ MathJax.Hub = {
   },
   
   formatError: function (script,err) {
+    var LOCALIZE = function (id,text,arg1,arg2) {return MathJax.Localization._(id,text,arg1,arg2)};
     //
     //  Get the error message, URL, and line, and save it for
     //    reporting in the Show Math As Error menu
     //
-    var message = "Error: "+err.message+"\n";
-    if (err.sourceURL) {message += "\nfile: "+err.sourceURL}
-    if (err.line) {message += "\nline: "+err.line}
+    var message = LOCALIZE("ErrorMessage","Error: %1",err.message)+"\n";
+    if (err.sourceURL||err.fileName) message += "\n"+LOCALIZE("ErrorFile","file: %1",err.sourceURL||err.fileName);
+    if (err.line||err.lineNumber) message += "\n"+LOCALIZE("ErrorLine","line: %1",err.line||err.lineNumber);
+    message += "\n\n"+LOCALIZE("ErrorTips","Debugging tips: use %1, inspect %2 in the browser console","'unpacked/MathJax.js'","'MathJax.Hub.lastError'");
     script.MathJax.error = MathJax.OutputJax.Error.Jax(message,script);
 
     //
     //  Create the [Math Processing Error] span
     //
     var errorSettings = this.config.errorSettings;
-    var errorText = MathJax.Localization._(errorSettings.messageId,errorSettings.message);
+    var errorText = LOCALIZE(errorSettings.messageId,errorSettings.message);
     var error = MathJax.HTML.Element("span",
                  {className:"MathJax_Error", jaxID:"Error", isMathJax:true},errorText);
     //
@@ -2539,8 +2550,8 @@ MathJax.Hub.Startup = {
       ["Post",this.signal,"Begin Cookie"],
       ["Get",MathJax.HTML.Cookie,"menu",MathJax.Hub.config.menuSettings],
       [function (config) {
-        if (config.menuSettings.locale)
-          {MathJax.Localization.resetLocale(config.menuSettings.locale)}
+        var SETTINGS = config.menuSettings;
+        if (SETTINGS.locale) MathJax.Localization.resetLocale(SETTINGS.locale);
         var renderer = config.menuSettings.renderer, jax = config.jax;
         if (renderer) {
           var name = "output/"+renderer; jax.sort();
@@ -2552,8 +2563,12 @@ MathJax.Hub.Startup = {
           }
           jax.unshift(name);
         }
-        if (config.menuSettings.CHTMLpreview && !MathJax.Extension["CHTML-preview"])
-          {MathJax.Hub.config.extensions.push("CHTML-preview.js")}
+        if (SETTINGS.CHTMLpreview != null) {
+          if (SETTINGS.FastPreview == null) SETTINGS.FastPreview = SETTINGS.CHTMLpreview;
+          delete SETTINGS.CHTMLpreview;
+        }
+        if (SETTINGS.FastPreview && !MathJax.Extension["fast-preview"])
+          MathJax.Hub.config.extensions.push("fast-preview.js");
       },MathJax.Hub.config],
       ["Post",this.signal,"End Cookie"]
     );
@@ -2644,7 +2659,7 @@ MathJax.Hub.Startup = {
     }
   },
   HashCheck: function (target) {
-    if (target.isMathJax) {
+    if (this.isMathJaxNode(target)) {
       var jax = MathJax.Hub.getJaxFor(target);
       if (jax && MathJax.OutputJax[jax.outputJax].hashCheck)
         {target = MathJax.OutputJax[jax.outputJax].hashCheck(target)}

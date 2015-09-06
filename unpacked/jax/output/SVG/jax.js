@@ -866,9 +866,9 @@
               else {svg.element.setAttribute("transform","translate("+Math.floor(svg.x)+","+Math.floor(svg.y)+")")}
           } else if (nodeName === "line" || nodeName === "polygon" ||
                      nodeName === "path" || nodeName === "a") {
-            var transform = svg.element.getAttribute("transform");
+            var transform = svg.element.getAttribute("transform") || "";
             if (transform) transform = " "+transform;
-            transform = "translate("+Math.floor(svg.x)+","+Math.floor(svg.y)+") "+transform;
+            transform = "translate("+Math.floor(svg.x)+","+Math.floor(svg.y)+")"+transform;
             svg.element.setAttribute("transform",transform);
           } else {
             svg.element.setAttribute("x",Math.floor(svg.x/svg.scale));
@@ -1074,14 +1074,14 @@
 	var variant = this.SVGgetVariant();
         var svg = this.SVG(); this.SVGgetScale(svg);
         this.SVGhandleSpace(svg);
-	for (var i = 0, m = this.data.length; i < m; i++) {
+        for (var i = 0, m = this.data.length; i < m; i++) {
           if (this.data[i]) {
             var child = svg.Add(this.data[i].toSVG(variant,svg.scale),svg.w,0,true);
             if (child.skew) {svg.skew = child.skew}
           }
         }
         svg.Clean(); var text = this.data.join("");
-	if (svg.skew && text.length !== 1) {delete svg.skew}
+        if (svg.skew && text.length !== 1) {delete svg.skew}
         if (svg.r > svg.w && text.length === 1 && !variant.noIC)
           {svg.ic = svg.r - svg.w; svg.w = svg.r}
 	this.SVGhandleColor(svg);
@@ -1290,7 +1290,8 @@
 
       SVGgetVariant: function () {
 	var values = this.getValues("mathvariant","fontfamily","fontweight","fontstyle");
-	var variant = values.mathvariant; if (this.variantForm) {variant = "-TeX-variant"}
+	var variant = values.mathvariant;
+        if (this.variantForm) variant = "-"+SVG.fontInUse+"-variant";
         values.hasVariant = this.Get("mathvariant",true);  // null if not explicitly specified
         if (!values.hasVariant) {
           values.family = values.fontfamily;
@@ -1402,6 +1403,12 @@
       SVGlineBreaks: function () {return false}
       
     },{
+      SVGemptySVG: function () {
+        var svg = this.SVG();
+        svg.Clean();
+        this.SVGsaveData(svg);
+	return svg;
+      },
       SVGautoload: function () {
 	var file = SVG.autoloadDir+"/"+this.type+".js";
 	HUB.RestartAfter(AJAX.Require(file));
@@ -1462,7 +1469,7 @@
         //  Primes must come from another font
         //
         if (isScript && this.data.join("").match(/['`"\u00B4\u2032-\u2037\u2057]/))
-          {variant = SVG.FONTDATA.VARIANT["-TeX-variant"]}
+          {variant = SVG.FONTDATA.VARIANT["-"+SVG.fontInUse+"-variant"]}
         //
         //  Typeset contents
         //
@@ -2114,7 +2121,7 @@
             if (shift) {
               HUB.Insert(style,({
                 left: {marginLeft: SVG.Ex(shift)},
-                right: {marginRight: SVG.Ex(-shift)},
+                right: {marginRight: SVG.Ex(-shift), marginLeft: SVG.Ex(Math.max(0,shift-(l+svg.w+r)))},
                 center: {marginLeft: SVG.Ex(shift), marginRight: SVG.Ex(-shift)}
               })[values.indentalign]);
             }
@@ -2141,6 +2148,14 @@
 	return svg;
       }
     });
+
+    //
+    //  Make sure these don't generate output
+    //
+    MML.maligngroup.Augment({toSVG: MML.mbase.SVGemptySVG});
+    MML.malignmark.Augment({toSVG: MML.mbase.SVGemptySVG});
+    MML.mprescripts.Augment({toSVG: MML.mbase.SVGemptySVG});
+    MML.none.Augment({toSVG: MML.mbase.SVGemptySVG});
 
     //
     //  Loading isn't complete until the element jax is modified,
