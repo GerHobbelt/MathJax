@@ -1,6 +1,6 @@
 {
   "name": "MathJax",
-  "version": "2.4.0-electron.0.1.0",
+  "version": "2.4.0-electron.0.2.0",
   "description": "Lean MathJax distribution for Electron",
   "main": "MathJax.js",
   "repository": {
