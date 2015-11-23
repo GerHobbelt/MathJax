@@ -17,6 +17,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
 			bull: ["Macro", "\\bullet"],
 			C: ["Macro", "\\mathbb{C}"],
 			Chi: ["Macro", "\\mathrm{X}"],
+			dim: ["Macro", "\\mmlToken{mo}{dim}"],
 			clubs: ["Macro", "\\clubsuit"],
 			cnums: ["Macro", "\\mathbb{C}"],
 			Complex: ["Macro", "\\mathbb{C}"],
