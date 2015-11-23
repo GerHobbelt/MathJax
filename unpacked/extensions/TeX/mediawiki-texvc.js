@@ -178,6 +178,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
       dashint: ["Macro", "\\unicodeInt{x2A0D}"],
       ddashint: ["Macro", "\\unicodeInt{x2A0E}"],
       diamonds: ["Macro", "\\diamondsuit"],
+			dim: ["Macro", "\\mmlToken{mo}{dim}"],
       empty: ["Macro", "\\emptyset"],
       Epsilon: ["Macro", "\\mathrm{E}"],
       Eta: ["Macro", "\\mathrm{H}"],
