@@ -1,4 +1,5 @@
 .DS_Store
+.idea
 docs/build/html-mathjax-site
 config/local/*.js
 !config/local/local.js
