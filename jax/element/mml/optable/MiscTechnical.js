@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/element/mml/optable/MiscTechnical.js
+ *  /MathJax//jax/element/mml/optable/MiscTechnical.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

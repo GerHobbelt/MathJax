@@ -1,5 +1,5 @@
 /*
- *  /MathJax/extensions/TeX/AMScd.js
+ *  /MathJax//extensions/TeX/AMScd.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

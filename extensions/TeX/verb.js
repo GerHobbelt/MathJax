@@ -1,5 +1,5 @@
 /*
- *  /MathJax/extensions/TeX/verb.js
+ *  /MathJax//extensions/TeX/verb.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

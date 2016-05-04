@@ -1,5 +1,5 @@
 /*
- *  /MathJax/extensions/TeX/HTML.js
+ *  /MathJax//extensions/TeX/HTML.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

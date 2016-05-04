@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/element/mml/optable/Latin1Supplement.js
+ *  /MathJax//jax/element/mml/optable/Latin1Supplement.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

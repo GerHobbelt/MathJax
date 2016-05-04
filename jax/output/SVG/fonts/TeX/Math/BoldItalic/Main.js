@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/SVG/fonts/TeX/Math/BoldItalic/Main.js
+ *  /MathJax//jax/output/SVG/fonts/TeX/Math/BoldItalic/Main.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

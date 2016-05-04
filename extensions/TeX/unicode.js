@@ -1,5 +1,5 @@
 /*
- *  /MathJax/extensions/TeX/unicode.js
+ *  /MathJax//extensions/TeX/unicode.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

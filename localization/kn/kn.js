@@ -1,5 +1,5 @@
 /*
- *  /MathJax/localization/kn/kn.js
+ *  /MathJax//localization/kn/kn.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

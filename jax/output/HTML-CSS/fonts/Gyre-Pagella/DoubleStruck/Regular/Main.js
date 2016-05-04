@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/HTML-CSS/fonts/Gyre-Pagella/DoubleStruck/Regular/Main.js
+ *  /MathJax//jax/output/HTML-CSS/fonts/Gyre-Pagella/DoubleStruck/Regular/Main.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

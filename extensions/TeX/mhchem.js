@@ -1,5 +1,5 @@
 /*
- *  /MathJax/extensions/TeX/mhchem.js
+ *  /MathJax//extensions/TeX/mhchem.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

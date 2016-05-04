@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/HTML-CSS/fonts/TeX/Main/Regular/GeometricShapes.js
+ *  /MathJax//jax/output/HTML-CSS/fonts/TeX/Main/Regular/GeometricShapes.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/CommonHTML/autoload/multiline.js
+ *  /MathJax//jax/output/CommonHTML/autoload/multiline.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

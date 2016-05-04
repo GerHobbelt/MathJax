@@ -1,5 +1,5 @@
 /*
- *  /MathJax/extensions/MathZoom.js
+ *  /MathJax//extensions/MathZoom.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

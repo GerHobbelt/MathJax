@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/HTML-CSS/fonts/STIX/IntegralsUp/Regular/All.js
+ *  /MathJax//jax/output/HTML-CSS/fonts/STIX/IntegralsUp/Regular/All.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

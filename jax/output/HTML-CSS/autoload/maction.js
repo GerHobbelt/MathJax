@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/HTML-CSS/autoload/maction.js
+ *  /MathJax//jax/output/HTML-CSS/autoload/maction.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

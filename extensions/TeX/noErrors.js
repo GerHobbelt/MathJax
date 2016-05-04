@@ -1,5 +1,5 @@
 /*
- *  /MathJax/extensions/TeX/noErrors.js
+ *  /MathJax//extensions/TeX/noErrors.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

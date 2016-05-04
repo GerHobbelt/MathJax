@@ -1,5 +1,5 @@
 /*
- *  /MathJax/extensions/TeX/color.js
+ *  /MathJax//extensions/TeX/color.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

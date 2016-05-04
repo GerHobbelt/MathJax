@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/CommonHTML/fonts/TeX/Fraktur-Bold.js
+ *  /MathJax//jax/output/CommonHTML/fonts/TeX/Fraktur-Bold.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

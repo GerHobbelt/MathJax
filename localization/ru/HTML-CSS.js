@@ -1,5 +1,5 @@
 /*
- *  /MathJax/localization/ru/HTML-CSS.js
+ *  /MathJax//localization/ru/HTML-CSS.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

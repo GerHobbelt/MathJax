@@ -1,5 +1,5 @@
 /*
- *  /MathJax/extensions/CHTML-preview.js
+ *  /MathJax//extensions/CHTML-preview.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

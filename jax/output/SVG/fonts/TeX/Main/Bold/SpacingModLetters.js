@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/SVG/fonts/TeX/Main/Bold/SpacingModLetters.js
+ *  /MathJax//jax/output/SVG/fonts/TeX/Main/Bold/SpacingModLetters.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

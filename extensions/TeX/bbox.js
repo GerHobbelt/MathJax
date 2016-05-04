@@ -1,5 +1,5 @@
 /*
- *  /MathJax/extensions/TeX/bbox.js
+ *  /MathJax//extensions/TeX/bbox.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

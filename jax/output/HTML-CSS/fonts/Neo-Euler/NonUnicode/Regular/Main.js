@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/HTML-CSS/fonts/Neo-Euler/NonUnicode/Regular/Main.js
+ *  /MathJax//jax/output/HTML-CSS/fonts/Neo-Euler/NonUnicode/Regular/Main.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

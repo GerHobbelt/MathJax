@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/PlainSource/config.js
+ *  /MathJax//jax/output/PlainSource/config.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

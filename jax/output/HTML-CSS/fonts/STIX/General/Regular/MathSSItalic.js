@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/HTML-CSS/fonts/STIX/General/Regular/MathSSItalic.js
+ *  /MathJax//jax/output/HTML-CSS/fonts/STIX/General/Regular/MathSSItalic.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

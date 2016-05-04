@@ -1,5 +1,5 @@
 /*
- *  /MathJax/extensions/TeX/mathchoice.js
+ *  /MathJax//extensions/TeX/mathchoice.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

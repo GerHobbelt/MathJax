@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/CommonHTML/autoload/mmultiscripts.js
+ *  /MathJax//jax/output/CommonHTML/autoload/mmultiscripts.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

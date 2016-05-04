@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/input/TeX/config.js
+ *  /MathJax//jax/input/TeX/config.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *
