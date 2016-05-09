@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/SVG/fonts/TeX/Fraktur/Bold/Main.js
+ *  /MathJax//jax/output/SVG/fonts/TeX/Fraktur/Bold/Main.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

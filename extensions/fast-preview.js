@@ -1,5 +1,5 @@
 /*
- *  /MathJax/extensions/fast-preview.js
+ *  /MathJax//extensions/fast-preview.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

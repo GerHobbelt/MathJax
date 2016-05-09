@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/HTML-CSS/fonts/TeX/SansSerif/Regular/Other.js
+ *  /MathJax//jax/output/HTML-CSS/fonts/TeX/SansSerif/Regular/Other.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

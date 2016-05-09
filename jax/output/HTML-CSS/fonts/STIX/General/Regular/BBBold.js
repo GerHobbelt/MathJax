@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/HTML-CSS/fonts/STIX/General/Regular/BBBold.js
+ *  /MathJax//jax/output/HTML-CSS/fonts/STIX/General/Regular/BBBold.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

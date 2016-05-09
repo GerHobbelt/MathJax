@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/HTML-CSS/fonts/STIX/General/Italic/AlphaPresentForms.js
+ *  /MathJax//jax/output/HTML-CSS/fonts/STIX/General/Italic/AlphaPresentForms.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

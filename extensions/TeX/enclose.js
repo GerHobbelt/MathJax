@@ -1,5 +1,5 @@
 /*
- *  /MathJax/extensions/TeX/enclose.js
+ *  /MathJax//extensions/TeX/enclose.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

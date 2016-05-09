@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/SVG/autoload/ms.js
+ *  /MathJax//jax/output/SVG/autoload/ms.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

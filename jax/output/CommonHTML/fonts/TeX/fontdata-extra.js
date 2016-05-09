@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/CommonHTML/fonts/TeX/fontdata-extra.js
+ *  /MathJax//jax/output/CommonHTML/fonts/TeX/fontdata-extra.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

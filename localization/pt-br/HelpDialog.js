@@ -1,5 +1,5 @@
 /*
- *  /MathJax/localization/pt-br/HelpDialog.js
+ *  /MathJax//localization/pt-br/HelpDialog.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

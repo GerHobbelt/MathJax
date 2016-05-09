@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/HTML-CSS/fonts/STIX/General/Bold/PhoneticExtensions.js
+ *  /MathJax//jax/output/HTML-CSS/fonts/STIX/General/Bold/PhoneticExtensions.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

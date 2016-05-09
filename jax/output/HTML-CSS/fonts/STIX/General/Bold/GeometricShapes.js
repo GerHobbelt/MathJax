@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/HTML-CSS/fonts/STIX/General/Bold/GeometricShapes.js
+ *  /MathJax//jax/output/HTML-CSS/fonts/STIX/General/Bold/GeometricShapes.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

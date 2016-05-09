@@ -1,5 +1,5 @@
 /*
- *  /MathJax/localization/eo/eo.js
+ *  /MathJax//localization/eo/eo.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

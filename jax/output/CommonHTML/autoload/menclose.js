@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/CommonHTML/autoload/menclose.js
+ *  /MathJax//jax/output/CommonHTML/autoload/menclose.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

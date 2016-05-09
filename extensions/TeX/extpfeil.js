@@ -1,5 +1,5 @@
 /*
- *  /MathJax/extensions/TeX/extpfeil.js
+ *  /MathJax//extensions/TeX/extpfeil.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

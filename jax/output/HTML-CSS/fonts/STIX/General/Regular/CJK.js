@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/HTML-CSS/fonts/STIX/General/Regular/CJK.js
+ *  /MathJax//jax/output/HTML-CSS/fonts/STIX/General/Regular/CJK.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

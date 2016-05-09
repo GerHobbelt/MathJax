@@ -1,5 +1,5 @@
 /*
- *  /MathJax/extensions/TeX/autoload-all.js
+ *  /MathJax//extensions/TeX/autoload-all.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

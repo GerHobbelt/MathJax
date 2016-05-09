@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/HTML-CSS/fonts/TeX/Main/Italic/GeneralPunctuation.js
+ *  /MathJax//jax/output/HTML-CSS/fonts/TeX/Main/Italic/GeneralPunctuation.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

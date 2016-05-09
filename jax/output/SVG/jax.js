@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/SVG/jax.js
+ *  /MathJax//jax/output/SVG/jax.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

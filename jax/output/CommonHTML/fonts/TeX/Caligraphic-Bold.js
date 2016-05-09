@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/output/CommonHTML/fonts/TeX/Caligraphic-Bold.js
+ *  /MathJax//jax/output/CommonHTML/fonts/TeX/Caligraphic-Bold.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

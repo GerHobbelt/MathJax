@@ -1,5 +1,5 @@
 /*
- *  /MathJax/localization/sv/sv.js
+ *  /MathJax//localization/sv/sv.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

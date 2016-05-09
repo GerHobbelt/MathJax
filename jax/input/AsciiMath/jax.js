@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/input/AsciiMath/jax.js
+ *  /MathJax//jax/input/AsciiMath/jax.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

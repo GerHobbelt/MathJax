@@ -1,5 +1,5 @@
 /*
- *  /MathJax/extensions/AssistiveMML.js
+ *  /MathJax//extensions/AssistiveMML.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *

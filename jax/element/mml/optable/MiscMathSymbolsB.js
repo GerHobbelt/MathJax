@@ -1,5 +1,5 @@
 /*
- *  /MathJax/jax/element/mml/optable/MiscMathSymbolsB.js
+ *  /MathJax//jax/element/mml/optable/MiscMathSymbolsB.js
  *
  *  Copyright (c) 2009-2015 The MathJax Consortium
  *
