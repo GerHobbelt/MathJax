@@ -211,7 +211,10 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       if (!ref) {ref = {tag:"???",id:""}; AMS.badref = !AMS.refUpdate}
       var tag = ref.tag; if (eqref) {tag = CONFIG.formatTag(tag)}
       this.Push(MML.mrow.apply(MML,this.InternalMath(tag)).With({
-        href:CONFIG.formatURL(ref.id,baseURL), "class":"MathJax_ref"
+        href:CONFIG.formatURL(ref.id,baseURL), 
+        attr: CONFIG.outputLabels ? {"data-target": label} : {},
+        attrNames: CONFIG.outputLabels ? ["data-target"] : [],
+        "class":"MathJax_ref"
       }));
     },
     
@@ -440,7 +443,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       if (!global.notag) {
         AMS.number++; global.tagID = CONFIG.formatNumber(AMS.number.toString());
         var mml = TEX.Parse("\\text{"+CONFIG.formatTag(global.tagID)+"}",{}).mml();
-        global.tag = MML.mtd(mml).With({id:CONFIG.formatID(global.tagID)});
+        global.tag = MML.mtd(mml).With({id:CONFIG.formatID(global.tagID), autonumber:true});
       }
     },
   
@@ -449,9 +452,19 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
      */
     getTag: function () {
       var global = this.global, tag = global.tag; global.tagged = true;
+      tag.attr = {};
+      tag.attrNames = [];
+      if (CONFIG.outputLabels) {
+          tag.attr["data-autonumber"] = (tag.autonumber == true);
+          tag.attrNames.push("data-autonumber");
+      }
       if (global.label) {
         if (CONFIG.useLabelIds) {tag.id = CONFIG.formatID(global.label)}
-        AMS.eqlabels[global.label] = {tag:global.tagID, id:tag.id};        
+        AMS.eqlabels[global.label] = {tag:global.tagID, id:tag.id};
+        if (CONFIG.outputLabels) {
+          tag.attr["data-label"] = global.label;
+          tag.attrNames.push("data-label");
+        }
       }
       //
       //  Check for repeated ID's (either in the document or as
@@ -603,7 +616,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
   TEX.prefilterHooks.Add(function (data) {
     AMS.display = data.display;
     AMS.number = AMS.startNumber;  // reset equation numbers (in case the equation restarted)
-    AMS.eqlabels = AMS.eqIDs = {}; AMS.badref = false;
+    AMS.eqlabels = {};
+    AMS.eqIDs = {}; 
+    AMS.badref = false;
     if (AMS.refUpdate) {AMS.number = data.script.MathJax.startNumber}
   });
   TEX.postfilterHooks.Add(function (data) {
@@ -637,7 +652,10 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
   //
   TEX.resetEquationNumbers = function (n,keepLabels) {
     AMS.startNumber = (n || 0);
-    if (!keepLabels) {AMS.labels = AMS.IDs = {}}
+    if (!keepLabels) {
+      AMS.labels = {};
+      AMS.IDs = {};
+    }
   }
 
   /******************************************************************************/
