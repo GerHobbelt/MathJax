@@ -1,5 +1,5 @@
 {
-  "name": "mathjax",
+  "name": "mathoid-mathjax",
   "version": "2.7.0",
   "description": "Beautiful math in all browsers. MathJax is an open-source JavaScript display engine for LaTeX, MathML, and AsciiMath notation that works in all browsers.",
   "keywords": [
