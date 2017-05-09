@@ -72,7 +72,7 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
       /* Symbol names to translate to characters
       */
       symbols: {
-        gamma: '\u03B3'
+        gamma: '\u03B3',
       }
 
   });
@@ -1289,7 +1289,7 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
       }
       for (var j = 0, l = args.length; j<l; j++ ) {
         if (j>0) {
-          CToP.appendToken(mrow,'mo',(args[j].nodeName === 'cn') ? "\u00D7" :"\u2062");
+          CToP.appendToken(mrow,'mo',(args[j].nodeName === 'cn') ? "\u00D7" : CToP.settings.symbols["times"]);
         }
         CToP.applyTransform(mrow,args[j],3);
       }
