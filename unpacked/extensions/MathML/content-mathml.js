@@ -73,6 +73,7 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
       */
       symbols: {
         gamma: '\u03B3',
+		times '\u22C5' // invisible '\u2062'
       }
 
   });
