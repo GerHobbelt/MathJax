@@ -25,7 +25,7 @@
  */
 
 MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function () {
-  var VERSION = "2.6.0-beta";
+  var VERSION = "2.6.0";
   var MML = MathJax.ElementJax.mml,
       CHTML = MathJax.OutputJax.CommonHTML;
   
@@ -305,6 +305,11 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function () {
       return obj;
     }
   });
+  
+  //
+  //  Just use default toCommonHTML for EI8
+  //
+  if (!document.createElementNS) delete MML.menclose.prototype.toCommonHTML;
   
   MathJax.Hub.Startup.signal.Post("CommonHTML menclose Ready");
   MathJax.Ajax.loadComplete(CHTML.autoloadDir+"/menclose.js");

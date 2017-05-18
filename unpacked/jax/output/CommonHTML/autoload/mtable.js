@@ -25,7 +25,7 @@
  */
 
 MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function () {
-  var VERSION = "2.6.0-beta.2";
+  var VERSION = "2.6.0";
   var MML = MathJax.ElementJax.mml,
       CONFIG = MathJax.Hub.config,
       CHTML = MathJax.OutputJax.CommonHTML,
@@ -506,7 +506,7 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function () {
       //  Propagate full-width equations, and reserve room for equation plus label
       //
       node.style.width = this.CHTML.pwidth = "100%";
-      node.style.minWidth = this.CHTML.mwidth = CHTML.Em(tw);
+      node.style.minWidth = this.CHTML.mwidth = CHTML.Em(Math.max(0,tw));
     }
   });
   
@@ -549,7 +549,7 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function () {
       var row = []; options.rows.push(row);
       var label = CHTML.Element("mjx-label"); options.labels.push(label);
       this.CHTMLaddChild(label,0,options);
-      options.labeled = true;
+      if (this.data[0]) options.labeled = true;
       //
       //  Add the cells to the row
       //

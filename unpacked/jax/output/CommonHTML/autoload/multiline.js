@@ -25,7 +25,7 @@
  */
 
 MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function () {
-  var VERSION = "2.6.0-beta";
+  var VERSION = "2.6.0";
   var MML = MathJax.ElementJax.mml,
       CONFIG = MathJax.Hub.config,
       CHTML = MathJax.OutputJax.CommonHTML;
@@ -121,6 +121,7 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function () {
       this.CHTMLaddLine(stack,start,[],state,ENDVALUES,broken);
 
       node.style.width = stack.style.width = this.CHTML.pwidth = "100%";
+      this.CHTML.mwidth = CHTML.Em(this.CHTML.w);
       this.CHTML.isMultiline = parent.CHTML.isMultiline = true;
       stack.style.verticalAlign = CHTML.Em(state.d - this.CHTML.d);
       

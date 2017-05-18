@@ -45,9 +45,9 @@ if (window.MathJax) {window.MathJax = {AuthorConfig: window.MathJax}}
 
 // MathJax.isPacked = true; // This line is uncommented by the packer.
 
-MathJax.version = "2.6.0-beta.2";
-MathJax.fileversion = "2.6.0-beta.2";
-MathJax.cdnVersion = "2.6.0-beta.2";  // specifies a revision to break caching
+MathJax.version = "2.6.1";
+MathJax.fileversion = "2.6.1";
+MathJax.cdnVersion = "2.6.1";  // specifies a revision to break caching
 MathJax.cdnFileVersions = {};  // can be used to specify revisions for individual files
 
 /**********************************************************/
@@ -1042,7 +1042,7 @@ MathJax.HTML = {
   Element: function (type,def,contents) {
     var obj = document.createElement(type), id;
     if (def) {
-      if (def.style) {
+      if (def.hasOwnProperty("style")) {
         var style = def.style; def.style = {};
         for (id in style) {if (style.hasOwnProperty(id))
           {def.style[id.replace(/-([a-z])/g,this.ucMatch)] = style[id]}}
@@ -1880,7 +1880,7 @@ MathJax.Hub = {
     showMathMenu: true,      // attach math context menu to typeset math?
     showMathMenuMSIE: true,  // separtely determine if MSIE should have math menu
                              //  (since the code for that is a bit delicate)
-
+    
     menuSettings: {
       zoom: "None",        //  when to do MathZoom
       CTRL: false,         //    require CTRL for MathZoom?
@@ -1889,13 +1889,16 @@ MathJax.Hub = {
       Shift: false,        //    require Shift?
       discoverable: false, //  make math menu discoverable on hover?
       zscale: "200%",      //  the scaling factor for MathZoom
-      renderer: "",        //  set when Jax are loaded
+      renderer: null,      //  set when Jax are loaded
       font: "Auto",        //  what font HTML-CSS should use
       context: "MathJax",  //  or "Browser" for pass-through to browser menu
-      locale: "en",        //  the language to use for messages
+      locale: null,        //  the language to use for messages
       mpContext: false,    //  true means pass menu events to MathPlayer in IE
       mpMouse: false,      //  true means pass mouse events to MathPlayer in IE
       texHints: true,      //  include class names for TeXAtom elements
+      FastPreview: null,   //  use PreviewHTML output as preview?
+      assistiveMML: null,  //  include hidden MathML for screen readers?
+      inTabOrder: true,    //  set to false if math elements should be included in the tabindex
       semantics: false     //  add semantics tag with original form in MathML output
     },
     
@@ -2126,6 +2129,7 @@ MathJax.Hub = {
           if (script.MathJax.state !== STATE.PENDING) {this.scriptAction[action](script)}
         }
         if (!script.MathJax) {script.MathJax = {state: STATE.PENDING}}
+        if (script.MathJax.error) delete script.MathJax.error;
         if (script.MathJax.state !== STATE.PROCESSED) {state.scripts.push(script)}
       }
     }
@@ -2349,7 +2353,8 @@ MathJax.Hub = {
     if (err.line||err.lineNumber) message += "\n"+LOCALIZE("ErrorLine","line: %1",err.line||err.lineNumber);
     message += "\n\n"+LOCALIZE("ErrorTips","Debugging tips: use %1, inspect %2 in the browser console","'unpacked/MathJax.js'","'MathJax.Hub.lastError'");
     script.MathJax.error = MathJax.OutputJax.Error.Jax(message,script);
-
+    if (script.MathJax.elementJax)
+      script.MathJax.error.inputID = script.MathJax.elementJax.inputID;
     //
     //  Create the [Math Processing Error] span
     //
@@ -2358,28 +2363,23 @@ MathJax.Hub = {
     var error = MathJax.HTML.Element("span", {
       className:"MathJax_Error", jaxID:"Error", isMathJax:true,
       id: script.MathJax.error.inputID+"-Frame"
-    },errorText);
+    },[["span",null,errorText]]);
     //
     //  Attach the menu events
     //
-    if (MathJax.Extension.MathEvents) {
-      var EVENT = MathJax.Extension.MathEvents.Event;
+    MathJax.Ajax.Require("[MathJax]/extensions/MathEvents.js",function () {
+      var EVENT = MathJax.Extension.MathEvents.Event,
+          HUB = MathJax.Hub;
       error.oncontextmenu = EVENT.Menu;
       error.onmousedown = EVENT.Mousedown;
       error.onkeydown = EVENT.Keydown;
-      error.tabIndex = 0;
-    } else {
-      MathJax.Ajax.Require("[MathJax]/extensions/MathEvents.js",function () {
-        var EVENT = MathJax.Extension.MathEvents.Event;
-        error.oncontextmenu = EVENT.Menu;
-        error.onmousedown = EVENT.Mousedown;
-        error.keydown = EVENT.Keydown;
-        error.tabIndex = 0;
-      });
-    }
+      error.tabIndex = HUB.getTabOrder(HUB.getJaxFor(script));
+    });
     //
     //  Insert the error into the page and remove any preview
     //
+    var node = document.getElementById(error.id);
+    if (node) node.parentNode.removeChild(node);
     script.parentNode.insertBefore(error,script);
     if (script.MathJax.preview) {script.MathJax.preview.innerHTML = ""}
     //
@@ -2460,6 +2460,10 @@ MathJax.Hub = {
       }
     }}
     return dst;
+  },
+
+  getTabOrder: function(script) {
+    return this.config.menuSettings.inTabOrder ? 0 : -1;
   },
 
   // Old browsers (e.g. Internet Explorer <= 8) do not support trim().
@@ -2856,7 +2860,7 @@ MathJax.Hub.Startup = {
     }
   },{
     id: "Jax",
-    version: "2.6.0-beta",
+    version: "2.6.0",
     directory: ROOT+"/jax",
     extensionDir: ROOT+"/extensions"
   });
@@ -2902,7 +2906,7 @@ MathJax.Hub.Startup = {
     }
   },{
     id: "InputJax",
-    version: "2.6.0-beta",
+    version: "2.6.0",
     directory: JAX.directory+"/input",
     extensionDir: JAX.extensionDir
   });
@@ -2935,7 +2939,7 @@ MathJax.Hub.Startup = {
     Remove: function (jax) {}
   },{
     id: "OutputJax",
-    version: "2.6.0-beta",
+    version: "2.6.0",
     directory: JAX.directory+"/output",
     extensionDir: JAX.extensionDir,
     fontDir: ROOT+(BASE.isPacked?"":"/..")+"/fonts",
@@ -3019,7 +3023,7 @@ MathJax.Hub.Startup = {
     }
   },{
     id: "ElementJax",
-    version: "2.6.0-beta",
+    version: "2.6.0",
     directory: JAX.directory+"/element",
     extensionDir: JAX.extensionDir,
     ID: 0,  // jax counter (for IDs)
@@ -3043,7 +3047,7 @@ MathJax.Hub.Startup = {
   //  Some "Fake" jax used to allow menu access for "Math Processing Error" messages
   //
   BASE.OutputJax.Error = {
-    id: "Error", version: "2.6.0-beta", config: {}, errors: 0,
+    id: "Error", version: "2.6.0", config: {}, errors: 0,
     ContextMenu: function () {return BASE.Extension.MathEvents.Event.ContextMenu.apply(BASE.Extension.MathEvents.Event,arguments)},
     Mousedown:   function () {return BASE.Extension.MathEvents.Event.AltContextMenu.apply(BASE.Extension.MathEvents.Event,arguments)},
     getJaxFromMath: function (math) {return (math.nextSibling.MathJax||{}).error},
@@ -3062,7 +3066,7 @@ MathJax.Hub.Startup = {
     }
   };
   BASE.InputJax.Error = {
-    id: "Error", version: "2.6.0-beta", config: {},
+    id: "Error", version: "2.6.0", config: {},
     sourceMenuTitle: /*_(MathMenu)*/ ["Original","Original Form"]
   };
   

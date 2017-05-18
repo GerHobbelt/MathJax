@@ -23,23 +23,23 @@
 
 MathJax.Localization.addTranslation("scn",null,{
   menuTitle: "sicilianu",
-  version: "2.6.0-beta",
+  version: "2.6.0",
   isLoaded: true,
   domains: {
     "_": {
-        version: "2.6.0-beta",
+        version: "2.6.0",
         isLoaded: true,
         strings: {
           MathProcessingError: "Erruri nt\u00E2 labburazzioni d\u00EE f\u00F2rmuli matim\u00E0tichi",
           MathError: "Erruri nt\u00E2 matim\u00E0tica",
           LoadFile: "Carricamentu di %1",
           Loading: "Carricamentu",
-          LoadFailed: "Nun rinisc\u00ECu u carricamentu di: %1",
+          LoadFailed: "Nun arrinisc\u00ECu lu carricamentu di: %1",
           ProcessMath: "Labburazzioni d\u00EE f\u00F2rmuli matim\u00E0tichi: %1%%",
           Processing: "Labburazzioni",
           TypesetMath: "Mpagginazzioni d\u00EE f\u00F2rmuli matim\u00E0tichi: %1%%",
           Typesetting: "Mpagginazzioni",
-          MathJaxNotSupported: "U to browser nun supporta MathJax"
+          MathJaxNotSupported: "Lu t\u00F2 browser nun supporta MathJax"
         }
     },
     "FontWarnings": {},
