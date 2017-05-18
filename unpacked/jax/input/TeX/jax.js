@@ -266,6 +266,7 @@
         if (item.isEntry) {this.EndEntry(); this.clearEnv(); return false}
         if (item.isCR)    {this.EndEntry(); this.EndRow(); this.clearEnv(); return false}
         this.EndTable(); this.clearEnv();
+        var scriptlevel = this.arraydef.scriptlevel; delete this.arraydef.scriptlevel;
         var mml = MML.mtable.apply(MML,this.table).With(this.arraydef);
         if (this.frame.length === 4) {
           mml.frame = (this.frame.dashed ? "dashed" : "solid");
@@ -276,6 +277,7 @@
           if ((this.arraydef.columnlines||"none") != "none" ||
               (this.arraydef.rowlines||"none") != "none") {mml.padding = 0} // HTML-CSS jax implements this
         }
+        if (scriptlevel) {mml = MML.mstyle(mml).With({scriptlevel: scriptlevel})}
         if (this.open || this.close) {mml = TEX.fenced(this.open,mml,this.close)}
         mml = STACKITEM.mml(mml);
         if (this.requireClose) {
@@ -341,10 +343,13 @@
     type: "fn",
     checkItem: function (item) {
       if (this.data[0]) {
-        if (item.type !== "mml" || !item.data[0]) {return [this.data[0],item]}
-        if (item.data[0].isa(MML.mspace)) {return [this.data[0],item]}
-        var mml = item.data[0]; if (mml.isEmbellished()) {mml = mml.CoreMO()}
-        if ([0,0,1,1,0,1,1,0,0,0][mml.Get("texClass")]) {return [this.data[0],item]}
+        if (item.isOpen) {return true}
+        if (item.type !== "fn") {
+          if (item.type !== "mml" || !item.data[0]) {return [this.data[0],item]}
+          if (item.data[0].isa(MML.mspace)) {return [this.data[0],item]}
+          var mml = item.data[0]; if (mml.isEmbellished()) {mml = mml.CoreMO()}
+          if ([0,0,1,1,0,1,1,0,0,0][mml.Get("texClass")]) {return [this.data[0],item]}
+        }
         return [this.data[0],MML.mo(MML.entity("#x2061")).With({texClass:MML.TEXCLASS.NONE}),item];
       }
       return this.SUPER(arguments).checkItem.apply(this,arguments);
@@ -798,7 +803,7 @@
         limits:            ['Limits',1],
         nolimits:          ['Limits',0],
 
-        overline:            ['UnderOver','00AF'],
+        overline:            ['UnderOver','00AF',null,1],
         underline:           ['UnderOver','005F'],
         overbrace:           ['UnderOver','23DE',1],
         underbrace:          ['UnderOver','23DF',1],
@@ -1428,7 +1433,7 @@
       this.Push(MML.TeXAtom(MML.munderover(c,null,mml).With({accent: true})));
     },
     
-    UnderOver: function (name,c,stack) {
+    UnderOver: function (name,c,stack,noaccent) {
       var pos = {o: "over", u: "under"}[name.charAt(1)];
       var base = this.ParseArg(name);
       if (base.Get("movablelimits")) {base.movablelimits = false}
@@ -1439,7 +1444,7 @@
       var mml = MML.munderover(base,null,null);
       mml.SetData(
         mml[pos], 
-        this.mmlToken(MML.mo(MML.entity("#x"+c)).With({stretchy:true, accent:(pos==="under")}))
+        this.mmlToken(MML.mo(MML.entity("#x"+c)).With({stretchy:true, accent:!noaccent}))
       );
       if (stack) {mml = MML.TeXAtom(mml).With({texClass:MML.TEXCLASS.OP, movesupsub:true})}
       this.Push(mml.With({subsupOK:true}));

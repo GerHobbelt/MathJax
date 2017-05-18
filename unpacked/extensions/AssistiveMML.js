@@ -29,13 +29,14 @@
   var SETTINGS = HUB.config.menuSettings;
   
   var AssistiveMML = MathJax.Extension["AssistiveMML"] = {
-    version: "2.6.0-beta",
+    version: "2.6.0-beta.2",
     
     config: {
       disabled: false,
       styles: {
         ".MJX_Assistive_MathML": {
           position:"absolute!important",
+          top: 0, left: 0,
           clip: (HUB.Browser.isMSIE && (document.documentMode||0) < 8 ?
                  "rect(1px 1px 1px 1px)" : "rect(1px, 1px, 1px, 1px)"),
           padding: "1px 0 0 0!important",
@@ -44,6 +45,9 @@
           width: "1px!important",
           overflow: "hidden!important",
           display:"block!important"
+        },
+        ".MJX_Assistive_MathML.MJX_Assistive_MathML_Block": {
+          width: "100%!important"
         }
       }
     },
@@ -94,12 +98,16 @@
             return MathJax.Callback.After(["HandleMML",this,state],err.restart);
           }
           frame.setAttribute("data-mathml",mml);
-	  span = HTML.addElement(frame,"span",{
-            isMathJax: true, className: "MJX_Assistive_MathML"
+          span = HTML.addElement(frame,"span",{
+            isMathJax: true,
+            className: "MJX_Assistive_MathML"
+              + (jax.root.Get("display") === "block" ? " MJX_Assistive_MathML_Block" : "")
           });
-	  span.innerHTML = mml;
+          span.innerHTML = mml;
+          frame.style.position = "relative";
+          frame.setAttribute("role", "presentation");
           frame.firstChild.setAttribute("aria-hidden","true");
-          span.setAttribute("aria-readonly","true");
+          span.setAttribute("role", "presentation");
         }
         state.i++;
       }

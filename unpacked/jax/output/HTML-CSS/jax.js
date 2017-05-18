@@ -267,7 +267,8 @@
 
         // Focus elements for keyboard tabbing.
         ".MathJax:focus, *:focus .MathJax": {
-            display:"inline-table" // see issue #1282
+            display:"inline-table", // see issue #1282
+            "border-spacing":"3px", margin:"-3px"
         },
 
         ".MathJax_Display": {
@@ -1432,9 +1433,9 @@
       this.placeBox(right,x,0,true);
       span.bbox = {
         w: x+right.bbox.rw, lw: 0, rw: x+right.bbox.rw,
-        H: Math.max(left.bbox.h,rep.bbox.h,right.bbox.h,mid.bbox.h),
-        D: Math.max(left.bbox.d,rep.bbox.d,right.bbox.d,mid.bbox.d),
-        h: rep.bbox.h, d: rep.bbox.d, exactW: true
+        h: Math.max(left.bbox.h,rep.bbox.h,right.bbox.h,mid.bbox.h),
+        d: Math.max(left.bbox.d,rep.bbox.d,right.bbox.d,mid.bbox.d),
+        exactW: true
       }
       span.scale = scale;
       span.isMultiChar = true;
@@ -1786,6 +1787,7 @@
           bbox = stretchy[i].HTMLspanElement().bbox;
           if (stretchy[i].forceStretch || bbox.h !== h || bbox.d !== d)
             {stretchy[i].HTMLstretchV(span,h,d); stretched = true}
+          else if (stretchy[i].needsBBox) stretched = true;
         }
 	if (stretched) {this.HTMLcomputeBBox(span,true)}
         if (this.HTMLlineBreaks(span)) {span = this.HTMLmultiline(span)}
@@ -1805,8 +1807,11 @@
 	var BBOX = span.bbox = {exactW: true}, stretchy = [];
 	while (i < m) {
 	  var core = this.data[i]; if (!core) continue;
-	  if (!full && core.HTMLcanStretch("Vertical"))
-	    {stretchy.push(core); core = (core.CoreMO()||core)}
+	  if (!full && core.HTMLcanStretch("Vertical")) {
+            stretchy.push(core);
+            core = (core.CoreMO()||core);
+            stretchy[stretchy.length-1].needsBBox = (core !== this.data[i]);
+          }
 	  this.HTMLcombineBBoxes(core,BBOX); i++;
 	}
 	this.HTMLcleanBBox(BBOX);
@@ -2122,7 +2127,27 @@
           variant = "normal";
         }
         return HTMLCSS.FONTDATA.VARIANT[variant];
+      },
+      
+      HTMLdrawBBox: function (span) {
+        var bbox = span.bbox;
+        var box = HTMLCSS.Element("span",
+          {style:{"font-size":span.style.fontSize, display:"inline-block",
+                  opacity:.25,"margin-left":HTMLCSS.Em(-bbox.w)}},[
+          ["span",{style:{
+            height:HTMLCSS.Em(bbox.h),width:HTMLCSS.Em(bbox.w),
+            "background-color":"red", display:"inline-block"
+          }}],
+          ["span",{style:{
+            height:HTMLCSS.Em(bbox.d),width:HTMLCSS.Em(bbox.w),
+            "margin-left":HTMLCSS.Em(-bbox.w),"vertical-align":HTMLCSS.Em(-bbox.d),
+            "background-color":"green", display:"inline-block"
+          }}]
+        ]);
+        if (span.nextSibling) {span.parentNode.insertBefore(box,span.nextSibling)}
+          else {span.parentNode.appendChild(box)}
       }
+
     },{
       HTMLautoload: function () {
 	var file = HTMLCSS.autoloadDir+"/"+this.type+".js";
@@ -2560,7 +2585,7 @@
           var space = HTMLCSS.TeX.nulldelimiterspace * this.mscale;
           var style = span.childNodes[HTMLCSS.msiePaddingWidthBug ? 1 : 0].style;
           style.marginLeft = style.marginRight = HTMLCSS.Em(space);
-          span.bbox.w += 2*space; span.bbox.r += 2*space;
+          span.bbox.w += 2*space; span.bbox.rw += 2*space;
 	}
         this.SUPER(arguments).HTMLhandleSpace.call(this,span);
       }
