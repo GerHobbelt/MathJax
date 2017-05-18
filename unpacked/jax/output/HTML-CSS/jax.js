@@ -265,6 +265,22 @@
           border: 0, padding: 0, margin: 0
         },
 
+        // Focus elements for keyboard tabbing.
+        ".MathJax:focus": (
+          (MathJax.Hub.Browser.isSafari || MathJax.Hub.Browser.isChrome) ? {
+            display:"inline-block",
+            outline:"none",
+            margin:"-3px",
+            padding:"3px",
+            "-webkit-box-shadow": "0px 0px 5px #345, inset 0px 0px 5px #345",
+            "box-shadow": "0px 0px 5px #345, inset 0px 0px 5px #345"
+          } : {
+            display:"inline-block",
+            outline:"none",
+            border:"1px dotted",
+            margin:"-1px"
+          }),
+
         ".MathJax_Display": {
           position: "relative",
           display: "block!important",
@@ -344,7 +360,7 @@
         "#MathJax_Tooltip *": {
           filter: "none", opacity:1, background:"transparent" // for IE
         },
-        
+
         //
         //  Used for testing web fonts against the default font used while
         //  web fonts are loading
@@ -569,8 +585,11 @@
         span = div = this.Element("span",{
 	  className:"MathJax", id:jax.inputID+"-Frame", isMathJax:true, jaxID:this.id,
           oncontextmenu:EVENT.Menu, onmousedown: EVENT.Mousedown,
-          onmouseover:EVENT.Mouseover, onmouseout:EVENT.Mouseout, onmousemove:EVENT.Mousemove,
-	  onclick:EVENT.Click, ondblclick:EVENT.DblClick
+          onmouseover:EVENT.Mouseover, onmouseout:EVENT.Mouseout,
+          onmousemove:EVENT.Mousemove, onclick:EVENT.Click,
+          ondblclick:EVENT.DblClick,
+          // Added for keyboard accessible menu.
+          onkeydown: EVENT.Keydown, tabIndex: "0"
         });
 	if (HUB.Browser.noContextMenu) {
 	  span.ontouchstart = TOUCH.start;
@@ -2857,7 +2876,7 @@
     
     MML.math.Augment({
       toHTML: function (span,node,phase) {
-        var stack, box, html, math;
+        var stack, box, html, math, SPAN = span;
         //
         //  Phase I lays out the math, but doesn't measure the final math yet
         //  (that is done for a chunk at a time, to avoid reflows)
@@ -2868,7 +2887,6 @@
           var alttext = this.Get("alttext");
           if (alttext && !span.getAttribute("aria-label")) span.setAttribute("aria-label",alttext);
           if (!span.getAttribute("role")) span.setAttribute("role","math");
-//        span.setAttribute("tabindex",0);  // causes focus outline, so disable for now
 	  stack = HTMLCSS.createStack(span); box = HTMLCSS.createBox(stack);
           // Move font-size from outer span to stack to avoid line separation 
           // problem in strict HTML mode
@@ -2916,7 +2934,7 @@
           if (math && math.bbox.width != null) {
             span.style.minWidth = (math.bbox.minWidth || span.style.width);
             span.style.width = math.bbox.width;
-            box.style.width = stack.style.width = "100%";
+            box.style.width = stack.style.width = SPAN.style.width = "100%";
           }
           //
           //  Add color (if any)

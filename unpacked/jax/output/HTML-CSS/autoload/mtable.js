@@ -25,7 +25,7 @@
  */
 
 MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
-  var VERSION = "2.5.0";
+  var VERSION = "2.6.0-beta";
   var MML = MathJax.ElementJax.mml,
       HTMLCSS = MathJax.OutputJax["HTML-CSS"];
   
@@ -428,7 +428,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
         var labelspace = HTMLCSS.length2em(values.minlabelspacing,mu,HTMLCSS.cwidth);
         var labelW = labelspace + C[LABEL].bbox.w, labelshift = 0, tw = mw;
         var dIndent = HTMLCSS.length2em(this.displayIndent,mu,HTMLCSS.cwidth);
-        var s = (CALIGN[LABEL] === MML.INDENTALIGN.RIGHT ? -1 : 1);
+        s = (CALIGN[LABEL] === MML.INDENTALIGN.RIGHT ? -1 : 1);
         if (indent.indentalign === MML.INDENTALIGN.CENTER) {
           tw += 2 * (labelW - s*(shift + dIndent));
           shift += dIndent;

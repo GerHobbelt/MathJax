@@ -25,7 +25,7 @@
  */
 
 MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
-  var VERSION = "2.5.2";
+  var VERSION = "2.6.0-beta";
 
   var MML = MathJax.ElementJax.mml;
   var TEX = MathJax.InputJax.TeX;
@@ -85,11 +85,18 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       return svg;
     },
     toCommonHTML: function (node) {
-        node = this.CHTMLcreateNode(node);
-        this.CHTMLhandleStyle(node);
-        this.CHTMLhandleColor(node);
-        this.CHTMLaddChild(node,this.choice(),{});
-        return node;
+      node = this.CHTMLcreateNode(node);
+      this.CHTMLhandleStyle(node);
+      this.CHTMLhandleColor(node);
+      this.CHTMLaddChild(node,this.choice(),{});
+      return node;
+    },
+    toPreviewHTML: function(span) {
+      span = this.PHTMLcreateSpan(span);
+      this.PHTMLhandleStyle(span);
+      this.PHTMLhandleColor(span);
+      this.PHTMLaddChild(span,this.choice(),{});
+      return span;
     }
   });
   
