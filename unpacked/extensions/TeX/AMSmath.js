@@ -25,7 +25,7 @@
  */
 
 MathJax.Extension["TeX/AMSmath"] = {
-  version: "2.6.0-beta",
+  version: "2.6.0-beta.1",
   
   number: 0,        // current equation number
   startNumber: 0,   // current starting equation number (for when equation is restarted)
@@ -140,8 +140,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       'equation':    ['EquationBegin','Equation',true],
       'equation*':   ['EquationBegin','EquationStar',false],
 
-      eqnarray:      ['AMSarray',null,true,true, 'rcl',COLS([0]),".5em"],
-      'eqnarray*':   ['AMSarray',null,false,true,'rcl',COLS([0]),".5em"]
+      eqnarray:      ['AMSarray',null,true,true, 'rcl',"0 "+MML.LENGTH.THICKMATHSPACE,".5em"],
+      'eqnarray*':   ['AMSarray',null,false,true,'rcl',"0 "+MML.LENGTH.THICKMATHSPACE,".5em"]
     },
     
     delimiter: {

@@ -45,9 +45,9 @@ if (window.MathJax) {window.MathJax = {AuthorConfig: window.MathJax}}
 
 // MathJax.isPacked = true; // This line is uncommented by the packer.
 
-MathJax.version = "2.6.0-beta";
-MathJax.fileversion = "2.6.0-beta";
-MathJax.cdnVersion = "2.6.0-beta";  // specifies a revision to break caching
+MathJax.version = "2.6.0-beta.1";
+MathJax.fileversion = "2.6.0-beta.1";
+MathJax.cdnVersion = "2.6.0-beta.1";  // specifies a revision to break caching
 MathJax.cdnFileVersions = {};  // can be used to specify revisions for individual files
 
 /**********************************************************/
@@ -1982,6 +1982,7 @@ MathJax.Hub = {
     if (typeof(element) === 'string') {element = document.getElementById(element)}
     if (element && element.MathJax) {return element.MathJax.elementJax}
     if (this.isMathJaxNode(element)) {
+      if (!element.isMathJax) {element = element.firstChild}  // for NativeMML output
       while (element && !element.jaxID) {element = element.parentNode}
       if (element) {return MathJax.OutputJax[element.jaxID].getJaxFromMath(element)}
     }
@@ -1990,7 +1991,7 @@ MathJax.Hub = {
   
   isJax: function (element) {
     if (typeof(element) === 'string') {element = document.getElementById(element)}
-    if (this.isMathJaxNode(element.tagName)) {return 1}
+    if (this.isMathJaxNode(element)) {return 1}
     if (element && (element.tagName||"").toLowerCase() === 'script') {
       if (element.MathJax) 
         {return (element.MathJax.state === MathJax.ElementJax.STATE.PROCESSED ? 1 : -1)}
@@ -1999,7 +2000,7 @@ MathJax.Hub = {
     return 0;
   },
   isMathJaxNode: function (element) {
-    return !!element && (element.isMathJax || (element.tagName||"").substr(0,4) === "MJX-");
+    return !!element && (element.isMathJax || (element.className||"") === "MathJax_MathML");
   },
   
   setRenderer: function (renderer,type) {
@@ -2672,11 +2673,9 @@ MathJax.Hub.Startup = {
     }
   },
   HashCheck: function (target) {
-    if (this.isMathJaxNode(target)) {
-      var jax = MathJax.Hub.getJaxFor(target);
-      if (jax && MathJax.OutputJax[jax.outputJax].hashCheck)
-        {target = MathJax.OutputJax[jax.outputJax].hashCheck(target)}
-    }
+    var jax = MathJax.Hub.getJaxFor(target);
+    if (jax && MathJax.OutputJax[jax.outputJax].hashCheck)
+      {target = MathJax.OutputJax[jax.outputJax].hashCheck(target)}
     return target;
   },
   

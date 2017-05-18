@@ -67,6 +67,9 @@
       "margin":     "1em 0",
       padding:      0
     },
+    ".mjx-chtml[tabindex]:focus, *:focus .mjx-chtml[tabindex]": {
+      display: "inline-table"  // see issue #1282
+    },
 
     ".mjx-math":   {
       "display":         "inline-block",
@@ -1099,13 +1102,12 @@
         }
       }
       node.appendChild(right);
-      this.adjustHeights([left,ext,mid,ext2,right],hbox);
       if (ebox.D) ebox.d = ebox.D;
-      hbox.t = hbox.h; hbox.b = hbox.d;
-      var mt = ebox.h - hbox.h - ebox.a, mb = ebox.d - hbox.d + ebox.a;
+      hbox.t = hbox.h; hbox.b = hbox.d; hbox.h = ebox.h; hbox.d = ebox.d;
+      this.adjustHeights([left,ext,mid,ext2,right],hbox);
+      var mt = ebox.h - hbox.t - ebox.a, mb = ebox.d - hbox.b + ebox.a;
       if (mt) node.style.marginTop = CHTML.Em(mt);
       if (mb) node.style.marginBottom = CHTML.Em(mb);
-      hbox.h = ebox.h; hbox.d = ebox.d;
       if (BBOX) {hbox.scale = BBOX.scale; hbox.rscale = BBOX.rscale}
       return hbox;
     },
@@ -1114,10 +1116,12 @@
       //  To get alignment right in horizontal delimiters, we force all
       //  the elements to the same height and depth
       //
-      var T = CHTML.Em(bbox.h), D = CHTML.Em(bbox.d);
+      var T = CHTML.Em(bbox.t), D = CHTML.Em(bbox.b);
+      if (bbox.d < 0) {bbox.D = bbox.d; bbox.d = 0; D = CHTML.Em(-bbox.D+bbox.b)}
       for (var i = 0, m = nodes.length; i < m; i++) if (nodes[i]) {
         nodes[i].style.paddingTop = T;
         nodes[i].style.paddingBottom = D;
+        nodes[i].style.marginTop = nodes[i].style.marginBottom = 0;
       }
     },
     createChar: function (node,data,scale,font) {
@@ -1473,8 +1477,8 @@
 
       CHTMLhandleScale: function (node) {
         var scale = 1, parent = this.parent, pscale = (parent ? parent.CHTML.scale : 1);
-        var values = this.getValues("scriptlevel","fontsize","mathsize");
-        if (!this.isToken) values.mathsize = 1;
+        var values = this.getValues("scriptlevel","fontsize");
+        values.mathsize = this.Get("mathsize",null,!this.isToken);
         if (values.scriptlevel !== 0) {
           if (values.scriptlevel > 2) values.scriptlevel = 2;
           scale = Math.pow(this.Get("scriptsizemultiplier"),values.scriptlevel);
@@ -2369,7 +2373,7 @@
         var nbox = this.CHTMLbboxFor(0), dbox = this.CHTMLbboxFor(1),
             BBOX = CHTML.BBOX.empty(this.CHTML), nscale = nbox.rscale, dscale = dbox.rscale;
         values.linethickness = Math.max(0,CHTML.thickness2em(values.linethickness||"0",BBOX.scale));
-        var mt = CHTML.TEX.min_rule_thickness/CHTML.em/BBOX.scale, a = CHTML.TEX.axis_height;
+        var mt = CHTML.TEX.min_rule_thickness/CHTML.em, a = CHTML.TEX.axis_height;
         var t = values.linethickness, p,q, u,v;
         if (values.bevelled) {
           frac.className += " MJXc-bevelled";
@@ -2400,7 +2404,7 @@
             q = (u - nbox.d*nscale) - (a + t/2); if (q < p) u += (p - q);
             q = (a - t/2) - (dbox.h*dscale - v); if (q < p) v += (p - q);
             frac.style.verticalAlign = CHTML.Em(t/2-v);
-            num.style.borderBottom = CHTML.Em(t/nscale)+" solid";
+            num.style.borderBottom = CHTML.Px(t/nscale*nbox.scale)+" solid";
             num.className += " MJXc-fpad";   nbox.L = nbox.R = .1;
             denom.className += " MJXc-fpad"; dbox.L = dbox.R = .1;
           }
@@ -2451,7 +2455,7 @@
         H = bbox.h + q + t;
         var x = this.CHTMLaddRoot(node,sbox,sbox.h+sbox.d-H);
         base.style.paddingTop = CHTML.Em(q); 
-        base.style.borderTop = CHTML.Em(T)+" solid";
+        base.style.borderTop = CHTML.Px(T*bbox.scale)+" solid";
         sqrt.style.paddingTop = CHTML.Em(2*t-T);  // use wider line, but don't affect height
         bbox.h += q + 2*t;
         BBOX.combine(sbox,x,H-sbox.h);
@@ -2523,9 +2527,17 @@
     MML.mrow.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLdefaultNode(node);
-        var bbox = this.CHTML, H = bbox.h, D = bbox.d;
-        for (var i = 0, m = this.data.length; i < m; i++) this.CHTMLstretchChildV(i,H,D);
-        if (this.CHTMLlineBreaks()) this.CHTMLmultiline(node);
+        var bbox = this.CHTML, H = bbox.h, D = bbox.d, hasNegative;
+        for (var i = 0, m = this.data.length; i < m; i++) {
+          this.CHTMLstretchChildV(i,H,D);
+          if (this.data[i] && this.data[i].CHTML && this.data[i].CHTML.w < 0) hasNegative = true;
+        }
+        if (this.CHTMLlineBreaks()) {
+          this.CHTMLmultiline(node);
+        } else {
+          if (hasNegative && bbox.w) node.style.width = CHTML.Em(Math.max(0,bbox.w));
+          if (bbox.w < 0) node.style.marginRight = CHTML.Em(bbox.w);
+        }
         return node;
       },
       CHTMLlineBreaks: function () {
