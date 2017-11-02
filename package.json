@@ -25,6 +25,7 @@
   },
   "main": "./unpacked/MathJax.js",
   "scripts": {
-    "test": "echo 'No tests here!'"
+    "test": "echo 'No tests here!'",
+    "build": "perl ../mathjax-dev/combiner/combineMJ"
   }
 }
