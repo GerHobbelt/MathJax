@@ -130,14 +130,14 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
       constructor: function (def) {return this.SimpleSUPER.define(def)},
 
       define: function (src) {
-	var dst = {};
-	if (src != null) {
+      	var dst = {};
+      	if (src != null) {
           for (var id in src) {if (src.hasOwnProperty(id)) {dst[id] = this.wrap(id,src[id])}}
-	  // MSIE doesn't list toString even if it is not native so handle it separately
+	        // MSIE doesn't list toString even if it is not native so handle it separately
           if (src.toString !== this.prototype.toString && src.toString !== {}.toString)
             {dst.toString = this.wrap('toString',src.toString)}
-	}
-	return dst;
+      	}
+      	return dst;
       },
 
       wrap: function (id,f) {

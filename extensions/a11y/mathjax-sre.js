@@ -1,3 +1,21 @@
+/*
+ *  ../../mathjax/extensions/a11y/mathjax-sre.js
+ *
+ *  Copyright (c) 2009-2013 The MathJax Consortium
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(a,b,c){a!=Array.prototype&&a!=Object.prototype&&(a[b]=c.value)};$jscomp.getGlobal=function(a){return"undefined"!=typeof window&&window===a?a:"undefined"!=typeof global&&null!=global?global:a};$jscomp.global=$jscomp.getGlobal(this);$jscomp.SYMBOL_PREFIX="jscomp_symbol_";
 $jscomp.initSymbol=function(){$jscomp.initSymbol=function(){};$jscomp.global.Symbol||($jscomp.global.Symbol=$jscomp.Symbol)};$jscomp.symbolCounter_=0;$jscomp.Symbol=function(a){return $jscomp.SYMBOL_PREFIX+(a||"")+$jscomp.symbolCounter_++};
 $jscomp.initSymbolIterator=function(){$jscomp.initSymbol();var a=$jscomp.global.Symbol.iterator;a||(a=$jscomp.global.Symbol.iterator=$jscomp.global.Symbol("iterator"));"function"!=typeof Array.prototype[a]&&$jscomp.defineProperty(Array.prototype,a,{configurable:!0,writable:!0,value:function(){return $jscomp.arrayIterator(this)}});$jscomp.initSymbolIterator=function(){}};$jscomp.arrayIterator=function(a){var b=0;return $jscomp.iteratorPrototype(function(){return b<a.length?{done:!1,value:a[b++]}:{done:!0}})};
@@ -747,3 +765,4 @@ sre.System.prototype.walk=function(a){var b=sre.SpeechGeneratorFactory.generator
 sre.System.prototype.move=function(a){if(!sre.System.LocalStorage_.getInstance().walker)return null;var b="string"===typeof a?sre.EventUtil.KeyCode[a.toUpperCase()]:a;return!1===sre.System.LocalStorage_.getInstance().walker.move(b)?sre.AuralRendering.getInstance().error(a):sre.System.LocalStorage_.getInstance().walker.speech()};sre.Mathjax={};
 (function(){var a=sre.System.getInstance(),b=MathJax.Callback.Signal("Sre");MathJax.Extension.Sre={version:a.version,signal:b,ConfigSre:function(){sre.Engine.isReady()?MathJax.Callback.Queue(MathJax.Hub.Register.StartupHook("mml Jax Ready",{}),["Post",MathJax.Hub.Startup.signal,"Sre Ready"]):setTimeout(MathJax.Extension.Sre.ConfigSre,500)}};sre.System.getInstance().setupEngine({mode:sre.Engine.Mode.HTTP,json:MathJax.Ajax.config.path.SRE+"/mathmaps",xpath:MathJax.Ajax.config.path.SRE+"/wgxpath.install.js",
 semantics:!0});MathJax.Extension.Sre.ConfigSre()})();
+

@@ -146,9 +146,9 @@
       },
 
       Safari: function (browser) {
-	// for iPhone and iTouch
+        // for iPhone and iTouch
 //        var webkit = (navigator.appVersion+"AppleWebKit/530").match(/AppleWebKit\/(\d+)/)[1];
-	HTMLCSS.Augment({
+        HTMLCSS.Augment({
 //          imgHeightBug: (!browser.isMac || webkit > 525),
 //          imgDepthBug:  (!browser.isMac || webkit > 525),
           imgBrowserZoom: function () {return 3}
@@ -156,7 +156,7 @@
       },
       
       Chrome: function (browser) {
-	HTMLCSS.Augment({
+        HTMLCSS.Augment({
           imgHeightBug: true,
           imgBrowserZoom: function () {return 3}
         });
