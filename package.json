@@ -25,7 +25,7 @@
   },
   "main": "./unpacked/MathJax.js",
   "scripts": {
-    "test": "echo 'No tests here!'",
+    "test": "npm run build && echo 'No tests here!'",
     "build": "cd ../mathjax-dev && make pack && make combine"
   }
 }
