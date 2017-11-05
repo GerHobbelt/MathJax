@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/SVG/fonts/Asana-Math/Arrows/Regular/Main.js
+ *  ../../../..//jax/output/SVG/fonts/Asana-Math/Arrows/Regular/Main.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

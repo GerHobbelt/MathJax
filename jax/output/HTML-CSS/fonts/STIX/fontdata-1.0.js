@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/HTML-CSS/fonts/STIX/fontdata-1.0.js
+ *  ../../../..//jax/output/HTML-CSS/fonts/STIX/fontdata-1.0.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/HTML-CSS/fonts/STIX/General/Regular/MiscTechnical.js
+ *  ../../../..//jax/output/HTML-CSS/fonts/STIX/General/Regular/MiscTechnical.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

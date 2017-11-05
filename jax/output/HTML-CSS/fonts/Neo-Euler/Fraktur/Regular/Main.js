@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/HTML-CSS/fonts/Neo-Euler/Fraktur/Regular/Main.js
+ *  ../../../..//jax/output/HTML-CSS/fonts/Neo-Euler/Fraktur/Regular/Main.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

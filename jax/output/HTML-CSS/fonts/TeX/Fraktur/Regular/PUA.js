@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/HTML-CSS/fonts/TeX/Fraktur/Regular/PUA.js
+ *  ../../../..//jax/output/HTML-CSS/fonts/TeX/Fraktur/Regular/PUA.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

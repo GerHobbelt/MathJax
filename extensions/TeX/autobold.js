@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/extensions/TeX/autobold.js
+ *  ../../../..//extensions/TeX/autobold.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

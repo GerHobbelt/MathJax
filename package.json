@@ -29,6 +29,6 @@
     "build": "cd node_modules/@gerhobbelt/mathjax-dev && make config && make pack && make combine"
   },
   "devDependencies": {
-    "@gerhobbelt/mathjax-dev": "1.0.1-1"
+    "@gerhobbelt/mathjax-dev": "1.0.1-2"
   }
 }

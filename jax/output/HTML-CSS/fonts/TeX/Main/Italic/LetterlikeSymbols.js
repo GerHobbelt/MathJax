@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/HTML-CSS/fonts/TeX/Main/Italic/LetterlikeSymbols.js
+ *  ../../../..//jax/output/HTML-CSS/fonts/TeX/Main/Italic/LetterlikeSymbols.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

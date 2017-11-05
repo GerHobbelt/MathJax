@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/extensions/TeX/cancel.js
+ *  ../../../..//extensions/TeX/cancel.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

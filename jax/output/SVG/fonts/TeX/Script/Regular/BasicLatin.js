@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/SVG/fonts/TeX/Script/Regular/BasicLatin.js
+ *  ../../../..//jax/output/SVG/fonts/TeX/Script/Regular/BasicLatin.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

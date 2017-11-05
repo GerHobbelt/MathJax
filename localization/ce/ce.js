@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/localization/ce/ce.js
+ *  ../../../..//localization/ce/ce.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

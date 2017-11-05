@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/localization/cy/cy.js
+ *  ../../../..//localization/cy/cy.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/HTML-CSS/fonts/Gyre-Pagella/fontdata.js
+ *  ../../../..//jax/output/HTML-CSS/fonts/Gyre-Pagella/fontdata.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/localization/ia/ia.js
+ *  ../../../..//localization/ia/ia.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/localization/zh-hans/FontWarnings.js
+ *  ../../../..//localization/zh-hans/FontWarnings.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

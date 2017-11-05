@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/SVG/fonts/TeX/Main/Bold/SuppMathOperators.js
+ *  ../../../..//jax/output/SVG/fonts/TeX/Main/Bold/SuppMathOperators.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

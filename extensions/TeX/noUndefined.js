@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/extensions/TeX/noUndefined.js
+ *  ../../../..//extensions/TeX/noUndefined.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

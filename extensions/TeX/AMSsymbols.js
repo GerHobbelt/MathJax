@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/extensions/TeX/AMSsymbols.js
+ *  ../../../..//extensions/TeX/AMSsymbols.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

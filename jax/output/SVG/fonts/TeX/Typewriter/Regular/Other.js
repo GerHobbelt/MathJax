@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/SVG/fonts/TeX/Typewriter/Regular/Other.js
+ *  ../../../..//jax/output/SVG/fonts/TeX/Typewriter/Regular/Other.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

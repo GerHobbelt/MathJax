@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/SVG/fonts/TeX/AMS/Regular/Dingbats.js
+ *  ../../../..//jax/output/SVG/fonts/TeX/AMS/Regular/Dingbats.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

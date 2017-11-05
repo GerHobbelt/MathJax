@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/HTML-CSS/autoload/mglyph.js
+ *  ../../../..//jax/output/HTML-CSS/autoload/mglyph.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

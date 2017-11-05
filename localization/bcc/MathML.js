@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/localization/bcc/MathML.js
+ *  ../../../..//localization/bcc/MathML.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

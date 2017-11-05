@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/extensions/TeX/boldsymbol.js
+ *  ../../../..//extensions/TeX/boldsymbol.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

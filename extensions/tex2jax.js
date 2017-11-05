@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/extensions/tex2jax.js
+ *  ../../../..//extensions/tex2jax.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

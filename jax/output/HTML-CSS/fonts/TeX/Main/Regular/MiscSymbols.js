@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/HTML-CSS/fonts/TeX/Main/Regular/MiscSymbols.js
+ *  ../../../..//jax/output/HTML-CSS/fonts/TeX/Main/Regular/MiscSymbols.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

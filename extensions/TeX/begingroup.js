@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/extensions/TeX/begingroup.js
+ *  ../../../..//extensions/TeX/begingroup.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

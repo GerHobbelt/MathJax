@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/SVG/fonts/Latin-Modern/fontdata-extra.js
+ *  ../../../..//jax/output/SVG/fonts/Latin-Modern/fontdata-extra.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

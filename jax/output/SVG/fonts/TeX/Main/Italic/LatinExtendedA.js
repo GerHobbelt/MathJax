@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/SVG/fonts/TeX/Main/Italic/LatinExtendedA.js
+ *  ../../../..//jax/output/SVG/fonts/TeX/Main/Italic/LatinExtendedA.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

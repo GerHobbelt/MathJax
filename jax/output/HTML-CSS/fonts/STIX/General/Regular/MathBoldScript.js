@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/HTML-CSS/fonts/STIX/General/Regular/MathBoldScript.js
+ *  ../../../..//jax/output/HTML-CSS/fonts/STIX/General/Regular/MathBoldScript.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

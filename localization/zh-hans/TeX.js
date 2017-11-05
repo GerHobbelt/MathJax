@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/localization/zh-hans/TeX.js
+ *  ../../../..//localization/zh-hans/TeX.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

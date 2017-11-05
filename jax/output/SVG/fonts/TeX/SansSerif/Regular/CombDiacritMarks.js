@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/SVG/fonts/TeX/SansSerif/Regular/CombDiacritMarks.js
+ *  ../../../..//jax/output/SVG/fonts/TeX/SansSerif/Regular/CombDiacritMarks.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

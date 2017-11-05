@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/localization/th/FontWarnings.js
+ *  ../../../..//localization/th/FontWarnings.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

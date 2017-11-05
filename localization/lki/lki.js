@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/localization/lki/lki.js
+ *  ../../../..//localization/lki/lki.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

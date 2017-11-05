@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/extensions/TeX/newcommand.js
+ *  ../../../..//extensions/TeX/newcommand.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

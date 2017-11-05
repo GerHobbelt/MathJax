@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/localization/scn/scn.js
+ *  ../../../..//localization/scn/scn.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

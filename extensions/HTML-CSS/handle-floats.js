@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/extensions/HTML-CSS/handle-floats.js
+ *  ../../../..//extensions/HTML-CSS/handle-floats.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

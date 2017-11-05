@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/SVG/autoload/mtable.js
+ *  ../../../..//jax/output/SVG/autoload/mtable.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

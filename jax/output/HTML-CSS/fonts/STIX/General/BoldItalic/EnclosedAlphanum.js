@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/HTML-CSS/fonts/STIX/General/BoldItalic/EnclosedAlphanum.js
+ *  ../../../..//jax/output/HTML-CSS/fonts/STIX/General/BoldItalic/EnclosedAlphanum.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

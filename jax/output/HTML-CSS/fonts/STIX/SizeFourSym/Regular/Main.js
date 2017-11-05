@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/HTML-CSS/fonts/STIX/SizeFourSym/Regular/Main.js
+ *  ../../../..//jax/output/HTML-CSS/fonts/STIX/SizeFourSym/Regular/Main.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

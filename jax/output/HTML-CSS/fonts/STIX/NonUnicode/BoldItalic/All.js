@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/HTML-CSS/fonts/STIX/NonUnicode/BoldItalic/All.js
+ *  ../../../..//jax/output/HTML-CSS/fonts/STIX/NonUnicode/BoldItalic/All.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/extensions/MatchWebFonts.js
+ *  ../../../..//extensions/MatchWebFonts.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

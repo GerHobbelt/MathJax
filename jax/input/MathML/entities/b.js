@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/input/MathML/entities/b.js
+ *  ../../../..//jax/input/MathML/entities/b.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *

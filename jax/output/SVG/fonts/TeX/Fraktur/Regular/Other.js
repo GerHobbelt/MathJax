@@ -1,5 +1,5 @@
 /*
- *  ../../mathjax/jax/output/SVG/fonts/TeX/Fraktur/Regular/Other.js
+ *  ../../../..//jax/output/SVG/fonts/TeX/Fraktur/Regular/Other.js
  *
  *  Copyright (c) 2009-2017 The MathJax Consortium
  *
