@@ -9,17 +9,28 @@
 
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
+    //config: ["MMLorHTML.js"],
     extensions: [
-      "tex2jax.js",
-      "../extensions/TeX/AMSmath.js",
-      "../extensions/TeX/AMSsymbols.js",
-      "../extensions/TeX/extpfeil.js",
+      "tex2jax.js", "mml2jax.js", "asciimath2jax.js",
       "../../mathjax-third-party-extensions/longdiv/unpacked/longdiv.js",
       "../../mathjax-third-party-extensions/counters/counters.js",
     ],
-    jax: [ "input/TeX", "output/HTML-CSS" ],
-    tex2jax: { inlineMath: [ ["$", "$"], ["\\(", "\\)"] ] },
-    TeX: { equationNumbers: {autoNumber: "AMS"} }
+    jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/SVG" ],
+    tex2jax: { 
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true,
+    },
+    TeX: {
+      extensions: ["AMSmath.js", "AMSsymbols.js", "extpfeil.js", "noErrors.js", "noUndefined.js"],
+      equationNumbers: {autoNumber: "AMS"}, 
+    },
+    SVG: {
+      font: "Gyre-Pagella",
+    },
+    errorSettings: { 
+      message: ["[Math Error]"], 
+    }    
   });
 </script>
 <script type="text/javascript" src="../MathJax.js"></script>
@@ -98,6 +109,2219 @@ If your browser supports JavaScript, be sure it is enabled.</b>
     \left( \dfrac{a^2}{b} \right)
 \]
 </p>
+
+<p>
+\begin{equation}
+  \cos (2\theta) = \cos^2 \theta - \sin^2 \theta
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \cos(2\theta )=\cos ^{2}\theta -\sin ^{2}\theta \,} 
+\end{equation}
+
+<p>
+For certain operators such as limits, the subscript is placed underneath the operator:
+
+\begin{equation}
+  \lim_{x \to \infty} \exp(-x) = 0
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \lim _{x\to \infty }\exp(-x)=0}
+\end{equation}
+
+<p>
+For the modular operator there are two commands: \bmod and \pmod:
+
+\begin{equation}
+  a \bmod b
+\end{equation}
+
+\begin{equation}
+  {\displaystyle a\,{\bmod {\,}}b\,}
+\end{equation}
+
+\begin{equation}
+  x \equiv a \pmod{b}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle x\equiv a{\pmod {b}}\,}
+\end{equation}
+
+<p>
+\begin{equation}
+  k_{n+1} = n^2 + k_n^2 - k_{n-1}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle k_{n+1}=n^{2}+k_{n}^{2}-k_{n-1}\,}
+\end{equation}
+
+
+<p>
+For powers with more than one digit, surround the power with {}.
+
+\begin{equation}
+  n^{22}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle n^{22}\,}
+\end{equation}
+
+
+<p>
+An underscore (_) can be used with a vertical bar (|) to denote evaluation using subscript notation in mathematics:
+
+\begin{equation}
+  f(n) = n^5 + 4n^2 + 2 |_{n=17}
+\end{equation}
+  
+\begin{equation}
+  {\displaystyle f(n)=n^{5}+4n^{2}+2|_{n=17}\,}
+\end{equation}
+
+
+
+<p>
+\begin{equation}
+  \frac{n!}{k!(n-k)!} = \binom{n}{k}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\frac {n!}{k!(n-k)!}}={\binom {n}{k}}} 
+\end{equation}
+
+
+
+
+
+
+<p>
+You can embed fractions within fractions:
+
+\begin{equation}
+  \frac{\frac{1}{x}+\frac{1}{y}}{y-z}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\frac {{\frac {1}{x}}+{\frac {1}{y}}}{y-z}}}
+\end{equation}
+
+
+<p>
+Note that when appearing inside another fraction, or in inline text ${\displaystyle {\tfrac {a}{b}}}$, a fraction is noticeably smaller than in displayed mathematics. The \tfrac and \dfrac commands[3] force the use of the respective styles, \textstyle and \displaystyle. Similarly, the \tbinom and \dbinom commands typeset the binomial coefficient.
+
+
+
+<p>
+For relatively simple fractions, especially within the text, it may be more aesthetically pleasing to use powers and indices:
+
+\begin{equation}
+  ^3/_7
+\end{equation}
+
+\begin{equation}
+  {\displaystyle ^{3}/_{7}\,} 
+\end{equation}
+
+
+<p>
+If this looks a little "loose" (overspaced), a tightened version can be defined by inserting some negative space
+
+\begin{equation}
+  %running fraction with slash - requires math mode.
+  \newcommand*\rfrac[2]{{}^{#1}\!/_{#2}}
+
+  \rfrac{3}{7}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {{}^{3}\!/_{7}}}
+\end{equation}
+
+
+<p>
+If you use them throughout the document, usage of xfrac package is recommended. This package provides \sfrac command to create slanted fractions. Usage:
+
+<p>
+\[
+Take $\sfrac{1}{2}$ cup of sugar, \dots
+ 
+  3\times\sfrac{1}{2}=1\sfrac{1}{2}
+ 
+
+Take ${}^1/_2$ cup of sugar, \dots
+ 
+  3\times{}^1/_2=1{}^1/_2
+\]
+
+
+<p>
+If fractions are used as an exponent curly braces have to be used around the \sfrac command:
+
+\begin{equation}
+ $x^\frac{1}{2}$ % no error
+ $x^\sfrac{1}{2}$ % error
+ $x^{\sfrac{1}{2}}$ % no error
+ $x^\frac{1}{2}$ % no error
+\end{equation}
+
+\begin{equation}
+  {\displaystyle x^{\frac {1}{2}}}
+\end{equation}
+
+
+
+<p>
+In some cases, using the package alone will result in errors about certain font shapes not being available. In that case, the lmodern and fix-cm packages need to be added as well.
+
+
+
+<p>
+Alternatively, the nicefrac package provides the \nicefrac command, whose usage is similar to \sfrac.
+
+<p>
+Continued fractions
+
+<p>
+Continued fractions should be written using \cfrac command[3]:
+
+\begin{equation}
+  x = a_0 + \cfrac{12356616316}{a_3 
+          + \cfrac{16565}{a_3 
+          + \cfrac{165465465}{a_9 + \cfrac{1131321}{a_7} } } }
+\end{equation}
+
+
+\begin{equation}
+  {\displaystyle x=a_{0}+{\cfrac {1}{a_{1}+{\cfrac {1}{a_{2}+{\cfrac {1}{a_{3}+{\cfrac {1}{a_{4}}}}}}}}}}
+\end{equation}
+
+
+<p>
+Multiplication of two numbers
+
+<p>
+To make multiplication visually similar to a fraction, a nested array can be used, for example multiplication of numbers written one below the other.
+
+\begin{equation}
+\frac{
+    \begin{array}[b]{r}
+      \left( x_1 x_2 \right)\\
+      \times \left( x'_1 x'_2 \right)
+    \end{array}
+  }{
+    \left( y_1y_2y_3y_4 \right)
+  }
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\frac {\begin{array}{r}\left(x_{1}x_{2}\right)\\\times \left(x'_{1}x'_{2}\right)\end{array}}{\left(y_{1}y_{2}y_{3}y_{4}\right)}}}
+\end{equation}
+
+
+
+<p>
+Roots
+
+<p>
+The \sqrt command creates a square root surrounding an expression. It accepts an optional argument specified in square brackets ([ and ]) to change magnitude:
+
+\begin{equation}
+  \sqrt{\frac{a}{b}}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\sqrt {\frac {a}{b}}}}
+\end{equation}
+
+
+\begin{equation}
+  \sqrt[n]{1+x+x^2+x^3+\dots+x^n}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\sqrt[{n}]{1+x+x^{2}+x^{3}+\dots +x^{n}}}}
+\end{equation}
+
+
+
+<p>
+Sums and integrals
+
+<p>
+The \sum and \int commands insert the sum and integral symbols respectively, with limits specified using the caret (^) and underscore (_). The typical notation for sums is:
+
+\begin{equation}
+  \sum_{i=1}^{10} t_i
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \textstyle \sum _{i=1}^{10}t_{i}\,}
+\end{equation}
+
+
+or
+
+\begin{equation}
+  \displaystyle\sum_{i=1}^{10} t_i
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \displaystyle \sum _{i=1}^{10}t_{i}\,}
+\end{equation}
+
+
+
+
+<p>
+The limits for the integrals follow the same notation. It's also important to represent the integration variables with an upright d, which in math mode is obtained through the \mathrm{} command, and with a small space separating it from the integrand, which is attained with the \, command.
+
+\begin{equation}
+  \int_0^\infty \mathrm{e}^{-x}\,\mathrm{d}x
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \int _{0}^{\infty }\mathrm {e} ^{-x}\,\mathrm {d} x\,}
+\end{equation}
+
+
+<p>
+There are many other "big" commands which operate in a similar manner:
+
+\begin{equation}
+  \sum  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \sum \,} 
+\end{equation}
+
+\begin{equation}
+  \prod 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \prod } 
+\end{equation}
+
+\begin{equation}
+  \coprod 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \coprod } 
+\end{equation}
+
+\begin{equation}
+  \bigoplus 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \bigoplus } 
+\end{equation}
+
+\begin{equation}
+  \bigotimes  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \bigotimes } 
+\end{equation}
+
+\begin{equation}
+  \bigodot  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \bigodot } 
+\end{equation}
+
+\begin{equation}
+  \bigcup 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \bigcup } 
+\end{equation}
+
+\begin{equation}
+  \bigcap 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \bigcap } 
+\end{equation}
+
+\begin{equation}
+  \biguplus 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \biguplus } 
+\end{equation}
+
+\begin{equation}
+  \bigsqcup 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \bigsqcup } 
+\end{equation}
+
+\begin{equation}
+  \bigvee 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \bigvee }
+\end{equation}
+
+\begin{equation}
+  \bigwedge 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \bigwedge }
+\end{equation}
+
+\begin{equation}
+  \int  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \int } 
+\end{equation}
+
+\begin{equation}
+  \oint 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \oint }
+\end{equation}
+
+\begin{equation}
+  \iint[3]  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \iint }
+\end{equation}
+
+\begin{equation}
+  \iiint[3] 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \iiint }
+\end{equation}
+
+\begin{equation}
+  \iiiint[3]  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \iiiint }
+\end{equation}
+
+\begin{equation}
+  \idotsint[3]  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \int \!\cdots \!\int }
+\end{equation}
+
+
+<p>
+For more integral symbols, including those not included by default in the Computer Modern font, try the esint package.
+
+<p>
+The \substack command[3] allows the use of \\ to write the limits over multiple lines:
+
+\begin{equation}
+{
+\sum_{\substack{
+   0&lt;i&lt;m \\
+   0&lt;j&lt;n
+  }} 
+ P(i,j)
+}
+\end{equation}
+
+
+\begin{equation}
+  {\displaystyle \sum _{\overset {\scriptstyle 0&lt;i&lt;m}{\scriptstyle 0&lt;j&lt;n}}P(i,j)\,} 
+\end{equation}
+
+
+
+<p>
+If you want the limits of an integral to be specified above and below the symbol (like the sum), use the \limits command:
+
+\begin{equation}
+  \int\limits_a^b
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \int \limits _{a}^{b}\,}
+\end{equation}
+
+
+
+<p>
+Brackets, braces and delimiters
+
+<p>
+How to use braces in multi line equations is described in the Advanced Mathematics chapter.
+
+<p>
+The use of delimiters such as brackets soon becomes important when dealing with anything but the most trivial equations. Without them, formulas can become ambiguous. Also, special types of mathematical structures, such as matrices, typically rely on delimiters to enclose them.
+
+<p>
+There are a variety of delimiters available for use in LaTeX:
+
+\begin{equation}
+( a ), [ b ], \{ c \}, | d |, \| e \|,
+\langle f \rangle, \lfloor g \rfloor,
+\lceil h \rceil, \ulcorner i \urcorner
+\end{equation}
+
+\begin{equation}
+  {\displaystyle (a),[b],\{c\},|d|,\|e\|,\langle f\rangle ,\lfloor g\rfloor ,\lceil h\rceil ,\ulcorner i\urcorner }
+\end{equation}
+
+
+where \lbrack and \rbrack may be used in place of [ and ].
+
+
+
+<p>
+Automatic sizing
+
+<p>
+Very often mathematical features will differ in size, in which case the delimiters surrounding the expression should vary accordingly. This can be done automatically using the \left, \right, and \middle commands. Any of the previous delimiters may be used in combination with these:
+
+\begin{equation}
+  \left(\frac{x^2}{y^3}\right)
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \left({\frac {x^{2}}{y^{3}}}\right)\,}
+\end{equation}
+
+
+
+\begin{equation}
+  P\left(A=2\middle|\frac{A^2}{B}>4\right)
+\end{equation}
+
+
+<p>
+Curly braces are defined differently by using \left\{ and \right\},
+
+\begin{equation}
+  \left\{\frac{x^2}{y^3}\right\}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \left\{{\frac {x^{2}}{y^{3}}}\right\}\,}
+\end{equation}
+
+
+
+<p>
+If a delimiter on only one side of an expression is required, then an invisible delimiter on the other side may be denoted using a period (.).
+
+\begin{equation}
+  \left.\frac{x^3}{3}\right|_0^1
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \left.{\frac {x^{3}}{3}}\right|_{0}^{1}\,}
+\end{equation}
+
+
+
+<p>
+Manual sizing
+
+<p>
+In certain cases, the sizing produced by the \left and \right commands may not be desirable, or you may simply want finer control over the delimiter sizes. In this case, the \big, \Big, \bigg and \Bigg modifier commands may be used:
+
+\begin{equation}
+  ( \big( \Big( \bigg( \Bigg(
+\end{equation}
+
+\begin{equation}
+  {\displaystyle ({\big (}{\Big (}{\bigg (}{\Bigg (}\,}
+\end{equation}
+
+
+
+<p>
+These commands are primarily useful when dealing with nested delimiters. For example, when typesetting
+
+\begin{equation}
+  \frac{\mathrm d}{\mathrm d x} \left( k g(x) \right)
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\frac {\mathrm {d} }{\mathrm {d} x}}\left(kg(x)\right)}
+\end{equation}
+
+
+
+we notice that the \left and \right commands produce the same size delimiters as those nested within it. This can be difficult to read. To fix this, we write
+
+\begin{equation}
+  \frac{\mathrm d}{\mathrm d x} \big( k g(x) \big)
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\frac {\mathrm {d} }{\mathrm {d} x}}{\big (}kg(x){\big )}}
+\end{equation}
+
+
+
+
+<p>
+Typesetting intervals
+
+<p>
+To denote open and half-open intervals, the notations ]a,b[, (a,b), ]a,b], (a,b], [a,b[ and [a,b) are used. If the square bracket notation is used, then the interval must be put between curly braces ({ and }) in order to have correct spacing. Similarly, if a (half-)open interval starts with a negative number, then the number including its minus-symbol must also be put between curly brackets, so that LaTeX understands that the minus-symbol is the unary operation. Compare:
+
+\begin{equation}
+  x \in [-1,1]
+\end{equation}
+
+\begin{equation}
+  {\displaystyle x\in [-1,1]}
+\end{equation}
+
+\begin{equation}
+  x \in {[-1,1]}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle x\in {[-1,1]}}
+\end{equation}
+
+
+\begin{equation}
+  x \in {[{-1},1]}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle x\in {[{-1},1]}}
+\end{equation}
+
+
+<p>
+Matrices and arrays
+
+<p>
+A basic matrix may be created using the matrix environment[3]: in common with other table-like structures, entries are specified by row, with columns separated using an ampersand (&) and a new rows separated with a double backslash (\\)
+
+\begin{equation}
+{
+ \begin{matrix}
+  a & b & c \\
+  d & e & f \\
+  g & h & i
+ \end{matrix}
+}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}}}
+\end{equation}
+
+
+
+<p>
+To specify alignment of columns in the table, use starred version[5]:
+
+\begin{equation}
+{
+ \begin{matrix}
+  -1 & 3 \\
+  2 & -4
+ \end{matrix}
+ =
+ \begin{matrix*}[r]
+  -1 & 3 \\
+  2 & -4
+ \end{matrix*}
+}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\begin{matrix}-1&3\\2&-4\end{matrix}}={\begin{matrix}-1&\,\;\;3\\\,\;\;2&-4\end{matrix}}}
+\end{equation}
+
+
+
+<p>
+The alignment by default is c but it can be any column type valid in array environment.
+
+<p>
+However matrices are usually enclosed in delimiters of some kind, and while it is possible to use the \left and \right commands, there are various other predefined environments which automatically include delimiters:
+
+
+
+<p>
+
+Environment name | Surrounding delimiter | Notes
+-----------------
+
+\begin{equation}
+  pmatrix[3]  {\displaystyle (\,)} (\,) centers columns by default
+\end{equation}
+
+\begin{equation}
+  pmatrix*[5] {\displaystyle (\,)} (\,) allows to specify alignment of columns in optional parameter
+\end{equation}
+
+\begin{equation}
+  bmatrix[3]  {\displaystyle [\,]} [\,] centers columns by default
+\end{equation}
+
+\begin{equation}
+  bmatrix*[5] {\displaystyle [\,]} [\,] allows to specify alignment of columns in optional parameter
+\end{equation}
+
+\begin{equation}
+  Bmatrix[3]  {\displaystyle \{\,\}} \{\,\} centers columns by default
+\end{equation}
+
+\begin{equation}
+  Bmatrix*[5] {\displaystyle \{\,\}} \{\,\} allows to specify alignment of columns in optional parameter
+\end{equation}
+
+\begin{equation}
+  vmatrix[3]  {\displaystyle |\,|} |\,| centers columns by default
+\end{equation}
+
+\begin{equation}
+  vmatrix*[5] {\displaystyle |\,|} |\,| allows to specify alignment of columns in optional parameter
+\end{equation}
+
+\begin{equation}
+  Vmatrix[3]  {\displaystyle \|\,\|} \|\,\| centers columns by default
+\end{equation}
+
+\begin{equation}
+  Vmatrix*[5] {\displaystyle \|\,\|} \|\,\| allows to specify alignment of colums in optional parameter
+\end{equation}
+
+
+
+<p>
+When writing down arbitrary sized matrices, it is common to use horizontal, vertical and diagonal triplets of dots (known as ellipses) to fill in certain columns and rows. These can be specified using the \cdots, \vdots and \ddots respectively:
+
+\begin{equation}
+ A_{m,n} = 
+ \begin{pmatrix}
+  a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+  a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+  \vdots  & \vdots  & \ddots & \vdots  \\
+  a_{m,1} & a_{m,2} & \cdots & a_{m,n} 
+ \end{pmatrix}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle A_{m,n}={\begin{pmatrix}a_{1,1}&a_{1,2}&\cdots &a_{1,n}\\a_{2,1}&a_{2,2}&\cdots &a_{2,n}\\\vdots &\vdots &\ddots &\vdots \\a_{m,1}&a_{m,2}&\cdots &a_{m,n}\end{pmatrix}}}
+\end{equation}
+
+
+<p>
+In some cases you may want to have finer control of the alignment within each column, or want to insert lines between columns or rows. This can be achieved using the array environment, which is essentially a math-mode version of the tabular environment, which requires that the columns be pre-specified:
+
+\begin{equation}
+\begin{array}{c|c}
+  1 & 2 \\ 
+  \hline
+  3 & 4
+ \end{array}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\begin{array}{c|c}1&2\\\hline 3&4\end{array}}}
+\end{equation}
+
+<p>
+You may see that the AMS matrix class of environments doesn't leave enough space when used together with fractions resulting in output similar to this:
+
+\begin{equation}
+  {\displaystyle M={\begin{bmatrix}{\frac {5}{6}}&{\frac {1}{6}}&0\\{\frac {5}{6}}&0&{\frac {1}{6}}\\0&{\frac {5}{6}}&{\frac {1}{6}}\end{bmatrix}}} 
+\end{equation}
+
+\begin{equation}
+  M={\begin{bmatrix}{\frac {5}{6}}&{\frac {1}{6}}&0\\{\frac {5}{6}}&0&{\frac {1}{6}}\\0&{\frac {5}{6}}&{\frac {1}{6}}\end{bmatrix}}
+\end{equation}
+
+<p>
+To counteract this problem, add additional leading space with the optional parameter to the \\ command:
+
+\begin{equation}
+  M = \begin{bmatrix}
+       \frac{5}{6} & \frac{1}{6} & 0           \\[0.3em]
+       \frac{5}{6} & 0           & \frac{1}{6} \\[0.3em]
+       0           & \frac{5}{6} & \frac{1}{6}
+     \end{bmatrix}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle M={\begin{bmatrix}{\frac {5}{6}}&{\frac {1}{6}}&0\\[0.3em]{\frac {5}{6}}&0&{\frac {1}{6}}\\[0.3em]0&{\frac {5}{6}}&{\frac {1}{6}}\end{bmatrix}}} 
+\end{equation}
+
+
+
+<p>
+If you need "border" or "indexes" on your matrix, plain TeX provides the macro \bordermatrix
+
+\begin{equation}
+  M = \bordermatrix{~ & x & y \cr
+                  A & 1 & 0 \cr
+                  B & 0 & 1 \cr}
+\end{equation}
+
+
+
+
+<p>
+Matrices in running text
+
+<p>
+To insert a small matrix, and not increase leading in the line containing it, use smallmatrix environment:
+
+<p>
+A matrix in text must be set smaller:
+
+\begin{equation}
+  $\bigl(\begin{smallmatrix}
+a&b \\ c&d
+\end{smallmatrix} \bigr)$
+\end{equation}
+
+to not increase leading in a portion of text.
+
+
+<p>
+Adding text to equations
+
+<p>
+The math environment differs from the text environment in the representation of text. Here is an example of trying to represent text within the math environment:
+
+\begin{equation}
+  50 apples \times 100 apples = lots of apples^2
+\end{equation}
+
+\begin{equation}
+  {\displaystyle 50apples\times 100apples=lotsofapples^{2}\,} 
+\end{equation}
+
+
+<p>
+There are two noticeable problems: there are no spaces between words or numbers, and the letters are italicized and more spaced out than normal. Both issues are simply artifacts of the maths mode, in that it treats it as a mathematical expression: spaces are ignored (LaTeX spaces mathematics according to its own rules), and each character is a separate element (so are not positioned as closely as normal text).
+
+<p>
+There are a number of ways that text can be added properly. The typical way is to wrap the text with the \text{...} command [3] (a similar command is \mbox{...}, though this causes problems with subscripts, and has a less descriptive name). Let's see what happens when the above equation code is adapted:
+
+\begin{equation}
+  50 \text{apples} \times 100 \text{apples} 
+ = \text{lots of apples}^2
+\end{equation}
+
+\begin{equation}
+  {\displaystyle 50{\text{apples}}\times 100{\text{apples}}={\text{lots of apples}}^{2}\,}
+\end{equation}
+
+
+
+<p>
+The text looks better. However, there are no gaps between the numbers and the words. Unfortunately, you are required to explicitly add these. There are many ways to add spaces between maths elements, but for the sake of simplicity we may simply insert space characters into the \text commands.
+
+\begin{equation}
+  50 \text{ apples} \times 100 \text{ apples}
+ = \text{lots of apples}^2
+\end{equation}
+
+\begin{equation}
+  {\displaystyle 50{\text{ apples}}\times 100{\text{ apples}}={\text{lots of apples}}^{2}\,}
+\end{equation}
+
+
+<p>
+Formatted text
+
+<p>
+Using the \text is fine and gets the basic result. Yet, there is an alternative that offers a little more flexibility. You may recall the introduction of font formatting commands, such as \textrm, \textit, \textbf, etc. These commands format the argument accordingly, e.g., \textbf{bold text} gives bold text. These commands are equally valid within a maths environment to include text. The added benefit here is that you can have better control over the font formatting, rather than the standard text achieved with \text.
+
+\begin{equation}
+  50 \textrm{ apples} \times 100
+ \textbf{ apples} = \textit{lots of apples}^2
+\end{equation}
+
+\begin{equation}
+  {\displaystyle 50\;{\textrm {apples}}\times 100\;{\textbf {apples}}={\textit {lotsofapples}}^{2}\,}
+\end{equation}
+
+
+
+<p>
+Formatting mathematics symbols
+
+<p>
+See also: w:Mathematical Alphanumeric Symbols, w:Help:Displaying a formula#Alphabets and typefaces and w:Wikipedia:LaTeX symbols#Fonts
+
+<p>
+We can now format text; what about formatting mathematical expressions? There are a set of formatting commands very similar to the font formatting ones just used, except that they are specifically aimed at text in math mode (requires amsfonts)
+
+LaTeX command | Sample | Description | Common use
+-----------------
+
+\begin{equation}
+  \mathnormal{…}
+(or simply omit any command)  {\displaystyle ABCDEF~abcdef~123456\,} ABCDEF~abcdef~123456\, The default math font Most mathematical notation
+\end{equation}
+
+\begin{equation}
+  \mathnormal{…}
+\mathnormal{\displaystyle ABCDEF~abcdef~123456\,} \mathnormal{ABCDEF~abcdef~123456\,} The default math font Most mathematical notation
+\end{equation}
+
+\begin{equation}
+  \mathrm{…}  {\displaystyle \mathrm {ABCDEF~abcdef~123456} \,} \mathrm {ABCDEF~abcdef~123456} \, This is the default or normal font, unitalicised  Units of measurement, one word functions
+\end{equation}
+
+\begin{equation}
+  \mathit{…}  {\displaystyle {\mathit {ABCDEF~abcdef~123456}}\,} {\mathit {ABCDEF~abcdef~123456}}\, Italicised font Multi-letter function or variable names. Compared to \mathnormal, words are spaced more naturally and numbers are italicized as well.
+\end{equation}
+
+\begin{equation}
+  \mathbf{…}  {\displaystyle \mathbf {ABCDEF~abcdef~123456} \,} \mathbf {ABCDEF~abcdef~123456} \, Bold font Vectors
+\end{equation}
+
+\begin{equation}
+  \mathsf{…}  {\displaystyle {\mathsf {ABCDEF~abcdef~123456}}\,} {\mathsf {ABCDEF~abcdef~123456}}\, Sans-serif  
+\end{equation}
+
+\begin{equation}
+  \mathtt{…}  {\displaystyle {\mathtt {ABCDEF~abcdef~123456}}\,} {\mathtt {ABCDEF~abcdef~123456}}\, Monospace (fixed-width) font  
+\end{equation}
+
+\begin{equation}
+  \mathfrak{…}  {\displaystyle {\mathfrak {ABCDEF~abcdef~123456}}\,} {\mathfrak {ABCDEF~abcdef~123456}}\, Fraktur Almost canonical font for Lie algebras, ideals in ring theory
+\end{equation}
+
+\begin{equation}
+  \mathcal{…} {\displaystyle {\mathcal {ABCDEF}}\,} {\mathcal {ABCDEF}}\, Calligraphy (uppercase only)  Often used for sheaves/schemes and categories, used to denote cryptological concepts like an alphabet of definition ( {\displaystyle {\mathcal {A}}} {\mathcal {A}}), message space ( {\displaystyle {\mathcal {M}}} {\mathcal {M}}), ciphertext space ( {\displaystyle {\mathcal {C}}} {\mathcal {C}}) and key space ( {\displaystyle {\mathcal {K}}} {\mathcal {K}}); Kleene's {\displaystyle {\mathcal {O}}} {\mathcal {O}}; naming convention in description logic; Laplace transform ( {\displaystyle {\mathcal {L}}} {\mathcal {L}}) and Fourier transform ( {\displaystyle {\mathcal {F}}} {\mathcal {F}})
+\end{equation}
+
+\begin{equation}
+  \mathbb{…}
+(requires the amsfonts or amssymb package)  {\displaystyle \mathbb {ABCDEF} \,} \mathbb {ABCDEF} \, Blackboard bold (uppercase only)  Used to denote special sets (e.g. real numbers)
+\end{equation}
+
+\begin{equation}
+  \mathscr{…}
+\end{equation}
+
+(requires the mathrsfs package) Script (uppercase only) An alternative font for categories and sheaves.
+These formatting commands can be wrapped around the entire equation, and not just on the textual elements: they only format letters, numbers, and uppercase Greek, and other math commands are unaffected.
+
+<p>
+To bold lowercase Greek or other symbols use the \boldsymbol command[3]; this will only work if there exists a bold version of the symbol in the current font. As a last resort there is the \pmb command[3] (poor mans bold): this prints multiple versions of the character slightly offset against each other.
+
+\begin{equation}
+  \boldsymbol{\beta} = (\beta_1,\beta_2,\dotsc,\beta_n)
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\boldsymbol {\beta }}=(\beta _{1},\beta _{2},\dotsc ,\beta _{n})\,} {\boldsymbol {\beta }}=(\beta _{1},\beta _{2},\dotsc ,\beta _{n})\,
+\end{equation}
+
+<p>
+To change the size of the fonts in math mode, see Changing font size.
+
+<p>
+Accents
+
+<p>
+So what to do when you run out of symbols and fonts? Well the next step is to use accents:
+
+\begin{equation}
+  a' or a^{\prime}  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle a'\,} 
+\end{equation}
+
+\begin{equation}
+  a'' 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle a''\,} 
+\end{equation}
+
+\begin{equation}
+  \hat{a} 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\hat {a}}\,} 
+\end{equation}
+
+\begin{equation}
+  \bar{a} 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\bar {a}}\,}
+\end{equation}
+
+\begin{equation}
+  \grave{a} 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\grave {a}}\,}
+\end{equation}
+
+\begin{equation}
+  \acute{a} 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\acute {a}}\,}
+\end{equation}
+
+\begin{equation}
+  \dot{a} 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\dot {a}}\,}
+\end{equation}
+
+\begin{equation}
+  \ddot{a}  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\ddot {a}}\,}
+\end{equation}
+
+\begin{equation}
+  \not{a}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \not {a}\,}
+\end{equation}
+
+\begin{equation}
+  \mathring{a}  
+\end{equation}
+
+\begin{equation}
+  \overrightarrow{AB} 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\overrightarrow {AB}}\,}
+\end{equation}
+
+\begin{equation}
+  \overleftarrow{AB}  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\overleftarrow {AB}}\,}
+\end{equation}
+
+\begin{equation}
+  a'''  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle a'''\,}
+\end{equation}
+
+\begin{equation}
+  a'''' 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle a''''\,}
+\end{equation}
+
+\begin{equation}
+  \overline{aaa}  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\overline {aaa}}\,}
+\end{equation}
+
+\begin{equation}
+  \check{a} 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\check {a}}\,}
+\end{equation}
+
+\begin{equation}
+  \breve{a}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\breve {a}}\,}
+\end{equation}
+
+\begin{equation}
+  \vec{a} 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\vec {a}}\,}
+\end{equation}
+
+\begin{equation}
+  \dddot{a}[3]
+\end{equation}
+
+\begin{equation}
+  \ddddot{a}[3] 
+\end{equation}
+
+\begin{equation}
+  \widehat{AAA} 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\widehat {AAA}}\,} 
+\end{equation}
+
+\begin{equation}
+  \widetilde{AAA} 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\widetilde {AAA}}}
+\end{equation}
+
+\begin{equation}
+  \widehat{AAA} 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\widehat {AAA}}\,}
+\end{equation}
+
+\begin{equation}
+  \stackrel\frown{AAA}  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\stackrel {\frown }{AAA}}}
+\end{equation}
+
+\begin{equation}
+  \tilde{a} 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\tilde {a}}\,}
+\end{equation}
+
+\begin{equation}
+  \underline{a} 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\underline {a}}\,}
+\end{equation}
+
+<p>
+Color
+
+<p>
+The package xcolor, described in Colors, allows us to add color to our equations. For example,
+
+\begin{equation}
+  k = {\color{red}x} \mathbin{\color{blue}-} 2
+\end{equation}
+
+\begin{equation}
+  {\displaystyle k={\color {green}x}{\mathbin {\color {blue}-}}2}
+\end{equation}
+
+
+
+<p>
+The only problem is that this disrupts the default LATEX formatting around the - operator. To fix this, we enclose it in a \mathbin environment, since - is a binary operator. This process is described here.
+
+<p>
+Plus and minus signs
+
+<p>
+LaTeX deals with the + and − signs in two possible ways. The most common is as a binary operator. When two maths elements appear on either side of the sign, it is assumed to be a binary operator, and as such, allocates some space to either side of the sign. The alternative way is a sign designation. This is when you state whether a mathematical quantity is either positive or negative. This is common for the latter, as in math, such elements are assumed to be positive unless a − is prefixed to it. In this instance, you want the sign to appear close to the appropriate element to show their association. If you put a + or a − with nothing before it but you want it to be handled like a binary operator you can add an invisible character before the operator using {}. This can be useful if you are writing multiple-line formulas, and a new line could start with a = or a +, for example, then you can fix some strange alignments adding the invisible character where necessary.
+
+<p>
+A plus-minus sign is written as:
+
+\begin{equation}
+  \pm
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \pm }
+\end{equation}
+
+<p>
+Similarly, there exists also a minus-plus sign:
+
+\begin{equation}
+  \mp
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \mp }
+\end{equation}
+
+<p>
+Controlling horizontal spacing
+
+<p>
+LaTeX is obviously pretty good at typesetting maths—it was one of the chief aims of the core TeX system that LaTeX extends. However, it can't always be relied upon to accurately interpret formulas in the way you did. It has to make certain assumptions when there are ambiguous expressions. The result tends to be slightly incorrect horizontal spacing. In these events, the output is still satisfactory, yet any perfectionists will no doubt wish to fine-tune their formulas to ensure spacing is correct. These are generally very subtle adjustments.
+
+<p>
+There are other occasions where LaTeX has done its job correctly, but you just want to add some space, maybe to add a comment of some kind. For example, in the following equation, it is preferable to ensure there is a decent amount of space between the maths and the text.
+
+\begin{equation}
+{
+ f(n) =
+  \begin{cases}
+    n/2       & \quad \text{if } n \text{ is even}\\
+    -(n+1)/2  & \quad \text{if } n \text{ is odd}
+  \end{cases}
+}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle f(n)={\begin{cases}n/2&\quad {\text{if }}n{\text{ is even}}\\-(n+1)/2&\quad {\text{if }}n{\text{ is odd}}\end{cases}}}
+\end{equation}
+
+
+
+<p>
+This code produces errors with Miktex 2.9 and does not yield the results seen on the right. Use \mathrm instead of just \text.
+
+
+<p>
+(Note that this particular example can be expressed in more elegant code by the cases construct provided by the amsmath package described in Advanced Mathematics chapter.)
+
+<p>
+LaTeX has defined two commands that can be used anywhere in documents (not just maths) to insert some horizontal space. They are \quad and \qquad
+
+<p>
+A \quad is a space equal to the current font size. So, if you are using an 11pt font, then the space provided by \quad will also be 11pt (horizontally, of course.) The \qquad gives twice that amount. As you can see from the code from the above example, \quads were used to add some separation between the maths and the text.
+
+<p>
+OK, so back to the fine tuning as mentioned at the beginning of the document. A good example would be displaying the simple equation for the indefinite integral of y with respect to x:
+
+\begin{equation}
+  {\displaystyle \int y\,\mathrm {d} x} 
+\end{equation}
+
+\begin{equation}
+  \int y\,\mathrm {d} x
+\end{equation}
+
+<p>
+If you were to try this, you may write:
+
+\begin{equation}
+  \int y \mathrm{d}x
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \int y\mathrm {d} x}
+\end{equation}
+
+
+
+<p>
+However, this doesn't give the correct result. LaTeX doesn't respect the white-space left in the code to signify that the y and the dx are independent entities. Instead, it lumps them altogether. A \quad would clearly be overkill in this situation—what is needed are some small spaces to be utilized in this type of instance, and that's what LaTeX provides:
+
+<p>
+Command | Description | Size
+-------------
+\begin{equation}
+  \,  small space 3/18 of a quad
+\end{equation}
+
+\begin{equation}
+  \:  medium space  4/18 of a quad
+\end{equation}
+
+\begin{equation}
+  \;  large space 5/18 of a quad
+\end{equation}
+
+\begin{equation}
+  \!  negative space  -3/18 of a quad
+\end{equation}
+
+<p>
+NB you can use more than one command in a sequence to achieve a greater space if necessary.
+
+<p>
+So, to rectify the current problem:
+
+\begin{equation}
+  \int y\, \mathrm{d}x
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \int y\,\mathrm {d} x}
+\end{equation}
+
+
+\begin{equation}
+  \int y\: \mathrm{d}x
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \int y\;\;\!\!\mathrm {d} x}
+\end{equation}
+
+
+\begin{equation}
+  \int y\; \mathrm{d}x
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \int y\;\mathrm {d} x}
+\end{equation}
+
+
+<p>
+The negative space may seem like an odd thing to use, however, it wouldn't be there if it didn't have some use! Take the following example:
+
+\begin{equation}
+  \left(
+    \begin{array}{c}
+      n \\
+      r
+    \end{array}
+  \right) = \frac{n!}{r!(n-r)!}
+\end{equation}
+
+
+\begin{equation}
+  {\displaystyle \left({\begin{matrix}n\\r\end{matrix}}\right)={\frac {n!}{r!(n-r)!}}} 
+\end{equation}
+
+
+<p>
+The matrix-like expression for representing binomial coefficients is too padded. There is too much space between the brackets and the actual contents within. This can easily be corrected by adding a few negative spaces after the left bracket and before the right bracket.
+
+\begin{equation}
+  \left(\!
+    \begin{array}{c}
+      n \\
+      r
+    \end{array}
+  \!\right) = \frac{n!}{r!(n-r)!}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \left(\!{\begin{matrix}n\\r\end{matrix}}\!\right)={\frac {n!}{r!(n-r)!}}} 
+\end{equation}
+
+
+<p>
+In any case, adding some spaces manually should be avoided whenever possible: it makes the source code more complex and it's against the basic principles of a What You See is What You Mean approach. The best thing to do is to define some commands using all the spaces you want and then, when you use your command, you don't have to add any other space. Later, if you change your mind about the length of the horizontal space, you can easily change it modifying only the command you defined before. Let us use an example: you want the d of a dx in an integral to be in roman font and a small space away from the rest. If you want to type an integral like \int x \, \mathrm{d} x, you can define a command like this:
+
+\begin{equation}
+  \newcommand{\dd}{\mathop{}\,\mathrm{d}}
+\end{equation}
+
+in the preamble of your document. We have chosen \dd just because it reminds the "d" it replaces and it is fast to type. Doing so, the code for your integral becomes \int x \dd x. Now, whenever you write an integral, you just have to use the \dd instead of the "d", and all your integrals will have the same style. If you change your mind, you just have to change the definition in the preamble, and all your integrals will be changed accordingly.
+
+<p>
+Manually Specifying Formula Style
+
+<p>
+To manually display a fragment of a formula using text style, surround the fragment with curly braces and prefix the fragment with \textstyle. The braces are required because the \textstyle macro changes the state of the renderer, rendering all subsequent mathematics in text style. The braces limit this change of state to just the fragment enclosed within. For example, to use text style for just the summation symbol in a sum, one would enter
+
+\begin{equation}
+   C^i_j = {\textstyle \sum_k} A^i_k B^k_j
+\end{equation}
+
+<p>
+The same thing as a command would look like this:
+
+\begin{equation}
+  \newcommand{\tsum}[1]{{\textstyle \sum_{#1}}}
+\end{equation}
+
+<p>
+Note the extra braces. Just one set around the expression won't be enough. That would cause all math after \tsum k to be displayed using text style.
+
+<p>
+To display part of a formula using display style, do the same thing, but use \displaystyle instead.
+
+<p>
+Advanced Mathematics: AMS Math package
+
+<p>
+The AMS (American Mathematical Society) mathematics package is a powerful package that creates a higher layer of abstraction over mathematical LaTeX language; if you use it it will make your life easier. Some commands amsmath introduces will make other plain LaTeX commands obsolete: in order to keep consistency in the final output you'd better use amsmath commands whenever possible. If you do so, you will get an elegant output without worrying about alignment and other details, keeping your source code readable. If you want to use it, you have to add this in the preamble:
+
+
+\begin{equation}
+  \usepackage{amsmath}
+\end{equation}
+
+<p>
+Introducing dots in formulas
+
+<p>
+amsmath defines also the \dots command, that is a generalization of the existing \ldots. You can use \dots in both text and math mode and LaTeX will replace it with three dots "…" but it will decide according to the context whether to put it on the bottom (like \ldots) or centered (like \cdots).
+
+<p>
+Dots
+
+<p>
+LaTeX gives you several commands to insert dots (ellipses) in your formulae. This can be particularly useful if you have to type big matrices omitting elements. First of all, here are the main dots-related commands LaTeX provides:
+
+<p>
+Code  | Output |  Comment
+--------------
+
+\begin{equation}
+  \dots {\displaystyle \dots } \dots  generic dots (ellipsis), to be used in text (outside formulae as well). It automatically manages whitespaces before and after itself according to the context, it's a higher level command.
+\end{equation}
+
+\begin{equation}
+  \ldots  {\displaystyle \ldots } \ldots  the output is similar to the previous one, but there is no automatic whitespace management; it works at a lower level.
+\end{equation}
+
+\begin{equation}
+  \cdots  {\displaystyle \cdots } \cdots  These dots are centered relative to the height of a letter. There is also the binary multiplication operator, \cdot, mentioned below.
+\end{equation}
+
+\begin{equation}
+  \vdots  {\displaystyle \vdots } \vdots  vertical dots
+\end{equation}
+
+\begin{equation}
+  \ddots  {\displaystyle \ddots } \ddots  diagonal dots
+\end{equation}
+
+\begin{equation}
+  \iddots   inverse diagonal dots (requires the mathdots package)
+\end{equation}
+
+\begin{equation}
+  \hdotsfor{n}  {\displaystyle \ldots \ldots } \ldots \ldots  to be used in matrices, it creates a row of dots spanning n columns.
+\end{equation}
+
+<p>
+Instead of using \ldots and \cdots, you should use the semantically oriented commands. It makes it possible to adapt your document to different conventions on the fly, in case (for example) you have to submit it to a publisher who insists on following house tradition in this respect. The default treatment for the various kinds follows American Mathematical Society conventions.
+
+<p>
+Code |  Output  | Comment
+----------------
+
+\begin{equation}
+  A_1,A_2,\dotsc, LaTeX Dotsc.png for "dots with commas"
+\end{equation}
+
+\begin{equation}
+  A_1+\dotsb+A_N  LaTeX Dotsb.png for "dots with binary operators/relations"
+\end{equation}
+
+\begin{equation}
+  A_1 \dotsm A_N  LaTeX Dotsm.png for "multiplication dots"
+\end{equation}
+
+\begin{equation}
+  \int_a^b \dotsi LaTeX Dotsi.png for "dots with integrals"
+\end{equation}
+
+\begin{equation}
+  A_1\dotso A_N LaTeX Dotso.png for "other dots" (none of the above)
+\end{equation}
+
+
+<p>
+Write an equation with the align environment
+
+<p>
+How to write an equation with the align environment with the amsmath package is described in Advanced Mathematics.
+
+<p>
+List of Mathematical Symbols
+
+<p>
+All the pre-defined mathematical symbols from the \TeX\ package are listed below. More symbols are available from extra packages.
+
+<p>
+Relation | Symbols
+------------------
+Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
+
+\begin{equation}
+  {\displaystyle <\,} <\, < 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle >\,} >\, > 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle =\,} =\, = 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \parallel \,} \parallel \, \parallel 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \nparallel \,} \nparallel \, \nparallel
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \leq \,} \leq \, \leq  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \geq \,} \geq \, \geq  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \doteq \,} \doteq \, \doteq  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \asymp \,} \asymp \, \asymp  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \bowtie \,} \bowtie \, \bowtie
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \ll \,} \ll \, \ll 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \gg \,} \gg \, \gg 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \equiv \,} \equiv \, \equiv  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \vdash \,} \vdash \, \vdash  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \dashv \,} \dashv \, \dashv
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \subset \,} \subset \, \subset 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \supset \,} \supset \, \supset 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \approx \,} \approx \, \approx 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \in \,} \in \, \in 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \ni \,} \ni \, \ni
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \subseteq \,} \subseteq \, \subseteq 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \supseteq \,} \supseteq \, \supseteq 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \cong \,} \cong \, \cong 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \smile \,} \smile \, \smile  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \frown \,} \frown \, \frown
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \nsubseteq \,} \nsubseteq \, \nsubseteq  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \nsupseteq \,} \nsupseteq \, \nsupseteq  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \simeq \,} \simeq \, \simeq  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \models \,} \models \, \models 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \notin \,} \notin \, \notin
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \sqsubset \,} \sqsubset \, \sqsubset 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \sqsupset \,} \sqsupset \, \sqsupset 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \sim \,} \sim \, \sim  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \perp \,} \perp \, \perp 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \mid \,} \mid \, \mid
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \sqsubseteq \,} \sqsubseteq \, \sqsubseteq 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \sqsupseteq \,} \sqsupseteq \, \sqsupseteq 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \propto \,} \propto \, \propto 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \prec \,} \prec \, \prec 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \succ \,} \succ \, \succ
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \preceq \,} \preceq \, \preceq 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \succeq \,} \succeq \, \succeq 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \neq \,} \neq \, \neq  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \sphericalangle \,} \sphericalangle \, \sphericalangle 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \measuredangle \,} \measuredangle \, \measuredangle
+\end{equation}
+
+
+<p>
+Binary Operations
+
+<p>
+Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
+
+
+\begin{equation}
+  {\displaystyle \pm \,} \pm \, \pm 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \cap \,} \cap \, \cap  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \diamond \,} \diamond \, \diamond  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \oplus \,} \oplus \, \oplus
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \mp \,} \mp \, \mp 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \cup \,} \cup \, \cup  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \bigtriangleup \,} \bigtriangleup \, \bigtriangleup  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \ominus \,} \ominus \, \ominus
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \times \,} \times \, \times  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \uplus \,} \uplus \, \uplus  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \bigtriangledown \,} \bigtriangledown \, \bigtriangledown  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \otimes \,} \otimes \, \otimes
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \div \,} \div \, \div  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \sqcap \,} \sqcap \, \sqcap  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \triangleleft \,} \triangleleft \, \triangleleft 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \oslash \,} \oslash \, \oslash
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \ast \,} \ast \, \ast  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \sqcup \,} \sqcup \, \sqcup  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \triangleright \,} \triangleright \, \triangleright  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \odot \,} \odot \, \odot
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \star \,} \star \, \star 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \vee \,} \vee \, \vee  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \bigcirc \,} \bigcirc \, \bigcirc  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \circ \,} \circ \, \circ
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \dagger \,} \dagger \, \dagger 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \wedge \,} \wedge \, \wedge  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \bullet \,} \bullet \, \bullet 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \setminus \,} \setminus \, \setminus
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \ddagger \,} \ddagger \, \ddagger  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \cdot \,} \cdot \, \cdot 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \wr \,} \wr \, \wr 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \amalg \,} \amalg \, \amalg
+\end{equation}
+
+
+<p>
+Set and/or Logic Notation
+
+<p>
+Symbol  Script    Symbol  Script
+
+
+\begin{equation}
+  {\displaystyle \exists \,} \exists \, \exists 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \rightarrow \,} \rightarrow \, \rightarrow or \to
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \nexists \,} \nexists \, \nexists  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \leftarrow \,} \leftarrow \, \leftarrow or \gets
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \forall \,} \forall \, \forall 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \mapsto \,} \mapsto \, \mapsto
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \neg \,} \neg \, \neg  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \implies \,} \implies \, \implies
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \subset \,} \subset \, \subset 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \Rightarrow \,} \Rightarrow \, \Rightarrow or \implies
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \supset \,} \supset \, \supset 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \leftrightarrow \,} \leftrightarrow \, \leftrightarrow
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \in } \in  \in 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \iff \,} \iff \, \iff
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \notin \,} \notin \, \notin  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \Leftrightarrow \,} \Leftrightarrow \, \Leftrightarrow (preferred for equivalence (iff))
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \ni \,} \ni \, \ni 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \top \,} \top \, \top
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \land \,} \land \, \land 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \bot \,} \bot \, \bot
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \lor \,} \lor \, \lor  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \emptyset \,} \emptyset \, and 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \varnothing \,} \varnothing \, \emptyset and \varnothing
+\end{equation}
+
+
+<p>
+Delimiters
+
+<p>
+Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
+
+
+\begin{equation}
+  {\displaystyle |\,} |\, | or \mid (difference in spacing) 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \|\,} \|\, \|  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle /\,} /\, / 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \backslash \,} \backslash \, \backslash
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \{\,} \{\, \{  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \}\,} \}\, \}  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \langle \,} \langle \, \langle 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \rangle \,} \rangle \, \rangle
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \uparrow \,} \uparrow \, \uparrow  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \Uparrow \,} \Uparrow \, \Uparrow  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \lceil \,} \lceil \, \lceil  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \rceil \,} \rceil \, \rceil
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \downarrow \,} \downarrow \, \downarrow  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \Downarrow \,} \Downarrow \, \Downarrow  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \lfloor \,} \lfloor \, \lfloor 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \rfloor \,} \rfloor \, \rfloor
+\end{equation}
+
+<p>
+Note: To use the Greek Letters in LaTeX that have the same appearance as their Roman equivalent, just use the Roman form: e.g., A instead of Alpha, B instead of Beta, etc.
+
+<p>
+Greek Letters
+
+<p>
+Symbol  Script    Symbol  Script
+
+
+\begin{equation}
+  {\displaystyle \mathrm {A} \,} \mathrm {A} \, and {\displaystyle \alpha \,} \alpha \, A and \alpha  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \mathrm {N} \,} \mathrm {N} \, and {\displaystyle \nu \,} \nu \, N and \nu
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \mathrm {B} \,} \mathrm {B} \, and {\displaystyle \beta \,} \beta \, B and \beta 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \Xi \,} \Xi \, and {\displaystyle \xi \,} \xi \, \Xi and \xi
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \Gamma \,} \Gamma \, and {\displaystyle \gamma \,} \gamma \, \Gamma and \gamma 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \mathrm {O} \,} \mathrm {O} \, and {\displaystyle \mathrm {o} \,} \mathrm {o} \, O and o
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \Delta \,} \Delta \, and {\displaystyle \delta \,} \delta \, \Delta and \delta 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \Pi \,} \Pi \,, {\displaystyle \pi \,} \pi \, and {\displaystyle \varpi } \varpi   \Pi, \pi and \varpi
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \mathrm {E} \,} \mathrm {E} \,, {\displaystyle \epsilon \,} \epsilon \, and {\displaystyle \varepsilon \,} \varepsilon \,  E, \epsilon and \varepsilon 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \mathrm {P} \,} \mathrm {P} \,, {\displaystyle \rho \,} \rho \, and {\displaystyle \varrho \,} \varrho \,  P, \rho and \varrho
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \mathrm {Z} \,} \mathrm {Z} \, and {\displaystyle \zeta \,} \zeta \, Z and \zeta 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \Sigma \,} \Sigma \,, {\displaystyle \sigma \,} \sigma \, and {\displaystyle \varsigma \,} \varsigma \,  \Sigma, \sigma and \varsigma
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \mathrm {H} \,} \mathrm {H} \, and {\displaystyle \eta \,} \eta \, H and \eta  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \mathrm {T} \,} \mathrm {T} \, and {\displaystyle \tau \,} \tau \, T and \tau
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \Theta \,} \Theta \,, {\displaystyle \theta \,} \theta \, and {\displaystyle \vartheta \,} \vartheta \,  \Theta, \theta and \vartheta  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \Upsilon \,} \Upsilon \, and {\displaystyle \upsilon \,} \upsilon \, \Upsilon and \upsilon
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \mathrm {I} \,} \mathrm {I} \, and {\displaystyle \iota \,} \iota \, I and \iota 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \Phi \,} \Phi \,, {\displaystyle \phi \,} \phi \,, and {\displaystyle \varphi \,} \varphi \, \Phi, \phi and \varphi
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \mathrm {K} \,} \mathrm {K} \,, {\displaystyle \kappa \,} \kappa \, and {\displaystyle \varkappa \,} \varkappa \,  K, \kappa and \varkappa 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \mathrm {X} \,} \mathrm {X} \, and {\displaystyle \chi \,} \chi \, X and \chi
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \Lambda \,} \Lambda \, and {\displaystyle \lambda \,} \lambda \, \Lambda and \lambda 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \Psi \,} \Psi \, and {\displaystyle \psi \,} \psi \, \Psi and \psi
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \mathrm {M} \,} \mathrm {M} \, and {\displaystyle \mu \,} \mu \, M and \mu 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \Omega \,} \Omega \, and {\displaystyle \omega \,} \omega \, \Omega and \omega
+\end{equation}
+
+
+<p>
+Other symbols
+
+<p>
+Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
+
+
+\begin{equation}
+  {\displaystyle \partial \,} \partial \, \partial  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \imath \,} \imath \, \imath  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \Re \,} \Re \, \Re 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \nabla \,} \nabla \, \nabla  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \aleph \,} \aleph \, \aleph
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \eth \,} \eth \, \eth  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \jmath \,} \jmath \, \jmath  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \Im \,} \Im \, \Im 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \Box \,} \Box \, \Box  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \beth \,} \beth \, \beth
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \hbar \,} \hbar \, \hbar 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \ell \,} \ell \, \ell  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \wp \,} \wp \, \wp 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \infty \,} \infty \, \infty  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \gimel \,} \gimel \, \gimel
+\end{equation}
+
+<p>
+*Not predefined in LATEX 2. Use one of the packages latexsym, amsfonts, amssymb, txfonts, pxfonts, or wasysym
+
+<p>
+Trigonometric Functions
+
+<p>
+Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
+
+
+\begin{equation}
+  {\displaystyle \sin \,} \sin \, \sin  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \arcsin \,} \arcsin \, \arcsin 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \sinh \,} \sinh \, \sinh 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \sec \,} \sec \, \sec
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \cos \,} \cos \, \cos  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \arccos \,} \arccos \, \arccos 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \cosh \,} \cosh \, \cosh 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \csc \,} \csc \, \csc
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \tan \,} \tan \, \tan  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \arctan \,} \arctan \, \arctan 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \tanh \,} \tanh \, \tanh   
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \cot \,} \cot \, \cot  
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \operatorname {arccot} \,} \operatorname {arccot} \, \arccot 
+\end{equation}
+
+\begin{equation}
+  {\displaystyle \coth \,} \coth \, \coth   
+\end{equation}
+
+<p>
+If LaTeX does not include a command for the mathematical operator you want to use, for example \cis (cosine plus i times sine), add to your preamble:
+
+
+\begin{equation}
+  \DeclareMathOperator\cis{cis}
+\end{equation}
+
+You can then use \cis in the document just like \cos or any other mathematical operator.
+
+
+
 
 <h2>#1</h2>
 
@@ -671,19 +2895,16 @@ ${ \displaystyle
 }$
 
 <p>
-{
 Logic:
 ${ \displaystyle
   \neg(p\wedge q)\iff(\neg p)\vee(\neg q)
 }$
-}
 
-{
+<p>
 Boolean algebra:
 ${ \displaystyle
   \overline{\bigcup_{i=1}^{n} A_{i}}=\bigcap_{i=1}^{n} \overline{A_{i}}
 }$
-}
 
 <p>
 ${ \displaystyle
@@ -754,9 +2975,9 @@ ${ \displaystyle
 {\rm non}({\mathcal K}) & \longrightarrow & {\rm cof}({\mathcal K}) & \longrightarrow &
 {\rm cof}({\mathcal L}) & \longrightarrow & 2^{\aleph_0} \\
 
-                        &                 & \multirow{3}{*}{\Bigg\uparrow} &          &
+                        &                 & {*}{\Bigg\uparrow} &          &
 \uparrow                &                 & \uparrow                &                 &
-\multirow{3}{*}{\Bigg\uparrow} &          & \\
+{*}{\Bigg\uparrow} &          & \\
 
                         &                 &                         &                 &
 {\mathfrak b}           & \longrightarrow & {\mathfrak d}           &                 &
@@ -771,6 +2992,80 @@ ${ \displaystyle
 {\rm non}({\mathcal L}) &                 &
 \end{array}
 }$
+
+<p>
+Without specifying width for last column:
+
+\begin{center}
+    \begin{tabular}{| l | l | l | l |}
+    \hline
+    Day & Min Temp & Max Temp & Summary \\ \hline
+    Monday & 11C & 22C & A clear day with lots of sunshine.
+    However, the strong breeze will bring down the temperatures. \\ \hline
+    Tuesday & 9C & 19C & Cloudy with rain, across many northern regions. Clear spells 
+    across most of Scotland and Northern Ireland, 
+    but rain reaching the far northwest. \\ \hline
+    Wednesday & 10C & 21C & Rain will still linger for the morning. 
+    Conditions will improve by early afternoon and continue 
+    throughout the evening. \\
+    \hline
+    \end{tabular}
+\end{center}
+
+<p>
+With width specified:
+
+\begin{center}
+    \begin{tabular}{ | l | l | l | p{5cm} |}
+    \hline
+    Day & Min Temp & Max Temp & Summary \\ \hline
+    Monday & 11C & 22C & A clear day with lots of sunshine.  
+    However, the strong breeze will bring down the temperatures. \\ \hline
+    Tuesday & 9C & 19C & Cloudy with rain, across many northern regions. Clear spells 
+    across most of Scotland and Northern Ireland, 
+    but rain reaching the far northwest. \\ \hline
+    Wednesday & 10C & 21C & Rain will still linger for the morning. 
+    Conditions will improve by early afternoon and continue 
+    throughout the evening. \\
+    \hline
+    \end{tabular}
+\end{center}
+
+<p>
+\begin{tabular}{ | l | l | r | }
+  \hline\noalign{\smallskip}
+  \multicolumn{2}{c}{Item} \\
+  \cline{1-2}\noalign{\smallskip}
+  Animal & Description & Price (\$) \\
+  \noalign{\smallskip}\hline\noalign{\smallskip}
+  Gnat  & per gram & 13.65 \\
+        & each     &  0.01 \\
+  Gnu   & stuffed  & 92.50 \\
+  Emu   & stuffed  & 33.33 \\
+  Armadillo & frozen & 8.99 \\
+  \noalign{\smallskip}\hline
+\end{tabular}
+
+<p>
+\begin{tabular}{l*{6}{c}r}
+Team              & P & W & D & L & F  & A & Pts \\
+\hline
+Manchester United & 6 & 4 & 0 & 2 & 10 & 5 & 12  \\
+Celtic            & 6 & 3 & 0 & 3 &  8 & 9 &  9  \\
+Benfica           & 6 & 2 & 1 & 3 &  7 & 8 &  7  \\
+FC Copenhagen     & 6 & 2 & 1 & 3 &  5 & 8 &  7  \\
+\end{tabular}
+
+<p>
+\begin{tabular}{>{\centering}p{3.5cm}>{\centering}p{3.5cm} }
+Geometry  & Algebra
+\tabularnewline
+\hline
+ Points & Addition 
+\tabularnewline
+ Spheres & Multiplication 
+\end{tabular}
+
 
 <p>
 ${ \displaystyle
@@ -1577,6 +3872,29 @@ Prove this Theorem~\ref{thm:py} by the algebra \(a^2+b^2 =(p^2-q^2)^2+(2pq)^2 \\
 =p^4+2p^2q^2+q^4 \\
 =(p^2+q^2)^2 =c^2\).
 
+
+<P>
+\(
+\newcounter{mysection}
+\newcounter{mysubsection}[mysection]
+\addtocounter{mysection}{2} % set them to some other numbers than 0
+\addtocounter{mysubsection}{10} % same
+%
+\arabic{mysection}.\arabic{mysubsection}
+Blah blah
+
+\stepcounter{mysection}
+\arabic{mysection}.\arabic{mysubsection}
+Blah blah
+
+\stepcounter{mysubsection}
+\arabic{mysection}.\arabic{mysubsection}
+Blah blah
+
+\addtocounter{mysubsection}{25}
+\arabic{mysection}.\arabic{mysubsection}
+Blah blah and more blah blah
+\)
 
 
 
