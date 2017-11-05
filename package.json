@@ -26,7 +26,8 @@
   "main": "./unpacked/MathJax.js",
   "scripts": {
     "test": "npm run build && echo 'No tests here!'",
-    "build": "cd node_modules/@gerhobbelt/mathjax-dev && make config && make pack && make combine"
+    "build": "cd node_modules/@gerhobbelt/mathjax-dev && make config && make pack && make combine",
+    "pub": "npm publish --access public"
   },
   "devDependencies": {
     "@gerhobbelt/mathjax-dev": "1.0.1-2"
