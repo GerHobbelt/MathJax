@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MathJax Test Page</title>
+<!-- Copyright (c) 2009-2017 The MathJax Consortium -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: [
+      "tex2jax.js",
+      "../extensions/TeX/AMSmath.js",
+      "../extensions/TeX/AMSsymbols.js",
+      "../extensions/TeX/extpfeil.js",
+      "../../mathjax-third-party-extensions/longdiv/unpacked/longdiv.js",
+      "../../mathjax-third-party-extensions/counters/counters.js",
+    ],
+    jax: [ "input/TeX", "output/HTML-CSS" ],
+    tex2jax: { inlineMath: [ ["$", "$"], ["\\(", "\\)"] ] },
+    TeX: { equationNumbers: {autoNumber: "AMS"} }
+  });
+</script>
+<script type="text/javascript" src="../MathJax.js"></script>
+
+<style>
+h1 {text-align:center}
+h2 {
+  font-weight: bold;
+  background-color: #DDDDDD;
+  padding: .2em .5em;
+  margin-top: 1.5em;
+  border-top: 3px solid #666666;
+  border-bottom: 2px solid #999999;
+}
+</style>
+</head>
+<body>
+
+<noscript>
+<div style="color:#CC0000; text-align:center">
+<b>Warning: <a href="http://www.mathjax.org/">MathJax</a>
+requires JavaScript to process the mathematics on this page.<br />
+If your browser supports JavaScript, be sure it is enabled.</b>
+</div>
+<hr>
+</noscript>
+
+<h1>Sample MathJax Equations</h1>
+
+<blockquote>
+
+<h2>#1</h2>
+
+<p>
+\[
+    \left( x \right) 
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+\[
+    \left( x^2 \right) % comment
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+\[
+    \left( \frac{a}{b} \right) 
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+\[
+    \left( \frac{a^2}{b} \right)
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+\[
+    \left( \dfrac{a}{b} \right) 
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+\[
+    \left( \dfrac{a^2}{b} \right)
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+Maxwell's equations:
+\begin{align}
+        B'&=-\nabla \times E,\\
+        E'&=\nabla \times B - 4\pi j,
+\end{align}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{equation} 
+ f(x)=(x+a)(x+b)
+\end{equation}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{equation} \label{eq:someequation}
+6^2 - 5 = 36-5 = 31
+\end{equation}
+
+this references equation \ref{eq:someequation}.
+</p>
+
+<h2>#1</h2>
+
+<p>
+\[
+ A \overset{!}{=} B; A \stackrel{!}{=} B
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+\[
+ \lim_{x\to 0}{\frac{e^x-1}{2x}}
+ \overset{\left[\frac{0}{0}\right]}{\underset{\mathrm{H}}{=}}
+ \lim_{x\to 0}{\frac{e^x}{2}}={\frac{1}{2}}
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+\[
+ z = \overbrace{
+   \underbrace{x}_\text{real} + i
+   \underbrace{y}_\text{imaginary}
+  }^\text{complex number}
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+\[
+  T=\sum_{
+    {\substack{i_1,\ldots,i_n=1 \\
+               j_1,\ldots,j_m=1}}}^d
+    T_{j_1,\ldots,j_m}^{i_1,\ldots,i_n}
+    E_{i_1,\ldots,i_n}^{j_1,\ldots,j_m}
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+\[
+  T=\sum_{
+    \mathclap{\substack{i_1,\ldots,i_n=1 \ j_1,\ldots,j_m=1}}}^d
+    T_{j_1,\ldots,j_m}^{i_1,\ldots,i_n}
+    E_{i_1,\ldots,i_n}^{j_1,\ldots,j_m}
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+\[
+ y = a + f(\underbrace{b x}_{
+                    \ge 0 \text{ by assumption}}) 
+   = a + f(\underbrace{b x}_{
+          {\ge 0 \text{ by assumption}}})
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{gather}
+$\dfrac{arg1}{arg2}$
+$\frac{\displaystyle arg1}{\displaystyle arg2}$
+$\frac{arg1}{arg2}$
+\end{gather}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\[
+ y = a + f(\underbrace{b x}_{
+                    \ge 0 \text{ by assumption}}) 
+   = a + f(\underbrace{b x}_{
+          \mathclap{\ge 0 \text{ by assumption}}})
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+\[
+ z = \overbracket[3pt]{
+     \underbracket{x}_{\text{real}} +
+     \underbracket[0.5pt][7pt]{iy}_{\text{imaginary}}
+     }^{\text{complex number}} 
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+\[
+ A \leftarrow{\text{this way}} B 
+  \rightarrow[\text{or that way}]{ } C
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{gather}
+ a \leftrightarrow[under]{over} b\\
+%
+ A \Leftarrow[under]{over} B\\
+%
+ B \Rightarrow[under]{over} C\\
+%
+ C \Leftrightarrow[under]{over} D\\
+%
+ D \hookleftarrow[under]{over} E\\
+%
+ E \hookrightarrow[under]{over} F\\
+%
+ F \xmapsto[under]{over} G\\
+\end{gather}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{gather}
+ H \rightharpoondown[under]{over} I\\
+%
+ I \rightharpoonup[under]{over} J\\
+%
+ J \leftharpoondown[under]{over} K\\
+%
+ K \leftharpoonup[under]{over} L\\
+%
+ L \rightleftharpoons[under]{over} M\\
+%
+ M \leftrightharpoons[under]{over} N
+\end{gather}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{align*}
+ f(x) &= (x+a)(x+b) \\
+      &= x^2 + (a+b)x + ab
+\end{align*}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{align}
+ f(x) &= x^4 + 7x^3 + 2x^2 \nonumber \\
+      &\qquad {} + 10x + 12
+\end{align}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{align*}
+ f(x)  &= a x^2+b x +c   &   g(x)  &= d x^3 \\
+ f'(x) &= 2 a x +b       &   g'(x) &= 3 d x^2
+\end{align*}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{align}
+ f(x) &= \pi \left\{ x^4 + 7x^3 + 2x^2 \right.\nonumber\\
+ &\qquad \left. {} + 10x + 12 \right\}
+\end{align}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{align}
+ A &=     \left(\int_t XXX       \right.\nonumber\\
+   &\qquad \left.\vphantom{\int_t} YYY \dots \right)
+\end{align}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\[
+f(x) = \left\{
+  \begin{array}{lr}
+    x^2 & : x < 0\\
+    x^3 & : x \ge 0
+  \end{array}
+\right.
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+\[
+ u(x) = 
+  \begin{cases} 
+   \exp{x} & \text{if } x \geq 0 \\
+   1       & \text{if } x < 0
+  \end{cases}
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+\[
+ a =
+   \begin{dcases}
+     \int x\, \mathrm{d} x\\
+     b^2
+   \end{dcases}
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+\[
+ f(x) = \begin{dcases*}
+        x  & when $x$ is even\\
+        -x & when $x$ is odd
+        \end{dcases*}
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{equation}
+ \left.\begin{aligned}
+        B'&=-\partial \times E,\\
+        E'&=\partial \times B - 4\pi j,
+       \end{aligned}
+ \right\}
+ \qquad \text{Maxwell's equations}
+\end{equation}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{alignat}{2}
+ \sigma_1 &= x + y  &\quad \sigma_2 &= \frac{x}{y} \\   
+ \sigma_1' &= \frac{\partial x + y}{\partial x} & \sigma_2' 
+    &= \frac{\partial \frac{x}{y}}{\partial x}
+\end{alignat}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{gather*}
+a_0=\frac{1}{\pi}\int\limits_{-\pi}^{\pi}f(x)\,\mathrm{d}x\\[6pt]
+\begin{split}
+a_n=\frac{1}{\pi}\int\limits_{-\pi}^{\pi}f(x)\cos nx\,\mathrm{d}x=\\
+=\frac{1}{\pi}\int\limits_{-\pi}^{\pi}x^2\cos nx\,\mathrm{d}x
+\end{split}\\[6pt]
+\begin{split}
+b_n=\frac{1}{\pi}\int\limits_{-\pi}^{\pi}f(x)\sin nx\,\mathrm{d}x=\\
+=\frac{1}{\pi}\int\limits_{-\pi}^{\pi}x^2\sin nx\,\mathrm{d}x
+\end{split}\\[6pt]
+\end{gather*}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{equation}
+ \boxed{x^2+y^2 = z^2}
+\end{equation}
+</p>
+
+<h2>#1</h2>
+
+<p>
+  \begin{equation}
+   x^2+y^2=z^2
+  \end{equation}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{equation}
+  \lim_{a\to \infty} \tfrac{1}{a}
+\end{equation}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{equation}
+  \lim\nolimits_{a\to \infty} \tfrac{1}{a}
+\end{equation}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{equation}
+  \int_a^b x^2  \mathrm{d} x
+\end{equation}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{equation}
+  \int\limits_a^b x^2  \mathrm{d} x
+\end{equation}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{equation}
+  \lim_{a \underset{>}{\to} 0} \frac{1}{a}
+\end{equation}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{equation}
+  \sum\nolimits' C_n
+\end{equation}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{equation}
+  \sum_{n=1}\nolimits' C_n
+\end{equation}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{equation}
+  \sideset{}{'}\sum_{n=1}C_n
+\end{equation}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{equation}
+  \sideset{_a^b}{_c^d}\sum
+\end{equation}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{equation}
+  {\sum\limits_{n=1} }'C_n
+\end{equation}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{equation}
+  \prod_{\substack{
+            1\le i \le n\\
+            1\le j \le m}}
+     M_{i,j}
+\end{equation}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{align*}
+\intertext{If}
+   A &= \sigma_1+\sigma_2\\
+   B &= \rho_1+\rho_2\\
+\intertext{then}
+C(x) &= e^{Ax^2+\pi}+B
+\end{align*} 
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{equation}
+  x = a_0 + \frac{1}{a_1 + \frac{1}{a_2 + \frac{1}{a_3 + a_4}}}
+\end{equation}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{equation}
+  x = a_0 + \frac{1}{\displaystyle a_1 
+          + \frac{1}{\displaystyle a_2 
+          + \frac{1}{\displaystyle a_3 + a_4}}}
+\end{equation}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{equation}
+  \longdiv{dividend}{divisor}
+\end{equation}
+</p>
+
+<h2>#1</h2>
+
+<p>
+\begin{equation}
+  \longdiv{642348238}{37}
+\end{equation}
+</p>
+
+<h2>#1</h2>
+
+<h3>Quadratic Formula<h3>
+
+<p>
+When \(a\ne0\), there are two solutions to \(ax^2+bx+c=0\) and they are
+$$x = {-b\pm\sqrt{b^2-4ac}\over2a}.$$
+
+<h3>A matrix</h3>
+
+<p>
+\[\left(\begin{array}{cccc}2&3&4&5\\0&-1&2&1\\0&0&2&4\\0&3&-6&0\end{array}\right)\]
+
+<h3>Cross Product</h3>
+
+<p>
+\[\mathbf{V}_1 \times \mathbf{V}_2 = \begin{vmatrix}
+\mathbf{i} & \mathbf{j} & \mathbf{k} \\
+\frac{\partial X}{\partial u} & \frac{\partial Y}{\partial u} & 0 \\
+\frac{\partial X}{\partial v} & \frac{\partial Y}{\partial v} & 0
+\end{vmatrix} \]
+
+<h3>Integral</h3>
+
+<p>
+\[\int_0^{2\pi}\sin{x}\ dx=0\]
+
+<h3>Summation</h3>
+
+<p>
+$$f(x)=\sum_{n=0}^\infty\frac{f^{(n)}(a)}{n!}(x-a)^n$$
+
+<h3>In-line Math</h3>
+
+<p>
+Displacement: \(s=ut+\frac{1}{2}at^2\)
+
+<p>
+Trigonometry: \(\tan^2x+1=\sec^2x\)
+
+<p>
+Summation: \(\pi=4\sum_{i=1}^{n}\large{\frac{(-1)^{k+1}}{2k-1}}\)
+
+<p>
+That last one again, in its own centered block. Note the position of the sum limits, which are now above and below the summation symbol.
+
+<p>
+$$\pi=4\sum_{i=1}^{n}\frac{(-1)^{k+1}}{2k-1}$$
+
+<h3>Fractions on fractions</h3>
+
+<p>
+$\frac{\frac{6}{x+2}}{\frac{3}{2x+4}}$ $=\frac{6}{x+2}\div\frac{3}{2x+4}$ $=\frac{6}{x+2}\times\frac{2(x+2)}{3}$ $=4$
+
+<p>
+My "challenge" matrix from earlier articles (this matrix was an issue in WPMathPub)
+
+<p>
+\[\left\{\begin{array}{ccc}5&3&\cos\ 2\\6&7&0\\1&-2&\sin\ 5\end{array}\right\}\]
+
+<h3>The "Ask Dr Math" integral example</h3>
+
+<p>
+\(3\int{x^2}dx+5\int{x}\ {dx}+9\int{dx}\)
+
+<h3>Instructions for entering ASCIIMath</h3>
+
+<p>
+Use the <b>backtick</b> character before and after math, like this: `x = y + z`. 
+
+<p>
+Enter fractions with a forward slash, /, as in `y/z`.
+
+<p>
+Products and powers of variables: `ab^2`.
+
+<p>
+Integrals: `int_(0)^(2 pi) sin\ x\ dx = 0`.
+
+<p>
+Square root is like this: `sqrt(169) = 13`.
+
+<p>
+Summation notation: `sum_(i=1)^ni^3` 
+
+<p>
+`3xx3` matrix: `[(1,2,3),(4,8,3),(-5,4,9)]`
+
+<p>
+Greek, too: `A = pi r^2`
+
+<p>
+<b>Special note:</b>
+
+<p>
+When using "less than" or "greater than" signs, put a SPACE before and after them, like this: 
+
+<p>
+If `x < 3`, then `y > 0`.
+
+<p>
+<b>For Phones and Tablets</b>
+
+<p>
+You can use "double q" to surround your math, like this:
+
+<p>
+qq a^2 + b^2 = c^2 qq
+
+<h2>Further Tests</h2>
+
+<p>
+${ \displaystyle
+   \forall A \, \exists P \, \forall B \, [B \in P \iff \forall C \, (C \in B \Rightarrow C \in A)]
+}$
+
+<p>
+{
+Logic:
+${ \displaystyle
+  \neg(p\wedge q)\iff(\neg p)\vee(\neg q)
+}$
+}
+
+{
+Boolean algebra:
+${ \displaystyle
+  \overline{\bigcup_{i=1}^{n} A_{i}}=\bigcap_{i=1}^{n} \overline{A_{i}}
+}$
+}
+
+<p>
+${ \displaystyle
+   \mathbf{C}(n,k) = \mathbf{C}_k^n = {}_n\mathbf{C}_k = \dbinom{n}{k} = \dfrac{n!}{k!\,(n -k)!}
+}$
+
+<p>
+${ \displaystyle
+   \int_0^1 x^x\,\mathrm{d}x = \sum_{n = 1}^\infty{(-1)^{n + 1}\,n^{-n}}
+}$
+
+<p>
+${ \displaystyle
+   \nabla \cdot \vec v =
+   {\partial v_x \over \partial x} +
+   {\partial v_y \over \partial y} +
+   {\partial v_z \over \partial z}
+}$
+
+<p>
+${ \displaystyle
+ c = \overbrace
+     { \underbrace{\thickspace\thickspace\thickspace\thickspace\thickspace a \thickspace\thickspace\thickspace\thickspace}_\text{real}
+       +
+       \underbrace{\thickspace\thickspace\thickspace\thickspace\thickspace b\mathrm{i} \thickspace\thickspace\thickspace\thickspace}_\text{imaginary}
+     }^\text{complex number}
+}$
+
+<p>
+${ \displaystyle
+   M =
+   \begin{bmatrix}
+     \alpha_1 & \alpha_1^q & \cdots & \alpha_1^{q^{n - 1}} \\
+     \alpha_2 & \alpha_2^q & \cdots & \alpha_2^{q^{n - 1}} \\
+     \vdots   & \vdots     & \ddots & \vdots             \\
+     \alpha_m & \alpha_m^q & \cdots & \alpha_m^{q^{n - 1}}
+   \end{bmatrix}
+}$
+
+<p>
+Spherical coordinates derivation of the volume of a sphere $\left(\tfrac43 \pi R^3 \right) $.\\
+The formula $S$ for a sphere of radius $R$ in spherical coordinates is: \\
+$S = \{0 \leq \phi \leq 2\pi, \ 0 \leq \theta \leq \pi, \ 0 \leq \rho \leq R\}$
+\begin{align*}
+\mathrm{Volume} &=\iiint\limits_S\! \rho^2 \sin\theta \,\mathrm{d}\rho \,\mathrm{d}\theta \,\mathrm{d}\phi \\
+&=\int_0^{2 \pi }\! \mathrm{d}\phi \,\int_0^{ \pi }\! \sin\theta \,\mathrm{d}\theta \,\int_0^R\! \rho^2 \mathrm{d}\rho \\
+&=\phi \Bigr|_0^{2\pi}\ (-\cos\theta) \Bigr|_0^{ \pi }\ \tfrac13 \rho^3 \Bigr|_0^R \\
+&=2\pi \times 2 \times \tfrac13 R^3 \\
+&=\tfrac43 \pi R^3
+\end{align*}
+
+<p>
+${ \displaystyle
+   \left\langle\psi\left|\mathcal{T}\left\{\frac{\delta}{\delta\phi}F[\phi]\right\}\right|\psi\right\rangle = -\mathrm{i}\left\langle\psi\left|\mathcal{T}\left\{F[\phi]\frac{\delta}{\delta\phi}S[\phi]\right\}\right|\psi\right\rangle
+}$
+
+<p>
+${ \displaystyle
+   \gamma_1\equiv \gamma_2 \iff \left\{ \begin{array}{l} \gamma_1(0)=\gamma_2(0)=p, \text{ and }\\ [1.0ex]
+   \left.\frac{\mathrm{d}}{\mathrm{d}t}\phi\circ\gamma_1(t)\right|_{t=0} = \left.\frac{\mathrm{d}}{\mathrm{d}t}\phi\circ\gamma_2(t)\right|_{t=0}
+   \end{array} \right.
+}$
+
+<p>
+${ \displaystyle
+\begin{array}{ccccccccccc}
+                        &                 & {\rm cov}({\mathcal L}) & \longrightarrow &
+{\rm non}({\mathcal K}) & \longrightarrow & {\rm cof}({\mathcal K}) & \longrightarrow &
+{\rm cof}({\mathcal L}) & \longrightarrow & 2^{\aleph_0} \\
+
+                        &                 & \multirow{3}{*}{\Bigg\uparrow} &          &
+\uparrow                &                 & \uparrow                &                 &
+\multirow{3}{*}{\Bigg\uparrow} &          & \\
+
+                        &                 &                         &                 &
+{\mathfrak b}           & \longrightarrow & {\mathfrak d}           &                 &
+                        &                 & \\
+
+                        &                 &                         &                 &
+\uparrow                &                 & \uparrow                &                 &
+                        &                 & \\
+
+\aleph_1                & \longrightarrow & {\rm add}({\mathcal L}) & \longrightarrow &
+{\rm add}({\mathcal K}) & \longrightarrow & {\rm cov}({\mathcal K}) & \longrightarrow &
+{\rm non}({\mathcal L}) &                 &
+\end{array}
+}$
+
+<p>
+${ \displaystyle
+   \sideset{_{{}_\alpha^\beta\mathfrak{A}_\delta^\gamma}^{{}_\epsilon^\zeta\mathfrak{B}_\theta^\eta}}{_{{}_\rho^\sigma\mathfrak{E}_\upsilon^\tau}^{{}_\nu^\xi\mathfrak{D}_\pi^o}}\prod_{{}_\phi^\chi\mathfrak{F}_\omega^\psi}^{{}_\iota^\kappa\mathfrak{C}_\mu^\lambda}
+}$
+
+<p>
+${ \displaystyle
+   \frac{\sqrt{1 + \sqrt[3]{2 + \sqrt[5]{3 + \sqrt[7]{4 + \sqrt[11]{5 + \sqrt[13]{6 + \sqrt[17]{7 + \sqrt[19]{A}}}}}}}}}{\mathrm{e}^\pi} = x^{'''}
+}$
+
+<p>
+${ \displaystyle
+   \left(
+     \begin{array}{@{}r@{}l@{}}
+       \left(
+         \begin{array}{llrr}
+           a_1 & a_2 \thickspace & a_3 & a_4 \\
+           a_5 & a_6 \thickspace & a_7 & a_8 \\
+         \end{array}
+       \right)
+     &
+       \multirow{2}{*}[1.4ex]
+       {$
+         \left(
+           \begin{array}{c}
+             b_1 \\
+             b_2 \\ [0.3ex]
+             b_3 \\
+             b_4 \\
+           \end{array}
+         \right)
+       $}
+     \\ [1.7ex]
+       \begin{array}{lr@{}}
+         $\raisebox{-0.5ex}{\Large 0}$\thinspace
+         &
+         \left(
+           \begin{array}{rr}
+             c_1 \thinspace & c_2 \\
+             c_3 \thinspace & c_4 \\
+           \end{array}
+         \right)
+       \end{array}
+     &
+     \end{array}
+   \right)
+}$
+
+<p>
+\begin{gather}
+  \Huge{Huge}, \Large{Large}, \normalsize{normalsize}, \small{small}
+\end{gather}
+
+
+<h3>KaTeX tests</h3>
+
+<h4>Repeating fractions</h4>
+
+<p>
+The LaTeX code:
+
+$$
+\frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}} {1+\frac{e^{-8\pi}} {1+\cdots} } } }
+$$
+
+<h4>Summation notation</h4>
+
+<p>
+The LaTeX code:
+ 
+$$
+\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
+$$
+
+<p>
+Sum of a Series
+
+<p>
+I broke up the next two examples into separate lines so it behaves better on a mobile phone. That's why they include \displaystyle.
+
+<p>
+The LaTeX code:
+
+$$
+\displaystyle\sum_{i=1}^{k+1}i
+$$
+
+<p>
+The LaTeX code:
+
+$$
+\displaystyle= \left(\sum_{i=1}^{k}i\right) +(k+1)
+$$
+
+<p>
+The LaTeX code:
+
+$$
+\displaystyle= \frac{k(k+1)}{2}+k+1
+$$
+
+<p>
+The LaTeX code:
+
+$$
+\displaystyle= \frac{k(k+1)+2(k+1)}{2}
+$$
+
+<p>
+The LaTeX code:
+
+$$
+\displaystyle= \frac{(k+1)(k+2)}{2}
+$$
+
+<p>
+The LaTeX code:
+
+$$
+\displaystyle= \frac{(k+1)((k+1)+1)}{2}
+$$
+
+<p>
+Product notation
+
+<p>
+The LaTeX code:
+
+$$
+\displaystyle\text{ for }\lvert q\rvert < 1.
+= \displaystyle \prod_{j=0}^{\infty}\frac{1}{(1-q^{5j+2})(1-q^{5j+3})}, 
+\displaystyle
+1 +  \frac{q^2}{(1-q)}+\frac{q^6}{(1-q)(1-q^2)}+\cdots
+$$
+
+<p>
+Inline math
+
+<p>
+And here is some in-line math: 
+
+<p>
+The LaTeX code:
+And here is some in-line math: $k_{n+1} = n^2 + k_n^2 - k_{n-1}$, followed by some more text.
+
+<p>
+Inline math uses
+span
+rather than a div.
+
+<p>
+Greek Letters
+
+<p>
+Γ Δ Θ Λ Ξ Π Σ Υ Φ Ψ Ω
+
+<p>
+The LaTeX code:
+
+$$
+\Gamma\ \Delta\ \Theta\ \Lambda\ \Xi\ \Pi\ \Sigma\ \Upsilon\ \Phi\ \Psi\ \Omega
+$$
+
+<p>
+α β γ δ ϵ ζ η θ ι κ λ μ ν ξ
+ ο π ρ σ τ υ ϕ χ ψ ω ε ϑ ϖ ϱ ς φ
+
+<p>
+The LaTeX code:
+
+$$
+\alpha\ \beta\ \gamma\ \delta\ \epsilon\ \zeta\ \eta\ \theta\ \iota\ \kappa\ \lambda\ \mu\ \nu\ \xi
+\ \omicron\ \pi\ \rho\ \sigma\ \tau\ \upsilon\ \phi\ \chi\ \psi\ \omega\ \varepsilon\ \vartheta\ \varpi\ \varrho\ \varsigma\ \varphi
+$$
+
+<p>
+Arrows
+
+<p>
+← → ← → ↑ ⇑ ↓ ⇓ ↕ ⇕
+
+<p>
+The LaTeX code:
+
+$$
+\gets\ \to\ \leftarrow\ \rightarrow\ \uparrow\ \Uparrow\ \downarrow\ \Downarrow\ \updownarrow\ \Updownarrow 
+$$
+
+<p>
+⇐ ⇒ ↔ ⇔ ↦ ↩
+
+<p>
+The LaTeX code:
+
+$$
+\Leftarrow\ \Rightarrow\ \leftrightarrow\ \Leftrightarrow\ 
+\mapsto\ \hookleftarrow
+$$
+
+<p>
+↼ ↽ ⇌ ⟵ ⟸ ⟶
+
+<p>
+The LaTeX code:
+
+$$
+\leftharpoonup\ \leftharpoondown\ \rightleftharpoons\ \longleftarrow\ \Longleftarrow\ \longrightarrow
+$$
+
+<p>
+⟹ ⟷ ⟺ ⟼ ↪ ⇀
+
+<p>
+The LaTeX code:
+
+$$
+\Longrightarrow\ \longleftrightarrow\ \Longleftrightarrow\ \longmapsto\ 
+\hookrightarrow\ \rightharpoonup
+$$
+
+<p>
+⇁ ⇝ ↗ ↘ ↙ ↖
+
+<p>
+The LaTeX code:
+
+$$
+\rightharpoondown\ \leadsto\ \nearrow\ 
+\searrow\ \swarrow\ \nwarrow
+$$
+
+<p>
+Symbols
+
+<p>
+√ ⊼ ⊻ ⊙ ⊕ ⊗ ⊘ ⊚ ⊡ △
+
+<p>
+The LaTeX code:
+ 
+$$
+\surd\ \barwedge\ \veebar\ \odot\ \oplus\ \otimes\ \oslash\ \circledcirc\ \boxdot\ 
+\bigtriangleup
+$$
+
+<p>
+▽ † ⋄ ⋆ ◃ ▹ ∠ ∞ ′ △
+
+<p>
+The LaTeX code:
+ 
+$$
+\bigtriangledown\ \dagger\ \diamond\ \star\ \triangleleft\ 
+\triangleright\ \angle\ \infty\ \prime\ \triangle
+$$
+
+<p>
+Calculus
+
+<p>
+The LaTeX code:
+ 
+$$
+\int u \frac{dv}{dx}\,dx=uv-\int \frac{du}{dx}v\,dx 
+$$
+
+<p>
+The LaTeX code:
+ 
+$$
+f(x) = \int_{-\infty}^\infty \hat f(\xi)\,e^{2 \pi i \xi x}
+$$
+
+<p>
+The LaTeX code:
+ 
+$$
+\oint \vec{F} \cdot d\vec{s}=0
+$$
+
+<p>
+Lorenz Equations
+
+<p>
+The LaTeX code:
+
+$$
+\begin{aligned}
+\dot{x} & = \sigma(y-x) \\
+\dot{y} & = \rho x - y - xz \\
+\dot{z} & = -\beta z + xy
+\end{aligned}
+$$
+
+<p>
+Cross Product
+
+<p>
+This works in KaTeX, but the separation of fractions in this environment is not so good.
+
+<p>
+The LaTeX code:
+
+$$
+\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}
+\mathbf{i} & \mathbf{j} & \mathbf{k} \\
+\frac{\partial X}{\partial u} &  \frac{\partial Y}{\partial u} & 0 \\
+\frac{\partial X}{\partial v} &  \frac{\partial Y}{\partial v} & 0
+\end{vmatrix}
+$$
+
+<p>
+Here's a workaround: make the fractions smaller with an extra class that targets the spans with "mfrac" class (makes no difference in the MathJax case):
+
+<p>
+The LaTeX code:
+
+$$
+\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}
+\mathbf{i} & \mathbf{j} & \mathbf{k} \\
+\frac{\partial X}{\partial u} &  \frac{\partial Y}{\partial u} & 0 \\
+\frac{\partial X}{\partial v} &  \frac{\partial Y}{\partial v} & 0
+\end{vmatrix}
+$$
+
+<p>
+Accents
+
+<p>
+The LaTeX code:
+ 
+$$
+\hat{x}\ \vec{x}\ \ddot{x} 
+$$
+
+<p>
+Stretchy brackets
+
+<p>
+The LaTeX code:
+ 
+$$
+\left(\frac{x^2}{y^3}\right)
+$$
+
+<p>
+Evaluation at limits
+
+<p>
+The LaTeX code:
+ 
+$$
+\left.\frac{x^3}{3}\right|_0^1
+$$
+
+<p>
+Case definitions
+
+<p>
+The LaTeX code:
+ 
+$$
+f(n) = \begin{cases} \frac{n}{2}, & \text{if } n\text{ is even} \\ 3n+1, & \text{if } n\text{ is odd} \end{cases}
+$$
+
+<p>
+Maxwell's Equations
+
+<p>
+The LaTeX code:
+ 
+$$
+\begin{aligned}
+\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} & = \frac{4\pi}{c}\vec{\mathbf{j}} \\   
+\nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\
+\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\
+\nabla \cdot \vec{\mathbf{B}} & = 0 \end{aligned}
+$$
+
+<p>
+These equations are quite cramped. We can add vertical spacing using (for example) [1em] after each line break (\\). as you can see here:
+
+<p>
+The LaTeX code:
+ 
+$$
+\begin{aligned}
+\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} & = \frac{4\pi}{c}\vec{\mathbf{j}} \\[1em]   
+\nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\[0.5em]
+\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\[1em]
+\nabla \cdot \vec{\mathbf{B}} & = 0 \end{aligned}
+$$
+
+<p>
+Statistics
+
+<p>
+Definition of combination:
+
+<p>
+The LaTeX code:
+ 
+$$
+\frac{n!}{k!(n-k)!} = {^n}C_k
+$$
+
+<p>
+The LaTeX code:
+
+$$
+{n \choose k}
+$$
+
+<p>
+Fractions on fractions
+
+<p>
+The LaTeX code:
+ 
+$$
+\frac{\frac{1}{x}+\frac{1}{y}}{y-z}
+$$
+
+<p>
+n-th root
+
+<p>
+The LaTeX code:
+
+$$
+\sqrt[n]{1+x+x^2+x^3+\ldots}
+$$
+
+<p>
+Matrices
+
+<p>
+The LaTeX code:
+
+$$
+\begin{pmatrix}
+a_{11} & a_{12} & a_{13}\\ 
+a_{21} & a_{22} & a_{23}\\ 
+a_{31} & a_{32} & a_{33}
+\end{pmatrix}
+$$
+
+<p>
+The LaTeX code:
+
+$$
+\begin{bmatrix} 0 & \cdots & 0 \\ \vdots & \ddots & \vdots \\ 0 & \cdots & 0 \end{bmatrix}
+$$
+
+<p>
+Punctuation
+
+<p>
+The LaTeX code:
+
+$$
+f(x) = \sqrt{1+x} \quad (x \ge  -1)
+$$
+
+<p>
+The LaTeX code:
+
+$$
+f(x) \sim x^2 \quad (x\to\infty)
+$$
+
+<p>
+Now with punctuation:
+
+<p>
+The LaTeX code:
+
+$$
+f(x) = \sqrt{1+x}, \quad x \ge -1
+$$
+
+<p>
+The LaTeX code:
+
+$$
+f(x) \sim x^2, \quad x\to\infty
+$$
+
+<p>
+Try again?
+Process with KaTex Process with MathJax
+Background and explanation
+Read more about KaTeX and the examples above here:
+KaTeX – a new way to display math on the Web
+See also: ASCIIMathML, KaTeX and MathJax Demo
+Search IntMath, blog and Forum
+
+<h2>xxx</h2>
+
+<p>
+The construction $\dfrac{num}{den}$ is equivalent to saying
+
+$$
+{\displaystyle\frac{num}{den}}
+$$
+
+<p>
+So it's not correct to say that dcases changes \frac into \dfrac. Indeed, inside it (as well as in equation), we'll have
+
+$$
+\frac{\frac{S}{S}}{T}
+$$
+
+where the letters denote the style chosen, because the numerator will be in style T as follows from the rules. Here's an example, where the overall style is D.
+
+<p>
+enter image description here
+
+<p>
+As it can be seen, the styles have their effect also on other symbols, the "big operators": a  \sum in style D will be bigger than in style T. Style D usually forces subscript and superscripts to big operators to be set below and above it (look for \displaylimits, \limits and \nolimits).
+
+<p>
+Thus there is a big difference between
+
+$\displaystyle\sum_{i=1}^{n} a_{i}$
+
+and
+
+$\sum\limits_{i=1}^{n} a_{i}$
+
+<p>
+In the first case the summation symbol will be big, in the second one it will be the normal one for style T, but with limits above and below as imposed by \limits (it's not recommended to do it).
+
+<h2>xxxx</h2>
+
+<p>
+\LaTeX\ Mathematics Examples
+
+<p>
+Prof Tony Roberts
+
+<p>
+Delimiters
+
+<p>
+See how the delimiters are of reasonable size in these examples
+
+\[
+  \left(a+b\right)\left[1-\frac{b}{a+b}\right]=a\,,
+\]
+
+\[
+  \sqrt{|xy|}\leq\left|\frac{x+y}{2}\right|,
+\]
+
+even when there is no matching delimiter
+
+\[
+  \int_a^bu\frac{d^2v}{dx^2}\,dx
+  =\left.u\frac{dv}{dx}\right|_a^b
+  -\int_a^b\frac{du}{dx}\frac{dv}{dx}\,dx.
+\]
+
+
+
+
+
+
+<p>
+Spacing
+
+Differentials often need a bit of help with their spacing as in
+\[
+  \iint xy^2\,dx\,dy 
+  =\frac{1}{6}x^2y^3,
+\]
+whereas vector problems often lead to statements such as
+\[
+  u=\frac{-y}{x^2+y^2}\,,\quad
+  v=\frac{x}{x^2+y^2}\,,\quad\text{and}\quad
+  w=0\,.
+\]
+
+<p>
+Occasionally one gets horrible line breaks when using a list in mathematics such as listing the first twelve primes  \(2,3,5,7,11,13,17,19,23,29,31,37\)\,.
+
+<p>
+In such cases, perhaps include \verb|\mathcode`\,="213B| inside the inline maths environment so that the list breaks: \(\mathcode`\,="213B 2,3,5,7,11,13,17,19,23,29,31,37\)\,.
+
+<p>
+Be discerning about when to do this as the spacing is different.
+
+
+
+
+
+
+<p>
+Arrays
+
+<p>
+Arrays of mathematics are typeset using one of the matrix environments as 
+in
+\[
+  \begin{bmatrix}
+    1 & x & 0 \\
+    0 & 1 & -1
+  \end{bmatrix}\begin{bmatrix}
+    1  \\
+    y  \\
+    1
+  \end{bmatrix}
+  =\begin{bmatrix}
+    1+xy  \\
+    y-1
+  \end{bmatrix}.
+\]
+
+<p>
+Case statements use cases:
+\[
+  |x|=\begin{cases}
+    x, & \text{if }x\geq 0\,,  \\
+    -x, & \text{if }x< 0\,.
+  \end{cases}
+\]
+
+<p>
+Many arrays have lots of dots all over the place as in
+\[
+  \begin{matrix}
+    -2 & 1 & 0 & 0 & \cdots & 0  \\
+    1 & -2 & 1 & 0 & \cdots & 0  \\
+    0 & 1 & -2 & 1 & \cdots & 0  \\
+    0 & 0 & 1 & -2 & \ddots & \vdots \\
+    \vdots & \vdots & \vdots & \ddots & \ddots & 1  \\
+    0 & 0 & 0 & \cdots & 1 & -2
+  \end{matrix}
+\]
+
+
+
+
+
+
+<p>
+Equation arrays
+
+<p>
+In the flow of a fluid film we may report
+
+\begin{eqnarray}
+  u_\alpha & = & \epsilon^2 \kappa_{xxx} 
+  \left( y-\frac{1}{2}y^2 \right),
+  \label{equ}  \\
+  v & = & \epsilon^3 \kappa_{xxx} y\,,
+  \label{eqv}  \\
+  p & = & \epsilon \kappa_{xx}\,.
+  \label{eqp}
+\end{eqnarray}
+
+<p>
+Alternatively, the curl of a vector field $(u,v,w)$ may be written 
+with only one equation number:
+
+\begin{eqnarray}
+  \omega_1 & = &
+  \frac{\partial w}{\partial y}-\frac{\partial v}{\partial z}\,,
+  \nonumber  \\
+  \omega_2 & = & 
+  \frac{\partial u}{\partial z}-\frac{\partial w}{\partial x}\,,
+  \label{eqcurl}  \\
+  \omega_3 & = & 
+  \frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}\,.
+  \nonumber
+\end{eqnarray}
+
+Whereas a derivation may look like
+
+\begin{eqnarray*}
+  (p\wedge q)\vee(p\wedge\neg q) & = & p\wedge(q\vee\neg q)
+  \quad\text{by distributive law}  \\
+   & = & p\wedge T \quad\text{by excluded middle}  \\
+   & = & p \quad\text{by identity}
+\end{eqnarray*}
+
+
+
+
+
+
+<p>
+Functions
+
+<p>
+Observe that trigonometric and other elementary functions are typeset 
+properly, even to the extent of providing a thin space if followed by 
+a single letter argument:
+\[
+  \exp(i\theta)=\cos\theta +i\sin\theta\,,\quad
+  \sinh(\log x)=\frac{1}{2}\left( x-\frac{1}{x} \right).
+\]
+
+<p>
+With sub- and super-scripts placed properly on more complicated 
+functions,
+\[
+  \lim_{q\to\infty}\|f(x)\|_q 
+  =\max_{x}|f(x)|,
+\]
+and large operators, such as integrals and
+\begin{eqnarray*}
+  e^x & = & \sum_{n=0}^\infty \frac{x^n}{n!}
+  \quad\text{where }n!=\prod_{i=1}^n i\,,  \\
+  \overline{U_\alpha} & = & \bigcap_\alpha U_\alpha\,.
+\end{eqnarray*}
+
+<p>
+In inline mathematics the scripts are correctly placed to the side in 
+order to conserve vertical space, as in
+\(
+  1/(1-x)=\sum_{n=0}^\infty x^n.
+\)
+
+
+
+
+
+
+<p>
+Accents
+
+<p>
+Mathematical accents are performed by a short command with one 
+argument, such as
+\[
+  \tilde f(\omega)=\frac{1}{2\pi}
+  \int_{-\infty}^\infty f(x)e^{-i\omega x}\,dx\,,
+\]
+or
+\[
+  \dot{\vec \omega}=\vec r\times\vec I\,.
+\]
+
+
+
+
+
+<p>
+Command definition
+
+<p>
+\newcommand{\Ai}{\operatorname{Ai}} 
+
+The Airy function, $\Ai(x)$, may be incorrectly defined as this 
+integral
+\[
+  \Ai(x)=\int\exp(s^3+isx)\,ds\,.
+\]
+
+\newcommand{\D}[2]{\frac{\partial #2}{\partial #1}}
+\newcommand{\DD}[2]{\frac{\partial^2 #2}{\partial #1^2}}
+\renewcommand{\vec}[1]{\text{\boldmath$#1$}}
+
+This vector identity serves nicely to illustrate two of the new 
+commands:
+\[
+  \vec\nabla\times\vec q
+  =\vec i\left(\D yw-\D zv\right)
+  +\vec j\left(\D zu-\D xw\right)
+  +\vec k\left(\D xv-\D yu\right).
+\]
+
+
+
+
+<p>
+Theorems et al.
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+
+\begin{definition}[right-angled triangles] \label{def:tri}
+A \emph{right-angled triangle} is a triangle whose sides of length~\(a\), \(b\) and~\(c\), in some permutation of order, satisfies \(a^2+b^2=c^2\).
+\end{definition}
+
+\begin{lemma} 
+The triangle with sides of length~\(3\), \(4\) and~\(5\) is right-angled.
+\end{lemma}
+
+<p>
+This lemma follows from the Definition~\ref{def:tri} as \(3^2+4^2=9+16=25=5^2\).
+
+\begin{theorem}[Pythagorean triplets] \label{thm:py}
+Triangles with sides of length \(a=p^2-q^2\), \(b=2pq\) and \(c=p^2+q^2\) are right-angled triangles.
+\end{theorem}
+
+<p>
+Prove this Theorem~\ref{thm:py} by the algebra \(a^2+b^2 =(p^2-q^2)^2+(2pq)^2 \\
+=p^4-2p^2q^2+q^4+4p^2q^2 \\
+=p^4+2p^2q^2+q^4 \\
+=(p^2+q^2)^2 =c^2\).
+
+
+
+
+</blockquote>
+
+</body>
+</html>
