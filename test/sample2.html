@@ -15,6 +15,7 @@
       "../../mathjax-third-party-extensions/longdiv/unpacked/longdiv.js",
       "../../mathjax-third-party-extensions/counters/counters.js",
     ],
+    //jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/HTML-CSS" ],
     jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/SVG" ],
     tex2jax: { 
       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
@@ -22,8 +23,11 @@
       processEscapes: true,
     },
     TeX: {
-      extensions: ["AMSmath.js", "AMSsymbols.js", "extpfeil.js", "noErrors.js", "noUndefined.js"],
+      extensions: ["AMSmath.js", "AMSsymbols.js", "extpfeil.js", "newcommand.js", "begingroup.js", "mathchoice.js", "unicode.js", "mediawiki-texvc.js", "cancel.js", "bbox.js", "verb.js", "noErrors.js", "noUndefined.js"],
       equationNumbers: {autoNumber: "AMS"}, 
+    },
+    "HTML-CSS": {
+        preferredFont: "Gyre-Pagella",
     },
     SVG: {
       font: "Gyre-Pagella",
@@ -111,6 +115,117 @@ If your browser supports JavaScript, be sure it is enabled.</b>
 </p>
 
 <p>
+\[
+  \begin{matrix}
+    1 \\
+    2 \\
+    3
+  \end{matrix}\begin{matrix}
+    a  \\
+    b \\
+    c \\
+    d
+  \end{matrix}
+\]
+
+\[
+  \begin{matrix}
+    1 \\
+    2 \\
+    3
+  \end{matrix}\begin{matrix}
+    \cfrac{a}{\cfrac{b}{\cfrac{c}{d}}}
+  \end{matrix}
+\]
+
+\[
+  \begin{matrix}
+    1 \\
+    2 \\
+    3
+  \end{matrix}\begin{matrix}
+    a  \\
+\hline    b \\
+\hline    c \\
+\hline    d
+  \end{matrix}
+\]
+
+\[
+  \begin{matrix}
+    1 \\
+    2 \\
+    3
+  \end{matrix}\]
+
+\[
+\begin{matrix}
+    a  \\
+\rule{.3em}{.1em}    b \\
+\rule{.3em}{.1em}    c \\
+\rule{.3em}{.1em}    d
+  \end{matrix}\]
+
+\[
+\eqalign{
+    a  \\
+    b \\
+    c \\
+    d
+  }\]
+
+\[
+\displaylines{
+    a  \\
+    b \\
+    c \\
+    d
+  }\]
+
+\[
+\eqalignno{
+    a  \\
+    b \\
+    c \\
+    d
+  }\]
+
+\[
+\leqalignno{
+    a  \\
+    b \\
+    c \\
+    d
+  }
+\]
+
+\[
+\left\{
+\eqalign{
+a &= 1\\
+b &= 2\\
+c &= 3
+}\right\}
+\qquad
+\eqalign{
+ax + by &= c \\
+ x + 2y &= 3
+ }
+\]
+
+\[
+\rule{.3em}{.1em}%
+\rule[-.1em]{5em}{1em}%
+\rule{.3em}{.1em}%
+\rule[.1em]{1em}{5em}%
+\rule{.3em}{.1em}
+\]
+
+\[
+x = {a \mod b} \pod c 
+\]
+
+<p>
 \begin{equation}
   \cos (2\theta) = \cos^2 \theta - \sin^2 \theta
 \end{equation}
@@ -118,6 +233,2073 @@ If your browser supports JavaScript, be sure it is enabled.</b>
 \begin{equation}
   {\displaystyle \cos(2\theta )=\cos ^{2}\theta -\sin ^{2}\theta \,} 
 \end{equation}
+
+<p>
+\begin{equation}
+  \underbracket[0pt]{\frac{5}{9}}_{(7)}
+\end{equation}
+
+<p>
+\[
+  f(x) = \underset{\strut(7)}{\frac{5}{9}} + \overset{\strut(8)}{\frac{4}{9}}
+\]
+
+<p>
+Some space can be added in the outer nominator/denominator, e.g.:
+
+\[
+  \frac{\,\frac{a}{b}\,}{\frac{c}{d}}
+\]
+
+or
+
+\[
+  \genfrac{left-delim}{right-delim}{thickness}{mathstyle}{numerator}{denominator}
+\]
+
+
+<p>
+\[
+\newcommand\zfrac[2]{{\tabcolsep=2pt\begin{array}{c}%
+#1\\
+\noalign{\vskip-7pt}
+\multicolumn{1}{@{}c@{}}{\rule[-3pt]{.4pt}{3pt}\hrulefill\rule{.4pt}{3pt}}\\
+\noalign{\vskip-2pt}
+#2\end{array}}}
+
+
+\[
+\frac{1}{2} + \zfrac{1}{2} + \zfrac{111}{222}
+\]
+
+
+<p>
+\begin{equation*}
+    \Rightarrow \alpha \mathlarger{\mathlarger{\sum}}_{c}A_c a_k\left( \frac{
+    \scalemath{0.85}{
+    \begin{aligned}
+        \underbrace{\left[\left(\sum_{k=1}^{\nu-1}\frac{a_k}{12}(y_k^2+y_k y_{k+1} +y_{k+1}^2)\right) - \lambda_1\right]^2}_{\mathlarger{\mu_1}} +
+        \underbrace{\left[\left(\sum_{k=1}^{\nu-1}\frac{a_k}{24}(x_k y_{k+1}+2x_ky_k+2x_{k+1}y_{k+1} +x_{k+1}y_k)\right) - \lambda_2 \right]^2}_{\mathlarger{\mu_2}} + \\[1em]
+        \underbrace{\left[\left(\sum_{k=1}^{\nu-1}\frac{a_k}{24}(x_k y_{k+1}+2x_ky_k+2x_{k+1}y_{k+1} +x_{k+1}y_k)\right) - \lambda_3 \right]^2}_{\mathlarger{\mu_3}}+
+        \underbrace{\left[\left(\sum_{k=1}^{\nu-1}\frac{a_k}{12}(x_k^2+x_k x_{k+1} +x_{k+1}^2)\right) - \lambda_4 \right]^2}_{\mathlarger{\mu_4}}
+    \end{aligned}
+    }
+    }
+    {\Lambda^2}
+    \right)
+\end{equation*}
+
+<p>
+\begin{equation*}
+    \Rightarrow \alpha \mathlarger{\mathlarger{\sum}}_{c}A_c a_k\left( \frac{
+    B
+    }
+    {\Lambda^2}
+    \right)
+\end{equation*}
+where
+\begin{equation*}
+    \begin{aligned}
+        B = &\underbrace{\left[\left(\sum_{k=1}^{\nu-1}
+        \frac{a_k}{12}(y_k^2+y_k y_{k+1} +y_{k+1}^2)\right) - 
+          \lambda_1\right]^2}_{\mathlarger{\mu_1}} +\\[1ex]&
+        \underbrace{\left[\left(\sum_{k=1}^{\nu-1}\frac{a_k}{24}(x_k y_{k+1}+
+          2x_ky_k+2x_{k+1}y_{k+1} +x_{k+1}y_k)\right) - \lambda_2 \right]^2}
+          _{\mathlarger{\mu_2}} + \\[1ex]&
+        \underbrace{\left[\left(\sum_{k=1}^{\nu-1}\frac{a_k}{24}(x_k y_{k+1}+
+          2x_ky_k+2x_{k+1}y_{k+1} +x_{k+1}y_k)\right) - \lambda_3 \right]^2}
+          _{\mathlarger{\mu_3}}+\\[1ex]&
+        \underbrace{\left[\left(\sum_{k=1}^{\nu-1}\frac{a_k}{12}(x_k^2+x_k x_{k+1} +x_{k+1}^2)\right) - \lambda_4 \right]^2}_{\mathlarger{\mu_4}}
+    \end{aligned}
+\end{equation*}
+
+<p>
+\begin{equation*}
+    \begin{aligned}
+        \Rightarrow \alpha \mathlarger{\mathlarger{\sum}}_{c}A_c a_k = 
+          \frac{1}{\Lambda^2}\Biggl\{
+        &\underbrace{\left[\left(\sum_{k=1}^{\nu-1}
+        \frac{a_k}{12}(y_k^2+y_k y_{k+1} +y_{k+1}^2)\right) - 
+          \lambda_1\right]^2}_{\mathlarger{\mu_1}} +\\[1ex]&
+        \underbrace{\left[\left(\sum_{k=1}^{\nu-1}\frac{a_k}{24}(x_k y_{k+1}+
+          2x_ky_k+2x_{k+1}y_{k+1} +x_{k+1}y_k)\right) - \lambda_2 \right]^2}
+          _{\mathlarger{\mu_2}} + \\[1ex]&
+        \underbrace{\left[\left(\sum_{k=1}^{\nu-1}\frac{a_k}{24}(x_k y_{k+1}+
+          2x_ky_k+2x_{k+1}y_{k+1} +x_{k+1}y_k)\right) - \lambda_3 \right]^2}
+          _{\mathlarger{\mu_3}}+\\[1ex]&
+        \underbrace{\left[\left(\sum_{k=1}^{\nu-1}\frac{a_k}{12}(x_k^2+x_k x_{k+1} +x_{k+1}^2)\right) - \lambda_4 \right]^2}_{\mathlarger{\mu_4}}\Bigg\}
+    \end{aligned}
+\end{equation*}
+
+<p>
+\begin{equation} ... \end{equation} should be used for display math that consists of a single formula, i.e., has only one equation "number". split can be used within equation, and is recommended (read the documentation, please). so
+
+\begin{equation}\label{eq1}
+\begin{split}
+H=\langle x_1,x_2,\cdots, x_n \colon & [x_i,x_j,x_k]=1,\\
+                                          & [x_i,x_j]^p=1 \rangle.
+\end{split}
+\tag{*}
+\end{equation}
+
+<p>
+\[
+-x^3-x+1=0 \Leftrightarrow x=\sqrt[3]{\frac 12+\sqrt{\frac{31}{108}}}+\sqrt[3]{\frac 12-\sqrt{\frac{31}{108}}}=q\Leftrightarrow -x^3-x+1=(x-q)(-x^2-qx-(q^2+1))
+\]
+
+<p>
+Los algebraïsch op  (rond indien nodig af op 2 decimalen):
+
+a.  $x^3 - 3x^2 = 0$  
+
+0 of 3
+
+f.   $6x^2 = 4x^9$  
+
+0  of  1,06
+
+b.  $4x^5 + 2x^6 = 0$ 
+
+0 of -2
+
+g.   $x^7  =  5x^7 - x^5$
+
+0  of  1/2 of -1/2 
+
+c.  $x^7 = 4x^5$
+
+0 of 2 of -2
+
+h.   $17x^8 - x^6 = x^8$
+
+0  of  1/4 of   -1/4
+
+d.  $x^7 - 243x^2 = 0$
+
+0 of 3
+
+i.    $3x^4 + x^7 = x^4 + 5x^7$
+
+0 of 0,79
+
+e.  $x^8 = 125x^5$
+
+0 of 5
+
+j.    $x^2(x^2 + x^5) = 5x^7$
+
+0 of 0,63
+
+2.  Los algebraïsch op:
+
+a.  $x^4 + 7x^3 + 10x^2 = 0$
+
+0 of -5 of -2
+
+e.   $x^8 = x^7 + 6x^6$
+
+0 of 3 of -2
+
+b.  $x^3 = 2x^2 + 15x$
+
+0 of 5 of -3
+
+f.    $x - √x = 5√x$
+
+0 of 36
+
+c.  $4x^5 - 12x^3 =  8x^4$
+
+0 of 3 of -1
+
+g.   $x2√x - 2x√x = 24√x$
+
+0 of 6
+
+d.  $x - 5√x = 0$
+
+0 of 25
+
+h.   $x^6 + 3x^5 = 10x^4$
+
+0 of -5 of 2
+
+3.  Examenvraagstuk HAVO Wiskunde B, 2005.
+       
+  Gegeven is de functie  $f(x) = -x^3 + 27x + 44$
+
+Q is het snijpunt van de grafiek van f met de y-as. De lijn k door Q  evenwijdig aan de x-as snijdt de grafiek ook nog in de punten P en R.
+
+       
+  a.  Bereken de lengte van PR.  Rond je antwoord af op twee decimalen.
+      
+10,39
+
+  Een familie van functies is gegeven door $h(x) = (x + 4)(p + 4x - x^2 )$, waarbij p elk reëel getal kan voorstellen.
+       
+  b.  Toon aan met behulp van algebra dat er een waarde van p is waarbij de bijbehorende functie h gelijk is aan de functie f.
+      
+p = 11
+
+       
+ 
+
+<p>
+<p>
+<p>
+<p>
+<p>
+<p>
+<p>
+<p>
+<p>
+<p>
+
+<p>
+\begin{align}
+  r^{2} &= s^{2} + t^{2} \label{E:eqn1}\\
+  2u + 1 &= v + w^{\alpha} \label{E:eqn2}\\
+  x &= \frac{y + z}{\sqrt{s + 2u}} \label{E:eqn3}
+\end{align}
+
+<p>
+\begin{align} \label{E:longInt}
+  h(x) &= \int
+  \left(
+  \frac{ f(x) + g(x) }
+  { 1+ f^{2}(x) }
+  + \frac{ 1+ f(x)g(x) }
+  { \sqrt{1 - \sin x} }
+  \right) \, dx\\
+  &= \int \frac{ 1 + f(x) }
+  { 1 + g(x) }
+  \, dx - 2 \tan^{-1}(x-2) \notag
+\end{align}
+
+<p>
+\begin{align} \label{E:DoAlign}
+  x &= x \wedge (y \vee z)
+  & &\text{(by distributivity)}\\
+  &= (x \wedge y) \vee (x \wedge z)
+  & &\text{(by condition (M))} \notag\\
+  &= y \vee z. \notag
+\end{align}
+
+<p>
+\[
+  f(x)=
+  \begin{cases}
+    -x^{2}, &\text{if $x < 0$;}\\
+    \alpha + x, &\text{if $0 \leq x \leq 1$;}\\
+    x^{2}, &\text{otherwise.}
+  \end{cases}
+\]
+
+<p>
+\emph{Proof.} Since
+\begin{equation} \label{E:cong2}
+  \langle \dots, 0, \dots, \overset{i}{d}, \dots, 0,
+  \dots \rangle \equiv \langle \dots, 0, \dots,
+  \overset{i}{c}, \dots, 0, \dots \rangle \pmod{\Theta},
+\end{equation}
+and $\Theta$ is a complete congruence relation, it follows
+from condition~(C) that
+\begin{align} \label{E:cong}
+  & \langle \dots, \overset{i}{d}, \dots, 0,
+  \dots \rangle \equiv\\
+  &\qquad \qquad \quad \bigvee ( \langle \dots, 0, \dots,
+  \overset{i}{c}, \dots, 0, \dots \rangle \mid d \leq c&lt;1)
+  \equiv 1 \pmod{\Theta}. \notag
+\end{align}
+Let $j \in I$, $j \neq i$, and let $a \in D_{j}^{-}$.
+Meeting both sides of the congruence \eqref{E:cong2} with
+$\langle \dots, 0, \dots, \overset{j}{a}, \dots, 0,
+\dots \rangle$, we obtain
+\begin{align} \label{E:comp}
+  0 = & \langle \dots, 0, \dots, \overset{i}{d}, \dots, 0, \dots
+  \rangle \wedge \langle \dots, 0, \dots, \overset{j}{a},
+  \dots, 0, \dots \rangle \equiv\\
+  &\langle \dots, 0, \dots, \overset{j}{a}, \dots, 0, \dots
+  \rangle \pmod{\Theta}, \notag
+\end{align}
+Using the completeness of $\Theta$ and \eqref{E:comp},
+we get:
+\[
+  0 \equiv \bigvee ( \langle \dots, 0, \dots, \overset{j}{a},
+  \dots, 0,\dots\rangle \mid a \in D_{j}^{-})=1 \pmod{\Theta},
+\]
+hence $\Theta = \iota$.
+
+<p>
+\begin{equation}
+  \langle \dots, 0, \dots, \overset{i}{d}, \dots, 0,
+  \dots \rangle \equiv \langle
+  \dots, 0, \dots, \overset{i}{c}, \dots, 0, \dots
+  \rangle \pmod{\Theta},
+\end{equation}
+
+<p>
+\begin{equation}
+  \con \vct{i}{d}=\vct{i}{c}(\gQ),
+\end{equation}
+
+<p>
+Hebrew letters
+
+Type: Print: Type: Print:
+\[
+\aleph ℵ 
+
+\beth i
+
+\daleth k 
+
+\gimel ג
+\]
+
+<p>
+All symbols but \aleph need the amssymb package.
+
+<p>
+A.2 Greek characters
+
+<p>
+Type: Print: Type: Print: Type: Print:
+
+\[
+\alpha α \beta β \gamma γ
+\digamma z \delta δ \epsilon ²
+\varepsilon ε \zeta ζ \eta η
+\theta θ \vartheta ϑ \iota ι
+\kappa κ \varkappa κ \lambda λ
+\mu µ \nu ν \xi ξ
+\pi π \varpi $ \rho ρ
+\varrho % \sigma σ \varsigma ς
+\tau τ \upsilon υ \phi φ
+\varphi ϕ \chi χ \psi ψ
+\omega ω
+\]
+
+<p>
+\digamma and \varkappa require the amssymb package.
+
+<p>
+Type: Print: Type: Print:
+
+\[
+\Gamma Γ \varGamma Γ
+\Delta ∆ \varDelta ∆
+\Theta Θ \varTheta Θ
+\Lambda Λ \varLambda Λ
+\Xi Ξ \varXi Ξ
+\Pi Π \varPi Π
+\Sigma Σ \varSigma Σ
+\Upsilon Υ \varUpsilon Υ
+\Phi Φ \varPhi Φ
+\Psi Ψ \varPsi Ψ
+\Omega Ω \varOmega Ω
+\]
+
+<p>
+All symbols whose name begins with var need the amsmath package.
+
+<p>
+A.3 LATEX binary relations
+
+<p>
+Type: Print: Type: Print:
+
+\[
+\in ∈ \ni 3
+\]
+\[
+\leq ≤ \geq ≥
+\]
+\[
+\ll ¿ \gg À
+\]
+\[
+\prec ≺ \succ Â
+\]
+\[
+\preceq ¹ \succeq º
+\]
+\[
+\sim ∼ \cong ∼=
+\]
+\[
+\simeq ' \approx ≈
+\]
+\[
+\equiv ≡ \doteq .
+\]
+\[
+=
+\]
+\[
+\subset ⊂ \supset ⊃
+\]
+\[
+\subseteq ⊆ \supseteq ⊇
+\]
+\[
+\sqsubseteq v \sqsupseteq w
+\]
+\[
+\smile ^ \frown _
+\]
+\[
+\perp ⊥ \models |=
+\]
+\[
+\mid | \parallel
+\]
+
+<p>
+A.4 AMS binary relations
+
+<p>
+Type: Print: Type: Print:
+
+\[
+\leqslant 6 \geqslant >
+\]
+\[
+\eqslantless 0 \eqslantgtr 1
+\]
+\[
+\lesssim . \gtrsim &
+\]
+\[
+\lessapprox / \gtrapprox '
+\]
+\[
+\approxeq u
+\]
+\[
+\lessdot l \gtrdot m
+\]
+\[
+\lll ≪ \ggg ≫
+\]
+\[
+\lessgtr ≶ \gtrless ≷
+\]
+\[
+\lesseqgtr Q \gtreqless R
+\]
+\[
+\lesseqqgtr S \gtreqqless T
+\]
+\[
+\doteqdot + \eqcirc P
+\]
+\[
+\circeq $ \fallingdotseq ;
+\]
+\[
+\risingdotseq : \triangleq ,
+\]
+\[
+\backsim v \thicksim ∼
+\]
+\[
+\backsimeq w \thickapprox ≈
+\]
+\[
+\preccurlyeq 4 \succcurlyeq <
+\]
+\[
+\curlyeqprec 2 \curlyeqsucc 3
+\]
+\[
+\precsim - \succsim %
+\]
+\[
+\precapprox w \succapprox v
+\]
+\[
+\subseteqq j \supseteqq k
+\]
+\[
+\Subset b \Supset c
+\]
+\[
+\vartriangleleft C \vartriangleright B
+\]
+\[
+\trianglelefteq E \trianglerighteq D
+\]
+\[
+\vDash ² \Vdash °
+\]
+\[
+\Vvdash ±
+\]
+\[
+\smallsmile ` \smallfrown a
+\]
+\[
+\shortmid p \shortparallel q
+\]
+\[
+\bumpeq l \Bumpeq m
+\]
+\[
+\between G \pitchfork t
+\]
+\[
+\varpropto ∝ \backepsilon Ä
+\]
+\[
+\blacktriangleleft J \blacktriangleright I
+\]
+\[
+\therefore ∴ \because ∵
+\]
+
+All symbols require the amssymb package.
+
+<p>
+A.5 AMS negated binary relations
+
+Type: Print: Type: Print:
+
+\[
+\ne 6= \notin ∈/
+\]
+\[
+\nless ≮ \ngtr ≯
+\]
+\[
+\nleq £ \ngeq ¤
+\]
+\[
+\nleqslant ­ \ngeqslant ®
+\]
+\[
+\nleqq · \ngeqq ¸
+\]
+\[
+\lneq ¯ \gneq °
+\]
+\[
+\lneqq © \gneqq ª
+\]
+\[
+\lvertneqq ¡ \gvertneqq ¢
+\]
+\[
+\lnsim µ \gnsim ¶
+\]
+\[
+\lnapprox ½ \gnapprox ¾
+\]
+\[
+\nprec ⊀ \nsucc ¨
+\]
+\[
+\npreceq ± \nsucceq ²
+\]
+\[
+\precneqq ¹ \succneqq º
+\]
+\[
+\precnsim ³ \succnsim ´
+\]
+\[
+\precnapprox » \succnapprox ¼
+\]
+\[
+\nsim ¿ \ncong À
+\]
+\[
+\nshortmid . \nshortparallel /
+\]
+\[
+\nmid - \nparallel ∦
+\]
+\[
+\nvdash 0 \nvDash 2
+\]
+\[
+\nVdash 1 \nVDash 3
+\]
+\[
+\ntriangleleft 6 \ntriangleright 7
+\]
+\[
+\ntrianglelefteq 5 \ntrianglerighteq 4
+\]
+\[
+\nsubseteq * \nsupseteq +
+\]
+\[
+\nsubseteqq " \nsupseteqq #
+\]
+\[
+\subsetneq ( \supsetneq )
+\]
+\[
+\varsubsetneq Ã \varsupsetneq !
+\]
+\[
+\subsetneqq $ \supsetneqq %
+\]
+\[
+\varsubsetneqq & \varsupsetneqq '
+\]
+
+All symbols but \ne require the amssymb package.
+
+<p>
+A.6 Binary operations
+
+Type: Print: Type: Print:
+
+\[
+\pm ± \mp ∓
+\]
+\[
+\times × \cdot ·
+\]
+\[
+\circ ◦ \bigcirc °
+\]
+\[
+\div ÷ \diamond ¦
+\]
+\[
+\ast ∗ \star ?
+\]
+\[
+\cap ∩ \cup ∪
+\]
+\[
+\sqcap u \sqcup t
+\]
+\[
+\wedge ∧ \vee ∨
+\]
+\[
+\triangleleft / \triangleright .
+\]
+\[
+\bigtriangleup 4 \bigtriangledown 5
+\]
+\[
+\oplus ⊕ \ominus ª
+\]
+\[
+\otimes ⊗ \oslash ®
+\]
+\[
+\odot ¯ \bullet •
+\]
+\[
+\dagger † \ddagger ‡
+\]
+\[
+\setminus \ \uplus ]
+\]
+\[
+\wr o \amalg q
+\]
+\[
+\lhd ✁ \
+\]
+
+<p>
+A.7 Arrows
+
+Type: Print: Type: Print:
+
+\[
+\leftarrow ← \rightarrow or \to →
+\]
+\[
+\longleftarrow ←− \longrightarrow −→
+\]
+\[
+\Leftarrow ⇐ \Rightarrow ⇒
+\]
+\[
+\Longleftarrow ⇐= \Longrightarrow =⇒
+\]
+\[
+\leftrightarrow ↔ \longleftrightarrow ←→
+\]
+\[
+\Leftrightarrow ⇔ \Longleftrightarrow ⇐⇒
+\]
+\[
+\uparrow ↑ \downarrow ↓
+\]
+\[
+\Uparrow ⇑ \Downarrow ⇓
+\]
+\[
+\updownarrow l \Updownarrow m
+\]
+\[
+\nearrow % \searrow &
+\]
+\[
+\swarrow . \nwarrow -
+\]
+\[
+\mapsto 7→ \longmapsto 7−→
+\]
+\[
+\hookleftarrow ←- \hookrightarrow ,→
+\]
+\[
+\leftharpoonup ( \rightharpoonup *
+\]
+\[
+\leftharpoondown ) \rightharpoondown +
+\]
+\[
+\rightleftharpoons ­
+\]
+\[
+\leadsto ❀
+\]
+\[
+\leftleftarrows ⇔ \rightrightarrows ⇒
+\]
+\[
+\leftrightarrows ¿ \rightleftarrows À
+\]
+\[
+\Lleftarrow W \Rrightarrow V
+\]
+\[
+\twoheadleftarrow ´ \twoheadrightarrow ³
+\]
+\[
+\leftarrowtail ¾ \rightarrowtail ½
+\]
+\[
+\looparrowleft " \looparrowright #
+\]
+\[
+\upuparrows · \downdownarrows ¸
+\]
+\[
+\upharpoonleft » \upharpoonright ¹
+\]
+\[
+\downharpoonleft ¼ \downharpoonright º
+\]
+\[
+\leftrightsquigarrow ! \rightsquigarrow Ã
+\]
+\[
+\multimap (
+\]
+\[
+\nleftarrow 8 \nrightarrow 9
+\]
+\[
+\nLeftarrow : \nRightarrow ;
+\]
+\[
+\nleftrightarrow = \nLeftrightarrow <
+\]
+
+<p>
+This table is divided into three parts. The top part contains the symbols provided
+by LATEX; the last command, \leadsto, requires the latexsym package. The middle
+table contains the AMS arrows; they all require the amssymb package. The bottom
+table lists the negated arrow symbols; they also require amssymb.
+
+<p>
+A.8 Miscellaneous symbols
+
+Type: Print: Type: Print:
+
+\[
+\hbar ~ \ell `
+\]
+\[
+\imath ı \jmath 
+\]
+\[
+\wp ℘ \Re <
+\]
+\[
+\Im = \partial ∂
+\]
+\[
+\infty ∞ \prime 0
+\]
+\[
+\emptyset ∅ \backslash \
+\]
+\[
+\forall ∀ \exists ∃
+\]
+\[
+\smallint ∫ \triangle 4
+\]
+\[
+\surd √ \Vert k
+\]
+\[
+\top > \bot ⊥
+\]
+\[
+\P ¶ \S §
+\]
+\[
+\dag † \ddag ‡
+\]
+\[
+\flat [ \natural \
+\]
+\[
+\sharp ] \angle ∠
+\]
+\[
+\clubsuit ♣ \diamondsuit ♦
+\]
+\[
+\heartsuit ♥ \spadesuit ♠
+\]
+\[
+\neg ¬
+\]
+\[
+\Box ✷ \Diamond ✸
+\]
+\[
+\mho ✵
+\]
+\[
+\hslash } \complement {
+\]
+\[
+\backprime 8 \vartriangle M
+\]
+\[
+\Bbbk k \varnothing ∅
+\]
+\[
+\diagup Á \diagdown Â
+\]
+\[
+\blacktriangle N \blacktriangledown H
+\]
+\[
+\triangledown O \Game a
+\]
+\[
+\square ¤ \blacksquare ¥
+\]
+\[
+\lozenge ♦ \blacklozenge ¨
+\]
+\[
+\measuredangle ] \sphericalangle ^
+\]
+\[
+\circledS s \bigstar F
+\]
+\[
+\Finv ` \eth ð
+\]
+\[
+\nexists @
+\]
+
+<p>
+This table is divided into two parts. The top part contains the symbols provided
+by LATEX; the last three commands require the latexsym package. The bottom table
+lists symbols from the AMS; they all require the amssymb package.
+
+<p>
+A.9 Math spacing commands
+
+<p>
+Short form: Full form: Size: Short form: Full form:
+
+\[
+\, \thinspace \! \negthinspace
+\: \medspace \negmedspace
+\; \thickspace \negthickspace
+\quad
+\qquad
+\]
+
+<p>
+The \medspace, \thickspace, \negmedspace, and \negthickspace
+commands require the amsmath package.
+
+<p>
+A.10 Delimiters
+
+Name: Type: Print: Name: Type: Print:
+
+\[
+Left paren ( ( Right paren ) )
+\]
+\[
+Left bracket [ [ Right bracket ] ]
+\]
+\[
+Left brace \{ { Right brace \} }
+\]
+\[
+Reverse slash \backslash \ Forward slash / /
+\]
+\[
+Left angle \langle h Right angle \rangle i
+\]
+\[
+Vertical line | | Double vert. line \| k
+\]
+\[
+Left floor \lfloor b Right floor \rfloor c
+\]
+\[
+Left ceiling \lceil d Right ceiling \rceil e
+\]
+\[
+Upper left corner \ulcorner p Upper right corner \urcorner q
+\]
+\[
+Lower left corner \llcorner x Lower right corner \lrcorner y
+\]
+
+<p>
+The corners require the amsmath package.
+
+<p>
+Name: Type: Print:
+
+\[
+Upward arrow \uparrow ↑
+\]
+\[
+Double upward arrow \Uparrow ⇑
+\]
+\[
+Downward arrow \downarrow ↓
+\]
+\[
+Double downward arrow \Downarrow ⇓
+\]
+\[
+Up-and-down arrow \updownarrow l
+\]
+\[
+Double up-and-down arrow \Updownarrow m
+\]
+
+
+<p>
+A.11 Operators
+
+\[
+\arccos \arcsin \arctan \arg
+\]
+\[
+\cos \cosh \cot \coth
+\]
+\[
+\csc \dim \exp \hom
+\]
+\[
+\ker \lg \ln \log
+\]
+\[
+\sec \sin \sinh 
+\]
+\[
+\tan \tanh
+\]
+\[
+\varliminf \varlimsup \varinjlim \varprojlim
+\]
+
+<p>
+The \var commands require the amsmath package.
+
+\[
+\det \gcd \inf \injlim
+\lim \liminf \limsup \max
+\min \projlim \Pr \sup
+\]
+
+<p>
+The \injlim and \projlim commands require the amsmath package.
+
+<p>
+Type: Inline Displayed Type: Inline Displayed
+
+\[
+\prod_{i=1}^{n} Qn
+\]
+\[
+\coprod_{i=1}^{n} `n
+\]
+\[
+\bigcap_{i=1}^{n} Tn
+\]
+\[
+\bigcup_{i=1}^{n} Sn
+\]
+\[
+\bigwedge_{i=1}^{n} Vn
+\]
+\[
+\bigvee_{i=1}^{n} Wn
+\]
+\[
+\bigsqcup_{i=1}^{n} Fn
+\]
+\[
+\biguplus_{i=1}^{n} Un
+\]
+\[
+\bigotimes_{i=1}^{n} Nn
+\]
+\[
+\bigoplus_{i=1}^{n} Ln
+\]
+\[
+\bigodot_{i=1}^{n} Jn
+\]
+\[
+\sum_{i=1}^{n} Pn
+\]
+
+<p>
+A.12 Math accents
+
+\[
+\hat{a} aˆ
+\]
+\[
+\Hat{a} aˆ
+\]
+\[
+\widehat{a} ba
+\]
+\[
+\sphat ab
+\]
+\[
+\tilde{a} a˜
+\]
+\[
+\Tilde{a} a˜
+\]
+\[
+\widetilde{a} ea
+\]
+\[
+\sptilde a∼
+\]
+\[
+\acute{a} a´
+\]
+\[
+\Acute{a} a´
+\]
+\[
+\bar{a} a¯
+\]
+\[
+\Bar{a} a¯
+\]
+\[
+\breve{a} a˘
+\]
+\[
+\Breve{a} a˘
+\]
+\[
+\spbreve a˘
+\]
+\[
+\check{a} aˇ
+\]
+\[
+\Check{a} aˇ
+\]
+\[
+\spcheck a∨
+\]
+\[
+\dot{a} a˙
+\]
+\[
+\Dot{a} a˙
+\]
+\[
+\spdot a.
+\]
+\[
+\ddot{a} a¨
+\]
+\[
+\Ddot{a} a¨
+\]
+\[
+\spddot a..
+\]
+\[
+\dddot{a} ...a
+\]
+\[
+\spdddot a...
+\]
+\[
+\ddddot{a} ....a
+\]
+\[
+\grave{a} a`
+\]
+\[
+\Grave{a} a`
+\]
+\[
+\imath ı
+\]
+\[
+\vec{a} ~a
+\]
+\[
+\Vec{a} ~a
+\]
+\[
+\jmath a
+\]
+
+<p>
+The \dddot and \ddddot commands and all the capitalized commands require the
+amsmath package; the commands in the fourth column require the amsxtra package.
+
+<p>
+A.13 Math font commands
+
+Type: Print:
+
+\[
+\mathbf{A} A
+\]
+\[
+\mathit{A} A
+\]
+\[
+\mathsf{A} A
+\]
+\[
+\mathrm{A} A
+\]
+\[
+\mathtt{A} A
+\]
+\[
+\mathnormal{A} A
+\]
+\[
+\mathbb{A} A
+\]
+\[
+\mathfrak{A} A
+\]
+\[
+\mathcal{A} A
+\]
+\[
+\boldsymbol{\alpha} α
+\]
+
+<p>
+The \mathbb, \mathfrak, and \mathcal commands require the amsfonts package.
+
+<p>
+The \boldsymbol command requires the amsbsy package.
+
+<p>
+Text symbol tables
+
+<p>
+B.1 Special text characters
+
+<p>
+Type: Print: Type: Print: Type: Print:
+
+\[
+\# #
+\]
+\[
+ \$ $
+\]
+\[
+ \% %
+\]
+\[
+\& &
+\]
+\[
+ \~{} ˜ 
+\]
+\[
+  \_
+\]
+\[
+\^{} ˆ 
+\]
+\[
+\{ { 
+\]
+\[
+\} }
+\]
+\[
+$|$ | 
+\]
+\[
+@ @ 
+\]
+\[
+$*$ ∗
+\]
+\[
+$\backslash$ \
+\]
+
+
+<p>
+B.2 Text accents
+
+<p>
+Type: Print: Type: Print: Type: Print:
+
+\[
+\‘{o} `o 
+\]
+\[
+\’{o} ´o 
+\]
+\[
+\"{o} ¨o
+\]
+\[
+\H{o} ˝o 
+\]
+\[
+\^{o} ˆo 
+\]
+\[
+\~{o} ˜o
+\]
+\[
+\v{o} ˇo 
+\]
+\[
+\u{o} ˘o 
+\]
+\[
+\={o} ¯o
+\]
+\[
+\b{o} o¯ 
+\]
+\[
+\.{o} o˙ 
+\]
+\[
+\d{o} o.
+\]
+\[
+\c{o} o¸ 
+\]
+\[
+\r{o} ˚o 
+\]
+\[
+\t{oo} ooÄ
+\]
+\[
+\i ı 
+\]
+\[
+\j 
+\]
+
+<p>
+B.3 Some European characters
+
+<p>
+Type: Print: Type: Print: Type: Print:
+
+\[
+\aa ˚a 
+\]
+\[
+\AA ˚A 
+\]
+\[
+\ae æ
+\]
+\[
+\AE Æ 
+\]
+\[
+\o ø 
+\]
+\[
+\O Ø
+\]
+\[
+\oe œ 
+\]
+\[
+\OE Œ 
+\]
+\[
+\l Ãl
+\]
+\[
+\L LÃ 
+\]
+\[
+\ss ß 
+\]
+\[
+\SS SS
+\]
+\[
+?‘ ¿ 
+\]
+\[
+!‘ ¡
+\]
+
+<p>
+B.4 Extra text symbols
+
+<p>
+Type: Print:
+
+\[
+\dag †
+
+\]
+\[
+\ddag ‡
+
+\]
+\[
+\S §
+
+\]
+\[
+\P ¶
+
+\]
+\[
+\copyright °c
+
+\]
+\[
+\pounds £
+
+\]
+\[
+\textbullet •
+
+\]
+\[
+\textvisiblespace
+
+\]
+\[
+\textcircled{a} °a
+
+\]
+\[
+\textperiodcentered ·
+\]
+
+<p>
+B.5 Text spacing commands
+
+<p>
+Short form: Full form: Size: Short form: Full form:
+
+\[
+\, \thinspace \! \negthinspace
+\: \medspace \negmedspace
+\; \thickspace \negthickspace
+\quad
+\qquad
+\]
+
+<p>
+The \medspace, \thickspace, \negmedspace, and \negthickspace
+commands require the amsmath package.
+
+<p>
+B.6 Text font commands
+
+<p>
+command
+with argument
+command
+declaration switch to
+
+\[
+\textnormal{...} {\normalfont ...} document font family
+\]
+\[
+\textrm{...} {\rmfamily ...} roman font family
+\]
+\[
+\textsf{...} {\sffamily ...} sans serif font family
+\]
+\[
+\texttt{...} {\ttfamily ...} typewriter style font family
+\]
+\[
+\textup{...} {\upshape ...} upright shape
+\]
+\[
+\textit{...} {\itshape ...} italic shape
+\]
+\[
+\textsl{...} {\slshape ...} slanted shape
+\]
+\[
+\textnormal{...} {\normalfont ...} default font
+\]
+\[
+\textsc{...} {\scshape ...} small capitals
+\]
+\[
+\emph{...} {\em ...} emphasis
+\]
+\[
+\textbf{...} {\bfseries ...} bold (extended)
+\]
+\[
+\textmd{...} {\mdseries ...} normal weight and width
+\]
+
+<p>
+B.7 Text font size changes
+
+\[
+\tiny sample text
+\scriptsize sample text
+\footnotesize sample text
+\small sample text
+\normalsize sample text
+\large sample text
+\Large sample text
+\LARGE sample text
+\huge sample text
+\Huge sample text
+\]
+
+<p>
+B.8 AMS text font size changes
+
+\[
+\Tiny
+\large
+\tiny
+\Large
+\SMALL
+\normalsize
+\LARGE
+\Small
+\huge
+\small
+\Huge
+\]
+
+<p>
+\newcommand {\Rule{0pt}{1em}{.3em}}
+\begin{array}{|c|c|}
+\hline X & P(X = i) \\\hline
+  1  & 1/6 \\\hline
+  2  & 1/6 \\\hline
+  3  & 1/6 \\\hline
+  4  & 1/6 \\\hline
+  5  & 1/6 \\\hline
+  6  & 1/6 \\\hline
+\end{array}
+
+<p>
+If you want to place an accent on top of an i or a j, however, you need to print them
+without their dots. You can print a dotless i or j by typing \i and \j. For example, ˘ı is
+formed by typing \u{\i}.
+
+\[
+`o \‘{o} ´o \’{o} ˆo \^{o} ˜o \~{o}
+¯o \={o} ˙o \.{o} ¨o \"{o} ˚o \r{o}
+˘o \u{o} ˇo \v{o} ˝o \H{o} ¸o \c{o}
+o. \d{o} o¯
+\b{o} oo \t{oo}
+\]
+
+<p>
+Note that the accent commands that are control symbols (i.e., they consist of just one
+non-letter) can also be used without braces. For example \^o and \^{o} both produce
+ˆo.
+
+<p>
+The special letters that are part of European languages can be generated with the
+following commands:
+
+\[
+œ {\oe} Œ {\OE} æ {\ae} Æ {\AE}
+˚a {\aa} ˚A {\AA} ø {\o} Ø {\O}
+ß {\ss} SS {\SS} l {\l} L {\L}
+¡ !‘ ¿ ?‘
+\]
+
+<p>
+For example:
+
+\[
+na\"{\i}ve, r\’esum\’e, {\AA}ngstr{\o}m, se\~norita, stra{\ss}e
+\]
+
+<p>
+produces:
+
+<p>
+na¨ıve, r´esum´e, ˚Angstrøm, se˜norita, straße
+
+<p>
+Math Accents
+
+aˆ \hat{a} aˇ \check{a} a˘ \breve{a}
+a´ \acute{a} a` \grave{a} a˜ \tilde{a}
+a¯ \bar{a} ~a \vec{a} a˙ \dot{a}
+a¨ \ddot{a} xd− y \widehat{x-y} xyz g \widetilde{xyz}
+
+<p>
+Arrows
+
+\[
+← \leftarrow
+\]
+\[
+←− \longleftarrow
+\]
+\[
+ ↑ \uparrow
+\]
+\[
+⇐ \Leftarrow
+\]
+\[
+⇐= \Longleftarrow
+\]
+\[
+ ⇑ \Uparrow
+\]
+\[
+
+→ \rightarrow
+\]
+\[
+ −→ \longrightarrow
+\]
+\[
+ ↓ \downarrow
+\]
+\[
+
+⇒ \Rightarrow
+\]
+\[
+ =⇒ \Longrightarrow 
+\]
+\[
+⇓ \Downarrow
+\]
+\[
+
+↔ \leftrightarrow
+\]
+\[
+ ←→\longleftrightarrow 
+\]
+\[
+l \updownarrow
+\]
+\[
+
+⇔ \Leftrightarrow
+\]
+\[
+ ⇐⇒\Longleftrightarrow
+\]
+\[
+ m \Updownarrow
+\]
+\[
+
+7→ \mapsto
+\]
+\[
+ 7−→ \longmapsto
+\]
+\[
+ % \nearrow
+\]
+\[
+
+←- \hookleftarrow
+\]
+\[
+ ,→ \hookrightarrow
+\]
+\[
+ & \searrow
+\]
+\[
+
+( \leftharpoonup
+\]
+\[
+ * \rightharpoonup
+\]
+\[
+ . \swarrow
+\]
+\[
+
+) \leftharpoondown
+\]
+\[
+ + \rightharpoondown
+\]
+\[
+ - \nwarrow
+\]
+\[
+
+*) \rightleftharpoons
+\]
+\[
+ ❀ \leadsto
+\]
+
+<p>
+The symbols whose names are underlined require the latexsym package.
+
+
+<p>
+\begin{equation} \label{eq1}
+  \begin{split}
+  A & = \frac{\pi r^2}{2} \\
+   & = \frac{1}{2} \pi r^2
+  \end{split}
+\end{equation}
+
+<p>
+\begin{equation} \label{eu_eqn}
+e^{\pi i} + 1 = 0
+\end{equation}
+
+The beautiful equation \ref{eu_eqn} is known as the Euler equation
+
+<p>
+\begin{multline*}
+p(x) = 3x^6 + 14x^5y + 590x^4y^2 + 19x^3y^3\\ 
+- 12x^2y^4 - 12xy^5 + 2y^6 - a^3b^3
+\end{multline*}
+
+<p>
+\begin{multline}
+p(x) = 3x^6 + 14x^5y + 590x^4y^2 + 19x^3y^3\\ 
+- 12x^2y^4 - 12xy^5 + 2y^6 - a^3b^3
+\end{multline}
+
+<p>
+\begin{align*} 
+2x - 5y &=  8 \\ 
+3x + 9y &=  -12
+\end{align*}
+
+<p>
+\begin{align*}
+x&=y           &  w &=z              &  a&=b+c\\
+2x&=-y         &  3w&=\frac{1}{2}z   &  a&=b\\
+-4 + 5x&=2+y   &  w+2&=-1+w          &  ab&=cb
+\end{align*}
+
+
+<p>
+\begin{gather*} 
+2x - 5y =  8 \\ 
+3x^2 + 9y =  3a + c
+\end{gather*}
+
+<p>
+\[ 
+\left \{
+  \begin{tabular}{ccc}
+  1 & 5 & 8 \\
+  0 & 2 & 4 \\
+  3 & 3 & -8 
+  \end{tabular}
+\right \}
+\]
+
+<p>
+Manually sized brackets
+ 
+\[
+ \Bigg \langle 3x+7 \bigg \rangle
+\]
+
+<p>
+Reference guide
+
+LATEX markup  Renders as
+
+\[
+\big( \Big( \bigg( \Bigg( \big( \Big( \bigg( \Bigg( \big.
+
+\]
+\[
+\big] \Big] \bigg] \Bigg] \big] \Big] \bigg] \Bigg]
+
+\]
+\[
+\big\{ \Big\{ \bigg\{ \Bigg\{ \big\{ \Big\{ \bigg\{ \Bigg\{
+
+\]
+\[
+\big \langle \Big \langle \bigg \langle \Bigg \langle \big \langle \Big \langle \bigg \langle \Bigg \langle 
+
+\]
+\[
+\big \rangle \Big \rangle \bigg \rangle \Bigg \rangle \big \rangle \Big \rangle \bigg \rangle \Bigg \rangle 
+
+\]
+
+
+<p>
+\[ \int\limits_0^1 x^2 + y^2 \ dx \]
+
+<p>
+\[ a_1^2 + a_2^2 = a_3^2 \]
+
+<p>
+\[ x^{2 \alpha} - 1 = y_{ij} + y_{ij}  \]
+
+<p>
+\[ (a^n)^{r+s} = a^{nr+ns}  \]
+
+<p>
+\[ \sum_{i=1}^{\infty} \frac{1}{n^s} 
+= \prod_p \frac{1}{1 - p^{-s}} \]
+
+<p>
+Reference guide
+
+Additional examples and operators
+
+LATEX markup  Renders as
+
+\[
+a_{n_i} a_{n_i}
+
+\]
+\[
+\int_{i=1}^n   \int_{i=1}^{n} 
+
+\]
+\[
+\sum_{i=1}^{\infty} \sum_{i=1}^{\infty}
+
+\]
+\[
+\prod_{i=1}^n \prod_{i=1}^n 
+
+\]
+\[
+\cup_{i=1}^n  \cup_{i=1}^n
+
+\]
+\[
+\cap_{i=1}^n  \cap_{i=1}^n
+
+\]
+\[
+\oint_{i=1}^n \oint_{i=1}^n
+
+\]
+\[
+\coprod_{i=1}^n \coprod_{i=1}^n
+\]
+
+<p>
+
+$\int\frac{1}{2}dx - \mathlarger{ \int\frac{1}{2}dx}$
+
+<p>
+Integral $\int_{a}^{b} x^2 dx$ inside text  
+
+<p>
+Improved integral $\int\limits_{a}^{b} x^2 dx$ inside text  
+
+<p>
+Sum $\sum_{n=1}^{\infty} 2^{-n} = 1$ inside text  
+
+<p>
+Improved sum $\sum\limits_{n=1}^{\infty} 2^{-n} = 1$ inside text
+
+<p>
+Limit $\lim_{x\to\infty} f(x)$ inside text  
+
+<p>
+$$\lim_{x\to\infty} f(x)$$  
+
+<p>
+$\iint_V \mu(u,v) \,du\,dv$$
+
+$$\iiint_V \mu(u,v,w) \,du\,dv\,dw$$
+
+$$\iiiint_V \mu(t,u,v,w) \,dt\,du\,dv\,dw$$
+
+$$\idotsint_V \mu(u_1,\dots,u_k) \,du_1 \dots du_k$$
+
+$$\oint_V f(s) \,ds$$
+
+$$\oiint_V f(s,t) \,ds\,dt$$
+
+
+<p>
+\[
+    \binom{n}{k} = \frac{n!}{k!(n-k)!}
+\]
+
+
+<p>
+Fractions can be used alongside the text, for 
+example \( \frac{1}{2} \), and in a mathematical 
+display style like the one below:
+ 
+\[\frac{1}{2}\]
+
+<p>
+When displaying fractions in-line, for example \(\frac{3x}{2}\) 
+you can set a different display style: 
+\( \displaystyle \frac{3x}{2} \).
+ 
+<p>
+This is also true the other way around
+ 
+\[ f(x)=\frac{P(x)}{Q(x)} \ \ \textrm{and} 
+\ \ f(x)=\textstyle\frac{P(x)}{Q(x)} \]
+
+<p>
+Continued fractions
+
+<p>
+The usage of fractions is quite flexible, they can be nested to obtain more complex expressions.
+
+<p>
+The fractions can be nested
+ 
+\[ \frac{1+\frac{a}{b}}{1+\frac{1}{1+\frac{1}{a}}} \]
+ 
+Now a wild example
+ 
+\[
+  a_0+\cfrac{1}{a_1+\cfrac{1}{a_2+\cfrac{1}{a_3+\cdots}}}
+\]
+
+<p>
+Final example
+ 
+\[
+\newcommand*{\contfrac}[2]{%
+{
+  \rlap{$\dfrac{1}{\phantom{#1}}$}%
+  \genfrac{}{}{0pt}{0}{}{#1+#2}%
+}
+}
+\[
+  a_0 +
+  \contfrac{a_1}{
+  \contfrac{a_2}{
+  \contfrac{a_3}{
+  \genfrac{}{}{0pt}{0}{}{\ddots}
+  }}}
+\]
+\]
+
+
+
+
+<p>
+Let \( \mathcal{T} \) be a topological space, a basis is defined as
+ \[
+ \mathcal{B} = \{B_{\alpha} \in \mathcal{T}\, |\,  U = \bigcup B_{\alpha} \forall U \in \mathcal{T} \}
+\]
+
+<p>
+\begin{align*}
+RQSZ \\
+\mathcal{RQSZ} \\
+\mathfrak{RQSZ} \\
+\mathbb{RQSZ}
+\end{align*}
+
+<p>
+\begin{align*}
+3x^2 \in R \subset Q \\
+\mathnormal{3x^2 \in R \subset Q} \\
+\mathrm{3x^2 \in R \subset Q} \\
+\mathit{3x^2 \in R \subset Q} \\
+\mathbf{3x^2 \in R \subset Q} \\
+\mathsf{3x^2 \in R \subset Q} \\
+\mathtt{3x^2 \in R \subset Q} 
+\end{align*}
+
+<p>
+\[
+Some of the \textbf{greatest} 
+discoveries in \underline{science} 
+were made by \textbf{\textit{accident}}.
+\]
+
+<p>
+\[
+Some of the greatest \emph{discoveries} 
+in science 
+were made by accident.
+\]
+\[
+\textit{Some of the greatest \emph{discoveries} 
+in science 
+were made by accident.}
+\]
+\[
+\textbf{Some of the greatest \emph{discoveries} 
+in science 
+were made by accident.}
+\]
+
+<p>
+Examples of mathematical operators
+ 
+\[
+\sin(a + b ) = \sin(a)\cos(b) + \cos(a)\sin(a)
+\]
+
+<p>
+esting notation for limits
+ 
+\[
+\lim_{h \rightarrow 0 } \frac{f(x+h)-f(x)}{h}
+\]
+ 
+This operator changes when used alongside 
+text \( \lim_{x \rightarrow h} (x-h) \).
+
+<p>
+User-defined operator for matrices with Real entries
+ 
+\[
+x \in \Mr
+\]
+
+<p>
+Assume we have the next sets
+\[
+S = \{ z \in \mathbb{C}\, |\, |z| < 1 \} \quad \textrm{and} \quad S_2=\partial{S}
+\]
+
+<p>
+Spaces in mathematical mode.
+ 
+\begin{align*}
+f(x) =& x^2\! +3x\! +2 \\
+f(x) =& x^2+3x+2 \\
+f(x) =& x^2\, +3x\, +2 \\
+f(x) =& x^2\: +3x\: +2 \\
+f(x) =& x^2\; +3x\; +2 \\
+f(x) =& x^2\ +3x\ +2 \\
+f(x) =& x^2\quad +3x\quad +2 \\
+f(x) =& x^2\qquad +3x\qquad +2
+\end{align*}
+
+<p>
+\begin{align*}
+3ax+4by=5cz\\
+3ax&lt;4by+5cz
+\end{align*}
+
+<p>
+\begin{align*}
+34x^2a \mathbin{\#} 13bc \\
+34x^2a \mathrel{\#} 13bc
+\end{align*}
+
+<p>
+Description of spacing commands
+
+LATEX code  Description
+
+\[
+\quad space equal to the current font size (= 18 mu)
+
+\]
+\[
+\,  3/18 of \quad (= 3 mu)
+
+\]
+\[
+\:  4/18 of \quad (= 4 mu)
+
+\]
+\[
+\;  5/18 of \quad (= 5 mu)
+
+\]
+\[
+\!  -3/18 of \quad (= -3 mu)
+
+\]
+\[
+\ (space after backslash!)  equivalent of space in normal text
+
+\]
+\[
+\qquad  twice of \quad (= 36 mu)
+\]
+
+<p>
+Depending on the value of $x$ the equation \( f(x) = \sum_{i=0}^{n} \frac{a_i}{1+x} \) may diverge or converge.
+ 
+\[ f(x) = \sum_{i=0}^{n} \frac{a_i}{1+x} \]
+
+<p>
+In-line maths elements can be set with a different style: \(f(x) = \displaystyle \frac{1}{1+x}\). The same is true the other way around:
+
+\[ 
+\begin{eqnarray*}
+f(x) = \sum_{i=0}^{n} \frac{a_i}{1+x} \\
+\textstyle f(x) = \textstyle \sum_{i=0}^{n} \frac{a_i}{1+x} \\
+\scriptstyle f(x) = \scriptstyle \sum_{i=0}^{n} \frac{a_i}{1+x} \\
+\scriptscriptstyle f(x) = \scriptscriptstyle \sum_{i=0}^{n} \frac{a_i}{1+x}
+\end{eqnarray*}
+\]
 
 <p>
 For certain operators such as limits, the subscript is placed underneath the operator:
@@ -211,7 +2393,7 @@ You can embed fractions within fractions:
 
 
 <p>
-Note that when appearing inside another fraction, or in inline text ${\displaystyle {\tfrac {a}{b}}}$, a fraction is noticeably smaller than in displayed mathematics. The \tfrac and \dfrac commands[3] force the use of the respective styles, \textstyle and \displaystyle. Similarly, the \tbinom and \dbinom commands typeset the binomial coefficient.
+Note that when appearing inside another fraction, or in inline text ${\displaystyle {\tfrac {a}{b}}}$, a fraction is noticeably smaller than in displayed mathematics. The \tfrac and \dfrac commands force the use of the respective styles, \textstyle and \displaystyle. Similarly, the \tbinom and \dbinom commands typeset the binomial coefficient.
 
 
 
@@ -231,8 +2413,8 @@ For relatively simple fractions, especially within the text, it may be more aest
 If this looks a little "loose" (overspaced), a tightened version can be defined by inserting some negative space
 
 \begin{equation}
-  %running fraction with slash - requires math mode.
-  \newcommand*\rfrac[2]{{}^{#1}\!/_{#2}}
+  % running fraction with slash - requires math mode.
+  \newcommand*{\rfrac}[2]{{}^{#1}\!/_{#2}}
 
   \rfrac{3}{7}
 \end{equation}
@@ -248,11 +2430,19 @@ If you use them throughout the document, usage of xfrac package is recommended. 
 <p>
 \[
 Take $\sfrac{1}{2}$ cup of sugar, \dots
- 
+
+\]
+\[
   3\times\sfrac{1}{2}=1\sfrac{1}{2}
  
 
+\]
+\[
+
 Take ${}^1/_2$ cup of sugar, \dots
+
+\]
+\[
  
   3\times{}^1/_2=1{}^1/_2
 \]
@@ -262,10 +2452,16 @@ Take ${}^1/_2$ cup of sugar, \dots
 If fractions are used as an exponent curly braces have to be used around the \sfrac command:
 
 \begin{equation}
- $x^\frac{1}{2}$ % no error
- $x^\sfrac{1}{2}$ % error
- $x^{\sfrac{1}{2}}$ % no error
- $x^\frac{1}{2}$ % no error
+ x^\frac{1}{2}  % no error
+\end{equation}
+\begin{equation}
+ x^\sfrac{1}{2}  % error
+\end{equation}
+\begin{equation}
+ x^{\sfrac{1}{2}}  % no error
+\end{equation}
+\begin{equation}
+ x^\frac{1}{2}  % no error
 \end{equation}
 
 \begin{equation}
@@ -286,7 +2482,7 @@ Alternatively, the nicefrac package provides the \nicefrac command, whose usage 
 Continued fractions
 
 <p>
-Continued fractions should be written using \cfrac command[3]:
+Continued fractions should be written using \cfrac command:
 
 \begin{equation}
   x = a_0 + \cfrac{12356616316}{a_3 
@@ -504,7 +2700,7 @@ There are many other "big" commands which operate in a similar manner:
 \end{equation}
 
 \begin{equation}
-  \iint[3]  
+  \iint  
 \end{equation}
 
 \begin{equation}
@@ -512,7 +2708,7 @@ There are many other "big" commands which operate in a similar manner:
 \end{equation}
 
 \begin{equation}
-  \iiint[3] 
+  \iiint 
 \end{equation}
 
 \begin{equation}
@@ -520,7 +2716,7 @@ There are many other "big" commands which operate in a similar manner:
 \end{equation}
 
 \begin{equation}
-  \iiiint[3]  
+  \iiiint  
 \end{equation}
 
 \begin{equation}
@@ -528,7 +2724,7 @@ There are many other "big" commands which operate in a similar manner:
 \end{equation}
 
 \begin{equation}
-  \idotsint[3]  
+  \idotsint  
 \end{equation}
 
 \begin{equation}
@@ -540,7 +2736,7 @@ There are many other "big" commands which operate in a similar manner:
 For more integral symbols, including those not included by default in the Computer Modern font, try the esint package.
 
 <p>
-The \substack command[3] allows the use of \\ to write the limits over multiple lines:
+The \substack command allows the use of \\ to write the limits over multiple lines:
 
 \begin{equation}
 {
@@ -724,7 +2920,7 @@ To denote open and half-open intervals, the notations ]a,b[, (a,b), ]a,b], (a,b]
 Matrices and arrays
 
 <p>
-A basic matrix may be created using the matrix environment[3]: in common with other table-like structures, entries are specified by row, with columns separated using an ampersand (&) and a new rows separated with a double backslash (\\)
+A basic matrix may be created using the matrix environment: in common with other table-like structures, entries are specified by row, with columns separated using an ampersand (&) and a new rows separated with a double backslash (\\)
 
 \begin{equation}
 {
@@ -743,7 +2939,7 @@ A basic matrix may be created using the matrix environment[3]: in common with ot
 
 
 <p>
-To specify alignment of columns in the table, use starred version[5]:
+To specify alignment of columns in the table, use starred version:
 
 \begin{equation}
 {
@@ -779,43 +2975,43 @@ Environment name | Surrounding delimiter | Notes
 -----------------
 
 \begin{equation}
-  pmatrix[3]  {\displaystyle (\,)} (\,) centers columns by default
+  pmatrix  {\displaystyle (\,)} (\,) centers columns by default
 \end{equation}
 
 \begin{equation}
-  pmatrix*[5] {\displaystyle (\,)} (\,) allows to specify alignment of columns in optional parameter
+  pmatrix* {\displaystyle (\,)} (\,) allows to specify alignment of columns in optional parameter
 \end{equation}
 
 \begin{equation}
-  bmatrix[3]  {\displaystyle [\,]} [\,] centers columns by default
+  bmatrix  {\displaystyle [\,]} [\,] centers columns by default
 \end{equation}
 
 \begin{equation}
-  bmatrix*[5] {\displaystyle [\,]} [\,] allows to specify alignment of columns in optional parameter
+  bmatrix* {\displaystyle [\,]} [\,] allows to specify alignment of columns in optional parameter
 \end{equation}
 
 \begin{equation}
-  Bmatrix[3]  {\displaystyle \{\,\}} \{\,\} centers columns by default
+  Bmatrix  {\displaystyle \{\,\}} \{\,\} centers columns by default
 \end{equation}
 
 \begin{equation}
-  Bmatrix*[5] {\displaystyle \{\,\}} \{\,\} allows to specify alignment of columns in optional parameter
+  Bmatrix* {\displaystyle \{\,\}} \{\,\} allows to specify alignment of columns in optional parameter
 \end{equation}
 
 \begin{equation}
-  vmatrix[3]  {\displaystyle |\,|} |\,| centers columns by default
+  vmatrix  {\displaystyle |\,|} |\,| centers columns by default
 \end{equation}
 
 \begin{equation}
-  vmatrix*[5] {\displaystyle |\,|} |\,| allows to specify alignment of columns in optional parameter
+  vmatrix* {\displaystyle |\,|} |\,| allows to specify alignment of columns in optional parameter
 \end{equation}
 
 \begin{equation}
-  Vmatrix[3]  {\displaystyle \|\,\|} \|\,\| centers columns by default
+  Vmatrix  {\displaystyle \|\,\|} \|\,\| centers columns by default
 \end{equation}
 
 \begin{equation}
-  Vmatrix*[5] {\displaystyle \|\,\|} \|\,\| allows to specify alignment of colums in optional parameter
+  Vmatrix* {\displaystyle \|\,\|} \|\,\| allows to specify alignment of colums in optional parameter
 \end{equation}
 
 
@@ -930,7 +3126,7 @@ The math environment differs from the text environment in the representation of 
 There are two noticeable problems: there are no spaces between words or numbers, and the letters are italicized and more spaced out than normal. Both issues are simply artifacts of the maths mode, in that it treats it as a mathematical expression: spaces are ignored (LaTeX spaces mathematics according to its own rules), and each character is a separate element (so are not positioned as closely as normal text).
 
 <p>
-There are a number of ways that text can be added properly. The typical way is to wrap the text with the \text{...} command [3] (a similar command is \mbox{...}, though this causes problems with subscripts, and has a less descriptive name). Let's see what happens when the above equation code is adapted:
+There are a number of ways that text can be added properly. The typical way is to wrap the text with the \text{...} command  (a similar command is \mbox{...}, though this causes problems with subscripts, and has a less descriptive name). Let's see what happens when the above equation code is adapted:
 
 \begin{equation}
   50 \text{apples} \times 100 \text{apples} 
@@ -1036,7 +3232,7 @@ LaTeX command | Sample | Description | Common use
 These formatting commands can be wrapped around the entire equation, and not just on the textual elements: they only format letters, numbers, and uppercase Greek, and other math commands are unaffected.
 
 <p>
-To bold lowercase Greek or other symbols use the \boldsymbol command[3]; this will only work if there exists a bold version of the symbol in the current font. As a last resort there is the \pmb command[3] (poor mans bold): this prints multiple versions of the character slightly offset against each other.
+To bold lowercase Greek or other symbols use the \boldsymbol command; this will only work if there exists a bold version of the symbol in the current font. As a last resort there is the \pmb command (poor mans bold): this prints multiple versions of the character slightly offset against each other.
 
 \begin{equation}
   \boldsymbol{\beta} = (\beta_1,\beta_2,\dotsc,\beta_n)
@@ -1196,11 +3392,11 @@ So what to do when you run out of symbols and fonts? Well the next step is to us
 \end{equation}
 
 \begin{equation}
-  \dddot{a}[3]
+  \dddot{a}
 \end{equation}
 
 \begin{equation}
-  \ddddot{a}[3] 
+  \ddddot{a} 
 \end{equation}
 
 \begin{equation}
