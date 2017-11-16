@@ -30,6 +30,6 @@
     "pub": "npm publish --access public"
   },
   "devDependencies": {
-    "@gerhobbelt/mathjax-dev": "1.0.1-2"
+    "@gerhobbelt/mathjax-dev": "1.0.1-3"
   }
 }
