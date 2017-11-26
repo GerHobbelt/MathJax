@@ -2942,16 +2942,20 @@ RQSZ \\
 
 <p>
 \[
+\text{
 Some of the \textbf{greatest} 
 discoveries in \underline{science} 
 were made by \textbf{\textit{accident}}.
+}
 \]
 
 <p>
 \[
+\text{
 Some of the greatest \emph{discoveries} 
 in science 
 were made by accident.
+}
 \]
 \[
 \textit{Some of the greatest \emph{discoveries} 
@@ -2972,7 +2976,7 @@ Examples of mathematical operators
 \]
 
 <p>
-esting notation for limits
+Testing notation for limits
  
 \[
 \lim_{h \rightarrow 0 } \frac{f(x+h)-f(x)}{h}
@@ -3026,31 +3030,31 @@ Description of spacing commands
 LATEX code  Description
 
 \[
-\quad space equal to the current font size (= 18 mu)
+\quad   \text{space equal to the current font size (= 18 mu)}
 
 \]
 \[
-\,  3/18 of \quad (= 3 mu)
+\,  \text{3/18 of \quad (= 3 mu)}
 
 \]
 \[
-\:  4/18 of \quad (= 4 mu)
+\:  \text{4/18 of \quad (= 4 mu)}
 
 \]
 \[
-\;  5/18 of \quad (= 5 mu)
+\;  \text{5/18 of \quad (= 5 mu)}
 
 \]
 \[
-\!  -3/18 of \quad (= -3 mu)
+\!  \text{-3/18 of \quad (= -3 mu)}
 
 \]
 \[
-\ (space after backslash!)  equivalent of space in normal text
+\   \text{(space after backslash!)  equivalent of space in normal text}
 
 \]
 \[
-\qquad  twice of \quad (= 36 mu)
+\qquad  \text{twice of \quad (= 36 mu)}
 \]
 
 <p>
@@ -3183,10 +3187,12 @@ If this looks a little "loose" (overspaced), a tightened version can be defined 
 
 \begin{equation}
   % running fraction with slash - requires math mode.
-  \newcommand*{\rfrac}[2]{{}^{#1}\!/_{#2}}
+  \newcommand{\rfrac}[2]{{}^{#1}\!/_{#2}}
 
   \rfrac{3}{7}
 \end{equation}
+
+or
 
 \begin{equation}
   {\displaystyle {{}^{3}\!/_{7}}}
@@ -3197,15 +3203,22 @@ If this looks a little "loose" (overspaced), a tightened version can be defined 
 If you use them throughout the document, usage of xfrac package is recommended. This package provides \sfrac command to create slanted fractions. Usage:
 
 <p>
-\[
-Take $\sfrac{1}{2}$ cup of sugar, \dots
+\begin{equation}
+  % running fraction with slash - requires math mode.
+  \newcommand{\sfrac}[2]{{}^{#1}\!/_{#2}}
 
-\]
+  \sfrac{3}{7}
+\end{equation}
+
+<p>
+Take $\sfrac{1}{2}$ cup of sugar, $\dots$
+
 \[
   3\times\sfrac{1}{2}=1\sfrac{1}{2}
- 
-
 \]
+
+alt without \sfrac:
+
 \[
 
 Take ${}^1/_2$ cup of sugar, \dots
@@ -3887,11 +3900,9 @@ To insert a small matrix, and not increase leading in the line containing it, us
 <p>
 A matrix in text must be set smaller:
 
-\begin{equation}
-  $\bigl(\begin{smallmatrix}
+$\bigl(\begin{smallmatrix}
 a&b \\ c&d
 \end{smallmatrix} \bigr)$
-\end{equation}
 
 to not increase leading in a portion of text.
 
@@ -3970,53 +3981,76 @@ We can now format text; what about formatting mathematical expressions? There ar
 LaTeX command | Sample | Description | Common use
 -----------------
 
-\begin{equation}
-  \mathnormal{…}
-(or simply omit any command)  {\displaystyle ABCDEF~abcdef~123456\,} ABCDEF~abcdef~123456\, The default math font Most mathematical notation
-\end{equation}
+ABCDEF~abcdef~123456\, The default math font Most mathematical notation
 
 \begin{equation}
   \mathnormal{…}
-\mathnormal{\displaystyle ABCDEF~abcdef~123456\,} \mathnormal{ABCDEF~abcdef~123456\,} The default math font Most mathematical notation
+\text{(or simply omit any command)}  {\displaystyle ABCDEF~abcdef~123456\,} 
 \end{equation}
 
-\begin{equation}
-  \mathrm{…}  {\displaystyle \mathrm {ABCDEF~abcdef~123456} \,} \mathrm {ABCDEF~abcdef~123456} \, This is the default or normal font, unitalicised  Units of measurement, one word functions
-\end{equation}
+\mathnormal{ABCDEF~abcdef~123456\,} The default math font Most mathematical notation
 
 \begin{equation}
-  \mathit{…}  {\displaystyle {\mathit {ABCDEF~abcdef~123456}}\,} {\mathit {ABCDEF~abcdef~123456}}\, Italicised font Multi-letter function or variable names. Compared to \mathnormal, words are spaced more naturally and numbers are italicized as well.
+  \mathnormal{…}
+\mathnormal{\displaystyle ABCDEF~abcdef~123456\,} 
 \end{equation}
 
-\begin{equation}
-  \mathbf{…}  {\displaystyle \mathbf {ABCDEF~abcdef~123456} \,} \mathbf {ABCDEF~abcdef~123456} \, Bold font Vectors
-\end{equation}
+  \mathrm {ABCDEF~abcdef~123456} \, This is the default or normal font, unitalicised  Units of measurement, one word functions
 
 \begin{equation}
-  \mathsf{…}  {\displaystyle {\mathsf {ABCDEF~abcdef~123456}}\,} {\mathsf {ABCDEF~abcdef~123456}}\, Sans-serif  
+  \mathrm{…}  {\displaystyle \mathrm {ABCDEF~abcdef~123456} \,} 
 \end{equation}
 
-\begin{equation}
-  \mathtt{…}  {\displaystyle {\mathtt {ABCDEF~abcdef~123456}}\,} {\mathtt {ABCDEF~abcdef~123456}}\, Monospace (fixed-width) font  
-\end{equation}
+{\mathit {ABCDEF~abcdef~123456}}\, Italicised font Multi-letter function or variable names. Compared to \mathnormal, words are spaced more naturally and numbers are italicized as well.
 
 \begin{equation}
-  \mathfrak{…}  {\displaystyle {\mathfrak {ABCDEF~abcdef~123456}}\,} {\mathfrak {ABCDEF~abcdef~123456}}\, Fraktur Almost canonical font for Lie algebras, ideals in ring theory
+  \mathit{…}  {\displaystyle {\mathit {ABCDEF~abcdef~123456}}\,} 
 \end{equation}
 
+  \mathbf {ABCDEF~abcdef~123456} \, Bold font Vectors
+
 \begin{equation}
-  \mathcal{…} {\displaystyle {\mathcal {ABCDEF}}\,} {\mathcal {ABCDEF}}\, Calligraphy (uppercase only)  Often used for sheaves/schemes and categories, used to denote cryptological concepts like an alphabet of definition ( {\displaystyle {\mathcal {A}}} {\mathcal {A}}), message space ( {\displaystyle {\mathcal {M}}} {\mathcal {M}}), ciphertext space ( {\displaystyle {\mathcal {C}}} {\mathcal {C}}) and key space ( {\displaystyle {\mathcal {K}}} {\mathcal {K}}); Kleene's {\displaystyle {\mathcal {O}}} {\mathcal {O}}; naming convention in description logic; Laplace transform ( {\displaystyle {\mathcal {L}}} {\mathcal {L}}) and Fourier transform ( {\displaystyle {\mathcal {F}}} {\mathcal {F}})
+  \mathbf{…}  {\displaystyle \mathbf {ABCDEF~abcdef~123456} \,} 
 \end{equation}
+
+  {\mathsf {ABCDEF~abcdef~123456}}\, Sans-serif  
+
+\begin{equation}
+  \mathsf{…}  {\displaystyle {\mathsf {ABCDEF~abcdef~123456}}\,} 
+\end{equation}
+
+  {\mathtt {ABCDEF~abcdef~123456}}\, Monospace (fixed-width) font  
+
+\begin{equation}
+  \mathtt{…}  {\displaystyle {\mathtt {ABCDEF~abcdef~123456}}\,} 
+\end{equation}
+
+  {\mathfrak {ABCDEF~abcdef~123456}}\, Fraktur Almost canonical font for Lie algebras, ideals in ring theory
+
+\begin{equation}
+  \mathfrak{…}  {\displaystyle {\mathfrak {ABCDEF~abcdef~123456}}\,} 
+\end{equation}
+
+ {\mathcal {ABCDEF}}\, Calligraphy (uppercase only)  Often used for sheaves/schemes and categories, used to denote cryptological concepts like an alphabet of definition ( ${\displaystyle {\mathcal {A}}}$ {\mathcal {A}}), message space ( ${\displaystyle {\mathcal {M}}}$ {\mathcal {M}}), ciphertext space ( ${\displaystyle {\mathcal {C}}}$ {\mathcal {C}}) and key space ( ${\displaystyle {\mathcal {K}}}$ {\mathcal {K}}); Kleene's ${\displaystyle {\mathcal {O}}}$ {\mathcal {O}}; naming convention in description logic; Laplace transform ( ${\displaystyle {\mathcal {L}}}$ {\mathcal {L}}) and Fourier transform ( ${\displaystyle {\mathcal {F}}}$ {\mathcal {F}})
+
+\begin{equation}
+  \mathcal{…} {\displaystyle {\mathcal {ABCDEF}}\,} 
+ \end{equation}
+
+\mathbb {ABCDEF} \, Blackboard bold (uppercase only)  
+Used to denote special sets (e.g. real numbers)
+ (requires the amsfonts or amssymb package)
 
 \begin{equation}
   \mathbb{…}
-(requires the amsfonts or amssymb package)  {\displaystyle \mathbb {ABCDEF} \,} \mathbb {ABCDEF} \, Blackboard bold (uppercase only)  Used to denote special sets (e.g. real numbers)
+{\displaystyle \mathbb {ABCDEF} \,} 
 \end{equation}
 
 \begin{equation}
   \mathscr{…}
 \end{equation}
 
+  \mathscr{…}
 (requires the mathrsfs package) Script (uppercase only) An alternative font for categories and sheaves.
 These formatting commands can be wrapped around the entire equation, and not just on the textual elements: they only format letters, numbers, and uppercase Greek, and other math commands are unaffected.
 
@@ -4041,7 +4075,7 @@ Accents
 So what to do when you run out of symbols and fonts? Well the next step is to use accents:
 
 \begin{equation}
-  a' or a^{\prime}  
+  a' \text{or} a^{\prime}  
 \end{equation}
 
 \begin{equation}
@@ -4449,9 +4483,11 @@ In any case, adding some spaces manually should be avoided whenever possible: it
 
 \begin{equation}
   \newcommand{\dd}{\mathop{}\,\mathrm{d}}
+
+  \int 2x^2 \dd x
 \end{equation}
 
-in the preamble of your document. We have chosen \dd just because it reminds the "d" it replaces and it is fast to type. Doing so, the code for your integral becomes \int x \dd x. Now, whenever you write an integral, you just have to use the \dd instead of the "d", and all your integrals will have the same style. If you change your mind, you just have to change the definition in the preamble, and all your integrals will be changed accordingly.
+in the preamble of your document. We have chosen \dd just because it reminds the "d" it replaces and it is fast to type. Doing so, the code for your integral becomes \int x \dd x:  $\int x \dd x$. Now, whenever you write an integral, you just have to use the \dd instead of the "d", and all your integrals will have the same style. If you change your mind, you just have to change the definition in the preamble, and all your integrals will be changed accordingly.
 
 <p>
 Manually Specifying Formula Style
@@ -6074,7 +6110,7 @@ ${ \displaystyle
    \frac{\sqrt{1 + \sqrt[3]{2 + \sqrt[5]{3 + \sqrt[7]{4 + \sqrt[11]{5 + \sqrt[13]{6 + \sqrt[17]{7 + \sqrt[19]{A}}}}}}}}}{\mathrm{e}^\pi} = x^{'''}
 }$
 
-<p>
+
 Well, bugger it millenium hand & shrimp:
 
 <p>
@@ -6651,10 +6687,10 @@ whereas vector problems often lead to statements such as
 \]
 
 <p>
-Occasionally one gets horrible line breaks when using a list in mathematics such as listing the first twelve primes  \(2,3,5,7,11,13,17,19,23,29,31,37\)\,.
+Occasionally one gets horrible line breaks when using a list in mathematics such as listing the first twelve primes  $\(2,3,5,7,11,13,17,19,23,29,31,37\)\,$.
 
 <p>
-In such cases, perhaps include \verb|\mathcode`\,="213B| inside the inline maths environment so that the list breaks: \(\mathcode`\,="213B 2,3,5,7,11,13,17,19,23,29,31,37\)\,.
+In such cases, perhaps include \verb|\mathcode`\,="213B| inside the inline maths environment so that the list breaks: $\(\mathcode`\,="213B 2,3,5,7,11,13,17,19,23,29,31,37\)\,$.
 
 <p>
 Be discerning about when to do this as the spacing is different.
@@ -6819,7 +6855,9 @@ or
 Command definition
 
 <p>
+$
 \newcommand{\Ai}{\operatorname{Ai}} 
+$
 
 The Airy function, $\Ai(x)$, may be incorrectly defined as this 
 integral
@@ -6827,9 +6865,11 @@ integral
   \Ai(x)=\int\exp(s^3+isx)\,ds\,.
 \]
 
+$
 \newcommand{\D}[2]{\frac{\partial #2}{\partial #1}}
 \newcommand{\DD}[2]{\frac{\partial^2 #2}{\partial #1^2}}
 \renewcommand{\vec}[1]{\text{\boldmath$#1$}}
+$
 
 This vector identity serves nicely to illustrate two of the new 
 commands:
@@ -6846,25 +6886,41 @@ commands:
 <p>
 Theorems et al.
 
+<p>
+\[
 \newtheorem{theorem}{Theorem}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{definition}[theorem]{Definition}
+\]
 
-\begin{definition}[right-angled triangles] \label{def:tri}
-A \emph{right-angled triangle} is a triangle whose sides of length~\(a\), \(b\) and~\(c\), in some permutation of order, satisfies \(a^2+b^2=c^2\).
+<p>
+\begin{definition}[right-angled triangles] 
+\label{def:tri}
+...
 \end{definition}
 
+<p>
+A \emph{right-angled triangle} is a triangle whose sides of length~\(a\), \(b\) and~\(c\), in some permutation of order, satisfies \(a^2+b^2=c^2\).
+
+<p>
 \begin{lemma} 
-The triangle with sides of length~\(3\), \(4\) and~\(5\) is right-angled.
+...
 \end{lemma}
+
+<p>
+The triangle with sides of length~\(3\), \(4\) and~\(5\) is right-angled.
 
 <p>
 This lemma follows from the Definition~\ref{def:tri} as \(3^2+4^2=9+16=25=5^2\).
 
+<p>
 \begin{theorem}[Pythagorean triplets] \label{thm:py}
-Triangles with sides of length \(a=p^2-q^2\), \(b=2pq\) and \(c=p^2+q^2\) are right-angled triangles.
+...
 \end{theorem}
+
+<p>
+Triangles with sides of length \(a=p^2-q^2\), \(b=2pq\) and \(c=p^2+q^2\) are right-angled triangles.
 
 <p>
 Prove this Theorem~\ref{thm:py} by the algebra \(a^2+b^2 =(p^2-q^2)^2+(2pq)^2 \\
@@ -6896,6 +6952,84 @@ Blah blah
 Blah blah and more blah blah
 \)
 
+
+<p>
+\mathnormal is not defined by MathJax? $\mathnormal{x}$, so we define it here as a new command.
+And is \operatorname supported: $\operatorname{f}$ or $\operatorname{f_n^2}$?
+
+$$
+\newcommand\mathnormal[1]{
+    \mathrm{#1}
+}
+\newcommand\f[2]{
+    \operatorname{\mathnormal{f}_{\mathnormal{#1}}^{\mathnormal{#2}}}
+}
+
+\begin{equation*}
+  \f{2}{n}
+\end{equation*}
+$$
+
+<p>
+Note that \operatorname{\mathnormal{f}}_{#1}^{#2} (sub- and superscript outside \operatorname) would place the subscript too far away from the letter f.
+
+$$ \operatorname{\mathnormal{f}}_n^2 $$
+
+<p>
+Here the problem begins: Since \operatorname internally applies \mathrm to its argument, \f{2}{n} typesets the exponent n upright.
+
+$$ \f{2}{n} $$
+
+On the other hand, if I write
+
+<pre>
+\newcommand\f[2]{
+    \operatorname{\mathnormal{f}_{\mathnormal{#1}}^{\mathnormal{#2}}}
+}
+</pre>
+
+<p>
+then the numbers' font is changed.
+
+<p>
+This gets really tricky when combining letters (or other operators) and numbers like \f{2mn\cdot x}{\frac{c}{2}}:
+
+$$
+\f{2mn\cdot x}{\frac{c}{2}}
+$$
+
+<p>
+Is there a way to get the "right" letters and the "right" numbers at the same time?
+
+<p>
+Can you please explain why you want to use \operatorname, instead of just typing f_2^n?
+
+<p>
+Because of the spacing: E.g. a\f{2}{n}+b is different from a\f{2}{n}+b.
+
+
+<p>
+The idea is simply to highlight function symbols in somewhat lengthy equations, such that it is easier to determine which symbols are functions, constants and so on.
+
+      <p>
+Thanks for the info! (Let me mention that it might be OK to do this for educational purposes, but not in usual typesetting.) 
+
+<p>
+It's not clear exactly what layout you want, (perhaps a full minimal example and image in your question would have helped).
+
+<p>
+The main function of \operatorname is to provide multi-letter operators like log etc, if you want a math italic f it seems that you just need one of these, depending on where you want the limits to go.
+
+<p>
+The other function is to give it operator spacing, ie a small gap before the argument, so perhaps the first or second form is what you are looking for?
+
+$$ f_1^2 x \qquad f_n^2 x \qquad f_1^n x $$
+
+$$ \mathop{f_1^2} x \qquad  \mathop{f_n^2} x  \qquad  \mathop{f_1^n} x  $$
+
+$$ \mathop{{}f}_1^2 x \qquad \mathop{{}f}_n^2 x \qquad \mathop{{}f}_1^n x $$
+
+$$ \mathop{{}f}\limits_1^2 x \qquad \mathop{{}f}\limits_n^2 x \qquad \mathop{{}f}\limits_1^n x $$
 
 
 </blockquote>
