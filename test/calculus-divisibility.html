@@ -15,23 +15,53 @@
   MathJax.Hub.Config({
     //config: ["MMLorHTML.js"],
     extensions: [
-      "tex2jax.js", "mml2jax.js", "asciimath2jax.js",
+      "tex2jax.js", 
+      "mml2jax.js", 
+      "asciimath2jax.js",
+      "CHTML-preview.js", 
+      "fast-preview.js", 
+      "FontWarnings.js", 
+      "MatchWebFonts.js",
       "[Contrib]/longdiv/unpacked/longdiv.js",
       "[Contrib]/counters/counters.js",
     ],
-    //jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/HTML-CSS" ],
+    //jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/HTML-CSS", "output/PreviewHTML", "output/SVG", "output/PlainSource" ],
     jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/SVG" ],
     tex2jax: { 
       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
       processEscapes: true,
+      processEnvironments: false,
     },
     TeX: {
-      extensions: ["AMSmath.js", "AMSsymbols.js", "extpfeil.js", "newcommand.js", "begingroup.js", "mathchoice.js", "unicode.js", "mediawiki-texvc.js", "cancel.js", "bbox.js", "verb.js", "noErrors.js", "noUndefined.js"],
+      extensions: [
+        "AMSmath.js", 
+        "AMSsymbols.js", 
+        "bbox.js", 
+        "begingroup.js", 
+        "cancel.js", 
+        "color.js", 
+        "enclose.js", 
+        "extpfeil.js", 
+        "mathchoice.js", 
+        "mediawiki-texvc.js", 
+        "newcommand.js", 
+        "noErrors.js", 
+        "noUndefined.js",
+        "unicode.js", 
+        "verb.js", 
+      ],
       equationNumbers: {autoNumber: "AMS"}, 
     },
+    CommonHTML: {
+      font: "Gyre-Pagella",
+    },
     "HTML-CSS": {
-        preferredFont: "Gyre-Pagella",
+      preferredFont: "Gyre-Pagella",
+      linebreaks: { 
+        automatic: true, 
+        width: "container",
+      } 
     },
     SVG: {
       font: "Gyre-Pagella",
@@ -46,8 +76,7 @@
 
 <style>
 body {
-  margin: 1em 2em;
-  max-width: 50em;
+  max-width: 70em;
   margin: 0 auto;
 }
 h1 {
@@ -74,8 +103,24 @@ blockquote {
 blockquote blockquote {
   border: 1px solid #ccdee3;
   padding: .25em 1em;
-  margin: 2em 1em 2em 10em;
+  margin: 2em 1em 2em 1em;
   background-color: #f8fbfb;
+}
+def {
+  font-weight: 500;
+  font-style: italic;
+}
+
+@media print { 
+body {
+  margin: 1in .7in 1in 1.4in;
+  max-width: 100%;
+}
+blockquote {
+  page-break-before: avoid;
+  page-break-inside: auto;
+  margin: 1em 1em;
+}
 }
 </style>
 </head>
@@ -92,7 +137,6 @@ If your browser supports JavaScript, be sure it is enabled.</b>
 
 <h1>Ontbinden in factoren</h1>
 
-<blockquote>
 <h2>Priemgetal: definitie</h2>
 
 <p>

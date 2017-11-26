@@ -9,10 +9,19 @@
 <link rel="stylesheet" href="bootstrap4/css/bootstrap.css">
 
 <script type="text/x-mathjax-config">
+  //MathJax.Ajax.timeout = 13*1000;   // timeout for loading of files (15 seconds)
+  MathJax.Ajax.config.path.Contrib = "../../mathjax-third-party-extensions";
+
   MathJax.Hub.Config({
     config: ["Everything.js"],
     extensions: [
-      "tex2jax.js", "asciimath2jax.js",
+      "tex2jax.js", 
+      "mml2jax.js", 
+      "asciimath2jax.js",
+      "CHTML-preview.js", 
+      "fast-preview.js", 
+      "FontWarnings.js", 
+      "MatchWebFonts.js",
     ],
     //jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/HTML-CSS", "output/PreviewHTML", "output/SVG", "output/PlainSource" ],
     jax: [ "input/TeX", "input/AsciiMath", "output/HTML-CSS" ],
@@ -26,20 +35,17 @@
       extensions: [
         "AMSmath.js", 
         "AMSsymbols.js", 
-        "asciimath2jax.js", 
-        "CHTML-preview.js", 
-        "fast-preview.js", 
         "bbox.js", 
         "begingroup.js", 
         "cancel.js", 
+        "color.js", 
+        "enclose.js", 
         "extpfeil.js", 
-        "FontWarnings.js", 
-        "MatchWebFonts.js",
         "mathchoice.js", 
         "mediawiki-texvc.js", 
         "newcommand.js", 
         "noErrors.js", 
-        "noUndefined.js", 
+        "noUndefined.js",
         "unicode.js", 
         "verb.js", 
       ],
@@ -69,8 +75,7 @@
 
 <style>
 body {
-  margin: 1em 2em;
-  max-width: 50em;
+  max-width: 70em;
   margin: 0 auto;
 }
 h1 {
@@ -97,8 +102,24 @@ blockquote {
 blockquote blockquote {
   border: 1px solid #ccdee3;
   padding: .25em 1em;
-  margin: 2em 1em 2em 10em;
+  margin: 2em 1em 2em 1em;
   background-color: #f8fbfb;
+}
+def {
+  font-weight: 500;
+  font-style: italic;
+}
+
+@media print { 
+body {
+  margin: 1in .7in 1in 1.4in;
+  max-width: 100%;
+}
+blockquote {
+  page-break-before: avoid;
+  page-break-inside: auto;
+  margin: 1em 1em;
+}
 }
 </style>
 

@@ -9,10 +9,19 @@
 <link rel="stylesheet" href="bootstrap4/css/bootstrap.css">
 
 <script type="text/x-mathjax-config">
+  //MathJax.Ajax.timeout = 13*1000;   // timeout for loading of files (15 seconds)
+  MathJax.Ajax.config.path.Contrib = "../../mathjax-third-party-extensions";
+
   MathJax.Hub.Config({
     config: ["Everything.js"],
     extensions: [
-      "tex2jax.js", "asciimath2jax.js",
+      "tex2jax.js", 
+      "mml2jax.js", 
+      "asciimath2jax.js",
+      "CHTML-preview.js", 
+      "fast-preview.js", 
+      "FontWarnings.js", 
+      "MatchWebFonts.js",
     ],
     //jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/HTML-CSS", "output/PreviewHTML", "output/SVG", "output/PlainSource" ],
     jax: [ "input/TeX", "input/AsciiMath", "output/HTML-CSS" ],
@@ -26,20 +35,17 @@
       extensions: [
         "AMSmath.js", 
         "AMSsymbols.js", 
-        "asciimath2jax.js", 
-        "CHTML-preview.js", 
-        "fast-preview.js", 
         "bbox.js", 
         "begingroup.js", 
         "cancel.js", 
+        "color.js", 
+        "enclose.js", 
         "extpfeil.js", 
-        "FontWarnings.js", 
-        "MatchWebFonts.js",
         "mathchoice.js", 
         "mediawiki-texvc.js", 
         "newcommand.js", 
         "noErrors.js", 
-        "noUndefined.js", 
+        "noUndefined.js",
         "unicode.js", 
         "verb.js", 
       ],
@@ -65,9 +71,12 @@
     }    
   });
 </script>
-<script type="text/javascript" src="../MathJax.js"></script>
 
 <style>
+body {
+  max-width: 70em;
+  margin: 0 auto;
+}
 h1 {
   text-align:center;
 }
@@ -79,6 +88,10 @@ h2 {
   border-top: 3px solid #666666;
   border-bottom: 2px solid #999999;
 }
+h3 {
+  padding-top: 2em;
+  padding-bottom: 1em;
+}
 blockquote {
   border: 1px solid #ccdee3;
   padding: .25em 1em;
@@ -88,24 +101,50 @@ blockquote {
 blockquote blockquote {
   border: 1px solid #ccdee3;
   padding: .25em 1em;
-  margin: 2em 1em 2em 10em;
+  margin: 2em 1em 2em 1em;
   background-color: #f8fbfb;
+}
+def {
+  font-weight: 500;
+  font-style: italic;
+}
+
+@media print { 
+body {
+  margin: 1in .7in 1in 1.4in;
+  max-width: 100%;
+}
+blockquote {
+  page-break-before: avoid;
+  page-break-inside: auto;
+  margin: 1em 1em;
+}
 }
 </style>
 
 
-<script type="text/x-mathjax-config"> 
+<script type="text/x-mathjax-config">
   MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () { 
     var TEX = MathJax.InputJax.TeX; 
     var PREFILTER = TEX.prefilterMath; 
     TEX.Augment({ 
       prefilterMath: function (math, displaymode, script) { 
-        math = "\\displaystyle{" + math + "}"; 
+        console.log("rendering Math:", {math, displaymode, script});
+        //math = "\\displaystyle{" + math + "}"; 
+        math = "\\mathsf{" + math + "}"; 
         return PREFILTER.call(TEX, math, displaymode, script); 
       } 
     }); 
   }); 
 </script> 
+<!-- 
+  WARNING:
+
+MathJax.js script must load AFTER ALL text/x-mathjax-config SCRIPTS have been defined
+as those scripts won't otherwise be detected by MathJax (ConfigBlocks() internal call)
+on startup as the init code is executed immeditately once the MathJax script has loaded!
+-->
+<script type="text/javascript" src="../MathJax.js"></script>
 <script type="text/javascript" src="../../seedrandom/seedrandom.js"></script>
 </head>
 <body>
@@ -121,21 +160,20 @@ If your browser supports JavaScript, be sure it is enabled.</b>
 
 <h1>Ontbinden in factoren</h1>
 
-<blockquote>
 <h2>Priemgetal: definitie</h2>
 
 <p>
-Een getal $x$ is <em>priem</em> als het getal alleen deelbaar is door zichzelf en 1.
+Een getal $x$ is <em>priem</em> als het getal alleen deelbaar is door zichzelf en $1$.
 
 <p>
 Voorbeelden:
 
 <ul>
-  <li>7 is priem, want 7 is alleen deelbaar door 7 en door 1.</li>
-  <li>10 is <strong>geen priemgetal</strong>, want 10 is deelbaar door 2 (en dat is geen 10 of 1). Daarnaast is 10 ook deelbaar door 5: 2 en 5 zijn de <def>factoren</def> van 10.</li>
-  <li>256 is <strong>geen priemgetal</strong>, want 256 is deelbaar door 2.<br/> 
+  <li>$7$ is priem, want $7$ is alleen deelbaar door $7$ en door $1$.</li>
+  <li>$10$ is <strong>geen priemgetal</strong>, want $10$ is deelbaar door $2$ (en dat is geen $10$ of $1$). Daarnaast is $10$ ook deelbaar door $5$: $2$ en $5$ zijn de <def>factoren</def> van $10$.</li>
+  <li>$256$ is <strong>geen priemgetal</strong>, want $256$ is deelbaar door $2$.<br/> 
     Als je $256$ <def>ontbindt in factoren</def> blijkt: $256 = 2 \times 2 \times 2 \times 2 \times 2 \times 2 \times 2 \times 2 \times 2 = 2^8$.<br/> 
-    Als we praten over <def>factoren van $256$</def>, dan is $2$ een factor, maar ook $2 \times 2 = 4$, $2 \times 2 \times 2 = 8$, $16$, $32$, $64$ en $128$ (dit zijn resp. $2^1$, $2^2$, $2^3$, $2^4$, $2^5$, $2^6$ en $2^7$. $256$ ($= 2^8$) zelf is ook een <def>factor</def> van $256$, want $1 \times 256 = 256$.</li>
+    Als we praten over <def>factoren van $256$</def>, dan is $2$ een factor, maar ook $2 \times 2 = 4$, $2 \times 2 \times 2 = 8$, $16$, $32$, $64$ en $128$ (dit zijn resp. $2^1$, $2^2$, $2^3$, $2^4$, $2^5$, $2^6$ en $2^7$. $256 (= 2^8)$ zelf is ook een <def>factor</def> van $256$, want $1 \times 256 = 256$.</li>
 </ul>
 
 <h2>Factor: definitie</h2>
@@ -162,7 +200,7 @@ Een getal $a$ is <def>factor</def> van getal $b$ als $a \times n = b$, waarbij $
     
     <li><p>$\mathbb{R}$: <a href="https://nl.wikipedia.org/wiki/Re%C3%ABel_getal">reëele getallen</a>, oftewel: alle getallen van $-\infty$ tot $+\infty$, of deze nu als breuk geschreven kunnen worden of niet.
 
-    <p>$\pi$ is dus wel een reëel getal (omdat het niet als breuk geschreven kan worden, is $\pi$ een <def><a href="http://primes.utm.edu/glossary/xpage/IrrationalNumber.html">irrationeel getal</a></def>), maar $\sqrt{-1}$ is dit niet: eerst krijgen we op school te horen dat "wortel trekken uit een negatief getal niet kan", om er dan later achter te komen dat dat een aperte leugen is, want het kan wel degelijk: het antwoord ligt echter niet direct voor de hand en is een <def>complex getal</def>: $i$ (vroeger ook wel aangeduid met de letter $j$ i.p.v. $i$; $j$ zul je later wellicht nog veel tegenkomen als je Electronica gaat studeren: zo is bijvoorbeeld de <def>impedantie<def> van een condensator $C$ gelijk aan $Z_C = \dfrac{1}{j \omega C}$.<br> 
+    <p>$\pi$ is dus wel een reëel getal (omdat het niet als breuk geschreven kan worden, is $\pi$ een <def><a href="http://primes.utm.edu/glossary/xpage/IrrationalNumber.html">irrationeel getal</a></def>), maar $\sqrt{-1}$ is dit niet: eerst krijgen we op school te horen dat "wortel trekken uit een negatief getal niet kan", om er dan later achter te komen dat dat een aperte leugen is, want het kan wel degelijk: het antwoord ligt echter niet direct voor de hand en is een <def>complex getal</def>: $i$ (vroeger ook wel aangeduid met de letter $j$ i.p.v. $i$; $j$ zul je later wellicht nog veel tegenkomen als je Electronica gaat studeren: zo is bijvoorbeeld de <def>impedantie<def> van een condensator $C$ gelijk aan $Z_C = \frac{1}{j \omega C}$.<br> 
     Je zult het al wel geraden hebben: <a href="http://www.win.tue.nl/wiskunded/files/public/Complexe_getallen/complex-2007-06.2s.pdf">complexe getallen zijn de eerstvolgende grotere verzameling getallen!</a>
     </li>
     <li><p>$\mathbb{C}$: <a href="https://nl.wikipedia.org/wiki/Complex_getal">complexe getallen</a>. 
@@ -195,7 +233,7 @@ Een getal $a$ is <def>factor</def> van getal $b$ als $a \times n = b$, waarbij $
 
 <p>Voorbeeld: $2$ en $3$ zijn relatief priem want beide zijn priemgetal en hebben dus alleen de factor $1$ gemeenschappelijk. (Dit voorbeeld is meteen een hint dat <def>priemgetallen</def> altijd "relatief priem" zijn met elk ander priemgetal. Deze stelling volgt trouwens automatisch uit de definities van <def>priemgetal</def> en "<def>relatief priem". (<q>Waarom?</q>))
 
-<p>Voorbeeld: $12$ en $35$ zijn <def>relatief priem</def>: ontbonden in factoren zijn $12 = 2 \times 2 \times 3$ en $35 = 5 \times 7$ waaruit duidelijk blijkt dat beide getallen <em>geen enkele factor</em> ($\left\{ 2, 3, 5, 7 \right\}$ gemeen hebben.
+<p>Voorbeeld: $12$ en $35$ zijn <def>relatief priem</def>: ontbonden in factoren zijn $12 = 2 \times 2 \times 3$ en $35 = 5 \times 7$ waaruit duidelijk blijkt dat beide getallen <em>geen enkele factor</em> $\left\{ 2, 3, 5, 7 \right\}$ gemeen hebben.
 
 <p>Voorbeeld: $12$ en $34$ zijn <strong>niet relatief priem</strong>: ontbonden in factoren zijn $12 = 2 \times 2 \times 3$ en $34 = 2 \times 17$ waaruit duidelijk blijkt dat beide getallen <em>de factor $2$ gemeenschappelijk hebben</em>.
 
@@ -304,13 +342,10 @@ want 4027 is een priemgetal. (Probeer 'm ook maar eens online bij deze tools: <a
 oftewel: $9699690 = 2 \times 3 \times 5 \times 7 \times 11 \times 13 \times 17 \times 19$. Merk op dat bij ontbinden in factoren het niet noodzakelijk is om de factoren netjes in de volgorde klein-naar-groot te vinden: het is bijvoorbeeld veel sneller zichtbaar of een getal deelbaar is door 5 dan of deze deelbaar is door 3. (In wiskundig taalgebruik heet dit dat <def>vermenigvuldigen</def> een <a href="https://nl.wikipedia.org/wiki/Commutativiteit"><def>commutatieve operator</def></a> is, wat chique taal is voor $a \times b \equiv b \times a$. Zo is optellen ook <def>commutatief</def>: $a + b \equiv b + a$, maar <def>aftrekken</def> en <def>delen</def> zijn dat weer <strong>niet</strong>: $a - b \not\equiv b - a$ en $\frac{a}{b} \not\equiv \frac{b}{a}$.)<br>
 Het maakt dus niet uit in welke <em>volgorde</em> je de (priem)factoren van een getal boven water krijgt, als je ze uiteindelijk maar <em>allemaal</em> vindt!
 
-</blockquote>
 
 
 
 <h3>Hij is fijn. Maar nou even serieus: waarom zou ik van dat "ontbinden in factoren" moeten weten?</h3>
-
-<p>Nou... zal ik kort zijn?
 
 <ul>
   <li>Breuken!
@@ -322,15 +357,12 @@ Het maakt dus niet uit in welke <em>volgorde</em> je de (priem)factoren van een 
 
 <h3>Breuken en "ontbinden in factoren"?</h3>
 
-<p>Nou... zal ik kort zijn?
+<p>Zodra je met <def>breuken</def> werkt, vooral als je ze bij elkaar moet optellen of aftrekken, is het verdraaid handig om dat <def>ontbinden in factoren</def> <em>snel</em> te kunnen &mdash; of je maakt je uit de voeten met <em>non plus ultra</em> <def>Platinum Zakjapanner Skills</def>, die dat werkje voor je kan doen zolang de batterijen het uithouden.
 
-<ul>
-  <li><p>Zodra je met <def>breuken</def> werkt, vooral als je ze bij elkaar moet optellen of aftrekken, is het verdraaid handig om dat <def>ontbinden in factoren</def> <em>snel</em> te kunnen &mdash; of je maakt je uit de voeten met <def>non plus ultra</def> <def>Platinum Zakjapanner Skills</def>, die dat werkje voor je kan doen zolang de batterijen het uithouden.
+<p>De cruciale termen hier zijn <def>KGV (Kleinst Gemene Veelvoud)</def> (Engels: <def><a href="https://en.wikipedia.org/wiki/Least_common_multiple">LCM</a></def>) en <def>GGD (Grootst Gemene Deler)</def> (Engels: <def><a href="https://en.wikipedia.org/wiki/Lowest_common_denominator">LCD</a></def>).
 
-  <p>De cruciale termen hier zijn <def>KGV (Kleinst Gemene Veelvoud)</def> (Engels: <def><a href="https://en.wikipedia.org/wiki/Least_common_multiple">LCM</a></def>) en <def>GGD (Grootst Gemene Deler)</def> (Engels: <def><a href="https://en.wikipedia.org/wiki/Lowest_common_denominator">LCD</a></def>).
-  </li>
-
-  <li>
+<h1>
+  TODO: breuken gelijknamig maken; breuken vermenigvuldigen, delen, aftrekken, optellen. Helen uithalen.
 
 
 </body>
