@@ -1,3 +1,4 @@
+
 /* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
 /* vim: set ts=2 et sw=2 tw=80: */
 
@@ -2231,12 +2232,13 @@
       var mml, isError = false, math = MathJax.HTML.getScript(script);
       var display = (script.type.replace(/\n/g," ").match(/(;|\s|\n)mode\s*=\s*display(;|\s|\n|$)/) != null);
       var data = {math:math, display:display, script:script};
-      var callback = this.prefilterHooks.Execute(data); if (callback) return callback;
+      var callback = this.prefilterHooks.Execute(data); 
+      if (callback) return callback;
       math = data.math;
       try {
         mml = TEX.Parse(math).mml();
       } catch(err) {
-        if (!err.texError) {throw err}
+        if (!err.texError) {throw err;}
         mml = this.formatError(err,math,display,script);
         isError = true;
       }

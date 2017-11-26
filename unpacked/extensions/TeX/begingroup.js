@@ -247,7 +247,10 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
   //   before the equation was first processed, in case the equation
   //   get restarted due to an autoloaded file)
   //
-  TEX.prefilterHooks.Add(function () {TEX.rootStack.Reset(); TEX.eqnStack.Clear(true)});
+  TEX.prefilterHooks.Add(function () {
+    TEX.rootStack.Reset(); 
+    TEX.eqnStack.Clear(true);
+  });
   
   //
   //  We only get here if there were no errors and the equation is fully
@@ -255,7 +258,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
   //  stack into the global stack, thus making the changes from this
   //  equation permanent.
   //
-  TEX.postfilterHooks.Add(function () {TEX.rootStack.Merge(TEX.eqnStack)});
+  TEX.postfilterHooks.Add(function () {
+    TEX.rootStack.Merge(TEX.eqnStack);
+  });
   
   /*********************************************************/
 
