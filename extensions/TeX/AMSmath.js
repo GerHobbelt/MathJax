@@ -163,7 +163,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       subarray:      ['Array',null,null,null,null,COLS([0]),"0.1em",'S',1],
       smallmatrix:   ['Array',null,null,null,'c',COLS([1/3]),".2em",'S',1],
       
-      'equation':    ['EquationBegin','Equation',true],
+      equation:      ['EquationBegin','Equation',true],
       'equation*':   ['EquationBegin','EquationStar',false],
 
       eqnarray:      ['AMSarray',null,true,true, 'rcl',"0 "+MML.LENGTH.THICKMATHSPACE,".5em"],

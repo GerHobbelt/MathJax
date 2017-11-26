@@ -477,37 +477,37 @@
       },
     
       mathchar0mi: {
-	// Lower-case greek
-	alpha:        '03B1',
-	beta:         '03B2',
-	gamma:        '03B3',
-	delta:        '03B4',
-	epsilon:      '03F5',
-	zeta:         '03B6',
-	eta:          '03B7',
-	theta:        '03B8',
-	iota:         '03B9',
-	kappa:        '03BA',
-	lambda:       '03BB',
-	mu:           '03BC',
-	nu:           '03BD',
-	xi:           '03BE',
-	omicron:      '03BF', // added for completeness
-	pi:           '03C0',
-	rho:          '03C1',
-	sigma:        '03C3',
-	tau:          '03C4',
-	upsilon:      '03C5',
-	phi:          '03D5',
-	chi:          '03C7',
-	psi:          '03C8',
-	omega:        '03C9',
-	varepsilon:   '03B5',
-	vartheta:     '03D1',
-	varpi:        '03D6',
-	varrho:       '03F1',
-	varsigma:     '03C2',
-	varphi:       '03C6',
+        // Lower-case greek
+        alpha:        '03B1',
+        beta:         '03B2',
+        gamma:        '03B3',
+        delta:        '03B4',
+        epsilon:      '03F5',
+        zeta:         '03B6',
+        eta:          '03B7',
+        theta:        '03B8',
+        iota:         '03B9',
+        kappa:        '03BA',
+        lambda:       '03BB',
+        mu:           '03BC',
+        nu:           '03BD',
+        xi:           '03BE',
+        omicron:      '03BF', // added for completeness
+        pi:           '03C0',
+        rho:          '03C1',
+        sigma:        '03C3',
+        tau:          '03C4',
+        upsilon:      '03C5',
+        phi:          '03D5',
+        chi:          '03C7',
+        psi:          '03C8',
+        omega:        '03C9',
+        varepsilon:   '03B5',
+        vartheta:     '03D1',
+        varpi:        '03D6',
+        varrho:       '03F1',
+        varsigma:     '03C2',
+        varphi:       '03C6',
         
         // Ord symbols
         S:            ['00A7',{mathvariant: MML.VARIANT.NORMAL}],
@@ -2249,12 +2249,13 @@
       var mml, isError = false, math = MathJax.HTML.getScript(script);
       var display = (script.type.replace(/\n/g," ").match(/(;|\s|\n)mode\s*=\s*display(;|\s|\n|$)/) != null);
       var data = {math:math, display:display, script:script};
-      var callback = this.prefilterHooks.Execute(data); if (callback) return callback;
+      var callback = this.prefilterHooks.Execute(data); 
+      if (callback) return callback;
       math = data.math;
       try {
         mml = TEX.Parse(math).mml();
       } catch(err) {
-        if (!err.texError) {throw err}
+        if (!err.texError) {throw err;}
         mml = this.formatError(err,math,display,script);
         isError = true;
       }
