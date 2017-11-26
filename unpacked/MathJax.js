@@ -506,7 +506,7 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
     //
     //  Create the queue and push any commands that are specified
     //
-    Init: function () {
+    Init: function (/*...args*/) {
       this.pending = this.running = 0;
       this.queue = [];
       this.Push.apply(this,arguments);
@@ -520,11 +520,14 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
       var callback;
       for (var i = 0, m = arguments.length; i < m; i++) {
         callback = USING(arguments[i]);
-        if (callback === arguments[i] && !callback.called)
-          {callback = USING(["wait",this,callback])}
+        if (callback === arguments[i] && !callback.called) {
+          callback = USING(["wait",this,callback]);
+        }
         this.queue.push(callback);
       }
-      if (!this.running && !this.pending) {this.Process()}
+      if (!this.running && !this.pending) {
+        this.Process();
+      }
       return callback;
     },
     //
@@ -534,19 +537,29 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
       while (!this.running && !this.pending && this.queue.length) {
         var callback = this.queue[0];
         queue = this.queue.slice(1); 
-        this.queue = [];
+        this.queue = [];              // clear the queue as the `callback()` may set up a new set of queue items, which should end up at the end.
         this.Suspend(); 
         var result = callback(); 
         this.Resume();
-        if (queue.length) {this.queue = queue.concat(this.queue)}
-        if (ISCALLBACK(result) && !result.called) {WAITFOR(result,this)}
+        if (queue.length) {
+          this.queue = queue.concat(this.queue);
+        }
+        if (ISCALLBACK(result) && !result.called) {
+          WAITFOR(result,this);
+        }
       }
     },
     //
     //  Suspend/Resume command processing on this queue
     //
-    Suspend: function () {this.running++},
-    Resume: function () {if (this.running) {this.running--}},
+    Suspend: function () {
+      this.running++;
+    },
+    Resume: function () {
+      if (this.running) {
+        this.running--;
+      }
+    },
     //
     //  Used by WAITFOR to restart the queue when an action completes
     //
@@ -910,7 +923,8 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
       CSS: function (file,callback) {
         var name = this.fileName(file);
         var link = document.createElement("link");
-        link.rel = "stylesheet"; link.type = "text/css";
+        link.rel = "stylesheet"; 
+        link.type = "text/css";
         link.href = file+this.fileRev(name);
         this.loading[file] = {
           callback: callback,
@@ -1083,7 +1097,8 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
         callback = BASE.Callback(callback);
         callback();
       } else {
-        var style = document.createElement("style"); style.type = "text/css";
+        var style = document.createElement("style"); 
+        style.type = "text/css";
         this.head = HEAD(this.head);
         this.head.appendChild(style);
         if (style.styleSheet && typeof(style.styleSheet.cssText) !== 'undefined') {
@@ -1596,7 +1611,9 @@ MathJax.Localization = {
         var domainData = localeData.domains[domain];
         if (!domainData.isLoaded) {
           load = this.loadFile(domain,domainData);
-          if (load) {return MathJax.Callback.Queue(load).Push(callback)}
+          if (load) {
+            return MathJax.Callback.Queue(load).Push(callback);
+          }
         }
       }
     }
@@ -2662,11 +2679,15 @@ MathJax.Hub.Startup = {
     //  Run the mathjax-config blocks
     //  Load the files in the configuration's config array
     //
-    if (this.script.match(/\S/)) {this.queue.Push(this.script+";\n1;")}
+    if (this.script.match(/\S/)) {
+      this.queue.Push(this.script+";\n1;");
+    }
     this.queue.Push(
       ["ConfigDelay",this],
       ["ConfigBlocks",this],
-      [function (THIS) {return THIS.loadArray(MathJax.Hub.config.config,"config",null,true)},this],
+      [function (THIS) {
+        return THIS.loadArray(MathJax.Hub.config.config,"config",null,true);
+      },this],
       ["Post",this.signal,"End Config"]
     );
   },
@@ -2684,15 +2705,20 @@ MathJax.Hub.Startup = {
   //
   ConfigBlocks: function () {
     var scripts = document.getElementsByTagName("script");
+    console.log("ConfigBlocks:search web page for scripts...", scripts, scripts.length);
     var queue = MathJax.Callback.Queue();
     for (var i = 0, m = scripts.length; i < m; i++) {
       var type = String(scripts[i].type).replace(/ /g,"");
+      console.log("ConfigBlocks:check script:", {i, type, node: scripts[i], text: scripts[i].innerText});
       if (type.match(/^text\/x-mathjax-config(;.*)?$/) && !type.match(/;executed=true/)) {
         scripts[i].type += ";executed=true";
+        console.log("ConfigBlocks:queue script:", i, scripts[i].innerHTML);
         queue.Push(scripts[i].innerHTML+";\n1;");
       }
     }
-    return queue.Push(function () {MathJax.Ajax.config.root = MathJax.Hub.config.root});
+    return queue.Push(function () {
+      MathJax.Ajax.config.root = MathJax.Hub.config.root;
+    });
   },
 
   //
@@ -2912,8 +2938,11 @@ MathJax.Hub.Startup = {
         for (var i = 0, m = files.length; i < m; i++) {
           file = this.URL(dir,files[i]);
           if (name) {file += "/" + name}
-          if (synchronous) {queue.Push(["Require",MathJax.Ajax,file,callback])}
-                      else {queue.Push(MathJax.Ajax.Require(file,callback))}
+          if (synchronous) {
+            queue.Push(["Require",MathJax.Ajax,file,callback]);
+          } else {
+            queue.Push(MathJax.Ajax.Require(file,callback));
+          }
         }
         return queue.Push({}); // wait for everything to finish
       }
@@ -3387,7 +3416,9 @@ MathJax.Hub.Startup = {
   }
   HUB.Browser.Select(MathJax.Message.browsers);
 
-  if (BASE.AuthorConfig && typeof BASE.AuthorConfig.AuthorInit === "function") {BASE.AuthorConfig.AuthorInit()}
+  if (BASE.AuthorConfig && typeof BASE.AuthorConfig.AuthorInit === "function") {
+    BASE.AuthorConfig.AuthorInit();
+  }
   HUB.queue = BASE.Callback.Queue();
   HUB.queue.Push(
     ["Post",STARTUP.signal,"Begin"],
@@ -3405,7 +3436,9 @@ MathJax.Hub.Startup = {
     },
     ["Menu",STARTUP],
     STARTUP.onLoad(),
-    function () {MathJax.isReady = true}, // indicates that MathJax is ready to process math
+    function () {
+      MathJax.isReady = true; // indicates that MathJax is ready to process math
+    },
     ["Typeset",STARTUP],
     ["Hash",STARTUP],
     ["MenuZoom",STARTUP],
