@@ -249,7 +249,11 @@
         xy.x -= XY.x; xy.y -= XY.y;
       }
       overlay.style.left = (-xy.x)+"px"; overlay.style.top = (-xy.y)+"px";
-      if (ZOOM.msiePositionBug) {setTimeout(ZOOM.SetWH,0)} else {ZOOM.SetWH()}
+      if (ZOOM.msiePositionBug) {
+        setTimeout(ZOOM.SetWH,0);
+      } else {
+        ZOOM.SetWH();
+      }
       return xy;
     },
     SetWH: function () {
