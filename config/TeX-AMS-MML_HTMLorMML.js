@@ -1363,8 +1363,16 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
     },
 
     ClearSelection: function () {
-      if (ME.safariContextMenuBug) {setTimeout("window.getSelection().empty()",0)}
-      if (document.selection) {setTimeout("document.selection.empty()",0)}
+      if (ME.safariContextMenuBug) {
+        setTimeout(function () {
+          window.getSelection().empty();
+        },0);
+      }
+      if (document.selection) {
+        setTimeout(function () {
+          document.selection.empty();
+        },0);
+      }
     },
 
     getBBox: function (span) {
@@ -1436,7 +1444,10 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
       this.hoverTimer = setTimeout(CALLBACK(["Hover",this,jax,math]),CONFIG.hover);
     },
     ClearHoverTimer: function () {
-      if (this.hoverTimer) {clearTimeout(this.hoverTimer); delete this.hoverTimer}
+      if (this.hoverTimer) {
+        clearTimeout(this.hoverTimer); 
+        delete this.hoverTimer;
+      }
     },
 
     //
@@ -1508,7 +1519,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
     //  Restart the hover fade in and fade-out timers
     //
     ReHover: function (jax) {
-      if (jax.hover.remove) {clearTimeout(jax.hover.remove)}
+      if (jax.hover.remove) {
+        clearTimeout(jax.hover.remove);
+      }
       jax.hover.remove = setTimeout(CALLBACK(["UnHover",this,jax]),CONFIG.fadeoutDelay);
       this.HoverFadeTimer(jax,CONFIG.fadeinInc);
     },
@@ -1562,8 +1575,12 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
     //  Clear all hover timers
     //
     ClearHover: function (jax) {
-      if (jax.hover.remove) {clearTimeout(jax.hover.remove)}
-      if (jax.hover.timer)  {clearTimeout(jax.hover.timer)}
+      if (jax.hover.remove) {
+        clearTimeout(jax.hover.remove);
+      }
+      if (jax.hover.timer)  {
+        clearTimeout(jax.hover.timer);
+      }
       HOVER.ClearHoverTimer();
       delete jax.hover;
     },
@@ -1960,7 +1977,11 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
         xy.x -= XY.x; xy.y -= XY.y;
       }
       overlay.style.left = (-xy.x)+"px"; overlay.style.top = (-xy.y)+"px";
-      if (ZOOM.msiePositionBug) {setTimeout(ZOOM.SetWH,0)} else {ZOOM.SetWH()}
+      if (ZOOM.msiePositionBug) {
+        setTimeout(ZOOM.SetWH,0);
+      } else {
+        ZOOM.SetWH();
+      }
       return xy;
     },
     SetWH: function () {
@@ -2440,7 +2461,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
       MENU.Focus(menu);
       if (event.type === "keydown") {
         MENU.skipMouseoverFromKey = true;
-        setTimeout(function() {delete MENU.skipMouseoverFromKey;}, CONFIG.delay);
+        setTimeout(function() {
+          delete MENU.skipMouseoverFromKey;
+        }, CONFIG.delay);
       }
       window.scrollTo(oldX, oldY);
       return FALSE(event);
@@ -2575,7 +2598,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
       }
       return div;
     },
-    Resize: function () {setTimeout(MENU.SetWH,0)},
+    Resize: function () {
+      setTimeout(MENU.SetWH,0);
+    },
     SetWH: function () {
       var bg = document.getElementById("MathJax_MenuFrame");
       if (bg) {

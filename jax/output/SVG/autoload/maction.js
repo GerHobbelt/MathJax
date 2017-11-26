@@ -146,8 +146,13 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
     //
     SVGtooltipOver: function (event) {
       if (!event) {event = window.event}
-      if (clear) {clearTimeout(clear); clear = null}
-      if (hover) {clearTimeout(hover)}
+      if (clear) {
+        clearTimeout(clear); 
+        clear = null;
+      }
+      if (hover) {
+        clearTimeout(hover);
+      }
       var x = event.pageX; var y = event.pageY;
       if (x == null) {
         x = event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
@@ -157,8 +162,13 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
       hover = setTimeout(callback,CONFIG.delayPost);
     },
     SVGtooltipOut: function (event) {
-      if (hover) {clearTimeout(hover); hover = null}
-      if (clear) {clearTimeout(clear)}
+      if (hover) {
+        clearTimeout(hover); 
+        hover = null;
+      }
+      if (clear) {
+        clearTimeout(clear);
+      }
       var callback = MathJax.Callback(["SVGtooltipClear",this,80]);
       clear = setTimeout(callback,CONFIG.delayClear);
     },

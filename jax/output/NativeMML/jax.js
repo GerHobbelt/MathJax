@@ -216,17 +216,17 @@
           //  If that fails, give an alert about security settings
           //
           if (!this.config.noMathPlayerWarning) {
-	    alert(MathJax.Localization._(["MathML", "MathPlayer"],
-	          "MathJax was not able to set up MathPlayer.\n\n"+
-	          "If MathPlayer is not installed, you need to install it first.\n"+
-	          "Otherwise, your security settings may be preventing ActiveX     \n"+
-	          "controls from running.  Use the Internet Options item under\n"+
-	          "the Tools menu and select the Security tab, then press the\n"+
-	          "Custom Level button. Check that the settings for\n"+
-	          "'Run ActiveX Controls', and 'Binary and script behaviors'\n"+
-	          "are enabled.\n\n"+
-	          "Currently you will see error messages rather than\n"+
-	          "typeset mathematics."));
+      alert(MathJax.Localization._(["MathML", "MathPlayer"],
+            "MathJax was not able to set up MathPlayer.\n\n"+
+            "If MathPlayer is not installed, you need to install it first.\n"+
+            "Otherwise, your security settings may be preventing ActiveX     \n"+
+            "controls from running.  Use the Internet Options item under\n"+
+            "the Tools menu and select the Security tab, then press the\n"+
+            "Custom Level button. Check that the settings for\n"+
+            "'Run ActiveX Controls', and 'Binary and script behaviors'\n"+
+            "are enabled.\n\n"+
+            "Currently you will see error messages rather than\n"+
+            "typeset mathematics."));
           }
         }
       } else {
@@ -245,7 +245,7 @@
           script, prev, span, test, math, jax, ex, mex, scale;
       for (i = 0; i < m; i++) {
         script = scripts[i]; if (!script.parentNode) continue;
-	if (!this.initialized) {this.InitializeMML()}
+  if (!this.initialized) {this.InitializeMML()}
         //
         //  Remove any existing output
         //
@@ -257,13 +257,13 @@
         jax = script.MathJax.elementJax; if (!jax) continue;
         math = jax.root; jax.NativeMML = {};
         var type = (math.Get("display") === "block" ? "div" : "span");
-	span = HTML.Element(type,{
-	  className: "MathJax_MathML", id:jax.inputID+"-Frame"
-	},[["span",{
+  span = HTML.Element(type,{
+    className: "MathJax_MathML", id:jax.inputID+"-Frame"
+  },[["span",{
             className:"MathJax_MathContainer", isMathJax: true, jaxID:this.id,
             style:{position:"relative", display:"inline-block", "white-space":"nowrap"}
           }, [["span",{isMathJax:true, style:{display:"inline-block"}}]] // for Firefox hover and zoom
-	]]);
+  ]]);
         script.parentNode.insertBefore(span,script);
         //
         //  Add the test span for determining scales
@@ -347,10 +347,10 @@
         // Added for keyboard accessible menu.
         container.onkeydown = EVENT.Keydown;
         container.tabIndex = HUB.getTabOrder(jax);
-	if (HUB.Browser.noContextMenu) {
-	  container.ontouchstart = TOUCH.start;
-	  container.ontouchend   = TOUCH.end;
-	}
+  if (HUB.Browser.noContextMenu) {
+    container.ontouchstart = TOUCH.start;
+    container.ontouchend   = TOUCH.end;
+  }
       }
     },
 
@@ -518,35 +518,35 @@
       //    then populate it with its children and append it to the parent
       //
       toNativeMML: function (parent) {
-	var tag = this.NativeMMLelement(this.type);
-	this.NativeMMLattributes(tag);
-	for (var i = 0, m = this.data.length; i < m; i++) {
-	  if (this.data[i]) {this.data[i].toNativeMML(tag)}
-	    else {tag.appendChild(this.NativeMMLelement("mrow"))}
-	}
-	parent.appendChild(tag);
+  var tag = this.NativeMMLelement(this.type);
+  this.NativeMMLattributes(tag);
+  for (var i = 0, m = this.data.length; i < m; i++) {
+    if (this.data[i]) {this.data[i].toNativeMML(tag)}
+      else {tag.appendChild(this.NativeMMLelement("mrow"))}
+  }
+  parent.appendChild(tag);
       },
       //
       //  Look for attributes that are different from the defaults
       //    and set those in the tag's attribute list
       //
       NativeMMLattributes: function (tag) {
-	var defaults = (this.type === "mstyle" ? MML.math.prototype.defaults : this.defaults);
+  var defaults = (this.type === "mstyle" ? MML.math.prototype.defaults : this.defaults);
         var names = (this.attrNames||MML.copyAttributeNames),
             skip = MML.skipAttributes, copy = MML.copyAttributes;
         if (!this.attrNames) {
           for (var id in defaults) {if (!skip[id] && !copy[id] && defaults.hasOwnProperty(id)) {
-	    if (this[id] != null && this[id] !== defaults[id]) {
+      if (this[id] != null && this[id] !== defaults[id]) {
               if (this.Get(id,null,1) !== this[id]) 
                 tag.setAttribute(id,this.NativeMMLattribute(this[id]));
             }
           }}
         }
-	for (var i = 0, m = names.length; i < m; i++) {
+  for (var i = 0, m = names.length; i < m; i++) {
           if (copy[names[i]] === 1 && !defaults.hasOwnProperty(names[i])) continue;
           var value = (this.attr||{})[names[i]]; if (value == null) {value = this[names[i]]}
           if (value != null) {tag.setAttribute(names[i],this.NativeMMLattribute(value))}
-	}
+  }
         this.NativeMMLclass(tag);
       },
       NativeMMLclass: function (tag) {
@@ -564,12 +564,12 @@
         if (CLASS.length) {tag.setAttribute("class",CLASS.join(" "))}
       },
       NativeMMLattribute: function (value) {
-	value = String(value);
-	if (nMML.NAMEDSPACE[value]) {value = nMML.NAMEDSPACE[value]} // MP doesn't do negative spaces
-	else if (value.match(/^\s*(([-+])?(\d+(\.\d*)?|\.\d+))\s*mu\s*$/))
+  value = String(value);
+  if (nMML.NAMEDSPACE[value]) {value = nMML.NAMEDSPACE[value]} // MP doesn't do negative spaces
+  else if (value.match(/^\s*(([-+])?(\d+(\.\d*)?|\.\d+))\s*mu\s*$/))
           {value = (RegExp.$2||"")+((1/18)*RegExp.$3).toFixed(3).replace(/\.?0+$/,"")+"em"} // FIXME:  should take scriptlevel into account
-	else if (this.NativeMMLvariants[value]) {value = this.NativeMMLvariants[value]}
-	return value;
+  else if (this.NativeMMLvariants[value]) {value = this.NativeMMLvariants[value]}
+  return value;
       },
       NativeMMLvariants: {
         "-tex-caligraphic":      MML.VARIANT.SCRIPT,
@@ -596,12 +596,12 @@
       //
       toNativeMML: function (parent) {
         var i, m;
-	if (this.inferred  && this.parent.inferRow) {
-	  for (i = 0, m = this.data.length; i < m; i++) {
-	    if (this.data[i]) {this.data[i].toNativeMML(parent)}
-	      else {parent.appendChild(this.NativeMMLelement("mrow"))}
-	  }
-	} else if (nMML.stretchyMoBug && (this.open || this.close)) {
+  if (this.inferred  && this.parent.inferRow) {
+    for (i = 0, m = this.data.length; i < m; i++) {
+      if (this.data[i]) {this.data[i].toNativeMML(parent)}
+        else {parent.appendChild(this.NativeMMLelement("mrow"))}
+    }
+  } else if (nMML.stretchyMoBug && (this.open || this.close)) {
           //
           // This element contains opening and/or closing fences. Opera is not
           // able to stretch <mo> operators, so let's use an <mfenced> element
@@ -618,17 +618,17 @@
             // If there are several children, put them in an <mrow>
             //
             tag = this.NativeMMLelement("mrow");
-	    parent.appendChild(mfenced);
+      parent.appendChild(mfenced);
             parent = mfenced;
           }
           for (; i < m; i++) {
-	    if (this.data[i]) {this.data[i].toNativeMML(tag)}
-	    else {tag.appendChild(this.NativeMMLelement("mrow"))}
-	  }
-	  parent.appendChild(tag);
+      if (this.data[i]) {this.data[i].toNativeMML(tag)}
+      else {tag.appendChild(this.NativeMMLelement("mrow"))}
+    }
+    parent.appendChild(tag);
         } else {
-	  this.SUPER(arguments).toNativeMML.call(this,parent);
-	}
+    this.SUPER(arguments).toNativeMML.call(this,parent);
+  }
       }
     });
 
@@ -638,15 +638,15 @@
       //  which items are present
       //
       toNativeMML: function (parent) {
-	var type = this.type;
-	if (this.data[this.sup] == null) {type = "msub"}
-	if (this.data[this.sub] == null) {type = "msup"}
-	var tag = this.NativeMMLelement(type);
-	this.NativeMMLattributes(tag);
-	if (this.data[0]) {delete this.data[0].inferred}
-	for (var i = 0, m = this.data.length; i < m; i++)
-	  {if (this.data[i]) {this.data[i].toNativeMML(tag)}}
-	parent.appendChild(tag);
+  var type = this.type;
+  if (this.data[this.sup] == null) {type = "msub"}
+  if (this.data[this.sub] == null) {type = "msup"}
+  var tag = this.NativeMMLelement(type);
+  this.NativeMMLattributes(tag);
+  if (this.data[0]) {delete this.data[0].inferred}
+  for (var i = 0, m = this.data.length; i < m; i++)
+    {if (this.data[i]) {this.data[i].toNativeMML(tag)}}
+  parent.appendChild(tag);
       }
     });
 
@@ -656,7 +656,7 @@
       //  which items are present.  Handle movablelimits on TeXAtom base.
       //
       toNativeMML: function (parent) {
-	var type = this.type;
+  var type = this.type;
         var base = this.data[this.base];
         if (base && base.isa(MML.TeXAtom) && base.movablelimits && !base.Get("displaystyle")) {
           type = "msubsup";
@@ -666,12 +666,12 @@
           if (this.data[this.under] == null) {type = "mover"}
           if (this.data[this.over] == null)  {type = "munder"}
         }
-	var tag = this.NativeMMLelement(type);
-	this.NativeMMLattributes(tag);
-	if (this.data[0]) {delete this.data[0].inferred}
-	for (var i = 0, m = this.data.length; i < m; i++)
-	  {if (this.data[i]) {this.data[i].toNativeMML(tag)}}
-	parent.appendChild(tag);
+  var tag = this.NativeMMLelement(type);
+  this.NativeMMLattributes(tag);
+  if (this.data[0]) {delete this.data[0].inferred}
+  for (var i = 0, m = this.data.length; i < m; i++)
+    {if (this.data[i]) {this.data[i].toNativeMML(tag)}}
+  parent.appendChild(tag);
       }
     });
 
@@ -1099,7 +1099,7 @@
     MML.mfenced.Augment({
       toNativeMML: function (parent) {
         if (!nMML.mfencedBug) {
-	  this.SUPER(arguments).toNativeMML.call(this,parent);
+          this.SUPER(arguments).toNativeMML.call(this,parent);
           return;
         }
 
@@ -1179,8 +1179,11 @@
             operator.textContent = values.separators[i-1];
             tag.appendChild(operator);
           }
-	  if (this.data[i]) {this.data[i].toNativeMML(tag)}
-            else {tag.appendChild(this.NativeMMLelement("mrow"))}
+          if (this.data[i]) {
+            this.data[i].toNativeMML(tag);
+          } else {
+            tag.appendChild(this.NativeMMLelement("mrow"));
+          }
         }
 
         if (!isOpera) {
@@ -1203,11 +1206,11 @@
       //  Convert TeXatom to an mrow
       //
       toNativeMML: function (parent) {
-	// FIXME:  Handle spacing using mpadded?
-	var tag = this.NativeMMLelement("mrow");
-	this.NativeMMLattributes(tag);
-	this.data[0].toNativeMML(tag);
-	parent.appendChild(tag);
+        // FIXME:  Handle spacing using mpadded?
+        var tag = this.NativeMMLelement("mrow");
+        this.NativeMMLattributes(tag);
+        this.data[0].toNativeMML(tag);
+        parent.appendChild(tag);
       }
     });
 
@@ -1218,7 +1221,7 @@
       toNativeMML: function (parent,remap) {
         var text = this.toString();
         if (remap) text = remap(text);
-	parent.appendChild(document.createTextNode(text));
+        parent.appendChild(document.createTextNode(text));
       }
     });
 
@@ -1227,7 +1230,7 @@
       //  Add a text node
       //
       toNativeMML: function (parent) {
-	parent.appendChild(document.createTextNode(this.toString()));
+        parent.appendChild(document.createTextNode(this.toString()));
       }
     });
     
@@ -1375,10 +1378,10 @@
 
     HUB.Register.StartupHook("TeX mathchoice Ready",function () {
       MML.TeXmathchoice.Augment({
-	//
-	//  Get the MathML for the selected choice
-	//
-	toNativeMML: function (parent) {this.Core().toNativeMML(parent)}
+        //
+        //  Get the MathML for the selected choice
+        //
+        toNativeMML: function (parent) {this.Core().toNativeMML(parent)}
       });
     });
 

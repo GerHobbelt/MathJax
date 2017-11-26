@@ -498,8 +498,11 @@
       if (svg.marginBottom.charAt(0) === "-")
         span.style.marginBottom = svg.marginBottom.substr(1);
       
-      if (this.operaZoomRefresh)
-        {setTimeout(function () {span.firstChild.style.border="1px solid transparent"},1)}
+      if (this.operaZoomRefresh) {
+        setTimeout(function () {
+          span.firstChild.style.border = "1px solid transparent";
+        },1);
+      }
       //
       // WebKit bug (issue #749)
       //  
@@ -1228,8 +1231,11 @@
         var href = this.href.animVal;
         if (href.charAt(0) === "#") {
           var target = SVG.hashCheck(document.getElementById(href.substr(1)));
-          if (target && target.scrollIntoView) 
-            {setTimeout(function () {target.parentNode.scrollIntoView(true)},1)}
+          if (target && target.scrollIntoView) {
+            setTimeout(function () {
+              target.parentNode.scrollIntoView(true);
+            },1);
+          }
         }
         document.location = href;
       },

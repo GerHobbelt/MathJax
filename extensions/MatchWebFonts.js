@@ -129,7 +129,9 @@
         //
         //  Try again later
         //
-        if (retry) {setTimeout(check,check.delay)}
+        if (retry) {
+          setTimeout(check, check.delay);
+        }
       }
     });
   });
@@ -196,7 +198,9 @@
         //  Try again later (if not all the scripts are null)
         //
 
-        if (retry) setTimeout(check,check.delay);
+        if (retry) {
+          setTimeout(check, check.delay);
+        }
       }
     });
   });
@@ -316,7 +320,7 @@
         //
         //  Try again later
         //
-        setTimeout(check,check.delay);
+        setTimeout(check, check.delay);
       }
     });
   });

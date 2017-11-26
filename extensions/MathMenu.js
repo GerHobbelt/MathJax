@@ -383,7 +383,9 @@
       MENU.Focus(menu);
       if (event.type === "keydown") {
         MENU.skipMouseoverFromKey = true;
-        setTimeout(function() {delete MENU.skipMouseoverFromKey;}, CONFIG.delay);
+        setTimeout(function() {
+          delete MENU.skipMouseoverFromKey;
+        }, CONFIG.delay);
       }
       window.scrollTo(oldX, oldY);
       return FALSE(event);
@@ -518,7 +520,9 @@
       }
       return div;
     },
-    Resize: function () {setTimeout(MENU.SetWH,0)},
+    Resize: function () {
+      setTimeout(MENU.SetWH,0);
+    },
     SetWH: function () {
       var bg = document.getElementById("MathJax_MenuFrame");
       if (bg) {

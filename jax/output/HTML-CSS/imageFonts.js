@@ -199,9 +199,14 @@
     });
     
     var GETWIDTHS = function () {
-      var img = HTMLCSS.FONTDATA.FONTS["MathJax_Main"][0x2014][5].img; // em-dash
+      var arr = HTMLCSS.FONTDATA.FONTS["MathJax_Main"][0x2014][5]; // em-dash
+      var img = arr && arr.img; // em-dash
       HTMLCSS.imgEmWidth = [];
-      for (var i = 0, m = img.length; i < m; i++) {HTMLCSS.imgEmWidth[i] = img[i][0]}
+      if (img) {
+        for (var i = 0, m = img.length; i < m; i++) {
+          HTMLCSS.imgEmWidth[i] = img[i][0];
+        }
+      }
     };
     
     var IMGDIR = HTMLCSS.imgDir + HTMLCSS.imgPacked;

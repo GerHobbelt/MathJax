@@ -291,9 +291,16 @@
       if (this.defaultEm) return;
       var ready = MathJax.Callback();
       AJAX.timer.start(AJAX,function (check) {
-        if (check.time(ready)) {HUB.signal.Post(["CommonHTML Jax - no default em size"]); return}
+        if (check.time(ready)) {
+          HUB.signal.Post(["CommonHTML Jax - no default em size"]); 
+          return;
+        }
         CHTML.getDefaultExEm();
-        if (CHTML.defaultEm) {ready()} else {setTimeout(check,check.delay)}
+        if (CHTML.defaultEm) {
+          ready();
+        } else {
+          setTimeout(check,check.delay);
+        }
       },this.defaultEmDelay,this.defaultEmTimeout);
       return ready;
     },
