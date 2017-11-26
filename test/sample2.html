@@ -7,13 +7,18 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<link rel="stylesheet" href="bootstrap4/css/bootstrap.css">
+
 <script type="text/x-mathjax-config">
+  //MathJax.Ajax.timeout = 13*1000;   // timeout for loading of files (15 seconds)
+  MathJax.Ajax.config.path.Contrib = "../../mathjax-third-party-extensions";
+
   MathJax.Hub.Config({
     //config: ["MMLorHTML.js"],
     extensions: [
       "tex2jax.js", "mml2jax.js", "asciimath2jax.js",
-      "../../mathjax-third-party-extensions/longdiv/unpacked/longdiv.js",
-      "../../mathjax-third-party-extensions/counters/counters.js",
+      "[Contrib]/longdiv/unpacked/longdiv.js",
+      "[Contrib]/counters/counters.js",
     ],
     //jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/HTML-CSS" ],
     jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/SVG" ],
@@ -40,7 +45,14 @@
 <script type="text/javascript" src="../MathJax.js"></script>
 
 <style>
-h1 {text-align:center}
+body {
+  margin: 1em 2em;
+  max-width: 70em;
+  margin: 0 auto;
+}
+h1 {
+  text-align:center;
+}
 h2 {
   font-weight: bold;
   background-color: #DDDDDD;
@@ -48,6 +60,22 @@ h2 {
   margin-top: 1.5em;
   border-top: 3px solid #666666;
   border-bottom: 2px solid #999999;
+}
+h3 {
+  padding-top: 2em;
+  padding-bottom: 1em;
+}
+blockquote {
+  border: 1px solid #ccdee3;
+  padding: .25em 1em;
+  margin: 2em 5em;
+  background-color: #e9f7fb;
+}
+blockquote blockquote {
+  border: 1px solid #ccdee3;
+  padding: .25em 1em;
+  margin: 2em 1em 2em 10em;
+  background-color: #f8fbfb;
 }
 </style>
 </head>
@@ -81,6 +109,740 @@ If your browser supports JavaScript, be sure it is enabled.</b>
     \left( x^2 \right) % comment
 \]
 </p>
+
+
+  
+<h2>#1</h2>
+
+<p>Goniometrie: hoeken!
+
+<p>
+\[
+
+\sphericalangle ABC
+
+\]
+\[
+
+\angle ABC
+
+\]
+\[
+
+\measuredangle ABC
+
+\]
+
+
+<p>
+The binomial coefficient is defined by the next expression:
+ 
+\[
+    \binom{n}{k} = \frac{n!}{k!(n-k)!}
+\]
+
+
+<p>
+When displaying fractions in-line, for example \(\frac{3x}{2}\) 
+you can set a different display style: 
+\( \displaystyle \frac{3x}{2} \).
+ 
+This is also true the other way around
+ 
+\[ f(x)=\frac{P(x)}{Q(x)} \ \ \textrm{and} 
+\ \ f(x)=\textstyle\frac{P(x)}{Q(x)} \]
+
+
+<p>
+The fractions can be nested
+ 
+\[ \frac{1+\frac{a}{b}}{1+\frac{1}{1+\frac{1}{a}}} \]
+ 
+Now a wild example
+ 
+\[
+  a_0+\cfrac{1}{a_1+\cfrac{1}{a_2+\cfrac{1}{a_3+\cdots}}}
+\]
+
+
+<p>
+The binomial coefficient is defined by the next expression:
+ 
+\[
+    \binom{n}{k} = \frac{n!}{k!(n-k)!}
+\]
+ 
+And of course this command can be included in the normal 
+text flow \(\binom{n}{k}\).
+
+
+<p>
+A slightly different and more complex example of continued fractions 
+
+Final example
+ 
+\[
+\newcommand{\contfrac}[2]{%
+{
+  \rlap{\dfrac{1}{\phantom{#1}}}%
+  \genfrac{}{}{0pt}{0}{}{#1+#2}%
+}
+}
+
+
+  a_0 +
+  \contfrac{a_1}{
+  \contfrac{a_2}{
+  \contfrac{a_3}{
+  \genfrac{}{}{0pt}{0}{}{\ddots}
+  }}}
+\]
+
+
+<p>
+The size of the brackets can be manually set, or they can be resized dynamically in your document, as shown in the next example: 
+
+\[ 
+\left \{
+  \begin{tabular}{ccc}
+  1 & 5 & 8 \\
+  0 & 2 & 4 \\
+  3 & 3 & -8 
+  \end{tabular}
+\right \}
+\]
+
+
+<p>
+The standard LaTeX tools for equations may lack some flexibility, causing overlapping or even trimming part of the equation when it's too long. We can surpass this difficulties with amsmath. Let's check an example: 
+
+\begin{equation} \label{eq1}
+\begin{split}
+A & = \frac{\pi r^2}{2} \\
+ & = \frac{1}{2} \pi r^2
+\end{split}
+\end{equation}
+
+
+<p>
+\begin{equation} \label{eu_eqn}
+e^{\pi i} + 1 = 0
+\end{equation}
+ 
+The beautiful equation \ref{eu_eqn} is known as the Euler equation
+
+
+
+<p>
+For equations longer than a line use the multline environment. Insert a double backslash to set a point for the equation to be broken. The first part will be aligned to the left and the second part will be displayed in the next line and aligned to the right. 
+<p>
+Again, the use of an asterisk * in the environment name determines whether the equation is numbered or not. 
+
+
+\begin{multline*}
+p(x) = 3x^6 + 14x^5y + 590x^4y^2 + 19x^3y^3\\ 
+- 12x^2y^4 - 12xy^5 + 2y^6 - a^3b^3
+\end{multline*}
+
+<p>
+And aligned (with a extra little whitespace help after the equal sign)
+
+\begin{align*} 
+p(x) =\ &3x^6 + 14x^5y + 590x^4y^2 + 19x^3y^3\\ 
+- &12x^2y^4 - 12xy^5 + 2y^6 - a^3b^3
+\end{align*}
+
+
+<p>
+If there are several equations that you need to align vertically, the align environment will do it: 
+
+\begin{align*} 
+2x - 5y &=  8 \\ 
+3x + 9y &=  -12
+\end{align*}
+
+
+<p>
+As mentioned before, the ampersand character & determines where the equations align. Let's check a more complex example: 
+
+\begin{align*}
+x&=y           &  w &=z              &  a&=b+c\\
+2x&=-y         &  3w&=\frac{1}{2}z   &  a&=b\\
+-4 + 5x&=2+y   &  w+2&=-1+w          &  ab&=cb
+\end{align*}
+
+
+<p>
+Grouping and centering equations 
+<p>
+If you just need to display a set of consecutive equations, centered and with no alignment whatsoever, use the gather environment. The asterisk trick to set/unset the numbering of equations also works here. 
+
+
+\begin{gather*} 
+2x - 5y =  8 \\ 
+3x^2 + 9y =  3a + c
+\end{gather*}
+
+
+<p>
+Spacing in maths mode is useful in several situations, let's see an example: 
+
+Assume we have the next sets
+\[
+S = \{ z \in \mathbb{C}\, \big|\, |z| < 1 \} \quad \textrm{and} \quad S_2=\partial{S}
+\]
+
+
+
+<p>
+The spacing depends on the command you insert, the example below contains a complete list of spaces and how they look like. 
+
+Spaces in mathematical mode.
+ 
+\begin{align*}
+f(x) =& x^2\! +3x\! +2 \\
+f(x) =& x^2+3x+2 \\
+f(x) =& x^2\, +3x\, +2 \\
+f(x) =& x^2\: +3x\: +2 \\
+f(x) =& x^2\; +3x\; +2 \\
+f(x) =& x^2\ +3x\ +2 \\
+f(x) =& x^2\quad +3x\quad +2 \\
+f(x) =& x^2\qquad +3x\qquad +2
+\end{align*}
+
+<p>
+Spacing around operators and relations in math mode are governed by specific skip lengths: 
+\thinmuskip (by default it is equal to 3 mu) 
+\medmuskip (by default it is equal to 4 mu) 
+\thickmuskip (by default it is equal to 5 mu) 
+
+\begin{align*}
+3ax+4by=5cz\\
+3ax<4by+5cz
+\end{align*}
+
+
+
+<p>
+User-defined binary and relational operators
+You can force the spacing used in binary or relational operators, so you can define your own. 
+
+\begin{align*}
+34x^2a \mathbin{\#} 13bc \\
+34x^2a \mathrel{\#} 13bc
+\end{align*}
+
+
+
+<p>
+
+When you divide (fractionate) something into parts, two or more, you have what is known as a '''common fraction'''. A common fraction is usually written as two numbers; a top number and a bottom number. Common fractions can also be expressed in words. The number that is on top is called the numerator, and the number on the bottom is called the denominator (the prefix 'de-' is Latin for reverse) or divisor. 
+
+\[
+\frac{\text{numerator}}{\text{denominator}}
+\]
+
+
+<p>
+These two numbers are always separated by a line, which is known as a fraction bar. This way of representing fractions is called display representation. Common fractions are, more often than not, simply known as fractions in everyday speech. 
+
+<p>
+The numerator in any given fraction tells you how many parts of something you have on hand. For example, if you were to slice a pizza for a party into six equal pieces, and you took two slices of pizza for yourself, you would have $\tfrac{2}{6}$ (pronounced two-sixths) of that pizza. Another way to look at it is by thinking in terms of equal parts; when that pizza was cut into six equal parts, each part was exactly $\tfrac{1}{6}$ (one-sixth) of the whole pizza. 
+
+<p>
+The denominator tells you how many parts are in a whole, in this case your pizza. Your pizza was cut into six equal parts, and therefore the entire pizza consists of six equal slices. So when you took two slices for yourself, only four slices of pizza remain, or $\tfrac{4}{6}$ (four-sixths). 
+
+<p>
+Also keep in mind that numerator can never be zero. It makes no sense to have zero divided into parts. For instance, the fraction $\tfrac{0}{6}$ is equal to zero, because you can not have six slices of nothing. If the denominator is zero, then the fraction has no meaning or is considered undefined since it may depend upon the mathematical setting one is working on, for the purpose of this chapter, we will consider that it has no meaning. 
+
+<p>
+Another way of representing fractions is by using a diagonal line between the numerator and the denominator.
+
+\[
+1/2\ 
+\]
+
+\[
+{5 \frac{3}{7}} / {1 \frac{1}{3}} \ 
+\]
+
+MathJax:
+
+\[
+{\raise0.7ex\hbox{${2a + \frac{{7b}}{{5c}}}$} \!\mathord{\left/
+ {\vphantom {{2a + \frac{{7b}}{{5c}}} {35 \times \frac{{12}}{{17}}}}}\right.\kern-\nulldelimiterspace}
+\!\lower0.7ex\hbox{${35 \times \frac{{12}}{{17}}}$}}
+\]
+
+TeXCV:
+
+\[
+{}^{2a+\frac{7b}{5c}}\diagup{}_{35\times \frac{12}{17}}\;
+\]
+
+Plain TeX:
+
+$${\raise0.7ex\hbox{${2a + {{7b} \over {5c}}}$} \!\mathord{\left/
+ {\vphantom {{2a + {{7b} \over {5c}}} {35 \times {{12} \over {17}}}}}\right.\kern-\nulldelimiterspace}
+\!\lower0.7ex\hbox{${35 \times {{12} \over {17}}}$}}$$
+
+MathML:
+
+<math display='block'>
+ <semantics>
+  <mrow>
+   <mfrac bevelled='true'>
+    <mrow>
+     <mn>2</mn><mi>a</mi><mo>+</mo><mfrac>
+      <mrow>
+       <mn>7</mn><mi>b</mi></mrow>
+      <mrow>
+       <mn>5</mn><mi>c</mi></mrow>
+     </mfrac>
+     </mrow>
+    <mrow>
+     <mn>35</mn><mo>&#x00D7;</mo><mfrac>
+      <mrow>
+       <mn>12</mn></mrow>
+      <mrow>
+       <mn>17</mn></mrow>
+     </mfrac>
+     </mrow>
+   </mfrac>
+   </mrow>
+ </semantics>
+</math>
+
+
+
+<p>
+In this case, the separator between the numerator and the denominator is called a ''slash'', a ''solidus'' or a ''virgule''. This method of representing fractions is called ''in-line representation'', meaning that the fraction is lined up with the rest of the text. You will often see in-line representations in texts where the author does not have any way to use display representation.
+
+<p>
+== Proper Fractions ==
+<p>
+The fraction in the pizza analogy we just used is known as a '''proper fraction'''. In a proper fraction, the numerator (top number) is always smaller than the denominator (bottom number). Thus, the value of a proper fraction is always less than one. Proper fractions are generally the kind you will encounter most often in mathematics.
+
+<p>
+== Improper Fractions ==
+<p>
+When the numerator of a fraction is greater than, or equal to the denominator, you have an '''improper fraction'''. For example, the fractions $\tfrac{5}{3}, \tfrac{2}{1}$ and $\tfrac{6}{6}$ are all considered improper fractions. Improper fractions always have a value of one whole or more. So with $\tfrac{6}{6}$, the numerator says you have 6 pieces, but 6 is also the number of the whole, so the value of this fraction is one whole. It is as if no one took a slice of pizza after you cut it. 
+
+<p>
+In the case of $\tfrac{5}{3}$, one whole of something is divided into three equal pieces, but on hand you have five pieces (you had two pizzas, each divided into three slices, and you ate one slice). This means you have two pieces extra, or two pieces greater than one whole. This concept may seem rather confusing and strange at first, but as you become better in math you will eventually put two and two together to the get the whole picture (okay, bad pun).
+
+<p>
+== Mixed Fractions ==
+<p>
+When a whole number is written next to a fraction, such as $2\tfrac{1}{3}$ (two and one-third) you are seeing what is called a '''mixed fraction'''. A mixed fraction is understood as being the sum, or total, of both the whole number and fraction. The number two in $2\tfrac{1}{3}$ stands for two wholes - you also have a third more of something, which is the $\tfrac{1}{3}$.
+
+<p>
+== Simplifying Fractions ==
+<p>
+Sometimes in mathematics you will need to rewrite a fraction in smaller numbers, while also keeping the value of the fraction the same. This is known as simplifying, or ''reducing to lowest terms''. It should be mentioned that a fraction which is not reduced is not intrinsically incorrect, but it may be confusing for others reviewing your work. There are two ways to simplify fractions, and both will be useful anytime you work with fractions, so it is recommended you learn both methods. 
+
+<p>
+To reiterate, reducing fractions is essentially replacing your original fraction with another one of equal value, called an ''equivalent fraction''. Below are a few examples of equivalent fractions.
+
+\[
+
+\frac{4}{8} = \frac{1}{2}, \frac{8}{12} = \frac{2}{3}, \frac{6}{10} = \frac{3}{5}
+
+\]
+
+<p>
+When the fraction $\frac{4}{8}$ is reduced to lowest terms, it then becomes $\frac{1}{2}$, because four pieces out of a total of eight is exactly one-half of all available pieces. A fraction is also in its lowest terms when both the numerator and denominator cannot be divided evenly by any number other than one. 
+
+<p>
+=== Division Method ===
+<p>
+To reduce a fraction to lowest terms, you must divide the numerator and denominator by the largest whole number that divides evenly into both. For example, to reduce the fraction $\tfrac{3}{9}$ to lowest terms, divide the numerator ('''3''') and denominator ('''9''') by three. 
+
+\[
+
+\frac{3 \div 3}{9 \div 3} = \frac{1}{3}
+
+\]
+
+<p>
+If the largest whole number is not obvious, and many times it is not, divide the numerator and denominator by any number (except one) that divides evenly into each, and then repeat the process until the fraction is in lowest terms. Know that if both numbers are even, then you divide each number by 2.
+
+<p>
+For clarity, below are a few examples of reducing fractions using this method.
+
+<p>
+'''Example'''
+
+<p>
+Reduce $\tfrac{12}{20}$ to lowest terms.
+
+<p>
+'''Solution'''
+
+<p>
+In this problem, the largest whole number is difficult to see, so we first divide the numerator and denominator by two, as shown:
+
+\[
+\frac{12 \div 2}{20 \div 2} = \frac{6}{10}
+\]
+
+<p>
+Next divide by two again:
+
+\[
+\frac{6 \div 2}{10 \div 2} = \frac{3}{5}
+\]
+
+<p>
+There are no whole numbers left which can divide evenly into $\tfrac{3}{5}$, so the problem is finished. 
+
+<p>
+'''Answer'''
+
+<p>
+$\tfrac{12}{20}$ reduced to lowest terms is $\tfrac{3}{5}$
+
+<p>
+'''Example'''
+
+<p>
+Reduce $\tfrac{18}{24}$ to lowest terms.
+
+<p>
+'''Solution'''
+
+<p>
+Divide the numerator and denominator by six, as shown:
+
+\[
+\frac{18 \div 6}{24 \div 6} = \frac{3}{4}
+\]
+
+
+<p>
+'''Answer'''
+
+<p>
+$\tfrac{18}{24}$ reduced to lowest terms is $\tfrac{3}{4}$.
+
+<p>
+'''Example'''
+
+<p>
+Reduce $\tfrac{112}{126}$ to lowest terms.
+
+<p>
+'''Solution'''
+
+<p>
+In this problem, the largest whole number is not immediately apparent, so we first divide the numerator and denominator by two, as shown:
+
+\[
+\frac{112 \div 2}{126 \div 2} = \frac{56}{63}
+\]
+
+<p>
+Next divide by seven:
+
+\[
+\frac{56 \div 7}{63 \div 7} = \frac{8}{9}
+\]
+
+<p>
+'''Answer'''
+
+<p>
+$\tfrac{112}{126}$ reduced to lowest terms is $\tfrac{8}{9}$.
+
+<p>
+=== Greatest Common Factor Method ===
+<p>
+The second method of simplifying fractions involves finding the ''greatest common factor'' between the numerator and the denominator. We do this by breaking up both the numerator and the denominator into their prime factors (greatest common factor = 2x2 = 4):
+
+\[
+\frac{12}{16}=\frac{2 \times 2 \times 3}{2 \times 2 \times 2 \times 2} = \frac{2\!\!\!/ \times 2\!\!\!/ \times 3}{2\!\!\!/ \times 2\!\!\!/ \times 2 \times 2} = \frac {3}{4}
+\]
+
+
+<p>
+It is implied that any part is multiplied by one. If we divide 2s out of the factorized fraction, we are left with one 2 in the denominator.
+
+\[
+\frac{4}{8} = \frac{1 \times 2\!\!\!/ \times 2\!\!\!/}{2 \times 2\!\!\!/ \times 2\!\!\!/} = \frac{1}{2}
+\]
+
+<p>
+It is best to practice these skills of reducing fractions until you feel confident enough to do them on your own. Remember, practice makes perfect.
+
+<p>
+== Raising Fractions to Higher Terms ==
+<p>
+To raise a fraction to ''higher terms'' is to rewrite it in larger numbers while keeping the fraction equivalent to the original in value. This is, for all intents and purposes, the exact opposite of simplifying a fraction. 
+
+<p>
+'''Example'''
+
+<p>
+Convert $\frac{2}{5}$ to a fraction with denominator of 15.  
+
+\[
+\frac{2}{5} = \frac{?}{15}
+\]
+
+
+<p>
+'''Step 1'''
+
+<p>
+Ask yourself “what number multiplied by 5 equals 15?” To find the answer simply divide 5 into 15. 
+
+\[
+{15} \div {5} = 3
+\]
+
+
+<p>
+'''Step 2'''
+
+<p>
+After dividing the two denominators, you must take the answer and multiply it by the numerator you already have. So in this case, we multiply 2 by 3 to find the missing numerator. 
+
+\[
+{2} \times {3} = {6}
+\]
+
+<p>
+'''Answer'''
+
+<p>
+\[
+\frac{2}{5} = \frac{6}{15}
+\]
+
+
+<p>
+== Changing Improper Fractions to Mixed Numbers ==
+<p>
+Oftentimes you will encounter fractions in their improper form. While this may be useful in some instances, it is usually best to convert the fraction into simplest form, or mixed fraction.
+
+<p>
+To convert an improper fraction into a mixed fraction, divide the denominator into the numerator.
+
+<p>
+'''Example'''
+
+<p>
+Change $\frac{13}{2}$ into a mixed fraction.
+
+<p>
+'''Solution'''
+
+<p>
+Divide 13 by 2, use long division to obtain quotient and a remainder.  ${13} \div {2} = {6\ \mbox{r}\ 1}$
+
+<p>
+'''Answer'''
+
+<p>
+To form the proper fraction part of the answer, we use the divisor ('''2''') as the denominator, and the remainder ('''r1''') as the numerator. Finally, we take the answer to the division problem, in this case 6, and use that as the whole number.
+
+<p>
+Hence $\frac{13}{2}$ in mixed fraction form is $6\,\!\frac{1}{2}$
+
+<p>
+== Adding Fractions ==
+
+<p>
+=== Adding Fractions With The Same Denominator ===
+<p>
+In order to add fractions with the same denominator, you only need to add the numerators while keeping the original denominator for the sum.
+
+\[
+\frac{1}{5} + \frac{3}{5} = \frac{1+3}{5} = \frac{4}{5}
+\]
+
+<p>
+Adding fractions with the same denominator is the rule but it begs the question why?  Why can’t (or shouldn't) I add both numerators and denominators?
+
+\[
+\frac{1}{4} + \frac{1}{4} = \frac{1+1}{4+4} = \frac{2}{8}
+\]
+
+
+<p>
+To make sense of this try taking a 12 inch ruler and drawing a 3 inch horizontal line (1/4 of a foot) and then on the end add another 3 inch line (1/4 of a foot).  What is the total length of the line?  It should be 6 inches (1/2 a foot) and not 2/8 of a foot (3 inches). In essence it seems we can only add like items and like items are terms that have the same denominator and we add them up by adding up numerators.
+
+<p>
+=== Adding Fractions With Different Denominators ===
+<p>
+When adding fractions that do not have the same denominator, you must make the denominators of all the terms the same. We do this by finding the ''least common multiple'' of the two denominators.
+
+<p>
+:Least common multiple of 4 and 5 is 20; therefore, make the denominators 20:
+
+\]
+\frac{1}{4} + \frac{2}{5} = \frac{1 \times 5}{4 \times 5} + \frac{2 \times 4}{5 \times 4} = \frac{5}{20} + \frac{8}{20}
+\]
+
+<p>
+:Now that the common denominators are the same, perform the usual addition: 
+
+
+\[
+\frac{5+8}{20} = \frac{13}{20}
+\]
+
+<p>
+== Subtracting Fractions ==
+
+<p>
+=== Subtracting Fractions With The Same Denominator ===
+<p>
+To subtract fractions sharing a denominator, take their numerators and subtract them in order of appearance. If the numerator's difference is zero, the whole difference will be zero, regardless of the denominator.
+
+\[
+\frac{6}{13} - \frac{2}{13} = \frac{6-2}{13} = \frac{4}{13}
+\]
+
+<p>
+=== Subtracting Fractions With Different Denominators ===
+<p>
+To subtract one fraction from another, you must again find the least common multiple of the two denominators.
+
+<p>
+:Least common multiple of 4 and 6 is 12; therefore, make the denominator 12:
+
+\[
+\frac{3}{4} - \frac{1}{6} = \frac{3 \times 3}{4 \times 3} - \frac{1 \times 2}{6 \times 2} = \frac{9}{12} - \frac{2}{12}
+\]
+
+
+<p>
+:Now that the denominator is same, perform the usual subtraction.
+
+\[
+ \frac{9-2}{12} = \frac{7}{12}
+\]
+
+
+<p>
+== Multiplying Fractions ==
+<p>
+Multiplying fractions is very easy. Simply multiply the numerators of the fractions to find the numerator of the answer. Then multiply the denominators of the fractions to find the denominator of the answer. In other words, it can be said “top times top equals top”, and “bottom times bottom equals bottom.” This rule is used to multiply both proper and improper fractions, and can be used to find the answer to more than two fractions in any given problem.
+
+<p>
+'''Example'''
+
+<p>
+Multiply $\frac{1}{2} \times \frac{3}{4}$
+
+<p>
+'''Step 1'''
+
+<p>
+Multiply the numerators to find the numerator of the answer. $1 \times 3 = 3$
+
+<p>
+'''Step 2'''
+
+<p>
+Multiply the denominators to find the denominator of the answer. $2 \times 4 = 8$
+
+<p>
+'''Answer'''
+
+\[
+\frac{1}{2} \times \frac{3}{4} = \frac{3}{8}
+\]
+
+
+<p>
+Make sure to reduce your answer if possible. 
+
+<p>
+=== Whole and Mixed Numbers ===
+<p>
+When you need to multiply a fraction by a whole number, you must first convert the whole number into a fraction. This, fortunately, is not as difficult as it may sound; just put the whole number over the number one. Then proceed to multiply as you would with any two fractions. An example is given below. 
+
+\[
+\frac{3}{4} \times {5} = \frac{3}{4} \times \frac{5}{1} = \frac{15}{4} = 3\,\!\frac{3}{4}
+\]
+
+
+<p>
+If a problem contains one or more mixed numbers, you must first convert all mixed numbers into improper fractions, and multiply as before. Finally, convert any improper fraction back to a mixed number.
+
+\[
+1\,\!\frac{1}{2} \times 2\,\!\frac{1}{4} = \frac{3}{2} \times \frac{9}{4} = \frac{27}{8} = 3\,\!\frac{3}{8}
+\]
+
+
+<p>
+== Dividing Fractions ==
+<p>
+To divide fractions, simply exchange the numerator and the denominator of the second term in the problem, then multiply the two fractions.
+
+\[
+\frac{1}{2} \div \frac{3}{4}
+\]
+
+
+<p>
+Invert the second fraction:
+
+\[
+\frac{1}{2} \times \frac{4}{3}
+\]
+
+
+<p>
+Multiply:
+
+\[
+\frac{1 \times 4}{2 \times 3} = \frac{4}{6}
+\]
+
+<p>
+Always check to see if simplifying the resulting fraction can be done:
+
+\[
+\frac{4}{6} = \frac{2}{3}
+\]
+
+
+
+<p>
+
+
+<p>
+
+
+<p>
+
+
+<p>
+
+
+<p>
+
+
+<p>
+
+
+<p>
+
+
+<p>
+
+
+<p>
+
+
+<p>
+
+
+<p>
+
 
 <h2>#1</h2>
 
@@ -274,6 +1036,11 @@ or
 
 
 <p>
+
+$\int\frac{1}{2}dx - \mathlarger{ \int\frac{1}{2}dx}$
+
+  
+<p>
 \begin{equation*}
     \Rightarrow \alpha \mathlarger{\mathlarger{\sum}}_{c}A_c a_k\left( \frac{
     \scalemath{0.85}{
@@ -290,8 +1057,10 @@ or
 \end{equation*}
 
 <p>
+And cleaned up for MathJax' limited support of LaTeX commands:
+
 \begin{equation*}
-    \Rightarrow \alpha \mathlarger{\mathlarger{\sum}}_{c}A_c a_k\left( \frac{
+    \Rightarrow \alpha {{\sum}}_{c}A_c a_k\left( \frac{
     B
     }
     {\Lambda^2}
@@ -302,32 +1071,32 @@ where
     \begin{aligned}
         B = &\underbrace{\left[\left(\sum_{k=1}^{\nu-1}
         \frac{a_k}{12}(y_k^2+y_k y_{k+1} +y_{k+1}^2)\right) - 
-          \lambda_1\right]^2}_{\mathlarger{\mu_1}} +\\[1ex]&
+          \lambda_1\right]^2}_{{\mu_1}} +\\[1ex]&
         \underbrace{\left[\left(\sum_{k=1}^{\nu-1}\frac{a_k}{24}(x_k y_{k+1}+
           2x_ky_k+2x_{k+1}y_{k+1} +x_{k+1}y_k)\right) - \lambda_2 \right]^2}
-          _{\mathlarger{\mu_2}} + \\[1ex]&
+          _{{\mu_2}} + \\[1ex]&
         \underbrace{\left[\left(\sum_{k=1}^{\nu-1}\frac{a_k}{24}(x_k y_{k+1}+
           2x_ky_k+2x_{k+1}y_{k+1} +x_{k+1}y_k)\right) - \lambda_3 \right]^2}
-          _{\mathlarger{\mu_3}}+\\[1ex]&
-        \underbrace{\left[\left(\sum_{k=1}^{\nu-1}\frac{a_k}{12}(x_k^2+x_k x_{k+1} +x_{k+1}^2)\right) - \lambda_4 \right]^2}_{\mathlarger{\mu_4}}
+          _{{\mu_3}}+\\[1ex]&
+        \underbrace{\left[\left(\sum_{k=1}^{\nu-1}\frac{a_k}{12}(x_k^2+x_k x_{k+1} +x_{k+1}^2)\right) - \lambda_4 \right]^2}_{{\mu_4}}
     \end{aligned}
 \end{equation*}
 
 <p>
 \begin{equation*}
     \begin{aligned}
-        \Rightarrow \alpha \mathlarger{\mathlarger{\sum}}_{c}A_c a_k = 
+        \Rightarrow \alpha {{\sum}}_{c}A_c a_k = 
           \frac{1}{\Lambda^2}\Biggl\{
         &\underbrace{\left[\left(\sum_{k=1}^{\nu-1}
         \frac{a_k}{12}(y_k^2+y_k y_{k+1} +y_{k+1}^2)\right) - 
-          \lambda_1\right]^2}_{\mathlarger{\mu_1}} +\\[1ex]&
+          \lambda_1\right]^2}_{{\mu_1}} +\\[1ex]&
         \underbrace{\left[\left(\sum_{k=1}^{\nu-1}\frac{a_k}{24}(x_k y_{k+1}+
           2x_ky_k+2x_{k+1}y_{k+1} +x_{k+1}y_k)\right) - \lambda_2 \right]^2}
-          _{\mathlarger{\mu_2}} + \\[1ex]&
+          _{{\mu_2}} + \\[1ex]&
         \underbrace{\left[\left(\sum_{k=1}^{\nu-1}\frac{a_k}{24}(x_k y_{k+1}+
           2x_ky_k+2x_{k+1}y_{k+1} +x_{k+1}y_k)\right) - \lambda_3 \right]^2}
-          _{\mathlarger{\mu_3}}+\\[1ex]&
-        \underbrace{\left[\left(\sum_{k=1}^{\nu-1}\frac{a_k}{12}(x_k^2+x_k x_{k+1} +x_{k+1}^2)\right) - \lambda_4 \right]^2}_{\mathlarger{\mu_4}}\Bigg\}
+          _{{\mu_3}}+\\[1ex]&
+        \underbrace{\left[\left(\sum_{k=1}^{\nu-1}\frac{a_k}{12}(x_k^2+x_k x_{k+1} +x_{k+1}^2)\right) - \lambda_4 \right]^2}_{{\mu_4}}\Bigg\}
     \end{aligned}
 \end{equation*}
 
@@ -2974,44 +3743,64 @@ However matrices are usually enclosed in delimiters of some kind, and while it i
 Environment name | Surrounding delimiter | Notes
 -----------------
 
-\begin{equation}
-  pmatrix  {\displaystyle (\,)} (\,) centers columns by default
-\end{equation}
+(\,) centers columns by default
 
 \begin{equation}
-  pmatrix* {\displaystyle (\,)} (\,) allows to specify alignment of columns in optional parameter
+  pmatrix  {\displaystyle (\,)} 
 \end{equation}
 
-\begin{equation}
-  bmatrix  {\displaystyle [\,]} [\,] centers columns by default
-\end{equation}
+  (\,) allows to specify alignment of columns in optional parameter
 
 \begin{equation}
-  bmatrix* {\displaystyle [\,]} [\,] allows to specify alignment of columns in optional parameter
+  pmatrix* {\displaystyle (\,)} 
 \end{equation}
 
-\begin{equation}
-  Bmatrix  {\displaystyle \{\,\}} \{\,\} centers columns by default
-\end{equation}
+  [\,] centers columns by default
 
 \begin{equation}
-  Bmatrix* {\displaystyle \{\,\}} \{\,\} allows to specify alignment of columns in optional parameter
+  bmatrix  {\displaystyle [\,]} 
 \end{equation}
 
-\begin{equation}
-  vmatrix  {\displaystyle |\,|} |\,| centers columns by default
-\end{equation}
+   [\,] allows to specify alignment of columns in optional parameter
 
 \begin{equation}
-  vmatrix* {\displaystyle |\,|} |\,| allows to specify alignment of columns in optional parameter
+  bmatrix* {\displaystyle [\,]}
 \end{equation}
 
-\begin{equation}
-  Vmatrix  {\displaystyle \|\,\|} \|\,\| centers columns by default
-\end{equation}
+  \{\,\} centers columns by default
 
 \begin{equation}
-  Vmatrix* {\displaystyle \|\,\|} \|\,\| allows to specify alignment of colums in optional parameter
+  Bmatrix  {\displaystyle \{\,\}} 
+\end{equation}
+
+  \{\,\} allows to specify alignment of columns in optional parameter
+
+\begin{equation}
+  Bmatrix* {\displaystyle \{\,\}} 
+\end{equation}
+
+  |\,| centers columns by default
+
+\begin{equation}
+  vmatrix  {\displaystyle |\,|} 
+\end{equation}
+
+  |\,| allows to specify alignment of columns in optional parameter
+
+\begin{equation}
+  vmatrix* {\displaystyle |\,|} 
+\end{equation}
+
+  \|\,\| centers columns by default
+
+\begin{equation}
+  Vmatrix  {\displaystyle \|\,\|} 
+\end{equation}
+
+  \|\,\| allows to specify alignment of colums in optional parameter
+
+\begin{equation}
+  Vmatrix* {\displaystyle \|\,\|} 
 \end{equation}
 
 
@@ -3562,20 +4351,29 @@ However, this doesn't give the correct result. LaTeX doesn't respect the white-s
 <p>
 Command | Description | Size
 -------------
-\begin{equation}
-  \,  small space 3/18 of a quad
-\end{equation}
+
+small space 3/18 of a quad
 
 \begin{equation}
-  \:  medium space  4/18 of a quad
+  ☐\,☐  
 \end{equation}
 
-\begin{equation}
-  \;  large space 5/18 of a quad
-\end{equation}
+medium space  4/18 of a quad
 
 \begin{equation}
-  \!  negative space  -3/18 of a quad
+  ☐\:☐  
+\end{equation}
+
+large space 5/18 of a quad
+
+\begin{equation}
+  ☐\;☐  
+\end{equation}
+
+negative space  -3/18 of a quad
+
+\begin{equation}
+  ☐\!☐  
 \end{equation}
 
 <p>
@@ -3706,31 +4504,31 @@ Code  | Output |  Comment
 --------------
 
 \begin{equation}
-  \dots {\displaystyle \dots } \dots  generic dots (ellipsis), to be used in text (outside formulae as well). It automatically manages whitespaces before and after itself according to the context, it's a higher level command.
+  \dots {\displaystyle \dots } \dots   \text{generic dots (ellipsis), to be used in text (outside formulae as well). It automatically manages whitespaces before and after itself according to the context, it's a higher level command.}
 \end{equation}
 
 \begin{equation}
-  \ldots  {\displaystyle \ldots } \ldots  the output is similar to the previous one, but there is no automatic whitespace management; it works at a lower level.
+  \ldots  {\displaystyle \ldots } \ldots   \text{the output is similar to the previous one, but there is no automatic whitespace management; it works at a lower level.}
 \end{equation}
 
 \begin{equation}
-  \cdots  {\displaystyle \cdots } \cdots  These dots are centered relative to the height of a letter. There is also the binary multiplication operator, \cdot, mentioned below.
+  \cdots  {\displaystyle \cdots } \cdots   \text{These dots are centered relative to the height of a letter. There is also the binary multiplication operator, \cdot, mentioned below.}
 \end{equation}
 
 \begin{equation}
-  \vdots  {\displaystyle \vdots } \vdots  vertical dots
+  \vdots  {\displaystyle \vdots } \vdots   \text{vertical dots}
 \end{equation}
 
 \begin{equation}
-  \ddots  {\displaystyle \ddots } \ddots  diagonal dots
+  \ddots  {\displaystyle \ddots } \ddots   \text{diagonal dots}
 \end{equation}
 
 \begin{equation}
-  \iddots   inverse diagonal dots (requires the mathdots package)
+  \iddots    \text{inverse diagonal dots (requires the mathdots package)}
 \end{equation}
 
 \begin{equation}
-  \hdotsfor{n}  {\displaystyle \ldots \ldots } \ldots \ldots  to be used in matrices, it creates a row of dots spanning n columns.
+  \hdotsfor{n}  {\displaystyle \ldots \ldots } \ldots \ldots   \text{to be used in matrices, it creates a row of dots spanning n columns.}
 \end{equation}
 
 <p>
@@ -3741,23 +4539,23 @@ Code |  Output  | Comment
 ----------------
 
 \begin{equation}
-  A_1,A_2,\dotsc, LaTeX Dotsc.png for "dots with commas"
+  A_1,A_2,\dotsc,  \text{LaTeX Dotsc.png for "dots with commas"}
 \end{equation}
 
 \begin{equation}
-  A_1+\dotsb+A_N  LaTeX Dotsb.png for "dots with binary operators/relations"
+  A_1+\dotsb+A_N   \text{LaTeX Dotsb.png for "dots with binary operators/relations"}
 \end{equation}
 
 \begin{equation}
-  A_1 \dotsm A_N  LaTeX Dotsm.png for "multiplication dots"
+  A_1 \dotsm A_N   \text{LaTeX Dotsm.png for "multiplication dots"}
 \end{equation}
 
 \begin{equation}
-  \int_a^b \dotsi LaTeX Dotsi.png for "dots with integrals"
+  \int_a^b \dotsi  \text{LaTeX Dotsi.png for "dots with integrals"}
 \end{equation}
 
 \begin{equation}
-  A_1\dotso A_N LaTeX Dotso.png for "other dots" (none of the above)
+  A_1\dotso A_N    \text{LaTeX Dotso.png for "other dots" (none of the above)}
 \end{equation}
 
 
@@ -4107,7 +4905,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \rightarrow \,} \rightarrow \, \rightarrow or \to
+  {\displaystyle \rightarrow \,} \rightarrow \, \rightarrow \text{or} \to
 \end{equation}
 
 \begin{equation}
@@ -4115,7 +4913,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \leftarrow \,} \leftarrow \, \leftarrow or \gets
+  {\displaystyle \leftarrow \,} \leftarrow \, \leftarrow \text{or} \gets
 \end{equation}
 
 \begin{equation}
@@ -4139,7 +4937,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \Rightarrow \,} \Rightarrow \, \Rightarrow or \implies
+  {\displaystyle \Rightarrow \,} \Rightarrow \, \Rightarrow \text{or} \implies
 \end{equation}
 
 \begin{equation}
@@ -4163,7 +4961,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \Leftrightarrow \,} \Leftrightarrow \, \Leftrightarrow (preferred for equivalence (iff))
+  {\displaystyle \Leftrightarrow \,} \Leftrightarrow \, \Leftrightarrow \text{(preferred for equivalence (iff))}
 \end{equation}
 
 \begin{equation}
@@ -4187,11 +4985,11 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \emptyset \,} \emptyset \, and 
+  {\displaystyle \emptyset \,} \emptyset \, \emptyset 
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \varnothing \,} \varnothing \, \emptyset and \varnothing
+  {\displaystyle \varnothing \,} \varnothing \, \emptyset \text{and} \varnothing
 \end{equation}
 
 
@@ -4203,7 +5001,7 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
 
 
 \begin{equation}
-  {\displaystyle |\,} |\, | or \mid (difference in spacing) 
+  {\displaystyle |\,} |\, | or \mid \text{(difference in spacing)} 
 \end{equation}
 
 \begin{equation}
@@ -5120,12 +5918,15 @@ ${ \displaystyle
    {\partial v_z \over \partial z}
 }$
 
+
+<p>Apparently MathJax doesn't support \thickspace, but does support \quad and \qqaud:
+
 <p>
 ${ \displaystyle
  c = \overbrace
-     { \underbrace{\thickspace\thickspace\thickspace\thickspace\thickspace a \thickspace\thickspace\thickspace\thickspace}_\text{real}
+     { \underbrace{\quad\quad\quad\quad\quad a \quad\quad\quad\quad}_\text{real}
        +
-       \underbrace{\thickspace\thickspace\thickspace\thickspace\thickspace b\mathrm{i} \thickspace\thickspace\thickspace\thickspace}_\text{imaginary}
+       \underbrace{\quad\quad\quad\quad\quad b\mathrm{i} \quad\quad\quad\quad}_\text{imaginary}
      }^\text{complex number}
 }$
 
@@ -5272,6 +6073,9 @@ ${ \displaystyle
 ${ \displaystyle
    \frac{\sqrt{1 + \sqrt[3]{2 + \sqrt[5]{3 + \sqrt[7]{4 + \sqrt[11]{5 + \sqrt[13]{6 + \sqrt[17]{7 + \sqrt[19]{A}}}}}}}}}{\mathrm{e}^\pi} = x^{'''}
 }$
+
+<p>
+Well, bugger it millenium hand & shrimp:
 
 <p>
 ${ \displaystyle

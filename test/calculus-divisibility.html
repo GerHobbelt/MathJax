@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Factorization / Ontbinden in factoren</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="bootstrap4/css/bootstrap.css">
+
+<script type="text/x-mathjax-config">
+  //MathJax.Ajax.timeout = 13*1000;   // timeout for loading of files (15 seconds)
+  MathJax.Ajax.config.path.Contrib = "../../mathjax-third-party-extensions";
+
+  MathJax.Hub.Config({
+    //config: ["MMLorHTML.js"],
+    extensions: [
+      "tex2jax.js", "mml2jax.js", "asciimath2jax.js",
+      "[Contrib]/longdiv/unpacked/longdiv.js",
+      "[Contrib]/counters/counters.js",
+    ],
+    //jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/HTML-CSS" ],
+    jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/SVG" ],
+    tex2jax: { 
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true,
+    },
+    TeX: {
+      extensions: ["AMSmath.js", "AMSsymbols.js", "extpfeil.js", "newcommand.js", "begingroup.js", "mathchoice.js", "unicode.js", "mediawiki-texvc.js", "cancel.js", "bbox.js", "verb.js", "noErrors.js", "noUndefined.js"],
+      equationNumbers: {autoNumber: "AMS"}, 
+    },
+    "HTML-CSS": {
+        preferredFont: "Gyre-Pagella",
+    },
+    SVG: {
+      font: "Gyre-Pagella",
+    },
+    errorSettings: { 
+      message: ["[Math Error]"], 
+    }    
+  });
+</script>
+<script type="text/javascript" src="../MathJax.js"></script>
+<script type="text/javascript" src="../../seedrandom/seedrandom.js"></script>
+
+<style>
+body {
+  margin: 1em 2em;
+  max-width: 50em;
+  margin: 0 auto;
+}
+h1 {
+  text-align:center;
+}
+h2 {
+  font-weight: bold;
+  background-color: #DDDDDD;
+  padding: .2em .5em;
+  margin-top: 1.5em;
+  border-top: 3px solid #666666;
+  border-bottom: 2px solid #999999;
+}
+h3 {
+  padding-top: 2em;
+  padding-bottom: 1em;
+}
+blockquote {
+  border: 1px solid #ccdee3;
+  padding: .25em 1em;
+  margin: 2em 5em;
+  background-color: #e9f7fb;
+}
+blockquote blockquote {
+  border: 1px solid #ccdee3;
+  padding: .25em 1em;
+  margin: 2em 1em 2em 10em;
+  background-color: #f8fbfb;
+}
+</style>
+</head>
+<body>
+
+<noscript>
+<div style="color:#CC0000; text-align:center">
+<b>Warning: <a href="http://www.mathjax.org/">MathJax</a>
+requires JavaScript to process the mathematics on this page.<br />
+If your browser supports JavaScript, be sure it is enabled.</b>
+</div>
+<hr>
+</noscript>
+
+<h1>Ontbinden in factoren</h1>
+
+<blockquote>
+<h2>Priemgetal: definitie</h2>
+
+<p>
+Een getal $x$ is <em>priem</em> als het getal alleen deelbaar is door zichzelf en 1.
+
+<p>
+Voorbeelden:
+
+<ul>
+  <li>7 is priem, want 7 is alleen deelbaar door 7 en door 1.</li>
+  <li>10 is <em>geen priemgetal</em>, want 10 is deelbaar door 2 (en dat is geen 10 of 1). Daarnaast is 10 ook deelbaar door 5: 2 en 5 zijn de <def>factoren</def> van 10.</li>
+  <li>256 is <em>geen priemgetal</em>, want 256 is deelbaar door 2.<br/> 
+    Als je 256 <def>ontbindt in factoren</def> blijkt $256 = 2 \times 2 \times 2 \times 2 \times 2 \times 2 \times 2 \times 2 \times 2 = 2^8$.<br/> 
+    Als we praten over <em>factoren van 256</em>, dan is 2 een factor, maar ook $2 \times 2 = 4$, $2 \times 2 \times 2 = 8$, $16$, $32$, $64$ en $128$ (dit zijn resp. $2^1$, $2^2$, $2^3$, $2^4$, $2^5$, $2^6$ en $2^7$. $256$ ($= 2^8$) zelf is ook een <em>factor</em> van $256$, want $1 \times 256 = 256$.</li>
+</ul>
+
+<h2>Factor: definitie</h2>
+
+<p>
+Een getal $a$ is <em>factor</em> van getal $b$ als $a \times n = b$, waarbij $n$ een willekeurig geheel (positief) getal is: $a: \left\{ 1, 2, 3, \ldots ,\infty \right\}$ oftewel $a \in \mathbb{N} | a \ge 1$.
+
+
+</blockquote>
+
+
+
+
+
+<p>
+\[
+    \left( \frac{a^2}{b} \right)
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+\[
+    \left( \dfrac{a}{b} \right) 
+\]
+</p>
+
+<h2>#1</h2>
+
+<p>
+\[
+    \left( \dfrac{a^2}{b} \right)
+\]
+</p>
+
+<p>
+\[
+  \begin{matrix}
+    1 \\
+    2 \\
+    3
+  \end{matrix}\begin{matrix}
+    a  \\
+    b \\
+    c \\
+    d
+  \end{matrix}
+\]
+
+\[
+  \begin{matrix}
+    1 \\
+    2 \\
+    3
+  \end{matrix}\begin{matrix}
+    \cfrac{a}{\cfrac{b}{\cfrac{c}{d}}}
+  \end{matrix}
+\]
+
+\[
+  \begin{matrix}
+    1 \\
+    2 \\
+    3
+  \end{matrix}\begin{matrix}
+    a  \\
+\hline    b \\
+\hline    c \\
+\hline    d
+  \end{matrix}
+\]
+
+\[
+  \begin{matrix}
+    1 \\
+    2 \\
+    3
+  \end{matrix}\]
+
+\[
+\begin{matrix}
+    a  \\
+\rule{.3em}{.1em}    b \\
+\rule{.3em}{.1em}    c \\
+\rule{.3em}{.1em}    d
+  \end{matrix}\]
+
+\[
+\eqalign{
+    a  \\
+    b \\
+    c \\
+    d
+  }\]
+
+\[
+\displaylines{
+    a  \\
+    b \\
+    c \\
+    d
+  }\]
+
+\[
+\eqalignno{
+    a  \\
+    b \\
+    c \\
+    d
+  }\]
+
+\[
+\leqalignno{
+    a  \\
+    b \\
+    c \\
+    d
+  }
+\]
+
+
+</body>
+</html>
