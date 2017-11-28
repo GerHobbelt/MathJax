@@ -5579,7 +5579,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
     //  Add the attributes to the mml node
     //
     AddAttributes: function (mml,node) {
-      mml.attr = {}; mml.attrNames = [];
+      mml.attr = {}; 
+      mml.attrNames = [];
       for (var i = 0, m = node.attributes.length; i < m; i++) {
         var name = node.attributes[i].name;
         if (name == "xlink:href") {name = "href"}
@@ -5653,7 +5654,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
       // HTML5 removes xmlns: namespaces, so put them back for XML
       var match = math.match(/^(<math( ('.*?'|".*?"|[^>])+)>)/i);
       if (match && match[2].match(/ (?!xmlns=)[a-z]+=\"http:/i)) {
-	math = match[1].replace(/ (?!xmlns=)([a-z]+=(['"])http:.*?\2)/ig," xmlns:$1 $1") +
+        math = match[1].replace(/ (?!xmlns=)([a-z]+=(['"])http:.*?\2)/ig," xmlns:$1 $1") +
                math.substr(match[0].length);
       }
       if (math.match(/^<math/i) && !math.match(/^<[^<>]* xmlns=/)) {
@@ -5705,7 +5706,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
 
     Translate: function (script) {
       if (!this.ParseXML) {this.ParseXML = this.createParser()}
-      var mml, math, data = {script:script};
+      var mml, math;
+      var data = {math:null,display:null,script:script};
       if (script.firstChild &&
           script.firstChild.nodeName.toLowerCase().replace(/^[a-z]+:/,"") === "math") {
         data.math = script.firstChild;
@@ -5714,24 +5716,37 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
         if (BROWSER.isMSIE) {math = math.replace(/(&nbsp;)+$/,"")}
         data.math = math;
       }
-      var callback = this.prefilterHooks.Execute(data); if (callback) return callback;
+      var callback = this.prefilterHooks.Execute(data); 
+      if (callback) return callback;
       math = data.math;
       try {
         mml = MATHML.Parse(math,script).mml;
       } catch(err) {
-        if (!err.mathmlError) {throw err}
+        if (!err.mathmlError) {throw err;}
         mml = this.formatError(err,math,script);
       }
+      data.display = mml.displaystyle;
       data.math = MML(mml);
       return this.postfilterHooks.Execute(data) || data.math;
     },
-    prefilterMath: function (math,script) {return math},
-    prefilterMathML: function (math,script) {return math},
+    prefilterMath: function (math,displaystyle,script) {
+      return math;
+    },
+    prefilterMathML: function (math,displaystyle,script) {
+      return math;
+    },
+    postfilterMath: function (math,displaystyle,script) {
+      return math;
+    },
     formatError: function (err,math,script) {
       var message = err.message.replace(/\n.*/,"");
       MathJax.Hub.signal.Post(["MathML Jax - parse error",message,math,script]);
       return MML.Error(message);
     },
+
+    //
+    //  Produce an error and stop processing this equation
+    //
     Error: function (message) {
       //
       //  Translate message if it is ["id","message",args]
@@ -5815,8 +5830,11 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
   //
   MATHML.prefilterHooks.Add(function (data) {
     data.math = (typeof(data.math) === "string" ?
-      MATHML.prefilterMath(data.math,data.script) :
-      MATHML.prefilterMathML(data.math,data.script));
+      MATHML.prefilterMath(data.math,data.display,data.script) :
+      MATHML.prefilterMathML(data.math,data.display,data.script));
+  });
+  MATHML.postfilterHooks.Add(function (data) {
+    data.math = MATHML.postfilterMath(data.math,data.display,data.script);
   });
 
   MATHML.Parse.Entity = {

@@ -91,13 +91,16 @@ MathJax.InputJax.TeX = MathJax.InputJax({
     MultLineWidth: "85%",
     
     equationNumbers: {
-      autoNumber: "none",  // "AMS" for standard AMS numbering,
-                           //  or "all" for all displayed equations
-      formatNumber: function (n) {return n},
-      formatTag:    function (n) {return '('+n+')'},
+      autoNumber: "none",  // "AMS" for standard AMS environment numbering,
+                           //  or "all" to number all displayed equations
+      formatNumber: function (n) {return n},                // format for equation number n
+      formatTag:    function (n) {return '('+n+')'},        // format for \tag and \eqref
       formatID:     function (n) {return 'mjx-eqn-'+String(n).replace(/[:"'<>&]/g,"")},
+                                                            // element ID to use for reference
       formatURL:    function (id,base) {return base+'#'+escape(id)},
-      useLabelIds:  true
+                                                            // URL to use for references
+      useLabelIds:  true,    // make element ID's use \label name rather than equation number
+      //outputLabels: true,
     }
   },
   
@@ -8532,12 +8535,13 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       var mml, isError = false, math = MathJax.HTML.getScript(script);
       var display = (script.type.replace(/\n/g," ").match(/(;|\s|\n)mode\s*=\s*display(;|\s|\n|$)/) != null);
       var data = {math:math, display:display, script:script};
-      var callback = this.prefilterHooks.Execute(data); if (callback) return callback;
+      var callback = this.prefilterHooks.Execute(data); 
+      if (callback) return callback;
       math = data.math;
       try {
         mml = TEX.Parse(math).mml();
       } catch(err) {
-        if (!err.texError) {throw err}
+        if (!err.texError) {throw err;}
         mml = this.formatError(err,math,display,script);
         isError = true;
       }
@@ -8826,9 +8830,13 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
      */
     HandleTag: function (name) {
       var star = this.GetStar();
-      var arg = this.trimSpaces(this.GetArgument(name)), tag = arg;
-      if (!star) {arg = CONFIG.formatTag(arg)}
-      var global = this.stack.global; global.tagID = tag;
+      var arg = this.trimSpaces(this.GetArgument(name));
+      var tag = arg;
+      if (!star) {
+        arg = CONFIG.formatTag(arg);
+      }
+      var global = this.stack.global; 
+      global.tagID = tag;
       if (global.notags) {
         TEX.Error(["CommandNotAllowedInEnv",
                    "%1 not allowed in %2 environment",
@@ -9101,7 +9109,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     autoTag: function () {
       var global = this.global;
       if (!global.notag) {
-        AMS.number++; global.tagID = CONFIG.formatNumber(AMS.number.toString());
+        AMS.number++; 
+        global.tagID = CONFIG.formatNumber(AMS.number.toString());
         var mml = TEX.Parse("\\text{"+CONFIG.formatTag(global.tagID)+"}",{}).mml();
         global.tag = MML.mtd(mml).With({id:CONFIG.formatID(global.tagID), autonumber:true});
       }
@@ -9111,7 +9120,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
      *  Get the tag and record the label, if any
      */
     getTag: function () {
-      var global = this.global, tag = global.tag; global.tagged = true;
+      var global = this.global;
+      var tag = global.tag; 
+      global.tagged = true;
       tag.attr = {};
       tag.attrNames = [];
       if (CONFIG.outputLabels) {
@@ -9132,9 +9143,14 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       //
       if (document.getElementById(tag.id) || AMS.IDs[tag.id] || AMS.eqIDs[tag.id]) {
         var i = 0, ID;
-        do {i++; ID = tag.id+"_"+i}
-          while (document.getElementById(ID) || AMS.IDs[ID] || AMS.eqIDs[ID]);
-        tag.id = ID; if (global.label) {AMS.eqlabels[global.label].id = ID}
+        do {
+          i++; 
+          ID = tag.id+"_"+i;
+        } while (document.getElementById(ID) || AMS.IDs[ID] || AMS.eqIDs[ID]);
+        tag.id = ID; 
+        if (global.label) {
+          AMS.eqlabels[global.label].id = ID;
+        }
       }
       AMS.eqIDs[tag.id] = 1;
       this.clearTag();
@@ -9804,7 +9820,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
     //  Add the attributes to the mml node
     //
     AddAttributes: function (mml,node) {
-      mml.attr = {}; mml.attrNames = [];
+      mml.attr = {}; 
+      mml.attrNames = [];
       for (var i = 0, m = node.attributes.length; i < m; i++) {
         var name = node.attributes[i].name;
         if (name == "xlink:href") {name = "href"}
@@ -9878,7 +9895,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
       // HTML5 removes xmlns: namespaces, so put them back for XML
       var match = math.match(/^(<math( ('.*?'|".*?"|[^>])+)>)/i);
       if (match && match[2].match(/ (?!xmlns=)[a-z]+=\"http:/i)) {
-	math = match[1].replace(/ (?!xmlns=)([a-z]+=(['"])http:.*?\2)/ig," xmlns:$1 $1") +
+        math = match[1].replace(/ (?!xmlns=)([a-z]+=(['"])http:.*?\2)/ig," xmlns:$1 $1") +
                math.substr(match[0].length);
       }
       if (math.match(/^<math/i) && !math.match(/^<[^<>]* xmlns=/)) {
@@ -9930,7 +9947,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
 
     Translate: function (script) {
       if (!this.ParseXML) {this.ParseXML = this.createParser()}
-      var mml, math, data = {script:script};
+      var mml, math;
+      var data = {math:null,display:null,script:script};
       if (script.firstChild &&
           script.firstChild.nodeName.toLowerCase().replace(/^[a-z]+:/,"") === "math") {
         data.math = script.firstChild;
@@ -9939,24 +9957,37 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
         if (BROWSER.isMSIE) {math = math.replace(/(&nbsp;)+$/,"")}
         data.math = math;
       }
-      var callback = this.prefilterHooks.Execute(data); if (callback) return callback;
+      var callback = this.prefilterHooks.Execute(data); 
+      if (callback) return callback;
       math = data.math;
       try {
         mml = MATHML.Parse(math,script).mml;
       } catch(err) {
-        if (!err.mathmlError) {throw err}
+        if (!err.mathmlError) {throw err;}
         mml = this.formatError(err,math,script);
       }
+      data.display = mml.displaystyle;
       data.math = MML(mml);
       return this.postfilterHooks.Execute(data) || data.math;
     },
-    prefilterMath: function (math,script) {return math},
-    prefilterMathML: function (math,script) {return math},
+    prefilterMath: function (math,displaystyle,script) {
+      return math;
+    },
+    prefilterMathML: function (math,displaystyle,script) {
+      return math;
+    },
+    postfilterMath: function (math,displaystyle,script) {
+      return math;
+    },
     formatError: function (err,math,script) {
       var message = err.message.replace(/\n.*/,"");
       MathJax.Hub.signal.Post(["MathML Jax - parse error",message,math,script]);
       return MML.Error(message);
     },
+
+    //
+    //  Produce an error and stop processing this equation
+    //
     Error: function (message) {
       //
       //  Translate message if it is ["id","message",args]
@@ -10040,8 +10071,11 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
   //
   MATHML.prefilterHooks.Add(function (data) {
     data.math = (typeof(data.math) === "string" ?
-      MATHML.prefilterMath(data.math,data.script) :
-      MATHML.prefilterMathML(data.math,data.script));
+      MATHML.prefilterMath(data.math,data.display,data.script) :
+      MATHML.prefilterMathML(data.math,data.display,data.script));
+  });
+  MATHML.postfilterHooks.Add(function (data) {
+    data.math = MATHML.postfilterMath(data.math,data.display,data.script);
   });
 
   MATHML.Parse.Entity = {

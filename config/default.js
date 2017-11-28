@@ -552,7 +552,8 @@ MathJax.Hub.Config({
 //                                                          // element ID to use for reference
 //    formatURL:    function (id,base) {return base+'#'+escape(id)},
 //                                                          // URL to use for references
-      useLabelIds: true    // make element ID's use \label name rather than equation number
+      useLabelIds: true,    // make element ID's use \label name rather than equation number
+//    outputLabels: false,
     },
 
     //
@@ -752,7 +753,7 @@ MathJax.Hub.Config({
     //
     //  When true, MathJax will not measure the widths or heights of the
     //  subexpressions as it creates its output, but instead will rely on
-    //  its internal calculautions based on teh bounding boxes of the
+    //  its internal calculations based on the bounding boxes of the
     //  characters it uses, and will only take measurements when it
     //  absolutely has to.  Since measurements cause display reflows, they
     //  slows down MathJax considerably, so without them MathJax runs
