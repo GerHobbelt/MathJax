@@ -5,3 +5,4 @@ docs/build/html-mathjax-site
 # unpacked/config/local/*.js
 # !unpacked/config/local/local.js
 # fonts/HTML-CSS/TeX/png
+test/
