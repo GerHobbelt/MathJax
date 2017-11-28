@@ -1428,12 +1428,12 @@ ASCIIMATH.Augment({
 //
 var junk = [window, navigator]; junk = null;
   
-})(MathJax.InputJax.AsciiMath);
+
 
 
 /************************************************************************/
 
-(function (ASCIIMATH) {
+
   var MML;
   
   ASCIIMATH.Augment({
