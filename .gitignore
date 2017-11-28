@@ -1,4 +1,5 @@
 .DS_Store
+.idea
 docs/build/html-mathjax-site
 config/local/*.js
 !config/local/local.js
@@ -6,4 +7,5 @@ unpacked/config/local/*.js
 !unpacked/config/local/local.js
 
 /node_modules/
+test/books/
 
