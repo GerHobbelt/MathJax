@@ -37,13 +37,16 @@ MathJax.InputJax.TeX = MathJax.InputJax({
     MultLineWidth: "85%",
     
     equationNumbers: {
-      autoNumber: "none",  // "AMS" for standard AMS numbering,
-                           //  or "all" for all displayed equations
-      formatNumber: function (n) {return n},
-      formatTag:    function (n) {return '('+n+')'},
+      autoNumber: "none",  // "AMS" for standard AMS environment numbering,
+                           //  or "all" to number all displayed equations
+      formatNumber: function (n) {return n},                // format for equation number n
+      formatTag:    function (n) {return '('+n+')'},        // format for \tag and \eqref
       formatID:     function (n) {return 'mjx-eqn-'+String(n).replace(/[:"'<>&]/g,"")},
+                                                            // element ID to use for reference
       formatURL:    function (id,base) {return base+'#'+escape(id)},
-      useLabelIds:  true
+                                                            // URL to use for references
+      useLabelIds:  true,    // make element ID's use \label name rather than equation number
+      //outputLabels: true,
     }
   },
   
