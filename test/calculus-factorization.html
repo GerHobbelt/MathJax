@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Factorization / Ontbinden in factoren</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="bootstrap4/css/bootstrap.css">
+
+<script type="text/x-mathjax-config">
+  //MathJax.Ajax.timeout = 13*1000;   // timeout for loading of files (15 seconds)
+  MathJax.Ajax.config.path.Contrib = "../../mathjax-third-party-extensions";
+
+  MathJax.Hub.Config({
+    config: ["Everything.js"],
+    extensions: [
+      "tex2jax.js", 
+      "mml2jax.js", 
+      "asciimath2jax.js",
+      //"CHTML-preview.js", 
+      //"fast-preview.js", 
+      "FontWarnings.js", 
+      "MatchWebFonts.js",
+    ],
+    //jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/HTML-CSS", "output/PreviewHTML", "output/SVG", "output/PlainSource" ],
+    jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/HTML-CSS" ],
+    tex2jax: { 
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true,
+      processEnvironments: false,
+    },
+    TeX: {
+      extensions: [
+        "AMSmath.js", 
+        "AMSsymbols.js", 
+        "bbox.js", 
+        "begingroup.js", 
+        "cancel.js", 
+        "color.js", 
+        "enclose.js", 
+        "extpfeil.js", 
+        "mathchoice.js", 
+        "mediawiki-texvc.js", 
+        "newcommand.js", 
+        "noErrors.js", 
+        "noUndefined.js",
+        "unicode.js", 
+        "verb.js", 
+      ],
+      equationNumbers: {autoNumber: "AMS"}, 
+    },
+    showProcessingMessages: true,
+    showMathMenu: false,
+    menuSettings: {
+      assistiveMML: false,    // do not produce any 'assistive' MathML-within-SPAN
+      FastPreview: false,     // do not produce a preview SPAN
+    },
+    CommonHTML: {
+      font: "Gyre-Pagella",
+    },
+    "HTML-CSS": {
+      preferredFont: "Gyre-Pagella",
+      linebreaks: { 
+        automatic: true, 
+        width: "container",
+      },
+      EqnChunkDelay: 1,
+      noReflows: false,
+    },
+    SVG: {
+      font: "Gyre-Pagella",
+    },
+    errorSettings: { 
+      message: ["[Math Error]"], 
+    }    
+  });
+</script>
+
+<style>
+body {
+  max-width: 70em;
+  margin: 0 auto;
+}
+h1 {
+  text-align:center;
+}
+h2 {
+  font-weight: bold;
+  background-color: #DDDDDD;
+  padding: .2em .5em;
+  margin-top: 1.5em;
+  border-top: 3px solid #666666;
+  border-bottom: 2px solid #999999;
+}
+h3 {
+  padding-top: 2em;
+  padding-bottom: 1em;
+}
+blockquote {
+  border: 1px solid #ccdee3;
+  padding: .25em 1em;
+  margin: 2em 5em;
+  background-color: #e9f7fb;
+}
+blockquote blockquote {
+  border: 1px solid #ccdee3;
+  padding: .25em 1em;
+  margin: 2em 1em 2em 1em;
+  background-color: #f8fbfb;
+}
+def {
+  font-weight: 500;
+  font-style: italic;
+}
+
+@media print { 
+body {
+  margin: 1in .7in 1in 1.4in;
+  max-width: 100%;
+}
+blockquote {
+  page-break-before: avoid;
+  page-break-inside: auto;
+  margin: 1em 1em;
+}
+}
+</style>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () { 
+    var TEX = MathJax.InputJax.TeX; 
+    var PREFILTER = TEX.prefilterMath; 
+    TEX.Augment({ 
+      prefilterMath: function (math, displaymode, script) { 
+        console.log("TeX rendering Math:", {math, displaymode, script});
+        //math = "\\displaystyle{" + math + "}"; 
+        //math = "\\mathsf{" + math + "}"; 
+        return PREFILTER.call(TEX, math, displaymode, script); 
+      } 
+    }); 
+
+    var AM = MathJax.InputJax.AsciiMath; 
+    var AMPREFILTER = AM.prefilterMath; 
+    AM.Augment({ 
+      prefilterMath: function (math, displaymode, script) { 
+        console.log("AsciiMath rendering Math:", {math, displaymode, script});
+        return AMPREFILTER.call(AM, math, displaymode, script); 
+      } 
+    }); 
+  }); 
+</script> 
+<!-- 
+  WARNING:
+
+MathJax.js script must load AFTER ALL text/x-mathjax-config SCRIPTS have been defined
+as those scripts won't otherwise be detected by MathJax (ConfigBlocks() internal call)
+on startup as the init code is executed immeditately once the MathJax script has loaded!
+-->
+<script type="text/javascript" src="../MathJax.js"></script>
+<script type="text/javascript" src="../../seedrandom/seedrandom.js"></script>
+</head>
+<body>
+
+<noscript>
+<div style="color:#CC0000; text-align:center">
+<b>Warning: <a href="http://www.mathjax.org/">MathJax</a>
+requires JavaScript to process the mathematics on this page.<br />
+If your browser supports JavaScript, be sure it is enabled.</b>
+</div>
+<hr>
+</noscript>
+
+<h1>Ontbinden in factoren</h1>
+
+<h2>Priemgetal: definitie</h2>
+
+<p>
+Een getal $x$ is <em>priem</em> als het getal alleen deelbaar is door zichzelf en $1$.
+
+<p>
+Voorbeelden:
+
+<ul>
+  <li>$7$ is priem, want $7$ is alleen deelbaar door $7$ en door $1$.</li>
+  <li>$10$ is <strong>geen priemgetal</strong>, want $10$ is deelbaar door $2$ (en dat is geen $10$ of $1$). Daarnaast is $10$ ook deelbaar door $5$: $2$ en $5$ zijn de <def>factoren</def> van $10$.</li>
+  <li>$256$ is <strong>geen priemgetal</strong>, want $256$ is deelbaar door $2$.<br/> 
+    Als je $256$ <def>ontbindt in factoren</def> blijkt: $256 = 2 \times 2 \times 2 \times 2 \times 2 \times 2 \times 2 \times 2 \times 2 = 2^8$.<br/> 
+    Als we praten over <def>factoren van $256$</def>, dan is $2$ een factor, maar ook $2 \times 2 = 4$, $2 \times 2 \times 2 = 8$, $16$, $32$, $64$ en $128$ (dit zijn resp. $2^1$, $2^2$, $2^3$, $2^4$, $2^5$, $2^6$ en $2^7$. $256 (= 2^8)$ zelf is ook een <def>factor</def> van $256$, want $1 \times 256 = 256$.</li>
+</ul>
+
+<h2>Factor: definitie</h2>
+
+<p>
+Een getal $a$ is <def>factor</def> van getal $b$ als $a \times n = b$, waarbij $n$ een willekeurig geheel (positief) getal is: $(n: \left\{ 1, 2, 3, \ldots ,\infty \right\}$ oftewel ${n \in \mathbb{N}} \mid {a \ge 1} \wedge {a \in \mathbb{Z}} \wedge {b \in \mathbb{Z}}$.
+
+<blockquote>
+  <h2>Verzamelingenleer: het begin</h2>
+
+  <h3>$\mathbb{N}$: <a href="https://nl.wikipedia.org/wiki/Natuurlijk_getal">natuurlijke getallen</a></h3>
+
+  <p><def>Natuurlijke getallen</def> is de verzameling getallen $\mathbb{N}: \left\{ 0, 1, 2, 3, 4, \ldots, \infty \right\}$. Deze verzameling wordt in wiskundige teksten altijd aangeduidt met een speciaal teken: hoofdletter N met dubbele streep: $\mathbb{N}$.
+
+  <h3>$\mathbb{Z}$: <a href="https://nl.wikipedia.org/wiki/Geheel_getal">gehele getallen</a></h3>
+
+  <p><def>Gehele getallen</def> is de verzameling getallen $\mathbb{Z}: \left\{ -\infty, \ldots, -3, -2, -1, 0, 1, 2, 3, 4, \ldots, \infty \right\}$ oftewel alle <def>natuurlijke getallen</def> <em>plus</em> alle gehele <em>negatieve</em> getallen. Deze verzameling wordt in wiskundige teksten altijd aangeduidt met een speciaal teken: hoofdletter Z met dubbele streep: $\mathbb{Z}$.
+
+  <p>Natuurlijk hebben de Wiskunde Boys (er deden nog erg weinig meisjes mee toentertijd) meteen hierop doorgeborduurd en zijn er nog meer van die "dubbel streep" symbolen:
+
+  <ul>
+    <li><p>$\mathbb{Q}$: <a href="https://nl.wikipedia.org/wiki/Rationaal_getal">rationele getallen</a>, oftewel: alle getallen die als <def>breuk</def> genoteerd kunnen worden.
+    <p>$\pi$ is niet exact weer te geven door een breuk en is daarom een voorbeeld van een getal wat <strong>niet</strong> tot de verzameling van <def>rationele getallen</def> behoort, terwijl $3$ wel een rationeel getal is, want deze is ook te schrijven als de breuk $\frac{3}{1}$.</li>
+    
+    <li><p>$\mathbb{R}$: <a href="https://nl.wikipedia.org/wiki/Re%C3%ABel_getal">reëele getallen</a>, oftewel: alle getallen van $-\infty$ tot $+\infty$, of deze nu als breuk geschreven kunnen worden of niet.
+
+    <p>$\pi$ is dus wel een reëel getal (omdat het niet als breuk geschreven kan worden, is $\pi$ een <def><a href="http://primes.utm.edu/glossary/xpage/IrrationalNumber.html">irrationeel getal</a></def>), maar $\sqrt{-1}$ is dit niet: eerst krijgen we op school te horen dat "wortel trekken uit een negatief getal niet kan", om er dan later achter te komen dat dat een aperte leugen is, want het kan wel degelijk: het antwoord ligt echter niet direct voor de hand en is een <def>complex getal</def>: $i$ (vroeger ook wel aangeduid met de letter $j$ i.p.v. $i$; $j$ zul je later wellicht nog veel tegenkomen als je Electronica gaat studeren: zo is bijvoorbeeld de <def>impedantie<def> van een condensator $C$ gelijk aan $Z_C = \frac{1}{j \omega C}$.<br> 
+    Je zult het al wel geraden hebben: <a href="http://www.win.tue.nl/wiskunded/files/public/Complexe_getallen/complex-2007-06.2s.pdf">complexe getallen zijn de eerstvolgende grotere verzameling getallen!</a>
+    </li>
+    <li><p>$\mathbb{C}$: <a href="https://nl.wikipedia.org/wiki/Complex_getal">complexe getallen</a>. 
+
+      <p>Lees het Wikipedia artikel maar voor meer info als je nieuwsgierig bent, want we zijn nu al aardig ver vooruit aan het lopen qua "lesstof". Complexe getallen worden een stuk makkelijker om mee te werken als je kennis hebt genomen van <def>vectoren</def> en <def>matrices</def> (enkelvoud: <def>matrix</def>): op de Wikipedia pagina worden die ook <a href="https://nl.wikipedia.org/wiki/Complex_getal#Cartesische_of_algebra.C3.AFsche_notatie">halverwege genoemd</a>. 
+
+      <p>Nu zul je je misschien afvragen: <a href="https://en.wikipedia.org/wiki/Set_(mathematics)#Special_sets">wat komt er na $\mathbb{C}$</a>? Oftewel: zijn er ook "verzamelingen" die een <def>superset</def> van $\mathbb{C}$ zijn, zoals $\mathbb{C}$ dat is van $\mathbb{R}$ en $\mathbb{R}$ van $\mathbb{Z}$, enz.?<br>
+      Het antwoord is "<em>ja, die bestaan</em>". En de eerstvolgende is nog heel belangrijk buiten het exclusieve wiskunde wereldje: o.a. in computergames (FPS [First Person Shooters], etc.) waar "graphics rendering" een belangrijk onderdeel vormen van de beleving wordt heel veel gebruik gemaakt van die "<def>quaternions</def>"!
+    </li>
+
+    <li><p>$\mathbb{H}$: <a href="https://en.wikipedia.org/wiki/Quaternion">Quaternions</a>: ... tsja ... de Wikipedia pagina helpt niet echt om deze getallen (kunnen we dit überhaupt nog wel "<def>getallen</def>" noemen?) behapbaar te maken.
+
+    <p>Wat we nu al wel even kunnen zeggen is dat waar de complexe getallen een oplossing boden voor de vraag "wat is $\sqrt{-1}$?", <def>quaternions</def> ook een antwoord opleveren voor een anders heel moeilijk op te lossen probleem &mdash; jawel, "anders heel moeilijk" heb je goed gelezen: <a href="http://www.askamathematician.com/2012/09/q-is-there-a-number-set-that-is-above-complex-numbers/"><def>quaternions</def> zijn een <def>superset</def> die niet <strong>noodzakelijk</strong> is</a>, terwijl $\mathbb{C}$ dat wèl was omdat je anders <em>helemaal geen antwoord</em> kunt geven op de vraag "wat is $\sqrt{-1}$?": <def>quaternions</def> zijn o.a. het antwoord op de anders niet uitvoerbare opdracht: "voer een translatie uit in 3D met behulp van één matrix" &mdash; als je de restrictie "één matrix" weglaat, kan het wel, maar dat kost meer werk en dus tijd. <def>Roteren</def> en <def>schalen</def> (ook wel: <def>inzoomen</def> / <def>uitzoomen</def>) met een standaard 3D matrix is heel makkelijk te doen, maar <def>transleren</def> (verplaatsen vanaf de oorsprong naar een willekeurig punt in de ruimte) gaat <em>niet</em>. <def>Computergame-engines</def> werken graag met matrices "omdat je daar àlles zo makkelijk mee kunt doen!" (behalve dat <def>transleren</def> dan, <em>beetje jammer</em>!) en door de introductie van <def>quaternions</def> is <def>transleren</def> m.b.v. een eenvoudige matrix ook mogelijk geworden, zodat computer game engines (en dan met name de <def>3D render engines</def>) enorm snel zijn geworden: mede dank zij quaternions (en matrices!) kunnen al die berekeningen voor het maken van de plaatjes ook redelijk eenvoudig in moderne grafische processoren worden uitgevoerd, zodat we nog meer <def>pixels</def> en "<def>triangles</def> / <def>meshes</def>" kunnen tekenen per seconde: beter beeld èn betere framerate!
+  </ul>
+</blockquote>
+
+
+
+<h2>Wat betekent "$n$ en $m$ zijn <def>onderling ondeelbaar</def>" &amp; "$n$ is relatief priem met $m$"</h2>
+
+<p>
+<def>Priemgetallen</def> kun je, zoals boven al in de definitie staat, alleen delen door zichzelf en 1. Er zijn echter ook problemen waarbij minder zware eisen voor getallen gelden om toch bijzondere dingen te kunnen doen. Zo is er een grote categorie problemen (waaronder <def>modulo rekening</def>) waarbij het belangrijk is om te weten dat twee of meer getallen <def>relatief priem</def> zijn:
+
+
+
+
+<h3>"relatief priem" definitie</h3>
+
+<p>Getallen $n$ en $m$ zijn <def>relatief priem</def> als deze getallen <em>geen enkele factor, anders dan $1$, gemeen hebben</em>.
+
+<p>Voorbeeld: $2$ en $3$ zijn relatief priem want beide zijn priemgetal en hebben dus alleen de factor $1$ gemeenschappelijk. (Dit voorbeeld is meteen een hint dat <def>priemgetallen</def> altijd "relatief priem" zijn met elk ander priemgetal. Deze stelling volgt trouwens automatisch uit de definities van <def>priemgetal</def> en "<def>relatief priem". (<q>Waarom?</q>))
+
+<p>Voorbeeld: $12$ en $35$ zijn <def>relatief priem</def>: ontbonden in factoren zijn $12 = 2 \times 2 \times 3$ en $35 = 5 \times 7$ waaruit duidelijk blijkt dat beide getallen <em>geen enkele factor</em> $\left\{ 2, 3, 5, 7 \right\}$ gemeen hebben.
+
+<p>Voorbeeld: $12$ en $34$ zijn <strong>niet relatief priem</strong>: ontbonden in factoren zijn $12 = 2 \times 2 \times 3$ en $34 = 2 \times 17$ waaruit duidelijk blijkt dat beide getallen <em>de factor $2$ gemeenschappelijk hebben</em>.
+
+
+
+<h3>Wat is "ontbinden in factoren"?</h3>
+
+<p>Deze frase zijn we hierboven al een aantal keer tegengekomen: het is een kortere schrijfwijze voor de frase "ontbinden in <em>priem</em>factoren", wat inhoudt dat je uitzoekt door welke priemfactoren het gegeven getal deelbaar is. (Voor diegenen die aanmerken dat het begrip "deelbaarheid" in deze tekst (nog) niet is gedefiniëerd, hierbij de definitie van <def>deelbaarheid</def>:
+
+<blockquote>
+
+<h4>Deelbaarheid: definitie</h3>
+
+<p>Het (gehele) getal $a$ is <def>deelbaar</def> door het (gehele) getal $b$ als bij deling van $a$ door $b$ <strong>geen rest</strong> overblijft èn het resultaat van deze deling een natuurlijk getal groter of gelijk aan $1$ is.
+
+<p>Anders gezegd: $a$ is <def>deelbaar</def> door $b$ als geldt: 
+
+  \[
+    \frac{a}{b} = n \mid n \in \mathbb{N} \wedge n \geq 1 \wedge a \in \mathbb{Z} \wedge b \in \mathbb{Z}
+  \] 
+
+<p>Aangezien dit een hele mond vol is, kunnen we het ook korter zeggen m.b.v. <a href="https://nl.wikipedia.org/wiki/Modulair_rekenen">modulo rekening (~ <def>modulair rekenen</def>)</a>: 
+
+  \[
+    a \bmod b \equiv 0
+  \]
+
+wat ook wel anders wordt genoteerd als:
+
+  \[
+    a \equiv 0 \pmod{b}
+  \]
+
+</blockquote>
+
+<p>Voorbeeld: we ontbinden $98$ in priemfactoren: het is een even getal dus deelbaar door $2$:
+
+\[
+  \begin{matrix}
+    2
+  \end{matrix}\begin{matrix}
+    98  \\
+\hline    49
+  \end{matrix}
+\]
+
+Daarna zien we dat $49$ door $7$ deelbaar is, zelfs $7^2$ is (ja, dit is dus één van de redenen waarom je vroeger al die tafels uit het hoofd moest leren):
+
+\[
+  \begin{matrix}
+    2 \\
+    7 \\
+    7
+  \end{matrix}\begin{matrix}
+    98  \\
+\hline    49 \\
+\hline    7 \\
+\hline    1
+  \end{matrix}
+\]
+
+Dus is $98$ ontbonden in priemfactoren: $98 = 2 \times 7 \times 7$.
+
+<p>Kort gezegd komt <def>ontbinden in factoren</def> er op neer dat je alle delers van een getal vindt en er op los laat, net zolang tot je nog maar $1$ overhoudt.
+
+<p>Nog een voorbeeld illustreert dit weer en let ook op de notatie: als je dit zo nog niet op de lagere school hebt gehad, weet dan dat dit de manier is om handmatig een getal "te ontbinden" zonder de draad kwijt te raken bij grote getallen:
+
+\[
+  \begin{matrix}
+    3 \\
+    4027
+  \end{matrix}\begin{matrix}
+    12081  \\
+\hline    4027 \\
+\hline    1
+  \end{matrix}
+\]
+
+want 4027 is een priemgetal. (Probeer 'm ook maar eens online bij deze tools: <a href="http://nl.numberempire.com/numberfactorizer.php">http://nl.numberempire.com/numberfactorizer.php (heeft reclame banners!)</a> of de veel krachtiger tool:"<a href="https://www.freemathhelp.com/factoring-calculator.php">https://www.freemathhelp.com/factoring-calculator.php</a> (klik het getal in op het keyboardje en kies dan na "factoring" voor de optie "find prime factorization" om een <em>getal</em> in factoren te ontbinden; het standaardgedrag van de laatste is om polynomen te factorizeren, wat weer handig is als je daar mee klem zit of geen zin hebt om <em>dat</em> met de hand te doen.)
+
+<p>Nog een voorbeeld om de notatie beter tot zijn recht te laten komen:
+
+\[
+  \begin{matrix}
+    2 \\
+    5 \\
+    3 \\
+    11 \\
+    7 \\
+    17 \\
+    13 \\
+    19 
+  \end{matrix}\begin{matrix}
+    9699690  \\
+\hline    4849845 \\
+\hline    969969 \\
+\hline    323323 \\
+\hline    29393 \\
+\hline    4199 \\
+\hline    247 \\
+\hline    19 \\
+\hline    1 
+  \end{matrix}
+\]
+
+oftewel: $9699690 = 2 \times 3 \times 5 \times 7 \times 11 \times 13 \times 17 \times 19$. Merk op dat bij ontbinden in factoren het niet noodzakelijk is om de factoren netjes in de volgorde klein-naar-groot te vinden: het is bijvoorbeeld veel sneller zichtbaar of een getal deelbaar is door 5 dan of deze deelbaar is door 3. (In wiskundig taalgebruik heet dit dat <def>vermenigvuldigen</def> een <a href="https://nl.wikipedia.org/wiki/Commutativiteit"><def>commutatieve operator</def></a> is, wat chique taal is voor $a \times b \equiv b \times a$. Zo is optellen ook <def>commutatief</def>: $a + b \equiv b + a$, maar <def>aftrekken</def> en <def>delen</def> zijn dat weer <strong>niet</strong>: $a - b \not\equiv b - a$ en $\frac{a}{b} \not\equiv \frac{b}{a}$.)<br>
+Het maakt dus niet uit in welke <em>volgorde</em> je de (priem)factoren van een getal boven water krijgt, als je ze uiteindelijk maar <em>allemaal</em> vindt!
+
+
+
+
+<h3>Hij is fijn. Maar nou even serieus: waarom zou ik van dat "ontbinden in factoren" moeten weten?</h3>
+
+<ul>
+  <li>Breuken!
+  </li>
+
+  <li>Wortels!
+  </li>
+</ul>
+
+<h3>Breuken en "ontbinden in factoren"?</h3>
+
+<p>Zodra je met <def>breuken</def> werkt, vooral als je ze bij elkaar moet optellen of aftrekken, is het verdraaid handig om dat <def>ontbinden in factoren</def> <em>snel</em> te kunnen &mdash; of je maakt je uit de voeten met <em>non plus ultra</em> <def>Platinum Zakjapanner Skills</def>, die dat werkje voor je kan doen zolang de batterijen het uithouden.
+
+<p>De cruciale termen hier zijn <def>KGV (Kleinst Gemene Veelvoud)</def> (Engels: <def><a href="https://en.wikipedia.org/wiki/Least_common_multiple">LCM</a></def>) en <def>GGD (Grootst Gemene Deler)</def> (Engels: <def><a href="https://en.wikipedia.org/wiki/Lowest_common_denominator">LCD</a></def>).
+
+<h1>
+  TODO: breuken gelijknamig maken; breuken vermenigvuldigen, delen, aftrekken, optellen. Helen uithalen.
+</h1>
+
+<h2>
+  <script type="math/tex">7 \div 3 = n</script>
+</h2>
+
+</body>
+</html>

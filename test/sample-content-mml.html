@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MathJax MathML Test Page</title>
+<!-- Copyright (c) 2010-2017 The MathJax Consortium -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      jax: ["input/TeX","input/MathML","output/HTML-CSS"],
+      extensions: ["MathML/mml3.js", "MathML/content-mathml.js"]
+    });
+</script>
+	
+<script type="text/javascript" src="../MathJax.js?config=MML_HTMLorMML-full"></script>
+
+</head>
+<body>
+<h2>Simple equation with visible times</h2>
+<p>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <cn> 1 </cn>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> CD8086_cd4 </ci>
+                <ci> Th0_ln </ci>
+              </apply>
+              <ci> Keff_th0_to_th2_cd28 </ci>
+            </apply>
+          </apply>
+        </math>
+</p>
+
+<h2>e-notation example</h2>
+<p>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <cn type="e-notation"> 1<sep/>3 </cn>
+                <ci> CD8086_cd4 </ci>
+                <ci> Th0_ln </ci>
+          </apply>
+        </math>
+</p>
+
+<h2>double example</h2>
+<p>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <cn type="double"> 1.25e-3 </cn>
+                <ci> CD8086_cd4 </ci>
+                <ci> Th0_ln </ci>
+          </apply>
+        </math>
+</p>
+
+<h2>number times variable example</h2>
+<p>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn> 2.44 </cn>
+                <ci> CD8086_cd4 </ci>
+                <ci> Th0_ln </ci>
+            <cn> 1.23 </cn>
+          </apply>
+        </math>
+</p>
+
+<h2>Minus in the beginning example</h2>
+<p>
+???
+</p>
+
+</body>
+</html>

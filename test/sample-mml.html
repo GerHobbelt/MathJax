@@ -1,0 +1,4463 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MathJax MathML Test Page</title>
+<!-- Copyright (c) 2010-2017 The MathJax Consortium -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+table {
+  border: 1px solid black;
+}
+td, th {
+  border-bottom: 1px solid grey;
+  border-right: 1px solid grey;
+  padding: .5em 1em;
+}
+</style>
+<script type="text/javascript" src="../MathJax.js?config=MML_HTMLorMML-full"></script>
+
+</head>
+<body>
+
+<p>
+When
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mi>a</mi><mo>&#x2260;</mo><mn>0</mn>
+</math>,
+there are two solutions to
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mi>a</mi><msup><mi>x</mi><mn>2</mn></msup>
+  <mo>+</mo> <mi>b</mi><mi>x</mi>
+  <mo>+</mo> <mi>c</mi> <mo>=</mo> <mn>0</mn>
+</math>
+and they are
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mi>x</mi> <mo>=</mo>
+  <mrow>
+    <mfrac>
+      <mrow>
+        <mo>&#x2212;</mo>
+        <mi>b</mi>
+        <mo>&#x00B1;</mo>
+        <msqrt>
+          <msup><mi>b</mi><mn>2</mn></msup>
+          <mo>&#x2212;</mo>
+          <mn>4</mn><mi>a</mi><mi>c</mi>
+        </msqrt>
+      </mrow>
+      <mrow> <mn>2</mn><mi>a</mi> </mrow>
+    </mfrac>
+  </mrow>
+  <mtext>.</mtext>
+</math>
+</p>
+
+<h1>The MathML Torture Test <a href="https://developer.mozilla.org/en-US/docs/Mozilla/MathML_Project/MathML_Torture_Test">from MDN</a></h1>
+
+<table>
+  <tr>
+    <td></td>
+    <th scope="col">As rendered by TeX</th>
+    <th scope="col">As rendered by your browser</th></tr>
+  <tr>
+    <td>1</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4578/=ex1.png" width="38" height="22"
+             alt="TeXbook, 16.2-16.3" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <msup>
+            <mi>x</mi>
+            <mn>2</mn>
+          </msup>
+          <msup>
+            <mi>y</mi>
+            <mn>2</mn>
+          </msup>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>2</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4579/=ex2.png" width="30" height="17" alt="TeXbook, 16.2-16.3" /></td>
+    <td>
+      <math display="block">
+        <!--
+            <mrow>
+              <msub><mi></mi><mn>2</mn></msub>
+              <msub><mi>F</mi><mn>3</mn></msub>
+            </mrow>
+            -->
+        <mrow>
+          <mmultiscripts>
+            <mi>F</mi>
+            <mn>3</mn><none/>
+            <mprescripts/>
+            <mn>2</mn><none/>
+          </mmultiscripts>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>3</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4586/=ex21.png" width="58" height="47" alt="TeXbook, 17-17.1" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <mfrac>
+            <mrow>
+              <mi>x</mi>
+              <mo>+</mo>
+              <msup>
+                <mi>y</mi>
+                <mn>2</mn>
+              </msup>
+            </mrow>
+            <mrow>
+              <mi>k</mi>
+              <mo>+</mo>
+              <mn>1</mn>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>4</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4587/=ex22.png" width="76" height="25" alt="TeXbook, 17-17.1" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <mi>x</mi>
+          <mo>+</mo>
+          <msup>
+            <mi>y</mi>
+            <mfrac>
+              <mn>2</mn>
+              <mrow>
+                <mi>k</mi>
+                <mo>+</mo>
+                <mn>1</mn>
+              </mrow>
+            </mfrac>
+          </msup>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>5</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4588/=ex23.png" width="30" height="42" alt="TeXbook, 17-17.1" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <mfrac>
+            <mi>a</mi>
+            <mrow>
+              <mi>b</mi>
+              <mo>/</mo>
+              <mn>2</mn>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>6</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4589/=ex24.png" width="220" height="138" alt="TeXbook, 17.5-17.6" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <msub>
+            <mi>a</mi>
+            <mn>0</mn>
+          </msub>
+          <mo>+</mo>
+          <mfrac>
+            <mn>1</mn>
+            <mstyle displaystyle="true" scriptlevel="0">
+              <msub>
+                <mi>a</mi>
+                <mn>1</mn>
+              </msub>
+              <mo>+</mo>
+              <mfrac>
+                <mn>1</mn>
+                <mstyle displaystyle="true" scriptlevel="0">
+                  <msub>
+                    <mi>a</mi>
+                    <mn>2</mn>
+                  </msub>
+                  <mo>+</mo>
+                  <mfrac>
+                    <mn>1</mn>
+                    <mstyle displaystyle="true" scriptlevel="0">
+                      <msub>
+                        <mi>a</mi>
+                        <mn>3</mn>
+                      </msub>
+                      <mo>+</mo>
+                      <mfrac>
+                        <mn>1</mn>
+                        <mstyle displaystyle="true" scriptlevel="0">
+                          <msub>
+                            <mi>a</mi>
+                            <mn>4</mn>
+                          </msub>
+                        </mstyle>
+                      </mfrac>
+                    </mstyle>
+                  </mfrac>
+                </mstyle>
+              </mfrac>
+            </mstyle>
+          </mfrac>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>7</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4590/=ex25.png" width="200" height="85" alt="TeXbook, 17.5-17.6" /></td>
+    <td>
+      <math>
+        <mrow>
+          <msub>
+            <mi>a</mi>
+            <mn>0</mn>
+          </msub>
+          <mo>+</mo>
+          <mfrac>
+            <mn>1</mn>
+            <mrow>
+              <msub>
+                <mi>a</mi>
+                <mn>1</mn>
+              </msub>
+              <mo>+</mo>
+              <mfrac>
+                <mn>1</mn>
+                <mrow>
+                  <msub>
+                    <mi>a</mi>
+                    <mn>2</mn>
+                  </msub>
+                  <mo>+</mo>
+                  <mfrac>
+                    <mn>1</mn>
+                    <mrow>
+                      <msub>
+                        <mi>a</mi>
+                        <mn>3</mn>
+                      </msub>
+                      <mo>+</mo>
+                      <mfrac>
+                        <mn>1</mn>
+                        <mrow>
+                          <msub>
+                            <mi>a</mi>
+                            <mn>4</mn>
+                          </msub>
+                        </mrow>
+                      </mfrac>
+                    </mrow>
+                  </mfrac>
+                </mrow>
+              </mfrac>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>8</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4591/=ex26.png" width="54" height="50" alt="TeXbook, 17.5-17.6" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <mo>(</mo>
+          <mfrac linethickness="0px">
+            <mi>n</mi>
+            <mrow>
+              <mi>k</mi>
+              <mo>/</mo>
+              <mn>2</mn>
+            </mrow>
+          </mfrac>
+          <mo>)</mo>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>9</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4592/=ex27.png" width="237" height="50" alt="TeXbook, 17.7" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <mrow>
+            <mo>(</mo>
+            <mfrac linethickness="0px">
+              <mi>p</mi>
+              <mn>2</mn>
+            </mfrac>
+            <mo>)</mo>
+          </mrow>
+          <msup>
+            <mi>x</mi>
+            <mn>2</mn>
+          </msup>
+          <msup>
+            <mi>y</mi>
+            <mrow>
+              <mi>p</mi>
+              <mo>-</mo>
+              <mn>2</mn>
+            </mrow>
+          </msup>
+          <mo>-</mo>
+          <mfrac>
+            <mn>1</mn>
+            <mrow>
+              <mn>1</mn>
+              <mo>-</mo>
+              <mi>x</mi>
+            </mrow>
+          </mfrac>
+          <mfrac>
+            <mn>1</mn>
+            <mrow>
+              <mn>1</mn>
+              <mo>-</mo>
+              <msup>
+                <mi>x</mi>
+                <mn>2</mn>
+              </msup>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>10</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4593/=ex29.png" width="116" height="63" alt="TeXbook, 17.7-17.8" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <munder>
+            <mo>&sum;</mo>
+            <mrow>
+              <mfrac linethickness="0px">
+                <mrow>
+                  <mn>0</mn>
+                  <mo>&leq;</mo>
+                  <mi>i</mi>
+                  <mo>&leq;</mo>
+                  <mi>m</mi>
+                </mrow>
+                <mrow>
+                  <mn>0</mn>
+                  <mo>&lt;</mo>
+                  <mi>j</mi>
+                  <mo>&lt;</mo>
+                  <mi>n</mi>
+                </mrow>
+              </mfrac>
+            </mrow>
+          </munder>
+          <mi>P</mi>
+          <mo stretchy="false">(</mo>
+          <mi>i</mi>
+          <mo>,</mo>
+          <mi>j</mi>
+          <mo stretchy="false">)</mo>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>11</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4580/=ex3.png" width="27" height="18" alt="TeXbook, 16.2-16.3" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <msup>
+            <mi>x</mi>
+            <mrow>
+              <mn>2</mn>
+              <mi>y</mi>
+            </mrow>
+          </msup>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>12</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4594/=ex30.png" width="175" height="61" alt="TeXbook, 17.8" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <munderover>
+            <mo>&sum;</mo>
+            <mrow>
+              <mi>i</mi>
+              <mo>=</mo>
+              <mn>1</mn>
+            </mrow>
+            <mi>p</mi>
+          </munderover>
+          <munderover>
+            <mo>&sum;</mo>
+            <mrow>
+              <mi>j</mi>
+              <mo>=</mo>
+              <mn>1</mn>
+            </mrow>
+            <mi>q</mi>
+          </munderover>
+          <munderover>
+            <mo>&sum;</mo>
+            <mrow>
+              <mi>k</mi>
+              <mo>=</mo>
+              <mn>1</mn>
+            </mrow>
+            <mi>r</mi>
+          </munderover>
+          <msub>
+            <mi>a</mi>
+            <mrow>
+              <mi>i</mi>
+              <mi>j</mi>
+            </mrow>
+          </msub>
+          <msub>
+            <mi>b</mi>
+            <mrow>
+              <mi>j</mi>
+              <mi>k</mi>
+            </mrow>
+          </msub>
+          <msub>
+            <mi>c</mi>
+            <mrow>
+              <mi>k</mi>
+              <mi>i</mi>
+            </mrow>
+          </msub>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>13</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4595/=ex31.png" width="405" height="100" alt="TeXbook, 17.9-17.10" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <msqrt>
+            <mn>1</mn>
+            <mo>+</mo>
+            <msqrt>
+              <mn>1</mn>
+              <mo>+</mo>
+              <msqrt>
+                <mn>1</mn>
+                <mo>+</mo>
+                <msqrt>
+                  <mn>1</mn>
+                  <mo>+</mo>
+                  <msqrt>
+                    <mn>1</mn>
+                    <mo>+</mo>
+                    <msqrt>
+                      <mn>1</mn>
+                      <mo>+</mo>
+                      <msqrt>
+                        <mn>1</mn>
+                        <mo>+</mo>
+                        <mi>x</mi>
+                      </msqrt>
+                    </msqrt>
+                  </msqrt>
+                </msqrt>
+              </msqrt>
+            </msqrt>
+          </msqrt>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>14</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4596/=ex34.png" width="272" height="50" alt="TeXbook, 17.10" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <mrow>
+            <mo>(</mo>
+            <mfrac>
+              <msup>
+                <mo>&part;</mo>
+                <mn>2</mn>
+              </msup>
+              <mrow>
+                <mo>&part;</mo>
+                <msup>
+                  <mi>x</mi>
+                  <mn>2</mn>
+                </msup>
+              </mrow>
+            </mfrac>
+            <mo>+</mo>
+            <mfrac>
+              <msup>
+                <mo>&part;</mo>
+                <mn>2</mn>
+              </msup>
+              <mrow>
+                <mo>&part;</mo>
+                <msup>
+                  <mi>y</mi>
+                  <mn>2</mn>
+                </msup>
+              </mrow>
+            </mfrac>
+            <mo>)</mo>
+          </mrow>
+          <msup>
+            <mrow>
+              <mo minsize="150%">|</mo>
+              <mi>&#x3C6; <!-- \varphi --></mi>
+              <mo stretchy="false">(</mo>
+              <mi>x</mi>
+              <mo>+</mo>
+              <mi mathvariant="normal">i</mi>
+              <mi>y</mi>
+              <mo stretchy="false">)</mo>
+              <mo minsize="150%">|</mo>
+            </mrow>
+            <mn>2</mn>
+          </msup>
+          <mo>=</mo>
+          <mn>0</mn>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>15</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4581/=ex4.png" width="31" height="22" alt="TeXbook, 16.2-16.3" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <msup>
+            <mn>2</mn>
+            <msup>
+              <mn>2</mn>
+              <msup>
+                <mn>2</mn>
+                <mi>x</mi>
+              </msup>
+            </msup>
+          </msup>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>16</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4597/=ex40.png" width="55" height="49" alt="TeXbook, 18.10-18.11" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <msubsup>
+            <mo stretchy="false">&int;</mo>
+            <mn>1</mn>
+            <mi>x</mi>
+          </msubsup>
+          <mfrac>
+            <mrow><mi>d</mi><mi>t</mi></mrow>
+            <mi>t</mi>
+          </mfrac>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>17</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4599/=ex41.png" width="91" height="47" alt="TeXbook, 18.12-18.13" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <msub>
+            <mo>&#x222C; <!-- \iint --></mo>
+            <mi>D</mi>
+          </msub>
+          <mi>d</mi><mi>x</mi>
+          <mspace width="thinmathspace"/>
+          <mi>d</mi><mi>y</mi>
+        </mrow>
+      </math>
+    </td>
+  </tr>
+  <tr>
+    <td>18</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4600/=ex43.png" width="250" height="66" alt="TeXbook, 18.23" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <mi>f</mi>
+          <mo stretchy="false">(</mo>
+          <mi>x</mi>
+          <mo stretchy="false">)</mo>
+          <mo>=</mo>
+          <mrow>
+            <mo>{</mo>
+            <mtable>
+              <mtr>
+                <mtd columnalign="center">
+                  <mrow>
+                    <mn>1</mn>
+                    <mo>/</mo>
+                    <mn>3</mn>
+                  </mrow>
+                </mtd>
+                <mtd columnalign="left">
+                  <mrow>
+                    <mtext>if&nbsp;</mtext>
+                    <mn>0</mn>
+                    <mo>&leq;</mo>
+                    <mi>x</mi>
+                    <mo>&leq;</mo>
+                    <mn>1</mn>
+                    <mo>;</mo>
+                  </mrow>
+                </mtd>
+              </mtr>
+              <mtr>
+                <mtd columnalign="center">
+                  <mrow>
+                    <mn>2</mn>
+                    <mo>/</mo>
+                    <mn>3</mn>
+                  </mrow>
+                </mtd>
+                <mtd columnalign="center">
+                  <mrow>
+                    <mtext>if&nbsp;</mtext>
+                    <mn>3</mn>
+                    <mo>&leq;</mo>
+                    <mi>x</mi>
+                    <mo>&leq;</mo>
+                    <mn>4</mn>
+                    <mo>;</mo>
+                  </mrow>
+                </mtd>
+              </mtr>
+              <mtr>
+                <mtd columnalign="center">
+                  <mn>0</mn>
+                </mtd>
+                <mtd columnalign="left">
+                  <mtext>elsewhere.</mtext>
+                </mtd>
+              </mtr>
+            </mtable>
+          </mrow>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>19</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4601/=ex44.png" width="101" height="44" alt="TeXbook, 18.23-18.24" /></td>
+    <td>
+      <math display="block">
+        <mover>
+          <mrow>
+            <mi>x</mi>
+            <mo>+</mo>
+            <mo>...</mo>
+            <mo>+</mo>
+            <mi>x</mi>
+          </mrow>
+          <mover>
+            <mo>&OverBrace;</mo>
+            <mrow><mi>k</mi> <mspace width="thinmathspace"/> <mtext>times</mtext></mrow>
+          </mover>
+        </mover>
+      </math>
+  </td></tr>
+  <tr>
+    <td>20</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4582/=ex5.png" width="25" height="13" alt="TeXbook, 16.2-16.3" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <msub>
+            <mi>y</mi>
+            <msup>
+              <mi>x</mi>
+              <mn>2</mn>
+            </msup>
+          </msub>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>21</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4602/=ex51.png" width="253" height="56" alt="TeXbook, 18.40" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <munder>
+            <mo>&sum;</mo>
+            <mrow>
+              <mi>p</mi>
+              <mtext>&nbsp;prime</mtext>
+            </mrow>
+          </munder>
+          <mi>f</mi>
+          <mo stretchy="false">(</mo>
+          <mi>p</mi>
+          <mo stretchy="false">)</mo>
+          <mo>=</mo>
+          <msub>
+            <mo stretchy="false">&int;</mo>
+            <mrow>
+              <mi>t</mi>
+              <mo>&gt;</mo>
+              <mn>1</mn>
+            </mrow>
+          </msub>
+          <mi>f</mi>
+          <mo stretchy="false">(</mo>
+          <mi>t</mi>
+          <mo stretchy="false">)</mo>
+          <mspace width="thinmathspace"/>
+          <mi>d</mi>
+          <mi>&pi;</mi>
+          <mo stretchy="false">(</mo>
+          <mi>t</mi>
+          <mo stretchy="false">)</mo>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>22</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4603/=ex52.png" width="159" height="81" alt="TeXbook, 18.41" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <mo stretchy="false">{</mo>
+          <munder>
+            <mrow>
+              <mover>
+                <mrow>
+                  <mpadded width="0em"><mphantom><mo>(</mo></mphantom></mpadded>
+                  <mi>a</mi>
+                  <mo>,</mo>
+                  <mo>...</mo>
+                  <mo>,</mo>
+                  <mi>a</mi>
+                </mrow>
+                <mover>
+                  <mo>&OverBrace;</mo>
+                  <mrow>
+                    <mi>k</mi>
+                    <mtext>&nbsp;</mtext>
+                    <mi>a</mi>
+                    <mtext>'s</mtext>
+                  </mrow>
+                </mover>
+              </mover>
+              <mo>,</mo>
+              <mover>
+                <mrow>
+                  <mpadded width="0em"><mphantom><mo>(</mo></mphantom></mpadded>
+                  <mi>b</mi>
+                  <mo>,</mo>
+                  <mo>...</mo>
+                  <mo>,</mo>
+                  <mi>b</mi>
+                </mrow>
+                <mover>
+                  <mo>&OverBrace;</mo>
+                  <mrow>
+                    <mi>&ell;</mi>
+                    <mtext>&nbsp;</mtext>
+                    <mi>b</mi>
+                    <mtext>'s</mtext>
+                  </mrow>
+                </mover>
+              </mover>
+            </mrow>
+            <munder>
+              <mo>&UnderBrace;</mo>
+              <mrow>
+                <mi>k</mi>
+                <mo>+</mo>
+                <mi>&ell;</mi>
+                <mtext>&nbsp;elements</mtext>
+              </mrow>
+            </munder>
+          </munder>
+          <mo stretchy="false">}</mo>
+        </mrow>
+      </math>
+    </td>
+  </tr>
+  <tr>
+    <td>23</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4604/=ex53.png" width="213" height="108" alt="TeXbook, 18.42" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <mo>(</mo>
+          <mtable>
+            <mtr>
+              <mtd columnalign="center">
+                <mrow>
+                  <mo>(</mo>
+                  <mtable>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>a</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>b</mi>
+                      </mtd>
+                    </mtr>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>c</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>d</mi>
+                      </mtd>
+                    </mtr>
+                  </mtable>
+                  <mo>)</mo>
+                </mrow>
+              </mtd>
+              <mtd columnalign="center">
+                <mrow>
+                  <mo>(</mo>
+                  <mtable>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>e</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>f</mi>
+                      </mtd>
+                    </mtr>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>g</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>h</mi>
+                      </mtd>
+                    </mtr>
+                  </mtable>
+                  <mo>)</mo>
+                </mrow>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd columnalign="center">
+                <mn>0</mn>
+              </mtd>
+              <mtd columnalign="center">
+                <mrow>
+                  <mo>(</mo>
+                  <mtable>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>i</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>j</mi>
+                      </mtd>
+                    </mtr>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>k</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>l</mi>
+                      </mtd>
+                    </mtr>
+                  </mtable>
+                  <mo>)</mo>
+                </mrow>
+              </mtd>
+            </mtr>
+          </mtable>
+          <mo>)</mo>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>24</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4605/=ex54.png" width="344" height="130" alt="TeXbook, 18.43" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <mi>det</mi>
+          <mo>|</mo>
+          <mtable>
+            <mtr>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mn>0</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mn>1</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mn>2</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&mldr;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mi>n</mi>
+                </msub>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mn>1</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mn>2</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mn>3</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&mldr;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mrow>
+                    <mi>n</mi>
+                    <mo>+</mo>
+                    <mn>1</mn>
+                  </mrow>
+                </msub>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mn>2</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mn>3</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mn>4</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&mldr;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mrow>
+                    <mi>n</mi>
+                    <mo>+</mo>
+                    <mn>2</mn>
+                  </mrow>
+                </msub>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd columnalign="center">
+                <mo>&#x22EE;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&#x22EE;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&#x22EE;</mo>
+              </mtd>
+              <mtd columnalign="center">
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&#x22EE;</mo>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mi>n</mi>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mrow>
+                    <mi>n</mi>
+                    <mo>+</mo>
+                    <mn>1</mn>
+                  </mrow>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mrow>
+                    <mi>n</mi>
+                    <mo>+</mo>
+                    <mn>2</mn>
+                  </mrow>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&mldr;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mrow>
+                    <mn>2</mn>
+                    <mi>n</mi>
+                  </mrow>
+                </msub>
+              </mtd>
+            </mtr>
+          </mtable>
+          <mo>|</mo>
+          <mo>&gt;</mo>
+          <mn>0</mn>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>25</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4598/=ex6.png" width="25" height="14" alt="TeXbook, 16.2-16.3" /></td>
+    <td>
+      <math display="block">
+        <msub>
+          <mi>y</mi>
+          <msub>
+            <mi>x</mi>
+            <mn>2</mn>
+          </msub>
+        </msub>
+      </math>
+  </td></tr>
+  <tr>
+    <td>26</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4583/=ex7.png" width="90" height="23" alt="TeXbook, 16.4-16.5" /></td>
+    <td>
+      <math display="block">
+        <mrow>
+          <msubsup>
+            <mi>x</mi>
+            <mn>92</mn>
+            <mn>31415</mn>
+          </msubsup>
+          <mo>+</mo>
+          <mi>&pi;</mi>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>27</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4584/=ex8.png" width="27" height="36" alt="TeXbook, 16.4-16.5" /></td>
+    <td>
+      <math display="block">
+        <msubsup>
+          <mi>x</mi>
+          <msubsup>
+            <mi>y</mi>
+            <mi>b</mi>
+            <mi>a</mi>
+          </msubsup>
+          <msubsup>
+            <mi>z</mi>
+            <mi>c</mi>
+            <mi>d</mi>
+          </msubsup>
+        </msubsup>
+      </math>
+  </td></tr>
+  <tr>
+    <td>28</td>
+    <td><img src="https://developer.mozilla.org/@api/deki/files/4585/=ex9.png" width="24" height="22" alt="TeXbook, 16.4-16.5" /></td>
+    <td>
+      <math display="block">
+        <msubsup>
+          <mi>y</mi>
+          <mn>3</mn>
+          <mo>&#x2034;</mo>
+        </msubsup>
+      </math>
+  </td></tr>
+  <tr>
+    <td>29</td>
+    <td><img src="https://mdn.mozillademos.org/files/13402/stirling29.png" width="194" height="58" alt="Stirling's approximation" /></td>
+    <td><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><munder><mo lspace="0em" rspace="0em">lim</mo><mrow><mi>n</mi><mo stretchy="false">→</mo><mo>+</mo><mn>∞</mn></mrow></munder><mfrac><msqrt><mrow><mn>2</mn><mi>π</mi><mi>n</mi></mrow></msqrt><mrow><mi>n</mi><mo>!</mo></mrow></mfrac><msup><mrow><mo>(</mo><mfrac><mi>n</mi><mi>e</mi></mfrac><mo>)</mo></mrow><mi>n</mi></msup></mrow><mo>=</mo><mn>1</mn></math></td>
+  </tr>
+  <tr>
+    <td>30</td>
+    <td><img src="https://mdn.mozillademos.org/files/13438/determinant30.png" width="194" height="58" alt="Leibniz formula for the determinant" /></td>
+    <td><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo lspace="0em" rspace="0em">det</mo><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo></mrow><mo>=</mo><munder><mo>∑</mo><mrow><mi>σ</mi><mo>∊</mo><msub><mi>S</mi><mi>n</mi></msub></mrow></munder><mrow><mi>ϵ</mi><mo stretchy="false">(</mo><mi>σ</mi><mo stretchy="false">)</mo></mrow><mrow><munderover><mo>∏</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>a</mi><mrow><mi>i</mi><mo>,</mo><msub><mi>σ</mi><mi>i</mi></msub></mrow></msub></mrow></mrow></math></td>
+  </tr>
+</table>
+<br><br>
+<table dir="rtl">
+  <tr>
+    <td></td>
+    <th scope="col">Maghreb Style</th>
+    <th scope="col">Machrek Style</th>
+    <th scope="col">Persian Style</th></tr>
+  <tr>
+    <td>1</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <msup>
+            <mi>&#x1EE0E;</mi>
+            <mn>٢</mn>
+          </msup>
+          <msup>
+            <mi>&#x1EE11;</mi>
+            <mn>٢</mn>
+          </msup>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <msup>
+            <mi>&#x1EE0E;</mi>
+            <mn>٢</mn>
+          </msup>
+          <msup>
+            <mi>&#x1EE11;</mi>
+            <mn>٢</mn>
+          </msup>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math display="block">
+        <mrow>
+          <msup>
+            <mi>x</mi>
+            <mn>۲</mn>
+          </msup>
+          <msup>
+            <mi>y</mi>
+            <mn>۲</mn>
+          </msup>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>2</td>
+    <td>
+      <math dir="rtl" display="block">
+        <!--
+            <mrow>
+              <msub><mi></mi><mn>٢</mn></msub>
+              <msub><mi>F</mi><mn>٣</mn></msub>
+            </mrow>
+            -->
+        <mrow>
+          <mmultiscripts>
+            <mi>F</mi>
+            <mn>٣</mn><none/>
+            <mprescripts/>
+            <mn>٢</mn><none/>
+          </mmultiscripts>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <!--
+            <mrow>
+              <msub><mi></mi><mn>٢</mn></msub>
+              <msub><mi>F</mi><mn>٣</mn></msub>
+            </mrow>
+            -->
+        <mrow>
+          <mmultiscripts>
+            <mi>F</mi>
+            <mn>٣</mn><none/>
+            <mprescripts/>
+            <mn>٢</mn><none/>
+          </mmultiscripts>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math display="block">
+        <!--
+            <mrow>
+              <msub><mi></mi><mn>۲</mn></msub>
+              <msub><mi>F</mi><mn>۳</mn></msub>
+            </mrow>
+            -->
+        <mrow>
+          <mmultiscripts>
+            <mi>F</mi>
+            <mn>۳</mn><none/>
+            <mprescripts/>
+            <mn>۲</mn><none/>
+          </mmultiscripts>
+        </mrow>
+      </math>
+    </td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <mfrac>
+            <mrow>
+              <mi>&#x1EE0E;</mi>
+              <mo>+</mo>
+              <msup>
+                <mi>&#x1EE11;</mi>
+                <mn>٢</mn>
+              </msup>
+            </mrow>
+            <mrow>
+              <mi>&#x1EE1F;</mi>
+              <mo>+</mo>
+              <mn>١</mn>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <mfrac>
+            <mrow>
+              <mi>&#x1EE0E;</mi>
+              <mo>+</mo>
+              <msup>
+                <mi>&#x1EE11;</mi>
+                <mn>٢</mn>
+              </msup>
+            </mrow>
+            <mrow>
+              <mi>&#x1EE1F;</mi>
+              <mo>+</mo>
+              <mn>١</mn>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </math>
+    </td><td>
+      <math display="block">
+        <mrow>
+          <mfrac>
+            <mrow>
+              <mi>x</mi>
+              <mo>+</mo>
+              <msup>
+                <mi>y</mi>
+                <mn>۲</mn>
+              </msup>
+            </mrow>
+            <mrow>
+              <mi>k</mi>
+              <mo>+</mo>
+              <mn>۱</mn>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>4</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <mi>&#x1EE0E;</mi>
+          <mo>+</mo>
+          <msup>
+            <mi>&#x1EE11;</mi>
+            <mfrac>
+              <mn>٢</mn>
+              <mrow>
+                <mi>&#x1EE1F;</mi>
+                <mo>+</mo>
+                <mn>١</mn>
+              </mrow>
+            </mfrac>
+          </msup>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <mi>&#x1EE0E;</mi>
+          <mo>+</mo>
+          <msup>
+            <mi>&#x1EE11;</mi>
+            <mfrac>
+              <mn>٢</mn>
+              <mrow>
+                <mi>&#x1EE1F;</mi>
+                <mo>+</mo>
+                <mn>١</mn>
+              </mrow>
+            </mfrac>
+          </msup>
+        </mrow>
+      </math>
+    </td><td>
+      <math display="block">
+        <mrow>
+          <mi>x</mi>
+          <mo>+</mo>
+          <msup>
+            <mi>y</mi>
+            <mfrac>
+              <mn>۲</mn>
+              <mrow>
+                <mi>k</mi>
+                <mo>+</mo>
+                <mn>۱</mn>
+              </mrow>
+            </mfrac>
+          </msup>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>5</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <mfrac>
+            <mi>&#x1EE00;</mi>
+            <mrow>
+              <mi>&#x1EE1C;</mi>
+              <mo>/</mo>
+              <mn>٢</mn>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <mfrac>
+            <mi>&#x1EE00;</mi>
+            <mrow>
+              <mi>&#x1EE1C;</mi>
+              <mo>/</mo>
+              <mn>٢</mn>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </math>
+    </td><td>
+      <math display="block">
+        <mrow>
+          <mfrac>
+            <mi>a</mi>
+            <mrow>
+              <mi>b</mi>
+              <mo>/</mo>
+              <mn>۲</mn>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>6</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <msub>
+            <mi>&#x1EE00;</mi>
+            <mn>٠</mn>
+          </msub>
+          <mo>+</mo>
+          <mfrac>
+            <mn>١</mn>
+            <mstyle displaystyle="true" scriptlevel="0">
+              <msub>
+                <mi>&#x1EE00;</mi>
+                <mn>١</mn>
+              </msub>
+              <mo>+</mo>
+              <mfrac>
+                <mn>١</mn>
+                <mstyle displaystyle="true" scriptlevel="0">
+                  <msub>
+                    <mi>&#x1EE00;</mi>
+                    <mn>٢</mn>
+                  </msub>
+                  <mo>+</mo>
+                  <mfrac>
+                    <mn>١</mn>
+                    <mstyle displaystyle="true" scriptlevel="0">
+                      <msub>
+                        <mi>&#x1EE00;</mi>
+                        <mn>٣</mn>
+                      </msub>
+                      <mo>+</mo>
+                      <mfrac>
+                        <mn>١</mn>
+                        <mstyle displaystyle="true" scriptlevel="0">
+                          <msub>
+                            <mi>&#x1EE00;</mi>
+                            <mn>٤</mn>
+                          </msub>
+                        </mstyle>
+                      </mfrac>
+                    </mstyle>
+                  </mfrac>
+                </mstyle>
+              </mfrac>
+            </mstyle>
+          </mfrac>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <msub>
+            <mi>&#x1EE00;</mi>
+            <mn>٠</mn>
+          </msub>
+          <mo>+</mo>
+          <mfrac>
+            <mn>١</mn>
+            <mstyle displaystyle="true" scriptlevel="0">
+              <msub>
+                <mi>&#x1EE00;</mi>
+                <mn>١</mn>
+              </msub>
+              <mo>+</mo>
+              <mfrac>
+                <mn>١</mn>
+                <mstyle displaystyle="true" scriptlevel="0">
+                  <msub>
+                    <mi>&#x1EE00;</mi>
+                    <mn>٢</mn>
+                  </msub>
+                  <mo>+</mo>
+                  <mfrac>
+                    <mn>١</mn>
+                    <mstyle displaystyle="true" scriptlevel="0">
+                      <msub>
+                        <mi>&#x1EE00;</mi>
+                        <mn>٣</mn>
+                      </msub>
+                      <mo>+</mo>
+                      <mfrac>
+                        <mn>١</mn>
+                        <mstyle displaystyle="true" scriptlevel="0">
+                          <msub>
+                            <mi>&#x1EE00;</mi>
+                            <mn>٤</mn>
+                          </msub>
+                        </mstyle>
+                      </mfrac>
+                    </mstyle>
+                  </mfrac>
+                </mstyle>
+              </mfrac>
+            </mstyle>
+          </mfrac>
+        </mrow>
+      </math>
+    </td><td>
+      <math display="block">
+        <mrow>
+          <msub>
+            <mi>a</mi>
+            <mn>۰</mn>
+          </msub>
+          <mo>+</mo>
+          <mfrac>
+            <mn>۱</mn>
+            <mstyle displaystyle="true" scriptlevel="0">
+              <msub>
+                <mi>a</mi>
+                <mn>۱</mn>
+              </msub>
+              <mo>+</mo>
+              <mfrac>
+                <mn>۱</mn>
+                <mstyle displaystyle="true" scriptlevel="0">
+                  <msub>
+                    <mi>a</mi>
+                    <mn>۲</mn>
+                  </msub>
+                  <mo>+</mo>
+                  <mfrac>
+                    <mn>۱</mn>
+                    <mstyle displaystyle="true" scriptlevel="0">
+                      <msub>
+                        <mi>a</mi>
+                        <mn>۳</mn>
+                      </msub>
+                      <mo>+</mo>
+                      <mfrac>
+                        <mn>۱</mn>
+                        <mstyle displaystyle="true" scriptlevel="0">
+                          <msub>
+                            <mi>a</mi>
+                            <mn>۴</mn>
+                          </msub>
+                        </mstyle>
+                      </mfrac>
+                    </mstyle>
+                  </mfrac>
+                </mstyle>
+              </mfrac>
+            </mstyle>
+          </mfrac>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>7</td>
+    <td>
+      <math dir="rtl">
+        <mrow>
+          <msub>
+            <mi>&#x1EE00;</mi>
+            <mn>٠</mn>
+          </msub>
+          <mo>+</mo>
+          <mfrac>
+            <mn>١</mn>
+            <mrow>
+              <msub>
+                <mi>&#x1EE00;</mi>
+                <mn>١</mn>
+              </msub>
+              <mo>+</mo>
+              <mfrac>
+                <mn>١</mn>
+                <mrow>
+                  <msub>
+                    <mi>&#x1EE00;</mi>
+                    <mn>٢</mn>
+                  </msub>
+                  <mo>+</mo>
+                  <mfrac>
+                    <mn>١</mn>
+                    <mrow>
+                      <msub>
+                        <mi>&#x1EE00;</mi>
+                        <mn>٣</mn>
+                      </msub>
+                      <mo>+</mo>
+                      <mfrac>
+                        <mn>١</mn>
+                        <mrow>
+                          <msub>
+                            <mi>&#x1EE00;</mi>
+                            <mn>٤</mn>
+                          </msub>
+                        </mrow>
+                      </mfrac>
+                    </mrow>
+                  </mfrac>
+                </mrow>
+              </mfrac>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl">
+        <mrow>
+          <msub>
+            <mi>&#x1EE00;</mi>
+            <mn>٠</mn>
+          </msub>
+          <mo>+</mo>
+          <mfrac>
+            <mn>١</mn>
+            <mrow>
+              <msub>
+                <mi>&#x1EE00;</mi>
+                <mn>١</mn>
+              </msub>
+              <mo>+</mo>
+              <mfrac>
+                <mn>١</mn>
+                <mrow>
+                  <msub>
+                    <mi>&#x1EE00;</mi>
+                    <mn>٢</mn>
+                  </msub>
+                  <mo>+</mo>
+                  <mfrac>
+                    <mn>١</mn>
+                    <mrow>
+                      <msub>
+                        <mi>&#x1EE00;</mi>
+                        <mn>٣</mn>
+                      </msub>
+                      <mo>+</mo>
+                      <mfrac>
+                        <mn>١</mn>
+                        <mrow>
+                          <msub>
+                            <mi>&#x1EE00;</mi>
+                            <mn>٤</mn>
+                          </msub>
+                        </mrow>
+                      </mfrac>
+                    </mrow>
+                  </mfrac>
+                </mrow>
+              </mfrac>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </math>
+    </td><td>
+      <math>
+        <mrow>
+          <msub>
+            <mi>a</mi>
+            <mn>۰</mn>
+          </msub>
+          <mo>+</mo>
+          <mfrac>
+            <mn>۱</mn>
+            <mrow>
+              <msub>
+                <mi>a</mi>
+                <mn>۱</mn>
+              </msub>
+              <mo>+</mo>
+              <mfrac>
+                <mn>۱</mn>
+                <mrow>
+                  <msub>
+                    <mi>a</mi>
+                    <mn>۲</mn>
+                  </msub>
+                  <mo>+</mo>
+                  <mfrac>
+                    <mn>۱</mn>
+                    <mrow>
+                      <msub>
+                        <mi>a</mi>
+                        <mn>۳</mn>
+                      </msub>
+                      <mo>+</mo>
+                      <mfrac>
+                        <mn>۱</mn>
+                        <mrow>
+                          <msub>
+                            <mi>a</mi>
+                            <mn>۴</mn>
+                          </msub>
+                        </mrow>
+                      </mfrac>
+                    </mrow>
+                  </mfrac>
+                </mrow>
+              </mfrac>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>8</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mmultiscripts>
+          <mo>ل</mo>
+          <mrow>
+            <mi>&#x1EE1F;</mi>
+            <mo>/</mo>
+            <mn>٢</mn>
+          </mrow>
+          <none/>
+          <mprescripts/>
+          <none/>
+          <mi>&#x1EE1D;</mi>
+        </mmultiscripts>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mmultiscripts>
+          <mo>ل</mo>
+          <mrow>
+            <mi>&#x1EE1F;</mi>
+            <mo>/</mo>
+            <mn>٢</mn>
+          </mrow>
+          <none/>
+          <mprescripts/>
+          <none/>
+          <mi>&#x1EE1D;</mi>
+        </mmultiscripts>
+      </math>
+    </td><td>
+      <math display="block">
+        <mrow>
+          <mo>(</mo>
+          <mfrac linethickness="0px">
+            <mi>n</mi>
+            <mrow>
+              <mi>k</mi>
+              <mo>/</mo>
+              <mn>۲</mn>
+            </mrow>
+          </mfrac>
+          <mo>)</mo>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>9</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <mrow>
+            <mo>(</mo>
+            <mfrac linethickness="0px">
+              <mi>p</mi>
+              <mn>٢</mn>
+            </mfrac>
+            <mo>)</mo>
+          </mrow>
+          <msup>
+            <mi>&#x1EE0E;</mi>
+            <mn>٢</mn>
+          </msup>
+          <msup>
+            <mi>&#x1EE11;</mi>
+            <mrow>
+              <mi>p</mi>
+              <mo>-</mo>
+              <mn>٢</mn>
+            </mrow>
+          </msup>
+          <mo>-</mo>
+          <mfrac>
+            <mn>١</mn>
+            <mrow>
+              <mn>١</mn>
+              <mo>-</mo>
+              <mi>&#x1EE0E;</mi>
+            </mrow>
+          </mfrac>
+          <mfrac>
+            <mn>١</mn>
+            <mrow>
+              <mn>١</mn>
+              <mo>-</mo>
+              <msup>
+                <mi>&#x1EE0E;</mi>
+                <mn>٢</mn>
+              </msup>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <mrow>
+            <mo>(</mo>
+            <mfrac linethickness="0px">
+              <mi>p</mi>
+              <mn>٢</mn>
+            </mfrac>
+            <mo>)</mo>
+          </mrow>
+          <msup>
+            <mi>&#x1EE0E;</mi>
+            <mn>٢</mn>
+          </msup>
+          <msup>
+            <mi>&#x1EE11;</mi>
+            <mrow>
+              <mi>p</mi>
+              <mo>-</mo>
+              <mn>٢</mn>
+            </mrow>
+          </msup>
+          <mo>-</mo>
+          <mfrac>
+            <mn>١</mn>
+            <mrow>
+              <mn>١</mn>
+              <mo>-</mo>
+              <mi>&#x1EE0E;</mi>
+            </mrow>
+          </mfrac>
+          <mfrac>
+            <mn>١</mn>
+            <mrow>
+              <mn>١</mn>
+              <mo>-</mo>
+              <msup>
+                <mi>&#x1EE0E;</mi>
+                <mn>٢</mn>
+              </msup>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </math>
+    </td><td>
+      <math display="block">
+        <mrow>
+          <mrow>
+            <mo>(</mo>
+            <mfrac linethickness="0px">
+              <mi>p</mi>
+              <mn>۲</mn>
+            </mfrac>
+            <mo>)</mo>
+          </mrow>
+          <msup>
+            <mi>x</mi>
+            <mn>۲</mn>
+          </msup>
+          <msup>
+            <mi>y</mi>
+            <mrow>
+              <mi>p</mi>
+              <mo>-</mo>
+              <mn>۲</mn>
+            </mrow>
+          </msup>
+          <mo>-</mo>
+          <mfrac>
+            <mn>۱</mn>
+            <mrow>
+              <mn>۱</mn>
+              <mo>-</mo>
+              <mi>x</mi>
+            </mrow>
+          </mfrac>
+          <mfrac>
+            <mn>۱</mn>
+            <mrow>
+              <mn>۱</mn>
+              <mo>-</mo>
+              <msup>
+                <mi>x</mi>
+                <mn>۲</mn>
+              </msup>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>10</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <munder>
+            <mo>&sum;</mo>
+            <mrow>
+              <mfrac linethickness="0px">
+                <mrow>
+                  <mn>٠</mn>
+                  <mo>&leq;</mo>
+                  <mi>i</mi>
+                  <mo>&leq;</mo>
+                  <mi>m</mi>
+                </mrow>
+                <mrow>
+                  <mn>٠</mn>
+                  <mo>&lt;</mo>
+                  <mi>j</mi>
+                  <mo>&lt;</mo>
+                  <mi>&#x1EE1D;</mi>
+                </mrow>
+              </mfrac>
+            </mrow>
+          </munder>
+          <mi>P</mi>
+          <mo stretchy="false">(</mo>
+          <mi>i</mi>
+          <mo>,</mo>
+          <mi>j</mi>
+          <mo stretchy="false">)</mo>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <munder>
+            <mo>&#x1EEF0;</mo>
+            <mrow>
+              <mfrac linethickness="0px">
+                <mrow>
+                  <mn>٠</mn>
+                  <mo>&leq;</mo>
+                  <mi>i</mi>
+                  <mo>&leq;</mo>
+                  <mi>m</mi>
+                </mrow>
+                <mrow>
+                  <mn>٠</mn>
+                  <mo>&lt;</mo>
+                  <mi>j</mi>
+                  <mo>&lt;</mo>
+                  <mi>&#x1EE1D;</mi>
+                </mrow>
+              </mfrac>
+            </mrow>
+          </munder>
+          <mi>P</mi>
+          <mo stretchy="false">(</mo>
+          <mi>i</mi>
+          <mo>,</mo>
+          <mi>j</mi>
+          <mo stretchy="false">)</mo>
+        </mrow>
+      </math>
+    </td><td>
+      <math display="block">
+        <mrow>
+          <munder>
+            <mo>&sum;</mo>
+            <mrow>
+              <mfrac linethickness="0px">
+                <mrow>
+                  <mn>۰</mn>
+                  <mo>&leq;</mo>
+                  <mi>i</mi>
+                  <mo>&leq;</mo>
+                  <mi>m</mi>
+                </mrow>
+                <mrow>
+                  <mn>۰</mn>
+                  <mo>&lt;</mo>
+                  <mi>j</mi>
+                  <mo>&lt;</mo>
+                  <mi>n</mi>
+                </mrow>
+              </mfrac>
+            </mrow>
+          </munder>
+          <mi>P</mi>
+          <mo stretchy="false">(</mo>
+          <mi>i</mi>
+          <mo>,</mo>
+          <mi>j</mi>
+          <mo stretchy="false">)</mo>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>11</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <msup>
+            <mi>&#x1EE0E;</mi>
+            <mrow>
+              <mn>٢</mn>
+              <mi>&#x1EE11;</mi>
+            </mrow>
+          </msup>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <msup>
+            <mi>&#x1EE0E;</mi>
+            <mrow>
+              <mn>٢</mn>
+              <mi>&#x1EE11;</mi>
+            </mrow>
+          </msup>
+        </mrow>
+      </math>
+    </td><td>
+      <math display="block">
+        <mrow>
+          <msup>
+            <mi>x</mi>
+            <mrow>
+              <mn>۲</mn>
+              <mi>y</mi>
+            </mrow>
+          </msup>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>12</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <munderover>
+            <mo>&sum;</mo>
+            <mrow>
+              <mi>i</mi>
+              <mo>=</mo>
+              <mn>١</mn>
+            </mrow>
+            <mi>p</mi>
+          </munderover>
+          <munderover>
+            <mo>&sum;</mo>
+            <mrow>
+              <mi>j</mi>
+              <mo>=</mo>
+              <mn>١</mn>
+            </mrow>
+            <mi>q</mi>
+          </munderover>
+          <munderover>
+            <mo>&sum;</mo>
+            <mrow>
+              <mi>&#x1EE1F;</mi>
+              <mo>=</mo>
+              <mn>١</mn>
+            </mrow>
+            <mi>r</mi>
+          </munderover>
+          <msub>
+            <mi>&#x1EE00;</mi>
+            <mrow>
+              <mi>i</mi>
+              <mi>j</mi>
+            </mrow>
+          </msub>
+          <msub>
+            <mi>&#x1EE1C;</mi>
+            <mrow>
+              <mi>j</mi>
+              <mi>&#x1EE1F;</mi>
+            </mrow>
+          </msub>
+          <msub>
+            <mi>ج</mi>
+            <mrow>
+              <mi>&#x1EE1F;</mi>
+              <mi>i</mi>
+            </mrow>
+          </msub>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <munderover>
+            <mo>&#x1EEF0;</mo>
+            <mrow>
+              <mi>i</mi>
+              <mo>=</mo>
+              <mn>١</mn>
+            </mrow>
+            <mi>p</mi>
+          </munderover>
+          <munderover>
+            <mo>&#x1EEF0;</mo>
+            <mrow>
+              <mi>j</mi>
+              <mo>=</mo>
+              <mn>١</mn>
+            </mrow>
+            <mi>q</mi>
+          </munderover>
+          <munderover>
+            <mo>&#x1EEF0;</mo>
+            <mrow>
+              <mi>&#x1EE1F;</mi>
+              <mo>=</mo>
+              <mn>١</mn>
+            </mrow>
+            <mi>r</mi>
+          </munderover>
+          <msub>
+            <mi>&#x1EE00;</mi>
+            <mrow>
+              <mi>i</mi>
+              <mi>j</mi>
+            </mrow>
+          </msub>
+          <msub>
+            <mi>&#x1EE1C;</mi>
+            <mrow>
+              <mi>j</mi>
+              <mi>&#x1EE1F;</mi>
+            </mrow>
+          </msub>
+          <msub>
+            <mi>ج</mi>
+            <mrow>
+              <mi>&#x1EE1F;</mi>
+              <mi>i</mi>
+            </mrow>
+          </msub>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math display="block">
+        <mrow>
+          <munderover>
+            <mo>&sum;</mo>
+            <mrow>
+              <mi>i</mi>
+              <mo>=</mo>
+              <mn>۱</mn>
+            </mrow>
+            <mi>p</mi>
+          </munderover>
+          <munderover>
+            <mo>&sum;</mo>
+            <mrow>
+              <mi>j</mi>
+              <mo>=</mo>
+              <mn>۱</mn>
+            </mrow>
+            <mi>q</mi>
+          </munderover>
+          <munderover>
+            <mo>&sum;</mo>
+            <mrow>
+              <mi>k</mi>
+              <mo>=</mo>
+              <mn>۱</mn>
+            </mrow>
+            <mi>r</mi>
+          </munderover>
+          <msub>
+            <mi>a</mi>
+            <mrow>
+              <mi>i</mi>
+              <mi>j</mi>
+            </mrow>
+          </msub>
+          <msub>
+            <mi>b</mi>
+            <mrow>
+              <mi>j</mi>
+              <mi>k</mi>
+            </mrow>
+          </msub>
+          <msub>
+            <mi>c</mi>
+            <mrow>
+              <mi>k</mi>
+              <mi>i</mi>
+            </mrow>
+          </msub>
+        </mrow>
+      </math>
+    </td>
+  </tr>
+  <tr>
+    <td>13</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <msqrt>
+            <mn>١</mn>
+            <mo>+</mo>
+            <msqrt>
+              <mn>١</mn>
+              <mo>+</mo>
+              <msqrt>
+                <mn>١</mn>
+                <mo>+</mo>
+                <msqrt>
+                  <mn>١</mn>
+                  <mo>+</mo>
+                  <msqrt>
+                    <mn>١</mn>
+                    <mo>+</mo>
+                    <msqrt>
+                      <mn>١</mn>
+                      <mo>+</mo>
+                      <msqrt>
+                        <mn>١</mn>
+                        <mo>+</mo>
+                        <mi>&#x1EE0E;</mi>
+                      </msqrt>
+                    </msqrt>
+                  </msqrt>
+                </msqrt>
+              </msqrt>
+            </msqrt>
+          </msqrt>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <msqrt>
+            <mn>١</mn>
+            <mo>+</mo>
+            <msqrt>
+              <mn>١</mn>
+              <mo>+</mo>
+              <msqrt>
+                <mn>١</mn>
+                <mo>+</mo>
+                <msqrt>
+                  <mn>١</mn>
+                  <mo>+</mo>
+                  <msqrt>
+                    <mn>١</mn>
+                    <mo>+</mo>
+                    <msqrt>
+                      <mn>١</mn>
+                      <mo>+</mo>
+                      <msqrt>
+                        <mn>١</mn>
+                        <mo>+</mo>
+                        <mi>&#x1EE0E;</mi>
+                      </msqrt>
+                    </msqrt>
+                  </msqrt>
+                </msqrt>
+              </msqrt>
+            </msqrt>
+          </msqrt>
+        </mrow>
+      </math>
+    </td><td>
+      <math display="block">
+        <mrow>
+          <msqrt>
+            <mn>۱</mn>
+            <mo>+</mo>
+            <msqrt>
+              <mn>۱</mn>
+              <mo>+</mo>
+              <msqrt>
+                <mn>۱</mn>
+                <mo>+</mo>
+                <msqrt>
+                  <mn>۱</mn>
+                  <mo>+</mo>
+                  <msqrt>
+                    <mn>۱</mn>
+                    <mo>+</mo>
+                    <msqrt>
+                      <mn>۱</mn>
+                      <mo>+</mo>
+                      <msqrt>
+                        <mn>۱</mn>
+                        <mo>+</mo>
+                        <mi>x</mi>
+                      </msqrt>
+                    </msqrt>
+                  </msqrt>
+                </msqrt>
+              </msqrt>
+            </msqrt>
+          </msqrt>
+        </mrow>
+      </math>
+    </td>
+  </tr>
+  <tr>
+    <td>14</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <mrow>
+            <mo>(</mo>
+            <mfrac>
+              <msup>
+                <mo>&part;</mo>
+                <mn>٢</mn>
+              </msup>
+              <mrow>
+                <mo>&part;</mo>
+                <msup>
+                  <mi>&#x1EE0E;</mi>
+                  <mn>٢</mn>
+                </msup>
+              </mrow>
+            </mfrac>
+            <mo>+</mo>
+            <mfrac>
+              <msup>
+                <mo>&part;</mo>
+                <mn>٢</mn>
+              </msup>
+              <mrow>
+                <mo>&part;</mo>
+                <msup>
+                  <mi>&#x1EE11;</mi>
+                  <mn>٢</mn>
+                </msup>
+              </mrow>
+            </mfrac>
+            <mo>)</mo>
+          </mrow>
+          <msup>
+            <mrow>
+              <mo minsize="150%">|</mo>
+              <mi>&#x3C6; <!-- \varphi --></mi>
+              <mo stretchy="false">(</mo>
+              <mi>&#x1EE0E;</mi>
+              <mo>+</mo>
+              <mi mathvariant="normal">i</mi>
+              <mi>&#x1EE11;</mi>
+              <mo stretchy="false">)</mo>
+              <mo minsize="150%">|</mo>
+            </mrow>
+            <mn>٢</mn>
+          </msup>
+          <mo>=</mo>
+          <mn>٠</mn>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <mrow>
+            <mo>(</mo>
+            <mfrac>
+              <msup>
+                <mo>&part;</mo>
+                <mn>٢</mn>
+              </msup>
+              <mrow>
+                <mo>&part;</mo>
+                <msup>
+                  <mi>&#x1EE0E;</mi>
+                  <mn>٢</mn>
+                </msup>
+              </mrow>
+            </mfrac>
+            <mo>+</mo>
+            <mfrac>
+              <msup>
+                <mo>&part;</mo>
+                <mn>٢</mn>
+              </msup>
+              <mrow>
+                <mo>&part;</mo>
+                <msup>
+                  <mi>&#x1EE11;</mi>
+                  <mn>٢</mn>
+                </msup>
+              </mrow>
+            </mfrac>
+            <mo>)</mo>
+          </mrow>
+          <msup>
+            <mrow>
+              <mo minsize="150%">|</mo>
+              <mi>&#x3C6; <!-- \varphi --></mi>
+              <mo stretchy="false">(</mo>
+              <mi>&#x1EE0E;</mi>
+              <mo>+</mo>
+              <mi mathvariant="normal">i</mi>
+              <mi>&#x1EE11;</mi>
+              <mo stretchy="false">)</mo>
+              <mo minsize="150%">|</mo>
+            </mrow>
+            <mn>٢</mn>
+          </msup>
+          <mo>=</mo>
+          <mn>٠</mn>
+        </mrow>
+      </math>
+    </td><td>
+      <math display="block">
+        <mrow>
+          <mrow>
+            <mo>(</mo>
+            <mfrac>
+              <msup>
+                <mo>&part;</mo>
+                <mn>۲</mn>
+              </msup>
+              <mrow>
+                <mo>&part;</mo>
+                <msup>
+                  <mi>x</mi>
+                  <mn>۲</mn>
+                </msup>
+              </mrow>
+            </mfrac>
+            <mo>+</mo>
+            <mfrac>
+              <msup>
+                <mo>&part;</mo>
+                <mn>۲</mn>
+              </msup>
+              <mrow>
+                <mo>&part;</mo>
+                <msup>
+                  <mi>y</mi>
+                  <mn>۲</mn>
+                </msup>
+              </mrow>
+            </mfrac>
+            <mo>)</mo>
+          </mrow>
+          <msup>
+            <mrow>
+              <mo minsize="150%">|</mo>
+              <mi>&#x3C6; <!-- \varphi --></mi>
+              <mo stretchy="false">(</mo>
+              <mi>x</mi>
+              <mo>+</mo>
+              <mi mathvariant="normal">i</mi>
+              <mi>y</mi>
+              <mo stretchy="false">)</mo>
+              <mo minsize="150%">|</mo>
+            </mrow>
+            <mn>۲</mn>
+          </msup>
+          <mo>=</mo>
+          <mn>۰</mn>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>15</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <msup>
+            <mn>٢</mn>
+            <msup>
+              <mn>٢</mn>
+              <msup>
+                <mn>٢</mn>
+                <mi>&#x1EE0E;</mi>
+              </msup>
+            </msup>
+          </msup>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <msup>
+            <mn>٢</mn>
+            <msup>
+              <mn>٢</mn>
+              <msup>
+                <mn>٢</mn>
+                <mi>&#x1EE0E;</mi>
+              </msup>
+            </msup>
+          </msup>
+        </mrow>
+      </math>
+    </td><td>
+      <math display="block">
+        <mrow>
+          <msup>
+            <mn>۲</mn>
+            <msup>
+              <mn>۲</mn>
+              <msup>
+                <mn>۲</mn>
+                <mi>x</mi>
+              </msup>
+            </msup>
+          </msup>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>16</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <msubsup>
+            <mo stretchy="false">&int;</mo>
+            <mn>١</mn>
+            <mi>&#x1EE0E;</mi>
+          </msubsup>
+          <mfrac>
+            <mrow><mi>د</mi><mi>t</mi></mrow>
+            <mi>t</mi>
+          </mfrac>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <msubsup>
+            <mo stretchy="false">&int;</mo>
+            <mn>١</mn>
+            <mi>&#x1EE0E;</mi>
+          </msubsup>
+          <mfrac>
+            <mrow><mi>د</mi><mi>t</mi></mrow>
+            <mi>t</mi>
+          </mfrac>
+        </mrow>
+      </math>
+    </td><td>
+      <math display="block">
+        <mrow>
+          <msubsup>
+            <mo stretchy="false">&int;</mo>
+            <mn>۱</mn>
+            <mi>x</mi>
+          </msubsup>
+          <mfrac>
+            <mrow><mi>d</mi><mi>t</mi></mrow>
+            <mi>t</mi>
+          </mfrac>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>17</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <msub>
+            <mo>&#x222C; <!-- \iint --></mo>
+            <mi>د</mi>
+          </msub>
+          <mi>د</mi><mi>&#x1EE0E;</mi>
+          <mspace width="thinmathspace"/>
+          <mi>د</mi><mi>&#x1EE11;</mi>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <msub>
+            <mo>&#x222C; <!-- \iint --></mo>
+            <mi>د</mi>
+          </msub>
+          <mi>د</mi><mi>&#x1EE0E;</mi>
+          <mspace width="thinmathspace"/>
+          <mi>د</mi><mi>&#x1EE11;</mi>
+        </mrow>
+      </math>
+    </td><td>
+      <math display="block">
+        <mrow>
+          <msub>
+            <mo>&#x222C; <!-- \iint --></mo>
+            <mi>D</mi>
+          </msub>
+          <mi>d</mi><mi>x</mi>
+          <mspace width="thinmathspace"/>
+          <mi>d</mi><mi>y</mi>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>18</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <mi>&#x1EE03;</mi>
+          <mo stretchy="false">(</mo>
+          <mi>&#x1EE0E;</mi>
+          <mo stretchy="false">)</mo>
+          <mo>=</mo>
+          <mrow>
+            <mo>{</mo>
+            <mtable>
+              <mtr>
+                <mtd columnalign="center">
+                  <mrow>
+                    <mn>١</mn>
+                    <mo>/</mo>
+                    <mn>٣</mn>
+                  </mrow>
+                </mtd>
+                <mtd columnalign="left">
+                  <mrow>
+                    <mtext>if&nbsp;</mtext>
+                    <mn>٠</mn>
+                    <mo>&leq;</mo>
+                    <mi>&#x1EE0E;</mi>
+                    <mo>&leq;</mo>
+                    <mn>١</mn>
+                    <mo>;</mo>
+                  </mrow>
+                </mtd>
+              </mtr>
+              <mtr>
+                <mtd columnalign="center">
+                  <mrow>
+                    <mn>٢</mn>
+                    <mo>/</mo>
+                    <mn>٣</mn>
+                  </mrow>
+                </mtd>
+                <mtd columnalign="center">
+                  <mrow>
+                    <mtext>if&nbsp;</mtext>
+                    <mn>٣</mn>
+                    <mo>&leq;</mo>
+                    <mi>&#x1EE0E;</mi>
+                    <mo>&leq;</mo>
+                    <mn>٤</mn>
+                    <mo>;</mo>
+                  </mrow>
+                </mtd>
+              </mtr>
+              <mtr>
+                <mtd columnalign="center">
+                  <mn>٠</mn>
+                </mtd>
+                <mtd columnalign="left">
+                  <mtext>elsewhere.</mtext>
+                </mtd>
+              </mtr>
+            </mtable>
+          </mrow>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <mi>&#x1EE03;</mi>
+          <mo stretchy="false">(</mo>
+          <mi>&#x1EE0E;</mi>
+          <mo stretchy="false">)</mo>
+          <mo>=</mo>
+          <mrow>
+            <mo>{</mo>
+            <mtable>
+              <mtr>
+                <mtd columnalign="center">
+                  <mrow>
+                    <mn>١</mn>
+                    <mo>/</mo>
+                    <mn>٣</mn>
+                  </mrow>
+                </mtd>
+                <mtd columnalign="left">
+                  <mrow>
+                    <mtext>if&nbsp;</mtext>
+                    <mn>٠</mn>
+                    <mo>&leq;</mo>
+                    <mi>&#x1EE0E;</mi>
+                    <mo>&leq;</mo>
+                    <mn>١</mn>
+                    <mo>;</mo>
+                  </mrow>
+                </mtd>
+              </mtr>
+              <mtr>
+                <mtd columnalign="center">
+                  <mrow>
+                    <mn>٢</mn>
+                    <mo>/</mo>
+                    <mn>٣</mn>
+                  </mrow>
+                </mtd>
+                <mtd columnalign="center">
+                  <mrow>
+                    <mtext>if&nbsp;</mtext>
+                    <mn>٣</mn>
+                    <mo>&leq;</mo>
+                    <mi>&#x1EE0E;</mi>
+                    <mo>&leq;</mo>
+                    <mn>٤</mn>
+                    <mo>;</mo>
+                  </mrow>
+                </mtd>
+              </mtr>
+              <mtr>
+                <mtd columnalign="center">
+                  <mn>٠</mn>
+                </mtd>
+                <mtd columnalign="left">
+                  <mtext>elsewhere.</mtext>
+                </mtd>
+              </mtr>
+            </mtable>
+          </mrow>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math display="block">
+        <mrow>
+          <mi>f</mi>
+          <mo stretchy="false">(</mo>
+          <mi>x</mi>
+          <mo stretchy="false">)</mo>
+          <mo>=</mo>
+          <mrow>
+            <mo>{</mo>
+            <mtable>
+              <mtr>
+                <mtd columnalign="center">
+                  <mrow>
+                    <mn>۱</mn>
+                    <mo>/</mo>
+                    <mn>۳</mn>
+                  </mrow>
+                </mtd>
+                <mtd columnalign="left">
+                  <mrow>
+                    <mtext>if&nbsp;</mtext>
+                    <mn>۰</mn>
+                    <mo>&leq;</mo>
+                    <mi>x</mi>
+                    <mo>&leq;</mo>
+                    <mn>۱</mn>
+                    <mo>;</mo>
+                  </mrow>
+                </mtd>
+              </mtr>
+              <mtr>
+                <mtd columnalign="center">
+                  <mrow>
+                    <mn>۲</mn>
+                    <mo>/</mo>
+                    <mn>۳</mn>
+                  </mrow>
+                </mtd>
+                <mtd columnalign="center">
+                  <mrow>
+                    <mtext>if&nbsp;</mtext>
+                    <mn>۳</mn>
+                    <mo>&leq;</mo>
+                    <mi>x</mi>
+                    <mo>&leq;</mo>
+                    <mn>۴</mn>
+                    <mo>;</mo>
+                  </mrow>
+                </mtd>
+              </mtr>
+              <mtr>
+                <mtd columnalign="center">
+                  <mn>۰</mn>
+                </mtd>
+                <mtd columnalign="left">
+                  <mtext>elsewhere.</mtext>
+                </mtd>
+              </mtr>
+            </mtable>
+          </mrow>
+        </mrow>
+      </math>
+    </td>
+  </tr>
+  <tr>
+    <td>19</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mover>
+          <mrow>
+            <mi>&#x1EE0E;</mi>
+            <mo>+</mo>
+            <mo>...</mo>
+            <mo>+</mo>
+            <mi>&#x1EE0E;</mi>
+          </mrow>
+          <mover>
+            <mo>&OverBrace;</mo>
+            <mrow><mi>&#x1EE1F;</mi> <mspace width="thinmathspace"/> <mtext>times</mtext></mrow>
+          </mover>
+        </mover>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mover>
+          <mrow>
+            <mi>&#x1EE0E;</mi>
+            <mo>+</mo>
+            <mo>...</mo>
+            <mo>+</mo>
+            <mi>&#x1EE0E;</mi>
+          </mrow>
+          <mover>
+            <mo>&OverBrace;</mo>
+            <mrow><mi>&#x1EE1F;</mi> <mspace width="thinmathspace"/> <mtext>times</mtext></mrow>
+          </mover>
+        </mover>
+      </math>
+    </td><td>
+      <math display="block">
+        <mover>
+          <mrow>
+            <mi>x</mi>
+            <mo>+</mo>
+            <mo>...</mo>
+            <mo>+</mo>
+            <mi>x</mi>
+          </mrow>
+          <mover>
+            <mo>&OverBrace;</mo>
+            <mrow><mi>k</mi> <mspace width="thinmathspace"/> <mtext>times</mtext></mrow>
+          </mover>
+        </mover>
+      </math>
+  </td></tr>
+  <tr>
+    <td>20</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <msub>
+            <mi>&#x1EE11;</mi>
+            <msup>
+              <mi>&#x1EE0E;</mi>
+              <mn>٢</mn>
+            </msup>
+          </msub>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <msub>
+            <mi>&#x1EE11;</mi>
+            <msup>
+              <mi>&#x1EE0E;</mi>
+              <mn>٢</mn>
+            </msup>
+          </msub>
+        </mrow>
+      </math>
+    </td><td>
+      <math display="block">
+        <mrow>
+          <msub>
+            <mi>y</mi>
+            <msup>
+              <mi>x</mi>
+              <mn>۲</mn>
+            </msup>
+          </msub>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>21</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <munder>
+            <mo>&sum;</mo>
+            <mrow>
+              <mi>p</mi>
+              <mtext>&nbsp;prime</mtext>
+            </mrow>
+          </munder>
+          <mi>&#x1EE03;</mi>
+          <mo stretchy="false">(</mo>
+          <mi>p</mi>
+          <mo stretchy="false">)</mo>
+          <mo>=</mo>
+          <msub>
+            <mo stretchy="false">&int;</mo>
+            <mrow>
+              <mi>t</mi>
+              <mo>&gt;</mo>
+              <mn>١</mn>
+            </mrow>
+          </msub>
+          <mi>&#x1EE03;</mi>
+          <mo stretchy="false">(</mo>
+          <mi>t</mi>
+          <mo stretchy="false">)</mo>
+          <mspace width="thinmathspace"/>
+          <mi>د</mi>
+          <mi>&pi;</mi>
+          <mo stretchy="false">(</mo>
+          <mi>t</mi>
+          <mo stretchy="false">)</mo>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <munder>
+            <mo>&#x1EEF0;</mo>
+            <mrow>
+              <mi>p</mi>
+              <mtext>&nbsp;prime</mtext>
+            </mrow>
+          </munder>
+          <mi>&#x1EE03;</mi>
+          <mo stretchy="false">(</mo>
+          <mi>p</mi>
+          <mo stretchy="false">)</mo>
+          <mo>=</mo>
+          <msub>
+            <mo stretchy="false">&int;</mo>
+            <mrow>
+              <mi>t</mi>
+              <mo>&gt;</mo>
+              <mn>١</mn>
+            </mrow>
+          </msub>
+          <mi>&#x1EE03;</mi>
+          <mo stretchy="false">(</mo>
+          <mi>t</mi>
+          <mo stretchy="false">)</mo>
+          <mspace width="thinmathspace"/>
+          <mi>د</mi>
+          <mi>&pi;</mi>
+          <mo stretchy="false">(</mo>
+          <mi>t</mi>
+          <mo stretchy="false">)</mo>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math display="block">
+        <mrow>
+          <munder>
+            <mo>&sum;</mo>
+            <mrow>
+              <mi>p</mi>
+              <mtext>&nbsp;prime</mtext>
+            </mrow>
+          </munder>
+          <mi>f</mi>
+          <mo stretchy="false">(</mo>
+          <mi>p</mi>
+          <mo stretchy="false">)</mo>
+          <mo>=</mo>
+          <msub>
+            <mo stretchy="false">&int;</mo>
+            <mrow>
+              <mi>t</mi>
+              <mo>&gt;</mo>
+              <mn>۱</mn>
+            </mrow>
+          </msub>
+          <mi>f</mi>
+          <mo stretchy="false">(</mo>
+          <mi>t</mi>
+          <mo stretchy="false">)</mo>
+          <mspace width="thinmathspace"/>
+          <mi>d</mi>
+          <mi>&pi;</mi>
+          <mo stretchy="false">(</mo>
+          <mi>t</mi>
+          <mo stretchy="false">)</mo>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>22</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <mo stretchy="false">{</mo>
+          <munder>
+            <mrow>
+              <mover>
+                <mrow>
+                  <mpadded width="0em"><mphantom><mo>(</mo></mphantom></mpadded>
+                  <mi>&#x1EE00;</mi>
+                  <mo>,</mo>
+                  <mo>...</mo>
+                  <mo>,</mo>
+                  <mi>&#x1EE00;</mi>
+                </mrow>
+                <mover>
+                  <mo>&OverBrace;</mo>
+                  <mrow>
+                    <mi>&#x1EE1F;</mi>
+                    <mtext>&nbsp;</mtext>
+                    <mi>&#x1EE00;</mi>
+                    <mtext>'s</mtext>
+                  </mrow>
+                </mover>
+              </mover>
+              <mo>,</mo>
+              <mover>
+                <mrow>
+                  <mpadded width="0em"><mphantom><mo>(</mo></mphantom></mpadded>
+                  <mi>&#x1EE1C;</mi>
+                  <mo>,</mo>
+                  <mo>...</mo>
+                  <mo>,</mo>
+                  <mi>&#x1EE1C;</mi>
+                </mrow>
+                <mover>
+                  <mo>&OverBrace;</mo>
+                  <mrow>
+                    <mi>&ell;</mi>
+                    <mtext>&nbsp;</mtext>
+                    <mi>&#x1EE1C;</mi>
+                    <mtext>'s</mtext>
+                  </mrow>
+                </mover>
+              </mover>
+            </mrow>
+            <munder>
+              <mo>&UnderBrace;</mo>
+              <mrow>
+                <mi>&#x1EE1F;</mi>
+                <mo>+</mo>
+                <mi>&ell;</mi>
+                <mtext>&nbsp;elements</mtext>
+              </mrow>
+            </munder>
+          </munder>
+          <mo stretchy="false">}</mo>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <mo stretchy="false">{</mo>
+          <munder>
+            <mrow>
+              <mover>
+                <mrow>
+                  <mpadded width="0em"><mphantom><mo>(</mo></mphantom></mpadded>
+                  <mi>&#x1EE00;</mi>
+                  <mo>,</mo>
+                  <mo>...</mo>
+                  <mo>,</mo>
+                  <mi>&#x1EE00;</mi>
+                </mrow>
+                <mover>
+                  <mo>&OverBrace;</mo>
+                  <mrow>
+                    <mi>&#x1EE1F;</mi>
+                    <mtext>&nbsp;</mtext>
+                    <mi>&#x1EE00;</mi>
+                    <mtext>'s</mtext>
+                  </mrow>
+                </mover>
+              </mover>
+              <mo>,</mo>
+              <mover>
+                <mrow>
+                  <mpadded width="0em"><mphantom><mo>(</mo></mphantom></mpadded>
+                  <mi>&#x1EE1C;</mi>
+                  <mo>,</mo>
+                  <mo>...</mo>
+                  <mo>,</mo>
+                  <mi>&#x1EE1C;</mi>
+                </mrow>
+                <mover>
+                  <mo>&OverBrace;</mo>
+                  <mrow>
+                    <mi>&ell;</mi>
+                    <mtext>&nbsp;</mtext>
+                    <mi>&#x1EE1C;</mi>
+                    <mtext>'s</mtext>
+                  </mrow>
+                </mover>
+              </mover>
+            </mrow>
+            <munder>
+              <mo>&UnderBrace;</mo>
+              <mrow>
+                <mi>&#x1EE1F;</mi>
+                <mo>+</mo>
+                <mi>&ell;</mi>
+                <mtext>&nbsp;elements</mtext>
+              </mrow>
+            </munder>
+          </munder>
+          <mo stretchy="false">}</mo>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math display="block">
+        <mrow>
+          <mo stretchy="false">{</mo>
+          <munder>
+            <mrow>
+              <mover>
+                <mrow>
+                  <mpadded width="0em"><mphantom><mo>(</mo></mphantom></mpadded>
+                  <mi>a</mi>
+                  <mo>,</mo>
+                  <mo>...</mo>
+                  <mo>,</mo>
+                  <mi>a</mi>
+                </mrow>
+                <mover>
+                  <mo>&OverBrace;</mo>
+                  <mrow>
+                    <mi>k</mi>
+                    <mtext>&nbsp;</mtext>
+                    <mi>a</mi>
+                    <mtext>'s</mtext>
+                  </mrow>
+                </mover>
+              </mover>
+              <mo>,</mo>
+              <mover>
+                <mrow>
+                  <mpadded width="0em"><mphantom><mo>(</mo></mphantom></mpadded>
+                  <mi>b</mi>
+                  <mo>,</mo>
+                  <mo>...</mo>
+                  <mo>,</mo>
+                  <mi>b</mi>
+                </mrow>
+                <mover>
+                  <mo>&OverBrace;</mo>
+                  <mrow>
+                    <mi>&ell;</mi>
+                    <mtext>&nbsp;</mtext>
+                    <mi>b</mi>
+                    <mtext>'s</mtext>
+                  </mrow>
+                </mover>
+              </mover>
+            </mrow>
+            <munder>
+              <mo>&UnderBrace;</mo>
+              <mrow>
+                <mi>k</mi>
+                <mo>+</mo>
+                <mi>&ell;</mi>
+                <mtext>&nbsp;elements</mtext>
+              </mrow>
+            </munder>
+          </munder>
+          <mo stretchy="false">}</mo>
+        </mrow>
+      </math>
+  </td></tr>
+  <tr>
+    <td>23</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <mo>(</mo>
+          <mtable>
+            <mtr>
+              <mtd columnalign="center">
+                <mrow>
+                  <mo>(</mo>
+                  <mtable>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>&#x1EE00;</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>&#x1EE1C;</mi>
+                      </mtd>
+                    </mtr>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>ج</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>د</mi>
+                      </mtd>
+                    </mtr>
+                  </mtable>
+                  <mo>)</mo>
+                </mrow>
+              </mtd>
+              <mtd columnalign="center">
+                <mrow>
+                  <mo>(</mo>
+                  <mtable>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>e</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>f</mi>
+                      </mtd>
+                    </mtr>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>g</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>h</mi>
+                      </mtd>
+                    </mtr>
+                  </mtable>
+                  <mo>)</mo>
+                </mrow>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd columnalign="center">
+                <mn>٠</mn>
+              </mtd>
+              <mtd columnalign="center">
+                <mrow>
+                  <mo>(</mo>
+                  <mtable>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>i</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>j</mi>
+                      </mtd>
+                    </mtr>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>&#x1EE1F;</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>l</mi>
+                      </mtd>
+                    </mtr>
+                  </mtable>
+                  <mo>)</mo>
+                </mrow>
+              </mtd>
+            </mtr>
+          </mtable>
+          <mo>)</mo>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <mo>(</mo>
+          <mtable>
+            <mtr>
+              <mtd columnalign="center">
+                <mrow>
+                  <mo>(</mo>
+                  <mtable>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>&#x1EE00;</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>&#x1EE1C;</mi>
+                      </mtd>
+                    </mtr>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>ج</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>د</mi>
+                      </mtd>
+                    </mtr>
+                  </mtable>
+                  <mo>)</mo>
+                </mrow>
+              </mtd>
+              <mtd columnalign="center">
+                <mrow>
+                  <mo>(</mo>
+                  <mtable>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>e</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>f</mi>
+                      </mtd>
+                    </mtr>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>g</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>h</mi>
+                      </mtd>
+                    </mtr>
+                  </mtable>
+                  <mo>)</mo>
+                </mrow>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd columnalign="center">
+                <mn>٠</mn>
+              </mtd>
+              <mtd columnalign="center">
+                <mrow>
+                  <mo>(</mo>
+                  <mtable>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>i</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>j</mi>
+                      </mtd>
+                    </mtr>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>&#x1EE1F;</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>l</mi>
+                      </mtd>
+                    </mtr>
+                  </mtable>
+                  <mo>)</mo>
+                </mrow>
+              </mtd>
+            </mtr>
+          </mtable>
+          <mo>)</mo>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math display="block">
+        <mrow>
+          <mo>(</mo>
+          <mtable>
+            <mtr>
+              <mtd columnalign="center">
+                <mrow>
+                  <mo>(</mo>
+                  <mtable>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>a</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>b</mi>
+                      </mtd>
+                    </mtr>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>c</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>d</mi>
+                      </mtd>
+                    </mtr>
+                  </mtable>
+                  <mo>)</mo>
+                </mrow>
+              </mtd>
+              <mtd columnalign="center">
+                <mrow>
+                  <mo>(</mo>
+                  <mtable>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>e</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>f</mi>
+                      </mtd>
+                    </mtr>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>g</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>h</mi>
+                      </mtd>
+                    </mtr>
+                  </mtable>
+                  <mo>)</mo>
+                </mrow>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd columnalign="center">
+                <mn>۰</mn>
+              </mtd>
+              <mtd columnalign="center">
+                <mrow>
+                  <mo>(</mo>
+                  <mtable>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>i</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>j</mi>
+                      </mtd>
+                    </mtr>
+                    <mtr>
+                      <mtd columnalign="center">
+                        <mi>k</mi>
+                      </mtd>
+                      <mtd columnalign="center">
+                        <mi>l</mi>
+                      </mtd>
+                    </mtr>
+                  </mtable>
+                  <mo>)</mo>
+                </mrow>
+              </mtd>
+            </mtr>
+          </mtable>
+          <mo>)</mo>
+        </mrow>
+      </math>
+    </td>
+  </tr>
+  <tr>
+    <td>24</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <mi>det</mi>
+          <mo>|</mo>
+          <mtable>
+            <mtr>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mn>٠</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mn>١</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mn>٢</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&mldr;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mi>&#x1EE1D;</mi>
+                </msub>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mn>١</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mn>٢</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mn>٣</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&mldr;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mrow>
+                    <mi>&#x1EE1D;</mi>
+                    <mo>+</mo>
+                    <mn>١</mn>
+                  </mrow>
+                </msub>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mn>٢</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mn>٣</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mn>٤</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&mldr;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mrow>
+                    <mi>&#x1EE1D;</mi>
+                    <mo>+</mo>
+                    <mn>٢</mn>
+                  </mrow>
+                </msub>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd columnalign="center">
+                <mo>&#x22EE;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&#x22EE;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&#x22EE;</mo>
+              </mtd>
+              <mtd columnalign="center">
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&#x22EE;</mo>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mi>&#x1EE1D;</mi>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mrow>
+                    <mi>&#x1EE1D;</mi>
+                    <mo>+</mo>
+                    <mn>١</mn>
+                  </mrow>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mrow>
+                    <mi>&#x1EE1D;</mi>
+                    <mo>+</mo>
+                    <mn>٢</mn>
+                  </mrow>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&mldr;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mrow>
+                    <mn>٢</mn>
+                    <mi>&#x1EE1D;</mi>
+                  </mrow>
+                </msub>
+              </mtd>
+            </mtr>
+          </mtable>
+          <mo>|</mo>
+          <mo>&gt;</mo>
+          <mn>٠</mn>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <mi>det</mi>
+          <mo>|</mo>
+          <mtable>
+            <mtr>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mn>٠</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mn>١</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mn>٢</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&mldr;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mi>&#x1EE1D;</mi>
+                </msub>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mn>١</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mn>٢</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mn>٣</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&mldr;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mrow>
+                    <mi>&#x1EE1D;</mi>
+                    <mo>+</mo>
+                    <mn>١</mn>
+                  </mrow>
+                </msub>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mn>٢</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mn>٣</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mn>٤</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&mldr;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mrow>
+                    <mi>&#x1EE1D;</mi>
+                    <mo>+</mo>
+                    <mn>٢</mn>
+                  </mrow>
+                </msub>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd columnalign="center">
+                <mo>&#x22EE;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&#x22EE;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&#x22EE;</mo>
+              </mtd>
+              <mtd columnalign="center">
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&#x22EE;</mo>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mi>&#x1EE1D;</mi>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mrow>
+                    <mi>&#x1EE1D;</mi>
+                    <mo>+</mo>
+                    <mn>١</mn>
+                  </mrow>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mrow>
+                    <mi>&#x1EE1D;</mi>
+                    <mo>+</mo>
+                    <mn>٢</mn>
+                  </mrow>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&mldr;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>ج</mi>
+                  <mrow>
+                    <mn>٢</mn>
+                    <mi>&#x1EE1D;</mi>
+                  </mrow>
+                </msub>
+              </mtd>
+            </mtr>
+          </mtable>
+          <mo>|</mo>
+          <mo>&gt;</mo>
+          <mn>٠</mn>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math display="block">
+        <mrow>
+          <mi>det</mi>
+          <mo>|</mo>
+          <mtable>
+            <mtr>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mn>۰</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mn>۱</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mn>۲</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&mldr;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mi>n</mi>
+                </msub>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mn>۱</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mn>۲</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mn>۳</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&mldr;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mrow>
+                    <mi>n</mi>
+                    <mo>+</mo>
+                    <mn>۱</mn>
+                  </mrow>
+                </msub>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mn>۲</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mn>۳</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mn>۴</mn>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&mldr;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mrow>
+                    <mi>n</mi>
+                    <mo>+</mo>
+                    <mn>۲</mn>
+                  </mrow>
+                </msub>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd columnalign="center">
+                <mo>&#x22EE;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&#x22EE;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&#x22EE;</mo>
+              </mtd>
+              <mtd columnalign="center">
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&#x22EE;</mo>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mi>n</mi>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mrow>
+                    <mi>n</mi>
+                    <mo>+</mo>
+                    <mn>۱</mn>
+                  </mrow>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mrow>
+                    <mi>n</mi>
+                    <mo>+</mo>
+                    <mn>۲</mn>
+                  </mrow>
+                </msub>
+              </mtd>
+              <mtd columnalign="center">
+                <mo>&mldr;</mo>
+              </mtd>
+              <mtd columnalign="center">
+                <msub>
+                  <mi>c</mi>
+                  <mrow>
+                    <mn>۲</mn>
+                    <mi>n</mi>
+                  </mrow>
+                </msub>
+              </mtd>
+            </mtr>
+          </mtable>
+          <mo>|</mo>
+          <mo>&gt;</mo>
+          <mn>۰</mn>
+        </mrow>
+      </math>
+    </td>
+  </tr>
+  <tr>
+    <td>25</td>
+    <td>
+      <math dir="rtl" display="block">
+        <msub>
+          <mi>&#x1EE11;</mi>
+          <msub>
+            <mi>&#x1EE0E;</mi>
+            <mn>٢</mn>
+          </msub>
+        </msub>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <msub>
+          <mi>&#x1EE11;</mi>
+          <msub>
+            <mi>&#x1EE0E;</mi>
+            <mn>٢</mn>
+          </msub>
+        </msub>
+      </math>
+    </td>
+    <td>
+      <math display="block">
+        <msub>
+          <mi>y</mi>
+          <msub>
+            <mi>x</mi>
+            <mn>۲</mn>
+          </msub>
+        </msub>
+      </math>
+    </td>
+  </tr>
+  <tr>
+    <td>26</td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <msubsup>
+            <mi>&#x1EE0E;</mi>
+            <mn>٩٢</mn>
+            <mn>٣١٤١٥</mn>
+          </msubsup>
+          <mo>+</mo>
+          <mi>&pi;</mi>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <mrow>
+          <msubsup>
+            <mi>&#x1EE0E;</mi>
+            <mn>٩٢</mn>
+            <mn>٣١٤١٥</mn>
+          </msubsup>
+          <mo>+</mo>
+          <mi>&pi;</mi>
+        </mrow>
+      </math>
+    </td>
+    <td>
+      <math display="block">
+        <mrow>
+          <msubsup>
+            <mi>x</mi>
+            <mn>۹۲</mn>
+            <mn>۳۱۴۱۵</mn>
+          </msubsup>
+          <mo>+</mo>
+          <mi>&pi;</mi>
+        </mrow>
+      </math>
+    </td>
+  </tr>
+  <tr>
+    <td>27</td>
+    <td>
+      <math dir="rtl" display="block">
+        <msubsup>
+          <mi>&#x1EE0E;</mi>
+          <msubsup>
+            <mi>&#x1EE11;</mi>
+            <mi>&#x1EE1C;</mi>
+            <mi>&#x1EE00;</mi>
+          </msubsup>
+          <msubsup>
+            <mi>ع</mi>
+            <mi>ج</mi>
+            <mi>د</mi>
+          </msubsup>
+        </msubsup>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <msubsup>
+          <mi>&#x1EE0E;</mi>
+          <msubsup>
+            <mi>&#x1EE11;</mi>
+            <mi>&#x1EE1C;</mi>
+            <mi>&#x1EE00;</mi>
+          </msubsup>
+          <msubsup>
+            <mi>ع</mi>
+            <mi>ج</mi>
+            <mi>د</mi>
+          </msubsup>
+        </msubsup>
+      </math>
+    </td>
+    <td>
+      <math display="block">
+        <msubsup>
+          <mi>x</mi>
+          <msubsup>
+            <mi>y</mi>
+            <mi>b</mi>
+            <mi>a</mi>
+          </msubsup>
+          <msubsup>
+            <mi>z</mi>
+            <mi>c</mi>
+            <mi>d</mi>
+          </msubsup>
+        </msubsup>
+      </math>
+    </td>
+  </tr>
+  <tr>
+    <td>28</td>
+    <td>
+      <math dir="rtl" display="block">
+        <msubsup>
+          <mi>&#x1EE11;</mi>
+          <mn>٣</mn>
+          <mo>&#x2034;</mo>
+        </msubsup>
+      </math>
+    </td>
+    <td>
+      <math dir="rtl" display="block">
+        <msubsup>
+          <mi>&#x1EE11;</mi>
+          <mn>٣</mn>
+          <mo>&#x2034;</mo>
+        </msubsup>
+      </math>
+    </td>
+    <td>
+      <math display="block">
+        <msubsup>
+          <mi>y</mi>
+          <mn>۳</mn>
+          <mo>&#x2034;</mo>
+        </msubsup>
+      </math>
+    </td>
+  </tr>
+  <tr>
+    <td>29</td>
+    <td><math dir="rtl" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><munder><mo lspace="0em" rspace="0em" mathcolor="red">lim</mo><mrow><mi>&#x1EE1D;</mi><mo stretchy="false">←</mo><mo>+</mo><mn>∞</mn></mrow></munder><mfrac><msqrt><mrow><mn>٢</mn><mi>π</mi><mi>&#x1EE1D;</mi></mrow></msqrt><mrow><mi>&#x1EE1D;</mi><mo>!</mo></mrow></mfrac><msup><mrow><mo>(</mo><mfrac><mi>&#x1EE1D;</mi><mi>e</mi></mfrac><mo>)</mo></mrow><mi>&#x1EE1D;</mi></msup></mrow><mo>=</mo><mn>1</mn></math></td>
+    <td><math dir="rtl" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><munder><mo lspace="0em" rspace="0em" mathcolor="red">lim</mo><mrow><mi>&#x1EE1D;</mi><mo stretchy="false">←</mo><mo>+</mo><mn>∞</mn></mrow></munder><mfrac><msqrt><mrow><mn>٢</mn><mi>π</mi><mi>&#x1EE1D;</mi></mrow></msqrt><menclose notation="madruwb"><mi>&#x1EE1D;</mi></menclose></mfrac><msup><mrow><mo>(</mo><mfrac><mi>&#x1EE1D;</mi><mi>e</mi></mfrac><mo>)</mo></mrow><mi>&#x1EE1D;</mi></msup></mrow><mo>=</mo><mn>1</mn></math></td>
+    <td><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><munder><mo lspace="0em" rspace="0em">&#x1EEF1;</mo><mrow><mi>n</mi><mo stretchy="false">→</mo><mo>+</mo><mn>∞</mn></mrow></munder><mfrac><msqrt><mrow><mn>۲</mn><mi>π</mi><mi>n</mi></mrow></msqrt><mrow><mi>n</mi><mo>!</mo></mrow></mfrac><msup><mrow><mo>(</mo><mfrac><mi>n</mi><mi>e</mi></mfrac><mo>)</mo></mrow><mi>n</mi></msup></mrow><mo>=</mo><mn>1</mn></math></td>
+  </tr>
+  <tr>
+    <td>30</td>
+    <td><math dir="rtl" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo lspace="0em" rspace="0em">det</mo><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo></mrow><mo>=</mo><munder><mo>∑</mo><mrow><mi>σ</mi><mo>∊</mo><msub><mi>S</mi><mi>&#x1EE1D;</mi></msub></mrow></munder><mrow><mi>ϵ</mi><mo stretchy="false">(</mo><mi>σ</mi><mo stretchy="false">)</mo></mrow><mrow><munderover><mo>∏</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>&#x1EE1D;</mi></munderover><msub><mi>&#x1EE00;</mi><mrow><mi>i</mi><mo>,</mo><msub><mi>σ</mi><mi>i</mi></msub></mrow></msub></mrow></mrow></math></td>
+    <td><math dir="rtl" display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo lspace="0em" rspace="0em">det</mo><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo></mrow><mo>=</mo><munder><mo>&#x1EEF0;</mo><mrow><mi>σ</mi><mo>∊</mo><msub><mi>S</mi><mi>&#x1EE1D;</mi></msub></mrow></munder><mrow><mi>ϵ</mi><mo stretchy="false">(</mo><mi>σ</mi><mo stretchy="false">)</mo></mrow><mrow><munderover><mo mathcolor="red">∏</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>&#x1EE1D;</mi></munderover><msub><mi>&#x1EE00;</mi><mrow><mi>i</mi><mo>,</mo><msub><mi>σ</mi><mi>i</mi></msub></mrow></msub></mrow></mrow></math></td>
+    <td><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo lspace="0em" rspace="0em">det</mo><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo></mrow><mo>=</mo><munder><mo>∑</mo><mrow><mi>σ</mi><mo>∊</mo><msub><mi>S</mi><mi>n</mi></msub></mrow></munder><mrow><mi>ϵ</mi><mo stretchy="false">(</mo><mi>σ</mi><mo stretchy="false">)</mo></mrow><mrow><munderover><mo>∏</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>a</mi><mrow><mi>i</mi><mo>,</mo><msub><mi>σ</mi><mi>i</mi></msub></mrow></msub></mrow></mrow></math></td>
+  </tr>
+</table>
+
+<hr>
+
+
+
+<h1>Couple More Examples</h1>
+
+<div>
+<h2>Riemann's Zeta Function</h2>
+<p>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+    <mi>ζ</mi>
+    <mo stretchy="false">(</mo>
+    <mi>n</mi>
+    <mo stretchy="false">)</mo>
+    <mo>=</mo>
+    <mrow>
+    <munderover>
+        <mo mathsize="big">∑</mo>
+        <mrow><mi>k</mi><mo>=</mo><mi>1</mi></mrow>
+        <mrow><mi>∞</mi></mrow>
+    </munderover>
+    </mrow>
+    <mrow>
+    <mfrac>
+        <mn>1</mn>
+        <msup><mi>k</mi><mi>n</mi></msup>
+    </mfrac>
+    </mrow>
+</math>
+</p>
+</div>
+
+<div>
+<h2>Fundamental Theorem of Calculus for Ordinary Integrals</h2>
+<p>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+        <msubsup>
+          <mo maxsize="1">∫</mo>
+          <mrow>
+            <mi>x</mi>
+            <mo>=</mo>
+            <mi>a</mi>
+          </mrow>
+          <mi>y</mi>
+        </msubsup>
+        <mrow>
+          <mfrac>
+            <mrow>
+              <mi>d</mi>
+              <mi>f</mi>
+              <mo stretchy="false">(</mo>
+              <mi>x</mi>
+              <mo stretchy="false">)</mo>
+            </mrow>
+            <mrow>
+              <mi>d</mi>
+              <mi>x</mi>
+            </mrow>
+          </mfrac>
+          <mi>d</mi>
+          <mi>x</mi>
+        </mrow>
+      </mrow>
+      <mo>=</mo>
+      <mi>f</mi>
+      <mo stretchy="false">(</mo>
+      <mi>y</mi>
+      <mo stretchy="false">)</mo>
+      <mo>−</mo>
+      <mi>f</mi>
+      <mo stretchy="false">(</mo>
+      <mi>a</mi>
+      <mo stretchy="false">)</mo>
+</math>
+<br /><br />
+<a href="http://math.mit.edu/classes/18.013A/MathML/chapter21/section01.xhtml">source</a>
+</p>
+</div>
+
+<div>
+<h2>The Area Under a Curve</h2>
+<p>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+    <mrow>
+      <mrow>
+        <msubsup>
+          <mo maxsize="1">∫</mo>
+          <mrow>
+            <mi>x</mi>
+            <mo>=</mo>
+            <mi>a</mi>
+          </mrow>
+          <mrow>
+            <mi>x</mi>
+            <mo>=</mo>
+            <mi>b</mi>
+          </mrow>
+        </msubsup>
+        <mrow>
+          <mi>f</mi>
+          <mo stretchy="false">(</mo>
+          <mi>x</mi>
+          <mo stretchy="false">)</mo>
+          <mi>d</mi>
+          <mi>x</mi>
+        </mrow>
+      </mrow>
+    </mrow>
+</math>
+<br /><br />
+<a href="http://math.mit.edu/classes/18.013A/MathML/chapter20/section01.xhtml">source</a>
+</p>
+</div>
+
+<div>
+<h2>De Moivre's Theorem</h2>
+<p>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow>
+      <msup>
+        <mi>e</mi>
+        <mrow>
+            <mi>i</mi>
+            <mi>θ </mi>
+        </mrow>
+      </msup>
+      <mo>=</mo>
+      <mi> cos</mi>
+      <mo>⁡</mo>
+      <mi>θ </mi>
+      <mo>+</mo>
+      <mi> i </mi>
+      <mi>sin</mi>
+      <mo>⁡</mo>
+      <mi>θ</mi>
+    </mrow>
+</math>
+<br /><br />
+<a href="http://en.wikipedia.org/wiki/De_Moivre's_formula">source</a>
+</p>
+</div>
+
+<div>
+<h2>Math in Normal Flow</h2>
+<p class="float">
+I am a paragraph of text <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi><mo>+</mo><mn>1</mn></math> with math inline.
+</p>
+</div>
+<div>
+<h2>Fractions</h2>
+<p class="float"> 
+<math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow><mn>2</mn></mfrac></math>
+</p>
+<p class="float">
+<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi><mo>+</mo><mfrac><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow><mn>2</mn></mfrac></math>
+</p>
+<p class="float">
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mfrac>
+<mi>B</mi>
+<mi>C</mi>
+</mfrac><mo> + </mo>
+<mfrac>
+<mrow><mi>B</mi><mo> + </mo>
+<mfrac>
+<mi>D</mi>
+<mi>E</mi>
+</mfrac></mrow>
+<mi>C</mi>
+</mfrac><mo> + </mo>
+<mfrac>
+<mrow><mi>B</mi><mo> + </mo>
+<mfrac>
+<mrow><mi>D</mi><mo> + </mo>
+<mfrac>
+<mi>F</mi>
+<mi>G</mi>
+</mfrac></mrow>
+<mi>E</mi>
+</mfrac></mrow>
+<mi>C</mi>
+</mfrac><mo> + </mo>
+<mfrac>
+<mi>B</mi>
+<mrow><mi>C</mi><mo> + </mo>
+<mfrac>
+<mi>D</mi>
+<mrow><mi>E</mi><mo> + </mo>
+<mfrac>
+<mi>F</mi>
+<mi>G</mi>
+</mfrac></mrow>
+</mfrac></mrow>
+</mfrac>
+</math>
+</p>
+</div>
+<div>
+<h2>Operator Stretching</h2>
+<p class="float">
+<math xmlns="http://www.w3.org/1998/Math/MathML"><mo>(</mo><mi>x</mi><mo>+</mo><mfrac><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow><mn>2</mn></mfrac><mo>)</mo></math>
+</p>
+<p class="float">
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mi>y</mi>
+<mo>(</mo>
+<munder>
+<mi>∏</mi>
+<mi>x</mi>
+</munder>
+<mfrac>
+<mrow><mi>x</mi><mo>+</mo>
+      <mfrac><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow><mn>2</mn></mfrac>
+</mrow>
+<mrow><mi>x</mi><mo>+</mo>
+      <mfrac><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow><mn>2</mn></mfrac>
+</mrow>
+</mfrac>
+<mo>)</mo>
+</math>
+</p>
+<p class="float">
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mo>[</mo>
+<mtable>
+<mtr>
+<mtd><msub><mi>a</mi><mn>11</mn></msub></mtd>
+<mtd><msub><mi>a</mi><mn>12</mn></msub></mtd>
+<mtd><msub><mi>a</mi><mn>13</mn></msub></mtd>
+</mtr>
+<mtr>
+<mtd><msub><mi>b</mi><mn>21</mn></msub></mtd>
+<mtd><msub><mi>b</mi><mn>22</mn></msub></mtd>
+<mtd><msub><mi>b</mi><mn>23</mn></msub></mtd>
+</mtr>
+<mtr>
+<mtd><msub><mi>c</mi><mn>31</mn></msub></mtd>
+<mtd><msub><mi>c</mi><mn>32</mn></msub></mtd>
+<mtd><msub><mi>c</mi><mn>33</mn></msub></mtd>
+</mtr>
+</mtable>
+<mo>]</mo>
+</math>
+</p>
+</div>
+<div>
+<h2>Square Roots</h2>
+<p class="float">
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<msqrt><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow></msqrt>
+</math>
+</p>
+<p class="float">
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<msqrt>
+<mfrac>
+<mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow>
+<mrow><mi>x</mi><mo>+</mo><mn>2</mn></mrow>
+</mfrac>
+</msqrt>
+</math>
+</p>
+</div>
+
+
+<h1>MathML Demo</h1>
+<p>
+MathML is a markup language for mathematics. You can find out more by visiting <a class="external" href="http://www.w3.org/Math/">http://www.w3.org/Math/</a>. To read MathML pages you will need a browser with MathML capability. Amanya is W3's MathML testbed. You can download a free version from: <a class="external" href="http://www.w3.org/Amaya/">http://www.w3.org/Amaya/</a>. Be prepared for bugs, but the group is very active and there is considerable interest. (I couldn't resist doing a MathML experiment on the Wiki.) 
+<p>-Joe Whitesell
+
+<ul>
+  <li><p>Root with index, <pre>mroot</pre> in MathML: </p>
+
+    <p><math> <mroot> <mrow> <mi>x</mi> <mo>+</mo> <mn>1</mn> </mrow> <mn>3</mn> </mroot> </math> </li>
+  <li><p>Square root, <pre>msqrt</pre>: 
+
+    <p><math> <msqrt> <mrow> <mi>x</mi> <mo>+</mo> <mn>1</mn> </mrow> </msqrt> </math> </li>
+  <li><p>Fraction, <pre>mfrac</pre>: 
+
+    <p><math> <mfrac> <mn>1</mn> <mrow> <mi>x</mi> <mo>+</mo> <mn>1</mn> </mrow> </mfrac> </math> </li>
+  <li><p>Expression with subscript and superscript, <pre>msubsup</pre>: 
+    
+    <p><math> <msubsup> <mi>x</mi> <mrow> <mi>i</mi> <mo>+</mo> <mn>1</mn> </mrow> <mi>n</mi> </msubsup> </math> 
+      or 
+      <math>
+  <mrow>
+    <munderover>
+      <mo>&#x222B;</mo>
+      <mi>&#x221E;</mi>
+      <mn>0</mn>
+    </munderover>
+    <mrow>
+      <mi>x</mi><mo>+</mo>
+      <mrow>
+        <msubsup>
+          <mo>&#x222B;</mo>
+          <mi>&#x221E;</mi>
+          <mn>0</mn>
+        </msubsup>
+        <mi>y</mi>
+      </mrow>
+    </mrow>
+  </mrow>
+</math>
+   </li>
+  <li><p>Expression with a subscript, <pre>msub</pre>: 
+
+    <p><math> <msub> <mi>x</mi> <mi>i</mi> </msub> </math> </li>
+  <li><p>Expression with a superscript, <pre>msup</pre>: 
+
+    <p><math> <msup> <mi>x</mi> <mi>n</mi> </msup> </math> </li>
+  <li><p>Expression with under- and overscript, <pre>munderover</pre>: 
+
+    <p><math> <munderover> <mo>∑</mo> <mrow> <mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>n</mi> </munderover> </math> </li>
+  <li><p>Expression with underscript, <pre>munder</pre>: 
+
+    <p><math> <munder> <mi>x</mi> <mo>-</mo> </munder> </math> </li>
+  <li><p>Expression with overscript, <pre>mover</pre>: 
+
+    <p><math> <mrow> <mi>x</mi> <mover> <mo>→</mo> <mtext>maps to</mtext> </mover> <mi>y</mi> </mrow> </math> </li>
+  <li><p>Expression within parentheses, <pre>mrow</pre>: 
+
+    <p><math> <mrow> <mo fence="true">(</mo> <mrow> <mi>a</mi> <mo>+</mo> <mi>b</mi> </mrow> <mo fence="true">)</mo> </mrow> </math> </li>
+  <li><p>Expression with prescripts and tensor indices, <pre>mmultiscripts</pre>: 
+
+    <p><math> <mmultiscripts> <mi>X</mi> <mi>i</mi> <mi>j</mi> <mprescripts></mprescripts> <mi>k</mi> <mi>l</mi> </mmultiscripts></math>
+  </li>
+  <li><p>Matrix or table, <pre>mtable</pre>: 
+
+    <p><math> <mtable> <mtr> <mtd> <mi>a</mi> </mtd> <mtd> <mi>b</mi> </mtd> </mtr> <mtr> <mtd> <mi>c</mi> </mtd> <mtd> <mi>d</mi> </mtd> </mtr> </mtable> </math> </li>
+</ul>
+
+
+
+
+
+</body>
+</html>

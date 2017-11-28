@@ -1,0 +1,8 @@
+Instead of using MathJax_node_page we can use `usus` and a locally installed Chrome web browser by employing its 'headless' mode:
+
+Windows OS (Chrome needs the Windows path with drive letter and forward slashes, while you may be running `bash`):
+
+```
+node_modules/.bin/usus render --url  file://$( cygpath -w -a ./test/calculus-fac* ) > test.html
+```
+
