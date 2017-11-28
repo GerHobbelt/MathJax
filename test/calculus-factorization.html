@@ -18,18 +18,18 @@
       "tex2jax.js", 
       "mml2jax.js", 
       "asciimath2jax.js",
-      "CHTML-preview.js", 
-      "fast-preview.js", 
+      //"CHTML-preview.js", 
+      //"fast-preview.js", 
       "FontWarnings.js", 
       "MatchWebFonts.js",
     ],
     //jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/HTML-CSS", "output/PreviewHTML", "output/SVG", "output/PlainSource" ],
-    jax: [ "input/TeX", "input/AsciiMath", "output/HTML-CSS" ],
+    jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/HTML-CSS" ],
     tex2jax: { 
       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
       processEscapes: true,
-      processEnvironments: true,
+      processEnvironments: false,
     },
     TeX: {
       extensions: [
@@ -51,8 +51,12 @@
       ],
       equationNumbers: {autoNumber: "AMS"}, 
     },
-    showProcessingMessages: false,
-    showMathMenu: true,
+    showProcessingMessages: true,
+    showMathMenu: false,
+    menuSettings: {
+      assistiveMML: false,    // do not produce any 'assistive' MathML-within-SPAN
+      FastPreview: false,     // do not produce a preview SPAN
+    },
     CommonHTML: {
       font: "Gyre-Pagella",
     },
@@ -61,7 +65,9 @@
       linebreaks: { 
         automatic: true, 
         width: "container",
-      } 
+      },
+      EqnChunkDelay: 1,
+      noReflows: false,
     },
     SVG: {
       font: "Gyre-Pagella",
@@ -129,10 +135,19 @@ blockquote {
     var PREFILTER = TEX.prefilterMath; 
     TEX.Augment({ 
       prefilterMath: function (math, displaymode, script) { 
-        console.log("rendering Math:", {math, displaymode, script});
+        console.log("TeX rendering Math:", {math, displaymode, script});
         //math = "\\displaystyle{" + math + "}"; 
-        math = "\\mathsf{" + math + "}"; 
+        //math = "\\mathsf{" + math + "}"; 
         return PREFILTER.call(TEX, math, displaymode, script); 
+      } 
+    }); 
+
+    var AM = MathJax.InputJax.AsciiMath; 
+    var AMPREFILTER = AM.prefilterMath; 
+    AM.Augment({ 
+      prefilterMath: function (math, displaymode, script) { 
+        console.log("AsciiMath rendering Math:", {math, displaymode, script});
+        return AMPREFILTER.call(AM, math, displaymode, script); 
       } 
     }); 
   }); 
@@ -363,7 +378,11 @@ Het maakt dus niet uit in welke <em>volgorde</em> je de (priem)factoren van een 
 
 <h1>
   TODO: breuken gelijknamig maken; breuken vermenigvuldigen, delen, aftrekken, optellen. Helen uithalen.
+</h1>
 
+<h2>
+  <script type="math/tex">7 \div 3 = n</script>
+</h2>
 
 </body>
 </html>

@@ -16,37 +16,73 @@
   MathJax.Hub.Config({
     //config: ["MMLorHTML.js"],
     extensions: [
-      "tex2jax.js", "mml2jax.js", "asciimath2jax.js",
+      "tex2jax.js", 
+      "mml2jax.js", 
+      "asciimath2jax.js",
+      //"CHTML-preview.js", 
+      //"fast-preview.js", 
+      "FontWarnings.js", 
+      "MatchWebFonts.js",
       "[Contrib]/longdiv/unpacked/longdiv.js",
       "[Contrib]/counters/counters.js",
     ],
-    //jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/HTML-CSS" ],
+    //jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/HTML-CSS", "output/PreviewHTML", "output/SVG", "output/PlainSource" ],
     jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/SVG" ],
     tex2jax: { 
       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
       processEscapes: true,
+      processEnvironments: true,
     },
     TeX: {
-      extensions: ["AMSmath.js", "AMSsymbols.js", "extpfeil.js", "newcommand.js", "begingroup.js", "mathchoice.js", "unicode.js", "mediawiki-texvc.js", "cancel.js", "bbox.js", "verb.js", "noErrors.js", "noUndefined.js"],
+      extensions: [
+        "AMSmath.js", 
+        "AMSsymbols.js", 
+        "bbox.js", 
+        "begingroup.js", 
+        "cancel.js", 
+        "color.js", 
+        "enclose.js", 
+        "extpfeil.js", 
+        "mathchoice.js", 
+        "mediawiki-texvc.js", 
+        "newcommand.js", 
+        "noErrors.js", 
+        "noUndefined.js",
+        "unicode.js", 
+        "verb.js", 
+      ],
       equationNumbers: {autoNumber: "AMS"}, 
     },
+    showProcessingMessages: true,
+    showMathMenu: true,
+    menuSettings: {
+      assistiveMML: false,    // do not produce any 'assistive' MathML-within-SPAN
+      FastPreview: false,     // do not produce a preview SPAN
+    },
+    CommonHTML: {
+      font: "Gyre-Pagella",
+    },
     "HTML-CSS": {
-        preferredFont: "Gyre-Pagella",
+      preferredFont: "Gyre-Pagella",
+      linebreaks: { 
+        automatic: true, 
+        width: "container",
+      },
+      EqnChunkDelay: 1,
+      noReflows: false,
     },
     SVG: {
       font: "Gyre-Pagella",
     },
     errorSettings: { 
-      message: ["[Math Error]"], 
+      // message: ["[Math Error]"], 
     }    
   });
 </script>
-<script type="text/javascript" src="../MathJax.js"></script>
 
 <style>
 body {
-  margin: 1em 2em;
   max-width: 70em;
   margin: 0 auto;
 }
@@ -74,10 +110,59 @@ blockquote {
 blockquote blockquote {
   border: 1px solid #ccdee3;
   padding: .25em 1em;
-  margin: 2em 1em 2em 10em;
+  margin: 2em 1em 2em 1em;
   background-color: #f8fbfb;
 }
+def {
+  font-weight: 500;
+  font-style: italic;
+}
+
+@media print { 
+body {
+  margin: 1in .7in 1in 1.4in;
+  max-width: 100%;
+}
+blockquote {
+  page-break-before: avoid;
+  page-break-inside: auto;
+  margin: 1em 1em;
+}
+}
 </style>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () { 
+    var TEX = MathJax.InputJax.TeX; 
+    var PREFILTER = TEX.prefilterMath; 
+    TEX.Augment({ 
+      prefilterMath: function (math, displaymode, script) { 
+        console.log("TeX rendering Math:", {math, displaymode, script});
+        //math = "\\displaystyle{" + math + "}"; 
+        //math = "\\mathsf{" + math + "}"; 
+        return PREFILTER.call(TEX, math, displaymode, script); 
+      } 
+    }); 
+
+    var AM = MathJax.InputJax.AsciiMath; 
+    var AMPREFILTER = AM.prefilterMath; 
+    AM.Augment({ 
+      prefilterMath: function (math, displaymode, script) { 
+        console.log("AsciiMath rendering Math:", {math, displaymode, script});
+        return AMPREFILTER.call(AM, math, displaymode, script); 
+      } 
+    }); 
+  }); 
+</script> 
+<!-- 
+  WARNING:
+
+MathJax.js script must load AFTER ALL text/x-mathjax-config SCRIPTS have been defined
+as those scripts won't otherwise be detected by MathJax (ConfigBlocks() internal call)
+on startup as the init code is executed immeditately once the MathJax script has loaded!
+-->
+<script type="text/javascript" src="../MathJax.js"></script>
 </head>
 <body>
 
@@ -7030,6 +7115,18 @@ $$ \mathop{f_1^2} x \qquad  \mathop{f_n^2} x  \qquad  \mathop{f_1^n} x  $$
 $$ \mathop{{}f}_1^2 x \qquad \mathop{{}f}_n^2 x \qquad \mathop{{}f}_1^n x $$
 
 $$ \mathop{{}f}\limits_1^2 x \qquad \mathop{{}f}\limits_n^2 x \qquad \mathop{{}f}\limits_1^n x $$
+
+
+<h2>AsciiMath</h2>
+
+<p>
+  ... by noting that that `7 / ((k^2 + k + 1)(2k - 1)) = 4 / (2k - 1) - (2k + 3) / (k^2 + k + 1)` and that `sum_(k=-n)^(n+1) 1 / (2k - 1) = sum_(k=-n)^(n+1) (2k - 1) / (k^2 + k + 1) = 0` (quoting reference: Knuth Fascimile 5A, answer to exercise 129, pp. 49)
+
+<p>
+  `1` or `2+3` or `a + b`
+
+
+
 
 
 </blockquote>

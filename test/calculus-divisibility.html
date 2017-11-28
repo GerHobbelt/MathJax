@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Factorization / Ontbinden in factoren</title>
+<title>Divisibility / Deelbaarheid van getallen</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,8 +18,8 @@
       "tex2jax.js", 
       "mml2jax.js", 
       "asciimath2jax.js",
-      "CHTML-preview.js", 
-      "fast-preview.js", 
+      //"CHTML-preview.js", 
+      //"fast-preview.js", 
       "FontWarnings.js", 
       "MatchWebFonts.js",
       "[Contrib]/longdiv/unpacked/longdiv.js",
@@ -53,6 +53,12 @@
       ],
       equationNumbers: {autoNumber: "AMS"}, 
     },
+    showProcessingMessages: true,
+    showMathMenu: false,
+    menuSettings: {
+      assistiveMML: false,    // do not produce any 'assistive' MathML-within-SPAN
+      FastPreview: false,     // do not produce a preview SPAN
+    },
     CommonHTML: {
       font: "Gyre-Pagella",
     },
@@ -61,7 +67,9 @@
       linebreaks: { 
         automatic: true, 
         width: "container",
-      } 
+      },
+      EqnChunkDelay: 1,
+      noReflows: false,
     },
     SVG: {
       font: "Gyre-Pagella",
@@ -71,8 +79,6 @@
     }    
   });
 </script>
-<script type="text/javascript" src="../MathJax.js"></script>
-<script type="text/javascript" src="../../seedrandom/seedrandom.js"></script>
 
 <style>
 body {
@@ -123,6 +129,40 @@ blockquote {
 }
 }
 </style>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () { 
+    var TEX = MathJax.InputJax.TeX; 
+    var PREFILTER = TEX.prefilterMath; 
+    TEX.Augment({ 
+      prefilterMath: function (math, displaymode, script) { 
+        console.log("TeX rendering Math:", {math, displaymode, script});
+        //math = "\\displaystyle{" + math + "}"; 
+        //math = "\\mathsf{" + math + "}"; 
+        return PREFILTER.call(TEX, math, displaymode, script); 
+      } 
+    }); 
+
+    var AM = MathJax.InputJax.AsciiMath; 
+    var AMPREFILTER = AM.prefilterMath; 
+    AM.Augment({ 
+      prefilterMath: function (math, displaymode, script) { 
+        console.log("AsciiMath rendering Math:", {math, displaymode, script});
+        return AMPREFILTER.call(AM, math, displaymode, script); 
+      } 
+    }); 
+  }); 
+</script> 
+<!-- 
+  WARNING:
+
+MathJax.js script must load AFTER ALL text/x-mathjax-config SCRIPTS have been defined
+as those scripts won't otherwise be detected by MathJax (ConfigBlocks() internal call)
+on startup as the init code is executed immeditately once the MathJax script has loaded!
+-->
+<script type="text/javascript" src="../MathJax.js"></script>
+<script type="text/javascript" src="../../seedrandom/seedrandom.js"></script>
 </head>
 <body>
 
@@ -135,28 +175,100 @@ If your browser supports JavaScript, be sure it is enabled.</b>
 <hr>
 </noscript>
 
-<h1>Ontbinden in factoren</h1>
+\[
 
-<h2>Priemgetal: definitie</h2>
+  % MathJax doesn't define \medspace and \thickspace:
+  %
+  % \, \thinspace 
+  % \! \negthinspace
+  \newcommand{\medspace}{\:}
+  % \: \medspace 
+  % \negmedspace
+  \newcommand{\thickspace}{\;}
+  % \; \thickspace 
+  % \negthickspace
+  % \quad
+  % \qquad
+  %
+
+  %
+  % new TeX commands:
+  %
+  % \rem{1}: print 'r 1' representing REMAINDER=1
+  % 
+  \newcommand{\rem}[1]{\thickspace\mathrm{r}\thickspace{#1}}
+  %
+  % \oo{5}: print 'o.o. 5' representing ONDERLING ONDEELBAAR MET 5
+  % 
+  \newcommand{\rem}[1]{\thickspace\mathrm{o.o.}\thickspace{#1}}
+\]
+
+<h1>Deelbaarheid van getallen</h1>
+
+<p>Het kan nuttig zijn <a href="calculus-factorization.html">de pagina over priemgetallen, "ontbinden in factoren" en "werken met breuken"</a> na te lezen: de daar behandelde begrippen worden hier bekend verondersteld.
+
+<h2>Wat is "deelbaarheid" / "deelbaar zijn"?</h2>
 
 <p>
-Een getal $x$ is <em>priem</em> als het getal alleen deelbaar is door zichzelf en 1.
+Een geheel getal $x$ is <em>deelbaar</em> door geheel getal $y$ als $y$ een <def>factor</def> is van $x$.
+
+\[
+    x \bmod y \equiv 0   \mid  x \in \mathbb{Z}  \wedge  y \in \mathbb{Z}
+\]
+
+<p>
+Met andere woorden:
+een geheel getal $x$ is <em>deelbaar</em> door geheel getal $y$ als de deling ${x} \div {y}$ een geheel getal als antwoord oplevert en een rest $0$ overblijft. (Vroeger heette dat "als na uitdelen van de helen een rest $0$ overblijft", maar die woorden leren we niet meer vroeg op school.)
 
 <p>
 Voorbeelden:
 
 <ul>
-  <li>7 is priem, want 7 is alleen deelbaar door 7 en door 1.</li>
-  <li>10 is <em>geen priemgetal</em>, want 10 is deelbaar door 2 (en dat is geen 10 of 1). Daarnaast is 10 ook deelbaar door 5: 2 en 5 zijn de <def>factoren</def> van 10.</li>
-  <li>256 is <em>geen priemgetal</em>, want 256 is deelbaar door 2.<br/> 
-    Als je 256 <def>ontbindt in factoren</def> blijkt $256 = 2 \times 2 \times 2 \times 2 \times 2 \times 2 \times 2 \times 2 \times 2 = 2^8$.<br/> 
-    Als we praten over <em>factoren van 256</em>, dan is 2 een factor, maar ook $2 \times 2 = 4$, $2 \times 2 \times 2 = 8$, $16$, $32$, $64$ en $128$ (dit zijn resp. $2^1$, $2^2$, $2^3$, $2^4$, $2^5$, $2^6$ en $2^7$. $256$ ($= 2^8$) zelf is ook een <em>factor</em> van $256$, want $1 \times 256 = 256$.</li>
+  <li>$724$ is deelbaar door $2$ want $724 \div 2 = 362 \rem 0$</li>
+  <li>$725$ is niet deelbaar door $2$ want $725 \div 2 = 362 \rem {\color{red}1}$</li>
 </ul>
 
-<h2>Factor: definitie</h2>
+<h2>Kunnen we heel snel zien of een getal $x$ deelbaar is door $y$ <em>zonder</em> de deling uit te voeren?</h2>
 
 <p>
-Een getal $a$ is <em>factor</em> van getal $b$ als $a \times n = b$, waarbij $n$ een willekeurig geheel (positief) getal is: $a: \left\{ 1, 2, 3, \ldots ,\infty \right\}$ oftewel $a \in \mathbb{N} | a \ge 1$.
+Ja, dat kan. Je weet vast al dat <def>even getallen</def> deelbaar zijn door $2$; daarvoor hoef je alleen naar het laatste cijfer te kijken om te zien of een getal <def>even</def>, danwel <def>oneven</def> is:
+
+<ul>
+  <li>$724$ is deelbaar door $2$ want het laatste cijfer van $724$ is $4$ en dat is <em>even</em>: $4 \div 2 = 2 \rem 0$ of anders geschreven: $4 \equiv 0 \pmod{2}$
+</li>
+  <li>$725$ is niet deelbaar door $2$ want $725 \equiv 5 \pmod{2}$ en $5 \equiv 1 \pmod{2}$ &mdash; hier laten we even zien hoe equivalentie regels werken: we zeggen eerst dat $725$ overeenkomt met het cijfer van haar <def>eenheden</def>: $5$ als we het getal beschouwen in het kader van deelbaarheid door $2$, waarna we zeggen dat het getal $5$ overeenkomt met het getal $1$ voor wat betreft de <def>toetsing van deelbaarheid door $2$</def>: $725$, $5$ en $1$ leveren allen dezelfde <def>rest</def> ($1$) op bij deling door $2$.</li>
+</ul>
+
+<blockquote>
+  <p>Voor degenen die zich afvragen hoe die <def>equivalentieregels</def> bij <def>modulo rekenen</def> werken en bewezen kunnen worden: bewijzen van iets niets nieuws doe je door een logische redenering te volgen op basis van dingen die je al weet (of die <def>triviaal</def> zijn):
+
+  $$
+  725 \overset{\strut{\LARGE {?}}}{\equiv} 5 \pmod{2}
+  $$
+
+wat je moet lezen als: "is $725$ daadwerkelijk equivalent aan $5$ voor modulo $2$?"
+
+<p>Aan ons de taak om dat te bewijzen...
+
+<p>
+We kunnen beginnen met
+
+$$
+  725 \equiv 5 \pmod{10}
+$$
+
+want als we een getal $x$ delen door $10$ is de <def>rest</def> van zo'n deling <em>altijd</em> gelijk aan het <def>eenhedencijfer</def> van het getal, in dit voorbeeld ($725$) dus $5$.
+
+<p>
+Daarnaast kunnen we beredeneren dat, als een getal $x$ een rest $r$ oplevert bij deling door $2$ en we deler $2$ vermenigvuldigen met een getal $n$ wat <def>onderling ondeelbaar</def> is met $2$, de rest $r$ met datzelfde getal $n$ vermenigvuldigd kan worden:
+
+$$
+\dfrac{x}/{2} = r  
+\Longleftrightarrow 
+\dfrac{x}/{2 \times n} = r \times n  \mid n    
+⇐⇒
+
+Een getal $a$ is <def>factor</def> van getal $b$ als $a \times n = b$, waarbij $n$ een willekeurig geheel (positief) getal is: $(n: \left\{ 1, 2, 3, \ldots ,\infty \right\}$ oftewel ${n \in \mathbb{N}} \mid {a \ge 1} \wedge {a \in \mathbb{Z}} \wedge {b \in \mathbb{Z}}$.
 
 
 </blockquote>

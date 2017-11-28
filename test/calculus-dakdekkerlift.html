@@ -18,18 +18,18 @@
       "tex2jax.js", 
       "mml2jax.js", 
       "asciimath2jax.js",
-      "CHTML-preview.js", 
-      "fast-preview.js", 
+      //"CHTML-preview.js", 
+      //"fast-preview.js", 
       "FontWarnings.js", 
       "MatchWebFonts.js",
     ],
     //jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/HTML-CSS", "output/PreviewHTML", "output/SVG", "output/PlainSource" ],
-    jax: [ "input/TeX", "input/AsciiMath", "output/HTML-CSS" ],
+    jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/HTML-CSS" ],
     tex2jax: { 
       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
       processEscapes: true,
-      processEnvironments: true,
+      processEnvironments: false,
     },
     TeX: {
       extensions: [
@@ -51,8 +51,12 @@
       ],
       equationNumbers: {autoNumber: "AMS"}, 
     },
-    showProcessingMessages: false,
-    showMathMenu: true,
+    showProcessingMessages: true,
+    showMathMenu: false,
+    menuSettings: {
+      assistiveMML: false,    // do not produce any 'assistive' MathML-within-SPAN
+      FastPreview: false,     // do not produce a preview SPAN
+    },
     CommonHTML: {
       font: "Gyre-Pagella",
     },
@@ -61,7 +65,9 @@
       linebreaks: { 
         automatic: true, 
         width: "container",
-      } 
+      },
+      EqnChunkDelay: 1,
+      noReflows: false,
     },
     SVG: {
       font: "Gyre-Pagella",
@@ -71,7 +77,6 @@
     }    
   });
 </script>
-<script type="text/javascript" src="../MathJax.js"></script>
 
 <style>
 body {
@@ -124,18 +129,37 @@ blockquote {
 </style>
 
 
-<script type="text/x-mathjax-config"> 
+<script type="text/x-mathjax-config">
   MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () { 
     var TEX = MathJax.InputJax.TeX; 
     var PREFILTER = TEX.prefilterMath; 
     TEX.Augment({ 
       prefilterMath: function (math, displaymode, script) { 
-        math = "\\displaystyle{" + math + "}"; 
+        console.log("TeX rendering Math:", {math, displaymode, script});
+        //math = "\\displaystyle{" + math + "}"; 
+        //math = "\\mathsf{" + math + "}"; 
         return PREFILTER.call(TEX, math, displaymode, script); 
+      } 
+    }); 
+
+    var AM = MathJax.InputJax.AsciiMath; 
+    var AMPREFILTER = AM.prefilterMath; 
+    AM.Augment({ 
+      prefilterMath: function (math, displaymode, script) { 
+        console.log("AsciiMath rendering Math:", {math, displaymode, script});
+        return AMPREFILTER.call(AM, math, displaymode, script); 
       } 
     }); 
   }); 
 </script> 
+<!-- 
+  WARNING:
+
+MathJax.js script must load AFTER ALL text/x-mathjax-config SCRIPTS have been defined
+as those scripts won't otherwise be detected by MathJax (ConfigBlocks() internal call)
+on startup as the init code is executed immeditately once the MathJax script has loaded!
+-->
+<script type="text/javascript" src="../MathJax.js"></script>
 <script type="text/javascript" src="../../seedrandom/seedrandom.js"></script>
 </head>
 <body>
