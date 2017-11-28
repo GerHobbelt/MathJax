@@ -252,6 +252,7 @@
       0x2036: "\u2035\u2035",        // double back prime
       0x2037: "\u2035\u2035\u2035",  // trile back prime
       0x2057: "\u2032\u2032\u2032\u2032",  // quadruple prime
+      0x20D2: "\uEEE2|\uEEE9",       // combining long vertical line overlay
     },
       
     REMAPACCENT: {
@@ -1678,7 +1679,9 @@
     0x2064: [0,0,0,0,0,{space:1}],    // invisible plus
     0xEEE0: [0,0,-575,0,0,{space:1}],
     0xEEE1: [0,0,-300,0,0,{space:1}],
-    0xEEE8: [0,0,25,0,0,{space:1}]
+    0xEEE2: [0,0,-450,0,0,{space:1}],  // needed for U+20D2 emulation
+    0xEEE8: [0,0,25,0,0,{space:1}],
+    0xEEE9: [0,0,172,0,0,{space:1}]    // needed for U+20D2 emulation
   });
   MathJax.Hub.Insert(CHTML.FONTDATA.FONTS['MathJax_Main-Italic'],{
     remapCombining: {
