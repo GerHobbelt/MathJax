@@ -423,6 +423,7 @@ var CONST = 0, UNARY = 1, BINARY = 2, INFIX = 3, LEFTBRACKET = 4,
     MATRIX = 14,*/ UNARYUNDEROVER = 15; // token types
 
 var AMquote = {input:"\"",   tag:"mtext", output:"mbox", tex:null, ttype:TEXT};
+var AMset  = {input:"#", tag:"mrow", output:"#", tex:null, ttype:UNARYUNDEROVER};
 
 var AMsymbols = [
 //some greek symbols
@@ -661,7 +662,7 @@ var AMsymbols = [
 {input:"mbox", tag:"mtext", output:"mbox", tex:null, ttype:TEXT},
 {input:"color", tag:"mstyle", ttype:BINARY},
 {input:"cancel", tag:"menclose", output:"cancel", tex:null, ttype:UNARY},
-AMquote,
+AMquote, AMset,
 {input:"bb", tag:"mstyle", atname:"mathvariant", atval:"bold", output:"bb", tex:null, ttype:UNARY},
 {input:"mathbf", tag:"mstyle", atname:"mathvariant", atval:"bold", output:"mathbf", tex:null, ttype:UNARY},
 {input:"sf", tag:"mstyle", atname:"mathvariant", atval:"sans-serif", output:"sf", tex:null, ttype:UNARY},
@@ -896,6 +897,8 @@ function AMparseSexpr(str) { //parses str and returns [node,tailstr]
     AMremoveBrackets(result[0]);
     if (symbol.input == "sqrt") {           // sqrt
       return [createMmlNode(symbol.tag,result[0]),result[1]];
+    } else if (symbol.input == "#") {
+      return [result[0], result[1]];
     } else if (typeof symbol.rewriteleftright != "undefined") {    // abs, floor, ceil
         node = createMmlNode("mrow", createMmlNode("mo",document.createTextNode(symbol.rewriteleftright[0])));
         node.appendChild(result[0]);
