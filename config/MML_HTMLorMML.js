@@ -3861,7 +3861,8 @@ MathJax.ElementJax.mml.Augment({
     autoDefault: function (name) {
       if (name === "mathvariant") {
         var mi = (this.data[0]||"").toString();
-        return (mi.length === 1 ||
+        /// PORTED FROM v8.1 ELS-7866 exclude currency symbols (0x24 === $, 0x20A? are foreign currency symbols) from being italicized.
+        return ((mi.length === 1 && mi.charCodeAt(0) !== 0x24 && mi.charCodeAt(0) !== 0x20A3 && mi.charCodeAt(0) !== 0x20a4 && mi.charCodeAt(0) !== 0x20a7 && mi.charCodeAt(0) !== 0x20ac) ||
                (mi.length === 2 && mi.charCodeAt(0) >= 0xD800 && mi.charCodeAt(0) < 0xDC00) ?
                   MML.VARIANT.ITALIC : MML.VARIANT.NORMAL);
       }
