@@ -16733,7 +16733,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
     },
     loadError: function (font) {
       MESSAGE(["CantLoadWebFont","Can't load web font %1",HTMLCSS.fontInUse+"/"+font.directory],null,2000);
-      HUB.Startup.signal.Post(["HTML-CSS Jax - web font error",HTMLCSS.fontInUse+"/"+font.directory,font]);
+      HUB.Startup.signal.Post("HTML-CSS Jax - web font error for " + HTMLCSS.fontInUse+"/"+font.directory);
     },
     firefoxFontError: function (font) {
       MESSAGE(["FirefoxCantLoadWebFont","Firefox can't load web fonts from a remote host"],null,3000);
@@ -20335,6 +20335,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
 
 (function (AJAX,HUB,HTML,CHTML) {
   var MML;
+
   var isArray = MathJax.Object.isArray;
 
   var EVENT, TOUCH, HOVER; // filled in later
@@ -20655,7 +20656,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       if (!font.match(/-|fontdata/)) font += "-Regular";
       if (!font.match(/\.js$/)) font += ".js"
       MathJax.Callback.Queue(
-        ["Post",HUB.Startup.signal,["CommonHTML - font data loaded",font]],
+        ["Post",HUB.Startup.signal,"CommonHTML - font data loaded for " + font],
         ["loadComplete",AJAX,this.fontDir+"/"+font]
       );
     },

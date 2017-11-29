@@ -7874,7 +7874,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
     },
     loadError: function (font) {
       MESSAGE(["CantLoadWebFont","Can't load web font %1",HTMLCSS.fontInUse+"/"+font.directory],null,2000);
-      HUB.Startup.signal.Post(["HTML-CSS Jax - web font error",HTMLCSS.fontInUse+"/"+font.directory,font]);
+      HUB.Startup.signal.Post("HTML-CSS Jax - web font error for " + HTMLCSS.fontInUse+"/"+font.directory);
     },
     firefoxFontError: function (font) {
       MESSAGE(["FirefoxCantLoadWebFont","Firefox can't load web fonts from a remote host"],null,3000);

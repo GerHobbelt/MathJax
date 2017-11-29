@@ -6689,6 +6689,7 @@ var junk = [window, navigator]; junk = null;
 
 (function (AJAX,HUB,HTML,CHTML) {
   var MML;
+
   var isArray = MathJax.Object.isArray;
 
   var EVENT, TOUCH, HOVER; // filled in later
@@ -7009,7 +7010,7 @@ var junk = [window, navigator]; junk = null;
       if (!font.match(/-|fontdata/)) font += "-Regular";
       if (!font.match(/\.js$/)) font += ".js"
       MathJax.Callback.Queue(
-        ["Post",HUB.Startup.signal,["CommonHTML - font data loaded",font]],
+        ["Post",HUB.Startup.signal,"CommonHTML - font data loaded for " + font],
         ["loadComplete",AJAX,this.fontDir+"/"+font]
       );
     },
