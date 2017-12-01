@@ -25,8 +25,8 @@
       "[Contrib]/longdiv/unpacked/longdiv.js",
       "[Contrib]/counters/counters.js",
     ],
-    //jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/HTML-CSS", "output/PreviewHTML", "output/SVG", "output/PlainSource" ],
-    jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/SVG" ],
+    //jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/CommonHTML", "output/NativeMML", "output/HTML-CSS", "output/PreviewHTML", "output/SVG", "output/PlainSource" ],
+    jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/CommonHTML" ],
     tex2jax: { 
       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
@@ -194,13 +194,16 @@ If your browser supports JavaScript, be sure it is enabled.</b>
   %
   % new TeX commands:
   %
-  % \rem{1}: print 'r 1' representing REMAINDER=1
+  % \rem{1}: print 'R 1' representing REMAINDER=1 (Small Capital R)
   % 
-  \newcommand{\rem}[1]{\thickspace\mathrm{r}\thickspace{#1}}
+  %   R𝖱ʀ
   %
-  % \oo{5}: print 'o.o. 5' representing ONDERLING ONDEELBAAR MET 5
+  %\newcommand{\rem}[1]{\thickspace\,\mathrm{\small\textsf{R}}\,\thickspace{#1}}
+  \newcommand{\rem}[1]{\thickspace\,\mathrm{\small\textsf{R}}\,\thickspace{#1}}
+  %
+  % \oo{5}: print 'o.o. 5' representing ONDERLING ONDEELBAAR MET 5 ("mutual prime with 5")
   % 
-  \newcommand{\rem}[1]{\thickspace\mathrm{o.o.}\thickspace{#1}}
+  \newcommand{\mp}[1]{\thickspace\mathrm{o.o.}\thickspace{#1}}
 \]
 
 <h1>Deelbaarheid van getallen</h1>
@@ -213,12 +216,18 @@ If your browser supports JavaScript, be sure it is enabled.</b>
 Een geheel getal $x$ is <em>deelbaar</em> door geheel getal $y$ als $y$ een <def>factor</def> is van $x$.
 
 \[
+    x \div y = n \rem 0   \mid  x \in \mathbb{Z}  \wedge  y \in \mathbb{Z}  \wedge  n \in \mathbb{N}
+\]
+
+Hetzelfde in <def>modulo rekening</def> uitgedrukt:
+
+\[
     x \bmod y \equiv 0   \mid  x \in \mathbb{Z}  \wedge  y \in \mathbb{Z}
 \]
 
 <p>
-Met andere woorden:
-een geheel getal $x$ is <em>deelbaar</em> door geheel getal $y$ als de deling ${x} \div {y}$ een geheel getal als antwoord oplevert en een rest $0$ overblijft. (Vroeger heette dat "als na uitdelen van de helen een rest $0$ overblijft", maar die woorden leren we niet meer vroeg op school.)
+In woorden:
+een geheel getal $x$ is <em>deelbaar</em> door geheel getal $y$ als de deling ${x} \div {y}$ een geheel getal als antwoord oplevert en een rest $0$ overblijft. (<q>als na uitdelen van de helen een rest $0$ overblijft</q>, maar dat is zo langzamerhand archaïsch taalgebruik.)
 
 <p>
 Voorbeelden:
@@ -236,15 +245,15 @@ Ja, dat kan. Je weet vast al dat <def>even getallen</def> deelbaar zijn door $2$
 <ul>
   <li>$724$ is deelbaar door $2$ want het laatste cijfer van $724$ is $4$ en dat is <em>even</em>: $4 \div 2 = 2 \rem 0$ of anders geschreven: $4 \equiv 0 \pmod{2}$
 </li>
-  <li>$725$ is niet deelbaar door $2$ want $725 \equiv 5 \pmod{2}$ en $5 \equiv 1 \pmod{2}$ &mdash; hier laten we even zien hoe equivalentie regels werken: we zeggen eerst dat $725$ overeenkomt met het cijfer van haar <def>eenheden</def>: $5$ als we het getal beschouwen in het kader van deelbaarheid door $2$, waarna we zeggen dat het getal $5$ overeenkomt met het getal $1$ voor wat betreft de <def>toetsing van deelbaarheid door $2$</def>: $725$, $5$ en $1$ leveren allen dezelfde <def>rest</def> ($1$) op bij deling door $2$.</li>
+  <li>$725$ is niet deelbaar door $2$ want $725 \equiv 5 \pmod{2}$ en $5 \equiv 1 \pmod{2}$ &mdash; hier laten we even zien hoe <def>modulo</def> regels werken: we zeggen eerst dat $725$ overeenkomt met het cijfer van haar <def>eenheden</def> ($5$) als we het getal beschouwen in het kader van deelbaarheid door $2$, waarna we zeggen dat het getal $5$ overeenkomt met het getal $1$ voor wat betreft de <def>toetsing van deelbaarheid door $2$</def>: $725$, $5$ en $1$ leveren allen dezelfde <def>rest</def> ($1$) op bij deling door $2$.</li>
 </ul>
 
 <blockquote>
-  <p>Voor degenen die zich afvragen hoe die <def>equivalentieregels</def> bij <def>modulo rekenen</def> werken en bewezen kunnen worden: bewijzen van iets niets nieuws doe je door een logische redenering te volgen op basis van dingen die je al weet (of die <def>triviaal</def> zijn):
+  <p>Voor degenen die zich afvragen hoe die <def>equivalentieregels</def> bij <def>modulo rekenen</def> werken en bewezen kunnen worden: bewijzen van iets nieuws doe je door een logische redenering te volgen op basis van dingen die je al weet (of die <def>triviaal</def> zijn):
 
-  $$
+$$
   725 \overset{\strut{\LARGE {?}}}{\equiv} 5 \pmod{2}
-  $$
+$$
 
 wat je moet lezen als: "is $725$ daadwerkelijk equivalent aan $5$ voor modulo $2$?"
 
@@ -263,10 +272,11 @@ want als we een getal $x$ delen door $10$ is de <def>rest</def> van zo'n deling 
 Daarnaast kunnen we beredeneren dat, als een getal $x$ een rest $r$ oplevert bij deling door $2$ en we deler $2$ vermenigvuldigen met een getal $n$ wat <def>onderling ondeelbaar</def> is met $2$, de rest $r$ met datzelfde getal $n$ vermenigvuldigd kan worden:
 
 $$
-\dfrac{x}/{2} = r  
+\dfrac{x}{2} = r  
 \Longleftrightarrow 
-\dfrac{x}/{2 \times n} = r \times n  \mid n    
+\dfrac{x}{2 \times n} = r \times n  \mid n    
 ⇐⇒
+$$
 
 Een getal $a$ is <def>factor</def> van getal $b$ als $a \times n = b$, waarbij $n$ een willekeurig geheel (positief) getal is: $(n: \left\{ 1, 2, 3, \ldots ,\infty \right\}$ oftewel ${n \in \mathbb{N}} \mid {a \ge 1} \wedge {a \in \mathbb{Z}} \wedge {b \in \mathbb{Z}}$.
 
@@ -385,5 +395,28 @@ Een getal $a$ is <def>factor</def> van getal $b$ als $a \times n = b$, waarbij $
 \]
 
 
+\[
+
+\newcommand{\abs}[1]{\lvert{#1}\rvert}%
+
+\]
+\[
+
+\newcommand{\norm}[1]{\lVert{#1}\rVert}%
+
+\]
+
+\[
+\newcommand{\Value}{\frac{1}{2}x^2}%
+\]
+
+
+\[x=\abs{\Value}  \quad \norm{\Value}  \qquad\text{non-starred}  \]
+
+\[x=\abs*{\Value} \quad \norm*{\Value} \qquad\text{starred}\qquad\]
+
+\[
+x=\left\lvert\Value\right\rvert
+\]
 </body>
 </html>
