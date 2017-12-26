@@ -522,7 +522,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     /*
      *  If the initial child, skipping any initial space or
      *  empty braces (TeXAtom with child being an empty inferred row),
-     *  is an <mo>, preceed it by an empty <mi> to force the <mo> to
+     *  is an <mo>, precede it by an empty <mi> to force the <mo> to
      *  be infix.
      */
     fixInitialMO: function (data) {
@@ -645,7 +645,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
   /******************************************************************************/
 
   /*
-   *  Add pre- and post-filters to handle the equation number maintainance.
+   *  Add pre- and post-filters to handle the equation number maintenance.
    */
   TEX.prefilterHooks.Add(function (data) {
     AMS.display = data.display;

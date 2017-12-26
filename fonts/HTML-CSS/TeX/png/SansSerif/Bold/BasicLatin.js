@@ -1,7 +1,7 @@
 /*
- *  ../../mathjax/fonts/HTML-CSS/TeX/png/SansSerif/Bold/BasicLatin.js
+ *  ../../../..//fonts/HTML-CSS/TeX/png/SansSerif/Bold/BasicLatin.js
  *
- *  Copyright (c) 2009-2013 The MathJax Consortium
+ *  Copyright (c) 2009-2017 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@
  *  
  *  Defines the image size data needed for the HTML-CSS OutputJax
  *  to display mathematics using fallback images when the fonts
- *  are not availble to the client browser.
+ *  are not available to the client browser.
  *
  *  ---------------------------------------------------------------------
  *

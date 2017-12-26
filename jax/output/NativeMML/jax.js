@@ -366,7 +366,7 @@
     },
     
     //
-    //  Remove MathML preceeding the script
+    //  Remove MathML preceding the script
     //
     Remove: function (jax) {
       var span = jax.SourceElement(); if (!span) return;
