@@ -3225,7 +3225,7 @@ MathJax.ElementJax.mml.Augment({
     SANSSERIFITALIC: "sans-serif-italic",
     SANSSERIFBOLDITALIC: "sans-serif-bold-italic",
     MONOSPACE: "monospace",
-    INITIAL: "inital",
+    INITIAL: "initial",
     TAILED: "tailed",
     LOOPED: "looped",
     STRETCHED: "stretched",
@@ -8419,7 +8419,7 @@ var junk = [window, navigator]; junk = null;
 	  var values = this.getValues("height","depth","width","lspace","voffset"), X = 0, Y = 0;
 	  if (values.lspace)  {X = this.SVGlength2em(pad,values.lspace,mu)}
 	  if (values.voffset) {Y = this.SVGlength2em(pad,values.voffset,mu)}
-          var h = pad.h, d = pad.d, w = pad.w, y = pad.y; // these can change durring the Add() 
+          var h = pad.h, d = pad.d, w = pad.w, y = pad.y; // these can change during the Add() 
           svg.Add(pad,X,Y); svg.Clean();
           svg.h = h+y; svg.d = d-y; svg.w = w; svg.removeable = false;
 	  if (values.height !== "") {svg.h = this.SVGlength2em(svg,values.height,mu,"h",0)}
@@ -10772,30 +10772,6 @@ MathJax.Callback.Queue(
   }
 );
 
-
-/*************************************************************
- *
- *  [Contrib]/a11y/accessibility-menu.js
- *  
- *  A thin extension to add opt-in menu items for the accessibility
- *  extensions in the a11y contributed directory.
- *
- *  ---------------------------------------------------------------------
- *  
- *  Copyright (c) 2016-2017 The MathJax Consortium
- * 
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
 
 (function(HUB,EXTENSIONS) {
   var SETTINGS = HUB.config.menuSettings;

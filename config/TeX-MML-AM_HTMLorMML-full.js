@@ -4137,7 +4137,7 @@ MathJax.ElementJax.mml.Augment({
     SANSSERIFITALIC: "sans-serif-italic",
     SANSSERIFBOLDITALIC: "sans-serif-bold-italic",
     MONOSPACE: "monospace",
-    INITIAL: "inital",
+    INITIAL: "initial",
     TAILED: "tailed",
     LOOPED: "looped",
     STRETCHED: "stretched",
@@ -8747,7 +8747,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
     },
 
     /*
-     *  Replace macro paramters with their values
+     *  Replace macro parameters with their values
      */
     SubstituteArgs: function (args,string) {
       var text = ''; var newstring = ''; var c; var i = 0;
@@ -9448,7 +9448,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     /*
      *  If the initial child, skipping any initial space or
      *  empty braces (TeXAtom with child being an empty inferred row),
-     *  is an <mo>, preceed it by an empty <mi> to force the <mo> to
+     *  is an <mo>, precede it by an empty <mi> to force the <mo> to
      *  be infix.
      */
     fixInitialMO: function (data) {
@@ -9571,7 +9571,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
   /******************************************************************************/
 
   /*
-   *  Add pre- and post-filters to handle the equation number maintainance.
+   *  Add pre- and post-filters to handle the equation number maintenance.
    */
   TEX.prefilterHooks.Add(function (data) {
     AMS.display = data.display;
@@ -12616,7 +12616,7 @@ var junk = [window, navigator]; junk = null;
     },
     
     //
-    //  Remove MathML preceeding the script
+    //  Remove MathML preceding the script
     //
     Remove: function (jax) {
       var span = jax.SourceElement(); if (!span) return;
@@ -18876,30 +18876,6 @@ MathJax.Callback.Queue(
   }
 );
 
-
-/*************************************************************
- *
- *  [Contrib]/a11y/accessibility-menu.js
- *  
- *  A thin extension to add opt-in menu items for the accessibility
- *  extensions in the a11y contributed directory.
- *
- *  ---------------------------------------------------------------------
- *  
- *  Copyright (c) 2016-2017 The MathJax Consortium
- * 
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
 
 (function(HUB,EXTENSIONS) {
   var SETTINGS = HUB.config.menuSettings;
