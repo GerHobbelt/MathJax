@@ -1,7 +1,7 @@
 /*
  *  /MathJax/config/AM_CHTML.js
  *  
- *  Copyright (c) 2010-2017 The MathJax Consortium
+ *  Copyright (c) 2010-2018 The MathJax Consortium
  *
  *  Part of the MathJax library.
  *  See http://www.mathjax.org for details.
@@ -33,6 +33,9 @@ MathJax.Hub.Config({
   extensions: ['[a11y]/accessibility-menu.js']
 });
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/jax/input/AsciiMath/config.js
@@ -45,7 +48,7 @@ MathJax.Hub.Config({
  *  
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2012-2017 The MathJax Consortium
+ *  Copyright (c) 2012-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -62,7 +65,7 @@ MathJax.Hub.Config({
 
 MathJax.InputJax.AsciiMath = MathJax.InputJax({
   id: "AsciiMath",
-  version: "2.7.2",
+  version: "2.7.3",
   directory: MathJax.InputJax.directory + "/AsciiMath",
   extensionDir: MathJax.InputJax.extensionDir + "/AsciiMath",
   
@@ -77,6 +80,9 @@ MathJax.InputJax.AsciiMath.Register("math/asciimath");
 
 MathJax.InputJax.AsciiMath.loadComplete("config.js");
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/jax/output/HTML2/config.js
@@ -86,7 +92,7 @@ MathJax.InputJax.AsciiMath.loadComplete("config.js");
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2013-2017 The MathJax Consortium
+ *  Copyright (c) 2013-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -103,7 +109,7 @@ MathJax.InputJax.AsciiMath.loadComplete("config.js");
 
 MathJax.OutputJax.CommonHTML = MathJax.OutputJax({
   id: "CommonHTML",
-  version: "2.7.2",
+  version: "2.7.3",
   directory: MathJax.OutputJax.directory + "/CommonHTML",
   extensionDir: MathJax.OutputJax.extensionDir + "/CommonHTML",
   autoloadDir: MathJax.OutputJax.directory + "/CommonHTML/autoload",
@@ -139,6 +145,9 @@ if (!MathJax.Hub.config.delayJaxRegistration) {MathJax.OutputJax.CommonHTML.Regi
 
 MathJax.OutputJax.CommonHTML.loadComplete("config.js");
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/jax/output/PreviewHTML/config.js
@@ -148,7 +157,7 @@ MathJax.OutputJax.CommonHTML.loadComplete("config.js");
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2013-2017 The MathJax Consortium
+ *  Copyright (c) 2013-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -165,7 +174,7 @@ MathJax.OutputJax.CommonHTML.loadComplete("config.js");
 
 MathJax.OutputJax.PreviewHTML = MathJax.OutputJax({
   id: "PreviewHTML",
-  version: "2.7.2",
+  version: "2.7.3",
   directory: MathJax.OutputJax.directory + "/PreviewHTML",
   extensionDir: MathJax.OutputJax.extensionDir + "/PreviewHTML",
   noFastPreview: true,  // don't do fast preview for this output jax
@@ -191,6 +200,9 @@ if (!MathJax.Hub.config.delayJaxRegistration) {MathJax.OutputJax.PreviewHTML.Reg
 
 MathJax.OutputJax.PreviewHTML.loadComplete("config.js");
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/extensions/asciimath2jax.js
@@ -204,7 +216,7 @@ MathJax.OutputJax.PreviewHTML.loadComplete("config.js");
  *  
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2012-2017 The MathJax Consortium
+ *  Copyright (c) 2012-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -220,7 +232,7 @@ MathJax.OutputJax.PreviewHTML.loadComplete("config.js");
  */
 
 MathJax.Extension.asciimath2jax = {
-  version: "2.7.2",
+  version: "2.7.3",
   config: {
     delimiters: [['`','`']],   // The star/stop delimiter pairs for asciimath code
 
@@ -435,6 +447,9 @@ MathJax.Extension.asciimath2jax = {
 MathJax.Hub.Register.PreProcessor(["PreProcess",MathJax.Extension.asciimath2jax]);
 MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/extensions/MathEvents.js
@@ -444,7 +459,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
  *
  *  ---------------------------------------------------------------------
  *
- *  Copyright (c) 2011-2017 The MathJax Consortium
+ *  Copyright (c) 2011-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -460,7 +475,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
  */
 
 (function (HUB,HTML,AJAX,CALLBACK,LOCALE,OUTPUT,INPUT) {
-  var VERSION = "2.7.2";
+  var VERSION = "2.7.3";
 
   var EXTENSION = MathJax.Extension;
   var ME = EXTENSION.MathEvents = {version: VERSION};
@@ -1069,6 +1084,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
 })(MathJax.Hub,MathJax.HTML,MathJax.Ajax,MathJax.Callback,
    MathJax.Localization,MathJax.OutputJax,MathJax.InputJax);
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/extensions/MathZoom.js
@@ -1078,7 +1096,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2010-2017 The MathJax Consortium
+ *  Copyright (c) 2010-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -1094,7 +1112,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
  */
 
 (function (HUB,HTML,AJAX,HTMLCSS,nMML) {
-  var VERSION = "2.7.2";
+  var VERSION = "2.7.3";
   
   var CONFIG = HUB.CombineConfig("MathZoom",{
     styles: {
@@ -1437,6 +1455,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
 
 })(MathJax.Hub,MathJax.HTML,MathJax.Ajax,MathJax.OutputJax["HTML-CSS"],MathJax.OutputJax.NativeMML);
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/extensions/MathMenu.js
@@ -1447,7 +1468,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
  *
  *  ---------------------------------------------------------------------
  *
- *  Copyright (c) 2010-2017 The MathJax Consortium
+ *  Copyright (c) 2010-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -1463,7 +1484,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
  */
 
 (function (HUB,HTML,AJAX,CALLBACK,OUTPUT) {
-  var VERSION = "2.7.2";
+  var VERSION = "2.7.3";
 
   var SIGNAL = MathJax.Callback.Signal("menu");  // signal for menu events
 
@@ -3103,6 +3124,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
 
 })(MathJax.Hub,MathJax.HTML,MathJax.Ajax,MathJax.CallBack,MathJax.OutputJax);
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/jax/element/mml/jax.js
@@ -3113,7 +3137,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -3132,7 +3156,7 @@ MathJax.ElementJax.mml = MathJax.ElementJax({
   mimeType: "jax/mml"
 },{
   id: "mml",
-  version: "2.7.2",
+  version: "2.7.3",
   directory: MathJax.ElementJax.directory + "/mml",
   extensionDir: MathJax.ElementJax.extensionDir + "/mml",
   optableDir: MathJax.ElementJax.directory + "/mml/optable"
@@ -4920,6 +4944,9 @@ MathJax.ElementJax.mml.Augment({
 
 MathJax.ElementJax.mml.loadComplete("jax.js");
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/extensions/toMathML.js
@@ -4929,7 +4956,7 @@ MathJax.ElementJax.mml.loadComplete("jax.js");
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2010-2017 The MathJax Consortium
+ *  Copyright (c) 2010-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -4945,7 +4972,7 @@ MathJax.ElementJax.mml.loadComplete("jax.js");
  */
 
 MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js",function () {
-  var VERSION = "2.7.2";
+  var VERSION = "2.7.3";
   
   var MML = MathJax.ElementJax.mml,
       SETTINGS = MathJax.Hub.config.menuSettings;
@@ -5159,6 +5186,9 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js",function () {
 
 MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/jax/input/AsciiMath/jax.js
@@ -5182,7 +5212,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
  *  
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2012-2017 The MathJax Consortium
+ *  Copyright (c) 2012-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -5389,7 +5419,7 @@ THE SOFTWARE.
 //(function(){
 var mathcolor = "blue";        // change it to "" (to inherit) or another color
 //var mathfontsize = "1em";      // change to e.g. 1.2em for larger math
-var mathfontfamily = "serif";  // change to "" to inherit (works in IE) 
+//var mathfontfamily = "serif";  // change to "" to inherit (works in IE) 
                                // or another family (e.g. "arial")
 //var automathrecognize = false; // writing "amath" on page makes this true
 //var checkForMathML = true;     // check if browser can display MathML
@@ -5548,7 +5578,7 @@ function newsymbol(symbolobj) {
 }
 
 // character lists for Mozilla/Netscape fonts
-var AMcal = ["\uD835\uDC9C","\u212C","\uD835\uDC9E","\uD835\uDC9F","\u2130","\u2131","\uD835\uDCA2","\u210B","\u2110","\uD835\uDCA5","\uD835\uDCA6","\u2112","\u2133","\uD835\uDCA9","\uD835\uDCAA","\uD835\uDCAB","\uD835\uDCAC","\u211B","\uD835\uDCAE","\uD835\uDCAF","\uD835\uDCB0","\uD835\uDCB1","\uD835\uDCB2","\uD835\uDCB3","\uD835\uDCB4","\uD835\uDCB5","\uD835\uDCB6","\uD835\uDCB7","\uD835\uDCB8","\uD835\uDCB9","\u212F","\uD835\uDCBB","\u210A","\uD835\uDCBD","\uD835\uDCBE","\uD835\uDCBF","\uD835\uDCC0","\uD835\uDCC1","\uD835\uDCC2","\uD835\uDCC3","\u2134","\uD835\uDCC5","\uD835\uDCC6","\uD835\uDCC7","\uD835\uDCC8","\uD835\uDCC9","\uD835\uDCCA","\uD835\uDCCB","\uD835\uDCCC","\uD835\uDCCD","\uD835\uDCCE","\uD835\uDCCF"]; 
+var AMcal = ["\uD835\uDC9C","\u212C","\uD835\uDC9E","\uD835\uDC9F","\u2130","\u2131","\uD835\uDCA2","\u210B","\u2110","\uD835\uDCA5","\uD835\uDCA6","\u2112","\u2133","\uD835\uDCA9","\uD835\uDCAA","\uD835\uDCAB","\uD835\uDCAC","\u211B","\uD835\uDCAE","\uD835\uDCAF","\uD835\uDCB0","\uD835\uDCB1","\uD835\uDCB2","\uD835\uDCB3","\uD835\uDCB4","\uD835\uDCB5","\uD835\uDCB6","\uD835\uDCB7","\uD835\uDCB8","\uD835\uDCB9","\u212F","\uD835\uDCBB","\u210A","\uD835\uDCBD","\uD835\uDCBE","\uD835\uDCBF","\uD835\uDCC0","\uD835\uDCC1","\uD835\uDCC2","\uD835\uDCC3","\u2134","\uD835\uDCC5","\uD835\uDCC6","\uD835\uDCC7","\uD835\uDCC8","\uD835\uDCC9","\uD835\uDCCA","\uD835\uDCCB","\uD835\uDCCC","\uD835\uDCCD","\uD835\uDCCE","\uD835\uDCCF"];
 
 var AMfrk = ["\uD835\uDD04","\uD835\uDD05","\u212D","\uD835\uDD07","\uD835\uDD08","\uD835\uDD09","\uD835\uDD0A","\u210C","\u2111","\uD835\uDD0D","\uD835\uDD0E","\uD835\uDD0F","\uD835\uDD10","\uD835\uDD11","\uD835\uDD12","\uD835\uDD13","\uD835\uDD14","\u211C","\uD835\uDD16","\uD835\uDD17","\uD835\uDD18","\uD835\uDD19","\uD835\uDD1A","\uD835\uDD1B","\uD835\uDD1C","\u2128","\uD835\uDD1E","\uD835\uDD1F","\uD835\uDD20","\uD835\uDD21","\uD835\uDD22","\uD835\uDD23","\uD835\uDD24","\uD835\uDD25","\uD835\uDD26","\uD835\uDD27","\uD835\uDD28","\uD835\uDD29","\uD835\uDD2A","\uD835\uDD2B","\uD835\uDD2C","\uD835\uDD2D","\uD835\uDD2E","\uD835\uDD2F","\uD835\uDD30","\uD835\uDD31","\uD835\uDD32","\uD835\uDD33","\uD835\uDD34","\uD835\uDD35","\uD835\uDD36","\uD835\uDD37"];
 
@@ -5675,13 +5705,16 @@ var AMsymbols = [
 {input:"|==",  tag:"mo", output:"\u22A8", tex:"models", ttype:CONST},
 
 //grouping brackets
-{input:"(", tag:"mo", output:"(", tex:null, ttype:LEFTBRACKET},
-{input:")", tag:"mo", output:")", tex:null, ttype:RIGHTBRACKET},
-{input:"[", tag:"mo", output:"[", tex:null, ttype:LEFTBRACKET},
-{input:"]", tag:"mo", output:"]", tex:null, ttype:RIGHTBRACKET},
+{input:"(", tag:"mo", output:"(", tex:"left(", ttype:LEFTBRACKET},
+{input:")", tag:"mo", output:")", tex:"right)", ttype:RIGHTBRACKET},
+{input:"[", tag:"mo", output:"[", tex:"left[", ttype:LEFTBRACKET},
+{input:"]", tag:"mo", output:"]", tex:"right]", ttype:RIGHTBRACKET},
 {input:"{", tag:"mo", output:"{", tex:null, ttype:LEFTBRACKET},
 {input:"}", tag:"mo", output:"}", tex:null, ttype:RIGHTBRACKET},
 {input:"|", tag:"mo", output:"|", tex:null, ttype:LEFTRIGHT},
+{input:":|:", tag:"mo", output:"|", tex:null, ttype:CONST},
+{input:"|:", tag:"mo", output:"|", tex:null, ttype:LEFTBRACKET},
+{input:":|", tag:"mo", output:"|", tex:null, ttype:RIGHTBRACKET},
 //{input:"||", tag:"mo", output:"||", tex:null, ttype:LEFTRIGHT},
 {input:"(:", tag:"mo", output:"\u2329", tex:"langle", ttype:LEFTBRACKET},
 {input:":)", tag:"mo", output:"\u232A", tex:"rangle", ttype:RIGHTBRACKET},
@@ -5765,6 +5798,21 @@ var AMsymbols = [
 {input:"glb",  tag:"mo", output:"glb", tex:null, ttype:CONST},
 {input:"min",  tag:"mo", output:"min", tex:null, ttype:UNDEROVER},
 {input:"max",  tag:"mo", output:"max", tex:null, ttype:UNDEROVER},
+{input:"Sin",  tag:"mo", output:"Sin", tex:null, ttype:UNARY, func:true},
+{input:"Cos",  tag:"mo", output:"Cos", tex:null, ttype:UNARY, func:true},
+{input:"Tan",  tag:"mo", output:"Tan", tex:null, ttype:UNARY, func:true},
+{input:"Arcsin",  tag:"mo", output:"Arcsin", tex:null, ttype:UNARY, func:true},
+{input:"Arccos",  tag:"mo", output:"Arccos", tex:null, ttype:UNARY, func:true},
+{input:"Arctan",  tag:"mo", output:"Arctan", tex:null, ttype:UNARY, func:true},
+{input:"Sinh", tag:"mo", output:"Sinh", tex:null, ttype:UNARY, func:true},
+{input:"Cosh", tag:"mo", output:"Cosh", tex:null, ttype:UNARY, func:true},
+{input:"Tanh", tag:"mo", output:"Tanh", tex:null, ttype:UNARY, func:true},
+{input:"Cot",  tag:"mo", output:"Cot", tex:null, ttype:UNARY, func:true},
+{input:"Sec",  tag:"mo", output:"Sec", tex:null, ttype:UNARY, func:true},
+{input:"Csc",  tag:"mo", output:"Csc", tex:null, ttype:UNARY, func:true},
+{input:"Log",  tag:"mo", output:"Log", tex:null, ttype:UNARY, func:true},
+{input:"Ln",   tag:"mo", output:"Ln",  tex:null, ttype:UNARY, func:true},
+{input:"Abs",   tag:"mo", output:"abs",  tex:null, ttype:UNARY, notexcopy:true, rewriteleftright:["|","|"]},
 
 //arrows
 {input:"uarr", tag:"mo", output:"\u2191", tex:"uparrow", ttype:CONST},
@@ -5829,7 +5877,7 @@ function initSymbols() {
   var symlen = AMsymbols.length;
   for (i=0; i<symlen; i++) {
     if (AMsymbols[i].tex) {
-      AMsymbols.push({input:AMsymbols[i].tex, 
+      AMsymbols.push({input:AMsymbols[i].tex,
         tag:AMsymbols[i].tag, output:AMsymbols[i].output, ttype:AMsymbols[i].ttype,
         acc:(AMsymbols[i].acc||false)});
     }
@@ -5851,14 +5899,14 @@ function define(oldstr,newstr) {
 function AMremoveCharsAndBlanks(str,n) {
 //remove n characters and any following blanks
   var st;
-  if (str.charAt(n)=="\\" && str.charAt(n+1)!="\\" && str.charAt(n+1)!=" ") 
+  if (str.charAt(n)=="\\" && str.charAt(n+1)!="\\" && str.charAt(n+1)!=" ")
     st = str.slice(n+1);
   else st = str.slice(n);
   for (var i=0; i<st.length && st.charCodeAt(i)<=32; i=i+1);
   return st.slice(i);
 }
 
-function position(arr, str, n) { 
+function position(arr, str, n) {
 // return position >=n where str appears or would be inserted
 // assumes arr is sorted
   if (n==0) {
@@ -5899,7 +5947,7 @@ function AMgetSymbol(str) {
   AMpreviousSymbol=AMcurrentSymbol;
   if (match!=""){
     AMcurrentSymbol=AMsymbols[mk].ttype;
-    return AMsymbols[mk]; 
+    return AMsymbols[mk];
   }
 // if str[0] is a digit or - return maxsubstring of digits.digits
   AMcurrentSymbol=CONST;
@@ -5971,20 +6019,20 @@ function AMparseSexpr(str) { //parses str and returns [node,tailstr]
     return [null,str];
   }
   if (symbol.ttype == DEFINITION) {
-    str = symbol.output+AMremoveCharsAndBlanks(str,symbol.input.length); 
+    str = symbol.output+AMremoveCharsAndBlanks(str,symbol.input.length);
     symbol = AMgetSymbol(str);
   }
   switch (symbol.ttype) {  case UNDEROVER:
   case CONST:
-    str = AMremoveCharsAndBlanks(str,symbol.input.length); 
+    str = AMremoveCharsAndBlanks(str,symbol.input.length);
     return [createMmlNode(symbol.tag,        //its a constant
             document.createTextNode(symbol.output)),str];
   case LEFTBRACKET:   //read (expr+)
     AMnestingDepth++;
-    str = AMremoveCharsAndBlanks(str,symbol.input.length); 
+    str = AMremoveCharsAndBlanks(str,symbol.input.length);
     result = AMparseExpr(str,true);
     AMnestingDepth--;
-    if (typeof symbol.invisible == "boolean" && symbol.invisible) 
+    if (typeof symbol.invisible == "boolean" && symbol.invisible)
       node = createMmlNode("mrow",result[0]);
     else {
       node = createMmlNode("mo",document.createTextNode(symbol.output));
@@ -6050,7 +6098,16 @@ function AMparseSexpr(str) { //parses str and returns [node,tailstr]
       return [node,result[1]];
     } else if (typeof symbol.acc == "boolean" && symbol.acc) {   // accent
       node = createMmlNode(symbol.tag,result[0]);
-      node.appendChild(createMmlNode("mo",document.createTextNode(symbol.output)));
+      var accnode = createMmlNode("mo",document.createTextNode(symbol.output));
+      if (symbol.input=="vec" && ( 
+           (result[0].nodeName=="mrow" && result[0].childNodes.length==1 
+             && result[0].firstChild.firstChild.nodeValue !== null 
+             && result[0].firstChild.firstChild.nodeValue.length==1) ||
+           (result[0].firstChild.nodeValue !== null 
+             && result[0].firstChild.nodeValue.length==1) )) {
+        accnode.setAttribute("stretchy",false);
+      }
+      node.appendChild(accnode);
       return [node,result[1]];
     } else {                        // font change command
       if (!isIE && typeof symbol.codes != "undefined") {
@@ -6078,7 +6135,7 @@ function AMparseSexpr(str) { //parses str and returns [node,tailstr]
       return [node,result[1]];
     }
   case BINARY:
-    str = AMremoveCharsAndBlanks(str,symbol.input.length); 
+    str = AMremoveCharsAndBlanks(str,symbol.input.length);
     result = AMparseSexpr(str);
     if (result[0]==null) return [createMmlNode("mo",
                            document.createTextNode(symbol.input)),str];
@@ -6096,16 +6153,16 @@ function AMparseSexpr(str) { //parses str and returns [node,tailstr]
       node.setAttribute("mathcolor",st);
       return [node,result2[1]];
     }
-    if (symbol.input=="root" || symbol.output=="stackrel") 
+    if (symbol.input=="root" || symbol.output=="stackrel")
       newFrag.appendChild(result2[0]);
     newFrag.appendChild(result[0]);
     if (symbol.input=="frac") newFrag.appendChild(result2[0]);
     return [createMmlNode(symbol.tag,newFrag),result2[1]];
   case INFIX:
-    str = AMremoveCharsAndBlanks(str,symbol.input.length); 
+    str = AMremoveCharsAndBlanks(str,symbol.input.length);
     return [createMmlNode("mo",document.createTextNode(symbol.output)),str];
   case SPACE:
-    str = AMremoveCharsAndBlanks(str,symbol.input.length); 
+    str = AMremoveCharsAndBlanks(str,symbol.input.length);
     node = createMmlNode("mspace");
     node.setAttribute("width","1ex");
     newFrag.appendChild(node);
@@ -6118,13 +6175,13 @@ function AMparseSexpr(str) { //parses str and returns [node,tailstr]
   case LEFTRIGHT:
     // if (rightvert) return [null,str]; else rightvert = true;
     AMnestingDepth++;
-    str = AMremoveCharsAndBlanks(str,symbol.input.length); 
+    str = AMremoveCharsAndBlanks(str,symbol.input.length);
     result = AMparseExpr(str,false);
     AMnestingDepth--;
     st = "";
     if (result[0].lastChild!=null)
       st = result[0].lastChild.firstChild.nodeValue;
-    if (st == "|") { // its an absolute value subterm
+    if (st == "|" && str.charAt(0) !== ",") { // its an absolute value subterm
       node = createMmlNode("mo",document.createTextNode(symbol.output));
       node = createMmlNode("mrow",node);
       node.appendChild(result[0]);
@@ -6136,7 +6193,7 @@ function AMparseSexpr(str) { //parses str and returns [node,tailstr]
     }
   default:
     //alert("default");
-    str = AMremoveCharsAndBlanks(str,symbol.input.length); 
+    str = AMremoveCharsAndBlanks(str,symbol.input.length);
     return [createMmlNode(symbol.tag,        //its a constant
                              document.createTextNode(symbol.output)),str];
   }
@@ -6177,7 +6234,7 @@ function AMparseIexpr(str) {
       }
     } else if (symbol.input == "^" && underover) {
       node = createMmlNode("mover",node);
-        node.appendChild(result[0]);   
+        node.appendChild(result[0]);
     } else {
       node = createMmlNode(symbol.tag,node);
       node.appendChild(result[0]);
@@ -6216,24 +6273,24 @@ function AMparseExpr(str,rightbracket) {
       node.appendChild(result[0]);
       newFrag.appendChild(node);
       symbol = AMgetSymbol(str);
-    } 
+    }
     else if (node!=undefined) newFrag.appendChild(node);
-  } while ((symbol.ttype != RIGHTBRACKET && 
+  } while ((symbol.ttype != RIGHTBRACKET &&
            (symbol.ttype != LEFTRIGHT || rightbracket)
            || AMnestingDepth == 0) && symbol!=null && symbol.output!="");
   if (symbol.ttype == RIGHTBRACKET || symbol.ttype == LEFTRIGHT) {
     // if (AMnestingDepth > 0) AMnestingDepth--;
     var len = newFrag.childNodes.length;
-    if (len>0 && newFrag.childNodes[len-1].nodeName == "mrow" 
-            && newFrag.childNodes[len-1].lastChild
-            && newFrag.childNodes[len-1].lastChild.firstChild ) { //matrix
-            //removed to allow row vectors: //&& len>1 && 
+    if (len>0 && newFrag.childNodes[len-1].nodeName == "mrow"
+    	    && newFrag.childNodes[len-1].lastChild
+    	    && newFrag.childNodes[len-1].lastChild.firstChild ) { //matrix
+      	    //removed to allow row vectors: //&& len>1 && 
           //newFrag.childNodes[len-2].nodeName == "mo" &&
           //newFrag.childNodes[len-2].firstChild.nodeValue == ","
       var right = newFrag.childNodes[len-1].lastChild.firstChild.nodeValue;
       if (right==")" || right=="]") {
         var left = newFrag.childNodes[len-1].firstChild.firstChild.nodeValue;
-        if (left=="(" && right==")" && symbol.output != "}" || 
+        if (left=="(" && right==")" && symbol.output != "}" ||
             left=="[" && right=="]") {
         var pos = []; // positions of commas
         var matrix = true;
@@ -6241,18 +6298,19 @@ function AMparseExpr(str,rightbracket) {
         for (i=0; matrix && i<m; i=i+2) {
           pos[i] = [];
           node = newFrag.childNodes[i];
-          if (matrix) matrix = node.nodeName=="mrow" && 
-            (i==m-1 || node.nextSibling.nodeName=="mo" && 
+          if (matrix) matrix = node.nodeName=="mrow" &&
+            (i==m-1 || node.nextSibling.nodeName=="mo" &&
             node.nextSibling.firstChild.nodeValue==",")&&
             node.firstChild.firstChild.nodeValue==left &&
             node.lastChild.firstChild.nodeValue==right;
-          if (matrix) 
+          if (matrix)
             for (var j=0; j<node.childNodes.length; j++)
               if (node.childNodes[j].firstChild.nodeValue==",")
                 pos[i][pos[i].length]=j;
           if (matrix && i>1) matrix = pos[i].length == pos[i-2].length;
         }
         matrix = matrix && (pos.length>1 || pos[0].length>0);
+        var columnlines = [];
         if (matrix) {
           var row, frag, n, k, table = document.createDocumentFragment();
           for (i=0; i<m; i=i+2) {
@@ -6265,11 +6323,21 @@ function AMparseExpr(str,rightbracket) {
             for (j=1; j<n-1; j++) {
               if (typeof pos[i][k] != "undefined" && j==pos[i][k]){
                 node.removeChild(node.firstChild); //remove ,
+                if (node.firstChild.nodeName=="mrow" && node.firstChild.childNodes.length==1 &&
+                     node.firstChild.firstChild.firstChild.nodeValue=="\u2223") {
+                  // is columnline marker - skip it
+                  if (i==0) { columnlines.push("solid"); }
+                  node.removeChild(node.firstChild); //remove mrow
+                  node.removeChild(node.firstChild); //remove ,
+                  j+=2;
+                  k++;
+                } else if (i==0) { columnlines.push("none"); }
                 row.appendChild(createMmlNode("mtd",frag));
                 k++;
               } else frag.appendChild(node.firstChild);
             }
             row.appendChild(createMmlNode("mtd",frag));
+            if (i==0) { columnlines.push("none"); }
             if (newFrag.childNodes.length>2) {
               newFrag.removeChild(newFrag.firstChild); //remove <mrow>)</mrow>
               newFrag.removeChild(newFrag.firstChild); //remove <mo>,</mo>
@@ -6277,6 +6345,7 @@ function AMparseExpr(str,rightbracket) {
             table.appendChild(createMmlNode("mtr",row));
           }
           node = createMmlNode("mtable",table);
+          node.setAttribute("columnlines", columnlines.join(" "));
           if (typeof symbol.invisible == "boolean" && symbol.invisible) node.setAttribute("columnalign","left");
           newFrag.replaceChild(node,newFrag.firstChild);
         }
@@ -6299,11 +6368,17 @@ function parseMath(str,latex) {
   str = str.replace(/&nbsp;/g,"");
   str = str.replace(/&gt;/g,">");
   str = str.replace(/&lt;/g,"<");
-  str = str.replace(/(Sin|Cos|Tan|Arcsin|Arccos|Arctan|Sinh|Cosh|Tanh|Cot|Sec|Csc|Log|Ln|Abs)/g, function(v) { return v.toLowerCase(); });
   frag = AMparseExpr(str.replace(/^\s+/g,""),false)[0];
   node = createMmlNode("mstyle",frag);
   if (mathcolor != "") node.setAttribute("mathcolor",mathcolor);
-  if (mathfontfamily != "") node.setAttribute("fontfamily",mathfontfamily);
+  if (mathfontsize != "") {
+	  node.setAttribute("fontsize", mathfontsize);
+	  node.setAttribute("mathsize", mathfontsize);
+  }
+  if (mathfontfamily != "") {
+	  node.setAttribute("fontfamily", mathfontfamily);
+	  node.setAttribute("mathvariant", mathfontfamily);
+  }
   if (displaystyle) node.setAttribute("displaystyle","true");
   node = createMmlNode("math",node);
   if (showasciiformulaonhover)                      //fixed by djhsu so newline
@@ -6495,6 +6570,7 @@ asciimath.translate = translate;
 showasciiformulaonhover = false;
 mathfontfamily = "";
 mathcolor = "";
+mathfontsize = "";
 
 //
 //  Remove remapping of mathvariants to plane1 (MathJax handles that)
@@ -6658,6 +6734,9 @@ var junk = [window, navigator]; junk = null;
 })(MathJax.InputJax.AsciiMath);
 
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/jax/output/PreviewHTML/jax.js
@@ -6668,7 +6747,7 @@ var junk = [window, navigator]; junk = null;
  *  
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2013-2017 The MathJax Consortium
+ *  Copyright (c) 2013-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -7753,6 +7832,9 @@ var junk = [window, navigator]; junk = null;
     
 })(MathJax.Ajax,MathJax.Hub,MathJax.HTML,MathJax.OutputJax.PreviewHTML);
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/extensions/fast-preview.js
@@ -7763,7 +7845,7 @@ var junk = [window, navigator]; junk = null;
  *  
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2014-2017 The MathJax Consortium
+ *  Copyright (c) 2014-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -7785,7 +7867,7 @@ var junk = [window, navigator]; junk = null;
   var msieColorBug = BROWSER.isMSIE && (document.documentMode||0) < 8;
 
   var FastPreview = MathJax.Extension["fast-preview"] = {
-    version: "2.7.2",
+    version: "2.7.3",
     enabled: true,
 
     //
@@ -7906,6 +7988,9 @@ var junk = [window, navigator]; junk = null;
 MathJax.Ajax.loadComplete("[MathJax]/extensions/fast-preview.js");
 
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/extensions/AssistiveMML.js
@@ -7915,7 +8000,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/fast-preview.js");
  *  
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2015-2017 The MathJax Consortium
+ *  Copyright (c) 2015-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -7934,7 +8019,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/fast-preview.js");
   var SETTINGS = HUB.config.menuSettings;
   
   var AssistiveMML = MathJax.Extension["AssistiveMML"] = {
-    version: "2.7.2",
+    version: "2.7.3",
     
     config: HUB.CombineConfig("AssistiveMML",{
       disabled: false,
@@ -8065,6 +8150,30 @@ MathJax.Callback.Queue(
 );
 
 
+/*************************************************************
+ *
+ *  [Contrib]/a11y/accessibility-menu.js
+ *  
+ *  A thin extension to add opt-in menu items for the accessibility
+ *  extensions in the a11y contributed directory.
+ *
+ *  ---------------------------------------------------------------------
+ *  
+ *  Copyright (c) 2016-2018 The MathJax Consortium
+ * 
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 (function(HUB,EXTENSIONS) {
   var SETTINGS = HUB.config.menuSettings;
   var ITEM, MENU; // filled in when MathMenu extension loads
@@ -8084,7 +8193,7 @@ MathJax.Callback.Queue(
   if (!PATH.a11y) PATH.a11y = HUB.config.root + "/extensions/a11y";
 
   var Accessibility = EXTENSIONS["accessibility-menu"] = {
-    version: '1.2.3',
+    version: '1.4.0',
     prefix: '', //'Accessibility-',
     defaults: {},
     modules: [],

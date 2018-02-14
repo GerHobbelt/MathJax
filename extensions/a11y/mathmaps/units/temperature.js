@@ -1,7 +1,7 @@
 /*
  *  ../../../..//extensions/a11y/mathmaps/units/temperature.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,35 +16,4 @@
  *  limitations under the License.
  */
 
-[
-{"category": "",
- "mappings": {
-   "default": {
-     "default": "Fahrenheit"
-     }
-   },
- "key": "F",
- "names": ["F", "F.", "\u00B0F"]
-},
-  {"category": "",
- "mappings": {
-   "default": {
-     "default": "Celsius",
-     "alternative": "Centigrade"
-     }
-   },
- "key": "C",
- "names": ["C", "\u00B0C"]
-},
-  {"category": "",
- "mappings": {
-   "default": {
-     "default": "Kelvin"
-     }
-   },
- "key": "K",
- "names": ["K", "\u00B0K"]
-}
-  
-]
-
+[{"locale":"en"},{"category":"","mappings":{"default":{"default":"Fahrenheit"}},"key":"F","names":["F","F.","°F"]},{"category":"","mappings":{"default":{"default":"Celsius","alternative":"Centigrade"}},"key":"C","names":["C","°C"]},{"category":"","mappings":{"default":{"default":"Kelvin"}},"key":"K","names":["K","°K"]}]

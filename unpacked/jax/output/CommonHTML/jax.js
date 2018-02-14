@@ -12,7 +12,7 @@
  *  
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2013-2017 The MathJax Consortium
+ *  Copyright (c) 2013-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -1793,6 +1793,7 @@
     
     MML.chars.Augment({
       toCommonHTML: function (node,options) {
+        this.CHTML = null;
         if (options == null) options = {};
         var text = this.toString();
         if (options.remap) text = options.remap(text,options.remapchars);
@@ -2639,13 +2640,19 @@
         BBOX.clean();
         return node;
       },
-      CHTMLaddRoot: function () {return 0}
+      CHTMLaddRoot: function () {return 0},
+      CHTMLhandleBBox: function (node) {
+        var bbox = this.CHTMLbboxFor(0);
+        delete bbox.pwidth;
+        this.SUPER(arguments).CHTMLhandleBBox.apply(this,arguments);
+      }
     });
 
     /********************************************************/
     
     MML.mroot.Augment({
       toCommonHTML: MML.msqrt.prototype.toCommonHTML,
+      CHTMLhandleBBox: MML.msqrt.prototype.CHTMLhandleBBox,
       CHTMLaddRoot: function (sqrt,sbox,d) {
         if (!this.data[1]) return;
         var BBOX = this.CHTML, bbox = this.data[1].CHTML, root = sqrt.firstChild;

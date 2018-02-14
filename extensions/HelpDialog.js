@@ -1,7 +1,7 @@
 /*
  *  ../../../..//extensions/HelpDialog.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2013-2017 The MathJax Consortium
+ *  Copyright (c) 2013-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@
 (function (HUB,HTML,AJAX,OUTPUT,LOCALE) {
 
   var HELP = MathJax.Extension.Help = {
-    version: "2.7.2"
+    version: "2.7.3"
   };
 
   var STIXURL = "http://www.stixfonts.org/";

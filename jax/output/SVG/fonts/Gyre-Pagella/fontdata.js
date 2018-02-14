@@ -1,7 +1,7 @@
 /*
  *  ../../../..//jax/output/SVG/fonts/Gyre-Pagella/fontdata.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@
  *  
  *  Initializes the SVG OutputJax to use the Gyre-Pagella fonts
 
- *  Copyright (c) 2013-2017 The MathJax Consortium
+ *  Copyright (c) 2013-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@
 
 (function (SVG,MML,AJAX,HUB) {
 
-  var VERSION = "2.7.2";
+  var VERSION = "2.7.3";
 
   var ALPHABETS = "GyrePagellaMathJax_Alphabets",
       ARROWS = "GyrePagellaMathJax_Arrows",

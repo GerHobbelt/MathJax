@@ -1,7 +1,7 @@
 /*
  *  ../../../..//localization/da/TeX.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  *  MathJax/localization/da/TeX.js
  *
- *  Copyright (c) 2009-2016 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@
  *
  */
 MathJax.Localization.addTranslation("da","TeX",{
-        version: "2.7.2",
+        version: "2.7.3",
         isLoaded: true,
         strings: {
           ExtraOpenMissingClose: "Ekstra venstreklammeparentes eller manglende h\u00F8jreklammeparentes",

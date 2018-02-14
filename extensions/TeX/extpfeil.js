@@ -1,7 +1,7 @@
 /*
  *  ../../../..//extensions/TeX/extpfeil.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2011-2017 The MathJax Consortium
+ *  Copyright (c) 2011-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@
  */
 
 MathJax.Extension["TeX/extpfeil"] = {
-  version: "2.7.2"
+  version: "2.7.3"
 };
 
 MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
@@ -110,7 +110,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         );
       }
       cs = cs.substr(1); space = space.split(","); chr = parseInt(chr);
-      TEXDEF.macros[cs] = ['xArrow',chr,parseInt(space[0]),parseInt(space[1])];
+      this.setDef(cs, ['xArrow', chr, parseInt(space[0]), parseInt(space[1])]);
     }
   });
   

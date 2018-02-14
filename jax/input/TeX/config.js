@@ -1,7 +1,7 @@
 /*
  *  ../../../..//jax/input/TeX/config.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@
 
 MathJax.InputJax.TeX = MathJax.InputJax({
   id: "TeX",
-  version: "2.7.2",
+  version: "2.7.3",
   directory: MathJax.InputJax.directory + "/TeX",
   extensionDir: MathJax.InputJax.extensionDir + "/TeX",
   
@@ -59,9 +59,9 @@ MathJax.InputJax.TeX = MathJax.InputJax({
                            //  or "all" to number all displayed equations
       formatNumber: function (n) {return n},                // format for equation number n
       formatTag:    function (n) {return '('+n+')'},        // format for \tag and \eqref
-      formatID:     function (n) {return 'mjx-eqn-'+String(n).replace(/[:"'<>&]/g,"")},
+      formatID:     function (n) {return 'mjx-eqn-'+String(n).replace(/[\s:"'<>&]/g,"_")},
                                                             // element ID to use for reference
-      formatURL:    function (id,base) {return base+'#'+escape(id)},
+      formatURL:    function (id,base) {return base+'#'+encodeURIComponent(id)},
                                                             // URL to use for references
       useLabelIds:  true,    // make element ID's use \label name rather than equation number
       //outputLabels: true,

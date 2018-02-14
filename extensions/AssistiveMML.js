@@ -1,7 +1,7 @@
 /*
  *  ../../../..//extensions/AssistiveMML.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@
  *  
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2015-2017 The MathJax Consortium
+ *  Copyright (c) 2015-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -47,7 +47,7 @@
   var SETTINGS = HUB.config.menuSettings;
   
   var AssistiveMML = MathJax.Extension["AssistiveMML"] = {
-    version: "2.7.2",
+    version: "2.7.3",
     
     config: HUB.CombineConfig("AssistiveMML",{
       disabled: false,

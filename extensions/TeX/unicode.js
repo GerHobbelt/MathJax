@@ -1,7 +1,7 @@
 /*
  *  ../../../..//extensions/TeX/unicode.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -61,7 +61,7 @@
  *  
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -80,7 +80,7 @@
 //  The configuration defaults, augmented by the user settings
 //  
 MathJax.Extension["TeX/unicode"] = {
-  version: "2.7.2",
+  version: "2.7.3",
   unicode: {},
   config: MathJax.Hub.CombineConfig("TeX.unicode",{
     fonts: "STIXGeneral,'Arial Unicode MS'"

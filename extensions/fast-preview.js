@@ -1,7 +1,7 @@
 /*
  *  ../../../..//extensions/fast-preview.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@
  *  
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2014-2017 The MathJax Consortium
+ *  Copyright (c) 2014-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@
   var msieColorBug = BROWSER.isMSIE && (document.documentMode||0) < 8;
 
   var FastPreview = MathJax.Extension["fast-preview"] = {
-    version: "2.7.2",
+    version: "2.7.3",
     enabled: true,
 
     //

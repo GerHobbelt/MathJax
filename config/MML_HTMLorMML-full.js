@@ -1,7 +1,7 @@
 /*
  *  /MathJax/config/MML_HTMLorMML-full.js
  *  
- *  Copyright (c) 2010-2017 The MathJax Consortium
+ *  Copyright (c) 2010-2018 The MathJax Consortium
  *
  *  Part of the MathJax library.
  *  See http://www.mathjax.org for details.
@@ -40,6 +40,9 @@ MathJax.Hub.Config({
   extensions: ['[a11y]/accessibility-menu.js']
 });
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/jax/input/MathML/config.js
@@ -49,7 +52,7 @@ MathJax.Hub.Config({
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -66,7 +69,7 @@ MathJax.Hub.Config({
 
 MathJax.InputJax.MathML = MathJax.InputJax({
   id: "MathML",
-  version: "2.7.2",
+  version: "2.7.3",
   directory: MathJax.InputJax.directory + "/MathML",
   extensionDir: MathJax.InputJax.extensionDir + "/MathML",
   entityDir: MathJax.InputJax.directory + "/MathML/entities",
@@ -79,6 +82,9 @@ MathJax.InputJax.MathML.Register("math/mml");
 
 MathJax.InputJax.MathML.loadComplete("config.js");
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/jax/output/HTML-CSS/config.js
@@ -88,7 +94,7 @@ MathJax.InputJax.MathML.loadComplete("config.js");
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -105,7 +111,7 @@ MathJax.InputJax.MathML.loadComplete("config.js");
 
 MathJax.OutputJax["HTML-CSS"] = MathJax.OutputJax({
   id: "HTML-CSS",
-  version: "2.7.2",
+  version: "2.7.3",
   directory: MathJax.OutputJax.directory + "/HTML-CSS",
   extensionDir: MathJax.OutputJax.extensionDir + "/HTML-CSS",
   autoloadDir: MathJax.OutputJax.directory + "/HTML-CSS/autoload",
@@ -253,6 +259,9 @@ MathJax.Hub.Register.StartupHook("End Config",[function (HUB,HTMLCSS) {
 
 MathJax.OutputJax["HTML-CSS"].loadComplete("config.js");
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/jax/output/NativeMML/config.js
@@ -262,7 +271,7 @@ MathJax.OutputJax["HTML-CSS"].loadComplete("config.js");
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -279,7 +288,7 @@ MathJax.OutputJax["HTML-CSS"].loadComplete("config.js");
 
 MathJax.OutputJax.NativeMML = MathJax.OutputJax({
   id: "NativeMML",
-  version: "2.7.2",
+  version: "2.7.3",
   directory: MathJax.OutputJax.directory + "/NativeMML",
   extensionDir: MathJax.OutputJax.extensionDir + "/NativeMML",
   
@@ -303,6 +312,9 @@ if (!MathJax.Hub.config.delayJaxRegistration)
 
 MathJax.OutputJax.NativeMML.loadComplete("config.js");
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/jax/output/PreviewHTML/config.js
@@ -312,7 +324,7 @@ MathJax.OutputJax.NativeMML.loadComplete("config.js");
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2013-2017 The MathJax Consortium
+ *  Copyright (c) 2013-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -329,7 +341,7 @@ MathJax.OutputJax.NativeMML.loadComplete("config.js");
 
 MathJax.OutputJax.PreviewHTML = MathJax.OutputJax({
   id: "PreviewHTML",
-  version: "2.7.2",
+  version: "2.7.3",
   directory: MathJax.OutputJax.directory + "/PreviewHTML",
   extensionDir: MathJax.OutputJax.extensionDir + "/PreviewHTML",
   noFastPreview: true,  // don't do fast preview for this output jax
@@ -354,6 +366,9 @@ MathJax.OutputJax.PreviewHTML = MathJax.OutputJax({
 if (!MathJax.Hub.config.delayJaxRegistration) {MathJax.OutputJax.PreviewHTML.Register("jax/mml")}
 
 MathJax.OutputJax.PreviewHTML.loadComplete("config.js");
+
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
 
 /*************************************************************
  *
@@ -388,7 +403,7 @@ MathJax.OutputJax.PreviewHTML.loadComplete("config.js");
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2010-2017 The MathJax Consortium
+ *  Copyright (c) 2010-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -464,6 +479,9 @@ MathJax.OutputJax.PreviewHTML.loadComplete("config.js");
 
 MathJax.Ajax.loadComplete("[MathJax]/config/MMLorHTML.js");
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/extensions/mml2jax.js
@@ -474,7 +492,7 @@ MathJax.Ajax.loadComplete("[MathJax]/config/MMLorHTML.js");
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2010-2017 The MathJax Consortium
+ *  Copyright (c) 2010-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -490,7 +508,7 @@ MathJax.Ajax.loadComplete("[MathJax]/config/MMLorHTML.js");
  */
 
 MathJax.Extension.mml2jax = {
-  version: "2.7.2",
+  version: "2.7.3",
   config: {
     preview: "mathml"       // Use the <math> element as the
                             //   preview.  Set to "none" for no preview,
@@ -725,6 +743,9 @@ MathJax.Extension.mml2jax = {
 MathJax.Hub.Register.PreProcessor(["PreProcess",MathJax.Extension.mml2jax],5);
 MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/extensions/MathEvents.js
@@ -734,7 +755,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
  *
  *  ---------------------------------------------------------------------
  *
- *  Copyright (c) 2011-2017 The MathJax Consortium
+ *  Copyright (c) 2011-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -750,7 +771,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
  */
 
 (function (HUB,HTML,AJAX,CALLBACK,LOCALE,OUTPUT,INPUT) {
-  var VERSION = "2.7.2";
+  var VERSION = "2.7.3";
 
   var EXTENSION = MathJax.Extension;
   var ME = EXTENSION.MathEvents = {version: VERSION};
@@ -1359,6 +1380,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
 })(MathJax.Hub,MathJax.HTML,MathJax.Ajax,MathJax.Callback,
    MathJax.Localization,MathJax.OutputJax,MathJax.InputJax);
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/extensions/MathZoom.js
@@ -1368,7 +1392,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2010-2017 The MathJax Consortium
+ *  Copyright (c) 2010-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -1384,7 +1408,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
  */
 
 (function (HUB,HTML,AJAX,HTMLCSS,nMML) {
-  var VERSION = "2.7.2";
+  var VERSION = "2.7.3";
   
   var CONFIG = HUB.CombineConfig("MathZoom",{
     styles: {
@@ -1727,6 +1751,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
 
 })(MathJax.Hub,MathJax.HTML,MathJax.Ajax,MathJax.OutputJax["HTML-CSS"],MathJax.OutputJax.NativeMML);
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/extensions/MathMenu.js
@@ -1737,7 +1764,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
  *
  *  ---------------------------------------------------------------------
  *
- *  Copyright (c) 2010-2017 The MathJax Consortium
+ *  Copyright (c) 2010-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -1753,7 +1780,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
  */
 
 (function (HUB,HTML,AJAX,CALLBACK,OUTPUT) {
-  var VERSION = "2.7.2";
+  var VERSION = "2.7.3";
 
   var SIGNAL = MathJax.Callback.Signal("menu");  // signal for menu events
 
@@ -3393,6 +3420,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
 
 })(MathJax.Hub,MathJax.HTML,MathJax.Ajax,MathJax.CallBack,MathJax.OutputJax);
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/jax/element/mml/jax.js
@@ -3403,7 +3433,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -3422,7 +3452,7 @@ MathJax.ElementJax.mml = MathJax.ElementJax({
   mimeType: "jax/mml"
 },{
   id: "mml",
-  version: "2.7.2",
+  version: "2.7.3",
   directory: MathJax.ElementJax.directory + "/mml",
   extensionDir: MathJax.ElementJax.extensionDir + "/mml",
   optableDir: MathJax.ElementJax.directory + "/mml/optable"
@@ -5210,6 +5240,9 @@ MathJax.ElementJax.mml.Augment({
 
 MathJax.ElementJax.mml.loadComplete("jax.js");
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/extensions/toMathML.js
@@ -5219,7 +5252,7 @@ MathJax.ElementJax.mml.loadComplete("jax.js");
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2010-2017 The MathJax Consortium
+ *  Copyright (c) 2010-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -5235,7 +5268,7 @@ MathJax.ElementJax.mml.loadComplete("jax.js");
  */
 
 MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js",function () {
-  var VERSION = "2.7.2";
+  var VERSION = "2.7.3";
   
   var MML = MathJax.ElementJax.mml,
       SETTINGS = MathJax.Hub.config.menuSettings;
@@ -5449,6 +5482,9 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js",function () {
 
 MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/jax/input/MathML/jax.js
@@ -5459,7 +5495,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2010-2017 The MathJax Consortium
+ *  Copyright (c) 2010-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -6246,6 +6282,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
   
 })(MathJax.InputJax.MathML,MathJax.Hub.Browser);
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/jax/output/NativeMML/jax.js
@@ -6255,7 +6294,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
  *  
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2010-2017 The MathJax Consortium
+ *  Copyright (c) 2010-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -7678,6 +7717,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
 
 })(MathJax.OutputJax.NativeMML, MathJax.Hub, MathJax.Ajax, MathJax.HTML);
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/jax/output/HTML-CSS/jax.js
@@ -7688,7 +7730,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
  *  
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -7734,6 +7776,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
         }},[["div",{
           id: "MathJax_Font_Test",
           style: {position:"absolute", visibility:"hidden", top:0, left:0, width: "auto",
+                  "min-width": 0, "max-width": "none",
                   padding:0, border:0, margin:0, whiteSpace:"nowrap",
                   textAlign:"left", textIndent:0, textTransform:"none",
                   lineHeight:"normal", letterSpacing:"normal", wordSpacing:"normal",
@@ -8758,9 +8801,15 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
     thickness2em: function (length,mu) {
       var thick = HTMLCSS.TeX.rule_thickness;
       if (length === MML.LINETHICKNESS.MEDIUM) {return thick}
-      if (length === MML.LINETHICKNESS.THIN) {return .67*thick}
-      if (length === MML.LINETHICKNESS.THICK) {return 1.67*thick}
+      if (length === MML.LINETHICKNESS.THIN)   {return .67*thick}
+      if (length === MML.LINETHICKNESS.THICK)  {return 1.67*thick}
       return this.length2em(length,mu,thick);
+    },
+    border2em: function (length,mu) {
+      if (length === MML.LINETHICKNESS.THIN)   {length = "1px"}
+      if (length === MML.LINETHICKNESS.MEDIUM) {length = "3px"}
+      if (length === MML.LINETHICKNESS.THICK)  {length = "5px"}
+      return this.length2em(length,mu);
     },
     
     getPadding: function (span) {
@@ -8778,7 +8827,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
         var style = span.style[ID+"Style"];
         if (style) {
           has = true;
-          border[id] = this.length2em(span.style[ID+"Width"]);
+          border[id] = this.border2em(span.style[ID+"Width"] || MML.LINETHICKNESS.MEDIUM);
           css[ID] = [span.style[ID+"Width"],span.style[ID+"Style"],span.style[ID+"Color"]].join(" ");
         }
       }}
@@ -9141,6 +9190,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
         if (delim.mid) {this.placeBox(mid,x,0,true); x += mid.bbox.w};
         x -= (w - W)/2;
       }
+      x -= right.bbox.lw;
       this.placeBox(right,x,0,true);
       span.bbox = {
         w: x+right.bbox.rw, lw: 0, rw: x+right.bbox.rw,
@@ -10946,6 +10996,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
     
 })(MathJax.Ajax, MathJax.Hub, MathJax.OutputJax["HTML-CSS"]);
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/jax/output/HTML-CSS/autoload/mtable.js
@@ -10954,7 +11007,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2010-2017 The MathJax Consortium
+ *  Copyright (c) 2010-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -10970,7 +11023,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
  */
 
 MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
-  var VERSION = "2.7.2";
+  var VERSION = "2.7.3";
   var MML = MathJax.ElementJax.mml,
       HTMLCSS = MathJax.OutputJax["HTML-CSS"];
   
@@ -11447,6 +11500,9 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
 });
 
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/jax/output/PreviewHTML/jax.js
@@ -11457,7 +11513,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
  *  
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2013-2017 The MathJax Consortium
+ *  Copyright (c) 2013-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -12542,6 +12598,9 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     
 })(MathJax.Ajax,MathJax.Hub,MathJax.HTML,MathJax.OutputJax.PreviewHTML);
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/extensions/fast-preview.js
@@ -12552,7 +12611,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
  *  
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2014-2017 The MathJax Consortium
+ *  Copyright (c) 2014-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -12574,7 +12633,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
   var msieColorBug = BROWSER.isMSIE && (document.documentMode||0) < 8;
 
   var FastPreview = MathJax.Extension["fast-preview"] = {
-    version: "2.7.2",
+    version: "2.7.3",
     enabled: true,
 
     //
@@ -12695,6 +12754,9 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
 MathJax.Ajax.loadComplete("[MathJax]/extensions/fast-preview.js");
 
 
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/extensions/AssistiveMML.js
@@ -12704,7 +12766,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/fast-preview.js");
  *  
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2015-2017 The MathJax Consortium
+ *  Copyright (c) 2015-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -12723,7 +12785,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/fast-preview.js");
   var SETTINGS = HUB.config.menuSettings;
   
   var AssistiveMML = MathJax.Extension["AssistiveMML"] = {
-    version: "2.7.2",
+    version: "2.7.3",
     
     config: HUB.CombineConfig("AssistiveMML",{
       disabled: false,
@@ -12854,6 +12916,30 @@ MathJax.Callback.Queue(
 );
 
 
+/*************************************************************
+ *
+ *  [Contrib]/a11y/accessibility-menu.js
+ *  
+ *  A thin extension to add opt-in menu items for the accessibility
+ *  extensions in the a11y contributed directory.
+ *
+ *  ---------------------------------------------------------------------
+ *  
+ *  Copyright (c) 2016-2018 The MathJax Consortium
+ * 
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 (function(HUB,EXTENSIONS) {
   var SETTINGS = HUB.config.menuSettings;
   var ITEM, MENU; // filled in when MathMenu extension loads
@@ -12873,7 +12959,7 @@ MathJax.Callback.Queue(
   if (!PATH.a11y) PATH.a11y = HUB.config.root + "/extensions/a11y";
 
   var Accessibility = EXTENSIONS["accessibility-menu"] = {
-    version: '1.2.3',
+    version: '1.4.0',
     prefix: '', //'Accessibility-',
     defaults: {},
     modules: [],

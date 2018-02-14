@@ -1,7 +1,7 @@
 /*
  *  ../../../..//localization/en/en.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  *  MathJax/localization/en/en.js
  *
- *  Copyright (c) 2009-2016 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -37,11 +37,11 @@
  */
 MathJax.Localization.addTranslation("en",null,{
   menuTitle: "English",
-  version: "2.7.2",
+  version: "2.7.3",
   isLoaded: true,
   domains: {
     "_": {
-        version: "2.7.2",
+        version: "2.7.3",
         isLoaded: true,
         strings: {
           CookieConfig: "MathJax has found a user-configuration cookie that includes code to be run. Do you want to run it?\n\n(You should press Cancel unless you set up the cookie yourself.)",

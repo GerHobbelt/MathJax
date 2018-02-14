@@ -1,7 +1,7 @@
 /*
  *  ../../../..//jax/output/PreviewHTML/config.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2013-2017 The MathJax Consortium
+ *  Copyright (c) 2013-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@
 
 MathJax.OutputJax.PreviewHTML = MathJax.OutputJax({
   id: "PreviewHTML",
-  version: "2.7.2",
+  version: "2.7.3",
   directory: MathJax.OutputJax.directory + "/PreviewHTML",
   extensionDir: MathJax.OutputJax.extensionDir + "/PreviewHTML",
   noFastPreview: true,  // don't do fast preview for this output jax

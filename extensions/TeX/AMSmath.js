@@ -1,7 +1,7 @@
 /*
  *  ../../../..//extensions/TeX/AMSmath.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@
  *  
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@
  */
 
 MathJax.Extension["TeX/AMSmath"] = {
-  version: "2.7.2",
+  version: "2.7.3",
   
   number: 0,        // current equation number
   startNumber: 0,   // current starting equation number (for when equation is restarted)
@@ -249,7 +249,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       if (cs.charAt(0) == "\\") {cs = cs.substr(1)}
       var op = this.GetArgument(name);
       op = op.replace(/\*/g,'\\text{*}').replace(/-/g,'\\text{-}');
-      TEX.Definitions.macros[cs] = ['Macro','\\mathop{\\rm '+op+'}'+limits];
+      this.setDef(cs, ['Macro', '\\mathop{\\rm '+op+'}'+limits]);
     },
     
     HandleOperatorName: function (name) {

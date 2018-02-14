@@ -1,7 +1,7 @@
 /*
  *  ../../../..//localization/it/FontWarnings.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  *  MathJax/localization/it/FontWarnings.js
  *
- *  Copyright (c) 2009-2016 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@
  *
  */
 MathJax.Localization.addTranslation("it","FontWarnings",{
-        version: "2.7.2",
+        version: "2.7.3",
         isLoaded: true,
         strings: {
           webFont: "MathJax sta usando dei web font per visualizzare le formule di questa pagina. Tali font richiedono tempo per essere scaricati, perci\u00F2 la pagina sarebbe resa pi\u00F9 velocemente se tu installassi dei font matematici direttamente nella cartella dei font di sistema.",

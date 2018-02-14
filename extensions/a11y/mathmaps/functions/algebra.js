@@ -1,7 +1,7 @@
 /*
  *  ../../../..//extensions/a11y/mathmaps/functions/algebra.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,62 +16,4 @@
  *  limitations under the License.
  */
 
-[
-  {"category": "Algebra",
-   "mappings": {
-     "default": {
-       "default": "degree"
-     }
-   },
-   "key": "deg",
-   "names": ["deg"]
-  },
-  {"category": "Algebra",
-   "mappings": {
-     "default": {
-       "default": "determinant",
-       "short": "det"
-     }
-   },
-   "key": "det",
-   "names": ["det"]
-  },
-  {"category": "Algebra",
-   "mappings": {
-     "default": {
-       "default": "dimension"
-     }
-   },
-   "key": "dim",
-   "names": ["dim"]
-  },
-  {"category": "Algebra",
-   "mappings": {
-     "default": {
-       "default": "homomorphism",
-       "short": "hom"
-     }
-   },
-   "key": "hom",
-   "names": ["hom", "Hom"]
-  },
-  {"category": "Algebra",
-   "mappings": {
-     "default": {
-       "default": "kernel"
-     }
-   },
-   "key": "ker",
-   "names": ["ker"]
-  },
-  {"category": "Algebra",
-   "mappings": {
-     "default": {
-       "default": "trace"
-     }
-   },
-   "key": "Tr",
-   "names": ["Tr", "tr"]
-  }
-]
-
+[{"locale":"en"},{"category":"Algebra","mappings":{"default":{"default":"degree"}},"key":"deg","names":["deg"]},{"category":"Algebra","mappings":{"default":{"default":"determinant","short":"det"}},"key":"det","names":["det"]},{"category":"Algebra","mappings":{"default":{"default":"dimension"}},"key":"dim","names":["dim"]},{"category":"Algebra","mappings":{"default":{"default":"homomorphism","short":"hom"}},"key":"hom","names":["hom","Hom"]},{"category":"Algebra","mappings":{"default":{"default":"kernel"}},"key":"ker","names":["ker"]},{"category":"Algebra","mappings":{"default":{"default":"trace"}},"key":"Tr","names":["Tr","tr"]}]

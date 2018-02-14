@@ -1,7 +1,7 @@
 /*
  *  ../../../..//jax/output/SVG/fonts/Latin-Modern/fontdata-extra.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@
  *  
  *  Adds extra stretchy characters to the Latin-Modern fonts
 
- *  Copyright (c) 2013-2017 The MathJax Consortium
+ *  Copyright (c) 2013-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@
  */
 
 (function (SVG) {
-  var VERSION = "2.7.2";
+  var VERSION = "2.7.3";
 
   var DELIMITERS = SVG.FONTDATA.DELIMITERS;
 

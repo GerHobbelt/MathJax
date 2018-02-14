@@ -1,7 +1,7 @@
 /*
  *  ../../../..//extensions/a11y/mathmaps/units/time.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,60 +16,4 @@
  *  limitations under the License.
  */
 
-[
-  {"category": "time",
-   "mappings": {
-     "default": {
-       "default": "nanoseconds"
-     }
-   },
-   "key": "ns",
-   "names": ["ns"]
-  },
-  {"category": "time",
-   "mappings": {
-     "default": {
-       "default": "microseconds"
-     }
-   },
-   "key": "µs",
-   "names": ["µs"]
-  },
-  {"category": "time",
-   "mappings": {
-     "default": {
-       "default": "milliseconds"
-     }
-   },
-   "key": "ms",
-   "names": ["ms"]
-  },
-  {"category": "time",
-   "mappings": {
-     "default": {
-       "default": "seconds"
-     }
-   },
-   "key": "s",
-   "names": ["s"]
-  },
-  {"category": "time",
-   "mappings": {
-     "default": {
-       "default": "minutes"
-     }
-   },
-   "key": "min",
-   "names": ["min"]
-  },
-  {"category": "time",
-   "mappings": {
-     "default": {
-       "default": "hours"
-     }
-   },
-   "key": "h",
-   "names": ["h", "hr"]
-  }
-]
-
+[{"locale":"en"},{"category":"time","mappings":{"default":{"default":"nanoseconds"}},"key":"ns","names":["ns"]},{"category":"time","mappings":{"default":{"default":"microseconds"}},"key":"µs","names":["µs"]},{"category":"time","mappings":{"default":{"default":"milliseconds"}},"key":"ms","names":["ms"]},{"category":"time","mappings":{"default":{"default":"seconds"}},"key":"s","names":["s"]},{"category":"time","mappings":{"default":{"default":"minutes"}},"key":"min","names":["min"]},{"category":"time","mappings":{"default":{"default":"hours"}},"key":"h","names":["h","hr"]}]

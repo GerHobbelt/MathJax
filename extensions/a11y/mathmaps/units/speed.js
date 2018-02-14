@@ -1,7 +1,7 @@
 /*
  *  ../../../..//extensions/a11y/mathmaps/units/speed.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,42 +16,4 @@
  *  limitations under the License.
  */
 
-[
-{"category": "",
- "mappings": {
-   "default": {
-     "default": "knot"
-     }
-   },
- "key": "kt",
- "names": ["kt", "kt."]
-},
-{"category": "",
- "mappings": {
-   "default": {
-     "default": "miles per hour"
-     }
-   },
- "key": "mph",
- "names": ["mph"]
-},
-{"category": "",
- "mappings": {
-   "default": {
-     "default": "revolutions per minute"
-     }
-   },
- "key": "rpm",
- "names": ["rpm"]
-},
-{"category": "",
- "mappings": {
-   "default": {
-     "default": "kilometers per hour"
-     }
-   },
- "key": "kmh",
- "names": ["kmh"]
-}
-]
-
+[{"locale":"en"},{"category":"","mappings":{"default":{"default":"knot"}},"key":"kt","names":["kt","kt."]},{"category":"","mappings":{"default":{"default":"miles per hour"}},"key":"mph","names":["mph"]},{"category":"","mappings":{"default":{"default":"revolutions per minute"}},"key":"rpm","names":["rpm"]},{"category":"","mappings":{"default":{"default":"kilometers per hour"}},"key":"kmh","names":["kmh"]}]

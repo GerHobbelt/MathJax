@@ -1,7 +1,7 @@
 /*
  *  ../../../..//extensions/a11y/mathmaps/units/memory.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,60 +16,4 @@
  *  limitations under the License.
  */
 
-[
-  {"category": "",
-   "mappings": {
-     "default": {
-       "default": "bits"
-     }
-   },
-   "key": "b",
-   "names": ["b"]
-  },
-  {"category": "",
-   "mappings": {
-     "default": {
-       "default": "bytes"
-     }
-   },
-   "key": "B",
-   "names": ["B"]
-  },
-  {"category": "",
-   "mappings": {
-     "default": {
-       "default": "kilobytes"
-     }
-   },
-   "key": "KB",
-   "names": ["KB"]
-  },
-  {"category": "",
-   "mappings": {
-     "default": {
-       "default": "megabytes"
-     }
-   },
-   "key": "MB",
-   "names": ["MB"]
-  },
-  {"category": "",
-   "mappings": {
-     "default": {
-       "default": "gigabytes"
-     }
-   },
-   "key": "GB",
-   "names": ["GB"]
-  },
-  {"category": "",
-   "mappings": {
-     "default": {
-       "default": "terabytes"
-     }
-   },
-   "key": "TB",
-   "names": ["TB"]
-  }
-]
-
+[{"locale":"en"},{"category":"","mappings":{"default":{"default":"bits"}},"key":"b","names":["b"]},{"category":"","mappings":{"default":{"default":"bytes"}},"key":"B","names":["B"]},{"category":"","mappings":{"default":{"default":"kilobytes"}},"key":"KB","names":["KB"]},{"category":"","mappings":{"default":{"default":"megabytes"}},"key":"MB","names":["MB"]},{"category":"","mappings":{"default":{"default":"gigabytes"}},"key":"GB","names":["GB"]},{"category":"","mappings":{"default":{"default":"terabytes"}},"key":"TB","names":["TB"]}]

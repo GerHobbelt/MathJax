@@ -1,7 +1,7 @@
 /*
  *  ../../../..//jax/input/TeX/jax.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -1008,7 +1008,7 @@
         newenvironment:    ['Extension','newcommand'],
         renewenvironment:  ['Extension','newcommand'],
         def:               ['Extension','newcommand'],
-        let:               ['Extension','newcommand'],
+        'let':             ['Extension','newcommand'],
         
         verb:              ['Extension','verb'],
         
@@ -2056,8 +2056,12 @@
       while (this.nextIsSpace()) {this.i++}
       var c = this.string.charAt(this.i); this.i++;
       if (this.i <= this.string.length) {
-        if (c == "\\") {c += this.GetCS(name)}
-        else if (c === "{" && braceOK) {this.i--; c = this.GetArgument(name)}
+        if (c == "\\") {
+          c += this.GetCS(name);
+        } else if (c === "{" && braceOK) {
+          this.i--;
+          c = this.GetArgument(name).replace(/^\s+/,'').replace(/\s+$/,'');
+        }
         if (TEXDEF.delimiter[c] != null) {return this.convertDelimiter(c)}
       }
       TEX.Error(["MissingOrUnrecognizedDelim",
@@ -2177,6 +2181,13 @@
       return MML.mtext(MML.chars(text)).With(def);
     },
 
+    /*
+     *  Routines to set the macro and environment definitions
+     *  (overridden by begingroup to make localized versions)
+     */
+    setDef: function (name,value) {value.isUser = true; TEXDEF.macros[name] = value},
+    setEnv: function (name,value) {value.isUser = true; TEXDEF.environment[name] = value},
+    
     /*
      *  Replace macro parameters with their values
      */

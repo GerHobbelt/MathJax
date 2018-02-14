@@ -1,7 +1,7 @@
 /*
  *  ../../../..//localization/ast/ast.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  *  MathJax/localization/ast/ast.js
  *
- *  Copyright (c) 2009-2016 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -37,11 +37,11 @@
  */
 MathJax.Localization.addTranslation("ast",null,{
   menuTitle: "asturianu",
-  version: "2.7.2",
+  version: "2.7.3",
   isLoaded: true,
   domains: {
     "_": {
-        version: "2.7.2",
+        version: "2.7.3",
         isLoaded: true,
         strings: {
           CookieConfig: "MathJax alcontr\u00F3 una cookie de configuraci\u00F3n d'usuariu qu'incluye c\u00F3digu a executar. \u00BFQuier executar esi c\u00F3digu?\n\n(Tendr\u00EDa de calcar \u00ABEncaboxar\u00BB a menos que creara la cookie vust\u00E9 mesmu.)",

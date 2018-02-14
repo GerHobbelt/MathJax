@@ -1,7 +1,7 @@
 /*
  *  ../../../..//extensions/TeX/AMScd.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@
  *  
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2013-2017 The MathJax Consortium
+ *  Copyright (c) 2013-2018 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@
  */
 
 MathJax.Extension["TeX/AMScd"] = {
-  version: "2.7.2",
+  version: "2.7.3",
   config: MathJax.Hub.CombineConfig("TeX.CD",{
     colspace: "5pt",
     rowspace: "5pt",

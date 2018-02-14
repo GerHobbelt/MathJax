@@ -1,7 +1,7 @@
 /*
  *  ../../../..//extensions/a11y/mathmaps/units/other.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,33 +16,4 @@
  *  limitations under the License.
  */
 
-[
-  {"category": "",
-  "mappings": {
-    "default": {
-      "default": "dozen"
-    }
-  },
-  "key": "doz",
-  "names": ["doz", "doz."]
- },
- {"category": "",
-  "mappings": {
-    "default": {
-      "default": "square"
-    }
-  },
-  "key": "sq",
-  "names": ["sq", "sq."]
- },
- {"category": "",
-  "mappings": {
-    "default": {
-      "default": "hectare"
-    }
-  },
-  "key": "ha",
-  "names": ["ha"]
- }
-]
-
+[{"locale":"en"},{"category":"","mappings":{"default":{"default":"dozen"}},"key":"doz","names":["doz","doz."]},{"category":"","mappings":{"default":{"default":"square"}},"key":"sq","names":["sq","sq."]},{"category":"","mappings":{"default":{"default":"hectare"}},"key":"ha","names":["ha"]}]

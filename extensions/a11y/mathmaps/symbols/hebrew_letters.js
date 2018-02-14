@@ -1,7 +1,7 @@
 /*
  *  ../../../..//extensions/a11y/mathmaps/symbols/hebrew_letters.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,49 +16,4 @@
  *  limitations under the License.
  */
 
-[
-  {
-    "category": "Lo",
-    "mappings": {
-      "default": {
-        "default": "alef symbol",
-        "alternative": "first transfinite cardinal",
-        "short": "alef"
-      }
-    },
-    "key": "2135"
-  },
-  {
-    "category": "Lo",
-    "mappings": {
-      "default": {
-        "default": "bet symbol",
-        "alternative": "second transfinite cardinal",
-        "short": "bet"
-      }
-    },
-    "key": "2136"
-  },
-  {
-    "category": "Lo",
-    "mappings": {
-      "default": {
-        "default": "gimel symbol",
-        "alternative": "third transfinite cardinal",
-        "short": "gimel"
-      }
-    },
-    "key": "2137"
-  },
-  {
-    "category": "Lo",
-    "mappings": {
-      "default": {
-        "default": "dalet symbol",
-        "alternative": "fourth transfinite cardinal",
-        "short": "dalet"
-      }
-    },
-    "key": "2138"
-  }
-]
+[{"locale":"en"},{"category":"Lo","mappings":{"default":{"default":"alef symbol","alternative":"first transfinite cardinal","short":"alef"}},"key":"2135"},{"category":"Lo","mappings":{"default":{"default":"bet symbol","alternative":"second transfinite cardinal","short":"bet"}},"key":"2136"},{"category":"Lo","mappings":{"default":{"default":"gimel symbol","alternative":"third transfinite cardinal","short":"gimel"}},"key":"2137"},{"category":"Lo","mappings":{"default":{"default":"dalet symbol","alternative":"fourth transfinite cardinal","short":"dalet"}},"key":"2138"}]

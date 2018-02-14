@@ -1,7 +1,7 @@
 /*
  *  ../../../..//extensions/a11y/mathmaps/units/length.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,87 +16,4 @@
  *  limitations under the License.
  */
 
-[
-  {"category": "Length",
-   "mappings": {
-     "default": {
-       "default": "millimeters"
-     }
-   },
-   "key": "mm",
-   "names": ["mm"]
-  },
-  {"category": "Length",
-   "mappings": {
-     "default": {
-       "default": "centimeters"
-     }
-   },
-   "key": "cm",
-   "names": ["cm"]
-  },
-  {"category": "Length",
-   "mappings": {
-     "default": {
-       "default": "meters"
-     }
-   },
-   "key": "m",
-   "names": ["m"]
-  },
-  {"category": "Length",
-   "mappings": {
-     "default": {
-       "default": "kilometers"
-     }
-   },
-   "key": "km",
-   "names": ["km"]
-  },
-  {"category": "Length",
-   "mappings": {
-     "default": {
-       "default": "feet"
-     }
-   },
-   "key": "ft",
-   "names": ["ft", "ft."]
-  },
-  {"category": "Length",
-   "mappings": {
-     "default": {
-       "default": "inches"
-     }
-   },
-   "key": "in",
-   "names": ["in", "in."]
-  },
-  {"category": "Length",
-   "mappings": {
-     "default": {
-       "default": "miles"
-     }
-   },
-   "key": "mi",
-   "names": ["mi", "mi."]
-  },
-  {"category": "Length",
-   "mappings": {
-     "default": {
-       "default": "yards"
-     }
-   },
-   "key": "yd",
-   "names": ["yd", "yd."]
-  },
-  {"category": "",
-   "mappings": {
-     "default": {
-       "default": "nautical miles"
-     }
-   },
-   "key": "n.m.",
-   "names": ["n.m."]
-  }
-]
-
+[{"locale":"en"},{"category":"Length","mappings":{"default":{"default":"millimeters"}},"key":"mm","names":["mm"]},{"category":"Length","mappings":{"default":{"default":"centimeters"}},"key":"cm","names":["cm"]},{"category":"Length","mappings":{"default":{"default":"meters"}},"key":"m","names":["m"]},{"category":"Length","mappings":{"default":{"default":"kilometers"}},"key":"km","names":["km"]},{"category":"Length","mappings":{"default":{"default":"feet"}},"key":"ft","names":["ft","ft."]},{"category":"Length","mappings":{"default":{"default":"inches"}},"key":"in","names":["in","in."]},{"category":"Length","mappings":{"default":{"default":"miles"}},"key":"mi","names":["mi","mi."]},{"category":"Length","mappings":{"default":{"default":"yards"}},"key":"yd","names":["yd","yd."]},{"category":"","mappings":{"default":{"default":"nautical miles"}},"key":"n.m.","names":["n.m."]}]

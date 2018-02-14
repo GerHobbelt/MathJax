@@ -1,7 +1,7 @@
 /*
  *  ../../../..//extensions/a11y/mathmaps/units/weight.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,78 +16,4 @@
  *  limitations under the License.
  */
 
-[
-  {"category": "",
-   "mappings": {
-     "default": {
-       "default": "pounds"
-     }
-   },
-   "key": "lb",
-   "names": ["lb", "lb."]
-  },
-  {"category": "",
-   "mappings": {
-     "default": {
-       "default": "long tons"
-     }
-   },
-   "key": "LT",
-   "names": ["LT", "L.T."]
-  },
-  {"category": "",
-   "mappings": {
-     "default": {
-       "default": "ounces"
-     }
-   },
-   "key": "oz",
-   "names": ["oz", "oz."]
-  },
-  {"category": "",
-   "mappings": {
-     "default": {
-       "default": "grams"
-     }
-   },
-   "key": "gr",
-   "names": ["g", "gr"]
-  },
-  {"category": "",
-   "mappings": {
-     "default": {
-       "default": "kilograms"
-     }
-   },
-   "key": "kg",
-   "names": ["kg"]
-  },
-  {"category": "",
-   "mappings": {
-     "default": {
-       "default": "micrograms"
-     }
-   },
-   "key": "mcg",
-   "names": ["mg", "µg"]
-  },
-  {"category": "",
-   "mappings": {
-     "default": {
-       "default": "milligrams"
-     }
-   },
-   "key": "mg",
-   "names": ["mg"]
-  },
-  {"category": "",
-   "mappings": {
-     "default": {
-       "default": "tons"
-     }
-   },
-   "key": "t",
-   "names": ["t", "T"]
-  }
-]
-
+[{"locale":"en"},{"category":"","mappings":{"default":{"default":"pounds"}},"key":"lb","names":["lb","lb."]},{"category":"","mappings":{"default":{"default":"long tons"}},"key":"LT","names":["LT","L.T."]},{"category":"","mappings":{"default":{"default":"ounces"}},"key":"oz","names":["oz","oz."]},{"category":"","mappings":{"default":{"default":"grams"}},"key":"gr","names":["g","gr"]},{"category":"","mappings":{"default":{"default":"kilograms"}},"key":"kg","names":["kg"]},{"category":"","mappings":{"default":{"default":"micrograms"}},"key":"mcg","names":["mg","µg"]},{"category":"","mappings":{"default":{"default":"milligrams"}},"key":"mg","names":["mg"]},{"category":"","mappings":{"default":{"default":"tons"}},"key":"t","names":["t","T"]}]
