@@ -39,7 +39,8 @@ MathJax.Ajax.Preloading(
 );
 
 MathJax.Hub.Config({
-  extensions: ['[a11y]/accessibility-menu.js']
+  extensions: ['[a11y]/accessibility-menu.js'],
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
 });
 
 /* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
