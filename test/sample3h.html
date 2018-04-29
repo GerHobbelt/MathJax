@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MathJax Test Page</title>
+<!-- Copyright (c) 2009-2017 The MathJax Consortium -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="bootstrap4/css/bootstrap.css">
+
+<script type="text/x-mathjax-config">
+  //MathJax.Ajax.timeout = 13*1000;   // timeout for loading of files (15 seconds)
+  MathJax.Ajax.config.path.Contrib = "../../mathjax-third-party-extensions";
+
+  MathJax.Hub.Config({
+    //config: ["MMLorHTML.js"],
+    extensions: [
+      "tex2jax.js", 
+      "mml2jax.js", 
+      "asciimath2jax.js",
+      //"CHTML-preview.js", 
+      //"fast-preview.js", 
+      "FontWarnings.js", 
+      "MatchWebFonts.js",
+      "[Contrib]/longdiv/unpacked/longdiv.js",
+      "[Contrib]/counters/counters.js",
+    ],
+    //jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/HTML-CSS", "output/PreviewHTML", "output/SVG", "output/PlainSource" ],
+    jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/SVG" ],
+    tex2jax: { 
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true,
+      processEnvironments: true,
+    },
+    TeX: {
+      extensions: [
+        "AMSmath.js", 
+        "AMSsymbols.js", 
+        "bbox.js", 
+        "begingroup.js", 
+        "cancel.js", 
+        "color.js", 
+        "enclose.js", 
+        "extpfeil.js", 
+        "mathchoice.js", 
+        "mediawiki-texvc.js", 
+        "newcommand.js", 
+        "noErrors.js", 
+        "noUndefined.js",
+        "unicode.js", 
+        "verb.js", 
+      ],
+      equationNumbers: {autoNumber: "AMS"}, 
+    },
+    showProcessingMessages: true,
+    showMathMenu: true,
+    menuSettings: {
+      assistiveMML: false,    // do not produce any 'assistive' MathML-within-SPAN
+      FastPreview: false,     // do not produce a preview SPAN
+    },
+    CommonHTML: {
+      font: "Gyre-Pagella",
+    },
+    "HTML-CSS": {
+      preferredFont: "Gyre-Pagella",
+      linebreaks: { 
+        automatic: true, 
+        width: "container",
+      },
+      EqnChunkDelay: 1,
+      noReflows: false,
+    },
+    SVG: {
+      font: "Gyre-Pagella",
+    },
+    errorSettings: { 
+      // message: ["[Math Error]"], 
+    }    
+  });
+</script>
+
+<style>
+body {
+  max-width: 70em;
+  margin: 0 auto;
+}
+h1 {
+  text-align:center;
+}
+h2 {
+  font-weight: bold;
+  background-color: #DDDDDD;
+  padding: .2em .5em;
+  margin-top: 1.5em;
+  border-top: 3px solid #666666;
+  border-bottom: 2px solid #999999;
+}
+h3 {
+  padding-top: 2em;
+  padding-bottom: 1em;
+}
+blockquote {
+  border: 1px solid #ccdee3;
+  padding: .25em 1em;
+  margin: 2em 5em;
+  background-color: #e9f7fb;
+}
+blockquote blockquote {
+  border: 1px solid #ccdee3;
+  padding: .25em 1em;
+  margin: 2em 1em 2em 1em;
+  background-color: #f8fbfb;
+}
+def {
+  font-weight: 500;
+  font-style: italic;
+}
+
+@media print { 
+body {
+  margin: 1in .7in 1in 1.4in;
+  max-width: 100%;
+}
+blockquote {
+  page-break-before: avoid;
+  page-break-inside: auto;
+  margin: 1em 1em;
+}
+}
+</style>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () { 
+    var TEX = MathJax.InputJax.TeX; 
+    var PREFILTER = TEX.prefilterMath; 
+    TEX.Augment({ 
+      prefilterMath: function (math, displaymode, script) { 
+        console.log("TeX rendering Math:", {math, displaymode, script});
+        //math = "\\displaystyle{" + math + "}"; 
+        //math = "\\mathsf{" + math + "}"; 
+        return PREFILTER.call(TEX, math, displaymode, script); 
+      } 
+    }); 
+
+    var AM = MathJax.InputJax.AsciiMath; 
+    var AMPREFILTER = AM.prefilterMath; 
+    AM.Augment({ 
+      prefilterMath: function (math, displaymode, script) { 
+        console.log("AsciiMath rendering Math:", {math, displaymode, script});
+        return AMPREFILTER.call(AM, math, displaymode, script); 
+      } 
+    }); 
+  }); 
+</script> 
+<!-- 
+  WARNING:
+
+MathJax.js script must load AFTER ALL text/x-mathjax-config SCRIPTS have been defined
+as those scripts won't otherwise be detected by MathJax (ConfigBlocks() internal call)
+on startup as the init code is executed immeditately once the MathJax script has loaded!
+-->
+<script type="text/javascript" src="../MathJax.js"></script>
+</head>
+<body>
+
+<noscript>
+<div style="color:#CC0000; text-align:center">
+<b>Warning: <a href="http://www.mathjax.org/">MathJax</a>
+requires JavaScript to process the mathematics on this page.<br />
+If your browser supports JavaScript, be sure it is enabled.</b>
+</div>
+<hr>
+</noscript>
+
+<h1>Sample MathJax Symbol Equations</h1>
+
+
+
+
+<h2>LaTeX Symbols</h2>
+
+<ul>
+  <li>https://www.ctan.org/pkg/comprehensive
+<li>https://github.com/github/markup/issues/897
+<li>https://docsify.js.org/#/
+  <li>https://github.com/cben/mathdown/wiki/math-in-markdown
+    <li>https://marketplace.visualstudio.com/items?itemName=goessner.mdmath
+      <li>https://www.ctan.org/tex-archive/macros/latex/contrib/semantic
+        <li>https://github.com/gajus/usus#using-via-the-command-line-interface-cli
+
+
+</ul>
+
+
+<p>
+
+\[ a w b c d e \]
+\[ a \Walley b c d e \]
+\[ a \warning b c d e \]
+\[ a \WashCotton b c d e \]
+\[ a \WashSynthetics b c d e \]
+\[ a \WashWool b c d e \]
+\[ a \wasylozenge b c d e \]
+\[ a \wasypropto b c d e \]
+\[ a \wasytherefore b c d e \]
+\[ a \water b c d e \]
+\[ a \Water b c d e \]
+\[ a \wbetter b c d e \]
+\[ a \Wboson b c d e \]
+\[ a \Wbosonminus b c d e \]
+\[ a \Wbosonplus b c d e \]
+\[ a \wdecisive b c d e \]
+\[ a \weakpt b c d e \]
+\[ a \WeakRain b c d e \]
+\[ a \WeakRainCloud b c d e \]
+\[ a \Wecker b c d e \]
+\[ a \wedge b c d e \]
+\[ a \Wedge b c d e \]
+\[ a \wedgebar b c d e \]
+\[ a \wedgedot b c d e \]
+\[ a \wedgedoublebar b c d e \]
+\[ a \wedgemidvert b c d e \]
+\[ a \wedgeodot b c d e \]
+\[ a \wedgeonwedge b c d e \]
+\[ a \wedgeq b c d e \]
+\[ a \westcross b c d e \]
+\[ a \wfermion b c d e \]
+\[ a \Wheelchair b c d e \]
+\[ a \whfermion b c d e \]
+\[ a \whistle b c d e \]
+\[ a \white b c d e \]
+\[ a \whitearrowupfrombar b c d e \]
+\[ a \whitearrowuppedestal b c d e \]
+\[ a \whitearrowuppedestalhbar b c d e \]
+\[ a \whitearrowuppedestalvbar b c d e \]
+\[ a \WhiteBishopOnBlack b c d e \]
+\[ a \WhiteBishopOnWhite b c d e \]
+\[ a \whiteblackspoon b c d e \]
+\[ a \WhiteEmptySquare b c d e \]
+\[ a \whiteinwhitetriangle b c d e \]
+\[ a \WhiteKingOnBlack b c d e \]
+\[ a \WhiteKingOnWhite b c d e \]
+\[ a \WhiteKnightOnBlack b c d e \]
+\[ a \WhiteKnightOnWhite b c d e \]
+\[ a \WhitePawnOnBlack b c d e \]
+\[ a \WhitePawnOnWhite b c d e \]
+\[ a \whitepointerleft b c d e \]
+\[ a \whitepointerright b c d e \]
+\[ a \WhiteQueenOnBlack b c d e \]
+\[ a \WhiteQueenOnWhite b c d e \]
+\[ a \WhiteRookOnBlack b c d e \]
+\[ a \WhiteRookOnWhite b c d e \]
+\[ a \whitesquaretickleft b c d e \]
+\[ a \whitesquaretickright b c d e \]
+\[ a \whitestone b c d e \]
+\[ a \wholeNote b c d e \]
+\[ a \wholeNoteDotted b c d e \]
+\[ a \wholeNoteRest b c d e \]
+\[ a \wholeNoteRestDotted b c d e \]
+\[ a \wholeof b c d e \]
+\[ a \whthorzoval b c d e \]
+\[ a \whtvertoval b c d e \]
+\[ a \wideangledown b c d e \]
+\[ a \wideangleup b c d e \]
+\[ a \widearc b c d e \]
+\[ a \widearrow b c d e \]
+\[ a \widebar b c d e \]
+\[ a \widebridgeabove b c d e \]
+\[ a \widecheck b c d e \]
+\[ a \widehat b c d e \]
+\[ a \wideOarc b c d e \]
+\[ a \wideparen b c d e \]
+\[ a \widering b c d e \]
+\[ a \widetilde b c d e \]
+\[ a \widetriangle b c d e \]
+\[ a \wind b c d e \]
+\[ a \Winkey b c d e \]
+\[ a \wInnocey b c d e \]
+\[ a \Wintertree b c d e \]
+\[ a \with b c d e \]
+\[ a \withattack b c d e \]
+\[ a \withidea b c d e \]
+\[ a \withinit b c d e \]
+\[ a \without b c d e \]
+\[ a \wn b c d e \]
+\[ a \WomanFace b c d e \]
+\[ a \WorstTree b c d e \]
+\[ a \wp b c d e \]
+\[ a \wq b c d e \]
+\[ a \wqq b c d e \]
+\[ a \wr b c d e \]
+\[ a \wreath b c d e \]
+\[ a \WritingHand b c d e \]
+\[ a \wupperhand b c d e \]
+\[ a \x b c d e \]
+\[ a \XBox b c d e \]
+\[ a \xbsol b c d e \]
+\[ a \Xey b c d e \]
+\[ a \xhookleftarrow b c d e \]
+\[ a \xhookrightarrow b c d e \]
+\[ a \xi b c d e \]
+\[ a \Xi b c d e \]
+\[ a \xiup b c d e \]
+\[ a \xleftarrow b c d e \]
+\[ a \xLeftarrow b c d e \]
+\[ a \xleftharpoondown b c d e \]
+\[ a \xleftharpoonup b c d e \]
+\[ a \xleftrightarrow b c d e \]
+\[ a \xLeftrightarrow b c d e \]
+\[ a \xleftrightharpoons b c d e \]
+\[ a \xleftswishingghost b c d e \]
+\[ a \xleftwitchonbroom b c d e \]
+\[ a \xleftwitchonbroom* b c d e \]
+\[ a \xlongequal b c d e \]
+\[ a \xlongleftarrow b c d e \]
+\[ a \xLongleftarrow b c d e \]
+\[ a \xlongleftrightarrow b c d e \]
+\[ a \xLongleftrightarrow b c d e \]
+\[ a \xlongrightarrow b c d e \]
+\[ a \xLongrightarrow b c d e \]
+\[ a \xmapsto b c d e \]
+\[ a \XQ b c d e \]
+\[ a \xrightarrow b c d e \]
+\[ a \xRightarrow b c d e \]
+\[ a \xrightharpoondown b c d e \]
+\[ a \xrightharpoonup b c d e \]
+\[ a \xrightleftharpoons b c d e \]
+\[ a \xrightswishingghost b c d e \]
+\[ a \xrightwitchonbroom b c d e \]
+\[ a \xrightwitchonbroom* b c d e \]
+\[ a \xsol b c d e \]
+\[ a \XSolid b c d e \]
+\[ a \XSolidBold b c d e \]
+\[ a \XSolidBrush b c d e \]
+\[ a \xswordsdown b c d e \]
+\[ a \xswordsup b c d e \]
+\[ a \xtofrom b c d e \]
+\[ a \xtwoheadleftarrow b c d e \]
+\[ a \xtwoheadrightarrow b c d e \]
+\[ a \Ydown b c d e \]
+\[ a \yen b c d e \]
+\[ a \yinyang b c d e \]
+\[ a \Yinyang b c d e \]
+\[ a \Yleft b c d e \]
+\[ a \yogh b c d e \]
+\[ a \Yright b c d e \]
+\[ a \Yup b c d e \]
+\[ a \ZA b c d e \]
+\[ a \ZB b c d e \]
+\[ a \Zbar b c d e \]
+\[ a \Zborder b c d e \]
+\[ a \Zboson b c d e \]
+\[ a \ZC b c d e \]
+\[ a \zcmp b c d e \]
+\[ a \ZD b c d e \]
+\[ a \ZE b c d e \]
+\[ a \zeta b c d e \]
+\[ a \Zeta b c d e \]
+\[ a \zetaup b c d e \]
+\[ a \Zeus b c d e \]
+\[ a \ZF b c d e \]
+\[ a \ZG b c d e \]
+\[ a \ZH b c d e \]
+\[ a \ZI b c d e \]
+\[ a \ZJ b c d e \]
+\[ a \ZK b c d e \]
+\[ a \ZL b c d e \]
+\[ a \ZM b c d e \]
+\[ a \ZN b c d e \]
+\[ a \ZO b c d e \]
+\[ a \Zodiac b c d e \]
+\[ a \ZP b c d e \]
+\[ a \zpipe b c d e \]
+\[ a \zproject b c d e \]
+\[ a \ZQ b c d e \]
+\[ a \ZR b c d e \]
+\[ a \ZS b c d e \]
+\[ a \ZT b c d e \]
+\[ a \ztransf b c d e \]
+\[ a \Ztransf b c d e \]
+\[ a \ZU b c d e \]
+\[ a \zugzwang b c d e \]
+\[ a \ZV b c d e \]
+\[ a \ZW b c d e \]
+\[ a \Zwdr b c d e \]
+\[ a \ZwPa b c d e \]
+\[ a \ZX b c d e \]
+\[ a \ZY b c d e \]
+\[ a \ZZ b c d e \]
+
+
+</body>
+</html>
