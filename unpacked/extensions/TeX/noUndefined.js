@@ -7,7 +7,7 @@
  *  
  *  This causes undefined control sequences to be shown as their macro
  *  names rather than producing an error message.  So $X_{\xxx}$ would
- *  display as an X with a subscript consiting of the text "\xxx".
+ *  display as an X with a subscript consisting of the text "\xxx".
  *  
  *  To configure this extension, use for example
  *  

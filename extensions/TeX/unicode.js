@@ -32,7 +32,7 @@
  *      \unicode{65}                        % the character 'A'
  *      \unicode{x41}                       % the character 'A'
  *      \unicode[.55,0.05]{x22D6}           % less-than with dot, with height .55 and depth 0.05
- *      \unicode[.55,0.05][Geramond]{x22D6} % same taken from Geramond font
+ *      \unicode[.55,0.05][Garamond]{x22D6} % same taken from Garamond font
  *      \unicode[Garamond]{x22D6}           % same, but with default height, depth of .8,.2
  *
  *  Once a size and font are provided for a given code point, they need
