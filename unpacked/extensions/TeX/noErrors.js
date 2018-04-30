@@ -167,7 +167,7 @@
     MML.merror.Augment({
       toHTML: function (span) {
         if (!this.isError) {return MERROR.apply(this,arguments)}
-        span = this.HTMLcreateSpan(span); span.className = "noError"
+        span = this.HTMLcreateSpan(span); span.className = "noError";
         if (this.multiLine) {span.style.display = "inline-block"}
         var text = this.data[0].data[0].data.join("").split(/\n/);
         for (var i = 0, m = text.length; i < m; i++) {
@@ -217,8 +217,11 @@
     MML.math.Augment({
       toSVG: function (span,node) {
         var data = this.data[0];
-        if (data && data.data[0] && data.data[0].isError)
-          {span = data.data[0].toSVG(span)} else {span = MATH.apply(this,arguments)}
+        if (data && data.data[0] && data.data[0].isError) {
+          span = data.data[0].toSVG(span);
+        } else {
+          span = MATH.apply(this,arguments);
+        }
         return span;
       }
     });
