@@ -2255,20 +2255,20 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
 /*************************************************************
  *
  *  MathJax/extensions/MathZoom.js
- *  
+ *
  *  Implements the zoom feature for enlarging math expressions.  It is
  *  loaded automatically when the Zoom menu selection changes from "None".
  *
  *  ---------------------------------------------------------------------
- *  
+ *
  *  Copyright (c) 2010-2018 The MathJax Consortium
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2278,7 +2278,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
 
 (function (HUB,HTML,AJAX,HTMLCSS,nMML) {
   var VERSION = "2.7.4";
-  
+
   var CONFIG = HUB.CombineConfig("MathZoom",{
     styles: {
       //
@@ -2300,7 +2300,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
         "-khtml-box-shadow":"5px 5px 15px #AAAAAA",  // Konqueror
         filter: "progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')" // IE
       },
-      
+
       //
       //  The styles for the hidden overlay (should not need to be adjusted by the page author)
       //
@@ -2309,12 +2309,12 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
         width:"100%", height:"100%", border:0, padding:0, margin:0,
         "background-color":"white", opacity:0, filter:"alpha(opacity=0)"
       },
-      
+
       "#MathJax_ZoomFrame": {
         position:"relative", display:"inline-block",
         height:0, width:0
       },
-      
+
       "#MathJax_ZoomEventTrap": {
         position:"absolute", left:0, top:0, "z-index":302,
         display:"inline-block", border:0, padding:0, margin:0,
@@ -2322,7 +2322,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
       }
     }
   });
-  
+
   var FALSE, HOVER, EVENT;
   MathJax.Hub.Register.StartupHook("MathEvents Ready",function () {
     EVENT = MathJax.Extension.MathEvents.Event;
@@ -2348,21 +2348,21 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
       if (!ZOOM[type]) return true;
       return ZOOM[type](event,math);
     },
-    
+
     //
     //  Zoom on click
     //
     Click: function (event,math) {
       if (this.settings.zoom === "Click") {return this.Zoom(event,math)}
     },
-    
+
     //
     //  Zoom on double click
     //
     DblClick: function (event,math) {
       if (this.settings.zoom === "Double-Click" || this.settings.zoom === "DoubleClick") {return this.Zoom(event,math)}
     },
-    
+
     //
     //  Zoom on hover (called by MathEvents.Hover)
     //
@@ -2370,8 +2370,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
       if (this.settings.zoom === "Hover") {this.Zoom(event,math); return true}
       return false;
     },
-    
-    
+
+
     //
     //  Handle the actual zooming
     //
@@ -2432,12 +2432,12 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
       }
 
       var bbox = JAX.Zoom(jax,span,math,Mw,Mh);
-      
+
       //
       //  Fix up size and position for browsers with bugs (IE)
       //
       if (this.msiePositionBug) {
-        if (this.msieSizeBug) 
+        if (this.msieSizeBug)
           {zoom.style.height = bbox.zH+"px"; zoom.style.width = bbox.zW+"px"} // IE8 gets the dimensions completely wrong
         if (zoom.offsetHeight > Mh) {zoom.style.height = Mh+"px"; zoom.style.width = (bbox.zW+this.scrollSize)+"px"}  // IE doesn't do max-height?
         if (zoom.offsetWidth  > Mw) {zoom.style.width  = Mw+"px"; zoom.style.height = (bbox.zH+this.scrollSize)+"px"}
@@ -2460,18 +2460,18 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
       if (window.addEventListener) {addEventListener("resize",this.Resize,false)}
       else if (window.attachEvent) {attachEvent("onresize",this.Resize)}
       else {this.onresize = window.onresize; window.onresize = this.Resize}
-      
+
       //
       //  Let others know about the zoomed math
       //
       HUB.signal.Post(["math zoomed",jax]);
-      
+
       //
       //  Canel further actions
       //
       return FALSE(event);
     },
-    
+
     //
     //  Set the position of the zoom box and overlay
     //
@@ -2483,7 +2483,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
       zoom.style.left = Math.max(dx,10-x)+"px"; zoom.style.top = Math.max(dy,10-y)+"px";
       if (!ZOOM.msiePositionBug) {ZOOM.SetWH()} // refigure overlay width/height
     },
-    
+
     //
     //  Handle resizing of overlay while zoom is displayed
     //
@@ -2530,7 +2530,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
       function (obj) {return (obj.currentStyle||{overflow:"visible"}).overflow}),
     getBorder: function (obj) {
       var size = {thin: 1, medium: 2, thick: 3};
-      var style = (window.getComputedStyle ? getComputedStyle(obj) : 
+      var style = (window.getComputedStyle ? getComputedStyle(obj) :
                      (obj.currentStyle || {borderLeftWidth:0,borderTopWidth:0}));
       var x = style.borderLeftWidth, y = style.borderTopWidth;
       if (size[x]) {x = size[x]} else {x = parseInt(x)}
@@ -2548,7 +2548,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
       if (ZOOM.operaPositionBug) {div.style.border = ""}
       return {x:x, y:y};
     },
-    
+
     //
     //  Remove zoom display and event handlers
     //
@@ -2562,8 +2562,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
         div = document.getElementById("MathJax_ZoomTracker");
         if (div) {div.parentNode.removeChild(div)}
         if (ZOOM.operaRefreshBug) {
-	  // force a redisplay of the page
-	  // (Opera doesn't refresh properly after the zoom is removed)
+          // force a redisplay of the page
+          // (Opera doesn't refresh properly after the zoom is removed)
           var overlay = HTML.addElement(document.body,"div",{
             style:{position:"fixed", left:0, top:0, width:"100%", height:"100%",
                    backgroundColor:"white", opacity:0},
@@ -2577,10 +2577,10 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
       }
       return FALSE(event);
     }
-    
+
   };
-  
-  
+
+
   /*************************************************************/
 
   HUB.Browser.Select({
@@ -2596,13 +2596,13 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
       if (document.compatMode === "BackCompat") {ZOOM.scrollSize = 52} // don't know why this is so far off
       if (isIE9) {delete CONFIG.styles["#MathJax_Zoom"].filter}
     },
-    
+
     Opera: function (browser) {
       ZOOM.operaPositionBug = true;
       ZOOM.operaRefreshBug = true;
     }
   });
-  
+
   ZOOM.topImg = (ZOOM.msieInlineBlockAlignBug ?
     HTML.Element("img",{style:{width:0,height:0,position:"relative"},src:"about:blank"}) :
     HTML.Element("span",{style:{width:0,height:0,display:"inline-block"}})
@@ -6840,21 +6840,21 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
 /*************************************************************
  *
  *  MathJax/jax/input/TeX/jax.js
- *  
+ *
  *  Implements the TeX InputJax that reads mathematics in
  *  TeX and LaTeX format and converts it to the MML ElementJax
  *  internal format.
  *
  *  ---------------------------------------------------------------------
- *  
+ *
  *  Copyright (c) 2009-2018 The MathJax Consortium
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -6863,13 +6863,13 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
  */
 
 (function (TEX,HUB,AJAX) {
-  var MML, NBSP = "\u00A0"; 
-  
+  var MML, NBSP = "\u00A0";
+
   var _ = function (id) {
     return MathJax.Localization._.apply(MathJax.Localization,
       [["TeX", id]].concat([].slice.call(arguments,1)));
   };
-  
+
   var isArray = MathJax.Object.isArray;
 
   var STACK = MathJax.Object.Subclass({
@@ -6917,7 +6917,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
     },
     toString: function () {return "stack[\n  "+this.data.join("\n  ")+"\n]"}
   });
-  
+
   var STACKITEM = STACK.Item = MathJax.Object.Subclass({
     type: "base",
     endError:   /*_()*/ ["ExtraOpenMissingClose","Extra open brace or missing close brace"],
@@ -6987,13 +6987,13 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
   STACKITEM.prime = STACKITEM.Subclass({
     type: "prime",
     checkItem: function (item) {
-      if (this.data[0].type !== "msubsup") 
+      if (this.data[0].type !== "msubsup")
         {return [MML.msup(this.data[0],this.data[1]),item]}
       this.data[0].SetData(this.data[0].sup,this.data[1]);
       return [this.data[0],item];
     }
   });
-  
+
   STACKITEM.subsup = STACKITEM.Subclass({
     type: "subsup",
     stopError: /*_()*/ ["MissingScript","Missing superscript or subscript argument"],
@@ -7063,7 +7063,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       return this.SUPER(arguments).checkItem.call(this,item);
     }
   });
-  
+
   STACKITEM.end = STACKITEM.Subclass({
     type: "end", isClose: true
   });
@@ -7076,7 +7076,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       return [STACKITEM.mml(mml),item];
     }
   });
-  
+
   STACKITEM.position = STACKITEM.Subclass({
     type: "position",
     checkItem: function (item) {
@@ -7094,7 +7094,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       return this.SUPER(arguments).checkItem.call(this,item);
     }
   });
-  
+
   STACKITEM.array = STACKITEM.Subclass({
     type: "array", isOpen: true, copyEnv: false, arraydef: {},
     Init: function () {
@@ -7169,7 +7169,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       for (var id in this.env) {if (this.env.hasOwnProperty(id)) {delete this.env[id]}}
     }
   });
-  
+
   STACKITEM.cell = STACKITEM.Subclass({
     type: "cell", isClose: true
   });
@@ -7178,7 +7178,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
     type: "mml", isNotStack: true,
     Add: function () {this.data.push.apply(this.data,arguments); return this}
   });
-  
+
   STACKITEM.fn = STACKITEM.Subclass({
     type: "fn",
     checkItem: function (item) {
@@ -7195,7 +7195,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       return this.SUPER(arguments).checkItem.apply(this,arguments);
     }
   });
-  
+
   STACKITEM.not = STACKITEM.Subclass({
     type: "not",
     checkItem: function (item) {
@@ -7230,7 +7230,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
     0x2291:0x22E2, 0x2292:0x22E3, 0x22B2:0x22EA, 0x22B3:0x22EB,
     0x22B4:0x22EC, 0x22B5:0x22ED, 0x2203:0x2204
   };
-  
+
   STACKITEM.dots = STACKITEM.Subclass({
     type: "dots",
     checkItem: function (item) {
@@ -7243,7 +7243,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       return [dots,item];
     }
   });
-  
+
 
   var TEXDEF = {
     //
@@ -7253,7 +7253,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       if (!dst) {dst = this}
       for (var id in src) {if (src.hasOwnProperty(id)) {
         if (typeof src[id] === 'object' && !isArray(src[id]) &&
-           (typeof dst[id] === 'object' || typeof dst[id] === 'function')) 
+           (typeof dst[id] === 'object' || typeof dst[id] === 'function'))
              {this.Add(src[id],dst[id],src[id],nouser)}
           else if (!dst[id] || !dst[id].isUser || !nouser) {dst[id] = src[id]}
       }}
@@ -7263,12 +7263,12 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
   var STARTUP = function () {
     MML = MathJax.ElementJax.mml;
     HUB.Insert(TEXDEF,{
-  
+
       // patterns for letters and numbers
       letter:  /[a-z]/i,
       digit:   /[0-9.]/,
       number:  /^(?:[0-9]+(?:\{,\}[0-9]{3})*(?:\.[0-9]*)*|\.[0-9]+)/,
-    
+
       special: {
         '\\':  'ControlSequence',
         '{':   'Open',
@@ -7287,13 +7287,13 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         '\u00A0': 'Space',
         '\u2019': 'Prime'
       },
-      
+
       remap: {
         '-':   '2212',
         '*':   '2217',
         '`':   '2018'   // map ` to back quote
       },
-    
+
       mathchar0mi: {
         // Lower-case greek
         alpha:        '03B1',
@@ -7326,7 +7326,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         varrho:       '03F1',
         varsigma:     '03C2',
         varphi:       '03C6',
-        
+
         // Ord symbols
         S:            ['00A7',{mathvariant: MML.VARIANT.NORMAL}],
         aleph:        ['2135',{mathvariant: MML.VARIANT.NORMAL}],
@@ -7359,7 +7359,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         heartsuit:    ['2661',{mathvariant: MML.VARIANT.NORMAL}],
         spadesuit:    ['2660',{mathvariant: MML.VARIANT.NORMAL}]
       },
-        
+
       mathchar0mo: {
         surd:         '221A',
 
@@ -7382,7 +7382,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         oint:         ['222E',{texClass: MML.TEXCLASS.OP}],
         bigsqcup:     ['2A06',{texClass: MML.TEXCLASS.OP, movesupsub:true}],
         smallint:     ['222B',{largeop:false}],
-        
+
         // binary operations
         triangleleft:      '25C3',
         triangleright:     '25B9',
@@ -7418,7 +7418,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         ast:          '2217',
         times:        '00D7',
         star:         '22C6',
-        
+
         // Relations
         propto:       '221D',
         sqsubseteq:   '2291',
@@ -7461,10 +7461,10 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         doteq:        '2250',
         bowtie:       '22C8',
         models:       '22A8',
-        
+
         notChar:      '29F8',
-        
-        
+
+
         // Arrows
         Leftrightarrow:     '21D4',
         Leftarrow:          '21D0',
@@ -7493,8 +7493,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         Longleftrightarrow: '27FA',
         longleftrightarrow: '27F7',
         longmapsto:         '27FC',
-        
-        
+
+
         // Misc.
         ldots:            '2026',
         cdots:            '22EF',
@@ -7505,12 +7505,12 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         dotsm:            '22EF',  // dots with multiplication
         dotsi:            '22EF',  // dots with integrals
         dotso:            '2026',  // other dots
-        
+
         ldotp:            ['002E', {texClass: MML.TEXCLASS.PUNCT}],
         cdotp:            ['22C5', {texClass: MML.TEXCLASS.PUNCT}],
         colon:            ['003A', {texClass: MML.TEXCLASS.PUNCT}]
       },
-      
+
       mathchar7: {
         Gamma:        '0393',
         Delta:        '0394',
@@ -7523,7 +7523,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         Phi:          '03A6',
         Psi:          '03A8',
         Omega:        '03A9',
-        
+
         '_':          '005F',
         '#':          '0023',
         '$':          '0024',
@@ -7531,7 +7531,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         '&':          '0026',
         And:          '0026'
       },
-      
+
       delimiter: {
         '(':                '(',
         ')':                ')',
@@ -7575,13 +7575,13 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         '\\lbrack':         '[',
         '\\rbrack':         ']'
       },
-      
+
       macros: {
         displaystyle:      ['SetStyle','D',true,0],
         textstyle:         ['SetStyle','T',false,0],
         scriptstyle:       ['SetStyle','S',false,1],
         scriptscriptstyle: ['SetStyle','SS',false,2],
-        
+
         rm:                ['SetFont',MML.VARIANT.NORMAL],
         mit:               ['SetFont',MML.VARIANT.ITALIC],
         oldstyle:          ['SetFont',MML.VARIANT.OLDSTYLE],
@@ -7595,7 +7595,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         tt:                ['SetFont',MML.VARIANT.MONOSPACE],
 
 //      font:
-        
+
         tiny:              ['SetSize',0.5],
         Tiny:              ['SetSize',0.6],  // non-standard
         scriptsize:        ['SetSize',0.7],
@@ -7606,7 +7606,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         LARGE:             ['SetSize',1.73],
         huge:              ['SetSize',2.07],
         Huge:              ['SetSize',2.49],
-        
+
         arcsin:            ['NamedFn'],
         arccos:            ['NamedFn'],
         arctan:            ['NamedFn'],
@@ -7639,7 +7639,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         sup:                'NamedOp',
         tan:               ['NamedFn'],
         tanh:              ['NamedFn'],
-        
+
         limits:            ['Limits',1],
         nolimits:          ['Limits',0],
 
@@ -7659,7 +7659,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         overset:            'Overset',
         underset:           'Underset',
         stackrel:           ['Macro','\\mathrel{\\mathop{#2}\\limits^{#1}}',2],
-          
+
         over:               'Over',
         overwithdelims:     'Over',
         atop:               'Over',
@@ -7669,13 +7669,13 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         brace:             ['Over','{','}'],
         brack:             ['Over','[',']'],
         choose:            ['Over','(',')'],
-        
+
         frac:               'Frac',
         sqrt:               'Sqrt',
         root:               'Root',
         uproot:            ['MoveRoot','upRoot'],
         leftroot:          ['MoveRoot','leftRoot'],
-        
+
         left:               'LeftRight',
         right:              'LeftRight',
         middle:             'Middle',
@@ -7697,7 +7697,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         qquad:             ['Spacer',"2em"],
         thinspace:         ['Spacer',MML.LENGTH.THINMATHSPACE],
         negthinspace:      ['Spacer',MML.LENGTH.NEGATIVETHINMATHSPACE],
-    
+
         hskip:              'Hskip',
         hspace:             'Hskip',
         kern:               'Hskip',
@@ -7707,7 +7707,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         rule:               'rule',
         Rule:              ['Rule'],
         Space:             ['Rule','blank'],
-    
+
         big:               ['MakeBig',MML.TEXCLASS.ORD,0.85],
         Big:               ['MakeBig',MML.TEXCLASS.ORD,1.15],
         bigg:              ['MakeBig',MML.TEXCLASS.ORD,1.45],
@@ -7738,7 +7738,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
 
         mathchoice:        ['Extension','mathchoice'],
         buildrel:           'BuildRel',
-    
+
         hbox:               ['HBox',0],
         text:               'HBox',
         mbox:               ['HBox',0],
@@ -7750,7 +7750,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         vphantom:          ['Phantom',1,0],
         hphantom:          ['Phantom',0,1],
         smash:              'Smash',
-    
+
         acute:             ['Accent', "00B4"],  // or 0301 or 02CA
         grave:             ['Accent', "0060"],  // or 0300 or 02CB
         ddot:              ['Accent', "00A8"],  // or 0308
@@ -7814,7 +7814,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         dots:               'Dots',
         space:              'Tilde',
         '\u00A0':           'Tilde',
-        
+
 
         //  LaTeX
         begin:              'BeginEnd',
@@ -7826,11 +7826,11 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         renewenvironment:  ['Extension','newcommand'],
         def:               ['Extension','newcommand'],
         'let':             ['Extension','newcommand'],
-        
+
         verb:              ['Extension','verb'],
-        
+
         boldsymbol:        ['Extension','boldsymbol'],
-        
+
         tag:               ['Extension','AMSmath'],
         notag:             ['Extension','AMSmath'],
         label:             ['Extension','AMSmath'],
@@ -7841,19 +7841,19 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         //  Extensions to TeX
         unicode:           ['Extension','unicode'],
         color:              'Color',
-        
+
         href:              ['Extension','HTML'],
         'class':           ['Extension','HTML'],
         style:             ['Extension','HTML'],
         cssId:             ['Extension','HTML'],
         bbox:              ['Extension','bbox'],
-    
+
         mmlToken:           'MmlToken',
 
         require:            'Require'
 
       },
-      
+
       environment: {
         array:        ['AlignedArray'],
         matrix:       ['Array',null,null,null,'c'],
@@ -7883,11 +7883,11 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         'alignat*':   ['ExtensionEnv',null,'AMSmath'],
         alignedat:    ['ExtensionEnv',null,'AMSmath']
       },
-      
+
       p_height: 1.2 / .85   // cmex10 height plus depth over .85
 
     });
-    
+
     //
     //  Add macros defined in the configuration
     //
@@ -7900,7 +7900,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       }}
     }
   };
-  
+
   /************************************************************************/
   /*
    *   The TeX Parser
@@ -8016,19 +8016,19 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       if (this.stack.env.font) {mml.mathvariant = this.stack.env.font}
       this.Push(this.mmlToken(mml));
     },
-    
+
     /*
      *  Handle { and }
      */
     Open: function (c) {this.Push(STACKITEM.open())},
     Close: function (c) {this.Push(STACKITEM.close())},
-    
+
     /*
      *  Handle tilde and spaces
      */
     Tilde: function (c) {this.Push(MML.mtext(MML.chars(NBSP)))},
     Space: function (c) {},
-    
+
     /*
      *  Handle ^, _, and '
      */
@@ -8109,14 +8109,14 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       mo.useMMLspacing &= ~(mo.SPACE_ATTR.lspace | mo.SPACE_ATTR.rspace);  // don't count these explicit settings
       return mo;
     },
-    
+
     /*
      *  Handle comments
      */
     Comment: function (c) {
       while (this.i < this.string.length && this.string.charAt(this.i) != "\n") {this.i++}
     },
-    
+
     /*
      *  Handle hash marks outside of definitions
      */
@@ -8124,7 +8124,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       TEX.Error(["CantUseHash1",
                  "You can't use 'macro parameter character #' in math mode"]);
     },
-    
+
     /*
      *  Handle other characters (as <mo> elements)
      */
@@ -8142,12 +8142,12 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       if (mo.autoDefault("texClass",true) == "") {mo = MML.TeXAtom(mo)}
       this.Push(this.mmlToken(mo));
     },
-    
+
     /************************************************************************/
     /*
      *   Macros
      */
-    
+
     SetFont: function (name,font) {this.stack.env.font = font},
     SetStyle: function (name,texStyle,style,level) {
       this.stack.env.style = texStyle; this.stack.env.level = level;
@@ -8165,15 +8165,15 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       if (old) {this.stack.env.color} else {delete this.stack.env.color}
       this.Push(MML.mstyle(math).With({mathcolor: color}));
     },
-    
+
     Spacer: function (name,space) {
       this.Push(MML.mspace().With({width: space, mathsize: MML.SIZE.NORMAL, scriptlevel:0}));
     },
-    
+
     LeftRight: function (name) {
       this.Push(STACKITEM[name.substr(1)]().With({delim: this.GetDelimiter(name)}));
     },
-    
+
     Middle: function (name) {
       var delim = this.GetDelimiter(name);
       this.Push(MML.TeXAtom().With({texClass:MML.TEXCLASS.CLOSE}));
@@ -8182,7 +8182,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       this.Push(MML.mo(delim).With({stretchy:true}));
       this.Push(MML.TeXAtom().With({texClass:MML.TEXCLASS.OPEN}));
     },
-    
+
     NamedFn: function (name,id) {
       if (!id) {id = name.substr(1)};
       var mml = MML.mi(id).With({texClass: MML.TEXCLASS.OP});
@@ -8214,7 +8214,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       op.Core().movablelimits = false;
       if (op.movablelimits) op.movablelimits = false;
     },
-    
+
     Over: function (name,open,close) {
       var mml = STACKITEM.over().With({name: name});
       if (open || close) {
@@ -8270,7 +8270,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       if (n.substr(0,1) !== "-") {n = "+"+n}
       this.stack.global[id] = n;
     },
-    
+
     Accent: function (name,accent,stretchy) {
       var c = this.ParseArg(name);
       var def = {accent: true}; if (this.stack.env.font) {def.mathvariant = this.stack.env.font}
@@ -8280,7 +8280,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       if (mo.isa(MML.mo)) mo.movablelimits = false;
       this.Push(MML.TeXAtom(MML.munderover(c,null,mml).With({accent: true})));
     },
-    
+
     UnderOver: function (name,c,stack,noaccent) {
       var pos = {o: "over", u: "under"}[name.charAt(1)];
       var base = this.ParseArg(name);
@@ -8291,13 +8291,13 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       }
       var mml = MML.munderover(base,null,null);
       mml.SetData(
-        mml[pos], 
+        mml[pos],
         this.mmlToken(MML.mo(MML.entity("#x"+c)).With({stretchy:true, accent:!noaccent}))
       );
       if (stack) {mml = MML.TeXAtom(mml).With({texClass:MML.TEXCLASS.OP, movesupsub:true})}
       this.Push(mml.With({subsupOK:true}));
     },
-    
+
     Overset: function (name) {
       var top = this.ParseArg(name), base = this.ParseArg(name);
       base.movablelimits = false;
@@ -8308,7 +8308,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       base.movablelimits = false;
       this.Push(MML.munder(base,bot));
     },
-    
+
     TeXAtom: function (name,mclass) {
       var def = {texClass: mclass}, mml;
       if (mclass == MML.TEXCLASS.OP) {
@@ -8324,7 +8324,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       } else {mml = MML.TeXAtom(this.ParseArg(name)).With(def)}
       this.Push(mml);
     },
-    
+
     MmlToken: function (name) {
       var type = this.GetArgument(name),
           attr = this.GetBrackets(name,"").replace(/^\s+/,""),
@@ -8358,11 +8358,11 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       color:1, background:1,
       id:1, "class":1, href:1, style:1
     },
-    
+
     Strut: function (name) {
       this.Push(MML.mpadded(MML.mrow()).With({height: "8.6pt", depth: "3pt", width: 0}));
     },
-    
+
     Phantom: function (name,v,h) {
       var box = MML.mphantom(this.ParseArg(name));
       if (v || h) {
@@ -8372,7 +8372,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       }
       this.Push(MML.TeXAtom(box));
     },
-    
+
     Smash: function (name) {
       var bt = this.trimSpaces(this.GetBrackets(name,""));
       var smash = MML.mpadded(this.ParseArg(name));
@@ -8383,13 +8383,13 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       }
       this.Push(MML.TeXAtom(smash));
     },
-    
+
     Lap: function (name) {
       var mml = MML.mpadded(this.ParseArg(name)).With({width: 0});
       if (name === "\\llap") {mml.lspace = "-1width"}
       this.Push(MML.TeXAtom(mml));
     },
-    
+
     RaiseLower: function (name) {
       var h = this.GetDimen(name);
       var item = STACKITEM.position().With({name: name, move: 'vertical'});
@@ -8397,7 +8397,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       if (name === "\\lower") {item.dh = '-'+h; item.dd = '+'+h} else {item.dh = '+'+h; item.dd = '-'+h}
       this.Push(item);
     },
-    
+
     MoveLeftRight: function (name) {
       var h = this.GetDimen(name);
       var nh = (h.charAt(0) === '-' ? h.slice(1) : '-'+h);
@@ -8408,11 +8408,11 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         right: MML.mspace().With({width: nh, mathsize: MML.SIZE.NORMAL})
       }));
     },
-    
+
     Hskip: function (name) {
       this.Push(MML.mspace().With({width: this.GetDimen(name), mathsize: MML.SIZE.NORMAL}));
     },
-    
+
     Rule: function (name,style) {
       var w = this.GetDimen(name),
           h = this.GetDimen(name),
@@ -8442,7 +8442,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       }
       this.Push(mml);
     },
-    
+
     MakeBig: function (name,mclass,size) {
       size *= TEXDEF.p_height;
       size = String(size).replace(/(\.\d\d\d).+/,'$1')+"em";
@@ -8452,39 +8452,39 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         fence: true, stretchy: true, symmetric: true
       })).With({texClass: mclass}));
     },
-    
+
     BuildRel: function (name) {
       var top = this.ParseUpTo(name,"\\over");
       var bot = this.ParseArg(name);
       this.Push(MML.TeXAtom(MML.munderover(bot,null,top)).With({texClass: MML.TEXCLASS.REL}));
     },
-    
+
     HBox: function (name,style) {
       this.Push.apply(this,this.InternalMath(this.GetArgument(name),style));
     },
-    
+
     FBox: function (name) {
       this.Push(MML.menclose.apply(MML,this.InternalMath(this.GetArgument(name))).With({notation:"box"}));
     },
-    
+
     Not: function (name) {
       this.Push(STACKITEM.not());
     },
-    
+
     Dots: function (name) {
       this.Push(STACKITEM.dots().With({
         ldots: this.mmlToken(MML.mo(MML.entity("#x2026")).With({stretchy:false})),
         cdots: this.mmlToken(MML.mo(MML.entity("#x22EF")).With({stretchy:false}))
       }));
     },
-    
+
     Require: function (name) {
       var file = this.GetArgument(name)
         .replace(/.*\//,"")            // remove any leading path
         .replace(/[^a-z0-9_.-]/ig,""); // remove illegal characters
       this.Extension(null,file);
     },
-    
+
     Extension: function (name,file,array) {
       if (name && !typeof(name) === "string") {name = name.name}
       file = TEX.extensionDir+"/"+file;
@@ -8494,7 +8494,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         HUB.RestartAfter(AJAX.Require(file));
       }
     },
-    
+
     Macro: function (name,macro,argcount,def) {
       if (argcount) {
         var args = [];
@@ -8513,7 +8513,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
                    "is there a recursive macro call?"]);
       }
     },
-    
+
     Matrix: function (name,open,close,align,spacing,vspacing,style,cases,numbered) {
       var c = this.GetNext();
       if (c === "")
@@ -8533,7 +8533,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       if (align != null) {array.arraydef.columnalign = align}
       this.Push(array);
     },
-    
+
     Entry: function (name) {
       this.Push(STACKITEM.cell().With({isEntry: true, name: name}));
       if (this.stack.Top().isCases) {
@@ -8604,11 +8604,11 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         }
       }
     },
-    
+
     Cr: function (name) {
       this.Push(STACKITEM.cell().With({isCR: true, name: name}));
     },
-    
+
     CrLaTeX: function (name) {
       var n;
       if (this.string.charAt(this.i) === "[") {
@@ -8656,7 +8656,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       if (Math.abs(m) < .0006) {return "0em"}
       return m.toFixed(3).replace(/\.?0+$/,"") + "em";
     },
-    
+
     HLine: function (name,style) {
       if (style == null) {style = "solid"}
       var top = this.stack.Top();
@@ -8671,15 +8671,15 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         top.arraydef.rowlines = lines.join(' ');
       }
     },
-    
+
     HFill: function (name) {
       var top = this.stack.Top();
       if (top.isa(STACKITEM.array)) top.hfill.push(top.data.length);
         else TEX.Error(["UnsupportedHFill","Unsupported use of %1",name]);
     },
-    
 
-    
+
+
    /************************************************************************/
    /*
     *   LaTeX environments
@@ -8711,11 +8711,11 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       this.Push(mml);
     },
     envFindName: function (name) {return TEXDEF.environment[name]},
-    
+
     Equation: function (begin,row) {return row},
-    
+
     ExtensionEnv: function (begin,file) {this.Extension(begin.name,file,"environment")},
-    
+
     Array: function (begin,open,close,align,spacing,vspacing,style,raggedHeight) {
       if (!align) {align = this.GetArgument("\\begin{"+begin.name+"}")}
       var lines = ("c"+align).replace(/[^clr|:]/g,'').replace(/[^|:]([|:])+/g,'$1');
@@ -8744,7 +8744,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       this.Push(begin);
       return array;
     },
-    
+
     AlignedArray: function (begin) {
       var align = this.GetBrackets("\\begin{"+begin.name+"}");
       return this.setArrayAlign(this.Array.apply(this,arguments),align);
@@ -8757,7 +8757,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       else if (align) {array.arraydef.align = align} // FIXME: should be an error?
       return array;
     },
-    
+
     /************************************************************************/
     /*
      *   String handling routines
@@ -8790,7 +8790,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
     nextIsSpace: function () {
       return this.string.charAt(this.i).match(/\s/);
     },
-    
+
     /*
      *  Get the next non-space character
      */
@@ -8798,7 +8798,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       while (this.nextIsSpace()) {this.i++}
       return this.string.charAt(this.i);
     },
-  
+
     /*
      *  Get and return a control-sequence name
      */
@@ -8837,10 +8837,10 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         }
         TEX.Error(["MissingCloseBrace","Missing close brace"]);
         break;
-      }        
+      }
       return this.string.charAt(this.i++);
     },
-    
+
     /*
      *  Get an optional LaTeX argument in brackets
      */
@@ -8856,7 +8856,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
             TEX.Error(["ExtraCloseLooking",
                        "Extra close brace while looking for %1","']'"]);
           }
-          break;   
+          break;
          case ']':
           if (parens == 0) {return this.string.slice(j,this.i-1)}
           break;
@@ -8865,7 +8865,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       TEX.Error(["MissingCloseBracket",
                  "Couldn't find closing ']' for argument to %1",name]);
     },
-  
+
     /*
      *  Get the name of a delimiter (check it in the delimiter list).
      */
@@ -8906,7 +8906,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       TEX.Error(["MissingDimOrUnits",
                  "Missing dimension or its units for %1",name]);
     },
-    
+
     /*
      *  Get everything up to the given control sequence (token)
      */
@@ -8937,7 +8937,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
      */
     ParseArg: function (name) {return TEX.Parse(this.GetArgument(name),this.stack.env).mml()},
     ParseUpTo: function (name,token) {return TEX.Parse(this.GetUpTo(name,token),this.stack.env).mml()},
-    
+
     /*
      *  Break up a string into text and math blocks
      */
@@ -9004,7 +9004,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
      */
     setDef: function (name,value) {value.isUser = true; TEXDEF.macros[name] = value},
     setEnv: function (name,value) {value.isUser = true; TEXDEF.environment[name] = value},
-    
+
     /*
      *  Replace macro parameters with their values
      */
@@ -9027,7 +9027,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       }
       return this.AddArgs(newstring,text);
     },
-    
+
     /*
      *  Make sure that macros are followed by a space if their names
      *  could accidentally be continued into the following text.
@@ -9040,25 +9040,25 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       }
       return s1+s2;
     }
-    
+
   });
-  
+
   /************************************************************************/
 
   TEX.Augment({
     Stack: STACK, Parse: PARSE, Definitions: TEXDEF, Startup: STARTUP,
-    
+
     config: {
       MAXMACROS: 10000,    // maximum number of macro substitutions per equation
       MAXBUFFER: 5*1024    // maximum size of TeX string to process
     },
-    
+
     sourceMenuTitle: /*_(MathMenu)*/ ["TeXCommands","TeX Commands"],
     annotationEncoding: "application/x-tex",
 
     prefilterHooks: MathJax.Callback.Hooks(true),    // hooks to run before processing TeX
     postfilterHooks: MathJax.Callback.Hooks(true),   // hooks to run after processing TeX
-    
+
     //
     //  Check if AMSmath extension must be loaded and push
     //    it on the extensions array, if needed
@@ -9078,7 +9078,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       var mml, isError = false, math = MathJax.HTML.getScript(script);
       var display = (script.type.replace(/\n/g," ").match(/(;|\s|\n)mode\s*=\s*display(;|\s|\n|$)/) != null);
       var data = {math:math, display:display, script:script};
-      var callback = this.prefilterHooks.Execute(data); 
+      var callback = this.prefilterHooks.Execute(data);
       if (callback) return callback;
       math = data.math;
       try {
@@ -9092,7 +9092,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       if (mml.inferred) {mml = MML.apply(MathJax.ElementJax,mml.data)} else {mml = MML(mml)}
       if (display) {mml.root.display = "block"}
       if (isError) {mml.texError = true}
-      data.math = mml; 
+      data.math = mml;
       return this.postfilterHooks.Execute(data) || data.math;
     },
     prefilterMath: function (math,displaystyle,script) {
@@ -9118,7 +9118,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       if (isArray(message)) {message = _.apply(_,message)}
       throw HUB.Insert(Error(message),{texError: true});
     },
-    
+
     //
     //  Add a user-defined macro to the macro list
     //
@@ -9126,7 +9126,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       TEXDEF.macros[name] = ['Macro'].concat([].slice.call(arguments,1));
       TEXDEF.macros[name].isUser = true;
     },
-    
+
     /*
      *  Create an mrow that has stretchy delimiters at either end, as needed
      */
@@ -9160,7 +9160,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       var D = '{\\bigg'+side+' '+fence+'}', T = '{\\big'+side+' '+fence+'}';
       return TEX.Parse('\\mathchoice'+D+T+T+T,{}).mml();
     },
-    
+
     //
     //  Combine adjacent <mo> elements that are relations
     //    (since MathML treats the spacing very differently)
@@ -9201,7 +9201,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
   });
 
   TEX.loadComplete("jax.js");
-  
+
 })(MathJax.InputJax.TeX,MathJax.Hub,MathJax.Ajax);
 
 /* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
@@ -14031,17 +14031,17 @@ var junk = [window, navigator]; junk = null;
  *  Implements the SVG OutputJax that displays mathematics using
  *  SVG (or VML in IE) to position the characters from math fonts
  *  in their proper locations.
- *  
+ *
  *  ---------------------------------------------------------------------
- *  
+ *
  *  Copyright (c) 2011-2018 The MathJax Consortium
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14062,14 +14062,14 @@ var junk = [window, navigator]; junk = null;
   //
   //  Get the URL of the page (for use with xlink:href) when there
   //  is a <base> element on the page.
-  //  
+  //
   var SVGURL = (document.getElementsByTagName("base").length === 0) ? "" :
                 String(document.location).replace(/#.*$/,"");
 
   SVG.Augment({
     HFUZZ: 2,     // adjustments for height and depth of final svg element
     DFUZZ: 2,     //   to get baselines right (fragile).
-    
+
     config: {
       styles: {
         ".MathJax_SVG": {
@@ -14101,7 +14101,7 @@ var junk = [window, navigator]; junk = null;
           "min-width": 0, "min-height": 0,
           width: "100%"
         },
-        
+
         ".MathJax_SVG *": {
           transition: "none",
           "-webkit-transition": "none",
@@ -14109,11 +14109,11 @@ var junk = [window, navigator]; junk = null;
           "-ms-transition": "none",
           "-o-transition": "none"
         },
-        
+
         ".MathJax_SVG > div": {
           display: "inline-block"
         },
-        
+
         ".mjx-svg-href": {
           fill: "blue", stroke: "blue"
         },
@@ -14123,7 +14123,7 @@ var junk = [window, navigator]; junk = null;
           width:0, height: 0, overflow:"hidden", display:"block!important"
         },
         ".MathJax_SVG_Processed": {display:"none!important"},
-        
+
         ".MathJax_SVG_ExBox": {
           display:"block!important", overflow:"hidden",
           width:"1px", height:"60ex",
@@ -14137,7 +14137,7 @@ var junk = [window, navigator]; junk = null;
           "min-width":0, "max-width":"none",
           padding:0, border:0, margin:0
         },
-        
+
         "#MathJax_SVG_Tooltip": {
           position: "absolute", left: 0, top: 0,
           width: "auto", height: "auto",
@@ -14195,10 +14195,10 @@ var junk = [window, navigator]; junk = null;
       // Determine pixels-per-inch and em-size
       var div = HTML.addElement(this.hiddenDiv,"div",{style:{width:"5in"}});
       this.pxPerInch = div.offsetWidth/5; this.hiddenDiv.removeChild(div);
-      
+
       // Used for measuring text sizes
       this.textSVG = this.Element("svg");
-      
+
       // Global defs for font glyphs
       BBOX.GLYPH.defs = this.addElement(this.addElement(this.hiddenDiv.parentNode,"svg"),
                                           "defs",{id:"MathJax_SVG_glyphs"});
@@ -14215,7 +14215,7 @@ var junk = [window, navigator]; junk = null;
       // Set up styles
       return AJAX.Styles(this.config.styles,["InitializeSVG",this]);
     },
-    
+
     //
     //  Handle initialization that requires styles to be set up
     //
@@ -14264,17 +14264,17 @@ var junk = [window, navigator]; junk = null;
         };
         span = div = HTML.Element("span",{
           style: {"font-size": this.config.scale+"%", display:"inline-block"},
- 	  className:"MathJax_SVG", id:jax.inputID+"-Frame", isMathJax:true, jaxID:this.id,
+          className:"MathJax_SVG", id:jax.inputID+"-Frame", isMathJax:true, jaxID:this.id,
           oncontextmenu:EVENT.Menu, onmousedown: EVENT.Mousedown,
           onmouseover:EVENT.Mouseover, onmouseout:EVENT.Mouseout, onmousemove:EVENT.Mousemove,
-	  onclick:EVENT.Click, ondblclick:EVENT.DblClick,
+          onclick:EVENT.Click, ondblclick:EVENT.DblClick,
           // Added for keyboard accessible menu.
           onkeydown: EVENT.Keydown, tabIndex: HUB.getTabOrder(jax)
         });
-	if (HUB.Browser.noContextMenu) {
-	  span.ontouchstart = TOUCH.start;
-	  span.ontouchend = TOUCH.end;
-	}
+        if (HUB.Browser.noContextMenu) {
+          span.ontouchstart = TOUCH.start;
+          span.ontouchend = TOUCH.end;
+        }
         if (jax.SVG.display) {
           div = HTML.Element("div",{className:"MathJax_SVG_Display"});
           div.appendChild(span);
@@ -14339,7 +14339,7 @@ var junk = [window, navigator]; junk = null;
 
       //
       //  If we are supposed to do a chunk delay, do it
-      //  
+      //
       if (state.SVGdelay) {
         state.SVGdelay = false;
         HUB.RestartAfter(MathJax.Callback.Delay(this.config.EqnChunkDelay));
@@ -14436,7 +14436,7 @@ var junk = [window, navigator]; junk = null;
       //
       state.SVGlast = state.SVGeqn;
     },
-    
+
     resetGlyphs: function (reset) {
       if (this.config.useFontCache) {
         var GLYPH = BBOX.GLYPH;
@@ -14476,7 +14476,7 @@ var junk = [window, navigator]; junk = null;
       bbox.h += 2; bbox.d -= 2; // bbox seems to be a bit off, so compensate (FIXME)
       return bbox;
     },
-    
+
     Zoom: function (jax,span,math,Mw,Mh) {
       //
       //  Re-render at larger size
@@ -14498,7 +14498,7 @@ var junk = [window, navigator]; junk = null;
       this.idPostfix = "-zoom"; jax.root.toSVG(span,span); this.idPostfix = "";
       this.zoomScale = 1;
       span.removeChild(this.textSVG);
-      
+
       //
       //  Don't allow overlaps on any edge
       //
@@ -14506,7 +14506,7 @@ var junk = [window, navigator]; junk = null;
       svg.marginTop = svg.marginRight = svg.marginLeft = 0;
       if (svg.marginBottom.charAt(0) === "-")
         span.style.marginBottom = svg.marginBottom.substr(1);
-      
+
       if (this.operaZoomRefresh) {
         setTimeout(function () {
           span.firstChild.style.border = "1px solid transparent";
@@ -14514,7 +14514,7 @@ var junk = [window, navigator]; junk = null;
       }
       //
       // WebKit bug (issue #749)
-      //  
+      //
       if (span.offsetWidth < span.firstChild.offsetWidth) {
         span.style.minWidth = span.firstChild.offsetWidth + "px";
         math.style.minWidth = math.firstChild.offsetWidth + "px";
@@ -14531,7 +14531,7 @@ var junk = [window, navigator]; junk = null;
     },
 
     initSVG: function (math,span) {},
-    
+
     Remove: function (jax) {
       var span = document.getElementById(jax.inputID+"-Frame");
       if (span) {
@@ -14540,7 +14540,7 @@ var junk = [window, navigator]; junk = null;
       }
       delete jax.SVG;
     },
-    
+
     Em: function (m) {
       if (Math.abs(m) < .0006) return "0";
       return m.toFixed(3).replace(/\.?0+$/,"") + "em";
@@ -14711,7 +14711,7 @@ var junk = [window, navigator]; junk = null;
       }
       return svg;
     },
-        
+
     lookupChar: function (variant,n) {
       var i, m;
       if (!variant.FONTS) {
@@ -14746,7 +14746,7 @@ var junk = [window, navigator]; junk = null;
         }
       }
     },
-      
+
     loadFont: function (file) {
       HUB.RestartAfter(AJAX.Require(this.fontDir+"/"+file));
     },
@@ -14899,7 +14899,7 @@ var junk = [window, navigator]; junk = null;
     BIGDIMEN: 10000000,
     NBSP:   "\u00A0"
   });
-  
+
   var BBOX = SVG.BBOX = MathJax.Object.Subclass({
     type: "g", removeable: true,
     Init: function (def) {
@@ -14979,7 +14979,7 @@ var junk = [window, navigator]; junk = null;
       return this;
     }
   });
-  
+
   BBOX.ROW = BBOX.Subclass({
     Init: function () {
       this.SUPER(arguments).Init.call(this);
@@ -15007,7 +15007,7 @@ var junk = [window, navigator]; junk = null;
       delete this.svg;
     }
   });
-  
+
   BBOX.RECT = BBOX.Subclass({
     type: "rect", removeable: false,
     Init: function (h,d,w,def) {
@@ -15017,7 +15017,7 @@ var junk = [window, navigator]; junk = null;
       this.w = this.r = w; this.h = this.H = h+d; this.d = this.D = this.l = 0; this.y = -d;
     }
   });
-  
+
   BBOX.FRAME = BBOX.Subclass({
     type: "rect", removeable: false,
     Init: function (h,d,w,t,dash,color,def) {
@@ -15032,7 +15032,7 @@ var junk = [window, navigator]; junk = null;
       this.d = this.D = d; this.l = 0;
     }
   });
-  
+
   BBOX.HLINE = BBOX.Subclass({
     type: "line", removeable: false,
     Init: function (w,t,dash,color,def) {
@@ -15091,16 +15091,16 @@ var junk = [window, navigator]; junk = null;
       this.d = this.D = (bbox.height + bbox.y)*scale;
     }
   });
-  
+
   BBOX.G = BBOX;
-  
+
   BBOX.NULL = BBOX.Subclass({
     Init: function () {
       this.SUPER(arguments).Init.apply(this,arguments);
       this.Clean();
     }
   });
-  
+
   BBOX.GLYPH = BBOX.Subclass({
     type: "path", removeable: false,
     Init: function (scale,id,h,d,w,l,r,p) {
@@ -15130,7 +15130,7 @@ var junk = [window, navigator]; junk = null;
     defs: null,            // the SVG <defs> element where glyphs are stored
     n: 0                   // the ID for local <defs> for self-contained SVG elements
   });
-  
+
   HUB.Register.StartupHook("mml Jax Ready",function () {
 
     MML = MathJax.ElementJax.mml;
@@ -15139,7 +15139,7 @@ var junk = [window, navigator]; junk = null;
       SVG: BBOX,
       toSVG: function () {
         this.SVGgetStyles();
-	var variant = this.SVGgetVariant();
+        var variant = this.SVGgetVariant();
         var svg = this.SVG(); this.SVGgetScale(svg);
         this.SVGhandleSpace(svg);
         for (var i = 0, m = this.data.length; i < m; i++) {
@@ -15152,15 +15152,15 @@ var junk = [window, navigator]; junk = null;
         if (svg.skew && text.length !== 1) {delete svg.skew}
         if (svg.r > svg.w && text.length === 1 && !variant.noIC)
           {svg.ic = svg.r - svg.w; svg.w = svg.r}
-	this.SVGhandleColor(svg);
+        this.SVGhandleColor(svg);
         this.SVGsaveData(svg);
-	return svg;
+        return svg;
       },
-      
+
       SVGchildSVG: function (i) {
         return (this.data[i] ? this.data[i].toSVG() : BBOX());
       },
-      
+
       SVGdataStretched: function (i,HW,D) {
         this.SVGdata = {HW:HW, D:D};
         if (!this.data[i]) {return BBOX()}
@@ -15168,7 +15168,7 @@ var junk = [window, navigator]; junk = null;
         if (HW != null) {return this.data[i].SVGstretchH(HW)}
         return this.data[i].toSVG();
       },
-      
+
       SVGsaveData: function (svg) {
         if (!this.SVGdata) {this.SVGdata = {}}
         this.SVGdata.w = svg.w, this.SVGdata.x = svg.x;
@@ -15223,7 +15223,7 @@ var junk = [window, navigator]; junk = null;
         }
       },
       SVGaddHref: function (svg) {
-	var a = SVG.Element("a",{"class":"mjx-svg-href"});
+        var a = SVG.Element("a",{"class":"mjx-svg-href"});
         a.setAttributeNS(XLINKNS,"href",this.href);
         a.onclick = this.SVGlink;
         SVG.addElement(a,"rect",{width:svg.w, height:svg.h+svg.d, y:-svg.d,
@@ -15241,7 +15241,7 @@ var junk = [window, navigator]; junk = null;
       //
       //  WebKit currently scrolls to the BOTTOM of an svg element if it contains the
       //  target of the link, so implement link by hand, to the containing span element.
-      //  
+      //
       SVGlink: function () {
         var href = this.href.animVal;
         if (href.charAt(0) === "#") {
@@ -15254,7 +15254,7 @@ var junk = [window, navigator]; junk = null;
         }
         document.location = href;
       },
-      
+
       SVGgetStyles: function () {
         if (this.style) {
           var span = HTML.Element("span");
@@ -15276,25 +15276,25 @@ var junk = [window, navigator]; junk = null;
           {styles.fontWeight = (parseInt(styles.fontWeight) > 600 ? "bold" : "normal")}
         return styles;
       },
-            
+
       SVGhandleSpace: function (svg) {
-	if (this.useMMLspacing) {
-	  if (this.type !== "mo") return;
-	  var values = this.getValues("scriptlevel","lspace","rspace");
-	  if (values.scriptlevel <= 0 || this.hasValue("lspace") || this.hasValue("rspace")) {
-            var mu = this.SVGgetMu(svg);
-	    values.lspace = Math.max(0,SVG.length2em(values.lspace,mu));
-	    values.rspace = Math.max(0,SVG.length2em(values.rspace,mu));
-	    var core = this, parent = this.Parent();
-	    while (parent && parent.isEmbellished() && parent.Core() === core)
-	      {core = parent; parent = parent.Parent()}
-	    if (values.lspace) {svg.x += values.lspace}
-	    if (values.rspace) {svg.X = values.rspace}
-	  }
-	} else {
-	  var space = this.texSpacing();
+        if (this.useMMLspacing) {
+          if (this.type !== "mo") return;
+          var values = this.getValues("scriptlevel","lspace","rspace");
+          if (values.scriptlevel <= 0 || this.hasValue("lspace") || this.hasValue("rspace")) {
+                  var mu = this.SVGgetMu(svg);
+            values.lspace = Math.max(0,SVG.length2em(values.lspace,mu));
+            values.rspace = Math.max(0,SVG.length2em(values.rspace,mu));
+            var core = this, parent = this.Parent();
+            while (parent && parent.isEmbellished() && parent.Core() === core)
+              {core = parent; parent = parent.Parent()}
+            if (values.lspace) {svg.x += values.lspace}
+            if (values.rspace) {svg.X = values.rspace}
+          }
+        } else {
+          var space = this.texSpacing();
           this.SVGgetScale();
-	  if (space !== "") {svg.x += SVG.length2em(space,this.scale)*this.mscale}
+          if (space !== "") {svg.x += SVG.length2em(space,this.scale)*this.mscale}
         }
       },
 
@@ -15308,7 +15308,7 @@ var junk = [window, navigator]; junk = null;
         }
         var borders = (this.styles||{}).border, padding = (this.styles||{}).padding,
             bleft = ((borders||{}).left||0), pleft = ((padding||{}).left||0), id;
-	values.background = (this.mathbackground || this.background ||
+        values.background = (this.mathbackground || this.background ||
                              (this.styles||{}).background || MML.COLOR.TRANSPARENT);
         if (bleft + pleft) {
           //
@@ -15328,7 +15328,7 @@ var junk = [window, navigator]; junk = null;
         //
         //  Add background color
         //
-	if (values.background !== MML.COLOR.TRANSPARENT) {
+        if (values.background !== MML.COLOR.TRANSPARENT) {
           var nodeName = svg.element.nodeName.toLowerCase();
           if (nodeName !== "g" && nodeName !== "svg") {
             var g = SVG.Element("g"); g.appendChild(svg.element);
@@ -15355,14 +15355,14 @@ var junk = [window, navigator]; junk = null;
           }}
         }
       },
-      
+
       SVGhandleVariant: function (variant,scale,text) {
         return SVG.HandleVariant(variant,scale,text);
       },
 
       SVGgetVariant: function () {
-	var values = this.getValues("mathvariant","fontfamily","fontweight","fontstyle");
-	var variant = values.mathvariant;
+        var values = this.getValues("mathvariant","fontfamily","fontweight","fontstyle");
+        var variant = values.mathvariant;
         if (this.variantForm) variant = "-"+SVG.fontInUse+"-variant";
         values.hasVariant = this.Get("mathvariant",true);  // null if not explicitly specified
         if (!values.hasVariant) {
@@ -15376,13 +15376,13 @@ var junk = [window, navigator]; junk = null;
           if (!values.family && this.styles.fontFamily) {values.family = this.styles.fontFamily}
         }
         if (values.family && !values.hasVariant) {
-	  if (!values.weight && values.mathvariant.match(/bold/)) {values.weight = "bold"}
+          if (!values.weight && values.mathvariant.match(/bold/)) {values.weight = "bold"}
           if (!values.style && values.mathvariant.match(/italic/)) {values.style = "italic"}
           variant = {forceFamily: true, font: {"font-family":values.family}};
           if (values.style) {variant.font["font-style"] = values.style}
           if (values.weight) {variant.font["font-weight"] = values.weight}
-	  return variant;
-	}
+          return variant;
+        }
         if (values.weight === "bold") {
           variant = {
             normal:MML.VARIANT.BOLD, italic:MML.VARIANT.BOLDITALIC,
@@ -15416,9 +15416,9 @@ var junk = [window, navigator]; junk = null;
           // font, fallback to normal. See issue 363.
           variant = "normal";
         }
-	return SVG.FONTDATA.VARIANT[variant];
+        return SVG.FONTDATA.VARIANT[variant];
       },
-      
+
       SVGgetScale: function (svg) {
         var scale = 1;
         if (this.mscale) {
@@ -15437,30 +15437,30 @@ var junk = [window, navigator]; junk = null;
           this.scale = scale; this.mscale = SVG.length2em(values.mathsize)/1000;
         }
         if (svg) {svg.scale = scale; if (this.isToken) {svg.scale *= this.mscale}}
-	return scale * this.mscale;
+        return scale * this.mscale;
       },
       SVGgetMu: function (svg) {
-	var mu = 1, values = this.getValues("scriptlevel","scriptsizemultiplier");
+        var mu = 1, values = this.getValues("scriptlevel","scriptsizemultiplier");
         if (svg.scale && svg.scale !== 1) {mu = 1/svg.scale}
-	if (values.scriptlevel !== 0) {
-	  if (values.scriptlevel > 2) {values.scriptlevel = 2}
-	  mu = Math.sqrt(Math.pow(values.scriptsizemultiplier,values.scriptlevel));
-	}
-	return mu;
+        if (values.scriptlevel !== 0) {
+          if (values.scriptlevel > 2) {values.scriptlevel = 2}
+          mu = Math.sqrt(Math.pow(values.scriptsizemultiplier,values.scriptlevel));
+        }
+        return mu;
       },
 
       SVGnotEmpty: function (data) {
-	while (data) {
-	  if ((data.type !== "mrow" && data.type !== "texatom") ||
-	       data.data.length > 1) {return true}
-	  data = data.data[0];
-	}
-	return false;
+        while (data) {
+          if ((data.type !== "mrow" && data.type !== "texatom") ||
+               data.data.length > 1) {return true}
+          data = data.data[0];
+        }
+        return false;
       },
-      
+
       SVGcanStretch: function (direction) {
         var can = false;
-	if (this.isEmbellished()) {
+        if (this.isEmbellished()) {
           var core = this.Core();
           if (core && core !== this) {
             can = core.SVGcanStretch(direction);
@@ -15471,20 +15471,20 @@ var junk = [window, navigator]; junk = null;
       },
       SVGstretchV: function (h,d) {return this.toSVG(h,d)},
       SVGstretchH: function (w) {return this.toSVG(w)},
-      
+
       SVGlineBreaks: function () {return false}
-      
+
     },{
       SVGemptySVG: function () {
         var svg = this.SVG();
         svg.Clean();
         this.SVGsaveData(svg);
-	return svg;
+        return svg;
       },
       SVGautoload: function () {
         this.constructor.Augment({toSVG: MML.mbase.SVGautoloadFail});
-	var file = SVG.autoloadDir+"/"+this.type+".js";
-	HUB.RestartAfter(AJAX.Require(file));
+        var file = SVG.autoloadDir+"/"+this.type+".js";
+        HUB.RestartAfter(AJAX.Require(file));
       },
       SVGautoloadFail: function () {
         throw Error("SVG can't autoload '"+ this.type + "'");
@@ -15495,8 +15495,8 @@ var junk = [window, navigator]; junk = null;
           throw Error("SVG can't autoload file '"+name+"'");
         }
         MML.mbase.SVGautoloadList[name] = true;
-	var file = SVG.autoloadDir+"/"+name+".js";
-	HUB.RestartAfter(AJAX.Require(file));
+        var file = SVG.autoloadDir+"/"+name+".js";
+        HUB.RestartAfter(AJAX.Require(file));
       }
     });
 
@@ -15504,14 +15504,14 @@ var junk = [window, navigator]; junk = null;
       toSVG: function (variant,scale,remap,chars) {
         var text = this.data.join("").replace(/[\u2061-\u2064]/g,""); // remove invisibles
         if (remap) {text = remap(text,chars)}
-	return this.SVGhandleVariant(variant,scale,text);
+        return this.SVGhandleVariant(variant,scale,text);
       }
     });
     MML.entity.Augment({
       toSVG: function (variant,scale,remap,chars) {
         var text = this.toString().replace(/[\u2061-\u2064]/g,""); // remove invisibles
         if (remap) {text = remap(text,chars)}
-	return this.SVGhandleVariant(variant,scale,text);
+        return this.SVGhandleVariant(variant,scale,text);
       }
     });
 
@@ -15531,9 +15531,9 @@ var junk = [window, navigator]; junk = null;
         //  Get the variant, and check for operator size
         //
         var variant = this.SVGgetVariant();
-	var values = this.getValues("largeop","displaystyle");
-	if (values.largeop)
-	  {variant = SVG.FONTDATA.VARIANT[values.displaystyle ? "-largeOp" : "-smallOp"]}
+        var values = this.getValues("largeop","displaystyle");
+        if (values.largeop)
+          {variant = SVG.FONTDATA.VARIANT[values.displaystyle ? "-largeOp" : "-smallOp"]}
         //
         //  Get character translation for superscript and accents
         //
@@ -15554,7 +15554,7 @@ var junk = [window, navigator]; junk = null;
         //
         //  Typeset contents
         //
-	for (var i = 0, m = this.data.length; i < m; i++) {
+        for (var i = 0, m = this.data.length; i < m; i++) {
           if (this.data[i]) {
             var text = this.data[i].toSVG(variant,scale,this.remap,mapchars), x = svg.w;
             if (x === 0 && -text.l > 10*text.w) {x += -text.l} // initial combining character doesn't combine
@@ -15563,33 +15563,33 @@ var junk = [window, navigator]; junk = null;
           }
         }
         svg.Clean();
-	if (this.data.join("").length !== 1) {delete svg.skew}
+        if (this.data.join("").length !== 1) {delete svg.skew}
         //
         //  Handle large operator centering
         //
-	if (values.largeop) {
-	  svg.y = SVG.TeX.axis_height - (svg.h - svg.d)/2/scale;
-	  if (svg.r > svg.w) {svg.ic = svg.r - svg.w; svg.w = svg.r}
-	}
+        if (values.largeop) {
+          svg.y = SVG.TeX.axis_height - (svg.h - svg.d)/2/scale;
+          if (svg.r > svg.w) {svg.ic = svg.r - svg.w; svg.w = svg.r}
+        }
         //
         //  Finish up
         //
-	this.SVGhandleColor(svg);
+        this.SVGhandleColor(svg);
         this.SVGsaveData(svg);
-	return svg;
+        return svg;
       },
       SVGcanStretch: function (direction) {
-	if (!this.Get("stretchy")) {return false}
-	var c = this.data.join("");
-	if (c.length > 1) {return false}
+        if (!this.Get("stretchy")) {return false}
+        var c = this.data.join("");
+        if (c.length > 1) {return false}
         var parent = this.CoreParent();
-        if (parent && parent.isa(MML.munderover) && 
+        if (parent && parent.isa(MML.munderover) &&
             this.CoreText(parent.data[parent.base]).length === 1) {
           var over = parent.data[parent.over], under = parent.data[parent.under];
           if (over && this === over.CoreMO() && parent.Get("accent")) {c = SVG.FONTDATA.REMAPACCENT[c]||c}
           else if (under && this === under.CoreMO() && parent.Get("accentunder")) {c = SVG.FONTDATA.REMAPACCENTUNDER[c]||c}
         }
-	c = SVG.FONTDATA.DELIMITERS[c.charCodeAt(0)];
+        c = SVG.FONTDATA.DELIMITERS[c.charCodeAt(0)];
         var can = (c && c.dir == direction.substr(0,1));
         if (!can) {delete this.svg}
         this.forceStretch = can && (this.Get("minsize",true) || this.Get("maxsize",true));
@@ -15597,49 +15597,49 @@ var junk = [window, navigator]; junk = null;
       },
       SVGstretchV: function (h,d) {
         var svg = this.svg || this.toSVG();
-	var values = this.getValues("symmetric","maxsize","minsize");
-	var axis = SVG.TeX.axis_height*svg.scale, mu = this.SVGgetMu(svg), H;
-	if (values.symmetric) {H = 2*Math.max(h-axis,d+axis)} else {H = h + d}
-	values.maxsize = SVG.length2em(values.maxsize,mu,svg.h+svg.d);
-	values.minsize = SVG.length2em(values.minsize,mu,svg.h+svg.d);
-	H = Math.max(values.minsize,Math.min(values.maxsize,H));
+        var values = this.getValues("symmetric","maxsize","minsize");
+        var axis = SVG.TeX.axis_height*svg.scale, mu = this.SVGgetMu(svg), H;
+        if (values.symmetric) {H = 2*Math.max(h-axis,d+axis)} else {H = h + d}
+        values.maxsize = SVG.length2em(values.maxsize,mu,svg.h+svg.d);
+        values.minsize = SVG.length2em(values.minsize,mu,svg.h+svg.d);
+        H = Math.max(values.minsize,Math.min(values.maxsize,H));
         if (H != values.minsize)
           {H = [Math.max(H*SVG.TeX.delimiterfactor/1000,H-SVG.TeX.delimitershortfall),H]}
-	svg = SVG.createDelimiter(this.data.join("").charCodeAt(0),H,svg.scale);
-	if (values.symmetric) {H = (svg.h + svg.d)/2 + axis}
-	  else {H = (svg.h + svg.d) * h/(h + d)}
+        svg = SVG.createDelimiter(this.data.join("").charCodeAt(0),H,svg.scale);
+        if (values.symmetric) {H = (svg.h + svg.d)/2 + axis}
+        else {H = (svg.h + svg.d) * h/(h + d)}
         svg.y = H - svg.h;
-	this.SVGhandleSpace(svg);
-	this.SVGhandleColor(svg);
+        this.SVGhandleSpace(svg);
+        this.SVGhandleColor(svg);
         delete this.svg.element;
         this.SVGsaveData(svg);
         svg.stretched = true;
-	return svg;
+        return svg;
       },
       SVGstretchH: function (w) {
         var svg = this.svg || this.toSVG(), mu = this.SVGgetMu(svg);
-	var values = this.getValues("maxsize","minsize","mathvariant","fontweight");
+        var values = this.getValues("maxsize","minsize","mathvariant","fontweight");
         // FIXME:  should take style="font-weight:bold" into account as well
-	if ((values.fontweight === "bold" || parseInt(values.fontweight) >= 600) &&
+        if ((values.fontweight === "bold" || parseInt(values.fontweight) >= 600) &&
             !this.Get("mathvariant",true)) {values.mathvariant = MML.VARIANT.BOLD}
-	values.maxsize = SVG.length2em(values.maxsize,mu,svg.w);
-	values.minsize = SVG.length2em(values.minsize,mu,svg.w);
-	w = Math.max(values.minsize,Math.min(values.maxsize,w));
+        values.maxsize = SVG.length2em(values.maxsize,mu,svg.w);
+        values.minsize = SVG.length2em(values.minsize,mu,svg.w);
+        w = Math.max(values.minsize,Math.min(values.maxsize,w));
         svg = SVG.createDelimiter(this.data.join("").charCodeAt(0),w,svg.scale,values.mathvariant);
-	this.SVGhandleSpace(svg);
-	this.SVGhandleColor(svg);
+        this.SVGhandleSpace(svg);
+        this.SVGhandleColor(svg);
         delete this.svg.element;
         this.SVGsaveData(svg);
         svg.stretched = true;
-	return svg;
+        return svg;
       }
     });
-    
+
     MML.mn.Augment({
       SVGremapMinus: function (text) {return text.replace(/^-/,"\u2212")},
       toSVG: function () {
         this.SVGgetStyles();
-	var variant = this.SVGgetVariant();
+        var variant = this.SVGgetVariant();
         var svg = this.SVG(); this.SVGgetScale(svg);
         this.SVGhandleSpace(svg);
         var remap = this.SVGremapMinus;
@@ -15654,9 +15654,9 @@ var junk = [window, navigator]; junk = null;
         if (svg.skew && text.length !== 1) {delete svg.skew}
         if (svg.r > svg.w && text.length === 1 && !variant.noIC)
           {svg.ic = svg.r - svg.w; svg.w = svg.r}
-	this.SVGhandleColor(svg);
+        this.SVGhandleColor(svg);
         this.SVGsaveData(svg);
-	return svg;
+        return svg;
       },
     }),
 
@@ -15681,7 +15681,7 @@ var junk = [window, navigator]; junk = null;
         }
       }
     });
-    
+
     MML.merror.Augment({
       toSVG: function (HW,D) {
         this.SVGgetStyles();
@@ -15717,14 +15717,14 @@ var junk = [window, navigator]; junk = null;
     MML.mspace.Augment({
       toSVG: function () {
         this.SVGgetStyles();
-	var values = this.getValues("height","depth","width");
-	values.mathbackground = this.mathbackground;
-	if (this.background && !this.mathbackground) {values.mathbackground = this.background}
+        var values = this.getValues("height","depth","width");
+        values.mathbackground = this.mathbackground;
+        if (this.background && !this.mathbackground) {values.mathbackground = this.background}
         var svg = this.SVG(); this.SVGgetScale(svg);
-        var scale = this.mscale, mu = this.SVGgetMu(svg); 
-	svg.h = SVG.length2em(values.height,mu) * scale;
+        var scale = this.mscale, mu = this.SVGgetMu(svg);
+        svg.h = SVG.length2em(values.height,mu) * scale;
         svg.d = SVG.length2em(values.depth,mu)  * scale;
-	svg.w = svg.r = SVG.length2em(values.width,mu) * scale;
+        svg.w = svg.r = SVG.length2em(values.width,mu) * scale;
         if (svg.w < 0) {svg.x = svg.w; svg.w = svg.r = 0}
         if (svg.h < -svg.d) {svg.d = -svg.h}
         svg.l = 0; svg.Clean();
@@ -15738,14 +15738,14 @@ var junk = [window, navigator]; junk = null;
       toSVG: function (HW,D) {
         this.SVGgetStyles();
         var svg = this.SVG(); this.SVGgetScale(svg);
-	if (this.data[0] != null) {
+        if (this.data[0] != null) {
           this.SVGhandleSpace(svg); svg.Add(this.SVGdataStretched(0,HW,D)); svg.Clean();
           while (svg.element.firstChild) {svg.element.removeChild(svg.element.firstChild)}
-	}
-	this.SVGhandleColor(svg);
+        }
+        this.SVGhandleColor(svg);
         this.SVGsaveData(svg);
         if (svg.removeable && !svg.element.firstChild) {delete svg.element}
-	return svg;
+        return svg;
       }
     });
 
@@ -15753,31 +15753,31 @@ var junk = [window, navigator]; junk = null;
       toSVG: function (HW,D) {
         this.SVGgetStyles();
         var svg = this.SVG();
-	if (this.data[0] != null) {
+        if (this.data[0] != null) {
           this.SVGgetScale(svg); this.SVGhandleSpace(svg);
           var pad = this.SVGdataStretched(0,HW,D), mu = this.SVGgetMu(svg);
-	  var values = this.getValues("height","depth","width","lspace","voffset"), X = 0, Y = 0;
-	  if (values.lspace)  {X = this.SVGlength2em(pad,values.lspace,mu)}
-	  if (values.voffset) {Y = this.SVGlength2em(pad,values.voffset,mu)}
-          var h = pad.h, d = pad.d, w = pad.w, y = pad.y; // these can change during the Add() 
+          var values = this.getValues("height","depth","width","lspace","voffset"), X = 0, Y = 0;
+          if (values.lspace)  {X = this.SVGlength2em(pad,values.lspace,mu)}
+          if (values.voffset) {Y = this.SVGlength2em(pad,values.voffset,mu)}
+          var h = pad.h, d = pad.d, w = pad.w, y = pad.y; // these can change during the Add()
           svg.Add(pad,X,Y); svg.Clean();
           svg.h = h+y; svg.d = d-y; svg.w = w; svg.removeable = false;
-	  if (values.height !== "") {svg.h = this.SVGlength2em(svg,values.height,mu,"h",0)}
-	  if (values.depth  !== "") {svg.d = this.SVGlength2em(svg,values.depth,mu,"d",0)}
-	  if (values.width  !== "") {svg.w = this.SVGlength2em(svg,values.width,mu,"w",0)}
-	  if (svg.h > svg.H) {svg.H = svg.h}; if (svg.d > svg.D) {svg.D = svg.d}
-	}
-	this.SVGhandleColor(svg);
+          if (values.height !== "") {svg.h = this.SVGlength2em(svg,values.height,mu,"h",0)}
+          if (values.depth  !== "") {svg.d = this.SVGlength2em(svg,values.depth,mu,"d",0)}
+          if (values.width  !== "") {svg.w = this.SVGlength2em(svg,values.width,mu,"w",0)}
+          if (svg.h > svg.H) {svg.H = svg.h}; if (svg.d > svg.D) {svg.D = svg.d}
+        }
+        this.SVGhandleColor(svg);
         this.SVGsaveData(svg);
-	return svg;
+        return svg;
       },
       SVGlength2em: function (svg,length,mu,d,m) {
-	if (m == null) {m = -SVG.BIGDIMEN}
-	var match = String(length).match(/width|height|depth/);
-	var size = (match ? svg[match[0].charAt(0)] : (d ? svg[d] : 0));
-	var v = SVG.length2em(length,mu,size/this.mscale)*this.mscale;
-	if (d && String(length).match(/^\s*[-+]/))
-	  {return Math.max(m,svg[d]+v)} else {return v}
+        if (m == null) {m = -SVG.BIGDIMEN}
+        var match = String(length).match(/width|height|depth/);
+        var size = (match ? svg[match[0].charAt(0)] : (d ? svg[d] : 0));
+        var v = SVG.length2em(length,mu,size/this.mscale)*this.mscale;
+        if (d && String(length).match(/^\s*[-+]/))
+          {return Math.max(m,svg[d]+v)} else {return v}
       }
     });
 
@@ -15785,10 +15785,10 @@ var junk = [window, navigator]; junk = null;
       SVG: BBOX.ROW,
       toSVG: function (h,d) {
         this.SVGgetStyles();
-	var svg = this.SVG();
+        var svg = this.SVG();
         this.SVGhandleSpace(svg);
         if (d != null) {svg.sh = h; svg.sd = d}
-	for (var i = 0, m = this.data.length; i < m; i++)
+        for (var i = 0, m = this.data.length; i < m; i++)
           {if (this.data[i]) {svg.Check(this.data[i])}}
         svg.Stretch(); svg.Clean();
         if (this.data.length === 1 && this.data[0]) {
@@ -15796,9 +15796,9 @@ var junk = [window, navigator]; junk = null;
           if (data.skew) {svg.skew = data.skew}
         }
         if (this.SVGlineBreaks(svg)) {svg = this.SVGmultiline(svg)}
-	this.SVGhandleColor(svg);
+        this.SVGhandleColor(svg);
         this.SVGsaveData(svg);
-	return svg;
+        return svg;
       },
       SVGlineBreaks: function (svg) {
         if (!this.parent.linebreakContainer) {return false}
@@ -15807,9 +15807,9 @@ var junk = [window, navigator]; junk = null;
       },
       SVGmultiline: function (span) {MML.mbase.SVGautoloadFile("multiline")},
       SVGstretchH: function (w) {
-	var svg = this.SVG();
+        var svg = this.SVG();
         this.SVGhandleSpace(svg);
-	for (var i = 0, m = this.data.length; i < m; i++)
+        for (var i = 0, m = this.data.length; i < m; i++)
           {svg.Add(this.SVGdataStretched(i,w),svg.w,0)}
         svg.Clean();
         this.SVGhandleColor(svg);
@@ -15822,20 +15822,20 @@ var junk = [window, navigator]; junk = null;
       toSVG: function () {
         this.SVGgetStyles();
         var svg = this.SVG();
-	if (this.data[0] != null) {
+        if (this.data[0] != null) {
           this.SVGhandleSpace(svg);
           var math = svg.Add(this.data[0].toSVG()); svg.Clean();
           if (math.ic) {svg.ic = math.ic}
-	  this.SVGhandleColor(svg);
-	}
+          this.SVGhandleColor(svg);
+        }
         this.SVGsaveData(svg);
-	return svg;
+        return svg;
       },
       SVGstretchH: function (w) {
-	return (this.data[0] != null ? this.data[0].SVGstretchH(w) : BBOX.NULL());
+        return (this.data[0] != null ? this.data[0].SVGstretchH(w) : BBOX.NULL());
       },
       SVGstretchV: function (h,d) {
-	return (this.data[0] != null ? this.data[0].SVGstretchV(h,d) : BBOX.NULL());
+        return (this.data[0] != null ? this.data[0].SVGstretchV(h,d) : BBOX.NULL());
       }
     });
 
@@ -15845,45 +15845,45 @@ var junk = [window, navigator]; junk = null;
         var svg = this.SVG(), scale = this.SVGgetScale(svg);
         var frac = BBOX(); frac.scale = svg.scale; this.SVGhandleSpace(frac);
         var num = this.SVGchildSVG(0), den = this.SVGchildSVG(1);
-	var values = this.getValues("displaystyle","linethickness","numalign","denomalign","bevelled");
-	var isDisplay = values.displaystyle;
-	var a = SVG.TeX.axis_height * scale;
-	if (values.bevelled) {
-	  var delta = (isDisplay ? 400 : 150);
-	  var H = Math.max(num.h+num.d,den.h+den.d)+2*delta;
+        var values = this.getValues("displaystyle","linethickness","numalign","denomalign","bevelled");
+        var isDisplay = values.displaystyle;
+        var a = SVG.TeX.axis_height * scale;
+        if (values.bevelled) {
+          var delta = (isDisplay ? 400 : 150);
+          var H = Math.max(num.h+num.d,den.h+den.d)+2*delta;
           var bevel = SVG.createDelimiter(0x2F,H);
           frac.Add(num,0,(num.d-num.h)/2+a+delta);
           frac.Add(bevel,num.w-delta/2,(bevel.d-bevel.h)/2+a);
-	  frac.Add(den,num.w+bevel.w-delta,(den.d-den.h)/2+a-delta);
-	} else {
-	  var W = Math.max(num.w,den.w);
-	  var t = SVG.thickness2em(values.linethickness,this.scale)*this.mscale, p,q, u,v;
-	  var mt = SVG.TeX.min_rule_thickness/SVG.em * 1000;
-	  if (isDisplay) {u = SVG.TeX.num1; v = SVG.TeX.denom1}
-	    else {u = (t === 0 ? SVG.TeX.num3 : SVG.TeX.num2); v = SVG.TeX.denom2}
-	  u *= scale; v *= scale;
-	  if (t === 0) {// \atop
-	    p = Math.max((isDisplay ? 7 : 3) * SVG.TeX.rule_thickness, 2*mt); // force to at least 2 px
-	    q = (u - num.d) - (den.h - v);
-	    if (q < p) {u += (p - q)/2; v += (p - q)/2}
+          frac.Add(den,num.w+bevel.w-delta,(den.d-den.h)/2+a-delta);
+        } else {
+          var W = Math.max(num.w,den.w);
+          var t = SVG.thickness2em(values.linethickness,this.scale)*this.mscale, p,q, u,v;
+          var mt = SVG.TeX.min_rule_thickness/SVG.em * 1000;
+          if (isDisplay) {u = SVG.TeX.num1; v = SVG.TeX.denom1}
+            else {u = (t === 0 ? SVG.TeX.num3 : SVG.TeX.num2); v = SVG.TeX.denom2}
+          u *= scale; v *= scale;
+          if (t === 0) {// \atop
+            p = Math.max((isDisplay ? 7 : 3) * SVG.TeX.rule_thickness, 2*mt); // force to at least 2 px
+            q = (u - num.d) - (den.h - v);
+            if (q < p) {u += (p - q)/2; v += (p - q)/2}
             frac.w = W; t = 0;
-	  } else {// \over
-	    p = Math.max((isDisplay ? 2 : 0) * mt + t, t/2 + 1.5*mt);  // force to be at least 1.5px
-	    q = (u - num.d) - (a + t/2); if (q < p) {u += p - q}
-	    q = (a - t/2) - (den.h - v); if (q < p) {v += p - q}
-	    frac.Add(BBOX.RECT(t/2,t/2,W+2*t),0,a);
-	  }
+          } else {// \over
+            p = Math.max((isDisplay ? 2 : 0) * mt + t, t/2 + 1.5*mt);  // force to be at least 1.5px
+            q = (u - num.d) - (a + t/2); if (q < p) {u += p - q}
+            q = (a - t/2) - (den.h - v); if (q < p) {v += p - q}
+            frac.Add(BBOX.RECT(t/2,t/2,W+2*t),0,a);
+          }
           frac.Align(num,values.numalign,t,u);
           frac.Align(den,values.denomalign,t,-v);
-	}
+        }
         frac.Clean(); svg.Add(frac,0,0); svg.Clean();
-	this.SVGhandleColor(svg);
+        this.SVGhandleColor(svg);
         this.SVGsaveData(svg);
-	return svg;
+        return svg;
       },
       SVGcanStretch: function (direction) {return false},
       SVGhandleSpace: function (svg) {
-      	if (!this.texWithDelims) {
+        if (!this.texWithDelims) {
           //
           //  Add nulldelimiterspace around the fraction
           //   (TeXBook pg 150 and Appendix G rule 15e)
@@ -15898,24 +15898,24 @@ var junk = [window, navigator]; junk = null;
       toSVG: function () {
         this.SVGgetStyles();
         var svg = this.SVG(), scale = this.SVGgetScale(svg); this.SVGhandleSpace(svg);
-	var base = this.SVGchildSVG(0), rule, surd;
-	var t = SVG.TeX.rule_thickness * scale, p,q, H, x = 0;
-	if (this.Get("displaystyle")) {p = SVG.TeX.x_height * scale} else {p = t}
-	q = Math.max(t + p/4,1000*SVG.TeX.min_root_space/SVG.em);
+        var base = this.SVGchildSVG(0), rule, surd;
+        var t = SVG.TeX.rule_thickness * scale, p,q, H, x = 0;
+        if (this.Get("displaystyle")) {p = SVG.TeX.x_height * scale} else {p = t}
+        q = Math.max(t + p/4,1000*SVG.TeX.min_root_space/SVG.em);
         H = base.h + base.d + q + t;
-	surd = SVG.createDelimiter(0x221A,H,scale);
-	if (surd.h + surd.d > H) {q = ((surd.h+surd.d) - (H-t)) / 2}
+        surd = SVG.createDelimiter(0x221A,H,scale);
+        if (surd.h + surd.d > H) {q = ((surd.h+surd.d) - (H-t)) / 2}
         rule = BBOX.RECT(t,0,base.w);
-	H = base.h + q + t;
-	x = this.SVGaddRoot(svg,surd,x,surd.h+surd.d-H,scale);
+        H = base.h + q + t;
+        x = this.SVGaddRoot(svg,surd,x,surd.h+surd.d-H,scale);
         svg.Add(surd,x,H-surd.h);
         svg.Add(rule,x+surd.w,H-rule.h);
-	svg.Add(base,x+surd.w,0);
+        svg.Add(base,x+surd.w,0);
         svg.Clean();
         svg.h += t; svg.H += t;
-	this.SVGhandleColor(svg);
+        this.SVGhandleColor(svg);
         this.SVGsaveData(svg);
-	return svg;
+        return svg;
       },
       SVGaddRoot: function (svg,surd,x,d,scale) {return x}
     });
@@ -15924,17 +15924,17 @@ var junk = [window, navigator]; junk = null;
       toSVG: MML.msqrt.prototype.toSVG,
       SVGaddRoot: function (svg,surd,x,d,scale) {
         var dx = (surd.isMultiChar ? .55 : .65) * surd.w;
-	if (this.data[1]) {
+        if (this.data[1]) {
           var root = this.data[1].toSVG(); root.x = 0;
           var h = this.SVGrootHeight(surd.h+surd.d,scale,root)-d;
           var w = Math.min(root.w,root.r); // remove extra right-hand padding, if any
           x = Math.max(w,dx);
           svg.Add(root,x-w,h);
         } else {dx = x}
-	return x - dx;
+        return x - dx;
       },
       SVGrootHeight: function (d,scale,root) {
-	return .45*(d-900*scale) + 600*scale + Math.max(0,root.d-75);
+        return .45*(d-900*scale) + 600*scale + Math.max(0,root.d-75);
       }
     });
 
@@ -15943,20 +15943,20 @@ var junk = [window, navigator]; junk = null;
       toSVG: function () {
         this.SVGgetStyles();
         var svg = this.SVG();
-	this.SVGhandleSpace(svg);
-	if (this.data.open) {svg.Check(this.data.open)}
-	if (this.data[0] != null) {svg.Check(this.data[0])}
-	for (var i = 1, m = this.data.length; i < m; i++) {
-	  if (this.data[i]) {
-	    if (this.data["sep"+i]) {svg.Check(this.data["sep"+i])}
-	    svg.Check(this.data[i]);
-	  }
-	}
-	if (this.data.close) {svg.Check(this.data.close)}
+        this.SVGhandleSpace(svg);
+        if (this.data.open) {svg.Check(this.data.open)}
+        if (this.data[0] != null) {svg.Check(this.data[0])}
+        for (var i = 1, m = this.data.length; i < m; i++) {
+          if (this.data[i]) {
+            if (this.data["sep"+i]) {svg.Check(this.data["sep"+i])}
+            svg.Check(this.data[i]);
+          }
+        }
+        if (this.data.close) {svg.Check(this.data.close)}
         svg.Stretch(); svg.Clean();
-	this.SVGhandleColor(svg);
+        this.SVGhandleColor(svg);
         this.SVGsaveData(svg);
-	return svg;
+        return svg;
       }
     });
 
@@ -15967,48 +15967,48 @@ var junk = [window, navigator]; junk = null;
       toSVG: function () {
         this.SVGgetStyles();
         var svg = this.SVG();
-	if (this.data[0] != null) {
+        if (this.data[0] != null) {
           this.SVGhandleSpace(svg);
-	  svg.Add(this.data[0].toSVG()); svg.Clean();
-	} else {svg.Clean()}
+          svg.Add(this.data[0].toSVG()); svg.Clean();
+        } else {svg.Clean()}
         this.SVGsaveData(svg);
-	return svg;
+        return svg;
       },
       SVGstretchH: function (w) {
-	return (this.data[0] != null ? this.data[0].SVGstretchH(w) : BBOX.NULL());
+        return (this.data[0] != null ? this.data[0].SVGstretchH(w) : BBOX.NULL());
       },
       SVGstretchV: function (h,d) {
-	return (this.data[0] != null ? this.data[0].SVGstretchV(h,d) : BBOX.NULL());
+        return (this.data[0] != null ? this.data[0].SVGstretchV(h,d) : BBOX.NULL());
       }
     });
 
     MML.munderover.Augment({
       toSVG: function (HW,D) {
         this.SVGgetStyles();
-	var values = this.getValues("displaystyle","accent","accentunder","align");
+        var values = this.getValues("displaystyle","accent","accentunder","align");
         var base = this.data[this.base];
-	if (!values.displaystyle && base != null &&
-	    (base.movablelimits || base.CoreMO().Get("movablelimits")))
-	      {return MML.msubsup.prototype.toSVG.call(this)}
+        if (!values.displaystyle && base != null &&
+            (base.movablelimits || base.CoreMO().Get("movablelimits")))
+          {return MML.msubsup.prototype.toSVG.call(this)}
         var svg = this.SVG(), scale = this.SVGgetScale(svg); this.SVGhandleSpace(svg);
-	var boxes = [], stretch = [], box, i, m, W = -SVG.BIGDIMEN, WW = W;
-	for (i = 0, m = this.data.length; i < m; i++) {
-	  if (this.data[i] != null) {
-	    if (i == this.base) {
+        var boxes = [], stretch = [], box, i, m, W = -SVG.BIGDIMEN, WW = W;
+        for (i = 0, m = this.data.length; i < m; i++) {
+          if (this.data[i] != null) {
+            if (i == this.base) {
               boxes[i] = this.SVGdataStretched(i,HW,D);
-	      stretch[i] = (D != null || HW == null) && this.data[i].SVGcanStretch("Horizontal");
+              stretch[i] = (D != null || HW == null) && this.data[i].SVGcanStretch("Horizontal");
               if (this.data[this.over] && values.accent) {
                 boxes[i].h = Math.max(boxes[i].h,scale*SVG.TeX.x_height); // min height of 1ex (#1706)
               }
             } else {
               boxes[i] = this.data[i].toSVG(); boxes[i].x = 0; delete boxes[i].X;
-	      stretch[i] = this.data[i].SVGcanStretch("Horizontal");
-	    }
-	    if (boxes[i].w > WW) {WW = boxes[i].w}
-	    if (!stretch[i] && WW > W) {W = WW}
-	  }
-	}
-	if (D == null && HW != null) {W = HW} else if (W == -SVG.BIGDIMEN) {W = WW}
+              stretch[i] = this.data[i].SVGcanStretch("Horizontal");
+            }
+            if (boxes[i].w > WW) {WW = boxes[i].w}
+            if (!stretch[i] && WW > W) {W = WW}
+          }
+        }
+        if (D == null && HW != null) {W = HW} else if (W == -SVG.BIGDIMEN) {W = WW}
         for (i = WW = 0, m = this.data.length; i < m; i++) {if (this.data[i]) {
           if (stretch[i]) {
             boxes[i] = this.data[i].SVGstretchH(W);
@@ -16017,56 +16017,56 @@ var junk = [window, navigator]; junk = null;
           if (boxes[i].w > WW) {WW = boxes[i].w}
         }}
         var t = SVG.TeX.rule_thickness * this.mscale;
-	var x, y, z1, z2, z3, dw, k, delta = 0;
-	base = boxes[this.base] || {w:0, h:0, d:0, H:0, D:0, l:0, r:0, y:0, scale:scale};
+        var x, y, z1, z2, z3, dw, k, delta = 0;
+        base = boxes[this.base] || {w:0, h:0, d:0, H:0, D:0, l:0, r:0, y:0, scale:scale};
         if (base.ic) {delta = 1.3*base.ic + .05} // adjust faked IC to be more in line with expeted results
-	for (i = 0, m = this.data.length; i < m; i++) {
-	  if (this.data[i] != null) {
-	    box = boxes[i];
-	    z3 = SVG.TeX.big_op_spacing5 * scale;
-	    var accent = (i != this.base && values[this.ACCENTS[i]]);
-	    if (accent && box.w <= 1) {
+        for (i = 0, m = this.data.length; i < m; i++) {
+          if (this.data[i] != null) {
+            box = boxes[i];
+            z3 = SVG.TeX.big_op_spacing5 * scale;
+            var accent = (i != this.base && values[this.ACCENTS[i]]);
+            if (accent && box.w <= 1) {
               box.x = -box.l;
               boxes[i] = BBOX.G().With({removeable: false});
               boxes[i].Add(box); boxes[i].Clean();
               boxes[i].w = -box.l; box = boxes[i];
             }
-	    dw = {left:0, center:(WW-box.w)/2, right:WW-box.w}[values.align];
-	    x = dw; y = 0;
-	    if (i == this.over) {
-	      if (accent) {
-		k = t * scale; z3 = 0;
-		if (base.skew) {
+            dw = {left:0, center:(WW-box.w)/2, right:WW-box.w}[values.align];
+            x = dw; y = 0;
+            if (i == this.over) {
+              if (accent) {
+                k = t * scale; z3 = 0;
+                if (base.skew) {
                   x += base.skew; svg.skew = base.skew;
                   if (x+box.w > WW) {svg.skew += (WW-box.w-x)/2}
                 }
-	      } else {
-		z1 = SVG.TeX.big_op_spacing1 * scale;
-		z2 = SVG.TeX.big_op_spacing3 * scale;
-		k = Math.max(z1,z2-Math.max(0,box.d));
-	      }
-	      k = Math.max(k,1500/SVG.em);
-	      x += delta/2; y = base.y + base.h + box.d + k;
-	      box.h += z3; if (box.h > box.H) {box.H = box.h}
-	    } else if (i == this.under) {
-	      if (accent) {
-		k = 3*t * scale; z3 = 0;
-	      } else {
-		z1 = SVG.TeX.big_op_spacing2 * scale;
-		z2 = SVG.TeX.big_op_spacing4 * scale;
-		k = Math.max(z1,z2-box.h);
-	      }
-	      k = Math.max(k,1500/SVG.em);
-	      x -= delta/2; y = base.y -(base.d + box.h + k);
-	      box.d += z3; if (box.d > box.D) {box.D = box.d}
-	    }
-	    svg.Add(box,x,y);
-	  }
-	}
+              } else {
+                z1 = SVG.TeX.big_op_spacing1 * scale;
+                z2 = SVG.TeX.big_op_spacing3 * scale;
+                k = Math.max(z1,z2-Math.max(0,box.d));
+              }
+              k = Math.max(k,1500/SVG.em);
+              x += delta/2; y = base.y + base.h + box.d + k;
+              box.h += z3; if (box.h > box.H) {box.H = box.h}
+            } else if (i == this.under) {
+              if (accent) {
+                k = 3*t * scale; z3 = 0;
+              } else {
+                z1 = SVG.TeX.big_op_spacing2 * scale;
+                z2 = SVG.TeX.big_op_spacing4 * scale;
+                k = Math.max(z1,z2-box.h);
+              }
+              k = Math.max(k,1500/SVG.em);
+              x -= delta/2; y = base.y -(base.d + box.h + k);
+              box.d += z3; if (box.d > box.D) {box.D = box.d}
+            }
+            svg.Add(box,x,y);
+          }
+        }
         svg.Clean();
-	this.SVGhandleColor(svg);
+        this.SVGhandleColor(svg);
         this.SVGsaveData(svg);
-	return svg;
+        return svg;
       }
     });
 
@@ -16074,66 +16074,66 @@ var junk = [window, navigator]; junk = null;
       toSVG: function (HW,D) {
         this.SVGgetStyles();
         var svg = this.SVG(), scale = this.SVGgetScale(svg); this.SVGhandleSpace(svg);
-	var mu = this.SVGgetMu(svg);
+        var mu = this.SVGgetMu(svg);
         var base = svg.Add(this.SVGdataStretched(this.base,HW,D));
-	var sscale = (this.data[this.sup] || this.data[this.sub] || this).SVGgetScale();
-	var x_height = SVG.TeX.x_height * scale, s = SVG.TeX.scriptspace * scale;
-	var sup, sub;
-	if (this.SVGnotEmpty(this.data[this.sup])) {
-	  sup = this.data[this.sup].toSVG();
-	  sup.w += s; sup.r = Math.max(sup.w,sup.r);
-	}
-	if (this.SVGnotEmpty(this.data[this.sub])) {
-	  sub = this.data[this.sub].toSVG();
-	  sub.w += s; sub.r = Math.max(sub.w,sub.r);
-	}
-	var q = SVG.TeX.sup_drop * sscale, r = SVG.TeX.sub_drop * sscale;
-	var u = base.h+(base.y||0) - q, v = base.d-(base.y||0) + r, delta = 0, p;
-	if (base.ic) {
+        var sscale = (this.data[this.sup] || this.data[this.sub] || this).SVGgetScale();
+        var x_height = SVG.TeX.x_height * scale, s = SVG.TeX.scriptspace * scale;
+        var sup, sub;
+        if (this.SVGnotEmpty(this.data[this.sup])) {
+          sup = this.data[this.sup].toSVG();
+          sup.w += s; sup.r = Math.max(sup.w,sup.r);
+        }
+        if (this.SVGnotEmpty(this.data[this.sub])) {
+          sub = this.data[this.sub].toSVG();
+          sub.w += s; sub.r = Math.max(sub.w,sub.r);
+        }
+        var q = SVG.TeX.sup_drop * sscale, r = SVG.TeX.sub_drop * sscale;
+        var u = base.h+(base.y||0) - q, v = base.d-(base.y||0) + r, delta = 0, p;
+        if (base.ic) {
           base.w -= base.ic;       // remove IC (added by mo and mi)
           delta = 1.3*base.ic+.05; // adjust faked IC to be more in line with expeted results
         }
-	if (this.data[this.base] &&
-	   (this.data[this.base].type === "mi" || this.data[this.base].type === "mo")) {
-	  if (this.data[this.base].data.join("").length === 1 && base.scale === 1 &&
-	      !base.stretched && !this.data[this.base].Get("largeop")) {u = v = 0}
-	}
-	var min = this.getValues("subscriptshift","superscriptshift");
-	min.subscriptshift   = (min.subscriptshift === ""   ? 0 : SVG.length2em(min.subscriptshift,mu));
-	min.superscriptshift = (min.superscriptshift === "" ? 0 : SVG.length2em(min.superscriptshift,mu));
+        if (this.data[this.base] &&
+           (this.data[this.base].type === "mi" || this.data[this.base].type === "mo")) {
+          if (this.data[this.base].data.join("").length === 1 && base.scale === 1 &&
+              !base.stretched && !this.data[this.base].Get("largeop")) {u = v = 0}
+        }
+        var min = this.getValues("subscriptshift","superscriptshift");
+        min.subscriptshift   = (min.subscriptshift === ""   ? 0 : SVG.length2em(min.subscriptshift,mu));
+        min.superscriptshift = (min.superscriptshift === "" ? 0 : SVG.length2em(min.superscriptshift,mu));
         var x = base.w + base.x;
-	if (!sup) {
-	  if (sub) {
-	    v = Math.max(v,SVG.TeX.sub1*scale,sub.h-(4/5)*x_height,min.subscriptshift);
+        if (!sup) {
+          if (sub) {
+            v = Math.max(v,SVG.TeX.sub1*scale,sub.h-(4/5)*x_height,min.subscriptshift);
             svg.Add(sub,x,-v); this.data[this.sub].SVGdata.dy = -v;
-	  }
-	} else {
-	  if (!sub) {
-	    var values = this.getValues("displaystyle","texprimestyle");
-	    p = SVG.TeX[(values.displaystyle ? "sup1" : (values.texprimestyle ? "sup3" : "sup2"))];
-	    u = Math.max(u,p*scale,sup.d+(1/4)*x_height,min.superscriptshift);
+          }
+        } else {
+          if (!sub) {
+            var values = this.getValues("displaystyle","texprimestyle");
+            p = SVG.TeX[(values.displaystyle ? "sup1" : (values.texprimestyle ? "sup3" : "sup2"))];
+            u = Math.max(u,p*scale,sup.d+(1/4)*x_height,min.superscriptshift);
             svg.Add(sup,x+delta,u);
-            this.data[this.sup].SVGdata.dx = delta; 
+            this.data[this.sup].SVGdata.dx = delta;
             this.data[this.sup].SVGdata.dy = u;
-	  } else {
-	    v = Math.max(v,SVG.TeX.sub2*scale);
-	    var t = SVG.TeX.rule_thickness * scale;
-	    if ((u - sup.d) - (sub.h - v) < 3*t) {
-	      v = 3*t - u + sup.d + sub.h;
-	      q = (4/5)*x_height - (u - sup.d);
-	      if (q > 0) {u += q; v -= q}
-	    }
+          } else {
+            v = Math.max(v,SVG.TeX.sub2*scale);
+            var t = SVG.TeX.rule_thickness * scale;
+            if ((u - sup.d) - (sub.h - v) < 3*t) {
+              v = 3*t - u + sup.d + sub.h;
+              q = (4/5)*x_height - (u - sup.d);
+              if (q > 0) {u += q; v -= q}
+            }
             svg.Add(sup,x+delta,Math.max(u,min.superscriptshift));
-	    svg.Add(sub,x,-Math.max(v,min.subscriptshift));
-            this.data[this.sup].SVGdata.dx = delta; 
+            svg.Add(sub,x,-Math.max(v,min.subscriptshift));
+            this.data[this.sup].SVGdata.dx = delta;
             this.data[this.sup].SVGdata.dy = Math.max(u,min.superscriptshift);
             this.data[this.sub].SVGdata.dy = -Math.max(v,min.subscriptshift);
-	  }
-	}
+          }
+        }
         svg.Clean();
-	this.SVGhandleColor(svg);
+        this.SVGhandleColor(svg);
         this.SVGsaveData(svg);
-	return svg;
+        return svg;
       }
     });
 
@@ -16150,8 +16150,8 @@ var junk = [window, navigator]; junk = null;
         //
         if (this.data[0]) {
           this.SVGgetStyles();
-	  MML.mbase.prototype.displayAlign = HUB.config.displayAlign;
-	  MML.mbase.prototype.displayIndent = HUB.config.displayIndent;
+          MML.mbase.prototype.displayAlign = HUB.config.displayAlign;
+          MML.mbase.prototype.displayIndent = HUB.config.displayIndent;
           if (String(HUB.config.displayIndent).match(/^0($|[a-z%])/i))
             MML.mbase.prototype.displayIndent = "0";
           //
@@ -16200,11 +16200,11 @@ var junk = [window, navigator]; junk = null;
           //
           //  If there is extra height or depth, hide that
           //
-	  if (svg.H > svg.h) style.marginTop = SVG.Ex(svg.h-H);
-	  if (svg.D > svg.d) {
-	    style.marginBottom = SVG.Ex(svg.d-D);
-	    style.verticalAlign = SVG.Ex(-svg.d);
-	  }
+          if (svg.H > svg.h) style.marginTop = SVG.Ex(svg.h-H);
+          if (svg.D > svg.d) {
+            style.marginBottom = SVG.Ex(svg.d-D);
+            style.verticalAlign = SVG.Ex(-svg.d);
+          }
           //
           //  The approximate ex can cause full-width equations to be too wide,
           //    so if they are close to full width, make sure they aren't too big.
@@ -16244,7 +16244,7 @@ var junk = [window, navigator]; junk = null;
             }
           }
         }
-	return span;
+        return span;
       }
     });
 
@@ -16253,16 +16253,16 @@ var junk = [window, navigator]; junk = null;
         this.SVGgetStyles();
         var svg = this.SVG();
         this.SVGhandleSpace(svg);
-	if (this.data[0] != null) {
+        if (this.data[0] != null) {
           var box = this.SVGdataStretched(0,HW,D), y = 0;
           if (this.texClass === MML.TEXCLASS.VCENTER)
             {y = SVG.TeX.axis_height - (box.h+box.d)/2 + box.d}
           svg.Add(box,0,y);
           svg.ic = box.ic; svg.skew = box.skew;
-	}
-	this.SVGhandleColor(svg);
+        }
+        this.SVGhandleColor(svg);
         this.SVGsaveData(svg);
-	return svg;
+        return svg;
       }
     });
 
@@ -16279,7 +16279,7 @@ var junk = [window, navigator]; junk = null;
     //  but can't call loadComplete within the callback for "mml Jax Ready"
     //  (it would call SVG's Require routine, asking for the mml jax again)
     //  so wait until after the mml jax has finished processing.
-    //  
+    //
     //  We also need to wait for the onload handler to run, since the loadComplete
     //  will call Config and Startup, which need to modify the body.
     //
@@ -16295,12 +16295,12 @@ var junk = [window, navigator]; junk = null;
       });
     }
   });
-    
+
   HUB.Register.StartupHook("End Cookie", function () {
     if (HUB.config.menuSettings.zoom !== "None")
       {AJAX.Require("[MathJax]/extensions/MathZoom.js")}
   });
-  
+
   if (!document.createElementNS) {
     //
     //  Try to handle SVG in IE8 and below, but fail
@@ -16316,7 +16316,7 @@ var junk = [window, navigator]; junk = null;
       }
     });
   }
-  
+
 })(MathJax.Ajax, MathJax.Hub, MathJax.HTML, MathJax.OutputJax.SVG);
 
 /* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
@@ -16719,17 +16719,17 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
  *  Implements the HTML-CSS OutputJax that displays mathematics
  *  using HTML and CSS to position the characters from math fonts
  *  in their proper locations.
- *  
+ *
  *  ---------------------------------------------------------------------
- *  
+ *
  *  Copyright (c) 2009-2018 The MathJax Consortium
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16746,7 +16746,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
     data[0][0] = ["HTML-CSS",data[0][0]];
     return MathJax.Message.Set.apply(MathJax.Message,data);
   };
-   
+
   var FONTTEST = MathJax.Object.Subclass({
     timeout:  (isMobile? 15:8)*1000,   // timeout for loading web fonts
     comparisonFont: ["sans-serif","monospace","script","Times","Courier","Arial","Helvetica"],
@@ -16755,7 +16755,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
     //  Fedora aliases STIXSizeOneSym to STIX Word, so MathJax thinks STIX is
     //  available, but the fonts aren't actually correct.  This is to test if
     //  STIXSizeOneSym has letters in it (so is actually STIX Word).
-    //  
+    //
     FedoraSTIXcheck: {family:"STIXSizeOneSym", testString:"abcABC", noStyleChar:true},
 
     Init: function () {
@@ -16954,7 +16954,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
       return def;
     }
   });
-  
+
   var EVENT, TOUCH, HOVER; // filled in later
 
   var oldIE = MathJax.Hub.Browser.isMSIE && (document.documentMode||0) < 8;
@@ -16996,7 +16996,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
           "min-width": 0, "min-height": 0,
           width: "100%"
         },
-        
+
         ".MathJax.MathJax_FullWidth": {
           "text-align": "center",
           display: (oldIE ? "block" : "table-cell") + "!important",
@@ -17014,24 +17014,24 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
           border:"0!important", padding:"0!important", margin:"0!important",
           "vertical-align": "0!important"
         },
-        
-	".MathJax span": {
-	  display: "inline", position: "static",
-	  border: 0, padding: 0, margin: 0,
-	  "vertical-align": 0, "line-height": "normal",
-	  "text-decoration": "none",
+
+        ".MathJax span": {
+          display: "inline", position: "static",
+          border: 0, padding: 0, margin: 0,
+          "vertical-align": 0, "line-height": "normal",
+          "text-decoration": "none",
           "box-sizing": "content-box"
-	},
+        },
 
         ".MathJax nobr": {
           "white-space": "nowrap!important"
         },
-        
+
         ".MathJax img": {
           display: "inline!important",
           "float": "none!important"
         },
-        
+
         ".MathJax *": {
           transition: "none",
           "-webkit-transition": "none",
@@ -17045,7 +17045,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
           width: 0, height: 0, overflow:"hidden"
         },
         ".MathJax_Processed": {display:"none!important"},
-        
+
         ".MathJax_ExBox": {
           display:"block!important", overflow:"hidden",
           width:"1px", height:"60ex",
@@ -17065,7 +17065,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
           "min-width":0, "max-width":"none",
           padding:0, border:0, margin:0
         },
-        
+
         ".MathJax .MathJax_HitBox": {
           cursor: "text",
           background: "white",
@@ -17116,7 +17116,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
       LatinModernWeb: "Latin-Modern",
       NeoEulerWeb:    "Neo-Euler"
     },
-    
+
     fontInUse: "generic",
     FONTDATA: {
       TeX_factor: 1, baselineskip: 1.2, lineH: .8, lineD: .2, ffLineH: .8,
@@ -17221,7 +17221,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
       // Set up styles and preload web fonts
       return AJAX.Styles(this.config.styles,["InitializeHTML",this]);
     },
-    
+
     removeSTIXfonts: function (fonts) {
       //
       //  Opera doesn't display large chunks of the STIX fonts, and
@@ -17242,7 +17242,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
         if (!FONT.available) {HTMLCSS.Font.testFont(FONT)}
       }
     },
-    
+
     //
     //  Handle initialization that requires styles to be set up
     //
@@ -17280,7 +17280,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
       document.body.removeChild(this.linebreakSpan);
       document.body.removeChild(this.EmExSpan);
     },
-    
+
     preTranslate: function (state) {
       var scripts = state.jax[this.id], i, m = scripts.length, n,
           script, prev, span, div, test, jax, ex, em, scale, maxwidth, relwidth = false, cwidth,
@@ -17310,7 +17310,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
         jax = script.MathJax.elementJax; if (!jax) continue;
         jax.HTMLCSS = {display: (jax.root.Get("display") === "block")}
         span = div = this.Element("span",{
-	  className:"MathJax", id:jax.inputID+"-Frame", isMathJax:true, jaxID:this.id,
+          className:"MathJax", id:jax.inputID+"-Frame", isMathJax:true, jaxID:this.id,
           oncontextmenu:EVENT.Menu, onmousedown: EVENT.Mousedown,
           onmouseover:EVENT.Mouseover, onmouseout:EVENT.Mouseout,
           onmousemove:EVENT.Mousemove, onclick:EVENT.Click,
@@ -17318,10 +17318,10 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
           // Added for keyboard accessible menu.
           onkeydown: EVENT.Keydown, tabIndex: HUB.getTabOrder(jax)
         });
-	if (HUB.Browser.noContextMenu) {
-	  span.ontouchstart = TOUCH.start;
-	  span.ontouchend = TOUCH.end;
-	}
+        if (HUB.Browser.noContextMenu) {
+          span.ontouchstart = TOUCH.start;
+          span.ontouchend = TOUCH.end;
+        }
         if (jax.HTMLCSS.display) {
           div = this.Element("div",{className:"MathJax_Display"});
           div.appendChild(span);
@@ -17389,13 +17389,13 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
     },
 
     PHASE: {I: 1, II: 2, III: 3},  // processing phases
-  
+
     Translate: function (script,state) {
       if (!script.parentNode) return;
 
       //
       //  If we are supposed to do a chunk delay, do it
-      //  
+      //
       if (state.HTMLCSSdelay) {
         state.HTMLCSSdelay = false;
         HUB.RestartAfter(MathJax.Callback.Delay(this.config.EqnChunkDelay));
@@ -17467,7 +17467,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
     //
     getMetrics: function(jax) {
       var data = jax.HTMLCSS;
-      this.em = MML.mbase.prototype.em = data.em * data.scale; 
+      this.em = MML.mbase.prototype.em = data.em * data.scale;
       this.outerEm = data.em;
       this.scale = data.scale;
       this.cwidth = data.cwidth;
@@ -17498,7 +17498,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
         script = scripts[i];
         if (script && script.parentNode && script.MathJax.elementJax) {
           jax = script.MathJax.elementJax; this.getMetrics(jax);
-          if (jax.HTMLCSS.span && jax.HTMLCSS.div) 
+          if (jax.HTMLCSS.span && jax.HTMLCSS.div)
             jax.root.toHTML(jax.HTMLCSS.span,jax.HTMLCSS.div,this.PHASE.II);
         }
       }
@@ -17535,7 +17535,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
       //
       state.HTMLCSSlast = state.HTMLCSSeqn;
     },
-    
+
     getJaxFromMath: function (math) {
       if (math.parentNode.className.match(/MathJax_Display/)) {math = math.parentNode}
       do {math = math.nextSibling} while (math && math.nodeName.toLowerCase() !== "script");
@@ -17548,7 +17548,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
       if (bbox.width) {BBOX.width = bbox.width}
       return BBOX;
     },
-    
+
     Zoom: function (jax,span,math,Mw,Mh) {
       //
       //  Re-render at larger size
@@ -17571,7 +17571,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
       this.zoomScale = parseInt(HUB.config.menuSettings.zscale) / 100;
       this.idPostfix = "-zoom"; jax.root.toHTML(span,span); this.idPostfix = "";
       this.zoomScale = 1;
-      
+
       var bbox = jax.root.HTMLspanElement().bbox, width = bbox.width;
       if (width) {
         //  Handle full-width displayed equations
@@ -17637,7 +17637,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
       }
       delete jax.HTMLCSS;
     },
-    
+
     getHD: function (span,force) {
       if (span.bbox && this.config.noReflows && !force) {return {h:span.bbox.h, d:span.bbox.d}}
       var position = span.style.position;
@@ -17697,7 +17697,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
       var spans = [], span, i, m, bbox, start, end, W, parent;
       //
       //  Insert the needed markers
-      // 
+      //
       for (i = 0, m = SPANS.length; i < m; i++) {
         span = SPANS[i]; if (!span) continue;
         bbox = span.bbox; parent = this.parentNode(span);
@@ -17804,7 +17804,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
       if (length === MML.LINETHICKNESS.THICK)  {length = "5px"}
       return this.length2em(length,mu);
     },
-    
+
     getPadding: function (span) {
       var padding = {top:0, right:0, bottom:0, left:0}, has = false;
       for (var id in padding) {if (padding.hasOwnProperty(id)) {
@@ -17863,8 +17863,8 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
       var H = this.Em(h+d), D = this.Em(-d);
       if (this.msieInlineBlockAlignBug) {D = this.Em(HTMLCSS.getHD(span.parentNode,true).d-d)}
       if (span.isBox || isSpace) {
-	var scale = (span.scale == null ? 1 : span.scale);
-	span.bbox = {exactW: true, h: h*scale, d: d*scale, w: w*scale, rw: w*scale, lw: 0};
+        var scale = (span.scale == null ? 1 : span.scale);
+        span.bbox = {exactW: true, h: h*scale, d: d*scale, w: w*scale, rw: w*scale, lw: 0};
         span.style.height = H; span.style.verticalAlign = D;
         span.HH = (h+d)*scale;
       } else {
@@ -17924,7 +17924,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
       if (D) {frame.style.verticalAlign = D}
       return frame;
     },
-    
+
     //
     //  Find parent span (skipping over <a> tags)
     //
@@ -17989,7 +17989,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
           this.addElement(span,"span",{
             isMathJax: true, style:{display:"inline-block",width:0,height:this.Em(HH)}
           });
-          if (HTMLCSS.chromeHeightBug) 
+          if (HTMLCSS.chromeHeightBug)
             {HH -= (span.lastChild.offsetHeight - Math.round(HH*this.em))/this.em}
         }
       }
@@ -18205,7 +18205,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
       } else {text = String.fromCharCode(data[0])}
       if (data[4]) {scale *= data[4]}
       if (scale !== 1 || data[3]) {
-	SPAN = this.addElement(span,"span",{style:{fontSize: this.Percent(scale)}, scale:scale, isMathJax:true});
+        SPAN = this.addElement(span,"span",{style:{fontSize: this.Percent(scale)}, scale:scale, isMathJax:true});
         this.handleVariant(SPAN,variant,text);
         span.bbox = SPAN.bbox;
       } else {this.handleVariant(span,variant,text)}
@@ -18230,10 +18230,10 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
           span.style.top = this.Em(-h);
         } else {
           span.style.verticalAlign = this.Em(h);
-	  if (HTMLCSS.ffVerticalAlignBug) {
-	    HTMLCSS.createRule(span.parentNode,span.bbox.h,0,0);
-	    delete span.parentNode.bbox;
-	  }
+          if (HTMLCSS.ffVerticalAlignBug) {
+            HTMLCSS.createRule(span.parentNode,span.bbox.h,0,0);
+            delete span.parentNode.bbox;
+          }
         }
       }
     },
@@ -18282,7 +18282,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
         } else if (this.FONTDATA.REMAP[n] && !variant.noRemap) {
           n = this.FONTDATA.REMAP[n];
         }
-        if (isArray(n)) {variant = this.FONTDATA.VARIANT[n[1]]; n = n[0]} 
+        if (isArray(n)) {variant = this.FONTDATA.VARIANT[n[1]]; n = n[0]}
         if (typeof(n) === "string") {
           text = n+text.substr(i+1);
           m = text.length; i = -1;
@@ -18407,7 +18407,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
       }
       return this.unknownChar(variant,n);
     },
-    
+
     unknownChar: function (variant,n) {
       var unknown = (variant.defaultFont || {family:HTMLCSS.config.undefinedFamily});
       if (variant.bold) {unknown.weight = "bold"}; if (variant.italic) {unknown.style = "italic"}
@@ -18453,7 +18453,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
       //
       //  After the first web font fails to load, switch to image fonts, if possible
       //  otherwise, give up on web fonts all together
-      // 
+      //
       HUB.Startup.signal.Post("HTML-CSS Jax - disable web fonts");
       font.isWebFont = false;
       if (this.config.imageFont && this.config.imageFont === this.fontInUse) {
@@ -18479,13 +18479,13 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
     GetID: function () {this.ID++; return this.ID},
 
     MATHSPACE: {
-      veryverythinmathspace:  1/18,
-      verythinmathspace:      2/18,
-      thinmathspace:          3/18,
-      mediummathspace:        4/18,
-      thickmathspace:         5/18,
-      verythickmathspace:     6/18,
-      veryverythickmathspace: 7/18,
+      veryverythinmathspace:           1/18,
+      verythinmathspace:               2/18,
+      thinmathspace:                   3/18,
+      mediummathspace:                 4/18,
+      thickmathspace:                  5/18,
+      verythickmathspace:              6/18,
+      veryverythickmathspace:          7/18,
       negativeveryverythinmathspace:  -1/18,
       negativeverythinmathspace:      -2/18,
       negativethinmathspace:          -3/18,
@@ -18539,130 +18539,130 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
 
     MML.mbase.Augment({
       toHTML: function (span) {
-	span = this.HTMLcreateSpan(span); if (this.type != "mrow") {span = this.HTMLhandleSize(span)}
-	for (var i = 0, m = this.data.length; i < m; i++)
-	  {if (this.data[i]) {this.data[i].toHTML(span)}}
-	var stretchy = this.HTMLcomputeBBox(span);
-	var h = span.bbox.h, d = span.bbox.d, stretched = false, bbox;
-	for (i = 0, m = stretchy.length; i < m; i++) {
+        span = this.HTMLcreateSpan(span); if (this.type != "mrow") {span = this.HTMLhandleSize(span)}
+        for (var i = 0, m = this.data.length; i < m; i++)
+          {if (this.data[i]) {this.data[i].toHTML(span)}}
+        var stretchy = this.HTMLcomputeBBox(span);
+        var h = span.bbox.h, d = span.bbox.d, stretched = false, bbox;
+        for (i = 0, m = stretchy.length; i < m; i++) {
           bbox = stretchy[i].HTMLspanElement().bbox;
           if (stretchy[i].forceStretch || bbox.h !== h || bbox.d !== d)
             {stretchy[i].HTMLstretchV(span,h,d); stretched = true}
           else if (stretchy[i].needsBBox) stretched = true;
         }
-	if (stretched) {this.HTMLcomputeBBox(span,true)}
+        if (stretched) {this.HTMLcomputeBBox(span,true)}
         if (this.HTMLlineBreaks(span)) {span = this.HTMLmultiline(span)}
-	this.HTMLhandleSpace(span);
-	this.HTMLhandleColor(span);
+        this.HTMLhandleSpace(span);
+        this.HTMLhandleColor(span);
         if (this.data.length === 1 && this.data[0]) {
           // copy skew data from accented character
           bbox = this.data[0].HTMLspanElement().bbox;
           if (bbox.skew) span.bbox.skew = bbox.skew;
         }
-	return span;
+        return span;
       },
       HTMLlineBreaks: function () {return false},
       HTMLmultiline: function () {MML.mbase.HTMLautoloadFile("multiline")},
       HTMLcomputeBBox: function (span,full,i,m) {
-	if (i == null) {i = 0}; if (m == null) {m = this.data.length}
-	var BBOX = span.bbox = {exactW: true}, stretchy = [];
-	while (i < m) {
-	  var core = this.data[i]; if (!core) continue;
-	  if (!full && core.HTMLcanStretch("Vertical")) {
+        if (i == null) {i = 0}; if (m == null) {m = this.data.length}
+        var BBOX = span.bbox = {exactW: true}, stretchy = [];
+        while (i < m) {
+          var core = this.data[i]; if (!core) continue;
+          if (!full && core.HTMLcanStretch("Vertical")) {
             stretchy.push(core);
             core = (core.CoreMO()||core);
             stretchy[stretchy.length-1].needsBBox = (core !== this.data[i]);
           }
-	  this.HTMLcombineBBoxes(core,BBOX); i++;
-	}
-	this.HTMLcleanBBox(BBOX);
-	return stretchy;
+          this.HTMLcombineBBoxes(core,BBOX); i++;
+        }
+        this.HTMLcleanBBox(BBOX);
+        return stretchy;
       },
       HTMLcombineBBoxes: function (core,BBOX) {
-	if (BBOX.w == null) {this.HTMLemptyBBox(BBOX)}
-	var child = (core.bbox ? core : core.HTMLspanElement());
+        if (BBOX.w == null) {this.HTMLemptyBBox(BBOX)}
+        var child = (core.bbox ? core : core.HTMLspanElement());
         if (!child || !child.bbox) return;
-	var bbox = child.bbox;
-	if (bbox.d > BBOX.d) {BBOX.d = bbox.d}
-	if (bbox.h > BBOX.h) {BBOX.h = bbox.h}
-	if (bbox.D != null && bbox.D > BBOX.D) {BBOX.D = bbox.D}
-	if (bbox.H != null && bbox.H > BBOX.H) {BBOX.H = bbox.H}
-	if (child.style.paddingLeft) {BBOX.w += HTMLCSS.unEm(child.style.paddingLeft)*(child.scale||1)}
-	if (BBOX.w + bbox.lw < BBOX.lw) {BBOX.lw = BBOX.w + bbox.lw}
-	if (BBOX.w + bbox.rw > BBOX.rw) {BBOX.rw = BBOX.w + bbox.rw}
-	BBOX.w += bbox.w;
-	if (child.style.paddingRight) {BBOX.w += HTMLCSS.unEm(child.style.paddingRight)*(child.scale||1)}
-	if (bbox.width) {BBOX.width = bbox.width; BBOX.minWidth = bbox.minWidth}
+        var bbox = child.bbox;
+        if (bbox.d > BBOX.d) {BBOX.d = bbox.d}
+        if (bbox.h > BBOX.h) {BBOX.h = bbox.h}
+        if (bbox.D != null && bbox.D > BBOX.D) {BBOX.D = bbox.D}
+        if (bbox.H != null && bbox.H > BBOX.H) {BBOX.H = bbox.H}
+        if (child.style.paddingLeft) {BBOX.w += HTMLCSS.unEm(child.style.paddingLeft)*(child.scale||1)}
+        if (BBOX.w + bbox.lw < BBOX.lw) {BBOX.lw = BBOX.w + bbox.lw}
+        if (BBOX.w + bbox.rw > BBOX.rw) {BBOX.rw = BBOX.w + bbox.rw}
+        BBOX.w += bbox.w;
+        if (child.style.paddingRight) {BBOX.w += HTMLCSS.unEm(child.style.paddingRight)*(child.scale||1)}
+        if (bbox.width) {BBOX.width = bbox.width; BBOX.minWidth = bbox.minWidth}
         if (bbox.tw) {BBOX.tw = bbox.tw}
         if (bbox.ic) {BBOX.ic = bbox.ic} else {delete BBOX.ic}
         if (BBOX.exactW && !bbox.exactW) {BBOX.exactW = bbox.exactW}
       },
       HTMLemptyBBox: function (BBOX) {
-	BBOX.h = BBOX.d = BBOX.H = BBOX.D = BBOX.rw = -HTMLCSS.BIGDIMEN;
-	BBOX.w = 0; BBOX.lw = HTMLCSS.BIGDIMEN;
-	return BBOX;
+        BBOX.h = BBOX.d = BBOX.H = BBOX.D = BBOX.rw = -HTMLCSS.BIGDIMEN;
+        BBOX.w = 0; BBOX.lw = HTMLCSS.BIGDIMEN;
+        return BBOX;
       },
       HTMLcleanBBox: function (BBOX) {
-	if (BBOX.h === this.BIGDIMEN)
-	  {BBOX.h = BBOX.d = BBOX.H = BBOX.D = BBOX.w = BBOX.rw = BBOX.lw = 0}
-	if (BBOX.D <= BBOX.d) {delete BBOX.D}; if (BBOX.H <= BBOX.h) {delete BBOX.H}
+        if (BBOX.h === this.BIGDIMEN)
+          {BBOX.h = BBOX.d = BBOX.H = BBOX.D = BBOX.w = BBOX.rw = BBOX.lw = 0}
+        if (BBOX.D <= BBOX.d) {delete BBOX.D}; if (BBOX.H <= BBOX.h) {delete BBOX.H}
       },
       HTMLzeroBBox: function () {return {h:0, d:0, w:0, lw: 0, rw:0}},
       HTMLcanStretch: function (direction) {
-	if (this.isEmbellished()) {
+        if (this.isEmbellished()) {
           var core = this.Core();
           if (core && core !== this) {return core.HTMLcanStretch(direction)}
         }
-	return false;
+        return false;
       },
       HTMLstretchH: function (box,W) {return this.HTMLspanElement()},
       HTMLstretchV: function (box,h,d) {return this.HTMLspanElement()},
       HTMLnotEmpty: function (data) {
-	while (data) {
-	  if ((data.type !== "mrow" && data.type !== "texatom") ||
-	       data.data.length > 1) {return true}
-	  data = data.data[0];
-	}
-	return false;
+        while (data) {
+          if ((data.type !== "mrow" && data.type !== "texatom") ||
+               data.data.length > 1) {return true}
+          data = data.data[0];
+        }
+        return false;
       },
 
       HTMLmeasureChild: function (n,box) {
-	if (this.data[n]) {HTMLCSS.Measured(this.data[n].toHTML(box),box)}
-	  else {box.bbox = this.HTMLzeroBBox()}
+        if (this.data[n]) {HTMLCSS.Measured(this.data[n].toHTML(box),box)}
+        else {box.bbox = this.HTMLzeroBBox()}
       },
       HTMLboxChild: function (n,box) {
         if (!this.data[n]) {this.SetData(n,MML.mrow())}
-	return this.data[n].toHTML(box);
+        return this.data[n].toHTML(box);
       },
 
       HTMLcreateSpan: function (span) {
-	if (this.spanID) {
-	  var SPAN = this.HTMLspanElement();
-	  if (SPAN && (SPAN.parentNode === span || (SPAN.parentNode||{}).parentNode === span)) {
-	    while (SPAN.firstChild) {SPAN.removeChild(SPAN.firstChild)}
-	    SPAN.bbox = this.HTMLzeroBBox();
-	    SPAN.scale = 1; SPAN.isMultChar = SPAN.HH = null;
-	    SPAN.style.cssText = "";
-	    return SPAN;
-	  }
-	}
-	if (this.href) {span = HTMLCSS.addElement(span,"a",{href:this.href, isMathJax:true})}
-	span = HTMLCSS.addElement(span,"span",{className: this.type, isMathJax:true});
-	if (HTMLCSS.imgHeightBug) {span.style.display = "inline-block"}
-	if (this["class"]) {span.className += " "+this["class"]}
-	if (!this.spanID) {this.spanID = HTMLCSS.GetID()}
-	span.id = (this.id || "MathJax-Span-"+this.spanID) + HTMLCSS.idPostfix;
-	span.bbox = this.HTMLzeroBBox(); this.styles = {};
-	if (this.style) {
-	  span.style.cssText = this.style;
-	  if (span.style.fontSize) {this.mathsize = span.style.fontSize; span.style.fontSize = ""}
+        if (this.spanID) {
+          var SPAN = this.HTMLspanElement();
+          if (SPAN && (SPAN.parentNode === span || (SPAN.parentNode||{}).parentNode === span)) {
+            while (SPAN.firstChild) {SPAN.removeChild(SPAN.firstChild)}
+            SPAN.bbox = this.HTMLzeroBBox();
+            SPAN.scale = 1; SPAN.isMultChar = SPAN.HH = null;
+            SPAN.style.cssText = "";
+            return SPAN;
+          }
+        }
+        if (this.href) {span = HTMLCSS.addElement(span,"a",{href:this.href, isMathJax:true})}
+        span = HTMLCSS.addElement(span,"span",{className: this.type, isMathJax:true});
+        if (HTMLCSS.imgHeightBug) {span.style.display = "inline-block"}
+        if (this["class"]) {span.className += " "+this["class"]}
+        if (!this.spanID) {this.spanID = HTMLCSS.GetID()}
+        span.id = (this.id || "MathJax-Span-"+this.spanID) + HTMLCSS.idPostfix;
+        span.bbox = this.HTMLzeroBBox(); this.styles = {};
+        if (this.style) {
+          span.style.cssText = this.style;
+          if (span.style.fontSize) {this.mathsize = span.style.fontSize; span.style.fontSize = ""}
           this.styles = {border:HTMLCSS.getBorders(span), padding:HTMLCSS.getPadding(span)}
           if (this.styles.border) {span.style.border = ""} // IE needs "0px none"?
           if (this.styles.padding) {span.style.padding = ""}
-	}
-	if (this.href) {span.parentNode.bbox = span.bbox}
+        }
+        if (this.href) {span.parentNode.bbox = span.bbox}
         this.HTMLaddAttributes(span);
-	return span;
+        return span;
       },
       HTMLaddAttributes: function(span) {
         //
@@ -18686,18 +18686,18 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
         }
       },
       HTMLspanElement: function () {
-	if (!this.spanID) {return null}
-	return document.getElementById((this.id||"MathJax-Span-"+this.spanID)+HTMLCSS.idPostfix);
+        if (!this.spanID) {return null}
+        return document.getElementById((this.id||"MathJax-Span-"+this.spanID)+HTMLCSS.idPostfix);
       },
 
       HTMLhandleVariant: function (span,variant,text) {HTMLCSS.handleVariant(span,variant,text)},
 
       HTMLhandleSize: function (span) {
-	if (!span.scale) {
-	  span.scale = this.HTMLgetScale();
-	  if (span.scale !== 1) {span.style.fontSize = HTMLCSS.Percent(span.scale)}
-	}
-	return span;
+        if (!span.scale) {
+          span.scale = this.HTMLgetScale();
+          if (span.scale !== 1) {span.style.fontSize = HTMLCSS.Percent(span.scale)}
+        }
+        return span;
       },
 
       HTMLhandleDir: function (span) {
@@ -18707,28 +18707,28 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
       },
 
       HTMLhandleColor: function (span) {
-	var values = this.getValues("mathcolor","color");
-	if (this.mathbackground) {values.mathbackground = this.mathbackground}
-	if (this.background) {values.background = this.background}
+        var values = this.getValues("mathcolor","color");
+        if (this.mathbackground) {values.mathbackground = this.mathbackground}
+        if (this.background) {values.background = this.background}
         if (this.style && span.style.backgroundColor) {
           values.mathbackground = span.style.backgroundColor;
           span.style.backgroundColor = "transparent";
         }
         var borders = (this.styles||{}).border, padding = (this.styles||{}).padding;
-	if (values.color && !this.mathcolor) {values.mathcolor = values.color}
-	if (values.background && !this.mathbackground) {values.mathbackground = values.background}
-	if (values.mathcolor) {span.style.color = values.mathcolor}
-	if ((values.mathbackground && values.mathbackground !== MML.COLOR.TRANSPARENT) || 
+        if (values.color && !this.mathcolor) {values.mathcolor = values.color}
+        if (values.background && !this.mathbackground) {values.mathbackground = values.background}
+        if (values.mathcolor) {span.style.color = values.mathcolor}
+        if ((values.mathbackground && values.mathbackground !== MML.COLOR.TRANSPARENT) ||
              borders || padding) {
-	  var bbox = span.bbox, dd = (bbox.exact ? 0 : 1/HTMLCSS.em), lW = 0, rW = 0,
+          var bbox = span.bbox, dd = (bbox.exact ? 0 : 1/HTMLCSS.em), lW = 0, rW = 0,
               lpad = span.style.paddingLeft, rpad = span.style.paddingRight;
-	  if (this.isToken) {lW = bbox.lw; rW = bbox.rw - bbox.w}
-	  if (lpad !== "") {lW += HTMLCSS.unEm(lpad)*(span.scale||1)}
-	  if (rpad !== "") {rW -= HTMLCSS.unEm(rpad)*(span.scale||1)}
+          if (this.isToken) {lW = bbox.lw; rW = bbox.rw - bbox.w}
+          if (lpad !== "") {lW += HTMLCSS.unEm(lpad)*(span.scale||1)}
+          if (rpad !== "") {rW -= HTMLCSS.unEm(rpad)*(span.scale||1)}
           var dw = (HTMLCSS.PaddingWidthBug || bbox.keepPadding || bbox.exactW ? 0 : rW - lW);
-	  var W = Math.max(0,HTMLCSS.getW(span) + dw);
-	  var H = bbox.h + bbox.d, D = -bbox.d, lp = 0, rp = 0;
-	  if (W > 0) {W += 2*dd; lW -= dd}; if (H > 0) {H += 2*dd; D -= dd}; rW = -W-lW;
+          var W = Math.max(0,HTMLCSS.getW(span) + dw);
+          var H = bbox.h + bbox.d, D = -bbox.d, lp = 0, rp = 0;
+          if (W > 0) {W += 2*dd; lW -= dd}; if (H > 0) {H += 2*dd; D -= dd}; rW = -W-lW;
           if (borders) {
             rW -= borders.right; D -= borders.bottom; lp += borders.left; rp += borders.right;
             bbox.h += borders.top; bbox.d += borders.bottom;
@@ -18743,117 +18743,117 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
             bbox.lw -= padding.left; bbox.rw += padding.right;
           }
           if (rp) {span.style.paddingRight = HTMLCSS.Em(rp)}
-	  var frame = HTMLCSS.Element("span",{
+          var frame = HTMLCSS.Element("span",{
             id:"MathJax-Color-"+this.spanID+HTMLCSS.idPostfix, isMathJax: true,
-	    style:{display:"inline-block", backgroundColor:values.mathbackground,
-		   width: HTMLCSS.Em(W), height:HTMLCSS.Em(H), verticalAlign: HTMLCSS.Em(D),
-		   marginLeft: HTMLCSS.Em(lW), marginRight: HTMLCSS.Em(rW)}
-	  });
+            style:{display:"inline-block", backgroundColor:values.mathbackground,
+            width: HTMLCSS.Em(W), height:HTMLCSS.Em(H), verticalAlign: HTMLCSS.Em(D),
+            marginLeft: HTMLCSS.Em(lW), marginRight: HTMLCSS.Em(rW)}
+          });
           HTMLCSS.setBorders(frame,borders);
           if (bbox.width) {frame.style.width = bbox.width; frame.style.marginRight = "-"+bbox.width}
-	  if (HTMLCSS.msieInlineBlockAlignBug) {
+          if (HTMLCSS.msieInlineBlockAlignBug) {
             // FIXME:  handle variable width background
-	    frame.style.position = "relative"; frame.style.width = frame.style.height = 0;
-	    frame.style.verticalAlign = frame.style.marginLeft = frame.style.marginRight = "";
+            frame.style.position = "relative"; frame.style.width = frame.style.height = 0;
+            frame.style.verticalAlign = frame.style.marginLeft = frame.style.marginRight = "";
             frame.style.border = frame.style.padding = "";
             if (borders && HTMLCSS.msieBorderWidthBug)
               {H += borders.top + borders.bottom; W += borders.left + borders.right}
             frame.style.width = HTMLCSS.Em(lp+dd);
-	    HTMLCSS.placeBox(HTMLCSS.addElement(frame,"span",{
-	      noAdjust: true, isMathJax: true,
-	      style: {display:"inline-block", position:"absolute", overflow:"hidden",
-		      background:(values.mathbackground||"transparent"), 
-                      width: HTMLCSS.Em(W), height: HTMLCSS.Em(H)}
-	    }),lW,bbox.h+dd);
+            HTMLCSS.placeBox(HTMLCSS.addElement(frame,"span",{
+              noAdjust: true, isMathJax: true,
+              style: {display:"inline-block", position:"absolute", overflow:"hidden",
+                background:(values.mathbackground||"transparent"),
+                width: HTMLCSS.Em(W), height: HTMLCSS.Em(H)}
+            }),lW,bbox.h+dd);
             HTMLCSS.setBorders(frame.firstChild,borders);
-	  }
-	  span.parentNode.insertBefore(frame,span);
+          }
+          span.parentNode.insertBefore(frame,span);
           if (HTMLCSS.msieColorPositionBug) {span.style.position = "relative"}
-	  return frame;
-	}
-	return null;
+          return frame;
+        }
+        return null;
       },
       HTMLremoveColor: function () {
-	var color = document.getElementById("MathJax-Color-"+this.spanID+HTMLCSS.idPostfix);
-	if (color) {color.parentNode.removeChild(color)}
+        var color = document.getElementById("MathJax-Color-"+this.spanID+HTMLCSS.idPostfix);
+        if (color) {color.parentNode.removeChild(color)}
       },
 
       HTMLhandleSpace: function (span) {
-	if (this.useMMLspacing) {
-	  if (this.type !== "mo") return;
-	  var values = this.getValues("scriptlevel","lspace","rspace");
+        if (this.useMMLspacing) {
+          if (this.type !== "mo") return;
+          var values = this.getValues("scriptlevel","lspace","rspace");
           if (values.scriptlevel <= 0 || this.hasValue("lspace") || this.hasValue("rspace")) {
             var mu = this.HTMLgetMu(span);
-	    values.lspace = Math.max(0,HTMLCSS.length2em(values.lspace,mu));
-	    values.rspace = Math.max(0,HTMLCSS.length2em(values.rspace,mu));
-	    var core = this, parent = this.Parent();
-	    while (parent && parent.isEmbellished() && parent.Core() === core)
-	      {core = parent; parent = parent.Parent(); span = core.HTMLspanElement()}
-	    if (values.lspace) {span.style.paddingLeft =  HTMLCSS.Em(values.lspace)}
-	    if (values.rspace) {span.style.paddingRight = HTMLCSS.Em(values.rspace)}
-	  }
-	} else {
-	  var space = this.texSpacing();
-	  if (space !== "") {
+            values.lspace = Math.max(0,HTMLCSS.length2em(values.lspace,mu));
+            values.rspace = Math.max(0,HTMLCSS.length2em(values.rspace,mu));
+            var core = this, parent = this.Parent();
+            while (parent && parent.isEmbellished() && parent.Core() === core)
+              {core = parent; parent = parent.Parent(); span = core.HTMLspanElement()}
+            if (values.lspace) {span.style.paddingLeft =  HTMLCSS.Em(values.lspace)}
+            if (values.rspace) {span.style.paddingRight = HTMLCSS.Em(values.rspace)}
+          }
+        } else {
+          var space = this.texSpacing();
+          if (space !== "") {
             this.HTMLgetScale();
-	    space = HTMLCSS.length2em(space,this.scale)/(span.scale||1)*this.mscale;
-	    if (span.style.paddingLeft) {space += HTMLCSS.unEm(span.style.paddingLeft)}
-	    span.style.paddingLeft = HTMLCSS.Em(space);
-	  }
-	}
+            space = HTMLCSS.length2em(space,this.scale)/(span.scale||1)*this.mscale;
+            if (span.style.paddingLeft) {space += HTMLCSS.unEm(span.style.paddingLeft)}
+            span.style.paddingLeft = HTMLCSS.Em(space);
+          }
+        }
       },
 
       HTMLgetScale: function () {
         if (this.scale) {return this.scale * this.mscale}
-	var scale = 1, values = this.getValues("scriptlevel","fontsize");
+        var scale = 1, values = this.getValues("scriptlevel","fontsize");
         values.mathsize = (this.isToken ? this : this.Parent()).Get("mathsize");
-	if (this.style) {
-	  var span = this.HTMLspanElement();
-	  if (span.style.fontSize != "") {values.fontsize = span.style.fontSize}
-	}
-	if (values.fontsize && !this.mathsize) {values.mathsize = values.fontsize}
-	if (values.scriptlevel !== 0) {
-	  if (values.scriptlevel > 2) {values.scriptlevel = 2}
-	  scale = Math.pow(this.Get("scriptsizemultiplier"),values.scriptlevel);
-	  values.scriptminsize = HTMLCSS.length2em(this.Get("scriptminsize"));
-	  if (scale < values.scriptminsize) {scale = values.scriptminsize}
-	}
+        if (this.style) {
+          var span = this.HTMLspanElement();
+          if (span.style.fontSize != "") {values.fontsize = span.style.fontSize}
+        }
+        if (values.fontsize && !this.mathsize) {values.mathsize = values.fontsize}
+        if (values.scriptlevel !== 0) {
+          if (values.scriptlevel > 2) {values.scriptlevel = 2}
+          scale = Math.pow(this.Get("scriptsizemultiplier"),values.scriptlevel);
+          values.scriptminsize = HTMLCSS.length2em(this.Get("scriptminsize"));
+          if (scale < values.scriptminsize) {scale = values.scriptminsize}
+        }
         this.scale = scale; this.mscale = HTMLCSS.length2em(values.mathsize);
-	return scale * this.mscale;
+        return scale * this.mscale;
       },
       HTMLgetMu: function (span) {
-	var mu = 1, values = this.getValues("scriptlevel","scriptsizemultiplier");
+        var mu = 1, values = this.getValues("scriptlevel","scriptsizemultiplier");
         if (span.scale && span.scale !== 1) {mu = 1/span.scale}
-	if (values.scriptlevel !== 0) {
-	  if (values.scriptlevel > 2) {values.scriptlevel = 2}
-	  mu = Math.sqrt(Math.pow(values.scriptsizemultiplier,values.scriptlevel));
-	}
-	return mu;
+        if (values.scriptlevel !== 0) {
+          if (values.scriptlevel > 2) {values.scriptlevel = 2}
+          mu = Math.sqrt(Math.pow(values.scriptsizemultiplier,values.scriptlevel));
+        }
+        return mu;
       },
 
       HTMLgetVariant: function () {
-	var values = this.getValues("mathvariant","fontfamily","fontweight","fontstyle");
+        var values = this.getValues("mathvariant","fontfamily","fontweight","fontstyle");
         values.hasVariant = this.Get("mathvariant",true);  // null if not explicitly specified
         if (!values.hasVariant) {
           values.family = values.fontfamily;
           values.weight = values.fontweight;
           values.style  = values.fontstyle;
         }
-	if (this.style) {
+        if (this.style) {
           var span = this.HTMLspanElement();
-	  if (!values.family && span.style.fontFamily) {values.family = span.style.fontFamily}
-	  if (!values.weight && span.style.fontWeight) {values.weight = span.style.fontWeight}
-	  if (!values.style  && span.style.fontStyle)  {values.style  = span.style.fontStyle}
-	}
+          if (!values.family && span.style.fontFamily) {values.family = span.style.fontFamily}
+          if (!values.weight && span.style.fontWeight) {values.weight = span.style.fontWeight}
+          if (!values.style  && span.style.fontStyle)  {values.style  = span.style.fontStyle}
+        }
         if (values.weight && values.weight.match(/^\d+$/))
             {values.weight = (parseInt(values.weight) > 600 ? "bold" : "normal")}
-	var variant = values.mathvariant; if (this.variantForm) {variant = "-"+HTMLCSS.fontInUse+"-variant"}
-	if (values.family && !values.hasVariant) {
-	  if (!values.weight && values.mathvariant.match(/bold/)) {values.weight = "bold"}
-	  if (!values.style && values.mathvariant.match(/italic/)) {values.style = "italic"}
-	  return {FONTS:[], fonts:[], noRemap:true,
-		  defaultFont: {family:values.family, style:values.style, weight:values.weight}};
-	}
+        var variant = values.mathvariant; if (this.variantForm) {variant = "-"+HTMLCSS.fontInUse+"-variant"}
+        if (values.family && !values.hasVariant) {
+          if (!values.weight && values.mathvariant.match(/bold/)) {values.weight = "bold"}
+          if (!values.style && values.mathvariant.match(/italic/)) {values.style = "italic"}
+          return {FONTS:[], fonts:[], noRemap:true,
+            defaultFont: {family:values.family, style:values.style, weight:values.weight}};
+        }
         if (values.weight === "bold") {
           variant = {
             normal:MML.VARIANT.BOLD, italic:MML.VARIANT.BOLDITALIC,
@@ -18889,7 +18889,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
         }
         return HTMLCSS.FONTDATA.VARIANT[variant];
       },
-      
+
       HTMLdrawBBox: function (span) {
         var bbox = span.bbox;
         var box = HTMLCSS.Element("span",
@@ -18906,14 +18906,14 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
           }}]
         ]);
         if (span.nextSibling) {span.parentNode.insertBefore(box,span.nextSibling)}
-          else {span.parentNode.appendChild(box)}
+        else {span.parentNode.appendChild(box)}
       }
 
     },{
       HTMLautoload: function () {
         this.constructor.Augment({toHTML: MML.mbase.HTMLautoloadFail});
-	var file = HTMLCSS.autoloadDir+"/"+this.type+".js";
-	HUB.RestartAfter(AJAX.Require(file));
+        var file = HTMLCSS.autoloadDir+"/"+this.type+".js";
+        HUB.RestartAfter(AJAX.Require(file));
       },
       HTMLautoloadFail: function () {
         throw Error("HTML-CSS can't autoload '"+ this.type + "'");
@@ -18924,18 +18924,18 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
           throw Error("HTML-CSS can't autoload file '"+name+"'");
         }
         MML.mbase.HTMLautoloadList[name] = true;
-	var file = HTMLCSS.autoloadDir+"/"+name+".js";
-	HUB.RestartAfter(AJAX.Require(file));
+        var file = HTMLCSS.autoloadDir+"/"+name+".js";
+        HUB.RestartAfter(AJAX.Require(file));
       },
 
       HTMLstretchH: function (box,w) {
-	this.HTMLremoveColor();
-	return this.toHTML(box,w);
+        this.HTMLremoveColor();
+        return this.toHTML(box,w);
       },
 
       HTMLstretchV: function (box,h,d) {
-	this.HTMLremoveColor();
-	return this.toHTML(box,h,d);
+        this.HTMLremoveColor();
+        return this.toHTML(box,h,d);
       }
     });
 
@@ -18976,58 +18976,58 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
 
     MML.mi.Augment({
       toHTML: function (span) {
-	span = this.HTMLhandleSize(this.HTMLcreateSpan(span)); span.bbox = null;
-	var variant = this.HTMLgetVariant();
-	for (var i = 0, m = this.data.length; i < m; i++)
-	  {if (this.data[i]) {this.data[i].toHTML(span,variant)}}
-	if (!span.bbox) {span.bbox = this.HTMLzeroBBox()}
+        span = this.HTMLhandleSize(this.HTMLcreateSpan(span)); span.bbox = null;
+        var variant = this.HTMLgetVariant();
+        for (var i = 0, m = this.data.length; i < m; i++)
+          {if (this.data[i]) {this.data[i].toHTML(span,variant)}}
+        if (!span.bbox) {span.bbox = this.HTMLzeroBBox()}
         var text = this.data.join(""), bbox = span.bbox;
-	if (bbox.skew && text.length !== 1) {delete bbox.skew}
+        if (bbox.skew && text.length !== 1) {delete bbox.skew}
         if (bbox.rw > bbox.w && text.length === 1 && !variant.noIC) {
           bbox.ic = bbox.rw - bbox.w;
           HTMLCSS.createBlank(span,bbox.ic/this.mscale);
           bbox.w = bbox.rw;
         }
-	this.HTMLhandleSpace(span);
-	this.HTMLhandleColor(span);
+        this.HTMLhandleSpace(span);
+        this.HTMLhandleColor(span);
         this.HTMLhandleDir(span);
-	return span;
+        return span;
       }
     });
 
     MML.mn.Augment({
       HTMLremapMinus: function (text) {return text.replace(/^-/,"\u2212")},
       toHTML: function (span) {
-	span = this.HTMLhandleSize(this.HTMLcreateSpan(span)); span.bbox = null;
-	var variant = this.HTMLgetVariant();
+        span = this.HTMLhandleSize(this.HTMLcreateSpan(span)); span.bbox = null;
+        var variant = this.HTMLgetVariant();
         var remap = this.HTMLremapMinus;
-	for (var i = 0, m = this.data.length; i < m; i++) {
+        for (var i = 0, m = this.data.length; i < m; i++) {
           if (this.data[i]) {
             this.data[i].toHTML(span,variant,remap);
             remap = null;
           }
         }
-	if (!span.bbox) {span.bbox = this.HTMLzeroBBox()}
-	if (this.data.join("").length !== 1) {delete span.bbox.skew}
-	this.HTMLhandleSpace(span);
-	this.HTMLhandleColor(span);
+        if (!span.bbox) {span.bbox = this.HTMLzeroBBox()}
+        if (this.data.join("").length !== 1) {delete span.bbox.skew}
+        this.HTMLhandleSpace(span);
+        this.HTMLhandleColor(span);
         this.HTMLhandleDir(span);
-	return span;
+        return span;
       }
     });
 
     MML.mo.Augment({
       toHTML: function (span) {
-	span = this.HTMLhandleSize(this.HTMLcreateSpan(span));
-	if (this.data.length == 0) {return span} else {span.bbox = null}
-	var text = this.data.join("");
+        span = this.HTMLhandleSize(this.HTMLcreateSpan(span));
+        if (this.data.length == 0) {return span} else {span.bbox = null}
+        var text = this.data.join("");
         //
         //  Get the variant, and check for operator size
         //
-	var variant = this.HTMLgetVariant();
-	var values = this.getValues("largeop","displaystyle");
-	if (values.largeop)
-	  {variant = HTMLCSS.FONTDATA.VARIANT[values.displaystyle ? "-largeOp" : "-smallOp"]}
+        var variant = this.HTMLgetVariant();
+        var values = this.getValues("largeop","displaystyle");
+        if (values.largeop)
+          {variant = HTMLCSS.FONTDATA.VARIANT[values.displaystyle ? "-largeOp" : "-smallOp"]}
         //
         //  Get character translation for superscript and accents
         //
@@ -19048,109 +19048,109 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
         //
         //  Typeset contents
         //
-	for (var i = 0, m = this.data.length; i < m; i++)
+        for (var i = 0, m = this.data.length; i < m; i++)
           {if (this.data[i]) {this.data[i].toHTML(span,variant,this.remap,mapchars)}}
-	if (!span.bbox) {span.bbox = this.HTMLzeroBBox()}
-	if (text.length !== 1) {delete span.bbox.skew}
+        if (!span.bbox) {span.bbox = this.HTMLzeroBBox()}
+        if (text.length !== 1) {delete span.bbox.skew}
 
         //
         //  Handle combining character bugs
         //
-	if (HTMLCSS.AccentBug && span.bbox.w === 0 && text.length === 1 && span.firstChild) {
+        if (HTMLCSS.AccentBug && span.bbox.w === 0 && text.length === 1 && span.firstChild) {
           //
           //  adding a non-breaking space and removing that width
           //
           span.firstChild.nodeValue += HTMLCSS.NBSP;
           HTMLCSS.createSpace(span,0,0,-span.offsetWidth/HTMLCSS.em);
-	}
+        }
         //
         //  Handle large operator centering
         //
-	if (values.largeop) {
-          var a = HTMLCSS.TeX.axis_height * this.scale * this.mscale
-	  var p = (span.bbox.h - span.bbox.d)/2 - a;
-	  if (HTMLCSS.safariVerticalAlignBug && span.lastChild.nodeName === "IMG") {
-	    span.lastChild.style.verticalAlign =
-	      HTMLCSS.Em(HTMLCSS.unEm(span.lastChild.style.verticalAlign||0)/HTMLCSS.em-p/span.scale);
-	  } else if (HTMLCSS.konquerorVerticalAlignBug && span.lastChild.nodeName === "IMG") {
-	    span.style.position = "relative";
-	    span.lastChild.style.position="relative";
-	    span.lastChild.style.top = HTMLCSS.Em(p/span.scale);
-	  } else {
-	    span.style.verticalAlign = HTMLCSS.Em(-p/span.scale);
-	  }
-	  span.bbox.h -= p; span.bbox.d += p;
-	  if (span.bbox.rw > span.bbox.w) {
-	    span.bbox.ic = span.bbox.rw-span.bbox.w;
-	    HTMLCSS.createBlank(span,span.bbox.ic/this.mscale);
-	    span.bbox.w = span.bbox.rw;
-	  }
-	}
+        if (values.largeop) {
+          var a = HTMLCSS.TeX.axis_height * this.scale * this.mscale;
+          var p = (span.bbox.h - span.bbox.d)/2 - a;
+          if (HTMLCSS.safariVerticalAlignBug && span.lastChild.nodeName === "IMG") {
+            span.lastChild.style.verticalAlign =
+            HTMLCSS.Em(HTMLCSS.unEm(span.lastChild.style.verticalAlign||0)/HTMLCSS.em-p/span.scale);
+          } else if (HTMLCSS.konquerorVerticalAlignBug && span.lastChild.nodeName === "IMG") {
+            span.style.position = "relative";
+            span.lastChild.style.position="relative";
+            span.lastChild.style.top = HTMLCSS.Em(p/span.scale);
+          } else {
+            span.style.verticalAlign = HTMLCSS.Em(-p/span.scale);
+          }
+          span.bbox.h -= p; span.bbox.d += p;
+          if (span.bbox.rw > span.bbox.w) {
+            span.bbox.ic = span.bbox.rw-span.bbox.w;
+            HTMLCSS.createBlank(span,span.bbox.ic/this.mscale);
+            span.bbox.w = span.bbox.rw;
+          }
+        }
         //
         //  Finish up
         //
-	this.HTMLhandleSpace(span);
-	this.HTMLhandleColor(span);
+        this.HTMLhandleSpace(span);
+        this.HTMLhandleColor(span);
         this.HTMLhandleDir(span);
-	return span;
+        return span;
       },
       HTMLcanStretch: function (direction) {
-	if (!this.Get("stretchy")) {return false}
-	var c = this.data.join("");
-	if (c.length > 1) {return false}
+        if (!this.Get("stretchy")) {return false}
+        var c = this.data.join("");
+        if (c.length > 1) {return false}
         var parent = this.CoreParent();
-        if (parent && parent.isa(MML.munderover) && 
+        if (parent && parent.isa(MML.munderover) &&
             this.CoreText(parent.data[parent.base]).length === 1) {
           var over = parent.data[parent.over], under = parent.data[parent.under];
           if (over && this === over.CoreMO() && parent.Get("accent")) {c = HTMLCSS.FONTDATA.REMAPACCENT[c]||c}
           else if (under && this === under.CoreMO() && parent.Get("accentunder")) {c = HTMLCSS.FONTDATA.REMAPACCENTUNDER[c]||c}
         }
-	c = HTMLCSS.FONTDATA.DELIMITERS[c.charCodeAt(0)];
+        c = HTMLCSS.FONTDATA.DELIMITERS[c.charCodeAt(0)];
         var stretch = (c && c.dir === direction.substr(0,1));
         this.forceStretch = (stretch && (this.Get("minsize",true) || this.Get("maxsize",true)));
-	return stretch;
+        return stretch;
       },
       HTMLstretchV: function (box,h,d) {
-	this.HTMLremoveColor();
-	var values = this.getValues("symmetric","maxsize","minsize");
-	var span = this.HTMLspanElement(), mu = this.HTMLgetMu(span), H;
-	var scale = this.HTMLgetScale(), axis = HTMLCSS.TeX.axis_height * scale;
-	if (values.symmetric) {H = 2*Math.max(h-axis,d+axis)} else {H = h + d}
-	values.maxsize = HTMLCSS.length2em(values.maxsize,mu,span.bbox.h+span.bbox.d);
-	values.minsize = HTMLCSS.length2em(values.minsize,mu,span.bbox.h+span.bbox.d);
-	H = Math.max(values.minsize,Math.min(values.maxsize,H));
+        this.HTMLremoveColor();
+        var values = this.getValues("symmetric","maxsize","minsize");
+        var span = this.HTMLspanElement(), mu = this.HTMLgetMu(span), H;
+        var scale = this.HTMLgetScale(), axis = HTMLCSS.TeX.axis_height * scale;
+        if (values.symmetric) {H = 2*Math.max(h-axis,d+axis)} else {H = h + d}
+        values.maxsize = HTMLCSS.length2em(values.maxsize,mu,span.bbox.h+span.bbox.d);
+        values.minsize = HTMLCSS.length2em(values.minsize,mu,span.bbox.h+span.bbox.d);
+        H = Math.max(values.minsize,Math.min(values.maxsize,H));
         if (H != values.minsize)
           {H = [Math.max(H*HTMLCSS.TeX.delimiterfactor/1000,H-HTMLCSS.TeX.delimitershortfall),H]}
-	span = this.HTMLcreateSpan(box); // clear contents and attributes
-	HTMLCSS.createDelimiter(span,this.data.join("").charCodeAt(0),H,scale);
-	if (values.symmetric) {H = (span.bbox.h + span.bbox.d)/2 + axis}
-	  else {H = (span.bbox.h + span.bbox.d) * h/(h + d)}
-	HTMLCSS.positionDelimiter(span,H);
-	this.HTMLhandleSpace(span); // add in lspace/rspace, if any
-	this.HTMLhandleColor(span);
-	return span;
+        span = this.HTMLcreateSpan(box); // clear contents and attributes
+        HTMLCSS.createDelimiter(span,this.data.join("").charCodeAt(0),H,scale);
+        if (values.symmetric) {H = (span.bbox.h + span.bbox.d)/2 + axis}
+          else {H = (span.bbox.h + span.bbox.d) * h/(h + d)}
+        HTMLCSS.positionDelimiter(span,H);
+        this.HTMLhandleSpace(span); // add in lspace/rspace, if any
+        this.HTMLhandleColor(span);
+        return span;
       },
       HTMLstretchH: function (box,W) {
-	this.HTMLremoveColor();
-	var values = this.getValues("maxsize","minsize","mathvariant","fontweight");
+        this.HTMLremoveColor();
+        var values = this.getValues("maxsize","minsize","mathvariant","fontweight");
         // FIXME:  should take style="font-weight:bold" into account as well
-	if ((values.fontweight === "bold" || parseInt(values.fontweight) >= 600) &&
+        if ((values.fontweight === "bold" || parseInt(values.fontweight) >= 600) &&
             !this.Get("mathvariant",true)) {values.mathvariant = MML.VARIANT.BOLD}
-	var span = this.HTMLspanElement(), mu = this.HTMLgetMu(span), scale = span.scale;
-	values.maxsize = HTMLCSS.length2em(values.maxsize,mu,span.bbox.w);
-	values.minsize = HTMLCSS.length2em(values.minsize,mu,span.bbox.w);
-	W = Math.max(values.minsize,Math.min(values.maxsize,W));
-	span = this.HTMLcreateSpan(box); // clear contents and attributes
-	HTMLCSS.createDelimiter(span,this.data.join("").charCodeAt(0),W,scale,values.mathvariant);
-	this.HTMLhandleSpace(span); // add in lspace/rspace, if any
-	this.HTMLhandleColor(span);
-	return span;
+        var span = this.HTMLspanElement(), mu = this.HTMLgetMu(span), scale = span.scale;
+        values.maxsize = HTMLCSS.length2em(values.maxsize,mu,span.bbox.w);
+        values.minsize = HTMLCSS.length2em(values.minsize,mu,span.bbox.w);
+        W = Math.max(values.minsize,Math.min(values.maxsize,W));
+        span = this.HTMLcreateSpan(box); // clear contents and attributes
+        HTMLCSS.createDelimiter(span,this.data.join("").charCodeAt(0),W,scale,values.mathvariant);
+        this.HTMLhandleSpace(span); // add in lspace/rspace, if any
+        this.HTMLhandleColor(span);
+        return span;
       }
     });
 
     MML.mtext.Augment({
       toHTML: function (span) {
-        span = this.HTMLhandleSize(this.HTMLcreateSpan(span)); 
+        span = this.HTMLhandleSize(this.HTMLcreateSpan(span));
         var variant = this.HTMLgetVariant();
         //  Avoid setting the font style for error text or if mtextFontInherit is set
         if (HTMLCSS.config.mtextFontInherit || this.Parent().type === "merror") {
@@ -19174,7 +19174,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
         //
         //  Width doesn't include padding and border, so use an extra inline block
         //  element to capture it.
-        //  
+        //
         var SPAN = MathJax.HTML.addElement(span,"span",{style:{display:"inline-block"}});
         span = this.SUPER(arguments).toHTML.call(this,SPAN);
         var HD = HTMLCSS.getHD(SPAN), W = HTMLCSS.getW(SPAN);
@@ -19190,34 +19190,34 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
 
     MML.mspace.Augment({
       toHTML: function (span) {
-	span = this.HTMLcreateSpan(span);
-	var values = this.getValues("height","depth","width");
+        span = this.HTMLcreateSpan(span);
+        var values = this.getValues("height","depth","width");
         var mu = this.HTMLgetMu(span); this.HTMLgetScale();
-	values.mathbackground = this.mathbackground;
-	if (this.background && !this.mathbackground) {values.mathbackground = this.background}
-	var h = HTMLCSS.length2em(values.height,mu) * this.mscale,
+        values.mathbackground = this.mathbackground;
+        if (this.background && !this.mathbackground) {values.mathbackground = this.background}
+        var h = HTMLCSS.length2em(values.height,mu) * this.mscale,
             d = HTMLCSS.length2em(values.depth,mu) * this.mscale,
-	    w = HTMLCSS.length2em(values.width,mu) * this.mscale;
-       HTMLCSS.createSpace(span,h,d,w,values.mathbackground,true);
-       return span;
+            w = HTMLCSS.length2em(values.width,mu) * this.mscale;
+        HTMLCSS.createSpace(span,h,d,w,values.mathbackground,true);
+        return span;
       }
     });
 
     MML.mphantom.Augment({
       toHTML: function (span,HW,D) {
-	span = this.HTMLcreateSpan(span);
-	if (this.data[0] != null) {
-	  var box = this.data[0].toHTML(span);
-	  if (D != null) {HTMLCSS.Remeasured(this.data[0].HTMLstretchV(span,HW,D),span)}
-	  else if (HW != null) {HTMLCSS.Remeasured(this.data[0].HTMLstretchH(span,HW),span)}
+        span = this.HTMLcreateSpan(span);
+        if (this.data[0] != null) {
+          var box = this.data[0].toHTML(span);
+          if (D != null) {HTMLCSS.Remeasured(this.data[0].HTMLstretchV(span,HW,D),span)}
+          else if (HW != null) {HTMLCSS.Remeasured(this.data[0].HTMLstretchH(span,HW),span)}
           else {box = HTMLCSS.Measured(box,span)}
-	  span.bbox = {w: box.bbox.w, h: box.bbox.h, d: box.bbox.d, lw: 0, rw: 0, exactW: true};
-	  for (var i = 0, m = span.childNodes.length; i < m; i++)
-	    {span.childNodes[i].style.visibility = "hidden"}
-	}
-	this.HTMLhandleSpace(span);
-	this.HTMLhandleColor(span);
-	return span;
+          span.bbox = {w: box.bbox.w, h: box.bbox.h, d: box.bbox.d, lw: 0, rw: 0, exactW: true};
+          for (var i = 0, m = span.childNodes.length; i < m; i++)
+            {span.childNodes[i].style.visibility = "hidden"}
+        }
+        this.HTMLhandleSpace(span);
+        this.HTMLhandleColor(span);
+        return span;
       },
       HTMLstretchH: MML.mbase.HTMLstretchH,
       HTMLstretchV: MML.mbase.HTMLstretchV
@@ -19225,47 +19225,47 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
 
     MML.mpadded.Augment({
       toHTML: function (span,HW,D) {
-	span = this.HTMLcreateSpan(span);
-	if (this.data[0] != null) {
-	  var stack = HTMLCSS.createStack(span,true);
-	  var box = HTMLCSS.createBox(stack);
+        span = this.HTMLcreateSpan(span);
+        if (this.data[0] != null) {
+          var stack = HTMLCSS.createStack(span,true);
+          var box = HTMLCSS.createBox(stack);
           var child = this.data[0].toHTML(box);
-	  if (D != null) {HTMLCSS.Remeasured(this.data[0].HTMLstretchV(box,HW,D),box)}
-	  else if (HW != null) {HTMLCSS.Remeasured(this.data[0].HTMLstretchH(box,HW),box)}
+          if (D != null) {HTMLCSS.Remeasured(this.data[0].HTMLstretchV(box,HW,D),box)}
+          else if (HW != null) {HTMLCSS.Remeasured(this.data[0].HTMLstretchH(box,HW),box)}
           else {HTMLCSS.Measured(child,box)}
-	  var values = this.getValues("height","depth","width","lspace","voffset"),
+          var values = this.getValues("height","depth","width","lspace","voffset"),
               x = 0, y = 0, mu = this.HTMLgetMu(span);
           this.HTMLgetScale();
-	  if (values.lspace)  {x = this.HTMLlength2em(box,values.lspace,mu)}
-	  if (values.voffset) {y = this.HTMLlength2em(box,values.voffset,mu)}
-	  HTMLCSS.placeBox(box,x,y); x /= this.mscale; y /= this.mscale;
-	  span.bbox = {
-	    h: box.bbox.h, d: box.bbox.d, w: box.bbox.w, exactW: true,
+          if (values.lspace)  {x = this.HTMLlength2em(box,values.lspace,mu)}
+          if (values.voffset) {y = this.HTMLlength2em(box,values.voffset,mu)}
+          HTMLCSS.placeBox(box,x,y); x /= this.mscale; y /= this.mscale;
+          span.bbox = {
+            h: box.bbox.h, d: box.bbox.d, w: box.bbox.w, exactW: true,
             lw: box.bbox.lw+x, rw: box.bbox.rw+x,
             H: Math.max((box.bbox.H == null ? -HTMLCSS.BIGDIMEN : box.bbox.H+y),box.bbox.h+y),
             D: Math.max((box.bbox.D == null ? -HTMLCSS.BIGDIMEN : box.bbox.D-y),box.bbox.d-y)
-	  };
-	  if (values.height !== "") {span.bbox.h = this.HTMLlength2em(box,values.height,mu,"h",0)}
-	  if (values.depth  !== "") {span.bbox.d = this.HTMLlength2em(box,values.depth,mu,"d",0)}
-	  if (values.width  !== "") {span.bbox.w = this.HTMLlength2em(box,values.width,mu,"w",0)}
-	  if (span.bbox.H <= span.bbox.h) {delete span.bbox.H}
-	  if (span.bbox.D <= span.bbox.d) {delete span.bbox.D}
+          };
+          if (values.height !== "") {span.bbox.h = this.HTMLlength2em(box,values.height,mu,"h",0)}
+          if (values.depth  !== "") {span.bbox.d = this.HTMLlength2em(box,values.depth,mu,"d",0)}
+          if (values.width  !== "") {span.bbox.w = this.HTMLlength2em(box,values.width,mu,"w",0)}
+          if (span.bbox.H <= span.bbox.h) {delete span.bbox.H}
+          if (span.bbox.D <= span.bbox.d) {delete span.bbox.D}
           var dimen = /^\s*(\d+(\.\d*)?|\.\d+)\s*(pt|em|ex|mu|px|pc|in|mm|cm)\s*$/
           span.bbox.exact = !!((this.data[0] && this.data[0].data.length == 0) ||
              dimen.exec(values.height) || dimen.exec(values.width) || dimen.exec(values.depth));
-	  HTMLCSS.setStackWidth(stack,span.bbox.w);
-	}
-	this.HTMLhandleSpace(span);
-	this.HTMLhandleColor(span);
-	return span;
+          HTMLCSS.setStackWidth(stack,span.bbox.w);
+        }
+        this.HTMLhandleSpace(span);
+        this.HTMLhandleColor(span);
+        return span;
       },
       HTMLlength2em: function (span,length,mu,d,m) {
-	if (m == null) {m = -HTMLCSS.BIGDIMEN}
-	var match = String(length).match(/width|height|depth/);
-	var size = (match ? span.bbox[match[0].charAt(0)] : (d ? span.bbox[d] : 0));
-	var v = HTMLCSS.length2em(length,mu,size/this.mscale) * this.mscale;
-	if (d && String(length).match(/^\s*[-+]/))
-	  {return Math.max(m,span.bbox[d]+v)} else {return v}
+        if (m == null) {m = -HTMLCSS.BIGDIMEN}
+        var match = String(length).match(/width|height|depth/);
+        var size = (match ? span.bbox[match[0].charAt(0)] : (d ? span.bbox[d] : 0));
+        var v = HTMLCSS.length2em(length,mu,size/this.mscale) * this.mscale;
+        if (d && String(length).match(/^\s*[-+]/))
+          {return Math.max(m,span.bbox[d]+v)} else {return v}
       },
       HTMLstretchH: MML.mbase.HTMLstretchH,
       HTMLstretchV: MML.mbase.HTMLstretchV
@@ -19278,35 +19278,35 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
                 span.bbox.w > HTMLCSS.linebreakWidth) || this.hasNewline();
       },
       HTMLstretchH: function (box,w) {
-	this.HTMLremoveColor();
-	var span = this.HTMLspanElement();
-	this.data[this.core].HTMLstretchH(span,w);
-	this.HTMLcomputeBBox(span,true);
-	this.HTMLhandleColor(span);
-	return span;
+        this.HTMLremoveColor();
+        var span = this.HTMLspanElement();
+        this.data[this.core].HTMLstretchH(span,w);
+        this.HTMLcomputeBBox(span,true);
+        this.HTMLhandleColor(span);
+        return span;
       },
       HTMLstretchV: function (box,h,d) {
-	this.HTMLremoveColor();
-	var span = this.HTMLspanElement();
-	this.data[this.core].HTMLstretchV(span,h,d);
-	this.HTMLcomputeBBox(span,true);
-	this.HTMLhandleColor(span);
-	return span;
+        this.HTMLremoveColor();
+        var span = this.HTMLspanElement();
+        this.data[this.core].HTMLstretchV(span,h,d);
+        this.HTMLcomputeBBox(span,true);
+        this.HTMLhandleColor(span);
+        return span;
       }
     });
 
     MML.mstyle.Augment({
       toHTML: function (span,HW,D) {
-	span = this.HTMLcreateSpan(span);
-	if (this.data[0] != null) {
-	  var SPAN = this.data[0].toHTML(span);
-	  if (D != null) {this.data[0].HTMLstretchV(span,HW,D)}
-	  else if (HW != null) {this.data[0].HTMLstretchH(span,HW)}
+        span = this.HTMLcreateSpan(span);
+        if (this.data[0] != null) {
+          var SPAN = this.data[0].toHTML(span);
+          if (D != null) {this.data[0].HTMLstretchV(span,HW,D)}
+          else if (HW != null) {this.data[0].HTMLstretchH(span,HW)}
           span.bbox = SPAN.bbox;
-	}
-	this.HTMLhandleSpace(span);
-	this.HTMLhandleColor(span);
-	return span;
+        }
+        this.HTMLhandleSpace(span);
+        this.HTMLhandleColor(span);
+        return span;
       },
       HTMLstretchH: MML.mbase.HTMLstretchH,
       HTMLstretchV: MML.mbase.HTMLstretchV
@@ -19314,50 +19314,50 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
 
     MML.mfrac.Augment({
       toHTML: function (span) {
-	span = this.HTMLcreateSpan(span);
-	var frac = HTMLCSS.createStack(span);
-	var num = HTMLCSS.createBox(frac), den = HTMLCSS.createBox(frac);
+        span = this.HTMLcreateSpan(span);
+        var frac = HTMLCSS.createStack(span);
+        var num = HTMLCSS.createBox(frac), den = HTMLCSS.createBox(frac);
         HTMLCSS.MeasureSpans([this.HTMLboxChild(0,num),this.HTMLboxChild(1,den)]);
         var values = this.getValues("displaystyle","linethickness","numalign","denomalign","bevelled");
-	var scale = this.HTMLgetScale(), isDisplay = values.displaystyle;
-	var a = HTMLCSS.TeX.axis_height * scale;
-	if (values.bevelled) {
-	  var delta = (isDisplay ? .4 : .15);
-	  var H = Math.max(num.bbox.h+num.bbox.d,den.bbox.h+den.bbox.d)+2*delta;
-	  var bevel = HTMLCSS.createBox(frac);
-	  HTMLCSS.createDelimiter(bevel,0x2F,H);
-	  HTMLCSS.placeBox(num,0,(num.bbox.d-num.bbox.h)/2+a+delta);
-	  HTMLCSS.placeBox(bevel,num.bbox.w-delta/2,(bevel.bbox.d-bevel.bbox.h)/2+a);
-	  HTMLCSS.placeBox(den,num.bbox.w+bevel.bbox.w-delta,(den.bbox.d-den.bbox.h)/2+a-delta);
-	} else {
-	  var W = Math.max(num.bbox.w,den.bbox.w);
-	  var t = HTMLCSS.thickness2em(values.linethickness,this.scale)*this.mscale, p,q, u,v;
-	  var mt = HTMLCSS.TeX.min_rule_thickness/this.em;
-	  if (isDisplay) {u = HTMLCSS.TeX.num1; v = HTMLCSS.TeX.denom1}
-	    else {u = (t === 0 ? HTMLCSS.TeX.num3 : HTMLCSS.TeX.num2); v = HTMLCSS.TeX.denom2}
-	  u *= scale; v *= scale;
-	  if (t === 0) {// \atop
-	    p = Math.max((isDisplay ? 7 : 3) * HTMLCSS.TeX.rule_thickness, 2*mt); // force to at least 2 px
-	    q = (u - num.bbox.d) - (den.bbox.h - v);
-	    if (q < p) {u += (p - q)/2; v += (p - q)/2}
-	  } else {// \over
-	    p = Math.max((isDisplay ? 2 : 0) * mt + t, t/2 + 1.5*mt);  // force to be at least 1.5px
-	    q = (u - num.bbox.d) - (a + t/2); if (q < p) {u += p - q}
-	    q = (a - t/2) - (den.bbox.h - v); if (q < p) {v += p - q}
-	    var rule = HTMLCSS.createBox(frac);
-	    HTMLCSS.createRule(rule,t,0,W+2*t);
-	    HTMLCSS.placeBox(rule,0,a-t/2);
-	  }
-	  HTMLCSS.alignBox(num,values.numalign,u,0,true);
-	  HTMLCSS.alignBox(den,values.denomalign,-v,0,true);
-	}
-	this.HTMLhandleSpace(span);
-	this.HTMLhandleColor(span);
-	return span;
+        var scale = this.HTMLgetScale(), isDisplay = values.displaystyle;
+        var a = HTMLCSS.TeX.axis_height * scale;
+        if (values.bevelled) {
+          var delta = (isDisplay ? .4 : .15);
+          var H = Math.max(num.bbox.h+num.bbox.d,den.bbox.h+den.bbox.d)+2*delta;
+          var bevel = HTMLCSS.createBox(frac);
+          HTMLCSS.createDelimiter(bevel,0x2F,H);
+          HTMLCSS.placeBox(num,0,(num.bbox.d-num.bbox.h)/2+a+delta);
+          HTMLCSS.placeBox(bevel,num.bbox.w-delta/2,(bevel.bbox.d-bevel.bbox.h)/2+a);
+          HTMLCSS.placeBox(den,num.bbox.w+bevel.bbox.w-delta,(den.bbox.d-den.bbox.h)/2+a-delta);
+        } else {
+          var W = Math.max(num.bbox.w,den.bbox.w);
+          var t = HTMLCSS.thickness2em(values.linethickness,this.scale)*this.mscale, p,q, u,v;
+          var mt = HTMLCSS.TeX.min_rule_thickness/this.em;
+          if (isDisplay) {u = HTMLCSS.TeX.num1; v = HTMLCSS.TeX.denom1}
+            else {u = (t === 0 ? HTMLCSS.TeX.num3 : HTMLCSS.TeX.num2); v = HTMLCSS.TeX.denom2}
+          u *= scale; v *= scale;
+          if (t === 0) {// \atop
+            p = Math.max((isDisplay ? 7 : 3) * HTMLCSS.TeX.rule_thickness, 2*mt); // force to at least 2 px
+            q = (u - num.bbox.d) - (den.bbox.h - v);
+            if (q < p) {u += (p - q)/2; v += (p - q)/2}
+          } else {// \over
+            p = Math.max((isDisplay ? 2 : 0) * mt + t, t/2 + 1.5*mt);  // force to be at least 1.5px
+            q = (u - num.bbox.d) - (a + t/2); if (q < p) {u += p - q}
+            q = (a - t/2) - (den.bbox.h - v); if (q < p) {v += p - q}
+            var rule = HTMLCSS.createBox(frac);
+            HTMLCSS.createRule(rule,t,0,W+2*t);
+            HTMLCSS.placeBox(rule,0,a-t/2);
+          }
+          HTMLCSS.alignBox(num,values.numalign,u,0,true);
+          HTMLCSS.alignBox(den,values.denomalign,-v,0,true);
+        }
+        this.HTMLhandleSpace(span);
+        this.HTMLhandleColor(span);
+        return span;
       },
       HTMLcanStretch: function (direction) {return false},
       HTMLhandleSpace: function (span) {
-	if (!this.texWithDelims) {
+        if (!this.texWithDelims) {
           //
           //  Add nulldelimiterspace around the fraction
           //  (TeXBook pg 150 and Appendix G rule 15e)
@@ -19366,45 +19366,45 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
           var style = span.childNodes[HTMLCSS.msiePaddingWidthBug ? 1 : 0].style;
           style.marginLeft = style.marginRight = HTMLCSS.Em(space);
           span.bbox.w += 2*space; span.bbox.rw += 2*space;
-	}
+        }
         this.SUPER(arguments).HTMLhandleSpace.call(this,span);
       }
     });
 
     MML.msqrt.Augment({
       toHTML: function (span) {
-	span = this.HTMLcreateSpan(span);
-	var sqrt = HTMLCSS.createStack(span);
-	var base = HTMLCSS.createBox(sqrt),
-	    rule = HTMLCSS.createBox(sqrt),
-	    surd = HTMLCSS.createBox(sqrt);
-	var scale = this.HTMLgetScale();
-	var t = HTMLCSS.TeX.rule_thickness * scale, p,q, H, W;
-	if (this.Get("displaystyle")) {p = HTMLCSS.TeX.x_height * scale} else {p = t}
-	q = Math.max(t + p/4,1.5*HTMLCSS.TeX.min_rule_thickness/this.em); // force to be at least 1px
-	var BASE = this.HTMLboxChild(0,base);
-	H = BASE.bbox.h + BASE.bbox.d + q + t;
+        span = this.HTMLcreateSpan(span);
+        var sqrt = HTMLCSS.createStack(span);
+        var base = HTMLCSS.createBox(sqrt),
+            rule = HTMLCSS.createBox(sqrt),
+            surd = HTMLCSS.createBox(sqrt);
+        var scale = this.HTMLgetScale();
+        var t = HTMLCSS.TeX.rule_thickness * scale, p,q, H, W;
+        if (this.Get("displaystyle")) {p = HTMLCSS.TeX.x_height * scale} else {p = t}
+        q = Math.max(t + p/4,1.5*HTMLCSS.TeX.min_rule_thickness/this.em); // force to be at least 1px
+        var BASE = this.HTMLboxChild(0,base);
+        H = BASE.bbox.h + BASE.bbox.d + q + t;
         HTMLCSS.createDelimiter(surd,0x221A,H,scale);
-	HTMLCSS.MeasureSpans([BASE,surd]);
-	W = BASE.bbox.w;
-	var x = 0;
-	if (surd.isMultiChar || (HTMLCSS.AdjustSurd && HTMLCSS.imgFonts)) {surd.bbox.w *= .95}
-	if (surd.bbox.h + surd.bbox.d > H) {q = ((surd.bbox.h+surd.bbox.d) - (H-t))/2}
-	var ruleC = HTMLCSS.FONTDATA.DELIMITERS[HTMLCSS.FONTDATA.RULECHAR];
-	if (!ruleC || W < (ruleC.HW[0]||[0])[0]*scale || scale < .75) {
-	  HTMLCSS.createRule(rule,0,t,W); rule.bbox.h = -t;
-	} else {
-	  HTMLCSS.createDelimiter(rule,HTMLCSS.FONTDATA.RULECHAR,W,scale);
-	}
-	H = BASE.bbox.h + q + t;
+        HTMLCSS.MeasureSpans([BASE,surd]);
+        W = BASE.bbox.w;
+        var x = 0;
+        if (surd.isMultiChar || (HTMLCSS.AdjustSurd && HTMLCSS.imgFonts)) {surd.bbox.w *= .95}
+        if (surd.bbox.h + surd.bbox.d > H) {q = ((surd.bbox.h+surd.bbox.d) - (H-t))/2}
+        var ruleC = HTMLCSS.FONTDATA.DELIMITERS[HTMLCSS.FONTDATA.RULECHAR];
+        if (!ruleC || W < (ruleC.HW[0]||[0])[0]*scale || scale < .75) {
+          HTMLCSS.createRule(rule,0,t,W); rule.bbox.h = -t;
+        } else {
+          HTMLCSS.createDelimiter(rule,HTMLCSS.FONTDATA.RULECHAR,W,scale);
+        }
+        H = BASE.bbox.h + q + t;
         q = H*HTMLCSS.rfuzz; if (surd.isMultiChar) {q = HTMLCSS.rfuzz}
-	x = this.HTMLaddRoot(sqrt,surd,x,surd.bbox.h+surd.bbox.d-H,scale);
-	HTMLCSS.placeBox(surd,x,H-surd.bbox.h);
-	HTMLCSS.placeBox(rule,x+surd.bbox.w,H-rule.bbox.h+q);
-	HTMLCSS.placeBox(base,x+surd.bbox.w,0);
-	this.HTMLhandleSpace(span);
-	this.HTMLhandleColor(span);
-	return span;
+        x = this.HTMLaddRoot(sqrt,surd,x,surd.bbox.h+surd.bbox.d-H,scale);
+        HTMLCSS.placeBox(surd,x,H-surd.bbox.h);
+        HTMLCSS.placeBox(rule,x+surd.bbox.w,H-rule.bbox.h+q);
+        HTMLCSS.placeBox(base,x+surd.bbox.w,0);
+        this.HTMLhandleSpace(span);
+        this.HTMLhandleColor(span);
+        return span;
       },
       HTMLaddRoot: function (sqrt,surd,x,d,scale) {return x}
     });
@@ -19412,63 +19412,63 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
     MML.mroot.Augment({
       toHTML: MML.msqrt.prototype.toHTML,
       HTMLaddRoot: function (sqrt,surd,x,d,scale) {
-	var box = HTMLCSS.createBox(sqrt);
-	if (this.data[1]) {
-	  var root = this.data[1].toHTML(box);
-	  root.style.paddingRight = root.style.paddingLeft = ""; // remove extra padding, if any
-	  HTMLCSS.Measured(root,box);
-	} else {box.bbox = this.HTMLzeroBBox()}
-	var h = this.HTMLrootHeight(surd.bbox.h+surd.bbox.d,scale,box)-d;
-	var w = Math.min(box.bbox.w,box.bbox.rw); // remove extra right-hand padding, if any
-	x = Math.max(w,surd.offset);
-	HTMLCSS.placeBox(box,x-w,h);
-	return x - surd.offset;
+        var box = HTMLCSS.createBox(sqrt);
+        if (this.data[1]) {
+          var root = this.data[1].toHTML(box);
+          root.style.paddingRight = root.style.paddingLeft = ""; // remove extra padding, if any
+          HTMLCSS.Measured(root,box);
+        } else {box.bbox = this.HTMLzeroBBox()}
+        var h = this.HTMLrootHeight(surd.bbox.h+surd.bbox.d,scale,box)-d;
+        var w = Math.min(box.bbox.w,box.bbox.rw); // remove extra right-hand padding, if any
+        x = Math.max(w,surd.offset);
+        HTMLCSS.placeBox(box,x-w,h);
+        return x - surd.offset;
       },
       HTMLrootHeight: function (d,scale,root) {
-	return .45*(d-.9*scale)+.6*scale + Math.max(0,root.bbox.d-.075);
+        return .45*(d-.9*scale)+.6*scale + Math.max(0,root.bbox.d-.075);
       }
     });
 
     MML.mfenced.Augment({
       toHTML: function (span) {
-	span = this.HTMLcreateSpan(span);
-	if (this.data.open) {this.data.open.toHTML(span)}
-	if (this.data[0] != null) {this.data[0].toHTML(span)}
-	for (var i = 1, m = this.data.length; i < m; i++) {
-	  if (this.data[i]) {
-	    if (this.data["sep"+i]) {this.data["sep"+i].toHTML(span)}
-	    this.data[i].toHTML(span);
-	  }
-	}
-	if (this.data.close) {this.data.close.toHTML(span)}
-	var stretchy = this.HTMLcomputeBBox(span);
-	var h = span.bbox.h, d = span.bbox.d;
-	for (i = 0, m = stretchy.length; i < m; i++) {stretchy[i].HTMLstretchV(span,h,d)}
-	if (stretchy.length) {this.HTMLcomputeBBox(span,true)}
-	this.HTMLhandleSpace(span);
-	this.HTMLhandleColor(span);
-	return span;
+        span = this.HTMLcreateSpan(span);
+        if (this.data.open) {this.data.open.toHTML(span)}
+        if (this.data[0] != null) {this.data[0].toHTML(span)}
+        for (var i = 1, m = this.data.length; i < m; i++) {
+          if (this.data[i]) {
+            if (this.data["sep"+i]) {this.data["sep"+i].toHTML(span)}
+            this.data[i].toHTML(span);
+          }
+        }
+        if (this.data.close) {this.data.close.toHTML(span)}
+        var stretchy = this.HTMLcomputeBBox(span);
+        var h = span.bbox.h, d = span.bbox.d;
+        for (i = 0, m = stretchy.length; i < m; i++) {stretchy[i].HTMLstretchV(span,h,d)}
+        if (stretchy.length) {this.HTMLcomputeBBox(span,true)}
+        this.HTMLhandleSpace(span);
+        this.HTMLhandleColor(span);
+        return span;
       },
       HTMLcomputeBBox: function (span,full) {
-	var BBOX = span.bbox = {}, stretchy = [];
-	this.HTMLcheckStretchy(this.data.open,BBOX,stretchy,full);
-	this.HTMLcheckStretchy(this.data[0],BBOX,stretchy,full);
-	for (var i = 1, m = this.data.length; i < m; i++) {
-	  if (this.data[i]) {
-	    this.HTMLcheckStretchy(this.data["sep"+i],BBOX,stretchy,full);
-	    this.HTMLcheckStretchy(this.data[i],BBOX,stretchy,full);
-	  }
-	}
-	this.HTMLcheckStretchy(this.data.close,BBOX,stretchy,full);
-	this.HTMLcleanBBox(BBOX);
-	return stretchy;
+        var BBOX = span.bbox = {}, stretchy = [];
+        this.HTMLcheckStretchy(this.data.open,BBOX,stretchy,full);
+        this.HTMLcheckStretchy(this.data[0],BBOX,stretchy,full);
+        for (var i = 1, m = this.data.length; i < m; i++) {
+          if (this.data[i]) {
+            this.HTMLcheckStretchy(this.data["sep"+i],BBOX,stretchy,full);
+            this.HTMLcheckStretchy(this.data[i],BBOX,stretchy,full);
+          }
+        }
+        this.HTMLcheckStretchy(this.data.close,BBOX,stretchy,full);
+        this.HTMLcleanBBox(BBOX);
+        return stretchy;
       },
       HTMLcheckStretchy: function (core,BBOX,stretchy,full) {
-	if (core) {
-	  if (!full && core.HTMLcanStretch("Vertical"))
-	    {stretchy.push(core); core = (core.CoreMO()||core)}
-	  this.HTMLcombineBBoxes(core,BBOX);
-	}
+        if (core) {
+          if (!full && core.HTMLcanStretch("Vertical"))
+            {stretchy.push(core); core = (core.CoreMO()||core)}
+          this.HTMLcombineBBoxes(core,BBOX);
+        }
       }
     });
 
@@ -19477,15 +19477,15 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
 
     MML.semantics.Augment({
       toHTML: function (span,HW,D) {
-	span = this.HTMLcreateSpan(span);
-	if (this.data[0] != null) {
-	  var SPAN = this.data[0].toHTML(span);
-	  if (D != null) {this.data[0].HTMLstretchV(span,HW,D)}
-	  else if (HW != null) {this.data[0].HTMLstretchH(span,HW)}
+        span = this.HTMLcreateSpan(span);
+        if (this.data[0] != null) {
+          var SPAN = this.data[0].toHTML(span);
+          if (D != null) {this.data[0].HTMLstretchV(span,HW,D)}
+          else if (HW != null) {this.data[0].HTMLstretchH(span,HW)}
           span.bbox = SPAN.bbox;
-	}
-	this.HTMLhandleSpace(span);
-	return span;
+        }
+        this.HTMLhandleSpace(span);
+        return span;
       },
       HTMLstretchH: MML.mbase.HTMLstretchH,
       HTMLstretchV: MML.mbase.HTMLstretchV
@@ -19493,41 +19493,41 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
 
     MML.munderover.Augment({
       toHTML: function (span,HW,D) {
-	var values = this.getValues("displaystyle","accent","accentunder","align");
+        var values = this.getValues("displaystyle","accent","accentunder","align");
         var base = this.data[this.base];
-	if (!values.displaystyle && base != null &&
-	    (base.movablelimits || base.CoreMO().Get("movablelimits")))
-	      {return MML.msubsup.prototype.toHTML.call(this,span)}
-	span = this.HTMLcreateSpan(span); var scale = this.HTMLgetScale();
-	var stack = HTMLCSS.createStack(span);
-	var boxes = [], children = [], stretch = [], box, i, m;
-	for (i = 0, m = this.data.length; i < m; i++) {
-	  if (this.data[i] != null) {
-	    box = boxes[i] = HTMLCSS.createBox(stack);
-	    children[i] = this.data[i].toHTML(box);
-	    if (i == this.base) {
-	      if (D != null) {this.data[this.base].HTMLstretchV(box,HW,D)}
-	      else if (HW != null) {this.data[this.base].HTMLstretchH(box,HW)}
-	      stretch[i] = (D == null && HW != null ? false :
-			   this.data[i].HTMLcanStretch("Horizontal"));
+        if (!values.displaystyle && base != null &&
+            (base.movablelimits || base.CoreMO().Get("movablelimits")))
+          {return MML.msubsup.prototype.toHTML.call(this,span)}
+        span = this.HTMLcreateSpan(span); var scale = this.HTMLgetScale();
+        var stack = HTMLCSS.createStack(span);
+        var boxes = [], children = [], stretch = [], box, i, m;
+        for (i = 0, m = this.data.length; i < m; i++) {
+          if (this.data[i] != null) {
+            box = boxes[i] = HTMLCSS.createBox(stack);
+            children[i] = this.data[i].toHTML(box);
+            if (i == this.base) {
+              if (D != null) {this.data[this.base].HTMLstretchV(box,HW,D)}
+              else if (HW != null) {this.data[this.base].HTMLstretchH(box,HW)}
+              stretch[i] = (D == null && HW != null ? false :
+                  this.data[i].HTMLcanStretch("Horizontal"));
               if (this.data[this.over] && values.accent) {
                 children[i].bbox.h = Math.max(children[i].bbox.h,scale*HTMLCSS.TeX.x_height); // min height of 1ex (#1706)
               }
-	    } else {
-	      stretch[i] = this.data[i].HTMLcanStretch("Horizontal");
+            } else {
+              stretch[i] = this.data[i].HTMLcanStretch("Horizontal");
               children[i].style.paddingLeft = children[i].style.paddingRight = "";
-	    }
+            }
           }
         }
         HTMLCSS.MeasureSpans(children);
         var W = -HTMLCSS.BIGDIMEN, WW = W;
-	for (i = 0, m = this.data.length; i < m; i++) {
-	  if (this.data[i]) {
-	    if (boxes[i].bbox.w > WW) {WW = boxes[i].bbox.w}
-	    if (!stretch[i] && WW > W) {W = WW}
-	  }
-	}
-	if (D == null && HW != null) {W = HW} else if (W == -HTMLCSS.BIGDIMEN) {W = WW}
+        for (i = 0, m = this.data.length; i < m; i++) {
+          if (this.data[i]) {
+            if (boxes[i].bbox.w > WW) {WW = boxes[i].bbox.w}
+            if (!stretch[i] && WW > W) {W = WW}
+          }
+        }
+        if (D == null && HW != null) {W = HW} else if (W == -HTMLCSS.BIGDIMEN) {W = WW}
         for (i = WW = 0, m = this.data.length; i < m; i++) {if (this.data[i]) {
           box = boxes[i];
           if (stretch[i]) {
@@ -19537,56 +19537,56 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
           }
           if (box.bbox.w > WW) {WW = box.bbox.w}
         }}
-	var t = HTMLCSS.TeX.rule_thickness * this.mscale, factor = HTMLCSS.FONTDATA.TeX_factor;
-	var x, y, z1, z2, z3, dw, k, delta = 0;
-	base = boxes[this.base] || {bbox: this.HTMLzeroBBox()};
+        var t = HTMLCSS.TeX.rule_thickness * this.mscale, factor = HTMLCSS.FONTDATA.TeX_factor;
+        var x, y, z1, z2, z3, dw, k, delta = 0;
+        base = boxes[this.base] || {bbox: this.HTMLzeroBBox()};
         if (base.bbox.ic) {delta = 1.3*base.bbox.ic + .05} // adjust faked IC to be more in line with expeted results
-	for (i = 0, m = this.data.length; i < m; i++) {
-	  if (this.data[i] != null) {
-	    box = boxes[i];
-	    z3 = HTMLCSS.TeX.big_op_spacing5 * scale;
-	    var accent = (i != this.base && values[this.ACCENTS[i]]);
-	    if (accent && box.bbox.w <= 1/HTMLCSS.em+.0001) { // images can get the width off by 1px
-	      box.bbox.w = box.bbox.rw - box.bbox.lw; box.bbox.noclip = true;
-	      if (box.bbox.lw)
-		{box.insertBefore(HTMLCSS.createSpace(box.parentNode,0,0,-box.bbox.lw),box.firstChild)}
-	      HTMLCSS.createBlank(box,0,0,box.bbox.rw+.1);
-	    }
-	    dw = {left:0, center:(WW-box.bbox.w)/2, right:WW-box.bbox.w}[values.align];
-	    x = dw; y = 0;
-	    if (i == this.over) {
-	      if (accent) {
-		k = Math.max(t * scale * factor,2.5/this.em); z3 = 0;
-		if (base.bbox.skew) {
+        for (i = 0, m = this.data.length; i < m; i++) {
+          if (this.data[i] != null) {
+            box = boxes[i];
+            z3 = HTMLCSS.TeX.big_op_spacing5 * scale;
+            var accent = (i != this.base && values[this.ACCENTS[i]]);
+            if (accent && box.bbox.w <= 1/HTMLCSS.em+.0001) { // images can get the width off by 1px
+              box.bbox.w = box.bbox.rw - box.bbox.lw; box.bbox.noclip = true;
+              if (box.bbox.lw)
+                {box.insertBefore(HTMLCSS.createSpace(box.parentNode,0,0,-box.bbox.lw),box.firstChild)}
+              HTMLCSS.createBlank(box,0,0,box.bbox.rw+.1);
+            }
+            dw = {left:0, center:(WW-box.bbox.w)/2, right:WW-box.bbox.w}[values.align];
+            x = dw; y = 0;
+            if (i == this.over) {
+              if (accent) {
+                k = Math.max(t * scale * factor,2.5/this.em); z3 = 0;
+                if (base.bbox.skew) {
                   x += base.bbox.skew; span.bbox.skew = base.bbox.skew;
                   if (x+box.bbox.w > WW) {span.bbox.skew += (WW-box.bbox.w-x)/2}
                 }
-	      } else {
-		z1 = HTMLCSS.TeX.big_op_spacing1 * scale * factor;
-		z2 = HTMLCSS.TeX.big_op_spacing3 * scale * factor;
-		k = Math.max(z1,z2-Math.max(0,box.bbox.d));
-	      }
-	      k = Math.max(k,1.5/this.em); // force to be at least 1.5px
-	      x += delta/2; y = base.bbox.h + box.bbox.d + k;
-	      box.bbox.h += z3;
-	    } else if (i == this.under) {
-	      if (accent) {
-		k = 3*t * scale * factor; z3 = 0;
-	      } else {
-		z1 = HTMLCSS.TeX.big_op_spacing2 * scale * factor;
-		z2 = HTMLCSS.TeX.big_op_spacing4 * scale * factor;
-		k = Math.max(z1,z2-box.bbox.h);
-	      }
-	      k = Math.max(k,1.5/this.em); // force to be at least 1.5px
-	      x -= delta/2; y = -(base.bbox.d + box.bbox.h + k);
-	      box.bbox.d += z3;
-	    }
-	    HTMLCSS.placeBox(box,x,y);
-	  }
-	}
-	this.HTMLhandleSpace(span);
-	this.HTMLhandleColor(span);
-	return span;
+              } else {
+                z1 = HTMLCSS.TeX.big_op_spacing1 * scale * factor;
+                z2 = HTMLCSS.TeX.big_op_spacing3 * scale * factor;
+                k = Math.max(z1,z2-Math.max(0,box.bbox.d));
+              }
+              k = Math.max(k,1.5/this.em); // force to be at least 1.5px
+              x += delta/2; y = base.bbox.h + box.bbox.d + k;
+              box.bbox.h += z3;
+            } else if (i == this.under) {
+              if (accent) {
+                k = 3*t * scale * factor; z3 = 0;
+              } else {
+                z1 = HTMLCSS.TeX.big_op_spacing2 * scale * factor;
+                z2 = HTMLCSS.TeX.big_op_spacing4 * scale * factor;
+                k = Math.max(z1,z2-box.bbox.h);
+              }
+              k = Math.max(k,1.5/this.em); // force to be at least 1.5px
+              x -= delta/2; y = -(base.bbox.d + box.bbox.h + k);
+              box.bbox.d += z3;
+            }
+            HTMLCSS.placeBox(box,x,y);
+          }
+        }
+        this.HTMLhandleSpace(span);
+        this.HTMLhandleColor(span);
+        return span;
       },
       HTMLstretchH: MML.mbase.HTMLstretchH,
       HTMLstretchV: MML.mbase.HTMLstretchV
@@ -19594,72 +19594,72 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
 
     MML.msubsup.Augment({
       toHTML: function (span,HW,D) {
-	span = this.HTMLcreateSpan(span);
+        span = this.HTMLcreateSpan(span);
         var scale = this.HTMLgetScale(), mu = this.HTMLgetMu(span);
-	var stack = HTMLCSS.createStack(span), values, children = [];
-	var base = HTMLCSS.createBox(stack);
-	if (this.data[this.base]) {
+        var stack = HTMLCSS.createStack(span), values, children = [];
+        var base = HTMLCSS.createBox(stack);
+        if (this.data[this.base]) {
           children.push(this.data[this.base].toHTML(base));
-	  if (D != null) {this.data[this.base].HTMLstretchV(base,HW,D)}
-	  else if (HW != null) {this.data[this.base].HTMLstretchH(base,HW)}
-	} else {base.bbox = this.HTMLzeroBBox()}
-	var x_height = HTMLCSS.TeX.x_height * scale,
-	    s = HTMLCSS.TeX.scriptspace * scale * .75;  // FIXME: .75 can be removed when IC is right?
-	var sup, sub;
-	if (this.HTMLnotEmpty(this.data[this.sup]))
+          if (D != null) {this.data[this.base].HTMLstretchV(base,HW,D)}
+          else if (HW != null) {this.data[this.base].HTMLstretchH(base,HW)}
+        } else {base.bbox = this.HTMLzeroBBox()}
+        var x_height = HTMLCSS.TeX.x_height * scale,
+            s = HTMLCSS.TeX.scriptspace * scale * .75;  // FIXME: .75 can be removed when IC is right?
+        var sup, sub;
+        if (this.HTMLnotEmpty(this.data[this.sup]))
           {sup = HTMLCSS.createBox(stack); children.push(this.data[this.sup].toHTML(sup))}
-	if (this.HTMLnotEmpty(this.data[this.sub]))
+        if (this.HTMLnotEmpty(this.data[this.sub]))
           {sub = HTMLCSS.createBox(stack); children.push(this.data[this.sub].toHTML(sub))}
         HTMLCSS.MeasureSpans(children);
-	if (sup) {sup.bbox.w += s; sup.bbox.rw = Math.max(sup.bbox.w,sup.bbox.rw)}
-	if (sub) {sub.bbox.w += s; sub.bbox.rw = Math.max(sub.bbox.w,sub.bbox.rw)}
-	HTMLCSS.placeBox(base,0,0);
+        if (sup) {sup.bbox.w += s; sup.bbox.rw = Math.max(sup.bbox.w,sup.bbox.rw)}
+        if (sub) {sub.bbox.w += s; sub.bbox.rw = Math.max(sub.bbox.w,sub.bbox.rw)}
+        HTMLCSS.placeBox(base,0,0);
         var sscale = scale;
         if (sup) {
           sscale = this.data[this.sup].HTMLgetScale();
         } else if (sub) {
           sscale = this.data[this.sub].HTMLgetScale();
         }
-	var q = HTMLCSS.TeX.sup_drop * sscale, r = HTMLCSS.TeX.sub_drop * sscale;
-	var u = base.bbox.h - q, v = base.bbox.d + r, delta = 0, p;
-	if (base.bbox.ic) {
+        var q = HTMLCSS.TeX.sup_drop * sscale, r = HTMLCSS.TeX.sub_drop * sscale;
+        var u = base.bbox.h - q, v = base.bbox.d + r, delta = 0, p;
+        if (base.bbox.ic) {
           base.bbox.w -= base.bbox.ic;    // remove IC (added by mo and mi)
           delta = 1.3*base.bbox.ic + .05; // adjust faked IC to be more in line with expected results
         }
-	if (this.data[this.base] && HW == null && D == null &&
-	   (this.data[this.base].type === "mi" || this.data[this.base].type === "mo")) {
-	  if (this.data[this.base].data.join("").length === 1 && children[0].scale === 1 &&
-	      !this.data[this.base].Get("largeop")) {u = v = 0}
-	}
-	var min = this.getValues("subscriptshift","superscriptshift");
-	min.subscriptshift   = (min.subscriptshift === ""   ? 0 : HTMLCSS.length2em(min.subscriptshift,mu));
-	min.superscriptshift = (min.superscriptshift === "" ? 0 : HTMLCSS.length2em(min.superscriptshift,mu));
-	if (!sup) {
-	  if (sub) {
-	    v = Math.max(v,HTMLCSS.TeX.sub1*scale,sub.bbox.h-(4/5)*x_height,min.subscriptshift);
-	    HTMLCSS.placeBox(sub,base.bbox.w,-v,sub.bbox);
-	  }
-	} else {
-	  if (!sub) {
-	    values = this.getValues("displaystyle","texprimestyle");
-	    p = HTMLCSS.TeX[(values.displaystyle ? "sup1" : (values.texprimestyle ? "sup3" : "sup2"))];
-	    u = Math.max(u,p*scale,sup.bbox.d+(1/4)*x_height,min.superscriptshift);
-	    HTMLCSS.placeBox(sup,base.bbox.w+delta,u,sup.bbox);
-	  } else {
-	    v = Math.max(v,HTMLCSS.TeX.sub2*scale);
-	    var t = HTMLCSS.TeX.rule_thickness * scale;
-	    if ((u - sup.bbox.d) - (sub.bbox.h - v) < 3*t) {
-	      v = 3*t - u + sup.bbox.d + sub.bbox.h;
-	      q = (4/5)*x_height - (u - sup.bbox.d);
-	      if (q > 0) {u += q; v -= q}
-	    }
-	    HTMLCSS.placeBox(sup,base.bbox.w+delta,Math.max(u,min.superscriptshift));
-	    HTMLCSS.placeBox(sub,base.bbox.w,-Math.max(v,min.subscriptshift));
-	  }
-	}
-	this.HTMLhandleSpace(span);
-	this.HTMLhandleColor(span);
-	return span;
+        if (this.data[this.base] && HW == null && D == null &&
+           (this.data[this.base].type === "mi" || this.data[this.base].type === "mo")) {
+          if (this.data[this.base].data.join("").length === 1 && children[0].scale === 1 &&
+              !this.data[this.base].Get("largeop")) {u = v = 0}
+        }
+        var min = this.getValues("subscriptshift","superscriptshift");
+        min.subscriptshift   = (min.subscriptshift === ""   ? 0 : HTMLCSS.length2em(min.subscriptshift,mu));
+        min.superscriptshift = (min.superscriptshift === "" ? 0 : HTMLCSS.length2em(min.superscriptshift,mu));
+        if (!sup) {
+          if (sub) {
+            v = Math.max(v,HTMLCSS.TeX.sub1*scale,sub.bbox.h-(4/5)*x_height,min.subscriptshift);
+            HTMLCSS.placeBox(sub,base.bbox.w,-v,sub.bbox);
+          }
+        } else {
+          if (!sub) {
+            values = this.getValues("displaystyle","texprimestyle");
+            p = HTMLCSS.TeX[(values.displaystyle ? "sup1" : (values.texprimestyle ? "sup3" : "sup2"))];
+            u = Math.max(u,p*scale,sup.bbox.d+(1/4)*x_height,min.superscriptshift);
+            HTMLCSS.placeBox(sup,base.bbox.w+delta,u,sup.bbox);
+          } else {
+            v = Math.max(v,HTMLCSS.TeX.sub2*scale);
+            var t = HTMLCSS.TeX.rule_thickness * scale;
+            if ((u - sup.bbox.d) - (sub.bbox.h - v) < 3*t) {
+              v = 3*t - u + sup.bbox.d + sub.bbox.h;
+              q = (4/5)*x_height - (u - sup.bbox.d);
+              if (q > 0) {u += q; v -= q}
+            }
+            HTMLCSS.placeBox(sup,base.bbox.w+delta,Math.max(u,min.superscriptshift));
+            HTMLCSS.placeBox(sub,base.bbox.w,-Math.max(v,min.subscriptshift));
+          }
+        }
+        this.HTMLhandleSpace(span);
+        this.HTMLhandleColor(span);
+        return span;
       },
       HTMLstretchH: MML.mbase.HTMLstretchH,
       HTMLstretchV: MML.mbase.HTMLstretchV
@@ -19668,10 +19668,10 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
     MML.mmultiscripts.Augment({toHTML: MML.mbase.HTMLautoload});
 
     MML.mtable.Augment({toHTML: MML.mbase.HTMLautoload});
-    
+
     MML["annotation-xml"].Augment({toHTML: MML.mbase.HTMLautoload});
     MML.annotation.Augment({toHTML: function (span) {return this.HTMLcreateSpan(span)}});
-    
+
     MML.math.Augment({
       toHTML: function (span,node,phase) {
         var stack, box, html, math, SPAN = span;
@@ -19684,8 +19684,8 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
           span = this.HTMLcreateSpan(nobr);
           var alttext = this.Get("alttext");
           if (alttext && !span.getAttribute("aria-label")) span.setAttribute("aria-label",alttext);
-	  stack = HTMLCSS.createStack(span); box = HTMLCSS.createBox(stack);
-          // Move font-size from outer span to stack to avoid line separation 
+          stack = HTMLCSS.createStack(span); box = HTMLCSS.createBox(stack);
+          // Move font-size from outer span to stack to avoid line separation
           // problem in strict HTML mode
           stack.style.fontSize = nobr.parentNode.style.fontSize; nobr.parentNode.style.fontSize = "";
           if (this.data[0] != null) {
@@ -19694,7 +19694,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
             if (String(HUB.config.displayIndent).match(/^0($|[a-z%])/i))
               MML.mbase.prototype.displayIndent = "0";
             html = this.data[0].toHTML(box); html.bbox.exactW = false; // force remeasure just to be sure
-	  }
+          }
         } else {
           span = span.firstChild.firstChild;
           if (this.href) span = span.firstChild;
@@ -19724,7 +19724,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
           span.style.display = "inline-block";
           //
           //  Adjust bbox to match outer em-size
-          // 
+          //
           var p = 1/HTMLCSS.em, f = HTMLCSS.em / HTMLCSS.outerEm; HTMLCSS.em /= f;
           span.bbox.h *= f; span.bbox.d *= f; span.bbox.w *= f;
           span.bbox.lw *= f; span.bbox.rw *= f;
@@ -19769,65 +19769,65 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
               //
               //  Move the background color, of any
               //
-	      if (color) {
+              if (color) {
                 var L = parseFloat(color.style.marginLeft||"0")+shift,
                     R = parseFloat(color.style.marginRight||"0")-shift;
-	        color.style.marginLeft = HTMLCSS.Em(L);
-	        color.style.marginRight =
-	          HTMLCSS.Em(R + (values.indentalign === "right" ?
-                      span.bbox.w+shift - span.bbox.w : 0));
-		if (HTMLCSS.msieColorBug && values.indentalign === "right") {
+                color.style.marginLeft = HTMLCSS.Em(L);
+                color.style.marginRight =
+                    HTMLCSS.Em(R + (values.indentalign === "right" ?
+                        span.bbox.w+shift - span.bbox.w : 0));
+                if (HTMLCSS.msieColorBug && values.indentalign === "right") {
                   if (parseFloat(color.style.marginLeft) > 0) {
                     var padding = MathJax.HTML.addElement(color.parentNode,"span");
                     padding.style.marginLeft = HTMLCSS.Em(R+Math.min(0,span.bbox.w+shift));
                     color.nextSibling.style.marginRight = "0em";
                   }
-		  color.nextSibling.style.marginLeft = "0em";
-		  color.style.marginRight = color.style.marginLeft = "0em";
-		}
-	      }
+                  color.nextSibling.style.marginLeft = "0em";
+                  color.style.marginRight = color.style.marginLeft = "0em";
+                }
+              }
             }
           }
         }
-	return span;
+        return span;
       },
       HTMLspanElement: MML.mbase.prototype.HTMLspanElement
     });
 
     MML.TeXAtom.Augment({
       toHTML: function (span,HW,D) {
-	span = this.HTMLcreateSpan(span);
-	if (this.data[0] != null) {
-	  if (this.texClass === MML.TEXCLASS.VCENTER) {
-	    var stack = HTMLCSS.createStack(span);
-	    var box = HTMLCSS.createBox(stack);
+        span = this.HTMLcreateSpan(span);
+        if (this.data[0] != null) {
+          if (this.texClass === MML.TEXCLASS.VCENTER) {
+            var stack = HTMLCSS.createStack(span);
+            var box = HTMLCSS.createBox(stack);
             var child = this.data[0].toHTML(box);
             if (D != null) {HTMLCSS.Remeasured(this.data[0].HTMLstretchV(box,HW,D),box)}
             else if (HW != null) {HTMLCSS.Remeasured(this.data[0].HTMLstretchH(box,HW),box)}
             else {HTMLCSS.Measured(child,box)}
             var a = HTMLCSS.TeX.axis_height * this.HTMLgetScale();
-	    HTMLCSS.placeBox(box,0,a-(box.bbox.h+box.bbox.d)/2+box.bbox.d);
-	  } else {
-	    var html = this.data[0].toHTML(span,HW,D);
+            HTMLCSS.placeBox(box,0,a-(box.bbox.h+box.bbox.d)/2+box.bbox.d);
+          } else {
+            var html = this.data[0].toHTML(span,HW,D);
             if (D != null) {html = this.data[0].HTMLstretchV(box,HW,D)}
             else if (HW != null) {html = this.data[0].HTMLstretchH(box,HW)}
             span.bbox = html.bbox;
-	  }
-	}
-	this.HTMLhandleSpace(span);
-	this.HTMLhandleColor(span);
-	return span;
+          }
+        }
+        this.HTMLhandleSpace(span);
+        this.HTMLhandleColor(span);
+        return span;
       },
       HTMLstretchH: MML.mbase.HTMLstretchH,
       HTMLstretchV: MML.mbase.HTMLstretchV
     });
-    
+
     //
     //  Loading isn't complete until the element jax is modified,
     //  but can't call loadComplete within the callback for "mml Jax Ready"
     //  (it would call HTMLCSS's Require routine, asking for the mml jax again)
     //  so wait until after the mml jax has finished processing.
-    //  
+    //
     //  We also need to wait for the onload handler to run, since the loadComplete
     //  will call Config and Startup, which need to modify the body.
     //
@@ -19837,7 +19837,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
   });
 
   HUB.Register.StartupHook("End Config",function () {
-    
+
     //
     //  Handle browser-specific setup
     //
@@ -19988,14 +19988,14 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
         });
       }
     });
-  
+
   });
 
-  MathJax.Hub.Register.StartupHook("End Cookie", function () {  
+  MathJax.Hub.Register.StartupHook("End Cookie", function () {
     if (HUB.config.menuSettings.zoom !== "None")
       {AJAX.Require("[MathJax]/extensions/MathZoom.js")}
   });
-    
+
 })(MathJax.Ajax, MathJax.Hub, MathJax.OutputJax["HTML-CSS"]);
 
 /* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
@@ -20513,17 +20513,17 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
  *  using HTML and CSS to position the characters from math fonts
  *  in their proper locations.  Unlike the HTML-CSS output jax,
  *  this HTML is browser and OS independent.
- *  
+ *
  *  ---------------------------------------------------------------------
- *  
+ *
  *  Copyright (c) 2013-2018 The MathJax Consortium
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20601,23 +20601,23 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     ".MJXc-stacked":    {height:0, position:"relative"},
     ".MJXc-stacked > *":  {position: "absolute"},
     ".MJXc-bevelled > *": {display:"inline-block"},
-    
+
     ".mjx-stack":  {display:"inline-block"},
     ".mjx-op":     {display:"block"},
     ".mjx-under":  {display:"table-cell"},
     ".mjx-over":   {display:"block"},
     ".mjx-over > *": {"padding-left":"0px!important", "padding-right":"0px!important"},
     ".mjx-under > *": {"padding-left":"0px!important", "padding-right":"0px!important"},
-    
+
     ".mjx-stack > .mjx-sup": {display:"block"},
     ".mjx-stack > .mjx-sub": {display:"block"},
     ".mjx-prestack > .mjx-presup": {display:"block"},
     ".mjx-prestack > .mjx-presub": {display:"block"},
-    
+
     ".mjx-delim-h > .mjx-char": {display:"inline-block"},
-    
+
     ".mjx-surd": {"vertical-align":"top"},
-    
+
     ".mjx-mphantom *": {visibility:"hidden"},
 
     ".mjx-merror": {
@@ -20628,9 +20628,9 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       "font-style":      "normal",
       "font-size":       "90%"
     },
-    
+
     ".mjx-annotation-xml": {"line-height":"normal"},
-    
+
     ".mjx-menclose > svg": {fill:"none", stroke:"currentColor"},
 
     ".mjx-mtr":    {display:"table-row"},
@@ -20653,7 +20653,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     ".MJXc-space1": {"margin-left":".167em"},
     ".MJXc-space2": {"margin-left":".222em"},
     ".MJXc-space3": {"margin-left":".278em"},
-    
+
     ".mjx-chartest": {
       display:"block",
       visibility: "hidden",
@@ -20669,7 +20669,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       width: 0, height: 0, overflow:"hidden"
     },
     ".MJXc-processed": {display:"none"},
-    
+
     ".mjx-test": {
       display:           "block",
       "font-style":      "normal",
@@ -20695,7 +20695,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       "min-width":0, "max-width":"none",
       padding:0, border:0, margin:0
     },
-    
+
     "#MathJax_CHTML_Tooltip": {
       "background-color": "InfoBackground", color: "InfoText",
       border: "1px solid black",
@@ -20711,10 +20711,10 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     }
 
   };
-  
-  
+
+
   /************************************************************/
-  
+
   var BIGDIMEN = 1000000;
   var MAXREMAP = 5;
   var LINEBREAKS = {}, CONFIG = MathJax.Hub.config;
@@ -20724,7 +20724,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     config: {styles: STYLES},
 
     /********************************************/
-    
+
     Config: function () {
       if (!this.require) {this.require = []}
       this.SUPER(arguments).Config.call(this); var settings = this.settings;
@@ -20768,7 +20768,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       //
       return AJAX.Styles(this.config.styles,["InitializeCHTML",this]);
     },
-    
+
     InitializeCHTML: function () {
       this.getDefaultExEm();
       //
@@ -20779,7 +20779,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       var ready = MathJax.Callback();
       AJAX.timer.start(AJAX,function (check) {
         if (check.time(ready)) {
-          HUB.signal.Post(["CommonHTML Jax - no default em size"]); 
+          HUB.signal.Post(["CommonHTML Jax - no default em size"]);
           return;
         }
         CHTML.getDefaultExEm();
@@ -20805,7 +20805,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       document.body.removeChild(this.linebreakSpan);
       document.body.removeChild(this.TestSpan);
     },
-    getFontSize: (window.getComputedStyle ? 
+    getFontSize: (window.getComputedStyle ?
       function (node) {
         var style = window.getComputedStyle(node);
         return parseFloat(style.fontSize);
@@ -20859,7 +20859,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
         ["loadComplete",AJAX,this.fontDir+"/"+font]
       );
     },
-    
+
     Element: function (type,def,content) {
       if (type.substr(0,4) === "mjx-") {
         if (!def) def = {};
@@ -20875,13 +20875,13 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     HTMLElement: HTML.Element,
     ucMatch: HTML.ucMatch,
     setScript: HTML.setScript,
-    
+
     //
     //  Look through the direct children of a node for one with the given
     //  type (but if the node has intervening containers for its children,
     //  step into them; note that elements corresponding to MathML nodes
     //  will have id's so we don't step into them).
-    //  
+    //
     //  This is used by munderover and msubsup to locate their child elements
     //  when they are part of an embellished operator that is being stretched.
     //  We don't use querySelector because we want to find only the direct child
@@ -20904,7 +20904,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     },
 
     /********************************************/
-    
+
     preTranslate: function (state) {
       var scripts = state.jax[this.id], i, m = scripts.length,
           script, prev, node, test, span, jax, ex, em, scale;
@@ -20928,8 +20928,8 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
         //  Remove any existing output
         //
         prev = script.previousSibling;
-	if (prev && prev.className && String(prev.className).substr(0,9) === "mjx-chtml")
-	  prev.parentNode.removeChild(prev);
+        if (prev && prev.className && String(prev.className).substr(0,9) === "mjx-chtml")
+          prev.parentNode.removeChild(prev);
         if (script.MathJax.preview) script.MathJax.preview.style.display = "none";
         //
         //  Add the node for the math and mark it as being processed
@@ -20943,7 +20943,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
           id:jax.inputID+"-Frame", className:"MathJax_CHTML", isMathJax:true, jaxID:this.id,
           oncontextmenu:EVENT.Menu, onmousedown: EVENT.Mousedown,
           onmouseover:EVENT.Mouseover, onmouseout:EVENT.Mouseout, onmousemove:EVENT.Mousemove,
-	  onclick:EVENT.Click, ondblclick:EVENT.DblClick,
+          onclick:EVENT.Click, ondblclick:EVENT.DblClick,
           // Added for keyboard accessible menu.
           onkeydown: EVENT.Keydown, tabIndex: HUB.getTabOrder(jax)
         });
@@ -21008,7 +21008,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     },
 
     /********************************************/
-    
+
     Translate: function (script,state) {
       if (!script.parentNode) return;
 
@@ -21104,7 +21104,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     },
 
     /********************************************/
-    
+
     postTranslate: function (state) {
       var scripts = state.jax[this.id];
       //
@@ -21136,7 +21136,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     },
 
     /********************************************/
-    
+
     getJaxFromMath: function (math) {
       if (math.parentNode.className.match(/MJXc-display/)) math = math.parentNode;
       do {math = math.nextSibling} while (math && math.nodeName.toLowerCase() !== "script");
@@ -21149,7 +21149,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       if (bbox.width) {BBOX.width = bbox.width}
       return BBOX;
     },
-    
+
     Zoom: function (jax,span,math,Mw,Mh) {
       //
       //  Re-render at larger size
@@ -21183,12 +21183,12 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       if (node) node.parentNode.removeChild(node);
       delete jax.CHTML;
     },
-    
+
     /********************************************/
-    
+
     ID: 0, idPostfix: "",
     GetID: function () {this.ID++; return this.ID},
-    
+
     /********************************************/
 
     MATHSPACE: {
@@ -21220,7 +21220,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     },
     pxPerInch: 96,
     em: 16,
-    
+
     maxStretchyParts: 1000,            // limit the number of parts allowed for
                                        // stretchy operators. See issue 366.
 
@@ -21251,7 +21251,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       big_op_spacing5:  .1,
 
       surd_height:      .075,
-      
+
       scriptspace:         .05,
       nulldelimiterspace:  .12,
       delimiterfactor:     901,
@@ -21259,9 +21259,9 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
 
       min_rule_thickness:  1.25     // in pixels
     },
-    
+
     /********************************************************/
-    
+
     //
     //  Get a unicode character by number (even when it takes two character)
     //
@@ -21326,7 +21326,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       if (isArray(n)) {
         if (n[2]) N = MAXREMAP; // stop remapping
         variant = VARIANT[n[1]]; n = n[0];
-      } 
+      }
       if (typeof(n) === "string") {
         var string = {text:n, i:0, length:n.length};
         while (string.i < string.length) {
@@ -21449,10 +21449,10 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       var d = (H2-1000)/em, w = W/em, h = H1/em - d;
       return {h:h, d:d, w:w}
     },
-    
+
 
     /********************************************************/
-    
+
     //
     //  Process a character list into a given node and return
     //  the updated bounding box.
@@ -21673,8 +21673,8 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       ebox = this.createChar(tmp,delim.rep,1,font); ext = tmp.removeChild(tmp.firstChild);
       left.style.marginLeft = CHTML.Em(-lbox.l);
       right.style.marginRight = CHTML.Em(rbox.r-rbox.w);
-      node.appendChild(left); 
-      var hbox = CHTML.BBOX.zero(); 
+      node.appendChild(left);
+      var hbox = CHTML.BBOX.zero();
       hbox.h = Math.max(lbox.h,rbox.h,ebox.h);
       hbox.d = Math.max(lbox.D||lbox.d,rbox.D||rbox.d,ebox.D||ebox.d);
       var w = (lbox.r - lbox.l) + (rbox.r - rbox.l) - EFUZZ;
@@ -21762,7 +21762,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     },
 
     /********************************************************/
-    
+
     //
     //  ### FIXME: Handle mu's
     //
@@ -21816,11 +21816,11 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       if (Math.abs(m) < .1) return "0";
       return m.toFixed(1).replace(/\.0$/,"")+"px";
     },
-    
+
     Percent: function (m) {
       return (100*m).toFixed(1).replace(/\.?0+$/,"") + "%";
     },
-    
+
     Transform: function (node,trans,origin) {
       var style = node.style;
       style.transform = style.WebkitTransform = style.MozTransform = style["-ms-transform"] = trans;
@@ -21830,14 +21830,14 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     },
 
     /********************************************************/
-    
+
     arrayEntry: function (a,i) {return a[Math.max(0,Math.min(i,a.length-1))]},
 
     //
     //  Styles to be removed from style="..." attributes
     //
     removeStyles: ["fontSize","fontFamily","fontWeight","fontStyle","fontVariant","font"]
-    
+
   });
 
   /**********************************************************/
@@ -21929,14 +21929,14 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       ["paddingLeft","w","l",0],
     ]
   });
-  
+
   /**********************************************************/
 
   MathJax.Hub.Register.StartupHook("mml Jax Ready",function () {
     MML = MathJax.ElementJax.mml;
 
     /********************************************************/
-    
+
     MML.mbase.Augment({
       toCommonHTML: function (node,options) {
         return this.CHTMLdefaultNode(node,options);
@@ -21986,7 +21986,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
         }
         return cnode;
       },
-      
+
       CHTMLchildNode: function (node,i) {
         node = node.childNodes[i];
         if (node.nodeName.toLowerCase() === "a") node = node.firstChild;
@@ -21996,7 +21996,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
         if (this.inferRow && this.data[0]) return this.data[0].CHTMLcoreNode(node.firstChild);
         return this.CHTMLchildNode(node,this.CoreIndex());
       },
-      
+
       CHTMLstretchChildV: function (i,H,D) {
         var data = this.data[i];
         if (data) {
@@ -22067,11 +22067,11 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
         if (!this.CHTMLnodeID) {return null}
         return document.getElementById((this.id||"MJXc-Node-"+this.CHTMLnodeID)+CHTML.idPostfix);
       },
-      
+
       CHTMLlength2em: function (length,size) {
         return CHTML.length2em(length,size,this.CHTML.scale);
       },
-      
+
       CHTMLhandleAttributes: function (node) {
         if (this["class"]) {
           if (node.className) node.className += " "+this["class"];
@@ -22162,7 +22162,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
         if (this.mathbackground) {node.style.backgroundColor = this.mathbackground}
           else if (this.background) {node.style.backgroundColor = this.background}
       },
-      
+
       CHTMLhandleSpace: function (node) {
         if (!this.useMMLspacing) {
           var space = this.texSpacing();
@@ -22177,7 +22177,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
         if (node.firstChild && !this.CHTML) this.CHTML = CHTML.BBOX.empty();
         this.CHTML = CHTML.handleText(node,text,variant,this.CHTML);
       },
-      
+
       CHTMLgetVariant: function () {
         var values = this.getValues("mathvariant","fontfamily","fontweight","fontstyle"), style;
         values.hasVariant = this.Get("mathvariant",true);  // null if not explicitly specified
@@ -22272,8 +22272,8 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       //
       CHTMLautoload: function () {
         this.constructor.Augment({toCommonHTML: MML.mbase.CHTMLautoloadFail});
-	var file = CHTML.autoloadDir+"/"+this.type+".js";
-	HUB.RestartAfter(AJAX.Require(file));
+        var file = CHTML.autoloadDir+"/"+this.type+".js";
+        HUB.RestartAfter(AJAX.Require(file));
       },
       CHTMLautoloadFail: function () {
         throw Error("CommonHTML can't autoload '"+ this.type + "'");
@@ -22284,8 +22284,8 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
           throw Error("CommonHTML can't autoload file '"+name+"'");
         }
         MML.mbase.CHTMLautoloadList[name] = true;
-	var file = CHTML.autoloadDir+"/"+name+".js";
-	HUB.RestartAfter(AJAX.Require(file));
+        var file = CHTML.autoloadDir+"/"+name+".js";
+        HUB.RestartAfter(AJAX.Require(file));
       },
       //
       //  For use with embellished operators
@@ -22299,11 +22299,11 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
         this.CHTMLupdateFrom(this.CHTMLstretchCoreH(node,w));
         this.toCommonHTML(node,{stretch:true});
         return this.CHTML;
-      }      
+      }
     });
 
     /********************************************************/
-    
+
     MML.chars.Augment({
       toCommonHTML: function (node,options) {
         this.CHTML = null;
@@ -22323,7 +22323,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     });
 
     /********************************************************/
-    
+
     MML.math.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLdefaultNode(node);
@@ -22363,9 +22363,9 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
         return node;
       }
     });
-    
+
     /********************************************************/
-    
+
     MML.mi.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLdefaultNode(node);
@@ -22380,7 +22380,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     });
 
     /********************************************************/
-    
+
     MML.mn.Augment({
       CHTMLremapMinus: function (text) {return text.replace(/^-/,"\u2212")},
       toCommonHTML: function (node) {
@@ -22396,7 +22396,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     });
 
     /********************************************************/
-    
+
     MML.mo.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLcreateNode(node);
@@ -22404,7 +22404,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
         this.CHTMLgetVariant();
         this.CHTMLhandleScale(node);
         CHTML.BBOX.empty(this.CHTML);
-        
+
         var values = this.getValues("displaystyle","largeop");
         values.variant = this.CHTMLvariant;
         values.text = this.data.join("");
@@ -22586,7 +22586,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     });
 
     /********************************************************/
-    
+
     MML.merror.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLdefaultNode(node);
@@ -22604,9 +22604,9 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
         return node;
       }
     });
-    
+
     /********************************************************/
-    
+
     MML.mspace.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLcreateNode(node);
@@ -22629,7 +22629,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     });
 
     /********************************************************/
-    
+
     MML.mpadded.Augment({
       toCommonHTML: function (node,options) {
         var child;
@@ -22686,7 +22686,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     });
 
     /********************************************************/
-    
+
     MML.munderover.Augment({
       toCommonHTML: function (node,options) {
         var values = this.getValues("displaystyle","accent","accentunder","align");
@@ -22738,7 +22738,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
         }
         //
         //  Add over- and under-scripts
-        //  
+        //
         var stack = base, delta = 0;
         if (bbox.ic) {delta = 1.3*bbox.ic + .05} // make faked IC be closer to expeted results
         if (this.data[this.over]) stack = this.CHTMLaddOverscript(over,boxes,values,delta,base,stretch);
@@ -22753,7 +22753,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       //
       //  Get the bounding boxes for the children, stretch
       //  any stretchable elements, and compute the maximum width
-      //  
+      //
       CHTMLgetBBoxes: function (bbox,nodes,values) {
         var i, m = this.data.length, scale,
             w = -BIGDIMEN,  // maximum width of non-stretchy items
@@ -22911,7 +22911,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     });
 
     /********************************************************/
-    
+
     MML.msubsup.Augment({
       toCommonHTML: function (node,options) {
         var values = this.getValues(
@@ -23022,7 +23022,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     });
 
     /********************************************************/
-    
+
     MML.mfrac.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLdefaultNode(node,{
@@ -23126,7 +23126,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     });
 
     /********************************************************/
-    
+
     MML.msqrt.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLdefaultNode(node,{
@@ -23144,7 +23144,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
         if (sbox.h + sbox.d > H) q = ((sbox.h+sbox.d) - (H-t))/2;
         H = bbox.h + q + t;
         var x = this.CHTMLaddRoot(node,sbox,sbox.h+sbox.d-H);
-        base.style.paddingTop = CHTML.Em(q); 
+        base.style.paddingTop = CHTML.Em(q);
         base.style.borderTop = CHTML.Px(T*bbox.scale,1)+" solid";
         sqrt.style.paddingTop = CHTML.Em(2*t-T);  // use wider line, but don't affect height
         bbox.h += q + 2*t;
@@ -23162,7 +23162,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     });
 
     /********************************************************/
-    
+
     MML.mroot.Augment({
       toCommonHTML: MML.msqrt.prototype.toCommonHTML,
       CHTMLhandleBBox: MML.msqrt.prototype.CHTMLhandleBBox,
@@ -23172,7 +23172,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
         var scale = bbox.rscale;
         var h = this.CHTMLrootHeight(bbox,sbox,scale)-d;
         var w = Math.min(bbox.w,bbox.r); // remove extra right-hand padding, if any
-        var dx = Math.max(w,sbox.offset/scale); 
+        var dx = Math.max(w,sbox.offset/scale);
         if (h) root.style.verticalAlign = CHTML.Em(h/scale);
         if (dx > w) root.firstChild.style.paddingLeft = CHTML.Em(dx-w);
         dx -= sbox.offset/scale;
@@ -23184,9 +23184,9 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
         return .45*(sbox.h+sbox.d-.9)+sbox.offset + Math.max(0,bbox.d-.075);
       }
     });
-    
+
     /********************************************************/
-    
+
     MML.mfenced.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLcreateNode(node);
@@ -23219,7 +23219,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     });
 
     /********************************************************/
-    
+
     MML.mrow.Augment({
       toCommonHTML: function (node,options) {
         options = options || {};
@@ -23253,7 +23253,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     });
 
     /********************************************************/
-    
+
     MML.mstyle.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLdefaultNode(node);
@@ -23263,7 +23263,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     });
 
     /********************************************************/
-    
+
     MML.TeXAtom.Augment({
       toCommonHTML: function (node,options) {
         if (!options || !options.stretch) node = this.CHTMLdefaultNode(node);
@@ -23290,15 +23290,15 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     });
 
     /********************************************************/
-    
+
     MML.semantics.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLcreateNode(node);
-	if (this.data[0]) {
-	  this.data[0].toCommonHTML(node);
-	  this.CHTMLupdateFrom(this.data[0].CHTML);
+  if (this.data[0]) {
+    this.data[0].toCommonHTML(node);
+    this.CHTMLupdateFrom(this.data[0].CHTML);
           this.CHTMLhandleBBox(node);
-	}
+  }
         return node;
       }
     });
@@ -23313,15 +23313,15 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     MML.maction.Augment({toCommonHTML: MML.mbase.CHTMLautoload});
     MML.mmultiscripts.Augment({toCommonHTML: MML.mbase.CHTMLautoload});
     MML.mtable.Augment({toCommonHTML: MML.mbase.CHTMLautoload});
-    
+
     /********************************************************/
-    
+
     //
     //  Loading isn't complete until the element jax is modified,
     //  but can't call loadComplete within the callback for "mml Jax Ready"
     //  (it would call CommonHTML's Require routine, asking for the mml jax again)
     //  so wait until after the mml jax has finished processing.
-    //  
+    //
     //  We also need to wait for the onload handler to run, since the loadComplete
     //  will call Config and Startup, which need to modify the body.
     //
@@ -23330,11 +23330,11 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     });
   });
 
-  MathJax.Hub.Register.StartupHook("End Cookie", function () {  
+  MathJax.Hub.Register.StartupHook("End Cookie", function () {
     if (HUB.config.menuSettings.zoom !== "None")
       {AJAX.Require("[MathJax]/extensions/MathZoom.js")}
   });
-    
+
 })(MathJax.Ajax,MathJax.Hub,MathJax.HTML,MathJax.OutputJax.CommonHTML);
 
 /* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
