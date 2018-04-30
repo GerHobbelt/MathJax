@@ -9,17 +9,17 @@
  *  using HTML and CSS to position the characters from math fonts
  *  in their proper locations.  Unlike the HTML-CSS output jax,
  *  this HTML is browser and OS independent.
- *  
+ *
  *  ---------------------------------------------------------------------
- *  
+ *
  *  Copyright (c) 2013-2018 The MathJax Consortium
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -97,23 +97,23 @@
     ".MJXc-stacked":    {height:0, position:"relative"},
     ".MJXc-stacked > *":  {position: "absolute"},
     ".MJXc-bevelled > *": {display:"inline-block"},
-    
+
     ".mjx-stack":  {display:"inline-block"},
     ".mjx-op":     {display:"block"},
     ".mjx-under":  {display:"table-cell"},
     ".mjx-over":   {display:"block"},
     ".mjx-over > *": {"padding-left":"0px!important", "padding-right":"0px!important"},
     ".mjx-under > *": {"padding-left":"0px!important", "padding-right":"0px!important"},
-    
+
     ".mjx-stack > .mjx-sup": {display:"block"},
     ".mjx-stack > .mjx-sub": {display:"block"},
     ".mjx-prestack > .mjx-presup": {display:"block"},
     ".mjx-prestack > .mjx-presub": {display:"block"},
-    
+
     ".mjx-delim-h > .mjx-char": {display:"inline-block"},
-    
+
     ".mjx-surd": {"vertical-align":"top"},
-    
+
     ".mjx-mphantom *": {visibility:"hidden"},
 
     ".mjx-merror": {
@@ -124,9 +124,9 @@
       "font-style":      "normal",
       "font-size":       "90%"
     },
-    
+
     ".mjx-annotation-xml": {"line-height":"normal"},
-    
+
     ".mjx-menclose > svg": {fill:"none", stroke:"currentColor"},
 
     ".mjx-mtr":    {display:"table-row"},
@@ -149,7 +149,7 @@
     ".MJXc-space1": {"margin-left":".167em"},
     ".MJXc-space2": {"margin-left":".222em"},
     ".MJXc-space3": {"margin-left":".278em"},
-    
+
     ".mjx-chartest": {
       display:"block",
       visibility: "hidden",
@@ -165,7 +165,7 @@
       width: 0, height: 0, overflow:"hidden"
     },
     ".MJXc-processed": {display:"none"},
-    
+
     ".mjx-test": {
       display:           "block",
       "font-style":      "normal",
@@ -191,7 +191,7 @@
       "min-width":0, "max-width":"none",
       padding:0, border:0, margin:0
     },
-    
+
     "#MathJax_CHTML_Tooltip": {
       "background-color": "InfoBackground", color: "InfoText",
       border: "1px solid black",
@@ -207,10 +207,10 @@
     }
 
   };
-  
-  
+
+
   /************************************************************/
-  
+
   var BIGDIMEN = 1000000;
   var MAXREMAP = 5;
   var LINEBREAKS = {}, CONFIG = MathJax.Hub.config;
@@ -220,7 +220,7 @@
     config: {styles: STYLES},
 
     /********************************************/
-    
+
     Config: function () {
       if (!this.require) {this.require = []}
       this.SUPER(arguments).Config.call(this); var settings = this.settings;
@@ -264,7 +264,7 @@
       //
       return AJAX.Styles(this.config.styles,["InitializeCHTML",this]);
     },
-    
+
     InitializeCHTML: function () {
       this.getDefaultExEm();
       //
@@ -275,7 +275,7 @@
       var ready = MathJax.Callback();
       AJAX.timer.start(AJAX,function (check) {
         if (check.time(ready)) {
-          HUB.signal.Post(["CommonHTML Jax - no default em size"]); 
+          HUB.signal.Post(["CommonHTML Jax - no default em size"]);
           return;
         }
         CHTML.getDefaultExEm();
@@ -301,7 +301,7 @@
       document.body.removeChild(this.linebreakSpan);
       document.body.removeChild(this.TestSpan);
     },
-    getFontSize: (window.getComputedStyle ? 
+    getFontSize: (window.getComputedStyle ?
       function (node) {
         var style = window.getComputedStyle(node);
         return parseFloat(style.fontSize);
@@ -355,7 +355,7 @@
         ["loadComplete",AJAX,this.fontDir+"/"+font]
       );
     },
-    
+
     Element: function (type,def,content) {
       if (type.substr(0,4) === "mjx-") {
         if (!def) def = {};
@@ -371,13 +371,13 @@
     HTMLElement: HTML.Element,
     ucMatch: HTML.ucMatch,
     setScript: HTML.setScript,
-    
+
     //
     //  Look through the direct children of a node for one with the given
     //  type (but if the node has intervening containers for its children,
     //  step into them; note that elements corresponding to MathML nodes
     //  will have id's so we don't step into them).
-    //  
+    //
     //  This is used by munderover and msubsup to locate their child elements
     //  when they are part of an embellished operator that is being stretched.
     //  We don't use querySelector because we want to find only the direct child
@@ -400,7 +400,7 @@
     },
 
     /********************************************/
-    
+
     preTranslate: function (state) {
       var scripts = state.jax[this.id], i, m = scripts.length,
           script, prev, node, test, span, jax, ex, em, scale;
@@ -424,8 +424,8 @@
         //  Remove any existing output
         //
         prev = script.previousSibling;
-	if (prev && prev.className && String(prev.className).substr(0,9) === "mjx-chtml")
-	  prev.parentNode.removeChild(prev);
+        if (prev && prev.className && String(prev.className).substr(0,9) === "mjx-chtml")
+          prev.parentNode.removeChild(prev);
         if (script.MathJax.preview) script.MathJax.preview.style.display = "none";
         //
         //  Add the node for the math and mark it as being processed
@@ -439,7 +439,7 @@
           id:jax.inputID+"-Frame", className:"MathJax_CHTML", isMathJax:true, jaxID:this.id,
           oncontextmenu:EVENT.Menu, onmousedown: EVENT.Mousedown,
           onmouseover:EVENT.Mouseover, onmouseout:EVENT.Mouseout, onmousemove:EVENT.Mousemove,
-	  onclick:EVENT.Click, ondblclick:EVENT.DblClick,
+          onclick:EVENT.Click, ondblclick:EVENT.DblClick,
           // Added for keyboard accessible menu.
           onkeydown: EVENT.Keydown, tabIndex: HUB.getTabOrder(jax)
         });
@@ -504,7 +504,7 @@
     },
 
     /********************************************/
-    
+
     Translate: function (script,state) {
       if (!script.parentNode) return;
 
@@ -600,7 +600,7 @@
     },
 
     /********************************************/
-    
+
     postTranslate: function (state) {
       var scripts = state.jax[this.id];
       //
@@ -632,7 +632,7 @@
     },
 
     /********************************************/
-    
+
     getJaxFromMath: function (math) {
       if (math.parentNode.className.match(/MJXc-display/)) math = math.parentNode;
       do {math = math.nextSibling} while (math && math.nodeName.toLowerCase() !== "script");
@@ -645,7 +645,7 @@
       if (bbox.width) {BBOX.width = bbox.width}
       return BBOX;
     },
-    
+
     Zoom: function (jax,span,math,Mw,Mh) {
       //
       //  Re-render at larger size
@@ -679,12 +679,12 @@
       if (node) node.parentNode.removeChild(node);
       delete jax.CHTML;
     },
-    
+
     /********************************************/
-    
+
     ID: 0, idPostfix: "",
     GetID: function () {this.ID++; return this.ID},
-    
+
     /********************************************/
 
     MATHSPACE: {
@@ -716,7 +716,7 @@
     },
     pxPerInch: 96,
     em: 16,
-    
+
     maxStretchyParts: 1000,            // limit the number of parts allowed for
                                        // stretchy operators. See issue 366.
 
@@ -747,7 +747,7 @@
       big_op_spacing5:  .1,
 
       surd_height:      .075,
-      
+
       scriptspace:         .05,
       nulldelimiterspace:  .12,
       delimiterfactor:     901,
@@ -755,9 +755,9 @@
 
       min_rule_thickness:  1.25     // in pixels
     },
-    
+
     /********************************************************/
-    
+
     //
     //  Get a unicode character by number (even when it takes two character)
     //
@@ -822,7 +822,7 @@
       if (isArray(n)) {
         if (n[2]) N = MAXREMAP; // stop remapping
         variant = VARIANT[n[1]]; n = n[0];
-      } 
+      }
       if (typeof(n) === "string") {
         var string = {text:n, i:0, length:n.length};
         while (string.i < string.length) {
@@ -945,10 +945,10 @@
       var d = (H2-1000)/em, w = W/em, h = H1/em - d;
       return {h:h, d:d, w:w}
     },
-    
+
 
     /********************************************************/
-    
+
     //
     //  Process a character list into a given node and return
     //  the updated bounding box.
@@ -1169,8 +1169,8 @@
       ebox = this.createChar(tmp,delim.rep,1,font); ext = tmp.removeChild(tmp.firstChild);
       left.style.marginLeft = CHTML.Em(-lbox.l);
       right.style.marginRight = CHTML.Em(rbox.r-rbox.w);
-      node.appendChild(left); 
-      var hbox = CHTML.BBOX.zero(); 
+      node.appendChild(left);
+      var hbox = CHTML.BBOX.zero();
       hbox.h = Math.max(lbox.h,rbox.h,ebox.h);
       hbox.d = Math.max(lbox.D||lbox.d,rbox.D||rbox.d,ebox.D||ebox.d);
       var w = (lbox.r - lbox.l) + (rbox.r - rbox.l) - EFUZZ;
@@ -1258,7 +1258,7 @@
     },
 
     /********************************************************/
-    
+
     //
     //  ### FIXME: Handle mu's
     //
@@ -1312,11 +1312,11 @@
       if (Math.abs(m) < .1) return "0";
       return m.toFixed(1).replace(/\.0$/,"")+"px";
     },
-    
+
     Percent: function (m) {
       return (100*m).toFixed(1).replace(/\.?0+$/,"") + "%";
     },
-    
+
     Transform: function (node,trans,origin) {
       var style = node.style;
       style.transform = style.WebkitTransform = style.MozTransform = style["-ms-transform"] = trans;
@@ -1326,14 +1326,14 @@
     },
 
     /********************************************************/
-    
+
     arrayEntry: function (a,i) {return a[Math.max(0,Math.min(i,a.length-1))]},
 
     //
     //  Styles to be removed from style="..." attributes
     //
     removeStyles: ["fontSize","fontFamily","fontWeight","fontStyle","fontVariant","font"]
-    
+
   });
 
   /**********************************************************/
@@ -1425,14 +1425,14 @@
       ["paddingLeft","w","l",0],
     ]
   });
-  
+
   /**********************************************************/
 
   MathJax.Hub.Register.StartupHook("mml Jax Ready",function () {
     MML = MathJax.ElementJax.mml;
 
     /********************************************************/
-    
+
     MML.mbase.Augment({
       toCommonHTML: function (node,options) {
         return this.CHTMLdefaultNode(node,options);
@@ -1482,7 +1482,7 @@
         }
         return cnode;
       },
-      
+
       CHTMLchildNode: function (node,i) {
         node = node.childNodes[i];
         if (node.nodeName.toLowerCase() === "a") node = node.firstChild;
@@ -1492,7 +1492,7 @@
         if (this.inferRow && this.data[0]) return this.data[0].CHTMLcoreNode(node.firstChild);
         return this.CHTMLchildNode(node,this.CoreIndex());
       },
-      
+
       CHTMLstretchChildV: function (i,H,D) {
         var data = this.data[i];
         if (data) {
@@ -1563,11 +1563,11 @@
         if (!this.CHTMLnodeID) {return null}
         return document.getElementById((this.id||"MJXc-Node-"+this.CHTMLnodeID)+CHTML.idPostfix);
       },
-      
+
       CHTMLlength2em: function (length,size) {
         return CHTML.length2em(length,size,this.CHTML.scale);
       },
-      
+
       CHTMLhandleAttributes: function (node) {
         if (this["class"]) {
           if (node.className) node.className += " "+this["class"];
@@ -1658,7 +1658,7 @@
         if (this.mathbackground) {node.style.backgroundColor = this.mathbackground}
           else if (this.background) {node.style.backgroundColor = this.background}
       },
-      
+
       CHTMLhandleSpace: function (node) {
         if (!this.useMMLspacing) {
           var space = this.texSpacing();
@@ -1673,7 +1673,7 @@
         if (node.firstChild && !this.CHTML) this.CHTML = CHTML.BBOX.empty();
         this.CHTML = CHTML.handleText(node,text,variant,this.CHTML);
       },
-      
+
       CHTMLgetVariant: function () {
         var values = this.getValues("mathvariant","fontfamily","fontweight","fontstyle"), style;
         values.hasVariant = this.Get("mathvariant",true);  // null if not explicitly specified
@@ -1768,8 +1768,8 @@
       //
       CHTMLautoload: function () {
         this.constructor.Augment({toCommonHTML: MML.mbase.CHTMLautoloadFail});
-	var file = CHTML.autoloadDir+"/"+this.type+".js";
-	HUB.RestartAfter(AJAX.Require(file));
+        var file = CHTML.autoloadDir+"/"+this.type+".js";
+        HUB.RestartAfter(AJAX.Require(file));
       },
       CHTMLautoloadFail: function () {
         throw Error("CommonHTML can't autoload '"+ this.type + "'");
@@ -1780,8 +1780,8 @@
           throw Error("CommonHTML can't autoload file '"+name+"'");
         }
         MML.mbase.CHTMLautoloadList[name] = true;
-	var file = CHTML.autoloadDir+"/"+name+".js";
-	HUB.RestartAfter(AJAX.Require(file));
+        var file = CHTML.autoloadDir+"/"+name+".js";
+        HUB.RestartAfter(AJAX.Require(file));
       },
       //
       //  For use with embellished operators
@@ -1795,11 +1795,11 @@
         this.CHTMLupdateFrom(this.CHTMLstretchCoreH(node,w));
         this.toCommonHTML(node,{stretch:true});
         return this.CHTML;
-      }      
+      }
     });
 
     /********************************************************/
-    
+
     MML.chars.Augment({
       toCommonHTML: function (node,options) {
         this.CHTML = null;
@@ -1819,7 +1819,7 @@
     });
 
     /********************************************************/
-    
+
     MML.math.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLdefaultNode(node);
@@ -1859,9 +1859,9 @@
         return node;
       }
     });
-    
+
     /********************************************************/
-    
+
     MML.mi.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLdefaultNode(node);
@@ -1876,7 +1876,7 @@
     });
 
     /********************************************************/
-    
+
     MML.mn.Augment({
       CHTMLremapMinus: function (text) {return text.replace(/^-/,"\u2212")},
       toCommonHTML: function (node) {
@@ -1892,7 +1892,7 @@
     });
 
     /********************************************************/
-    
+
     MML.mo.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLcreateNode(node);
@@ -1900,7 +1900,7 @@
         this.CHTMLgetVariant();
         this.CHTMLhandleScale(node);
         CHTML.BBOX.empty(this.CHTML);
-        
+
         var values = this.getValues("displaystyle","largeop");
         values.variant = this.CHTMLvariant;
         values.text = this.data.join("");
@@ -2082,7 +2082,7 @@
     });
 
     /********************************************************/
-    
+
     MML.merror.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLdefaultNode(node);
@@ -2100,9 +2100,9 @@
         return node;
       }
     });
-    
+
     /********************************************************/
-    
+
     MML.mspace.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLcreateNode(node);
@@ -2125,7 +2125,7 @@
     });
 
     /********************************************************/
-    
+
     MML.mpadded.Augment({
       toCommonHTML: function (node,options) {
         var child;
@@ -2182,7 +2182,7 @@
     });
 
     /********************************************************/
-    
+
     MML.munderover.Augment({
       toCommonHTML: function (node,options) {
         var values = this.getValues("displaystyle","accent","accentunder","align");
@@ -2234,7 +2234,7 @@
         }
         //
         //  Add over- and under-scripts
-        //  
+        //
         var stack = base, delta = 0;
         if (bbox.ic) {delta = 1.3*bbox.ic + .05} // make faked IC be closer to expeted results
         if (this.data[this.over]) stack = this.CHTMLaddOverscript(over,boxes,values,delta,base,stretch);
@@ -2249,7 +2249,7 @@
       //
       //  Get the bounding boxes for the children, stretch
       //  any stretchable elements, and compute the maximum width
-      //  
+      //
       CHTMLgetBBoxes: function (bbox,nodes,values) {
         var i, m = this.data.length, scale,
             w = -BIGDIMEN,  // maximum width of non-stretchy items
@@ -2407,7 +2407,7 @@
     });
 
     /********************************************************/
-    
+
     MML.msubsup.Augment({
       toCommonHTML: function (node,options) {
         var values = this.getValues(
@@ -2518,7 +2518,7 @@
     });
 
     /********************************************************/
-    
+
     MML.mfrac.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLdefaultNode(node,{
@@ -2622,7 +2622,7 @@
     });
 
     /********************************************************/
-    
+
     MML.msqrt.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLdefaultNode(node,{
@@ -2640,7 +2640,7 @@
         if (sbox.h + sbox.d > H) q = ((sbox.h+sbox.d) - (H-t))/2;
         H = bbox.h + q + t;
         var x = this.CHTMLaddRoot(node,sbox,sbox.h+sbox.d-H);
-        base.style.paddingTop = CHTML.Em(q); 
+        base.style.paddingTop = CHTML.Em(q);
         base.style.borderTop = CHTML.Px(T*bbox.scale,1)+" solid";
         sqrt.style.paddingTop = CHTML.Em(2*t-T);  // use wider line, but don't affect height
         bbox.h += q + 2*t;
@@ -2658,7 +2658,7 @@
     });
 
     /********************************************************/
-    
+
     MML.mroot.Augment({
       toCommonHTML: MML.msqrt.prototype.toCommonHTML,
       CHTMLhandleBBox: MML.msqrt.prototype.CHTMLhandleBBox,
@@ -2668,7 +2668,7 @@
         var scale = bbox.rscale;
         var h = this.CHTMLrootHeight(bbox,sbox,scale)-d;
         var w = Math.min(bbox.w,bbox.r); // remove extra right-hand padding, if any
-        var dx = Math.max(w,sbox.offset/scale); 
+        var dx = Math.max(w,sbox.offset/scale);
         if (h) root.style.verticalAlign = CHTML.Em(h/scale);
         if (dx > w) root.firstChild.style.paddingLeft = CHTML.Em(dx-w);
         dx -= sbox.offset/scale;
@@ -2680,9 +2680,9 @@
         return .45*(sbox.h+sbox.d-.9)+sbox.offset + Math.max(0,bbox.d-.075);
       }
     });
-    
+
     /********************************************************/
-    
+
     MML.mfenced.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLcreateNode(node);
@@ -2715,7 +2715,7 @@
     });
 
     /********************************************************/
-    
+
     MML.mrow.Augment({
       toCommonHTML: function (node,options) {
         options = options || {};
@@ -2749,7 +2749,7 @@
     });
 
     /********************************************************/
-    
+
     MML.mstyle.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLdefaultNode(node);
@@ -2759,7 +2759,7 @@
     });
 
     /********************************************************/
-    
+
     MML.TeXAtom.Augment({
       toCommonHTML: function (node,options) {
         if (!options || !options.stretch) node = this.CHTMLdefaultNode(node);
@@ -2786,15 +2786,15 @@
     });
 
     /********************************************************/
-    
+
     MML.semantics.Augment({
       toCommonHTML: function (node) {
         node = this.CHTMLcreateNode(node);
-	if (this.data[0]) {
-	  this.data[0].toCommonHTML(node);
-	  this.CHTMLupdateFrom(this.data[0].CHTML);
+  if (this.data[0]) {
+    this.data[0].toCommonHTML(node);
+    this.CHTMLupdateFrom(this.data[0].CHTML);
           this.CHTMLhandleBBox(node);
-	}
+  }
         return node;
       }
     });
@@ -2809,15 +2809,15 @@
     MML.maction.Augment({toCommonHTML: MML.mbase.CHTMLautoload});
     MML.mmultiscripts.Augment({toCommonHTML: MML.mbase.CHTMLautoload});
     MML.mtable.Augment({toCommonHTML: MML.mbase.CHTMLautoload});
-    
+
     /********************************************************/
-    
+
     //
     //  Loading isn't complete until the element jax is modified,
     //  but can't call loadComplete within the callback for "mml Jax Ready"
     //  (it would call CommonHTML's Require routine, asking for the mml jax again)
     //  so wait until after the mml jax has finished processing.
-    //  
+    //
     //  We also need to wait for the onload handler to run, since the loadComplete
     //  will call Config and Startup, which need to modify the body.
     //
@@ -2826,9 +2826,9 @@
     });
   });
 
-  MathJax.Hub.Register.StartupHook("End Cookie", function () {  
+  MathJax.Hub.Register.StartupHook("End Cookie", function () {
     if (HUB.config.menuSettings.zoom !== "None")
       {AJAX.Require("[MathJax]/extensions/MathZoom.js")}
   });
-    
+
 })(MathJax.Ajax,MathJax.Hub,MathJax.HTML,MathJax.OutputJax.CommonHTML);
