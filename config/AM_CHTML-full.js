@@ -67,7 +67,7 @@ MathJax.Hub.Config({
 
 MathJax.InputJax.AsciiMath = MathJax.InputJax({
   id: "AsciiMath",
-  version: "2.7.3",
+  version: "2.7.4",
   directory: MathJax.InputJax.directory + "/AsciiMath",
   extensionDir: MathJax.InputJax.extensionDir + "/AsciiMath",
   
@@ -111,7 +111,7 @@ MathJax.InputJax.AsciiMath.loadComplete("config.js");
 
 MathJax.OutputJax.CommonHTML = MathJax.OutputJax({
   id: "CommonHTML",
-  version: "2.7.3",
+  version: "2.7.4",
   directory: MathJax.OutputJax.directory + "/CommonHTML",
   extensionDir: MathJax.OutputJax.extensionDir + "/CommonHTML",
   autoloadDir: MathJax.OutputJax.directory + "/CommonHTML/autoload",
@@ -176,7 +176,7 @@ MathJax.OutputJax.CommonHTML.loadComplete("config.js");
 
 MathJax.OutputJax.PreviewHTML = MathJax.OutputJax({
   id: "PreviewHTML",
-  version: "2.7.3",
+  version: "2.7.4",
   directory: MathJax.OutputJax.directory + "/PreviewHTML",
   extensionDir: MathJax.OutputJax.extensionDir + "/PreviewHTML",
   noFastPreview: true,  // don't do fast preview for this output jax
@@ -234,7 +234,7 @@ MathJax.OutputJax.PreviewHTML.loadComplete("config.js");
  */
 
 MathJax.Extension.asciimath2jax = {
-  version: "2.7.3",
+  version: "2.7.4",
   config: {
     delimiters: [['`','`']],   // The star/stop delimiter pairs for asciimath code
 
@@ -332,21 +332,29 @@ MathJax.Extension.asciimath2jax = {
   
   scanText: function (element) {
     if (element.nodeValue.replace(/\s+/,'') == '') {return element}
-    var match, prev;
+    var match, prev, pos = 0, rescan;
     this.search = {start: true};
     this.pattern = this.start;
     while (element) {
-      this.pattern.lastIndex = 0;
+      rescan = null;
+      this.pattern.lastIndex = pos || 0; pos = 0;
       while (element && element.nodeName.toLowerCase() === '#text' &&
             (match = this.pattern.exec(element.nodeValue))) {
         if (this.search.start) {element = this.startMatch(match,element)}
                           else {element = this.endMatch(match,element)}
       }
-      if (this.search.matched) {element = this.encloseMath(element)}
+      if (this.search.matched) element = this.encloseMath(element);
+        else if (!this.search.start) rescan = this.search;
       if (element) {
         do {prev = element; element = element.nextSibling}
           while (element && this.ignoreTags[element.nodeName.toLowerCase()] != null);
-        if (!element || element.nodeName !== '#text') {return prev}
+        if (!element || element.nodeName !== '#text') {
+          if (!rescan) return prev;
+          element = rescan.open;
+          pos = rescan.opos + rescan.olen;
+          this.search = {start: true};
+          this.pattern = this.start;
+        }
       }
     }
     return element;
@@ -477,7 +485,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
  */
 
 (function (HUB,HTML,AJAX,CALLBACK,LOCALE,OUTPUT,INPUT) {
-  var VERSION = "2.7.3";
+  var VERSION = "2.7.4";
 
   var EXTENSION = MathJax.Extension;
   var ME = EXTENSION.MathEvents = {version: VERSION};
@@ -1114,7 +1122,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
  */
 
 (function (HUB,HTML,AJAX,HTMLCSS,nMML) {
-  var VERSION = "2.7.3";
+  var VERSION = "2.7.4";
   
   var CONFIG = HUB.CombineConfig("MathZoom",{
     styles: {
@@ -1486,7 +1494,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
  */
 
 (function (HUB,HTML,AJAX,CALLBACK,OUTPUT) {
-  var VERSION = "2.7.3";
+  var VERSION = "2.7.4";
 
   var SIGNAL = MathJax.Callback.Signal("menu");  // signal for menu events
 
@@ -3158,7 +3166,7 @@ MathJax.ElementJax.mml = MathJax.ElementJax({
   mimeType: "jax/mml"
 },{
   id: "mml",
-  version: "2.7.3",
+  version: "2.7.4",
   directory: MathJax.ElementJax.directory + "/mml",
   extensionDir: MathJax.ElementJax.extensionDir + "/mml",
   optableDir: MathJax.ElementJax.directory + "/mml/optable"
@@ -4974,7 +4982,7 @@ MathJax.ElementJax.mml.loadComplete("jax.js");
  */
 
 MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js",function () {
-  var VERSION = "2.7.3";
+  var VERSION = "2.7.4";
   
   var MML = MathJax.ElementJax.mml,
       SETTINGS = MathJax.Hub.config.menuSettings;
@@ -5034,7 +5042,7 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js",function () {
       if (this.mathvariant && this.toMathMLvariants[this.mathvariant])
         {CLASS.push("MJX"+this.mathvariant)}
       if (this.variantForm) {CLASS.push("MJX-variant")}
-      if (CLASS.length) {attr.unshift('class="'+CLASS.join(" ")+'"')}
+      if (CLASS.length) {attr.unshift('class="'+this.toMathMLquote(CLASS.join(" "))+'"')}
     },
     toMathMLattribute: function (value) {
       if (typeof(value) === "string" &&
@@ -5113,7 +5121,7 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js",function () {
         var xmlEscapedTex = jax.originalText.replace(/[&<>]/g, function(item) {
             return { '>': '&gt;', '<': '&lt;','&': '&amp;' }[item]
         });
-        data.push(space+'    <annotation encoding="'+annotation+'">'+xmlEscapedTex+"</annotation>");
+        data.push(space+'    <annotation encoding="'+this.toMathMLquote(annotation)+'">'+xmlEscapedTex+"</annotation>");
         data.push(space+"  </semantics>");
       }
       return space+"<"+tag+attr+">\n"+data.join("\n")+"\n"+space+"</"+tag+">";
@@ -5169,7 +5177,7 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js",function () {
   });
   
   MML.entity.Augment({
-    toMathML: function (space) {return (space||"") + "&"+this.data[0]+";<!-- "+this.toString()+" -->"}
+    toMathML: function (space) {return (space||"") + "&"+this.toMathMLquote(this.data[0])+";<!-- "+this.toString()+" -->"}
   });
   
   MML.xml.Augment({
@@ -8505,10 +8513,19 @@ var junk = [window, navigator]; junk = null;
       //  Autoload files based on node type or file name
       //
       CHTMLautoload: function () {
+        this.constructor.Augment({toCommonHTML: MML.mbase.CHTMLautoloadFail});
 	var file = CHTML.autoloadDir+"/"+this.type+".js";
 	HUB.RestartAfter(AJAX.Require(file));
       },
+      CHTMLautoloadFail: function () {
+        throw Error("CommonHTML can't autoload '"+ this.type + "'");
+      },
+      CHTMLautoloadList: {},
       CHTMLautoloadFile: function (name) {
+        if (MML.mbase.CHTMLautoloadList.hasOwnProperty(name)) {
+          throw Error("CommonHTML can't autoload file '"+name+"'");
+        }
+        MML.mbase.CHTMLautoloadList[name] = true;
 	var file = CHTML.autoloadDir+"/"+name+".js";
 	HUB.RestartAfter(AJAX.Require(file));
       },
@@ -9589,7 +9606,7 @@ var junk = [window, navigator]; junk = null;
  */
 
 MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function () {
-  var VERSION = "2.7.3";
+  var VERSION = "2.7.4";
   var MML = MathJax.ElementJax.mml,
       CONFIG = MathJax.Hub.config,
       CHTML = MathJax.OutputJax.CommonHTML,
@@ -9973,8 +9990,10 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function () {
       //  Set variable width on DOM nodes
       //
       if (relWidth) {
-        this.CHTML.pwidth = values.width; this.CHTML.mwidth = CHTML.Em(TW);
-        node.style.width = node.firstChild.style.width = "100%";
+        node.style.width = this.CHTML.pwidth = "100%";
+        this.CHTML.mwidth = CHTML.Em(TW);
+        node.firstChild.style.width = values.width;
+        node.firstChild.style.margin = "auto";
       }
     },
     //
@@ -10254,10 +10273,10 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function () {
 
     ".MJXp-mphantom": {"visibility": "hidden"},
 
-    ".MJXp-munderover": {"display":"inline-table!important"},
+    ".MJXp-munderover, .MJXp-munder": {"display":"inline-table!important"},
     ".MJXp-over": {"display":"inline-block!important","text-align":"center"},
     ".MJXp-over > *": {"display":"block!important"},
-    ".MJXp-munderover > *": {"display":"table-row!important"},
+    ".MJXp-munderover > *, .MJXp-munder > *": {"display":"table-row!important"},
 
     ".MJXp-mtable": {"vertical-align":".25em", "margin":"0 .125em"},
     ".MJXp-mtable > *": {"display":"inline-table!important", "vertical-align":"middle"},
@@ -11296,7 +11315,7 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function () {
   var msieColorBug = BROWSER.isMSIE && (document.documentMode||0) < 8;
 
   var FastPreview = MathJax.Extension["fast-preview"] = {
-    version: "2.7.3",
+    version: "2.7.4",
     enabled: true,
 
     //
@@ -11448,7 +11467,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/fast-preview.js");
   var SETTINGS = HUB.config.menuSettings;
   
   var AssistiveMML = MathJax.Extension["AssistiveMML"] = {
-    version: "2.7.3",
+    version: "2.7.4",
     
     config: HUB.CombineConfig("AssistiveMML",{
       disabled: false,

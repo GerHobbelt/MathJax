@@ -64,7 +64,7 @@ MathJax.Hub.Config({
 
 MathJax.InputJax.MathML = MathJax.InputJax({
   id: "MathML",
-  version: "2.7.3",
+  version: "2.7.4",
   directory: MathJax.InputJax.directory + "/MathML",
   extensionDir: MathJax.InputJax.extensionDir + "/MathML",
   entityDir: MathJax.InputJax.directory + "/MathML/entities",
@@ -106,7 +106,7 @@ MathJax.InputJax.MathML.loadComplete("config.js");
 
 MathJax.OutputJax.SVG = MathJax.OutputJax({
   id: "SVG",
-  version: "2.7.3",
+  version: "2.7.4",
   directory: MathJax.OutputJax.directory + "/SVG",
   extensionDir: MathJax.OutputJax.extensionDir + "/SVG",
   autoloadDir: MathJax.OutputJax.directory + "/SVG/autoload",
@@ -214,7 +214,7 @@ MathJax.OutputJax.SVG.loadComplete("config.js");
 
 MathJax.OutputJax.PreviewHTML = MathJax.OutputJax({
   id: "PreviewHTML",
-  version: "2.7.3",
+  version: "2.7.4",
   directory: MathJax.OutputJax.directory + "/PreviewHTML",
   extensionDir: MathJax.OutputJax.extensionDir + "/PreviewHTML",
   noFastPreview: true,  // don't do fast preview for this output jax
@@ -269,7 +269,7 @@ MathJax.OutputJax.PreviewHTML.loadComplete("config.js");
  */
 
 MathJax.Extension.mml2jax = {
-  version: "2.7.3",
+  version: "2.7.4",
   config: {
     preview: "mathml"       // Use the <math> element as the
                             //   preview.  Set to "none" for no preview,
@@ -532,7 +532,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
  */
 
 (function (HUB,HTML,AJAX,CALLBACK,LOCALE,OUTPUT,INPUT) {
-  var VERSION = "2.7.3";
+  var VERSION = "2.7.4";
 
   var EXTENSION = MathJax.Extension;
   var ME = EXTENSION.MathEvents = {version: VERSION};
@@ -1169,7 +1169,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
  */
 
 (function (HUB,HTML,AJAX,HTMLCSS,nMML) {
-  var VERSION = "2.7.3";
+  var VERSION = "2.7.4";
   
   var CONFIG = HUB.CombineConfig("MathZoom",{
     styles: {
@@ -1541,7 +1541,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
  */
 
 (function (HUB,HTML,AJAX,CALLBACK,OUTPUT) {
-  var VERSION = "2.7.3";
+  var VERSION = "2.7.4";
 
   var SIGNAL = MathJax.Callback.Signal("menu");  // signal for menu events
 
@@ -3213,7 +3213,7 @@ MathJax.ElementJax.mml = MathJax.ElementJax({
   mimeType: "jax/mml"
 },{
   id: "mml",
-  version: "2.7.3",
+  version: "2.7.4",
   directory: MathJax.ElementJax.directory + "/mml",
   extensionDir: MathJax.ElementJax.extensionDir + "/mml",
   optableDir: MathJax.ElementJax.directory + "/mml/optable"
@@ -5029,7 +5029,7 @@ MathJax.ElementJax.mml.loadComplete("jax.js");
  */
 
 MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js",function () {
-  var VERSION = "2.7.3";
+  var VERSION = "2.7.4";
   
   var MML = MathJax.ElementJax.mml,
       SETTINGS = MathJax.Hub.config.menuSettings;
@@ -5089,7 +5089,7 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js",function () {
       if (this.mathvariant && this.toMathMLvariants[this.mathvariant])
         {CLASS.push("MJX"+this.mathvariant)}
       if (this.variantForm) {CLASS.push("MJX-variant")}
-      if (CLASS.length) {attr.unshift('class="'+CLASS.join(" ")+'"')}
+      if (CLASS.length) {attr.unshift('class="'+this.toMathMLquote(CLASS.join(" "))+'"')}
     },
     toMathMLattribute: function (value) {
       if (typeof(value) === "string" &&
@@ -5168,7 +5168,7 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js",function () {
         var xmlEscapedTex = jax.originalText.replace(/[&<>]/g, function(item) {
             return { '>': '&gt;', '<': '&lt;','&': '&amp;' }[item]
         });
-        data.push(space+'    <annotation encoding="'+annotation+'">'+xmlEscapedTex+"</annotation>");
+        data.push(space+'    <annotation encoding="'+this.toMathMLquote(annotation)+'">'+xmlEscapedTex+"</annotation>");
         data.push(space+"  </semantics>");
       }
       return space+"<"+tag+attr+">\n"+data.join("\n")+"\n"+space+"</"+tag+">";
@@ -5224,7 +5224,7 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js",function () {
   });
   
   MML.entity.Augment({
-    toMathML: function (space) {return (space||"") + "&"+this.data[0]+";<!-- "+this.toString()+" -->"}
+    toMathML: function (space) {return (space||"") + "&"+this.toMathMLquote(this.data[0])+";<!-- "+this.toString()+" -->"}
   });
   
   MML.xml.Augment({
@@ -5455,7 +5455,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
         math = match[1].replace(/ (?!xmlns=)([a-z]+=(['"])http:.*?\2)/ig," xmlns:$1 $1") +
                math.substr(match[0].length);
       }
-      if (math.match(/^<math/i) && !math.match(/^<[^<>]* xmlns=/)) {
+      if (math.match(/^<math[ >]/i) && !math.match(/^<[^<>]* xmlns=/)) {
         // append the MathML namespace
         math = math.replace(/^<(math)/i,'<math xmlns="http://www.w3.org/1998/Math/MathML"')
       }
@@ -7504,10 +7504,19 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
 	return svg;
       },
       SVGautoload: function () {
+        this.constructor.Augment({toSVG: MML.mbase.SVGautoloadFail});
 	var file = SVG.autoloadDir+"/"+this.type+".js";
 	HUB.RestartAfter(AJAX.Require(file));
       },
+      SVGautoloadFail: function () {
+        throw Error("SVG can't autoload '"+ this.type + "'");
+      },
+      SVGautoloadList: {},
       SVGautoloadFile: function (name) {
+        if (MML.mbase.SVGautoloadList.hasOwnProperty(name)) {
+          throw Error("SVG can't autoload file '"+name+"'");
+        }
+        MML.mbase.SVGautoloadList[name] = true;
 	var file = SVG.autoloadDir+"/"+name+".js";
 	HUB.RestartAfter(AJAX.Require(file));
       }
@@ -8011,7 +8020,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
               boxes[i] = this.SVGdataStretched(i,HW,D);
 	      stretch[i] = (D != null || HW == null) && this.data[i].SVGcanStretch("Horizontal");
               if (this.data[this.over] && values.accent) {
-                boxes[i].h = Math.max(boxes[i].h,SVG.TeX.x_height); // min height of 1ex (#1706)
+                boxes[i].h = Math.max(boxes[i].h,scale*SVG.TeX.x_height); // min height of 1ex (#1706)
               }
             } else {
               boxes[i] = this.data[i].toSVG(); boxes[i].x = 0; delete boxes[i].X;
@@ -8223,7 +8232,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
           //    so if they are close to full width, make sure they aren't too big.
           //
           if (Math.abs(w-SVG.cwidth) < 10)
-            style.maxWidth = SVG.Fixed(SVG.cwidth*SVG.em/1000);
+            style.maxWidth = SVG.Fixed(SVG.cwidth*SVG.em/1000) + "px";
           //
           //  Add it to the MathJax span
           //
@@ -8359,7 +8368,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
  */
 
 MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
-  var VERSION = "2.7.3";
+  var VERSION = "2.7.4";
   var MML = MathJax.ElementJax.mml,
       SVG = MathJax.OutputJax.SVG,
       BBOX = SVG.BBOX;
@@ -8560,7 +8569,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
         if (values.width === "auto") {
           if (WP > .98) {Wf = Wp/(Wt+Wp); WW = Wt + Wp} else {WW = Wt / (1-WP)}
         } else {
-          WW = SVG.length2em(values.width,mu);
+          WW = Math.max(Wt + Wp, SVG.length2em(values.width,mu));
           for (i = 0, m = Math.min(J,CSPACE.length); i < m; i++) {WW -= CSPACE[i]}
         }
         //  Determine the relative column widths
@@ -8813,10 +8822,10 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
 
     ".MJXp-mphantom": {"visibility": "hidden"},
 
-    ".MJXp-munderover": {"display":"inline-table!important"},
+    ".MJXp-munderover, .MJXp-munder": {"display":"inline-table!important"},
     ".MJXp-over": {"display":"inline-block!important","text-align":"center"},
     ".MJXp-over > *": {"display":"block!important"},
-    ".MJXp-munderover > *": {"display":"table-row!important"},
+    ".MJXp-munderover > *, .MJXp-munder > *": {"display":"table-row!important"},
 
     ".MJXp-mtable": {"vertical-align":".25em", "margin":"0 .125em"},
     ".MJXp-mtable > *": {"display":"inline-table!important", "vertical-align":"middle"},
@@ -9855,7 +9864,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
   var msieColorBug = BROWSER.isMSIE && (document.documentMode||0) < 8;
 
   var FastPreview = MathJax.Extension["fast-preview"] = {
-    version: "2.7.3",
+    version: "2.7.4",
     enabled: true,
 
     //
@@ -10007,7 +10016,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/fast-preview.js");
   var SETTINGS = HUB.config.menuSettings;
   
   var AssistiveMML = MathJax.Extension["AssistiveMML"] = {
-    version: "2.7.3",
+    version: "2.7.4",
     
     config: HUB.CombineConfig("AssistiveMML",{
       disabled: false,

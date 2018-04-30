@@ -39,7 +39,7 @@
  *        MMLorHTML: {prefer: "MML"} // or "HTML"
  *      });
  *  
- *  To specify on a browser-by-borwser basis, use
+ *  To specify on a browser-by-browser basis, use
  *  
  *      MathJax.Hub.Config({
  *        MMLorHTML: {prefer: {

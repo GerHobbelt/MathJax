@@ -60,7 +60,7 @@
 
 
 MathJax.Extension["MathML/mml3"] = {
-  version: "2.7.3"
+  version: "2.7.4"
 };
 
 MathJax.Hub.Register.StartupHook("MathML Jax Ready",function () {
