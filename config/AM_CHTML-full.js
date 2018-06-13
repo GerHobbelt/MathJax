@@ -6913,7 +6913,6 @@ var junk = [window, navigator]; junk = null;
     ".MJXc-processed": {display:"none"},
 
     ".mjx-test": {
-      display:           "block",
       "font-style":      "normal",
       "font-weight":     "normal",
       "font-size":       "100%",
@@ -6925,13 +6924,36 @@ var junk = [window, navigator]; junk = null;
       overflow:          "hidden",
       height:            "1px"
     },
-    ".mjx-ex-box-test": {
+    ".mjx-test.mjx-test-display": {
+      display: "table!important"
+    },
+    ".mjx-test.mjx-test-inline": {
+      display:           "inline!important",
+      "margin-right":    "-1px"
+    },
+    ".mjx-test.mjx-test-default": {
+      display: "block!important",
+      clear:   "both"
+    },
+    ".mjx-ex-box": {
+      display: "inline-block!important",
       position: "absolute",
       overflow: "hidden",
+      "min-height": 0, "max-height":"none",
+      padding:0, border: 0, margin: 0,
       width:"1px", height:"60ex"
     },
-    ".mjx-line-box-test": {display: "table!important"},
-    ".mjx-line-box-test span": {
+    ".mjx-test-inline .mjx-left-box": {
+      display: "inline-block",
+      width: 0,
+      float:"left"
+    },
+    ".mjx-test-inline .mjx-right-box": {
+      display: "inline-block",
+      width: 0,
+      float:"right"
+    },
+    ".mjx-test-display .mjx-right-box": {
       display: "table-cell!important",
       width: "10000em!important",
       "min-width":0, "max-width":"none",
@@ -6998,12 +7020,8 @@ var junk = [window, navigator]; junk = null;
       //
       // Used in preTranslate to get scaling factors and line width
       //
-      this.TestSpan = CHTML.Element("mjx-test",{style:{left:"1em"}},[["mjx-ex-box-test"]]);
-
-      //
-      // Used in preTranslate to get linebreak width
-      //
-      this.linebreakSpan = HTML.Element("span",{className:"mjx-line-box-test"},[["span"]]);
+      this.TestSpan = CHTML.Element("mjx-test",{style:{left:"1em"}},
+          [["mjx-left-box"],["mjx-ex-box"],["mjx-right-box"]]);
 
       //
       //  Set up styles and preload web fonts
@@ -7039,13 +7057,12 @@ var junk = [window, navigator]; junk = null;
       //
       //  Get the default sizes (need styles in place to do this)
       //
-      document.body.appendChild(this.TestSpan);
-      document.body.appendChild(this.linebreakSpan);
-      this.defaultEm    = this.getFontSize(this.TestSpan);
-      this.defaultEx    = this.TestSpan.firstChild.offsetHeight/60;
-      this.defaultWidth = this.linebreakSpan.firstChild.offsetWidth;
-      document.body.removeChild(this.linebreakSpan);
-      document.body.removeChild(this.TestSpan);
+      var test = document.body.appendChild(this.TestSpan.cloneNode(true));
+      test.className += " mjx-test-inline mjx-test-default";
+      this.defaultEm    = this.getFontSize(test);
+      this.defaultEx    = test.childNodes[1].offsetHeight/60;
+      this.defaultWidth = Math.max(0,test.lastChild.offsetLeft-test.firstChild.offsetLeft-2);
+      document.body.removeChild(test);
     },
     getFontSize: (window.getComputedStyle ?
       function (node) {
@@ -7149,7 +7166,7 @@ var junk = [window, navigator]; junk = null;
 
     preTranslate: function (state) {
       var scripts = state.jax[this.id], i, m = scripts.length,
-          script, prev, node, test, span, jax, ex, em, scale;
+          script, prev, node, test, jax, ex, em, scale;
       //
       //  Get linebreaking information
       //
@@ -7204,10 +7221,11 @@ var junk = [window, navigator]; junk = null;
         node.className += " MJXc-processing";
         script.parentNode.insertBefore(node,script);
         //
-        //  Add test nodes for determineing scales and linebreak widths
+        //  Add test nodes for determining scales and linebreak widths
         //
-        script.parentNode.insertBefore(this.linebreakSpan.cloneNode(true),script);
-        script.parentNode.insertBefore(this.TestSpan.cloneNode(true),script);
+        test = this.TestSpan.cloneNode(true);
+        test.className += " mjx-test-" + (jax.CHTML.display ? "display" : "inline");
+        script.parentNode.insertBefore(test,script);
       }
       //
       //  Determine the scaling factors for each script
@@ -7218,12 +7236,14 @@ var junk = [window, navigator]; junk = null;
         test = script.previousSibling;
         jax = script.MathJax.elementJax; if (!jax) continue;
         em = CHTML.getFontSize(test);
-        ex = test.firstChild.offsetHeight/60;
-        cwidth = Math.max(0,test.previousSibling.firstChild.offsetWidth-2);
+        ex = test.childNodes[1].offsetHeight/60;
+        cwidth = Math.max(0, jax.CHTML.display ? test.lastChild.offsetWidth - 1: 
+                  test.lastChild.offsetLeft - test.firstChild.offsetLeft - 2);
         if (ex === 0 || ex === "NaN") {
           ex = this.defaultEx;
           cwidth = this.defaultWidth;
         }
+        if (cwidth === 0) cwidth = this.defaultWidth;
         if (relwidth) maxwidth = cwidth;
         scale = (this.config.matchFontHeight ? ex/this.TEX.x_height/em : 1);
         scale = Math.floor(Math.max(this.config.minScaleAdjust/100,scale)*this.config.scale);
@@ -7237,11 +7257,8 @@ var junk = [window, navigator]; junk = null;
       //
       for (i = 0; i < m; i++) {
         script = scripts[i]; if (!script.parentNode) continue;
-        test = script.previousSibling;
-        span = test.previousSibling;
         jax = script.MathJax.elementJax; if (!jax) continue;
-        span.parentNode.removeChild(span);
-        test.parentNode.removeChild(test);
+        script.parentNode.removeChild(script.previousSibling);
         if (script.MathJax.preview) script.MathJax.preview.style.display = "";
       }
       state.CHTMLeqn = state.CHTMLlast = 0; state.CHTMLi = -1;
@@ -9495,17 +9512,7 @@ var junk = [window, navigator]; junk = null;
     });
 
     /********************************************************/
-
-    MML.mstyle.Augment({
-      toCommonHTML: function (node) {
-        node = this.CHTMLdefaultNode(node);
-        if (this.scriptlevel && this.data[0]) this.CHTML.rescale(this.data[0].CHTML.rscale);
-        return node;
-      }
-    });
-
-    /********************************************************/
-
+    
     MML.TeXAtom.Augment({
       toCommonHTML: function (node,options) {
         if (!options || !options.stretch) node = this.CHTMLdefaultNode(node);

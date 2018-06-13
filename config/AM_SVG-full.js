@@ -6890,14 +6890,48 @@ var junk = [window, navigator]; junk = null;
         },
         ".MathJax_SVG_Processed": {display:"none!important"},
 
-        ".MathJax_SVG_ExBox": {
-          display:"block!important", overflow:"hidden",
-          width:"1px", height:"60ex",
-          "min-height": 0, "max-height":"none",
-          padding:0, border: 0, margin: 0
+        ".MathJax_SVG_test": {
+          "font-style":      "normal",
+          "font-weight":     "normal",
+          "font-size":       "100%",
+          "font-size-adjust":"none",
+          "text-indent":     0,
+          "text-transform":  "none",
+          "letter-spacing":  "normal",
+          "word-spacing":    "normal",
+          overflow:          "hidden",
+          height:            "1px"
         },
-        ".MathJax_SVG_LineBox": {display: "table!important"},
-        ".MathJax_SVG_LineBox span": {
+        ".MathJax_SVG_test.mjx-test-display": {
+          display: "table!important"
+        },
+        ".MathJax_SVG_test.mjx-test-inline": {
+          display:           "inline!important",
+          "margin-right":    "-1px"
+        },
+        ".MathJax_SVG_test.mjx-test-default": {
+          display: "block!important",
+          clear:   "both"
+        },
+        ".MathJax_SVG_ex_box": {
+          display: "inline-block!important",
+          position: "absolute",
+          overflow: "hidden",
+          "min-height": 0, "max-height":"none",
+          padding:0, border: 0, margin: 0,
+          width:"1px", height:"60ex"
+        },
+        ".mjx-test-inline .MathJax_SVG_left_box": {
+          display: "inline-block",
+          width: 0,
+          float:"left"
+        },
+        ".mjx-test-inline .MathJax_SVG_right_box": {
+          display: "inline-block",
+          width: 0,
+          float:"right"
+        },
+        ".mjx-test-display .MathJax_SVG_right_box": {
           display: "table-cell!important",
           width: "10000em!important",
           "min-width":0, "max-width":"none",
@@ -6970,13 +7004,11 @@ var junk = [window, navigator]; junk = null;
                                           "defs",{id:"MathJax_SVG_glyphs"});
 
        // Used in preTranslate to get scaling factors
-      this.ExSpan = HTML.Element("span",
-        {style:{position:"absolute","font-size-adjust":"none"}},
-        [["span",{className:"MathJax_SVG_ExBox"}]]
-      );
-
-      // Used in preTranslate to get linebreak width
-      this.linebreakSpan = HTML.Element("span",{className:"MathJax_SVG_LineBox"},[["span"]]);
+      this.TestSpan = HTML.Element("span",{className:"MathJax_SVG_test"},[
+        ["span",{className:"MathJax_SVG_left_box"}],
+        ["span",{className:"MathJax_SVG_ex_box"}],
+        ["span",{className:"MathJax_SVG_right_box"}]
+      ]);
 
       // Set up styles
       return AJAX.Styles(this.config.styles,["InitializeSVG",this]);
@@ -6989,12 +7021,11 @@ var junk = [window, navigator]; junk = null;
       //
       //  Get the default sizes (need styles in place to do this)
       //
-      document.body.appendChild(this.ExSpan);
-      document.body.appendChild(this.linebreakSpan);
-      this.defaultEx    = this.ExSpan.firstChild.offsetHeight/60;
-      this.defaultWidth = this.linebreakSpan.firstChild.offsetWidth;
-      document.body.removeChild(this.linebreakSpan);
-      document.body.removeChild(this.ExSpan);
+      var test = document.body.appendChild(this.TestSpan.cloneNode(true));
+      test.className += " mjx-test-inline mjx-test-default";
+      this.defaultEx = test.childNodes[1].offsetHeight/60;
+      this.defaultWidth = Math.max(0,test.lastChild.offsetLeft - test.firstChild.offsetLeft - 2);
+      document.body.removeChild(test);
     },
 
     preTranslate: function (state) {
@@ -7050,8 +7081,9 @@ var junk = [window, navigator]; junk = null;
         //
         //  Add the test span for determining scales and linebreak widths
         //
-        script.parentNode.insertBefore(this.ExSpan.cloneNode(true),script);
-        div.parentNode.insertBefore(this.linebreakSpan.cloneNode(true),div);
+        test = this.TestSpan.cloneNode(true);
+        test.className += " mjx-test-" + (jax.SVG.display ? "display" : "inline");
+        script.parentNode.insertBefore(test,script);
       }
       //
       //  Determine the scaling factors for each script
@@ -7062,14 +7094,16 @@ var junk = [window, navigator]; junk = null;
         script = scripts[i]; if (!script.parentNode) continue;
         test = script.previousSibling; div = test.previousSibling;
         jax = script.MathJax.elementJax; if (!jax) continue;
-        ex = test.firstChild.offsetHeight/60;
-        cwidth = Math.max(0,(div.previousSibling.firstChild.offsetWidth-2) / this.config.scale * 100);
+        ex = test.childNodes[1].offsetHeight/60;
+        cwidth = Math.max(0, jax.SVG.display ? test.lastChild.offsetWidth - 1: 
+                  test.lastChild.offsetLeft - test.firstChild.offsetLeft - 2) / this.config.scale * 100;
         if (ex === 0 || ex === "NaN") {
           // can't read width, so move to hidden div for processing
           hidden.push(div);
           jax.SVG.isHidden = true;
           ex = this.defaultEx; cwidth = this.defaultWidth;
         }
+        if (cwidth === 0) cwidth = this.defaultWidth;
         if (relwidth) {maxwidth = cwidth}
         jax.SVG.ex = ex;
         jax.SVG.em = em = ex / SVG.TeX.x_height * 1000; // scale ex to x_height
@@ -7085,11 +7119,8 @@ var junk = [window, navigator]; junk = null;
       //
       for (i = 0; i < m; i++) {
         script = scripts[i]; if (!script.parentNode) continue;
-        test = scripts[i].previousSibling; span = test.previousSibling;
-        jax = scripts[i].MathJax.elementJax; if (!jax) continue;
-        if (!jax.SVG.isHidden) {span = span.previousSibling}
-        span.parentNode.removeChild(span);
-        test.parentNode.removeChild(test);
+        jax = script.MathJax.elementJax; if (!jax) continue;
+        script.parentNode.removeChild(script.previousSibling);
         if (script.MathJax.preview) script.MathJax.preview.style.display = "";
       }
       //
