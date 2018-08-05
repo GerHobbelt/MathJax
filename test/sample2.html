@@ -16,19 +16,19 @@
   MathJax.Hub.Config({
     //config: ["MMLorHTML.js"],
     extensions: [
-      "tex2jax.js", 
-      "mml2jax.js", 
+      "tex2jax.js",
+      "mml2jax.js",
       "asciimath2jax.js",
-      //"CHTML-preview.js", 
-      //"fast-preview.js", 
-      "FontWarnings.js", 
+      //"CHTML-preview.js",
+      //"fast-preview.js",
+      "FontWarnings.js",
       "MatchWebFonts.js",
       "[Contrib]/longdiv/unpacked/longdiv.js",
       "[Contrib]/counters/counters.js",
     ],
     //jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/HTML-CSS", "output/PreviewHTML", "output/SVG", "output/PlainSource" ],
     jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/SVG" ],
-    tex2jax: { 
+    tex2jax: {
       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
       processEscapes: true,
@@ -36,23 +36,23 @@
     },
     TeX: {
       extensions: [
-        "AMSmath.js", 
-        "AMSsymbols.js", 
-        "bbox.js", 
-        "begingroup.js", 
-        "cancel.js", 
-        "color.js", 
-        "enclose.js", 
-        "extpfeil.js", 
-        "mathchoice.js", 
-        "mediawiki-texvc.js", 
-        "newcommand.js", 
-        "noErrors.js", 
+        "AMSmath.js",
+        "AMSsymbols.js",
+        "bbox.js",
+        "begingroup.js",
+        "cancel.js",
+        "color.js",
+        "enclose.js",
+        "extpfeil.js",
+        "mathchoice.js",
+        "mediawiki-texvc.js",
+        "newcommand.js",
+        "noErrors.js",
         "noUndefined.js",
-        "unicode.js", 
-        "verb.js", 
+        "unicode.js",
+        "verb.js",
       ],
-      equationNumbers: {autoNumber: "AMS"}, 
+      equationNumbers: {autoNumber: "AMS"},
     },
     showProcessingMessages: true,
     showMathMenu: true,
@@ -65,8 +65,8 @@
     },
     "HTML-CSS": {
       preferredFont: "Gyre-Pagella",
-      linebreaks: { 
-        automatic: true, 
+      linebreaks: {
+        automatic: true,
         width: "container",
       },
       EqnChunkDelay: 1,
@@ -75,9 +75,9 @@
     SVG: {
       font: "Gyre-Pagella",
     },
-    errorSettings: { 
-      // message: ["[Math Error]"], 
-    }    
+    errorSettings: {
+      // message: ["[Math Error]"],
+    }
   });
 </script>
 
@@ -118,7 +118,7 @@ def {
   font-style: italic;
 }
 
-@media print { 
+@media print {
 body {
   margin: 1in .7in 1in 1.4in;
   max-width: 100%;
@@ -133,29 +133,29 @@ blockquote {
 
 
 <script type="text/x-mathjax-config">
-  MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () { 
-    var TEX = MathJax.InputJax.TeX; 
-    var PREFILTER = TEX.prefilterMath; 
-    TEX.Augment({ 
-      prefilterMath: function (math, displaymode, script) { 
+  MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
+    var TEX = MathJax.InputJax.TeX;
+    var PREFILTER = TEX.prefilterMath;
+    TEX.Augment({
+      prefilterMath: function (math, displaymode, script) {
         console.log("TeX rendering Math:", {math, displaymode, script});
-        //math = "\\displaystyle{" + math + "}"; 
-        //math = "\\mathsf{" + math + "}"; 
-        return PREFILTER.call(TEX, math, displaymode, script); 
-      } 
-    }); 
+        //math = "\\displaystyle{" + math + "}";
+        //math = "\\mathsf{" + math + "}";
+        return PREFILTER.call(TEX, math, displaymode, script);
+      }
+    });
 
-    var AM = MathJax.InputJax.AsciiMath; 
-    var AMPREFILTER = AM.prefilterMath; 
-    AM.Augment({ 
-      prefilterMath: function (math, displaymode, script) { 
+    var AM = MathJax.InputJax.AsciiMath;
+    var AMPREFILTER = AM.prefilterMath;
+    AM.Augment({
+      prefilterMath: function (math, displaymode, script) {
         console.log("AsciiMath rendering Math:", {math, displaymode, script});
-        return AMPREFILTER.call(AM, math, displaymode, script); 
-      } 
-    }); 
-  }); 
-</script> 
-<!-- 
+        return AMPREFILTER.call(AM, math, displaymode, script);
+      }
+    });
+  });
+</script>
+<!--
   WARNING:
 
 MathJax.js script must load AFTER ALL text/x-mathjax-config SCRIPTS have been defined
@@ -175,17 +175,23 @@ If your browser supports JavaScript, be sure it is enabled.</b>
 <hr>
 </noscript>
 
+<article>
+
 <h1>Sample MathJax Equations</h1>
 
-<blockquote>
+<section>
 
-<h2>#1</h2>
+
+<h2>#1: brackets...</h2>
 
 <p>
 \[
-    \left( x \right) 
+    \left( x \right)
 \]
 </p>
+
+<pre>
+Aside: A long line of PRE formatted code should never cause the page width to overflow, hence PRE must be adorned with a text-wrap style! Otherwise this line will walk right off the page....</pre>
 
 <h2>#1</h2>
 
@@ -196,10 +202,748 @@ If your browser supports JavaScript, be sure it is enabled.</b>
 </p>
 
 
-  
-<h2>#1</h2>
 
-<p>Goniometrie: hoeken!
+</section>
+<section>
+
+<h2>using <code>&lt;script type="math/tex"&gt;</code></h2>
+
+<p>
+Where you can observe the <code>\[ \]</code>TeX math markers are superfluous when you wrap the math in a
+<code>&lt;script type="math/tex"&gt;</code> section:
+
+<script type="math/tex">
+\[
+    \left( x^2 \right) % comment
+\]
+</script>
+
+<p>
+versus:
+</p>
+
+<script type="math/tex">
+    \left( x^2 \right) % comment
+</script>
+
+<p>
+Let's try a few more math examples now, wrapped in 
+<code>&lt;script type="math/tex"&gt;</code> sections:
+
+<p>
+<script type="math/tex">
+F_{2,T-k}=\frac{(ESS_r-ESS_u)/2}{ESS_u/(T-k)}
+</script>
+
+<p>
+and here is a little bit of inline math:
+<inlineequation>
+<alt role="tex">$C = \alpha + \beta Y^{\gamma} + \epsilon$</alt>
+</inlineequation> -- or the same thing written using the 
+script tag: a little bit of inline math:
+<script type="math/tex">
+C = \alpha + \beta Y^{\gamma} + \epsilon
+</script> .
+It is embedded in the text.
+</p>
+
+	
+<script type="math/tex">
+
+\renewcommand{\arraystretch}{1.3}
+% \setlength{\arraycolsep}{.05in}
+% \[
+\left[
+\begin{array}{c}
+\dot{L} \\
+\dot{C}
+\end{array}
+\right]
+= \frac{1}{-\alpha}
+\left[
+\begin{array}{cc}
+af & bfh \\
+1 & b(fh-k)
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+L \\
+C 
+\end{array}
+\right]
+-\frac{1}{\alpha}
+\left[
+\begin{array}{cc}
+afh & 0 \\
+h & \alpha 
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+\dot{m} \\
+r_w
+\end{array}
+\right]
+% \]
+
+</script>
+
+<p>
+and
+</p>
+
+	
+<script type="math/tex">
+
+%	\[
+          \hat{\beta} = \frac{\sum_{t=1}^n x_t y_t - \bar{y} \sum_{t=1}^n x_t}
+                             {\sum_{t=1}^n x^2_t - \bar{x}\sum_{t=1}^n x_t}
+%   \]
+	
+</script >
+
+	
+<p>
+and
+</p>
+
+	
+<script type="math/tex">
+
+C = \alpha + \beta Y^{\gamma} + \epsilon
+	
+</script >
+
+	
+
+<p>
+and
+</p>
+
+	
+<script type="math/tex">
+
+% \[
+\begin{pmatrix}
+a & b\\
+c & d
+\end{pmatrix}
+% \]
+	
+</script >
+
+	
+
+<p>
+and
+
+Typesetting an n×n matrix requires vertical, horizontal, and downward-sloped
+ellipses, as in the example at the beginning of this section.
+
+<p>
+<script type="math/tex">
+
+\ldots \cdots \vdots \ddots
+
+</script>
+
+<p>
+The distinction between \ldots and \cdots is subtle: \ldots aligns the ellipsis
+with the bottom of the text while \cdots centers the ellipsis. Typographical
+style considerations dictate which of the two commands to use. For matrix
+entries and binary operations, use \cdots. For lists, use \ldots.
+$x_1 + x_2 + \cdots + x_n$ $x_1,x_2,\ldots,x_n$
+</p>
+
+	
+<p>
+Here’s an example of a case-by-case definition.
+
+<p>
+<script type="math/tex">
+% \[
+|x| =
+\begin{cases}
+\phantom{-}x,
+& \text{if } x\geq 0,\\
+-x, & \text{if } x<0.
+\end{cases}
+% \]
+</script>
+
+
+<p>
+Some formulas require accents or special font styles. For example, mathematicians
+often indicate that the variable $v$ stands for a vector by bolding it – like $\mathbf{v}$
+– or by putting an arrow over it – like $\vec{v}$. The table below gives common accents
+and styles.
+
+<p>
+<script type="math/tex">
+\mathbf{v}    \qquad   \mathbb C    \qquad   \mathcal S    \qquad   \mathfrak B
+</script>
+
+<p>
+<script type="math/tex">
+\dot y    \qquad   \ddot y    \qquad   \overline{a+b}    \qquad   \vec v
+</script>
+
+<p>
+<script type="math/tex">
+\hat x   \qquad   \widehat{x+y}    \qquad   \tilde x    \qquad   \widetilde{x+y}
+</script>
+
+<p>
+Unfortunately, mathbf does not work with Greek characters. To make bold
+Greek characters, load the bm (bold math) package and use the newly provided
+command \bm{...}.
+
+
+
+
+<h4>Spacing</h4>
+
+<p>
+LATEX allows fine control over spacing in math mode.
+
+<p>
+<script type="math/tex">
+|\!| \qquad |\,| \qquad |\>| \qquad |\;| \qquad |\quad| \qquad |\qquad| \qquad |\phantom{a+b}|
+</script>
+
+
+<p>
+The command \! adds negative space. Use it if LATEX adds too much space to
+your formula and you want to tighten it.
+
+<p>
+<script type="math/tex">
+x^2/2 x
+</script>
+
+<p>
+<script type="math/tex">
+x^2\!/2 x
+</script>
+
+<p>
+The command \phantom{ } adds as much white space as its argument takes
+up. We already encountered it in the section on the cases environment.
+Most of the spacing changes you’ll make are subtle, yet mark the difference
+between nice math and ugly math. The more time you spend typing and reading
+math, the better an eye you’ll develop for these sorts of spacing issues. In the
+meantime, we recommend placing \, before dx in integrals. Compare an integral
+with \, to one without it.
+
+<p>
+<script type="math/tex">
+\int_0^1 f(x)g(x)dx 
+</script >
+
+<p>
+<script type="math/tex">
+\int_0^1 f(x)g(x)\,dx 
+</script >
+
+
+
+
+
+
+<h4>Delimiters</h4>
+
+<p>
+Some expressions are so large that placing them in standard-size parentheses
+would look awful.
+
+<p>
+<script type="math/tex">
+(\int_0^1 f(x)\,dx)^2
+</script >
+
+<p>
+To make the sizes come out right, use \left before the left parenthesis and
+\right before the right parenthesis.
+
+<p>
+<script type="math/tex">
+\left(\int_0^1 f(x)\,dx\right)^2
+</script >
+
+<p>
+The \left and \right commands also work for other delimiters, including the
+invisible delimiter . (a period).
+
+<p>
+<script type="math/tex">
+\left\|\frac{x}{y}\right\|
++ \left.\frac{z}{z+1}\right|_{z=i}
+</script >
+
+
+
+<h4>
+ Making Math Operators</h4>
+ 
+<p>
+LATEX comes with predefined commands for the most commonly used math
+operators, such as log and sin. The reason we need special commands for these
+functions is that LATEX italicizes text in math mode: sin(x) is incorrect. But
+sometimes you may need to use an operator that has not already been defined.
+The proper way to do this is with the \operatorname command.
+
+<p>
+The subspace 
+<script type="math/tex">
+A = \operatorname{span}\{x_1,x_2\}
+</script >
+
+
+
+
+
+<h4>
+Custom Commands with Arguments</h4>
+
+<p>
+The commands we defined in the last section did not take any arguments. In
+this section, we’ll see how to define commands that have multiple arguments,
+like regular LATEX commands.
+<p>
+Suppose we were typing up a math problem which involved taking many
+partial derivatives, such as
+
+<p>
+\[
+\frac{\partial f}{\partial x} - i \frac{\partial f}{\partial y}
+\]
+
+
+<p>
+It would be useful to have a command that automatically makes partial derivatives,
+instead of typing out \frac{\partial ...}{\partial ...} many times.
+To make commands taking arguments, \newcommand has an optional argument
+specifying the number of arguments taken by the new command.
+
+<p>
+<script type="math/tex">
+\newcommand\pd[2]{\frac{\partial #1}{\partial #2}}
+</script>
+
+\[
+\pd{f}{x}
+\]
+
+\[
+\pd{\Lambda}{\nu} + \pd{\Omega}{\mu}
+\]
+
+<p>
+Every time LATEX sees a #1, it replaces it with the first argument; every
+time LATEX sees a #2, it replaces it with the second argument. For instance, the
+following command repeats its argument three times.
+
+<p>
+<script type="math/tex">
+\newcommand{\rep}[1]{#1\ #1\ #1}
+
+\rep{a}\ \rep{eggplant} 
+</script>
+	
+</p>
+
+
+	
+<h4>	
+eqnarray environment</h4>
+
+<p>
+This is by default an array with three columns and as many rows as you like.
+It is nearly the same as an array with a rcl column definition. 
+
+<pre>
+\begin{eqnarray}
+...
+\end{eqnarray}
+</pre>
+
+<p>
+It is not possible to change the internal behaviour of the eqnarray
+environment without rewriting the environment. It is always an implicit array
+with three columns and the horizontal alignment right-center-left (rcl)
+and small symbol sizes for the middle column. All this can not be changed
+by the user without rewriting the whole environment in latex.ltx.
+
+<p>
+\begin{eqnarray*}
+\mathrm{left} & \mathrm{middle} & \mathrm{right}\\
+\frac{1}{\sqrt{n}}= & \frac{\sqrt{n}}{n}= & \frac{n}{n\sqrt{n}}
+\end{eqnarray*}
+
+<p>
+The eqnarray environment should not be used as an array. As seen in
+the above example the typesetting is wrong for the middle column. The
+numbering of eqnarray environments is always for every row, means, that
+four lines get four different equation numbers (for the labels see section 3.4
+on page 18):
+
+<p>
+\begin{eqnarray}
+y & = & d\label{eq:2}\\
+y & = & cx+d\\
+y & = & bx^{2}+cx+d\\
+y & = & ax^{3}+bx^{2}+cx+d\label{eq:5}
+\end{eqnarray}
+
+<p>
+Toggling numbering off/on for all rows is possible with the starred version
+of eqnarray.
+
+<p>
+\begin{eqnarray*}
+y & = & d\label{eq:3}\\
+y & = & cx+d\\
+y & = & bx^{2}+cx+d\\
+y & = & ax^{3}+bx^{2}+cx+d\label{eq:4}
+\end{eqnarray*}
+
+<p>
+Toggling off/on for single rows is possible with the above mentioned
+\nonumber tag at the end of a row (before the newline command). For
+example:
+
+<p>
+\begin{eqnarray}
+y & = & d\nonumber \\
+y & = & cx+d\nonumber \\
+y & = & bx^{2}+cx+d\nonumber \\
+y & = & ax^{3}+bx^{2}+cx+d
+\end{eqnarray}
+
+
+<p>
+and some more examples taken from "Math mode - v.2.22" (Herbert Voß - January 31, 2007):
+</p>
+
+	
+<p>
+\begin{align}
+f(x) &= \int\sin x\,\mathrm{d}x\label{eq:arab 1}\\
+g(x) &= \int\frac{1}{x}\,\mathrm{d}x
+\end{align}
+
+<!--
+%
+% \setroem
+%
+-->
+
+\begin{align}
+F(x) &= -\cos x\\
+G(x) &=\ln x\label{eq:rom 1}
+\end{align}
+
+<!--
+%
+% \setarab
+%
+-->
+
+\begin{align}
+f^{\prime}(x) &= \sin x\\
+g^{\prime} (x) &= \frac{1}{x}\label{eq:arab 2}
+\end{align}
+
+
+
+<p>
+\[
+\begin{equation}\label{eq:frame 0}
+f(x) =\int_1^{\infty}\dfrac{1}{x^2}\,\mathrm{d}x=1
+\end{equation}%
+\]
+
+
+<p>
+\begin{equation}
+\left.%
+\begin{array}{@{}r@{\quad}ccrr@{}}
+\textrm{a}) & y & = & c & (constant) \\
+\textrm{b}) & y & = & cx+d & (linear) \\
+\textrm{c}) & y & = & bx^{2}+cx+d & (square) \\
+\textrm{d}) & y & = & ax^{3}+bx^{2}+cx+d & (cubic)
+\end{array}%
+\right\} \textrm{Polynomes}
+\end{equation}	
+
+
+
+
+<p>
+\begin{equation}
+x=\left\{ \begin{array}{cl}
+0 & \textrm{if A=...}\\
+1 & \textrm{if B=...}\\
+x & \textrm{this runs with as much text as you like, but without an
+raggedright text.}\end{array}\right.
+\end{equation}
+
+
+
+
+<p>
+\begin{equation}
+x = \left\{%
+\begin{array}{l>{\raggedright}p{.5\textwidth}}%
+0 & if A=...\tabularnewline
+1 & if B=...\tabularnewline
+x & \parbox{0.5\columnwidth}{this runs with as much text as you like, %
+because an automatic linebreak is given with %
+a raggedright text. Without this %
+\raggedright command, you’ll get a formatted %
+text like the following one ... but with a parbox ... it works}
+\end{array}%
+\right. %
+\end{equation}
+
+
+<p>
+instead of:
+
+<p>
+\begin{equation}
+x = \left\{%
+\begin{array}{l>{\raggedright}p{.5\textwidth}}%
+0 & if A=...\\
+1 & if B=...\\
+x & \textrm{this runs with as much text as you like, %
+because an automatic linebreak is given with %
+a raggedright text. Without this %
+\raggedright command, you’ll get a formatted %
+text like the following one ... but with a parbox ... it works}
+\end{array}%
+\right. %
+\end{equation}
+
+
+
+
+
+<p>
+$\begin{matrix}
+A & B & C \\
+d & e & f \\
+1 & 2 & 3 \\
+\end{matrix}$
+
+
+<p>
+$\bordermatrix{%
+  & 0 & 1 & 2 \cr
+0 & A & B & C \cr
+1 & d & e & f \cr
+2 & 1 & 2 & 3 \cr
+}$
+
+
+<p>
+$\bordermatrix{%
+  & 1 & 2 \cr
+1 & x1 & x2 \cr
+2 & x3 & x4 \cr
+3 & x5 & x6
+}$
+
+
+<p>
+$\bordermatrix[{[]}]{%
+  & 1 & 2 \cr
+1 & x1 & x2 \cr
+2 & x3 & x4 \cr
+3 & x5 & x6
+}$
+
+
+
+<p>
+$\bordermatrix[\{\}]{%
+  & 1 & 2 \cr
+1 & x1 & x2 \cr
+2 & x3 & x4 \cr
+3 & x5 & x6
+}$
+
+
+<p>
+$\bordermatrix*{%
+x1 & x2 & 1 \cr
+x3 & x4 & 2 \cr
+x5 & x6 & 3 \cr
+    1 & 2
+}$
+
+
+<p>
+$\bordermatrix*[{[]}]{%
+x1 & x2 & 1 \cr
+x3 & x4 & 2 \cr
+x5 & x6 & 3 \cr
+    1 & 2
+}$
+
+
+<p>
+$\bordermatrix*[\{\}]{%
+x1 & x2 & 1 \cr
+x3 & x4 & 2 \cr
+x5 & x6 & 3 \cr
+    1 & 2
+}$
+
+
+
+<p>
+\begin{equation}\label{eq:atop}
+\sum_{{1\le j\le p\atop {%
+{1\le j\le q\atop 1\le k\le r}}}%
+}a_{ij}b_{jk}c_{ki}
+\end{equation}
+
+
+
+<p>
+$\sqrt{x}$
+
+
+
+<p>
+$\sqrt[3]{x}$
+
+
+
+<p>
+\begin{equation}
+\sqrt{a}\,%
+\sqrt{T}\,%
+\sqrt{2\alpha k_{B_1}T^i}\label{eq:root1}
+\end{equation}
+
+
+<p>
+\begin{equation}\label{eq:root2}
+\sqrt{a\vphantom{k_{B_1}T^i}}\,%
+\sqrt{T\vphantom{k_{B_1}T^i}}\,%
+\sqrt{2\alpha k_{B_1}T^i}
+\end{equation}
+
+
+
+<p>
+\begin{align}
+\biggl)\times \frac{a}{b} \times\biggr(
+\end{align}
+
+<p>
+\begin{align}
+\bigg)\times \frac{a}{b} \times\bigg(
+\end{align}
+
+
+<p>
+$\bigg(\displaystyle\frac{1}{3}\bigg|\frac{3}{4}\bigg)$
+
+
+<p>
+$\bigg(\displaystyle\frac{1}{3}\biggm|\frac{3}{4}\bigg)$
+
+
+
+
+
+
+
+<p>
+\begin{equation}
+3\Big( a^2+b^{c^2}\Big)
+\end{equation}
+
+<p>
+\begin{equation}
+3\Big[ a^2+b^{c^2}\Big]
+\end{equation}
+
+<p>
+\begin{equation}
+3\Big/
+a^2+b^{c^2}\Big\backslash
+\end{equation}
+
+<p>
+\begin{equation}
+3\Big\{ a^2+b^{c^2}\Big\}
+\end{equation}
+
+<p>
+\begin{equation}
+3\Big|a^2+b^{c^2}\Big\Vert
+\end{equation}
+
+<p>
+\begin{equation}
+3\Big\lfloor a^2+b^{c^2}
+\Big\rfloor
+\end{equation}
+
+<p>
+\begin{equation}
+3\Big\lceil a^2+b^{c^2}
+\Big\rceil
+\end{equation}
+
+<p>
+\begin{equation}
+3\Big\langle
+a^2+b^{c^2}\Big\rangle
+\end{equation}
+
+<p>
+\begin{equation}
+3\Big\uparrow
+a^2+b^{c^2}\Big\Uparrow
+\end{equation}
+
+<p>
+\begin{equation}
+3\Big\downarrow a^2+b^{c^2}
+\Big\Downarrow
+\end{equation}
+
+<p>
+\begin{equation}
+3\Big\updownarrow a^2+b^{c^2}
+\Big\Updownarrow
+\end{equation}
+
+
+
+</script >
+
+
+<p>
+Table 3: Use of the different parentheses for the “big” commands
+
+
+	
+
+
+<p>That's all about the SCRIPT tag. The rest of this samples file will use the classic <code>\[ ... \]</code> text delimiters/markers
+approach most of the time...</p>
+
+</section>
+<section>
+
+<h2>#1: Goniometrie: hoeken</h2>
 
 <p>
 \[
@@ -219,6 +963,11 @@ If your browser supports JavaScript, be sure it is enabled.</b>
 \]
 
 
+</section>
+<section>
+
+<h2>xxx</h2>
+
 <p>
 The binomial coefficient is defined by the next expression:
  
@@ -228,13 +977,13 @@ The binomial coefficient is defined by the next expression:
 
 
 <p>
-When displaying fractions in-line, for example \(\frac{3x}{2}\) 
-you can set a different display style: 
+When displaying fractions in-line, for example \(\frac{3x}{2}\)
+you can set a different display style:
 \( \displaystyle \frac{3x}{2} \).
  
 This is also true the other way around
  
-\[ f(x)=\frac{P(x)}{Q(x)} \ \ \textrm{and} 
+\[ f(x)=\frac{P(x)}{Q(x)} \ \ \textrm{and}
 \ \ f(x)=\textstyle\frac{P(x)}{Q(x)} \]
 
 
@@ -257,21 +1006,22 @@ The binomial coefficient is defined by the next expression:
     \binom{n}{k} = \frac{n!}{k!(n-k)!}
 \]
  
-And of course this command can be included in the normal 
+And of course this command can be included in the normal
 text flow \(\binom{n}{k}\).
 
 
 <p>
-A slightly different and more complex example of continued fractions 
+A slightly different and more complex example of continued fractions
 
+<p>
 Final example
  
 \[
 \newcommand{\contfrac}[2]{%
-{
-  \rlap{\dfrac{1}{\phantom{#1}}}%
-  \genfrac{}{}{0pt}{0}{}{#1+#2}%
-}
+  {
+    \rlap{\dfrac{1}{\phantom{#1}}}%
+    \genfrac{}{}{0pt}{0}{}{#1+#2}%
+  }
 }
 
 
@@ -285,21 +1035,32 @@ Final example
 
 
 <p>
-The size of the brackets can be manually set, or they can be resized dynamically in your document, as shown in the next example: 
+The size of the brackets can be manually set, or they can be resized dynamically in your document, as shown in the next example:
 
-\[ 
+\[
 \left \{
   \begin{tabular}{ccc}
   1 & 5 & 8 \\
   0 & 2 & 4 \\
-  3 & 3 & -8 
+  3 & 3 & -8
   \end{tabular}
 \right \}
 \]
 
 
+\[
+\left \{
+  \begin{matrix}
+  1 & 5 & 8 \\
+  0 & 2 & 4 \\
+  3 & 3 & -8
+  \end{matrix}
+\right \}
+\]
+
+
 <p>
-The standard LaTeX tools for equations may lack some flexibility, causing overlapping or even trimming part of the equation when it's too long. We can surpass this difficulties with amsmath. Let's check an example: 
+The standard LaTeX tools for equations may lack some flexibility, causing overlapping or even trimming part of the equation when it's too long. We can surpass this difficulties with amsmath. Let's check an example:
 
 \begin{equation} \label{eq1}
 \begin{split}
@@ -318,37 +1079,43 @@ The beautiful equation \ref{eu_eqn} is known as the Euler equation
 
 
 
+</section>
+<section>
+<h2>Alignment, etc.</h2>
+
+
+
 <p>
-For equations longer than a line use the multline environment. Insert a double backslash to set a point for the equation to be broken. The first part will be aligned to the left and the second part will be displayed in the next line and aligned to the right. 
+For equations longer than a line use the multline environment. Insert a double backslash to set a point for the equation to be broken. The first part will be aligned to the left and the second part will be displayed in the next line and aligned to the right.
 <p>
-Again, the use of an asterisk * in the environment name determines whether the equation is numbered or not. 
+Again, the use of an asterisk * in the environment name determines whether the equation is numbered or not.
 
 
 \begin{multline*}
-p(x) = 3x^6 + 14x^5y + 590x^4y^2 + 19x^3y^3\\ 
+p(x) = 3x^6 + 14x^5y + 590x^4y^2 + 19x^3y^3\\
 - 12x^2y^4 - 12xy^5 + 2y^6 - a^3b^3
 \end{multline*}
 
 <p>
 And aligned (with a extra little whitespace help after the equal sign)
 
-\begin{align*} 
-p(x) =\ &3x^6 + 14x^5y + 590x^4y^2 + 19x^3y^3\\ 
+\begin{align*}
+p(x) =\ &3x^6 + 14x^5y + 590x^4y^2 + 19x^3y^3\\
 - &12x^2y^4 - 12xy^5 + 2y^6 - a^3b^3
 \end{align*}
 
 
 <p>
-If there are several equations that you need to align vertically, the align environment will do it: 
+If there are several equations that you need to align vertically, the align environment will do it:
 
-\begin{align*} 
-2x - 5y &=  8 \\ 
+\begin{align*}
+2x - 5y &=  8 \\
 3x + 9y &=  -12
 \end{align*}
 
 
 <p>
-As mentioned before, the ampersand character & determines where the equations align. Let's check a more complex example: 
+As mentioned before, the ampersand character & determines where the equations align. Let's check a more complex example:
 
 \begin{align*}
 x&=y           &  w &=z              &  a&=b+c\\
@@ -357,20 +1124,29 @@ x&=y           &  w &=z              &  a&=b+c\\
 \end{align*}
 
 
-<p>
-Grouping and centering equations 
-<p>
-If you just need to display a set of consecutive equations, centered and with no alignment whatsoever, use the gather environment. The asterisk trick to set/unset the numbering of equations also works here. 
+</section>
+<section>
+<h2>
+Grouping and centering equations </h2>
 
 
-\begin{gather*} 
-2x - 5y =  8 \\ 
+<p>
+If you just need to display a set of consecutive equations, centered and with no alignment whatsoever, use the gather environment. The asterisk trick to set/unset the numbering of equations also works here.
+
+
+\begin{gather*}
+2x - 5y =  8 \\
 3x^2 + 9y =  3a + c
 \end{gather*}
 
 
+</section>
+<section>
+<h2>Spacing</h2>
+
+
 <p>
-Spacing in maths mode is useful in several situations, let's see an example: 
+Spacing in maths mode is useful in several situations, let's see an example:
 
 Assume we have the next sets
 \[
@@ -380,7 +1156,7 @@ S = \{ z \in \mathbb{C}\, \big|\, |z| < 1 \} \quad \textrm{and} \quad S_2=\parti
 
 
 <p>
-The spacing depends on the command you insert, the example below contains a complete list of spaces and how they look like. 
+The spacing depends on the command you insert, the example below contains a complete list of spaces and how they look like.
 
 Spaces in mathematical mode.
  
@@ -396,10 +1172,10 @@ f(x) =& x^2\qquad +3x\qquad +2
 \end{align*}
 
 <p>
-Spacing around operators and relations in math mode are governed by specific skip lengths: 
-\thinmuskip (by default it is equal to 3 mu) 
-\medmuskip (by default it is equal to 4 mu) 
-\thickmuskip (by default it is equal to 5 mu) 
+Spacing around operators and relations in math mode are governed by specific skip lengths:
+\thinmuskip (by default it is equal to 3 mu)
+\medmuskip (by default it is equal to 4 mu)
+\thickmuskip (by default it is equal to 5 mu)
 
 \begin{align*}
 3ax+4by=5cz\\
@@ -408,9 +1184,13 @@ Spacing around operators and relations in math mode are governed by specific ski
 
 
 
+</section>
+<section>
+<h2>
+User-defined binary and relational operators</h2>
+
 <p>
-User-defined binary and relational operators
-You can force the spacing used in binary or relational operators, so you can define your own. 
+You can force the spacing used in binary or relational operators, so you can define your own.
 
 \begin{align*}
 34x^2a \mathbin{\#} 13bc \\
@@ -419,9 +1199,13 @@ You can force the spacing used in binary or relational operators, so you can def
 
 
 
-<p>
+</section>
+<section>
+<h2>Fractions</h2>
 
-When you divide (fractionate) something into parts, two or more, you have what is known as a '''common fraction'''. A common fraction is usually written as two numbers; a top number and a bottom number. Common fractions can also be expressed in words. The number that is on top is called the numerator, and the number on the bottom is called the denominator (the prefix 'de-' is Latin for reverse) or divisor. 
+
+<p>
+When you divide (fractionate) something into parts, two or more, you have what is known as a '''common fraction'''. A common fraction is usually written as two numbers; a top number and a bottom number. Common fractions can also be expressed in words. The number that is on top is called the numerator, and the number on the bottom is called the denominator (the prefix 'de-' is Latin for reverse) or divisor.
 
 \[
 \frac{\text{numerator}}{\text{denominator}}
@@ -429,26 +1213,26 @@ When you divide (fractionate) something into parts, two or more, you have what i
 
 
 <p>
-These two numbers are always separated by a line, which is known as a fraction bar. This way of representing fractions is called display representation. Common fractions are, more often than not, simply known as fractions in everyday speech. 
+These two numbers are always separated by a line, which is known as a fraction bar. This way of representing fractions is called display representation. Common fractions are, more often than not, simply known as fractions in everyday speech.
 
 <p>
-The numerator in any given fraction tells you how many parts of something you have on hand. For example, if you were to slice a pizza for a party into six equal pieces, and you took two slices of pizza for yourself, you would have $\tfrac{2}{6}$ (pronounced two-sixths) of that pizza. Another way to look at it is by thinking in terms of equal parts; when that pizza was cut into six equal parts, each part was exactly $\tfrac{1}{6}$ (one-sixth) of the whole pizza. 
+The numerator in any given fraction tells you how many parts of something you have on hand. For example, if you were to slice a pizza for a party into six equal pieces, and you took two slices of pizza for yourself, you would have $\tfrac{2}{6}$ (pronounced two-sixths) of that pizza. Another way to look at it is by thinking in terms of equal parts; when that pizza was cut into six equal parts, each part was exactly $\tfrac{1}{6}$ (one-sixth) of the whole pizza.
 
 <p>
-The denominator tells you how many parts are in a whole, in this case your pizza. Your pizza was cut into six equal parts, and therefore the entire pizza consists of six equal slices. So when you took two slices for yourself, only four slices of pizza remain, or $\tfrac{4}{6}$ (four-sixths). 
+The denominator tells you how many parts are in a whole, in this case your pizza. Your pizza was cut into six equal parts, and therefore the entire pizza consists of six equal slices. So when you took two slices for yourself, only four slices of pizza remain, or $\tfrac{4}{6}$ (four-sixths).
 
 <p>
-Also keep in mind that numerator can never be zero. It makes no sense to have zero divided into parts. For instance, the fraction $\tfrac{0}{6}$ is equal to zero, because you can not have six slices of nothing. If the denominator is zero, then the fraction has no meaning or is considered undefined since it may depend upon the mathematical setting one is working on, for the purpose of this chapter, we will consider that it has no meaning. 
+Also keep in mind that numerator can never be zero. It makes no sense to have zero divided into parts. For instance, the fraction $\tfrac{0}{6}$ is equal to zero, because you can not have six slices of nothing. If the denominator is zero, then the fraction has no meaning or is considered undefined since it may depend upon the mathematical setting one is working on, for the purpose of this chapter, we will consider that it has no meaning.
 
 <p>
 Another way of representing fractions is by using a diagonal line between the numerator and the denominator.
 
 \[
-1/2\ 
+1/2\
 \]
 
 \[
-{5 \frac{3}{7}} / {1 \frac{1}{3}} \ 
+{5 \frac{3}{7}} / {1 \frac{1}{3}} \
 \]
 
 MathJax:
@@ -503,28 +1287,36 @@ MathML:
 <p>
 In this case, the separator between the numerator and the denominator is called a ''slash'', a ''solidus'' or a ''virgule''. This method of representing fractions is called ''in-line representation'', meaning that the fraction is lined up with the rest of the text. You will often see in-line representations in texts where the author does not have any way to use display representation.
 
-<p>
-== Proper Fractions ==
+
+<h3>
+Proper Fractions</h3>
+
 <p>
 The fraction in the pizza analogy we just used is known as a '''proper fraction'''. In a proper fraction, the numerator (top number) is always smaller than the denominator (bottom number). Thus, the value of a proper fraction is always less than one. Proper fractions are generally the kind you will encounter most often in mathematics.
 
+
+<h3>
+Improper Fractions </h3>
+
 <p>
-== Improper Fractions ==
-<p>
-When the numerator of a fraction is greater than, or equal to the denominator, you have an '''improper fraction'''. For example, the fractions $\tfrac{5}{3}, \tfrac{2}{1}$ and $\tfrac{6}{6}$ are all considered improper fractions. Improper fractions always have a value of one whole or more. So with $\tfrac{6}{6}$, the numerator says you have 6 pieces, but 6 is also the number of the whole, so the value of this fraction is one whole. It is as if no one took a slice of pizza after you cut it. 
+When the numerator of a fraction is greater than, or equal to the denominator, you have an '''improper fraction'''. For example, the fractions $\tfrac{5}{3}, \tfrac{2}{1}$ and $\tfrac{6}{6}$ are all considered improper fractions. Improper fractions always have a value of one whole or more. So with $\tfrac{6}{6}$, the numerator says you have 6 pieces, but 6 is also the number of the whole, so the value of this fraction is one whole. It is as if no one took a slice of pizza after you cut it.
 
 <p>
 In the case of $\tfrac{5}{3}$, one whole of something is divided into three equal pieces, but on hand you have five pieces (you had two pizzas, each divided into three slices, and you ate one slice). This means you have two pieces extra, or two pieces greater than one whole. This concept may seem rather confusing and strange at first, but as you become better in math you will eventually put two and two together to the get the whole picture (okay, bad pun).
 
-<p>
-== Mixed Fractions ==
+
+<h3>
+Mixed Fractions </h3>
+
 <p>
 When a whole number is written next to a fraction, such as $2\tfrac{1}{3}$ (two and one-third) you are seeing what is called a '''mixed fraction'''. A mixed fraction is understood as being the sum, or total, of both the whole number and fraction. The number two in $2\tfrac{1}{3}$ stands for two wholes - you also have a third more of something, which is the $\tfrac{1}{3}$.
 
+<h3>
+Simplifying Fractions</h3>
+
+
 <p>
-== Simplifying Fractions ==
-<p>
-Sometimes in mathematics you will need to rewrite a fraction in smaller numbers, while also keeping the value of the fraction the same. This is known as simplifying, or ''reducing to lowest terms''. It should be mentioned that a fraction which is not reduced is not intrinsically incorrect, but it may be confusing for others reviewing your work. There are two ways to simplify fractions, and both will be useful anytime you work with fractions, so it is recommended you learn both methods. 
+Sometimes in mathematics you will need to rewrite a fraction in smaller numbers, while also keeping the value of the fraction the same. This is known as simplifying, or ''reducing to lowest terms''. It should be mentioned that a fraction which is not reduced is not intrinsically incorrect, but it may be confusing for others reviewing your work. There are two ways to simplify fractions, and both will be useful anytime you work with fractions, so it is recommended you learn both methods.
 
 <p>
 To reiterate, reducing fractions is essentially replacing your original fraction with another one of equal value, called an ''equivalent fraction''. Below are a few examples of equivalent fractions.
@@ -536,12 +1328,14 @@ To reiterate, reducing fractions is essentially replacing your original fraction
 \]
 
 <p>
-When the fraction $\frac{4}{8}$ is reduced to lowest terms, it then becomes $\frac{1}{2}$, because four pieces out of a total of eight is exactly one-half of all available pieces. A fraction is also in its lowest terms when both the numerator and denominator cannot be divided evenly by any number other than one. 
+When the fraction $\frac{4}{8}$ is reduced to lowest terms, it then becomes $\frac{1}{2}$, because four pieces out of a total of eight is exactly one-half of all available pieces. A fraction is also in its lowest terms when both the numerator and denominator cannot be divided evenly by any number other than one.
+
+
+<h3>
+ Division Method </h3>
 
 <p>
-=== Division Method ===
-<p>
-To reduce a fraction to lowest terms, you must divide the numerator and denominator by the largest whole number that divides evenly into both. For example, to reduce the fraction $\tfrac{3}{9}$ to lowest terms, divide the numerator ('''3''') and denominator ('''9''') by three. 
+To reduce a fraction to lowest terms, you must divide the numerator and denominator by the largest whole number that divides evenly into both. For example, to reduce the fraction $\tfrac{3}{9}$ to lowest terms, divide the numerator ('''3''') and denominator ('''9''') by three.
 
 \[
 
@@ -555,14 +1349,14 @@ If the largest whole number is not obvious, and many times it is not, divide the
 <p>
 For clarity, below are a few examples of reducing fractions using this method.
 
-<p>
-'''Example'''
+<h5>
+Example</h5>
 
 <p>
 Reduce $\tfrac{12}{20}$ to lowest terms.
 
-<p>
-'''Solution'''
+<h5>
+Solution</h5>
 
 <p>
 In this problem, the largest whole number is difficult to see, so we first divide the numerator and denominator by two, as shown:
@@ -579,22 +1373,22 @@ Next divide by two again:
 \]
 
 <p>
-There are no whole numbers left which can divide evenly into $\tfrac{3}{5}$, so the problem is finished. 
+There are no whole numbers left which can divide evenly into $\tfrac{3}{5}$, so the problem is finished.
 
-<p>
-'''Answer'''
+<h5>
+Answer</h5>
 
 <p>
 $\tfrac{12}{20}$ reduced to lowest terms is $\tfrac{3}{5}$
 
-<p>
-'''Example'''
+<h5>
+Example</h5>
 
 <p>
 Reduce $\tfrac{18}{24}$ to lowest terms.
 
-<p>
-'''Solution'''
+<h5>
+Solution</h5>
 
 <p>
 Divide the numerator and denominator by six, as shown:
@@ -604,20 +1398,20 @@ Divide the numerator and denominator by six, as shown:
 \]
 
 
-<p>
-'''Answer'''
+<h5>
+Answer</h5>
 
 <p>
 $\tfrac{18}{24}$ reduced to lowest terms is $\tfrac{3}{4}$.
 
-<p>
-'''Example'''
+<h5>
+Example</h5>
 
 <p>
 Reduce $\tfrac{112}{126}$ to lowest terms.
 
-<p>
-'''Solution'''
+<h5>
+Solution</h5>
 
 <p>
 In this problem, the largest whole number is not immediately apparent, so we first divide the numerator and denominator by two, as shown:
@@ -633,14 +1427,16 @@ Next divide by seven:
 \frac{56 \div 7}{63 \div 7} = \frac{8}{9}
 \]
 
-<p>
-'''Answer'''
+<h5>
+Answer</h5>
 
 <p>
 $\tfrac{112}{126}$ reduced to lowest terms is $\tfrac{8}{9}$.
 
-<p>
-=== Greatest Common Factor Method ===
+<h3>
+ Greatest Common Factor Method </h3>
+
+
 <p>
 The second method of simplifying fractions involves finding the ''greatest common factor'' between the numerator and the denominator. We do this by breaking up both the numerator and the denominator into their prime factors (greatest common factor = 2x2 = 4):
 
@@ -659,45 +1455,46 @@ It is implied that any part is multiplied by one. If we divide 2s out of the fac
 <p>
 It is best to practice these skills of reducing fractions until you feel confident enough to do them on your own. Remember, practice makes perfect.
 
+
+<h3>
+ Raising Fractions to Higher Terms </h3>
 <p>
-== Raising Fractions to Higher Terms ==
-<p>
-To raise a fraction to ''higher terms'' is to rewrite it in larger numbers while keeping the fraction equivalent to the original in value. This is, for all intents and purposes, the exact opposite of simplifying a fraction. 
+To raise a fraction to ''higher terms'' is to rewrite it in larger numbers while keeping the fraction equivalent to the original in value. This is, for all intents and purposes, the exact opposite of simplifying a fraction.
+
+<h5>
+Example</h5>
 
 <p>
-'''Example'''
-
-<p>
-Convert $\frac{2}{5}$ to a fraction with denominator of 15.  
+Convert $\frac{2}{5}$ to a fraction with denominator of 15.
 
 \[
 \frac{2}{5} = \frac{?}{15}
 \]
 
 
-<p>
-'''Step 1'''
+<h5>
+Step 1</h5>
 
 <p>
-Ask yourself “what number multiplied by 5 equals 15?” To find the answer simply divide 5 into 15. 
+Ask yourself “what number multiplied by 5 equals 15?” To find the answer simply divide 5 into 15.
 
 \[
 {15} \div {5} = 3
 \]
 
 
-<p>
-'''Step 2'''
+<h5>
+Step 2</h5>
 
 <p>
-After dividing the two denominators, you must take the answer and multiply it by the numerator you already have. So in this case, we multiply 2 by 3 to find the missing numerator. 
+After dividing the two denominators, you must take the answer and multiply it by the numerator you already have. So in this case, we multiply 2 by 3 to find the missing numerator.
 
 \[
 {2} \times {3} = {6}
 \]
 
-<p>
-'''Answer'''
+<h5>
+Answer</h5>
 
 <p>
 \[
@@ -705,28 +1502,29 @@ After dividing the two denominators, you must take the answer and multiply it by
 \]
 
 
-<p>
-== Changing Improper Fractions to Mixed Numbers ==
+<h3>
+Changing Improper Fractions to Mixed Numbers </h3>
+
 <p>
 Oftentimes you will encounter fractions in their improper form. While this may be useful in some instances, it is usually best to convert the fraction into simplest form, or mixed fraction.
 
 <p>
 To convert an improper fraction into a mixed fraction, divide the denominator into the numerator.
 
-<p>
-'''Example'''
+<h5>
+Example</h5>
 
 <p>
 Change $\frac{13}{2}$ into a mixed fraction.
 
-<p>
-'''Solution'''
+<h5>
+Solution</h5>
 
 <p>
 Divide 13 by 2, use long division to obtain quotient and a remainder.  ${13} \div {2} = {6\ \mbox{r}\ 1}$
 
-<p>
-'''Answer'''
+<h5>
+Answer</h5>
 
 <p>
 To form the proper fraction part of the answer, we use the divisor ('''2''') as the denominator, and the remainder ('''r1''') as the numerator. Finally, we take the answer to the division problem, in this case 6, and use that as the whole number.
@@ -734,11 +1532,12 @@ To form the proper fraction part of the answer, we use the divisor ('''2''') as 
 <p>
 Hence $\frac{13}{2}$ in mixed fraction form is $6\,\!\frac{1}{2}$
 
-<p>
-== Adding Fractions ==
+<h3>
+Adding Fractions </h3>
 
-<p>
-=== Adding Fractions With The Same Denominator ===
+<h4>
+ Adding Fractions With The Same Denominator </h4>
+
 <p>
 In order to add fractions with the same denominator, you only need to add the numerators while keeping the original denominator for the sum.
 
@@ -757,8 +1556,9 @@ Adding fractions with the same denominator is the rule but it begs the question 
 <p>
 To make sense of this try taking a 12 inch ruler and drawing a 3 inch horizontal line (1/4 of a foot) and then on the end add another 3 inch line (1/4 of a foot).  What is the total length of the line?  It should be 6 inches (1/2 a foot) and not 2/8 of a foot (3 inches). In essence it seems we can only add like items and like items are terms that have the same denominator and we add them up by adding up numerators.
 
-<p>
-=== Adding Fractions With Different Denominators ===
+<h4>
+ Adding Fractions With Different Denominators </h4>
+
 <p>
 When adding fractions that do not have the same denominator, you must make the denominators of all the terms the same. We do this by finding the ''least common multiple'' of the two denominators.
 
@@ -770,18 +1570,19 @@ When adding fractions that do not have the same denominator, you must make the d
 \]
 
 <p>
-:Now that the common denominators are the same, perform the usual addition: 
+:Now that the common denominators are the same, perform the usual addition:
 
 
 \[
 \frac{5+8}{20} = \frac{13}{20}
 \]
 
-<p>
-== Subtracting Fractions ==
+<h3>
+ Subtracting Fractions </h3>
 
-<p>
-=== Subtracting Fractions With The Same Denominator ===
+<h4>
+ Subtracting Fractions With The Same Denominator </h4>
+
 <p>
 To subtract fractions sharing a denominator, take their numerators and subtract them in order of appearance. If the numerator's difference is zero, the whole difference will be zero, regardless of the denominator.
 
@@ -789,8 +1590,9 @@ To subtract fractions sharing a denominator, take their numerators and subtract 
 \frac{6}{13} - \frac{2}{13} = \frac{6-2}{13} = \frac{4}{13}
 \]
 
-<p>
-=== Subtracting Fractions With Different Denominators ===
+<h4>
+ Subtracting Fractions With Different Denominators </h4>
+
 <p>
 To subtract one fraction from another, you must again find the least common multiple of the two denominators.
 
@@ -810,31 +1612,32 @@ To subtract one fraction from another, you must again find the least common mult
 \]
 
 
-<p>
-== Multiplying Fractions ==
+<h3>
+ Multiplying Fractions </h3>
+
 <p>
 Multiplying fractions is very easy. Simply multiply the numerators of the fractions to find the numerator of the answer. Then multiply the denominators of the fractions to find the denominator of the answer. In other words, it can be said “top times top equals top”, and “bottom times bottom equals bottom.” This rule is used to multiply both proper and improper fractions, and can be used to find the answer to more than two fractions in any given problem.
 
-<p>
-'''Example'''
+<h5>
+Example</h5>
 
 <p>
 Multiply $\frac{1}{2} \times \frac{3}{4}$
 
-<p>
-'''Step 1'''
+<h5>
+Step 1</h5>
 
 <p>
 Multiply the numerators to find the numerator of the answer. $1 \times 3 = 3$
 
-<p>
-'''Step 2'''
+<h5>
+Step 2</h5>
 
 <p>
 Multiply the denominators to find the denominator of the answer. $2 \times 4 = 8$
 
-<p>
-'''Answer'''
+<h5>
+Answer</h5>
 
 \[
 \frac{1}{2} \times \frac{3}{4} = \frac{3}{8}
@@ -842,12 +1645,13 @@ Multiply the denominators to find the denominator of the answer. $2 \times 4 = 8
 
 
 <p>
-Make sure to reduce your answer if possible. 
+Make sure to reduce your answer if possible.
+
+<h3>
+ Whole and Mixed Numbers </h3>
 
 <p>
-=== Whole and Mixed Numbers ===
-<p>
-When you need to multiply a fraction by a whole number, you must first convert the whole number into a fraction. This, fortunately, is not as difficult as it may sound; just put the whole number over the number one. Then proceed to multiply as you would with any two fractions. An example is given below. 
+When you need to multiply a fraction by a whole number, you must first convert the whole number into a fraction. This, fortunately, is not as difficult as it may sound; just put the whole number over the number one. Then proceed to multiply as you would with any two fractions. An example is given below.
 
 \[
 \frac{3}{4} \times {5} = \frac{3}{4} \times \frac{5}{1} = \frac{15}{4} = 3\,\!\frac{3}{4}
@@ -862,8 +1666,9 @@ If a problem contains one or more mixed numbers, you must first convert all mixe
 \]
 
 
-<p>
-== Dividing Fractions ==
+<h3>
+ Dividing Fractions </h3>
+
 <p>
 To divide fractions, simply exchange the numerator and the denominator of the second term in the problem, then multiply the two fractions.
 
@@ -896,44 +1701,13 @@ Always check to see if simplifying the resulting fraction can be done:
 
 
 
-<p>
-
-
-<p>
-
-
-<p>
-
-
-<p>
-
-
-<p>
-
-
-<p>
-
-
-<p>
-
-
-<p>
-
-
-<p>
-
-
-<p>
-
-
-<p>
-
-
+</section>
+<section>
 <h2>#1</h2>
 
 <p>
 \[
-    \left( \frac{a}{b} \right) 
+    \left( \frac{a}{b} \right)
 \]
 </p>
 
@@ -949,7 +1723,7 @@ Always check to see if simplifying the resulting fraction can be done:
 
 <p>
 \[
-    \left( \dfrac{a}{b} \right) 
+    \left( \dfrac{a}{b} \right)
 \]
 </p>
 
@@ -960,6 +1734,10 @@ Always check to see if simplifying the resulting fraction can be done:
     \left( \dfrac{a^2}{b} \right)
 \]
 </p>
+
+</section>
+<section>
+<h2>matrix</h2>
 
 <p>
 \[
@@ -1069,7 +1847,7 @@ ax + by &= c \\
 \]
 
 \[
-x = {a \mod b} \pod c 
+x = {a \mod b} \pod c
 \]
 
 <p>
@@ -1078,7 +1856,7 @@ x = {a \mod b} \pod c
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \cos(2\theta )=\cos ^{2}\theta -\sin ^{2}\theta \,} 
+  {\displaystyle \cos(2\theta )=\cos ^{2}\theta -\sin ^{2}\theta \,}
 \end{equation}
 
 <p>
@@ -1124,7 +1902,7 @@ or
 
 $\int\frac{1}{2}dx - \mathlarger{ \int\frac{1}{2}dx}$
 
-  
+
 <p>
 \begin{equation*}
     \Rightarrow \alpha \mathlarger{\mathlarger{\sum}}_{c}A_c a_k\left( \frac{
@@ -1155,7 +1933,7 @@ where
 \begin{equation*}
     \begin{aligned}
         B = &\underbrace{\left[\left(\sum_{k=1}^{\nu-1}
-        \frac{a_k}{12}(y_k^2+y_k y_{k+1} +y_{k+1}^2)\right) - 
+        \frac{a_k}{12}(y_k^2+y_k y_{k+1} +y_{k+1}^2)\right) -
           \lambda_1\right]^2}_{{\mu_1}} +\\[1ex]&
         \underbrace{\left[\left(\sum_{k=1}^{\nu-1}\frac{a_k}{24}(x_k y_{k+1}+
           2x_ky_k+2x_{k+1}y_{k+1} +x_{k+1}y_k)\right) - \lambda_2 \right]^2}
@@ -1170,10 +1948,10 @@ where
 <p>
 \begin{equation*}
     \begin{aligned}
-        \Rightarrow \alpha {{\sum}}_{c}A_c a_k = 
+        \Rightarrow \alpha {{\sum}}_{c}A_c a_k =
           \frac{1}{\Lambda^2}\Biggl\{
         &\underbrace{\left[\left(\sum_{k=1}^{\nu-1}
-        \frac{a_k}{12}(y_k^2+y_k y_{k+1} +y_{k+1}^2)\right) - 
+        \frac{a_k}{12}(y_k^2+y_k y_{k+1} +y_{k+1}^2)\right) -
           \lambda_1\right]^2}_{{\mu_1}} +\\[1ex]&
         \underbrace{\left[\left(\sum_{k=1}^{\nu-1}\frac{a_k}{24}(x_k y_{k+1}+
           2x_ky_k+2x_{k+1}y_{k+1} +x_{k+1}y_k)\right) - \lambda_2 \right]^2}
@@ -1201,24 +1979,29 @@ H=\langle x_1,x_2,\cdots, x_n \colon & [x_i,x_j,x_k]=1,\\
 -x^3-x+1=0 \Leftrightarrow x=\sqrt[3]{\frac 12+\sqrt{\frac{31}{108}}}+\sqrt[3]{\frac 12-\sqrt{\frac{31}{108}}}=q\Leftrightarrow -x^3-x+1=(x-q)(-x^2-qx-(q^2+1))
 \]
 
+
+</section>
+<section>
+<h2>Sommen</h2>
+
 <p>
 Los algebraïsch op  (rond indien nodig af op 2 decimalen):
 
-a.  $x^3 - 3x^2 = 0$  
+a.  $x^3 - 3x^2 = 0$
 
 0 of 3
 
-f.   $6x^2 = 4x^9$  
+f.   $6x^2 = 4x^9$
 
 0  of  1,06
 
-b.  $4x^5 + 2x^6 = 0$ 
+b.  $4x^5 + 2x^6 = 0$
 
 0 of -2
 
 g.   $x^7  =  5x^7 - x^5$
 
-0  of  1/2 of -1/2 
+0  of  1/2 of -1/2
 
 c.  $x^7 = 4x^5$
 
@@ -1279,35 +2062,28 @@ h.   $x^6 + 3x^5 = 10x^4$
 0 of -5 of 2
 
 3.  Examenvraagstuk HAVO Wiskunde B, 2005.
-       
+
   Gegeven is de functie  $f(x) = -x^3 + 27x + 44$
 
 Q is het snijpunt van de grafiek van f met de y-as. De lijn k door Q  evenwijdig aan de x-as snijdt de grafiek ook nog in de punten P en R.
 
-       
+
   a.  Bereken de lengte van PR.  Rond je antwoord af op twee decimalen.
-      
+
 10,39
 
   Een familie van functies is gegeven door $h(x) = (x + 4)(p + 4x - x^2 )$, waarbij p elk reëel getal kan voorstellen.
-       
+
   b.  Toon aan met behulp van algebra dat er een waarde van p is waarbij de bijbehorende functie h gelijk is aan de functie f.
-      
+
 p = 11
 
-       
- 
 
-<p>
-<p>
-<p>
-<p>
-<p>
-<p>
-<p>
-<p>
-<p>
-<p>
+
+
+</section>
+<section>
+<h2>Samples</h2>
 
 <p>
 \begin{align}
@@ -1397,16 +2173,20 @@ hence $\Theta = \iota$.
   \con \vct{i}{d}=\vct{i}{c}(\gQ),
 \end{equation}
 
+</section>
+<section>
+<h2>Symbols, etc.</h2>
+
 <p>
 Hebrew letters
 
 Type: Print: Type: Print:
 \[
-\aleph ℵ 
+\aleph ℵ
 
 \beth i
 
-\daleth k 
+\daleth k
 
 \gimel ג
 \]
@@ -1457,8 +2237,10 @@ Type: Print: Type: Print:
 <p>
 All symbols whose name begins with var need the amsmath package.
 
-<p>
-A.3 LATEX binary relations
+</section>
+<section>
+<h2>
+#1: LATEX binary relations</h2>
 
 <p>
 Type: Print: Type: Print:
@@ -1509,8 +2291,10 @@ Type: Print: Type: Print:
 \mid | \parallel
 \]
 
-<p>
-A.4 AMS binary relations
+</section>
+<section>
+<h2>
+#1: AMS binary relations</h2>
 
 <p>
 Type: Print: Type: Print:
@@ -1614,8 +2398,11 @@ Type: Print: Type: Print:
 
 All symbols require the amssymb package.
 
-<p>
-A.5 AMS negated binary relations
+</section>
+<section>
+<h2>
+#1: AMS negated binary relations</h2>
+
 
 Type: Print: Type: Print:
 
@@ -1706,8 +2493,11 @@ Type: Print: Type: Print:
 
 All symbols but \ne require the amssymb package.
 
-<p>
-A.6 Binary operations
+</section>
+<section>
+<h2>
+#1: Binary operations</h2>
+
 
 Type: Print: Type: Print:
 
@@ -1763,8 +2553,11 @@ Type: Print: Type: Print:
 \lhd ✁ \
 \]
 
-<p>
-A.7 Arrows
+</section>
+<section>
+<h2>
+#1: Arrows</h2>
+
 
 Type: Print: Type: Print:
 
@@ -1868,8 +2661,11 @@ by LATEX; the last command, \leadsto, requires the latexsym package. The middle
 table contains the AMS arrows; they all require the amssymb package. The bottom
 table lists the negated arrow symbols; they also require amssymb.
 
-<p>
-A.8 Miscellaneous symbols
+</section>
+<section>
+<h2>
+#1: Miscellaneous symbols</h2>
+
 
 Type: Print: Type: Print:
 
@@ -1972,8 +2768,11 @@ This table is divided into two parts. The top part contains the symbols provided
 by LATEX; the last three commands require the latexsym package. The bottom table
 lists symbols from the AMS; they all require the amssymb package.
 
-<p>
-A.9 Math spacing commands
+</section>
+<section>
+<h2>
+#1: Math spacing commands</h2>
+
 
 <p>
 Short form: Full form: Size: Short form: Full form:
@@ -1990,8 +2789,11 @@ Short form: Full form: Size: Short form: Full form:
 The \medspace, \thickspace, \negmedspace, and \negthickspace
 commands require the amsmath package.
 
-<p>
-A.10 Delimiters
+</section>
+<section>
+<h2>
+#1: Delimiters</h2>
+
 
 Name: Type: Print: Name: Type: Print:
 
@@ -2052,8 +2854,11 @@ Double up-and-down arrow \Updownarrow m
 \]
 
 
-<p>
-A.11 Operators
+</section>
+<section>
+<h2>
+#1: Operators</h2>
+
 
 \[
 \arccos \arcsin \arctan \arg
@@ -2068,7 +2873,7 @@ A.11 Operators
 \ker \lg \ln \log
 \]
 \[
-\sec \sin \sinh 
+\sec \sin \sinh
 \]
 \[
 \tan \tanh
@@ -2129,8 +2934,11 @@ Type: Inline Displayed Type: Inline Displayed
 \sum_{i=1}^{n} Pn
 \]
 
-<p>
-A.12 Math accents
+</section>
+<section>
+<h2>
+#1: Math accents</h2>
+
 
 \[
 \hat{a} aˆ
@@ -2236,8 +3044,11 @@ A.12 Math accents
 The \dddot and \ddddot commands and all the capitalized commands require the
 amsmath package; the commands in the fourth column require the amsxtra package.
 
-<p>
-A.13 Math font commands
+</section>
+<section>
+<h2>
+#1: Math font commands</h2>
+
 
 Type: Print:
 
@@ -2278,11 +3089,16 @@ The \mathbb, \mathfrak, and \mathcal commands require the amsfonts package.
 <p>
 The \boldsymbol command requires the amsbsy package.
 
-<p>
-Text symbol tables
+</section>
+<section>
+<h2>
+Text symbol tables</h2>
 
-<p>
-B.1 Special text characters
+</section>
+<section>
+<h2>
+#1: Special text characters</h2>
+
 
 <p>
 Type: Print: Type: Print: Type: Print:
@@ -2300,25 +3116,25 @@ Type: Print: Type: Print: Type: Print:
 \& &
 \]
 \[
- \~{} ˜ 
+ \~{} ˜
 \]
 \[
   \_
 \]
 \[
-\^{} ˆ 
+\^{} ˆ
 \]
 \[
-\{ { 
+\{ {
 \]
 \[
 \} }
 \]
 \[
-$|$ | 
+$|$ |
 \]
 \[
-@ @ 
+@ @
 \]
 \[
 $*$ ∗
@@ -2328,115 +3144,124 @@ $\backslash$ \
 \]
 
 
-<p>
-B.2 Text accents
+</section>
+<section>
+<h2>
+#1: Text accents</h2>
+
 
 <p>
 Type: Print: Type: Print: Type: Print:
 
 \[
-\‘{o} `o 
+\‘{o} `o
 \]
 \[
-\’{o} ´o 
+\’{o} ´o
 \]
 \[
 \"{o} ¨o
 \]
 \[
-\H{o} ˝o 
+\H{o} ˝o
 \]
 \[
-\^{o} ˆo 
+\^{o} ˆo
 \]
 \[
 \~{o} ˜o
 \]
 \[
-\v{o} ˇo 
+\v{o} ˇo
 \]
 \[
-\u{o} ˘o 
+\u{o} ˘o
 \]
 \[
 \={o} ¯o
 \]
 \[
-\b{o} o¯ 
+\b{o} o¯
 \]
 \[
-\.{o} o˙ 
+\.{o} o˙
 \]
 \[
 \d{o} o.
 \]
 \[
-\c{o} o¸ 
+\c{o} o¸
 \]
 \[
-\r{o} ˚o 
+\r{o} ˚o
 \]
 \[
 \t{oo} ooÄ
 \]
 \[
-\i ı 
+\i ı
 \]
 \[
 \j 
 \]
 
-<p>
-B.3 Some European characters
+</section>
+<section>
+<h2>
+#1: Some European characters</h2>
+
 
 <p>
 Type: Print: Type: Print: Type: Print:
 
 \[
-\aa ˚a 
+\aa ˚a
 \]
 \[
-\AA ˚A 
+\AA ˚A
 \]
 \[
 \ae æ
 \]
 \[
-\AE Æ 
+\AE Æ
 \]
 \[
-\o ø 
+\o ø
 \]
 \[
 \O Ø
 \]
 \[
-\oe œ 
+\oe œ
 \]
 \[
-\OE Œ 
+\OE Œ
 \]
 \[
 \l Ãl
 \]
 \[
-\L LÃ 
+\L LÃ
 \]
 \[
-\ss ß 
+\ss ß
 \]
 \[
 \SS SS
 \]
 \[
-?‘ ¿ 
+?‘ ¿
 \]
 \[
 !‘ ¡
 \]
 
-<p>
-B.4 Extra text symbols
+</section>
+<section>
+<h2>
+#1: Extra text symbols</h2>
+
 
 <p>
 Type: Print:
@@ -2481,8 +3306,11 @@ Type: Print:
 \textperiodcentered ·
 \]
 
-<p>
-B.5 Text spacing commands
+</section>
+<section>
+<h2>
+#1: Text spacing commands</h2>
+
 
 <p>
 Short form: Full form: Size: Short form: Full form:
@@ -2499,8 +3327,11 @@ Short form: Full form: Size: Short form: Full form:
 The \medspace, \thickspace, \negmedspace, and \negthickspace
 commands require the amsmath package.
 
-<p>
-B.6 Text font commands
+</section>
+<section>
+<h2>
+#1: Text font commands</h2>
+
 
 <p>
 command
@@ -2545,8 +3376,11 @@ declaration switch to
 \textmd{...} {\mdseries ...} normal weight and width
 \]
 
-<p>
-B.7 Text font size changes
+</section>
+<section>
+<h2>
+#1: Text font size changes</h2>
+
 
 \[
 \tiny sample text
@@ -2561,8 +3395,11 @@ B.7 Text font size changes
 \Huge sample text
 \]
 
-<p>
-B.8 AMS text font size changes
+</section>
+<section>
+<h2>
+#1: AMS text font size changes</h2>
+
 
 \[
 \Tiny
@@ -2577,6 +3414,10 @@ B.8 AMS text font size changes
 \small
 \Huge
 \]
+
+</section>
+<section>
+<h2>Samples...</h2>
 
 <p>
 \newcommand {\Rule{0pt}{1em}{.3em}}
@@ -2676,7 +3517,7 @@ Arrows
 ⇒ \Rightarrow
 \]
 \[
- =⇒ \Longrightarrow 
+ =⇒ \Longrightarrow
 \]
 \[
 ⇓ \Downarrow
@@ -2686,7 +3527,7 @@ Arrows
 ↔ \leftrightarrow
 \]
 \[
- ←→\longleftrightarrow 
+ ←→\longleftrightarrow
 \]
 \[
 l \updownarrow
@@ -2753,6 +3594,11 @@ l \updownarrow
 The symbols whose names are underlined require the latexsym package.
 
 
+</section>
+<section>
+<h2>#1: Samples...</h2>
+
+
 <p>
 \begin{equation} \label{eq1}
   \begin{split}
@@ -2770,19 +3616,19 @@ The beautiful equation \ref{eu_eqn} is known as the Euler equation
 
 <p>
 \begin{multline*}
-p(x) = 3x^6 + 14x^5y + 590x^4y^2 + 19x^3y^3\\ 
+p(x) = 3x^6 + 14x^5y + 590x^4y^2 + 19x^3y^3\\
 - 12x^2y^4 - 12xy^5 + 2y^6 - a^3b^3
 \end{multline*}
 
 <p>
 \begin{multline}
-p(x) = 3x^6 + 14x^5y + 590x^4y^2 + 19x^3y^3\\ 
+p(x) = 3x^6 + 14x^5y + 590x^4y^2 + 19x^3y^3\\
 - 12x^2y^4 - 12xy^5 + 2y^6 - a^3b^3
 \end{multline}
 
 <p>
-\begin{align*} 
-2x - 5y &=  8 \\ 
+\begin{align*}
+2x - 5y &=  8 \\
 3x + 9y &=  -12
 \end{align*}
 
@@ -2795,31 +3641,34 @@ x&=y           &  w &=z              &  a&=b+c\\
 
 
 <p>
-\begin{gather*} 
-2x - 5y =  8 \\ 
+\begin{gather*}
+2x - 5y =  8 \\
 3x^2 + 9y =  3a + c
 \end{gather*}
 
 <p>
-\[ 
+\[
 \left \{
   \begin{tabular}{ccc}
   1 & 5 & 8 \\
   0 & 2 & 4 \\
-  3 & 3 & -8 
+  3 & 3 & -8
   \end{tabular}
 \right \}
 \]
 
 <p>
 Manually sized brackets
- 
+
 \[
  \Bigg \langle 3x+7 \bigg \rangle
 \]
 
-<p>
-Reference guide
+</section>
+<section>
+<h2>
+#1: Reference guide</h2>
+
 
 LATEX markup  Renders as
 
@@ -2836,11 +3685,11 @@ LATEX markup  Renders as
 
 \]
 \[
-\big \langle \Big \langle \bigg \langle \Bigg \langle \big \langle \Big \langle \bigg \langle \Bigg \langle 
+\big \langle \Big \langle \bigg \langle \Bigg \langle \big \langle \Big \langle \bigg \langle \Bigg \langle
 
 \]
 \[
-\big \rangle \Big \rangle \bigg \rangle \Bigg \rangle \big \rangle \Big \rangle \bigg \rangle \Bigg \rangle 
+\big \rangle \Big \rangle \bigg \rangle \Bigg \rangle \big \rangle \Big \rangle \bigg \rangle \Bigg \rangle
 
 \]
 
@@ -2858,11 +3707,14 @@ LATEX markup  Renders as
 \[ (a^n)^{r+s} = a^{nr+ns}  \]
 
 <p>
-\[ \sum_{i=1}^{\infty} \frac{1}{n^s} 
+\[ \sum_{i=1}^{\infty} \frac{1}{n^s}
 = \prod_p \frac{1}{1 - p^{-s}} \]
 
-<p>
-Reference guide
+</section>
+<section>
+<h2>
+#1: Reference guide</h2>
+
 
 Additional examples and operators
 
@@ -2873,7 +3725,7 @@ a_{n_i} a_{n_i}
 
 \]
 \[
-\int_{i=1}^n   \int_{i=1}^{n} 
+\int_{i=1}^n   \int_{i=1}^{n}
 
 \]
 \[
@@ -2881,7 +3733,7 @@ a_{n_i} a_{n_i}
 
 \]
 \[
-\prod_{i=1}^n \prod_{i=1}^n 
+\prod_{i=1}^n \prod_{i=1}^n
 
 \]
 \[
@@ -2905,22 +3757,22 @@ a_{n_i} a_{n_i}
 $\int\frac{1}{2}dx - \mathlarger{ \int\frac{1}{2}dx}$
 
 <p>
-Integral $\int_{a}^{b} x^2 dx$ inside text  
+Integral $\int_{a}^{b} x^2 dx$ inside text
 
 <p>
-Improved integral $\int\limits_{a}^{b} x^2 dx$ inside text  
+Improved integral $\int\limits_{a}^{b} x^2 dx$ inside text
 
 <p>
-Sum $\sum_{n=1}^{\infty} 2^{-n} = 1$ inside text  
+Sum $\sum_{n=1}^{\infty} 2^{-n} = 1$ inside text
 
 <p>
 Improved sum $\sum\limits_{n=1}^{\infty} 2^{-n} = 1$ inside text
 
 <p>
-Limit $\lim_{x\to\infty} f(x)$ inside text  
+Limit $\lim_{x\to\infty} f(x)$ inside text
 
 <p>
-$$\lim_{x\to\infty} f(x)$$  
+$$\lim_{x\to\infty} f(x)$$
 
 <p>
 $\iint_V \mu(u,v) \,du\,dv$$
@@ -2936,6 +3788,10 @@ $$\oint_V f(s) \,ds$$
 $$\oiint_V f(s,t) \,ds\,dt$$
 
 
+</section>
+<section>
+<h2>Fractions and related...</h2>
+
 <p>
 \[
     \binom{n}{k} = \frac{n!}{k!(n-k)!}
@@ -2943,21 +3799,21 @@ $$\oiint_V f(s,t) \,ds\,dt$$
 
 
 <p>
-Fractions can be used alongside the text, for 
-example \( \frac{1}{2} \), and in a mathematical 
+Fractions can be used alongside the text, for
+example \( \frac{1}{2} \), and in a mathematical
 display style like the one below:
- 
+
 \[\frac{1}{2}\]
 
 <p>
-When displaying fractions in-line, for example \(\frac{3x}{2}\) 
-you can set a different display style: 
+When displaying fractions in-line, for example \(\frac{3x}{2}\)
+you can set a different display style:
 \( \displaystyle \frac{3x}{2} \).
- 
+
 <p>
 This is also true the other way around
- 
-\[ f(x)=\frac{P(x)}{Q(x)} \ \ \textrm{and} 
+
+\[ f(x)=\frac{P(x)}{Q(x)} \ \ \textrm{and}
 \ \ f(x)=\textstyle\frac{P(x)}{Q(x)} \]
 
 <p>
@@ -2968,18 +3824,19 @@ The usage of fractions is quite flexible, they can be nested to obtain more comp
 
 <p>
 The fractions can be nested
- 
+
 \[ \frac{1+\frac{a}{b}}{1+\frac{1}{1+\frac{1}{a}}} \]
- 
+
+<p>
 Now a wild example
- 
+
 \[
   a_0+\cfrac{1}{a_1+\cfrac{1}{a_2+\cfrac{1}{a_3+\cdots}}}
 \]
 
 <p>
 Final example
- 
+
 \[
 \newcommand*{\contfrac}[2]{%
 {
@@ -2998,6 +3855,11 @@ Final example
 \]
 
 
+
+
+</section>
+<section>
+<h2>#1: Samples</h2>
 
 
 <p>
@@ -3022,14 +3884,14 @@ RQSZ \\
 \mathit{3x^2 \in R \subset Q} \\
 \mathbf{3x^2 \in R \subset Q} \\
 \mathsf{3x^2 \in R \subset Q} \\
-\mathtt{3x^2 \in R \subset Q} 
+\mathtt{3x^2 \in R \subset Q}
 \end{align*}
 
 <p>
 \[
 \text{
-Some of the \textbf{greatest} 
-discoveries in \underline{science} 
+Some of the \textbf{greatest}
+discoveries in \underline{science}
 were made by \textbf{\textit{accident}}.
 }
 \]
@@ -3037,42 +3899,48 @@ were made by \textbf{\textit{accident}}.
 <p>
 \[
 \text{
-Some of the greatest \emph{discoveries} 
-in science 
+Some of the greatest \emph{discoveries}
+in science
 were made by accident.
 }
 \]
 \[
-\textit{Some of the greatest \emph{discoveries} 
-in science 
+\textit{Some of the greatest \emph{discoveries}
+in science
 were made by accident.}
 \]
 \[
-\textbf{Some of the greatest \emph{discoveries} 
-in science 
+\textbf{Some of the greatest \emph{discoveries}
+in science
 were made by accident.}
 \]
 
-<p>
-Examples of mathematical operators
- 
+
+
+
+</section>
+<section>
+<h2>
+#1: Examples of mathematical operators</h2>
+
+
 \[
 \sin(a + b ) = \sin(a)\cos(b) + \cos(a)\sin(a)
 \]
 
 <p>
 Testing notation for limits
- 
+
 \[
 \lim_{h \rightarrow 0 } \frac{f(x+h)-f(x)}{h}
 \]
- 
-This operator changes when used alongside 
+
+This operator changes when used alongside
 text \( \lim_{x \rightarrow h} (x-h) \).
 
 <p>
 User-defined operator for matrices with Real entries
- 
+
 \[
 x \in \Mr
 \]
@@ -3083,9 +3951,15 @@ Assume we have the next sets
 S = \{ z \in \mathbb{C}\, |\, |z| < 1 \} \quad \textrm{and} \quad S_2=\partial{S}
 \]
 
-<p>
-Spaces in mathematical mode.
- 
+
+
+
+</section>
+<section>
+<h2>
+#1: Spaces in mathematical mode.</h2>
+
+
 \begin{align*}
 f(x) =& x^2\! +3x\! +2 \\
 f(x) =& x^2+3x+2 \\
@@ -3142,15 +4016,23 @@ LATEX code  Description
 \qquad  \text{twice of \quad (= 36 mu)}
 \]
 
+
+
+
+</section>
+<section>
+<h2>#1: Samples</h2>
+
+
 <p>
 Depending on the value of $x$ the equation \( f(x) = \sum_{i=0}^{n} \frac{a_i}{1+x} \) may diverge or converge.
- 
+
 \[ f(x) = \sum_{i=0}^{n} \frac{a_i}{1+x} \]
 
 <p>
 In-line maths elements can be set with a different style: \(f(x) = \displaystyle \frac{1}{1+x}\). The same is true the other way around:
 
-\[ 
+\[
 \begin{eqnarray*}
 f(x) = \sum_{i=0}^{n} \frac{a_i}{1+x} \\
 \textstyle f(x) = \textstyle \sum_{i=0}^{n} \frac{a_i}{1+x} \\
@@ -3217,7 +4099,7 @@ An underscore (_) can be used with a vertical bar (|) to denote evaluation using
 \begin{equation}
   f(n) = n^5 + 4n^2 + 2 |_{n=17}
 \end{equation}
-  
+
 \begin{equation}
   {\displaystyle f(n)=n^{5}+4n^{2}+2|_{n=17}\,}
 \end{equation}
@@ -3230,7 +4112,7 @@ An underscore (_) can be used with a vertical bar (|) to denote evaluation using
 \end{equation}
 
 \begin{equation}
-  {\displaystyle {\frac {n!}{k!(n-k)!}}={\binom {n}{k}}} 
+  {\displaystyle {\frac {n!}{k!(n-k)!}}={\binom {n}{k}}}
 \end{equation}
 
 
@@ -3263,7 +4145,7 @@ For relatively simple fractions, especially within the text, it may be more aest
 \end{equation}
 
 \begin{equation}
-  {\displaystyle ^{3}/_{7}\,} 
+  {\displaystyle ^{3}/_{7}\,}
 \end{equation}
 
 
@@ -3310,7 +4192,7 @@ Take ${}^1/_2$ cup of sugar, \dots
 
 \]
 \[
- 
+
   3\times{}^1/_2=1{}^1/_2
 \]
 
@@ -3345,15 +4227,15 @@ In some cases, using the package alone will result in errors about certain font 
 <p>
 Alternatively, the nicefrac package provides the \nicefrac command, whose usage is similar to \sfrac.
 
-<p>
-Continued fractions
+<h3>
+Continued fractions</h3>
 
 <p>
 Continued fractions should be written using \cfrac command:
 
 \begin{equation}
-  x = a_0 + \cfrac{12356616316}{a_3 
-          + \cfrac{16565}{a_3 
+  x = a_0 + \cfrac{12356616316}{a_3
+          + \cfrac{16565}{a_3
           + \cfrac{165465465}{a_9 + \cfrac{1131321}{a_7} } } }
 \end{equation}
 
@@ -3363,8 +4245,9 @@ Continued fractions should be written using \cfrac command:
 \end{equation}
 
 
-<p>
-Multiplication of two numbers
+<h3>
+Multiplication of two numbers</h3>
+
 
 <p>
 To make multiplication visually similar to a fraction, a nested array can be used, for example multiplication of numbers written one below the other.
@@ -3386,8 +4269,8 @@ To make multiplication visually similar to a fraction, a nested array can be use
 
 
 
-<p>
-Roots
+<h3>
+Roots</h3>
 
 <p>
 The \sqrt command creates a square root surrounding an expression. It accepts an optional argument specified in square brackets ([ and ]) to change magnitude:
@@ -3411,8 +4294,14 @@ The \sqrt command creates a square root surrounding an expression. It accepts an
 
 
 
-<p>
-Sums and integrals
+
+
+
+</section>
+<section>
+<h2>
+#1: Sums and integrals</h2>
+
 
 <p>
 The \sum and \int commands insert the sum and integral symbols respectively, with limits specified using the caret (^) and underscore (_). The typical notation for sums is:
@@ -3455,87 +4344,87 @@ The limits for the integrals follow the same notation. It's also important to re
 There are many other "big" commands which operate in a similar manner:
 
 \begin{equation}
-  \sum  
+  \sum
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \sum \,} 
+  {\displaystyle \sum \,}
 \end{equation}
 
 \begin{equation}
-  \prod 
+  \prod
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \prod } 
+  {\displaystyle \prod }
 \end{equation}
 
 \begin{equation}
-  \coprod 
+  \coprod
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \coprod } 
+  {\displaystyle \coprod }
 \end{equation}
 
 \begin{equation}
-  \bigoplus 
+  \bigoplus
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \bigoplus } 
+  {\displaystyle \bigoplus }
 \end{equation}
 
 \begin{equation}
-  \bigotimes  
+  \bigotimes
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \bigotimes } 
+  {\displaystyle \bigotimes }
 \end{equation}
 
 \begin{equation}
-  \bigodot  
+  \bigodot
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \bigodot } 
+  {\displaystyle \bigodot }
 \end{equation}
 
 \begin{equation}
-  \bigcup 
+  \bigcup
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \bigcup } 
+  {\displaystyle \bigcup }
 \end{equation}
 
 \begin{equation}
-  \bigcap 
+  \bigcap
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \bigcap } 
+  {\displaystyle \bigcap }
 \end{equation}
 
 \begin{equation}
-  \biguplus 
+  \biguplus
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \biguplus } 
+  {\displaystyle \biguplus }
 \end{equation}
 
 \begin{equation}
-  \bigsqcup 
+  \bigsqcup
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \bigsqcup } 
+  {\displaystyle \bigsqcup }
 \end{equation}
 
 \begin{equation}
-  \bigvee 
+  \bigvee
 \end{equation}
 
 \begin{equation}
@@ -3543,7 +4432,7 @@ There are many other "big" commands which operate in a similar manner:
 \end{equation}
 
 \begin{equation}
-  \bigwedge 
+  \bigwedge
 \end{equation}
 
 \begin{equation}
@@ -3551,15 +4440,15 @@ There are many other "big" commands which operate in a similar manner:
 \end{equation}
 
 \begin{equation}
-  \int  
+  \int
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \int } 
+  {\displaystyle \int }
 \end{equation}
 
 \begin{equation}
-  \oint 
+  \oint
 \end{equation}
 
 \begin{equation}
@@ -3567,7 +4456,7 @@ There are many other "big" commands which operate in a similar manner:
 \end{equation}
 
 \begin{equation}
-  \iint  
+  \iint
 \end{equation}
 
 \begin{equation}
@@ -3575,7 +4464,7 @@ There are many other "big" commands which operate in a similar manner:
 \end{equation}
 
 \begin{equation}
-  \iiint 
+  \iiint
 \end{equation}
 
 \begin{equation}
@@ -3583,7 +4472,7 @@ There are many other "big" commands which operate in a similar manner:
 \end{equation}
 
 \begin{equation}
-  \iiiint  
+  \iiiint
 \end{equation}
 
 \begin{equation}
@@ -3591,7 +4480,7 @@ There are many other "big" commands which operate in a similar manner:
 \end{equation}
 
 \begin{equation}
-  \idotsint  
+  \idotsint
 \end{equation}
 
 \begin{equation}
@@ -3602,6 +4491,14 @@ There are many other "big" commands which operate in a similar manner:
 <p>
 For more integral symbols, including those not included by default in the Computer Modern font, try the esint package.
 
+
+
+
+</section>
+<section>
+<h2>#1: Samples</h2>
+
+
 <p>
 The \substack command allows the use of \\ to write the limits over multiple lines:
 
@@ -3610,14 +4507,14 @@ The \substack command allows the use of \\ to write the limits over multiple lin
 \sum_{\substack{
    0&lt;i&lt;m \\
    0&lt;j&lt;n
-  }} 
+  }}
  P(i,j)
 }
 \end{equation}
 
 
 \begin{equation}
-  {\displaystyle \sum _{\overset {\scriptstyle 0&lt;i&lt;m}{\scriptstyle 0&lt;j&lt;n}}P(i,j)\,} 
+  {\displaystyle \sum _{\overset {\scriptstyle 0&lt;i&lt;m}{\scriptstyle 0&lt;j&lt;n}}P(i,j)\,}
 \end{equation}
 
 
@@ -3635,8 +4532,9 @@ If you want the limits of an integral to be specified above and below the symbol
 
 
 
-<p>
-Brackets, braces and delimiters
+<h3>
+Brackets, braces and delimiters</h3>
+
 
 <p>
 How to use braces in multi line equations is described in the Advanced Mathematics chapter.
@@ -3662,8 +4560,9 @@ where \lbrack and \rbrack may be used in place of [ and ].
 
 
 
-<p>
-Automatic sizing
+<h3>
+Automatic sizing</h3>
+
 
 <p>
 Very often mathematical features will differ in size, in which case the delimiters surrounding the expression should vary accordingly. This can be done automatically using the \left, \right, and \middle commands. Any of the previous delimiters may be used in combination with these:
@@ -3709,8 +4608,14 @@ If a delimiter on only one side of an expression is required, then an invisible 
 
 
 
-<p>
-Manual sizing
+
+
+
+</section>
+<section>
+<h2>
+#1: Manual sizing</h2>
+
 
 <p>
 In certain cases, the sizing produced by the \left and \right commands may not be desirable, or you may simply want finer control over the delimiter sizes. In this case, the \big, \Big, \bigg and \Bigg modifier commands may be used:
@@ -3751,8 +4656,14 @@ we notice that the \left and \right commands produce the same size delimiters as
 
 
 
-<p>
-Typesetting intervals
+
+
+
+</section>
+<section>
+<h2>
+#1: Typesetting intervals</h2>
+
 
 <p>
 To denote open and half-open intervals, the notations ]a,b[, (a,b), ]a,b], (a,b], [a,b[ and [a,b) are used. If the square bracket notation is used, then the interval must be put between curly braces ({ and }) in order to have correct spacing. Similarly, if a (half-)open interval starts with a negative number, then the number including its minus-symbol must also be put between curly brackets, so that LaTeX understands that the minus-symbol is the unary operation. Compare:
@@ -3783,8 +4694,9 @@ To denote open and half-open intervals, the notations ]a,b[, (a,b), ]a,b], (a,b]
 \end{equation}
 
 
-<p>
-Matrices and arrays
+<h3>
+Matrices and arrays</h3>
+
 
 <p>
 A basic matrix may be created using the matrix environment: in common with other table-like structures, entries are specified by row, with columns separated using an ampersand (&) and a new rows separated with a double backslash (\\)
@@ -3844,19 +4756,19 @@ Environment name | Surrounding delimiter | Notes
 (\,) centers columns by default
 
 \begin{equation}
-  pmatrix  {\displaystyle (\,)} 
+  pmatrix  {\displaystyle (\,)}
 \end{equation}
 
   (\,) allows to specify alignment of columns in optional parameter
 
 \begin{equation}
-  pmatrix* {\displaystyle (\,)} 
+  pmatrix* {\displaystyle (\,)}
 \end{equation}
 
   [\,] centers columns by default
 
 \begin{equation}
-  bmatrix  {\displaystyle [\,]} 
+  bmatrix  {\displaystyle [\,]}
 \end{equation}
 
    [\,] allows to specify alignment of columns in optional parameter
@@ -3868,37 +4780,37 @@ Environment name | Surrounding delimiter | Notes
   \{\,\} centers columns by default
 
 \begin{equation}
-  Bmatrix  {\displaystyle \{\,\}} 
+  Bmatrix  {\displaystyle \{\,\}}
 \end{equation}
 
   \{\,\} allows to specify alignment of columns in optional parameter
 
 \begin{equation}
-  Bmatrix* {\displaystyle \{\,\}} 
+  Bmatrix* {\displaystyle \{\,\}}
 \end{equation}
 
   |\,| centers columns by default
 
 \begin{equation}
-  vmatrix  {\displaystyle |\,|} 
+  vmatrix  {\displaystyle |\,|}
 \end{equation}
 
   |\,| allows to specify alignment of columns in optional parameter
 
 \begin{equation}
-  vmatrix* {\displaystyle |\,|} 
+  vmatrix* {\displaystyle |\,|}
 \end{equation}
 
   \|\,\| centers columns by default
 
 \begin{equation}
-  Vmatrix  {\displaystyle \|\,\|} 
+  Vmatrix  {\displaystyle \|\,\|}
 \end{equation}
 
   \|\,\| allows to specify alignment of colums in optional parameter
 
 \begin{equation}
-  Vmatrix* {\displaystyle \|\,\|} 
+  Vmatrix* {\displaystyle \|\,\|}
 \end{equation}
 
 
@@ -3907,12 +4819,12 @@ Environment name | Surrounding delimiter | Notes
 When writing down arbitrary sized matrices, it is common to use horizontal, vertical and diagonal triplets of dots (known as ellipses) to fill in certain columns and rows. These can be specified using the \cdots, \vdots and \ddots respectively:
 
 \begin{equation}
- A_{m,n} = 
+ A_{m,n} =
  \begin{pmatrix}
   a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
   a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
   \vdots  & \vdots  & \ddots & \vdots  \\
-  a_{m,1} & a_{m,2} & \cdots & a_{m,n} 
+  a_{m,1} & a_{m,2} & \cdots & a_{m,n}
  \end{pmatrix}
 \end{equation}
 
@@ -3926,7 +4838,7 @@ In some cases you may want to have finer control of the alignment within each co
 
 \begin{equation}
 \begin{array}{c|c}
-  1 & 2 \\ 
+  1 & 2 \\
   \hline
   3 & 4
  \end{array}
@@ -3940,7 +4852,7 @@ In some cases you may want to have finer control of the alignment within each co
 You may see that the AMS matrix class of environments doesn't leave enough space when used together with fractions resulting in output similar to this:
 
 \begin{equation}
-  {\displaystyle M={\begin{bmatrix}{\frac {5}{6}}&{\frac {1}{6}}&0\\{\frac {5}{6}}&0&{\frac {1}{6}}\\0&{\frac {5}{6}}&{\frac {1}{6}}\end{bmatrix}}} 
+  {\displaystyle M={\begin{bmatrix}{\frac {5}{6}}&{\frac {1}{6}}&0\\{\frac {5}{6}}&0&{\frac {1}{6}}\\0&{\frac {5}{6}}&{\frac {1}{6}}\end{bmatrix}}}
 \end{equation}
 
 \begin{equation}
@@ -3959,7 +4871,7 @@ To counteract this problem, add additional leading space with the optional param
 \end{equation}
 
 \begin{equation}
-  {\displaystyle M={\begin{bmatrix}{\frac {5}{6}}&{\frac {1}{6}}&0\\[0.3em]{\frac {5}{6}}&0&{\frac {1}{6}}\\[0.3em]0&{\frac {5}{6}}&{\frac {1}{6}}\end{bmatrix}}} 
+  {\displaystyle M={\begin{bmatrix}{\frac {5}{6}}&{\frac {1}{6}}&0\\[0.3em]{\frac {5}{6}}&0&{\frac {1}{6}}\\[0.3em]0&{\frac {5}{6}}&{\frac {1}{6}}\end{bmatrix}}}
 \end{equation}
 
 
@@ -3976,8 +4888,8 @@ If you need "border" or "indexes" on your matrix, plain TeX provides the macro \
 
 
 
-<p>
-Matrices in running text
+<h3>
+Matrices in running text</h3>
 
 <p>
 To insert a small matrix, and not increase leading in the line containing it, use smallmatrix environment:
@@ -3992,8 +4904,14 @@ a&b \\ c&d
 to not increase leading in a portion of text.
 
 
-<p>
-Adding text to equations
+
+
+
+</section>
+<section>
+<h2>
+#1: Adding text to equations</h2>
+
 
 <p>
 The math environment differs from the text environment in the representation of text. Here is an example of trying to represent text within the math environment:
@@ -4003,7 +4921,7 @@ The math environment differs from the text environment in the representation of 
 \end{equation}
 
 \begin{equation}
-  {\displaystyle 50apples\times 100apples=lotsofapples^{2}\,} 
+  {\displaystyle 50apples\times 100apples=lotsofapples^{2}\,}
 \end{equation}
 
 
@@ -4014,7 +4932,7 @@ There are two noticeable problems: there are no spaces between words or numbers,
 There are a number of ways that text can be added properly. The typical way is to wrap the text with the \text{...} command  (a similar command is \mbox{...}, though this causes problems with subscripts, and has a less descriptive name). Let's see what happens when the above equation code is adapted:
 
 \begin{equation}
-  50 \text{apples} \times 100 \text{apples} 
+  50 \text{apples} \times 100 \text{apples}
  = \text{lots of apples}^2
 \end{equation}
 
@@ -4037,8 +4955,9 @@ The text looks better. However, there are no gaps between the numbers and the wo
 \end{equation}
 
 
-<p>
-Formatted text
+<h3>
+Formatted text</h3>
+
 
 <p>
 Using the \text is fine and gets the basic result. Yet, there is an alternative that offers a little more flexibility. You may recall the introduction of font formatting commands, such as \textrm, \textit, \textbf, etc. These commands format the argument accordingly, e.g., \textbf{bold text} gives bold text. These commands are equally valid within a maths environment to include text. The added benefit here is that you can have better control over the font formatting, rather than the standard text achieved with \text.
@@ -4054,8 +4973,14 @@ Using the \text is fine and gets the basic result. Yet, there is an alternative 
 
 
 
-<p>
-Formatting mathematics symbols
+
+
+
+</section>
+<section>
+<h2>
+#1: Formatting mathematics symbols</h2>
+
 
 <p>
 See also: w:Mathematical Alphanumeric Symbols, w:Help:Displaying a formula#Alphabets and typefaces and w:Wikipedia:LaTeX symbols#Fonts
@@ -4070,65 +4995,65 @@ ABCDEF~abcdef~123456\, The default math font Most mathematical notation
 
 \begin{equation}
   \mathnormal{…}
-\text{(or simply omit any command)}  {\displaystyle ABCDEF~abcdef~123456\,} 
+\text{(or simply omit any command)}  {\displaystyle ABCDEF~abcdef~123456\,}
 \end{equation}
 
 \mathnormal{ABCDEF~abcdef~123456\,} The default math font Most mathematical notation
 
 \begin{equation}
   \mathnormal{…}
-\mathnormal{\displaystyle ABCDEF~abcdef~123456\,} 
+\mathnormal{\displaystyle ABCDEF~abcdef~123456\,}
 \end{equation}
 
   \mathrm {ABCDEF~abcdef~123456} \, This is the default or normal font, unitalicised  Units of measurement, one word functions
 
 \begin{equation}
-  \mathrm{…}  {\displaystyle \mathrm {ABCDEF~abcdef~123456} \,} 
+  \mathrm{…}  {\displaystyle \mathrm {ABCDEF~abcdef~123456} \,}
 \end{equation}
 
 {\mathit {ABCDEF~abcdef~123456}}\, Italicised font Multi-letter function or variable names. Compared to \mathnormal, words are spaced more naturally and numbers are italicized as well.
 
 \begin{equation}
-  \mathit{…}  {\displaystyle {\mathit {ABCDEF~abcdef~123456}}\,} 
+  \mathit{…}  {\displaystyle {\mathit {ABCDEF~abcdef~123456}}\,}
 \end{equation}
 
   \mathbf {ABCDEF~abcdef~123456} \, Bold font Vectors
 
 \begin{equation}
-  \mathbf{…}  {\displaystyle \mathbf {ABCDEF~abcdef~123456} \,} 
+  \mathbf{…}  {\displaystyle \mathbf {ABCDEF~abcdef~123456} \,}
 \end{equation}
 
-  {\mathsf {ABCDEF~abcdef~123456}}\, Sans-serif  
+  {\mathsf {ABCDEF~abcdef~123456}}\, Sans-serif
 
 \begin{equation}
-  \mathsf{…}  {\displaystyle {\mathsf {ABCDEF~abcdef~123456}}\,} 
+  \mathsf{…}  {\displaystyle {\mathsf {ABCDEF~abcdef~123456}}\,}
 \end{equation}
 
-  {\mathtt {ABCDEF~abcdef~123456}}\, Monospace (fixed-width) font  
+  {\mathtt {ABCDEF~abcdef~123456}}\, Monospace (fixed-width) font
 
 \begin{equation}
-  \mathtt{…}  {\displaystyle {\mathtt {ABCDEF~abcdef~123456}}\,} 
+  \mathtt{…}  {\displaystyle {\mathtt {ABCDEF~abcdef~123456}}\,}
 \end{equation}
 
   {\mathfrak {ABCDEF~abcdef~123456}}\, Fraktur Almost canonical font for Lie algebras, ideals in ring theory
 
 \begin{equation}
-  \mathfrak{…}  {\displaystyle {\mathfrak {ABCDEF~abcdef~123456}}\,} 
+  \mathfrak{…}  {\displaystyle {\mathfrak {ABCDEF~abcdef~123456}}\,}
 \end{equation}
 
  {\mathcal {ABCDEF}}\, Calligraphy (uppercase only)  Often used for sheaves/schemes and categories, used to denote cryptological concepts like an alphabet of definition ( ${\displaystyle {\mathcal {A}}}$ {\mathcal {A}}), message space ( ${\displaystyle {\mathcal {M}}}$ {\mathcal {M}}), ciphertext space ( ${\displaystyle {\mathcal {C}}}$ {\mathcal {C}}) and key space ( ${\displaystyle {\mathcal {K}}}$ {\mathcal {K}}); Kleene's ${\displaystyle {\mathcal {O}}}$ {\mathcal {O}}; naming convention in description logic; Laplace transform ( ${\displaystyle {\mathcal {L}}}$ {\mathcal {L}}) and Fourier transform ( ${\displaystyle {\mathcal {F}}}$ {\mathcal {F}})
 
 \begin{equation}
-  \mathcal{…} {\displaystyle {\mathcal {ABCDEF}}\,} 
+  \mathcal{…} {\displaystyle {\mathcal {ABCDEF}}\,}
  \end{equation}
 
-\mathbb {ABCDEF} \, Blackboard bold (uppercase only)  
+\mathbb {ABCDEF} \, Blackboard bold (uppercase only)
 Used to denote special sets (e.g. real numbers)
  (requires the amsfonts or amssymb package)
 
 \begin{equation}
   \mathbb{…}
-{\displaystyle \mathbb {ABCDEF} \,} 
+{\displaystyle \mathbb {ABCDEF} \,}
 \end{equation}
 
 \begin{equation}
@@ -4153,38 +5078,44 @@ To bold lowercase Greek or other symbols use the \boldsymbol command; this will 
 <p>
 To change the size of the fonts in math mode, see Changing font size.
 
-<p>
-Accents
+
+
+
+</section>
+<section>
+<h2>
+#1: Accents</h2>
+
 
 <p>
 So what to do when you run out of symbols and fonts? Well the next step is to use accents:
 
 \begin{equation}
-  a' \text{or} a^{\prime}  
+  a' \text{or} a^{\prime}
 \end{equation}
 
 \begin{equation}
-  {\displaystyle a'\,} 
+  {\displaystyle a'\,}
 \end{equation}
 
 \begin{equation}
-  a'' 
+  a''
 \end{equation}
 
 \begin{equation}
-  {\displaystyle a''\,} 
+  {\displaystyle a''\,}
 \end{equation}
 
 \begin{equation}
-  \hat{a} 
+  \hat{a}
 \end{equation}
 
 \begin{equation}
-  {\displaystyle {\hat {a}}\,} 
+  {\displaystyle {\hat {a}}\,}
 \end{equation}
 
 \begin{equation}
-  \bar{a} 
+  \bar{a}
 \end{equation}
 
 \begin{equation}
@@ -4192,7 +5123,7 @@ So what to do when you run out of symbols and fonts? Well the next step is to us
 \end{equation}
 
 \begin{equation}
-  \grave{a} 
+  \grave{a}
 \end{equation}
 
 \begin{equation}
@@ -4200,7 +5131,7 @@ So what to do when you run out of symbols and fonts? Well the next step is to us
 \end{equation}
 
 \begin{equation}
-  \acute{a} 
+  \acute{a}
 \end{equation}
 
 \begin{equation}
@@ -4208,7 +5139,7 @@ So what to do when you run out of symbols and fonts? Well the next step is to us
 \end{equation}
 
 \begin{equation}
-  \dot{a} 
+  \dot{a}
 \end{equation}
 
 \begin{equation}
@@ -4216,7 +5147,7 @@ So what to do when you run out of symbols and fonts? Well the next step is to us
 \end{equation}
 
 \begin{equation}
-  \ddot{a}  
+  \ddot{a}
 \end{equation}
 
 \begin{equation}
@@ -4232,11 +5163,11 @@ So what to do when you run out of symbols and fonts? Well the next step is to us
 \end{equation}
 
 \begin{equation}
-  \mathring{a}  
+  \mathring{a}
 \end{equation}
 
 \begin{equation}
-  \overrightarrow{AB} 
+  \overrightarrow{AB}
 \end{equation}
 
 \begin{equation}
@@ -4244,7 +5175,7 @@ So what to do when you run out of symbols and fonts? Well the next step is to us
 \end{equation}
 
 \begin{equation}
-  \overleftarrow{AB}  
+  \overleftarrow{AB}
 \end{equation}
 
 \begin{equation}
@@ -4252,7 +5183,7 @@ So what to do when you run out of symbols and fonts? Well the next step is to us
 \end{equation}
 
 \begin{equation}
-  a'''  
+  a'''
 \end{equation}
 
 \begin{equation}
@@ -4260,7 +5191,7 @@ So what to do when you run out of symbols and fonts? Well the next step is to us
 \end{equation}
 
 \begin{equation}
-  a'''' 
+  a''''
 \end{equation}
 
 \begin{equation}
@@ -4268,7 +5199,7 @@ So what to do when you run out of symbols and fonts? Well the next step is to us
 \end{equation}
 
 \begin{equation}
-  \overline{aaa}  
+  \overline{aaa}
 \end{equation}
 
 \begin{equation}
@@ -4276,7 +5207,7 @@ So what to do when you run out of symbols and fonts? Well the next step is to us
 \end{equation}
 
 \begin{equation}
-  \check{a} 
+  \check{a}
 \end{equation}
 
 \begin{equation}
@@ -4292,7 +5223,7 @@ So what to do when you run out of symbols and fonts? Well the next step is to us
 \end{equation}
 
 \begin{equation}
-  \vec{a} 
+  \vec{a}
 \end{equation}
 
 \begin{equation}
@@ -4304,27 +5235,11 @@ So what to do when you run out of symbols and fonts? Well the next step is to us
 \end{equation}
 
 \begin{equation}
-  \ddddot{a} 
+  \ddddot{a}
 \end{equation}
 
 \begin{equation}
-  \widehat{AAA} 
-\end{equation}
-
-\begin{equation}
-  {\displaystyle {\widehat {AAA}}\,} 
-\end{equation}
-
-\begin{equation}
-  \widetilde{AAA} 
-\end{equation}
-
-\begin{equation}
-  {\displaystyle {\widetilde {AAA}}}
-\end{equation}
-
-\begin{equation}
-  \widehat{AAA} 
+  \widehat{AAA}
 \end{equation}
 
 \begin{equation}
@@ -4332,7 +5247,23 @@ So what to do when you run out of symbols and fonts? Well the next step is to us
 \end{equation}
 
 \begin{equation}
-  \stackrel\frown{AAA}  
+  \widetilde{AAA}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\widetilde {AAA}}}
+\end{equation}
+
+\begin{equation}
+  \widehat{AAA}
+\end{equation}
+
+\begin{equation}
+  {\displaystyle {\widehat {AAA}}\,}
+\end{equation}
+
+\begin{equation}
+  \stackrel\frown{AAA}
 \end{equation}
 
 \begin{equation}
@@ -4340,7 +5271,7 @@ So what to do when you run out of symbols and fonts? Well the next step is to us
 \end{equation}
 
 \begin{equation}
-  \tilde{a} 
+  \tilde{a}
 \end{equation}
 
 \begin{equation}
@@ -4348,15 +5279,21 @@ So what to do when you run out of symbols and fonts? Well the next step is to us
 \end{equation}
 
 \begin{equation}
-  \underline{a} 
+  \underline{a}
 \end{equation}
 
 \begin{equation}
   {\displaystyle {\underline {a}}\,}
 \end{equation}
 
-<p>
-Color
+
+
+
+</section>
+<section>
+<h2>
+#1: Color</h2>
+
 
 <p>
 The package xcolor, described in Colors, allows us to add color to our equations. For example,
@@ -4374,8 +5311,9 @@ The package xcolor, described in Colors, allows us to add color to our equations
 <p>
 The only problem is that this disrupts the default LATEX formatting around the - operator. To fix this, we enclose it in a \mathbin environment, since - is a binary operator. This process is described here.
 
-<p>
-Plus and minus signs
+<h3>
+Plus and minus signs</h3>
+
 
 <p>
 LaTeX deals with the + and − signs in two possible ways. The most common is as a binary operator. When two maths elements appear on either side of the sign, it is assumed to be a binary operator, and as such, allocates some space to either side of the sign. The alternative way is a sign designation. This is when you state whether a mathematical quantity is either positive or negative. This is common for the latter, as in math, such elements are assumed to be positive unless a − is prefixed to it. In this instance, you want the sign to appear close to the appropriate element to show their association. If you put a + or a − with nothing before it but you want it to be handled like a binary operator you can add an invisible character before the operator using {}. This can be useful if you are writing multiple-line formulas, and a new line could start with a = or a +, for example, then you can fix some strange alignments adding the invisible character where necessary.
@@ -4402,8 +5340,9 @@ Similarly, there exists also a minus-plus sign:
   {\displaystyle \mp }
 \end{equation}
 
-<p>
-Controlling horizontal spacing
+<h3>
+Controlling horizontal spacing</h3>
+
 
 <p>
 LaTeX is obviously pretty good at typesetting maths—it was one of the chief aims of the core TeX system that LaTeX extends. However, it can't always be relied upon to accurately interpret formulas in the way you did. It has to make certain assumptions when there are ambiguous expressions. The result tends to be slightly incorrect horizontal spacing. In these events, the output is still satisfactory, yet any perfectionists will no doubt wish to fine-tune their formulas to ensure spacing is correct. These are generally very subtle adjustments.
@@ -4444,7 +5383,7 @@ A \quad is a space equal to the current font size. So, if you are using an 11pt 
 OK, so back to the fine tuning as mentioned at the beginning of the document. A good example would be displaying the simple equation for the indefinite integral of y with respect to x:
 
 \begin{equation}
-  {\displaystyle \int y\,\mathrm {d} x} 
+  {\displaystyle \int y\,\mathrm {d} x}
 \end{equation}
 
 \begin{equation}
@@ -4474,25 +5413,25 @@ Command | Description | Size
 small space 3/18 of a quad
 
 \begin{equation}
-  ☐\,☐  
+  ☐\,☐
 \end{equation}
 
 medium space  4/18 of a quad
 
 \begin{equation}
-  ☐\:☐  
+  ☐\:☐
 \end{equation}
 
 large space 5/18 of a quad
 
 \begin{equation}
-  ☐\;☐  
+  ☐\;☐
 \end{equation}
 
 negative space  -3/18 of a quad
 
 \begin{equation}
-  ☐\!☐  
+  ☐\!☐
 \end{equation}
 
 <p>
@@ -4542,7 +5481,7 @@ The negative space may seem like an odd thing to use, however, it wouldn't be th
 
 
 \begin{equation}
-  {\displaystyle \left({\begin{matrix}n\\r\end{matrix}}\right)={\frac {n!}{r!(n-r)!}}} 
+  {\displaystyle \left({\begin{matrix}n\\r\end{matrix}}\right)={\frac {n!}{r!(n-r)!}}}
 \end{equation}
 
 
@@ -4559,7 +5498,7 @@ The matrix-like expression for representing binomial coefficients is too padded.
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \left(\!{\begin{matrix}n\\r\end{matrix}}\!\right)={\frac {n!}{r!(n-r)!}}} 
+  {\displaystyle \left(\!{\begin{matrix}n\\r\end{matrix}}\!\right)={\frac {n!}{r!(n-r)!}}}
 \end{equation}
 
 
@@ -4597,8 +5536,14 @@ Note the extra braces. Just one set around the expression won't be enough. That 
 <p>
 To display part of a formula using display style, do the same thing, but use \displaystyle instead.
 
-<p>
-Advanced Mathematics: AMS Math package
+
+
+
+</section>
+<section>
+<h2>
+#1: Advanced Mathematics: AMS Math package</h2>
+
 
 <p>
 The AMS (American Mathematical Society) mathematics package is a powerful package that creates a higher layer of abstraction over mathematical LaTeX language; if you use it it will make your life easier. Some commands amsmath introduces will make other plain LaTeX commands obsolete: in order to keep consistency in the final output you'd better use amsmath commands whenever possible. If you do so, you will get an elegant output without worrying about alignment and other details, keeping your source code readable. If you want to use it, you have to add this in the preamble:
@@ -4608,8 +5553,9 @@ The AMS (American Mathematical Society) mathematics package is a powerful packag
   \usepackage{amsmath}
 \end{equation}
 
-<p>
-Introducing dots in formulas
+<h3>
+Introducing dots in formulas</h3>
+
 
 <p>
 amsmath defines also the \dots command, that is a generalization of the existing \ldots. You can use \dots in both text and math mode and LaTeX will replace it with three dots "…" but it will decide according to the context whether to put it on the bottom (like \ldots) or centered (like \cdots).
@@ -4680,14 +5626,16 @@ Code |  Output  | Comment
 \end{equation}
 
 
-<p>
-Write an equation with the align environment
+<h3>
+Write an equation with the align environment</h3>
+
 
 <p>
 How to write an equation with the align environment with the amsmath package is described in Advanced Mathematics.
 
-<p>
-List of Mathematical Symbols
+<h3>
+List of Mathematical Symbols</h3>
+
 
 <p>
 All the pre-defined mathematical symbols from the \TeX\ package are listed below. More symbols are available from extra packages.
@@ -4698,19 +5646,19 @@ Relation | Symbols
 Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
 
 \begin{equation}
-  {\displaystyle <\,} <\, < 
+  {\displaystyle <\,} <\, <
 \end{equation}
 
 \begin{equation}
-  {\displaystyle >\,} >\, > 
+  {\displaystyle >\,} >\, >
 \end{equation}
 
 \begin{equation}
-  {\displaystyle =\,} =\, = 
+  {\displaystyle =\,} =\, =
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \parallel \,} \parallel \, \parallel 
+  {\displaystyle \parallel \,} \parallel \, \parallel
 \end{equation}
 
 \begin{equation}
@@ -4718,19 +5666,19 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script    Symbol  
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \leq \,} \leq \, \leq  
+  {\displaystyle \leq \,} \leq \, \leq
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \geq \,} \geq \, \geq  
+  {\displaystyle \geq \,} \geq \, \geq
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \doteq \,} \doteq \, \doteq  
+  {\displaystyle \doteq \,} \doteq \, \doteq
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \asymp \,} \asymp \, \asymp  
+  {\displaystyle \asymp \,} \asymp \, \asymp
 \end{equation}
 
 \begin{equation}
@@ -4738,19 +5686,19 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script    Symbol  
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \ll \,} \ll \, \ll 
+  {\displaystyle \ll \,} \ll \, \ll
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \gg \,} \gg \, \gg 
+  {\displaystyle \gg \,} \gg \, \gg
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \equiv \,} \equiv \, \equiv  
+  {\displaystyle \equiv \,} \equiv \, \equiv
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \vdash \,} \vdash \, \vdash  
+  {\displaystyle \vdash \,} \vdash \, \vdash
 \end{equation}
 
 \begin{equation}
@@ -4758,19 +5706,19 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script    Symbol  
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \subset \,} \subset \, \subset 
+  {\displaystyle \subset \,} \subset \, \subset
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \supset \,} \supset \, \supset 
+  {\displaystyle \supset \,} \supset \, \supset
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \approx \,} \approx \, \approx 
+  {\displaystyle \approx \,} \approx \, \approx
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \in \,} \in \, \in 
+  {\displaystyle \in \,} \in \, \in
 \end{equation}
 
 \begin{equation}
@@ -4778,19 +5726,19 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script    Symbol  
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \subseteq \,} \subseteq \, \subseteq 
+  {\displaystyle \subseteq \,} \subseteq \, \subseteq
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \supseteq \,} \supseteq \, \supseteq 
+  {\displaystyle \supseteq \,} \supseteq \, \supseteq
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \cong \,} \cong \, \cong 
+  {\displaystyle \cong \,} \cong \, \cong
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \smile \,} \smile \, \smile  
+  {\displaystyle \smile \,} \smile \, \smile
 \end{equation}
 
 \begin{equation}
@@ -4798,19 +5746,19 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script    Symbol  
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \nsubseteq \,} \nsubseteq \, \nsubseteq  
+  {\displaystyle \nsubseteq \,} \nsubseteq \, \nsubseteq
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \nsupseteq \,} \nsupseteq \, \nsupseteq  
+  {\displaystyle \nsupseteq \,} \nsupseteq \, \nsupseteq
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \simeq \,} \simeq \, \simeq  
+  {\displaystyle \simeq \,} \simeq \, \simeq
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \models \,} \models \, \models 
+  {\displaystyle \models \,} \models \, \models
 \end{equation}
 
 \begin{equation}
@@ -4818,19 +5766,19 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script    Symbol  
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \sqsubset \,} \sqsubset \, \sqsubset 
+  {\displaystyle \sqsubset \,} \sqsubset \, \sqsubset
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \sqsupset \,} \sqsupset \, \sqsupset 
+  {\displaystyle \sqsupset \,} \sqsupset \, \sqsupset
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \sim \,} \sim \, \sim  
+  {\displaystyle \sim \,} \sim \, \sim
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \perp \,} \perp \, \perp 
+  {\displaystyle \perp \,} \perp \, \perp
 \end{equation}
 
 \begin{equation}
@@ -4838,19 +5786,19 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script    Symbol  
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \sqsubseteq \,} \sqsubseteq \, \sqsubseteq 
+  {\displaystyle \sqsubseteq \,} \sqsubseteq \, \sqsubseteq
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \sqsupseteq \,} \sqsupseteq \, \sqsupseteq 
+  {\displaystyle \sqsupseteq \,} \sqsupseteq \, \sqsupseteq
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \propto \,} \propto \, \propto 
+  {\displaystyle \propto \,} \propto \, \propto
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \prec \,} \prec \, \prec 
+  {\displaystyle \prec \,} \prec \, \prec
 \end{equation}
 
 \begin{equation}
@@ -4858,19 +5806,19 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script    Symbol  
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \preceq \,} \preceq \, \preceq 
+  {\displaystyle \preceq \,} \preceq \, \preceq
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \succeq \,} \succeq \, \succeq 
+  {\displaystyle \succeq \,} \succeq \, \succeq
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \neq \,} \neq \, \neq  
+  {\displaystyle \neq \,} \neq \, \neq
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \sphericalangle \,} \sphericalangle \, \sphericalangle 
+  {\displaystyle \sphericalangle \,} \sphericalangle \, \sphericalangle
 \end{equation}
 
 \begin{equation}
@@ -4878,23 +5826,24 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script    Symbol  
 \end{equation}
 
 
-<p>
-Binary Operations
+<h3>
+Binary Operations</h3>
+
 
 <p>
 Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
 
 
 \begin{equation}
-  {\displaystyle \pm \,} \pm \, \pm 
+  {\displaystyle \pm \,} \pm \, \pm
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \cap \,} \cap \, \cap  
+  {\displaystyle \cap \,} \cap \, \cap
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \diamond \,} \diamond \, \diamond  
+  {\displaystyle \diamond \,} \diamond \, \diamond
 \end{equation}
 
 \begin{equation}
@@ -4902,15 +5851,15 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \mp \,} \mp \, \mp 
+  {\displaystyle \mp \,} \mp \, \mp
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \cup \,} \cup \, \cup  
+  {\displaystyle \cup \,} \cup \, \cup
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \bigtriangleup \,} \bigtriangleup \, \bigtriangleup  
+  {\displaystyle \bigtriangleup \,} \bigtriangleup \, \bigtriangleup
 \end{equation}
 
 \begin{equation}
@@ -4918,15 +5867,15 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \times \,} \times \, \times  
+  {\displaystyle \times \,} \times \, \times
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \uplus \,} \uplus \, \uplus  
+  {\displaystyle \uplus \,} \uplus \, \uplus
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \bigtriangledown \,} \bigtriangledown \, \bigtriangledown  
+  {\displaystyle \bigtriangledown \,} \bigtriangledown \, \bigtriangledown
 \end{equation}
 
 \begin{equation}
@@ -4934,15 +5883,15 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \div \,} \div \, \div  
+  {\displaystyle \div \,} \div \, \div
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \sqcap \,} \sqcap \, \sqcap  
+  {\displaystyle \sqcap \,} \sqcap \, \sqcap
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \triangleleft \,} \triangleleft \, \triangleleft 
+  {\displaystyle \triangleleft \,} \triangleleft \, \triangleleft
 \end{equation}
 
 \begin{equation}
@@ -4950,15 +5899,15 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \ast \,} \ast \, \ast  
+  {\displaystyle \ast \,} \ast \, \ast
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \sqcup \,} \sqcup \, \sqcup  
+  {\displaystyle \sqcup \,} \sqcup \, \sqcup
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \triangleright \,} \triangleright \, \triangleright  
+  {\displaystyle \triangleright \,} \triangleright \, \triangleright
 \end{equation}
 
 \begin{equation}
@@ -4966,15 +5915,15 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \star \,} \star \, \star 
+  {\displaystyle \star \,} \star \, \star
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \vee \,} \vee \, \vee  
+  {\displaystyle \vee \,} \vee \, \vee
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \bigcirc \,} \bigcirc \, \bigcirc  
+  {\displaystyle \bigcirc \,} \bigcirc \, \bigcirc
 \end{equation}
 
 \begin{equation}
@@ -4982,15 +5931,15 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \dagger \,} \dagger \, \dagger 
+  {\displaystyle \dagger \,} \dagger \, \dagger
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \wedge \,} \wedge \, \wedge  
+  {\displaystyle \wedge \,} \wedge \, \wedge
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \bullet \,} \bullet \, \bullet 
+  {\displaystyle \bullet \,} \bullet \, \bullet
 \end{equation}
 
 \begin{equation}
@@ -4998,15 +5947,15 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \ddagger \,} \ddagger \, \ddagger  
+  {\displaystyle \ddagger \,} \ddagger \, \ddagger
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \cdot \,} \cdot \, \cdot 
+  {\displaystyle \cdot \,} \cdot \, \cdot
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \wr \,} \wr \, \wr 
+  {\displaystyle \wr \,} \wr \, \wr
 \end{equation}
 
 \begin{equation}
@@ -5014,15 +5963,16 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
 \end{equation}
 
 
-<p>
-Set and/or Logic Notation
+<h3>
+Set and/or Logic Notation</h3>
+
 
 <p>
 Symbol  Script    Symbol  Script
 
 
 \begin{equation}
-  {\displaystyle \exists \,} \exists \, \exists 
+  {\displaystyle \exists \,} \exists \, \exists
 \end{equation}
 
 \begin{equation}
@@ -5030,7 +5980,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \nexists \,} \nexists \, \nexists  
+  {\displaystyle \nexists \,} \nexists \, \nexists
 \end{equation}
 
 \begin{equation}
@@ -5038,7 +5988,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \forall \,} \forall \, \forall 
+  {\displaystyle \forall \,} \forall \, \forall
 \end{equation}
 
 \begin{equation}
@@ -5046,7 +5996,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \neg \,} \neg \, \neg  
+  {\displaystyle \neg \,} \neg \, \neg
 \end{equation}
 
 \begin{equation}
@@ -5054,7 +6004,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \subset \,} \subset \, \subset 
+  {\displaystyle \subset \,} \subset \, \subset
 \end{equation}
 
 \begin{equation}
@@ -5062,7 +6012,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \supset \,} \supset \, \supset 
+  {\displaystyle \supset \,} \supset \, \supset
 \end{equation}
 
 \begin{equation}
@@ -5070,7 +6020,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \in } \in  \in 
+  {\displaystyle \in } \in  \in
 \end{equation}
 
 \begin{equation}
@@ -5078,7 +6028,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \notin \,} \notin \, \notin  
+  {\displaystyle \notin \,} \notin \, \notin
 \end{equation}
 
 \begin{equation}
@@ -5086,7 +6036,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \ni \,} \ni \, \ni 
+  {\displaystyle \ni \,} \ni \, \ni
 \end{equation}
 
 \begin{equation}
@@ -5094,7 +6044,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \land \,} \land \, \land 
+  {\displaystyle \land \,} \land \, \land
 \end{equation}
 
 \begin{equation}
@@ -5102,11 +6052,11 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \lor \,} \lor \, \lor  
+  {\displaystyle \lor \,} \lor \, \lor
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \emptyset \,} \emptyset \, \emptyset 
+  {\displaystyle \emptyset \,} \emptyset \, \emptyset
 \end{equation}
 
 \begin{equation}
@@ -5114,23 +6064,24 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 
-<p>
-Delimiters
+<h3>
+Delimiters</h3>
+
 
 <p>
 Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
 
 
 \begin{equation}
-  {\displaystyle |\,} |\, | or \mid \text{(difference in spacing)} 
+  {\displaystyle |\,} |\, | or \mid \text{(difference in spacing)}
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \|\,} \|\, \|  
+  {\displaystyle \|\,} \|\, \|
 \end{equation}
 
 \begin{equation}
-  {\displaystyle /\,} /\, / 
+  {\displaystyle /\,} /\, /
 \end{equation}
 
 \begin{equation}
@@ -5138,15 +6089,15 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \{\,} \{\, \{  
+  {\displaystyle \{\,} \{\, \{
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \}\,} \}\, \}  
+  {\displaystyle \}\,} \}\, \}
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \langle \,} \langle \, \langle 
+  {\displaystyle \langle \,} \langle \, \langle
 \end{equation}
 
 \begin{equation}
@@ -5154,15 +6105,15 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \uparrow \,} \uparrow \, \uparrow  
+  {\displaystyle \uparrow \,} \uparrow \, \uparrow
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \Uparrow \,} \Uparrow \, \Uparrow  
+  {\displaystyle \Uparrow \,} \Uparrow \, \Uparrow
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \lceil \,} \lceil \, \lceil  
+  {\displaystyle \lceil \,} \lceil \, \lceil
 \end{equation}
 
 \begin{equation}
@@ -5170,15 +6121,15 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \downarrow \,} \downarrow \, \downarrow  
+  {\displaystyle \downarrow \,} \downarrow \, \downarrow
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \Downarrow \,} \Downarrow \, \Downarrow  
+  {\displaystyle \Downarrow \,} \Downarrow \, \Downarrow
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \lfloor \,} \lfloor \, \lfloor 
+  {\displaystyle \lfloor \,} \lfloor \, \lfloor
 \end{equation}
 
 \begin{equation}
@@ -5188,15 +6139,16 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
 <p>
 Note: To use the Greek Letters in LaTeX that have the same appearance as their Roman equivalent, just use the Roman form: e.g., A instead of Alpha, B instead of Beta, etc.
 
-<p>
-Greek Letters
+<h3>
+Greek Letters</h3>
+
 
 <p>
 Symbol  Script    Symbol  Script
 
 
 \begin{equation}
-  {\displaystyle \mathrm {A} \,} \mathrm {A} \, and {\displaystyle \alpha \,} \alpha \, A and \alpha  
+  {\displaystyle \mathrm {A} \,} \mathrm {A} \, and {\displaystyle \alpha \,} \alpha \, A and \alpha
 \end{equation}
 
 \begin{equation}
@@ -5204,7 +6156,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \mathrm {B} \,} \mathrm {B} \, and {\displaystyle \beta \,} \beta \, B and \beta 
+  {\displaystyle \mathrm {B} \,} \mathrm {B} \, and {\displaystyle \beta \,} \beta \, B and \beta
 \end{equation}
 
 \begin{equation}
@@ -5212,7 +6164,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \Gamma \,} \Gamma \, and {\displaystyle \gamma \,} \gamma \, \Gamma and \gamma 
+  {\displaystyle \Gamma \,} \Gamma \, and {\displaystyle \gamma \,} \gamma \, \Gamma and \gamma
 \end{equation}
 
 \begin{equation}
@@ -5220,7 +6172,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \Delta \,} \Delta \, and {\displaystyle \delta \,} \delta \, \Delta and \delta 
+  {\displaystyle \Delta \,} \Delta \, and {\displaystyle \delta \,} \delta \, \Delta and \delta
 \end{equation}
 
 \begin{equation}
@@ -5228,7 +6180,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \mathrm {E} \,} \mathrm {E} \,, {\displaystyle \epsilon \,} \epsilon \, and {\displaystyle \varepsilon \,} \varepsilon \,  E, \epsilon and \varepsilon 
+  {\displaystyle \mathrm {E} \,} \mathrm {E} \,, {\displaystyle \epsilon \,} \epsilon \, and {\displaystyle \varepsilon \,} \varepsilon \,  E, \epsilon and \varepsilon
 \end{equation}
 
 \begin{equation}
@@ -5236,7 +6188,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \mathrm {Z} \,} \mathrm {Z} \, and {\displaystyle \zeta \,} \zeta \, Z and \zeta 
+  {\displaystyle \mathrm {Z} \,} \mathrm {Z} \, and {\displaystyle \zeta \,} \zeta \, Z and \zeta
 \end{equation}
 
 \begin{equation}
@@ -5244,7 +6196,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \mathrm {H} \,} \mathrm {H} \, and {\displaystyle \eta \,} \eta \, H and \eta  
+  {\displaystyle \mathrm {H} \,} \mathrm {H} \, and {\displaystyle \eta \,} \eta \, H and \eta
 \end{equation}
 
 \begin{equation}
@@ -5252,7 +6204,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \Theta \,} \Theta \,, {\displaystyle \theta \,} \theta \, and {\displaystyle \vartheta \,} \vartheta \,  \Theta, \theta and \vartheta  
+  {\displaystyle \Theta \,} \Theta \,, {\displaystyle \theta \,} \theta \, and {\displaystyle \vartheta \,} \vartheta \,  \Theta, \theta and \vartheta
 \end{equation}
 
 \begin{equation}
@@ -5260,7 +6212,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \mathrm {I} \,} \mathrm {I} \, and {\displaystyle \iota \,} \iota \, I and \iota 
+  {\displaystyle \mathrm {I} \,} \mathrm {I} \, and {\displaystyle \iota \,} \iota \, I and \iota
 \end{equation}
 
 \begin{equation}
@@ -5268,7 +6220,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \mathrm {K} \,} \mathrm {K} \,, {\displaystyle \kappa \,} \kappa \, and {\displaystyle \varkappa \,} \varkappa \,  K, \kappa and \varkappa 
+  {\displaystyle \mathrm {K} \,} \mathrm {K} \,, {\displaystyle \kappa \,} \kappa \, and {\displaystyle \varkappa \,} \varkappa \,  K, \kappa and \varkappa
 \end{equation}
 
 \begin{equation}
@@ -5276,7 +6228,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \Lambda \,} \Lambda \, and {\displaystyle \lambda \,} \lambda \, \Lambda and \lambda 
+  {\displaystyle \Lambda \,} \Lambda \, and {\displaystyle \lambda \,} \lambda \, \Lambda and \lambda
 \end{equation}
 
 \begin{equation}
@@ -5284,7 +6236,7 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \mathrm {M} \,} \mathrm {M} \, and {\displaystyle \mu \,} \mu \, M and \mu 
+  {\displaystyle \mathrm {M} \,} \mathrm {M} \, and {\displaystyle \mu \,} \mu \, M and \mu
 \end{equation}
 
 \begin{equation}
@@ -5292,27 +6244,28 @@ Symbol  Script    Symbol  Script
 \end{equation}
 
 
-<p>
-Other symbols
+<h3>
+Other symbols</h3>
+
 
 <p>
 Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
 
 
 \begin{equation}
-  {\displaystyle \partial \,} \partial \, \partial  
+  {\displaystyle \partial \,} \partial \, \partial
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \imath \,} \imath \, \imath  
+  {\displaystyle \imath \,} \imath \, \imath
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \Re \,} \Re \, \Re 
+  {\displaystyle \Re \,} \Re \, \Re
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \nabla \,} \nabla \, \nabla  
+  {\displaystyle \nabla \,} \nabla \, \nabla
 \end{equation}
 
 \begin{equation}
@@ -5320,19 +6273,19 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script    Symbol  
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \eth \,} \eth \, \eth  
+  {\displaystyle \eth \,} \eth \, \eth
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \jmath \,} \jmath \, \jmath  
+  {\displaystyle \jmath \,} \jmath \, \jmath
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \Im \,} \Im \, \Im 
+  {\displaystyle \Im \,} \Im \, \Im
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \Box \,} \Box \, \Box  
+  {\displaystyle \Box \,} \Box \, \Box
 \end{equation}
 
 \begin{equation}
@@ -5340,19 +6293,19 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script    Symbol  
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \hbar \,} \hbar \, \hbar 
+  {\displaystyle \hbar \,} \hbar \, \hbar
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \ell \,} \ell \, \ell  
+  {\displaystyle \ell \,} \ell \, \ell
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \wp \,} \wp \, \wp 
+  {\displaystyle \wp \,} \wp \, \wp
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \infty \,} \infty \, \infty  
+  {\displaystyle \infty \,} \infty \, \infty
 \end{equation}
 
 \begin{equation}
@@ -5362,23 +6315,24 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script    Symbol  
 <p>
 *Not predefined in LATEX 2. Use one of the packages latexsym, amsfonts, amssymb, txfonts, pxfonts, or wasysym
 
-<p>
-Trigonometric Functions
+<h3>
+Trigonometric Functions</h3>
+
 
 <p>
 Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
 
 
 \begin{equation}
-  {\displaystyle \sin \,} \sin \, \sin  
+  {\displaystyle \sin \,} \sin \, \sin
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \arcsin \,} \arcsin \, \arcsin 
+  {\displaystyle \arcsin \,} \arcsin \, \arcsin
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \sinh \,} \sinh \, \sinh 
+  {\displaystyle \sinh \,} \sinh \, \sinh
 \end{equation}
 
 \begin{equation}
@@ -5386,15 +6340,15 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \cos \,} \cos \, \cos  
+  {\displaystyle \cos \,} \cos \, \cos
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \arccos \,} \arccos \, \arccos 
+  {\displaystyle \arccos \,} \arccos \, \arccos
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \cosh \,} \cosh \, \cosh 
+  {\displaystyle \cosh \,} \cosh \, \cosh
 \end{equation}
 
 \begin{equation}
@@ -5402,27 +6356,27 @@ Symbol  Script    Symbol  Script    Symbol  Script    Symbol  Script
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \tan \,} \tan \, \tan  
+  {\displaystyle \tan \,} \tan \, \tan
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \arctan \,} \arctan \, \arctan 
+  {\displaystyle \arctan \,} \arctan \, \arctan
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \tanh \,} \tanh \, \tanh   
+  {\displaystyle \tanh \,} \tanh \, \tanh
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \cot \,} \cot \, \cot  
+  {\displaystyle \cot \,} \cot \, \cot
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \operatorname {arccot} \,} \operatorname {arccot} \, \arccot 
+  {\displaystyle \operatorname {arccot} \,} \operatorname {arccot} \, \arccot
 \end{equation}
 
 \begin{equation}
-  {\displaystyle \coth \,} \coth \, \coth   
+  {\displaystyle \coth \,} \coth \, \coth
 \end{equation}
 
 <p>
@@ -5451,7 +6405,7 @@ Maxwell's equations:
 <h2>#1</h2>
 
 <p>
-\begin{equation} 
+\begin{equation}
  f(x)=(x+a)(x+b)
 \end{equation}
 </p>
@@ -5523,7 +6477,7 @@ this references equation \ref{eq:someequation}.
 <p>
 \[
  y = a + f(\underbrace{b x}_{
-                    \ge 0 \text{ by assumption}}) 
+                    \ge 0 \text{ by assumption}})
    = a + f(\underbrace{b x}_{
           {\ge 0 \text{ by assumption}}})
 \]
@@ -5544,7 +6498,7 @@ $\frac{arg1}{arg2}$
 <p>
 \[
  y = a + f(\underbrace{b x}_{
-                    \ge 0 \text{ by assumption}}) 
+                    \ge 0 \text{ by assumption}})
    = a + f(\underbrace{b x}_{
           \mathclap{\ge 0 \text{ by assumption}}})
 \]
@@ -5557,7 +6511,7 @@ $\frac{arg1}{arg2}$
  z = \overbracket[3pt]{
      \underbracket{x}_{\text{real}} +
      \underbracket[0.5pt][7pt]{iy}_{\text{imaginary}}
-     }^{\text{complex number}} 
+     }^{\text{complex number}}
 \]
 </p>
 
@@ -5565,7 +6519,7 @@ $\frac{arg1}{arg2}$
 
 <p>
 \[
- A \leftarrow{\text{this way}} B 
+ A \leftarrow{\text{this way}} B
   \rightarrow[\text{or that way}]{ } C
 \]
 </p>
@@ -5670,8 +6624,8 @@ f(x) = \left\{
 
 <p>
 \[
- u(x) = 
-  \begin{cases} 
+ u(x) =
+  \begin{cases}
    \exp{x} & \text{if } x \geq 0 \\
    1       & \text{if } x < 0
   \end{cases}
@@ -5718,8 +6672,8 @@ f(x) = \left\{
 
 <p>
 \begin{alignat}{2}
- \sigma_1 &= x + y  &\quad \sigma_2 &= \frac{x}{y} \\   
- \sigma_1' &= \frac{\partial x + y}{\partial x} & \sigma_2' 
+ \sigma_1 &= x + y  &\quad \sigma_2 &= \frac{x}{y} \\
+ \sigma_1' &= \frac{\partial x + y}{\partial x} & \sigma_2'
     &= \frac{\partial \frac{x}{y}}{\partial x}
 \end{alignat}
 </p>
@@ -5856,7 +6810,7 @@ b_n=\frac{1}{\pi}\int\limits_{-\pi}^{\pi}f(x)\sin nx\,\mathrm{d}x=\\
    B &= \rho_1+\rho_2\\
 \intertext{then}
 C(x) &= e^{Ax^2+\pi}+B
-\end{align*} 
+\end{align*}
 </p>
 
 <h2>#1</h2>
@@ -5871,8 +6825,8 @@ C(x) &= e^{Ax^2+\pi}+B
 
 <p>
 \begin{equation}
-  x = a_0 + \frac{1}{\displaystyle a_1 
-          + \frac{1}{\displaystyle a_2 
+  x = a_0 + \frac{1}{\displaystyle a_1
+          + \frac{1}{\displaystyle a_2
           + \frac{1}{\displaystyle a_3 + a_4}}}
 \end{equation}
 </p>
@@ -5961,7 +6915,7 @@ My "challenge" matrix from earlier articles (this matrix was an issue in WPMathP
 <h3>Instructions for entering ASCIIMath</h3>
 
 <p>
-Use the <b>backtick</b> character before and after math, like this: `x = y + z`. 
+Use the <b>backtick</b> character before and after math, like this: `x = y + z`.
 
 <p>
 Enter fractions with a forward slash, /, as in `y/z`.
@@ -5976,7 +6930,7 @@ Integrals: `int_(0)^(2 pi) sin\ x\ dx = 0`.
 Square root is like this: `sqrt(169) = 13`.
 
 <p>
-Summation notation: `sum_(i=1)^ni^3` 
+Summation notation: `sum_(i=1)^ni^3`
 
 <p>
 `3xx3` matrix: `[(1,2,3),(4,8,3),(-5,4,9)]`
@@ -5988,7 +6942,7 @@ Greek, too: `A = pi r^2`
 <b>Special note:</b>
 
 <p>
-When using "less than" or "greater than" signs, put a SPACE before and after them, like this: 
+When using "less than" or "greater than" signs, put a SPACE before and after them, like this:
 
 <p>
 If `x < 3`, then `y > 0`.
@@ -6120,11 +7074,11 @@ Without specifying width for last column:
     Day & Min Temp & Max Temp & Summary \\ \hline
     Monday & 11C & 22C & A clear day with lots of sunshine.
     However, the strong breeze will bring down the temperatures. \\ \hline
-    Tuesday & 9C & 19C & Cloudy with rain, across many northern regions. Clear spells 
-    across most of Scotland and Northern Ireland, 
+    Tuesday & 9C & 19C & Cloudy with rain, across many northern regions. Clear spells
+    across most of Scotland and Northern Ireland,
     but rain reaching the far northwest. \\ \hline
-    Wednesday & 10C & 21C & Rain will still linger for the morning. 
-    Conditions will improve by early afternoon and continue 
+    Wednesday & 10C & 21C & Rain will still linger for the morning.
+    Conditions will improve by early afternoon and continue
     throughout the evening. \\
     \hline
     \end{tabular}
@@ -6137,13 +7091,13 @@ With width specified:
     \begin{tabular}{ | l | l | l | p{5cm} |}
     \hline
     Day & Min Temp & Max Temp & Summary \\ \hline
-    Monday & 11C & 22C & A clear day with lots of sunshine.  
+    Monday & 11C & 22C & A clear day with lots of sunshine.
     However, the strong breeze will bring down the temperatures. \\ \hline
-    Tuesday & 9C & 19C & Cloudy with rain, across many northern regions. Clear spells 
-    across most of Scotland and Northern Ireland, 
+    Tuesday & 9C & 19C & Cloudy with rain, across many northern regions. Clear spells
+    across most of Scotland and Northern Ireland,
     but rain reaching the far northwest. \\ \hline
-    Wednesday & 10C & 21C & Rain will still linger for the morning. 
-    Conditions will improve by early afternoon and continue 
+    Wednesday & 10C & 21C & Rain will still linger for the morning.
+    Conditions will improve by early afternoon and continue
     throughout the evening. \\
     \hline
     \end{tabular}
@@ -6179,9 +7133,9 @@ FC Copenhagen     & 6 & 2 & 1 & 3 &  5 & 8 &  7  \\
 Geometry  & Algebra
 \tabularnewline
 \hline
- Points & Addition 
+ Points & Addition
 \tabularnewline
- Spheres & Multiplication 
+ Spheres & Multiplication
 \end{tabular}
 
 
@@ -6257,13 +7211,13 @@ $$
 
 <p>
 The LaTeX code:
- 
+
 $$
 \left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
 $$
 
-<p>
-Sum of a Series
+<h4>
+Sum of a Series</h4>
 
 <p>
 I broke up the next two examples into separate lines so it behaves better on a mobile phone. That's why they include \displaystyle.
@@ -6318,16 +7272,17 @@ The LaTeX code:
 
 $$
 \displaystyle\text{ for }\lvert q\rvert < 1.
-= \displaystyle \prod_{j=0}^{\infty}\frac{1}{(1-q^{5j+2})(1-q^{5j+3})}, 
+= \displaystyle \prod_{j=0}^{\infty}\frac{1}{(1-q^{5j+2})(1-q^{5j+3})},
 \displaystyle
 1 +  \frac{q^2}{(1-q)}+\frac{q^6}{(1-q)(1-q^2)}+\cdots
 $$
 
-<p>
-Inline math
+<h4>
+Inline math</h4>
+
 
 <p>
-And here is some in-line math: 
+And here is some in-line math:
 
 <p>
 The LaTeX code:
@@ -6338,8 +7293,9 @@ Inline math uses
 span
 rather than a div.
 
-<p>
-Greek Letters
+<h4>
+Greek Letters</h4>
+
 
 <p>
 Γ Δ Θ Λ Ξ Π Σ Υ Φ Ψ Ω
@@ -6363,8 +7319,9 @@ $$
 \ \omicron\ \pi\ \rho\ \sigma\ \tau\ \upsilon\ \phi\ \chi\ \psi\ \omega\ \varepsilon\ \vartheta\ \varpi\ \varrho\ \varsigma\ \varphi
 $$
 
-<p>
-Arrows
+<h4>
+Arrows</h4>
+
 
 <p>
 ← → ← → ↑ ⇑ ↓ ⇓ ↕ ⇕
@@ -6373,7 +7330,7 @@ Arrows
 The LaTeX code:
 
 $$
-\gets\ \to\ \leftarrow\ \rightarrow\ \uparrow\ \Uparrow\ \downarrow\ \Downarrow\ \updownarrow\ \Updownarrow 
+\gets\ \to\ \leftarrow\ \rightarrow\ \uparrow\ \Uparrow\ \downarrow\ \Downarrow\ \updownarrow\ \Updownarrow
 $$
 
 <p>
@@ -6383,7 +7340,7 @@ $$
 The LaTeX code:
 
 $$
-\Leftarrow\ \Rightarrow\ \leftrightarrow\ \Leftrightarrow\ 
+\Leftarrow\ \Rightarrow\ \leftrightarrow\ \Leftrightarrow\
 \mapsto\ \hookleftarrow
 $$
 
@@ -6404,7 +7361,7 @@ $$
 The LaTeX code:
 
 $$
-\Longrightarrow\ \longleftrightarrow\ \Longleftrightarrow\ \longmapsto\ 
+\Longrightarrow\ \longleftrightarrow\ \Longleftrightarrow\ \longmapsto\
 \hookrightarrow\ \rightharpoonup
 $$
 
@@ -6415,7 +7372,7 @@ $$
 The LaTeX code:
 
 $$
-\rightharpoondown\ \leadsto\ \nearrow\ 
+\rightharpoondown\ \leadsto\ \nearrow\
 \searrow\ \swarrow\ \nwarrow
 $$
 
@@ -6427,9 +7384,9 @@ Symbols
 
 <p>
 The LaTeX code:
- 
+
 $$
-\surd\ \barwedge\ \veebar\ \odot\ \oplus\ \otimes\ \oslash\ \circledcirc\ \boxdot\ 
+\surd\ \barwedge\ \veebar\ \odot\ \oplus\ \otimes\ \oslash\ \circledcirc\ \boxdot\
 \bigtriangleup
 $$
 
@@ -6438,32 +7395,33 @@ $$
 
 <p>
 The LaTeX code:
- 
+
 $$
-\bigtriangledown\ \dagger\ \diamond\ \star\ \triangleleft\ 
+\bigtriangledown\ \dagger\ \diamond\ \star\ \triangleleft\
 \triangleright\ \angle\ \infty\ \prime\ \triangle
 $$
 
-<p>
-Calculus
+<h4>
+Calculus</h4>
+
 
 <p>
 The LaTeX code:
- 
+
 $$
-\int u \frac{dv}{dx}\,dx=uv-\int \frac{du}{dx}v\,dx 
+\int u \frac{dv}{dx}\,dx=uv-\int \frac{du}{dx}v\,dx
 $$
 
 <p>
 The LaTeX code:
- 
+
 $$
 f(x) = \int_{-\infty}^\infty \hat f(\xi)\,e^{2 \pi i \xi x}
 $$
 
 <p>
 The LaTeX code:
- 
+
 $$
 \oint \vec{F} \cdot d\vec{s}=0
 $$
@@ -6518,37 +7476,38 @@ Accents
 
 <p>
 The LaTeX code:
- 
+
 $$
-\hat{x}\ \vec{x}\ \ddot{x} 
+\hat{x}\ \vec{x}\ \ddot{x}
 $$
 
-<p>
-Stretchy brackets
+<h4>
+Stretchy brackets</h4>
+
 
 <p>
 The LaTeX code:
- 
+
 $$
 \left(\frac{x^2}{y^3}\right)
 $$
 
-<p>
-Evaluation at limits
+<h4>
+Evaluation at limits</h4>
 
 <p>
 The LaTeX code:
- 
+
 $$
 \left.\frac{x^3}{3}\right|_0^1
 $$
 
-<p>
-Case definitions
+<h4>
+Case definitions</h4>
 
 <p>
 The LaTeX code:
- 
+
 $$
 f(n) = \begin{cases} \frac{n}{2}, & \text{if } n\text{ is even} \\ 3n+1, & \text{if } n\text{ is odd} \end{cases}
 $$
@@ -6558,10 +7517,10 @@ Maxwell's Equations
 
 <p>
 The LaTeX code:
- 
+
 $$
 \begin{aligned}
-\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} & = \frac{4\pi}{c}\vec{\mathbf{j}} \\   
+\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} & = \frac{4\pi}{c}\vec{\mathbf{j}} \\
 \nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\
 \nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\
 \nabla \cdot \vec{\mathbf{B}} & = 0 \end{aligned}
@@ -6572,24 +7531,25 @@ These equations are quite cramped. We can add vertical spacing using (for exampl
 
 <p>
 The LaTeX code:
- 
+
 $$
 \begin{aligned}
-\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} & = \frac{4\pi}{c}\vec{\mathbf{j}} \\[1em]   
+\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} & = \frac{4\pi}{c}\vec{\mathbf{j}} \\[1em]
 \nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\[0.5em]
 \nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\[1em]
 \nabla \cdot \vec{\mathbf{B}} & = 0 \end{aligned}
 $$
 
-<p>
-Statistics
+<h3>
+Statistics</h3>
+
 
 <p>
 Definition of combination:
 
 <p>
 The LaTeX code:
- 
+
 $$
 \frac{n!}{k!(n-k)!} = {^n}C_k
 $$
@@ -6606,7 +7566,7 @@ Fractions on fractions
 
 <p>
 The LaTeX code:
- 
+
 $$
 \frac{\frac{1}{x}+\frac{1}{y}}{y-z}
 $$
@@ -6629,8 +7589,8 @@ The LaTeX code:
 
 $$
 \begin{pmatrix}
-a_{11} & a_{12} & a_{13}\\ 
-a_{21} & a_{22} & a_{23}\\ 
+a_{11} & a_{12} & a_{13}\\
+a_{21} & a_{22} & a_{23}\\
 a_{31} & a_{32} & a_{33}
 \end{pmatrix}
 $$
@@ -6642,8 +7602,9 @@ $$
 \begin{bmatrix} 0 & \cdots & 0 \\ \vdots & \ddots & \vdots \\ 0 & \cdots & 0 \end{bmatrix}
 $$
 
-<p>
-Punctuation
+<h3>
+Punctuation</h3>
+
 
 <p>
 The LaTeX code:
@@ -6676,16 +7637,10 @@ $$
 f(x) \sim x^2, \quad x\to\infty
 $$
 
-<p>
-Try again?
-Process with KaTex Process with MathJax
-Background and explanation
-Read more about KaTeX and the examples above here:
-KaTeX – a new way to display math on the Web
-See also: ASCIIMathML, KaTeX and MathJax Demo
-Search IntMath, blog and Forum
 
-<h2>xxx</h2>
+</section>
+<section>
+<h2>#1: xxx</h2>
 
 <p>
 The construction $\dfrac{num}{den}$ is equivalent to saying
@@ -6721,7 +7676,7 @@ $\sum\limits_{i=1}^{n} a_{i}$
 <p>
 In the first case the summation symbol will be big, in the second one it will be the normal one for style T, but with limits above and below as imposed by \limits (it's not recommended to do it).
 
-<h2>xxxx</h2>
+<h2>#1: xxxx</h2>
 
 <p>
 \LaTeX\ Mathematics Examples
@@ -6756,12 +7711,13 @@ even when there is no matching delimiter
 
 
 
-<p>
-Spacing
+<h3>
+Spacing</h3>
 
+<p>
 Differentials often need a bit of help with their spacing as in
 \[
-  \iint xy^2\,dx\,dy 
+  \iint xy^2\,dx\,dy
   =\frac{1}{6}x^2y^3,
 \]
 whereas vector problems often lead to statements such as
@@ -6785,11 +7741,11 @@ Be discerning about when to do this as the spacing is different.
 
 
 
-<p>
-Arrays
+<h3>
+Arrays</h3>
 
 <p>
-Arrays of mathematics are typeset using one of the matrix environments as 
+Arrays of mathematics are typeset using one of the matrix environments as
 in
 \[
   \begin{bmatrix}
@@ -6833,14 +7789,14 @@ Many arrays have lots of dots all over the place as in
 
 
 
-<p>
-Equation arrays
+<h3>
+Equation arrays</h3>
 
 <p>
 In the flow of a fluid film we may report
 
 \begin{eqnarray}
-  u_\alpha & = & \epsilon^2 \kappa_{xxx} 
+  u_\alpha & = & \epsilon^2 \kappa_{xxx}
   \left( y-\frac{1}{2}y^2 \right),
   \label{equ}  \\
   v & = & \epsilon^3 \kappa_{xxx} y\,,
@@ -6850,17 +7806,17 @@ In the flow of a fluid film we may report
 \end{eqnarray}
 
 <p>
-Alternatively, the curl of a vector field $(u,v,w)$ may be written 
+Alternatively, the curl of a vector field $(u,v,w)$ may be written
 with only one equation number:
 
 \begin{eqnarray}
   \omega_1 & = &
   \frac{\partial w}{\partial y}-\frac{\partial v}{\partial z}\,,
   \nonumber  \\
-  \omega_2 & = & 
+  \omega_2 & = &
   \frac{\partial u}{\partial z}-\frac{\partial w}{\partial x}\,,
   \label{eqcurl}  \\
-  \omega_3 & = & 
+  \omega_3 & = &
   \frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}\,.
   \nonumber
 \end{eqnarray}
@@ -6879,12 +7835,12 @@ Whereas a derivation may look like
 
 
 
-<p>
-Functions
+<h3>
+Functions</h3>
 
 <p>
-Observe that trigonometric and other elementary functions are typeset 
-properly, even to the extent of providing a thin space if followed by 
+Observe that trigonometric and other elementary functions are typeset
+properly, even to the extent of providing a thin space if followed by
 a single letter argument:
 \[
   \exp(i\theta)=\cos\theta +i\sin\theta\,,\quad
@@ -6892,10 +7848,10 @@ a single letter argument:
 \]
 
 <p>
-With sub- and super-scripts placed properly on more complicated 
+With sub- and super-scripts placed properly on more complicated
 functions,
 \[
-  \lim_{q\to\infty}\|f(x)\|_q 
+  \lim_{q\to\infty}\|f(x)\|_q
   =\max_{x}|f(x)|,
 \]
 and large operators, such as integrals and
@@ -6906,7 +7862,7 @@ and large operators, such as integrals and
 \end{eqnarray*}
 
 <p>
-In inline mathematics the scripts are correctly placed to the side in 
+In inline mathematics the scripts are correctly placed to the side in
 order to conserve vertical space, as in
 \(
   1/(1-x)=\sum_{n=0}^\infty x^n.
@@ -6917,11 +7873,11 @@ order to conserve vertical space, as in
 
 
 
-<p>
-Accents
+<h3>
+Accents</h3>
 
 <p>
-Mathematical accents are performed by a short command with one 
+Mathematical accents are performed by a short command with one
 argument, such as
 \[
   \tilde f(\omega)=\frac{1}{2\pi}
@@ -6936,15 +7892,15 @@ or
 
 
 
-<p>
-Command definition
+<h3>
+Command definition</h3>
 
 <p>
 $
-\newcommand{\Ai}{\operatorname{Ai}} 
+\newcommand{\Ai}{\operatorname{Ai}}
 $
 
-The Airy function, $\Ai(x)$, may be incorrectly defined as this 
+The Airy function, $\Ai(x)$, may be incorrectly defined as this
 integral
 \[
   \Ai(x)=\int\exp(s^3+isx)\,ds\,.
@@ -6960,7 +7916,7 @@ $
 \renewcommand{\vec}[1]{\text{\boldmath{#1}}}
 $
 
-This vector identity serves nicely to illustrate two of the new 
+This vector identity serves nicely to illustrate two of the new
 commands:
 \[
   \vec\nabla\times\vec q
@@ -6973,8 +7929,8 @@ commands:
 
 
 
-<p>
-Theorems et al.
+<h3>
+Theorems et al.</h3>
 
 <p>
 \[
@@ -6985,7 +7941,7 @@ Theorems et al.
 \]
 
 <p>
-\begin{definition}[right-angled triangles] 
+\begin{definition}[right-angled triangles]
 \label{def:tri}
 ...
 \end{definition}
@@ -6994,7 +7950,7 @@ Theorems et al.
 A \emph{right-angled triangle} is a triangle whose sides of length~\(a\), \(b\) and~\(c\), in some permutation of order, satisfies \(a^2+b^2=c^2\).
 
 <p>
-\begin{lemma} 
+\begin{lemma}
 ...
 \end{lemma}
 
@@ -7102,7 +8058,7 @@ Because of the spacing: E.g. a\f{2}{n}+b is different from a\f{2}{n}+b.
 The idea is simply to highlight function symbols in somewhat lengthy equations, such that it is easier to determine which symbols are functions, constants and so on.
 
       <p>
-Thanks for the info! (Let me mention that it might be OK to do this for educational purposes, but not in usual typesetting.) 
+Thanks for the info! (Let me mention that it might be OK to do this for educational purposes, but not in usual typesetting.)
 
 <p>
 It's not clear exactly what layout you want, (perhaps a full minimal example and image in your question would have helped).
@@ -7122,7 +8078,14 @@ $$ \mathop{{}f}_1^2 x \qquad \mathop{{}f}_n^2 x \qquad \mathop{{}f}_1^n x $$
 $$ \mathop{{}f}\limits_1^2 x \qquad \mathop{{}f}\limits_n^2 x \qquad \mathop{{}f}\limits_1^n x $$
 
 
-<hr>
+
+
+
+</section>
+<section>
+<h2>#1: Samples</h2>
+
+
 <p>
 MathJax doesn't exactly follow TeX rules it seems: compare with <a href="https://tex.stackexchange.com/questions/43008/absolute-value-symbols">https://tex.stackexchange.com/questions/43008/absolute-value-symbols</a>:
 
@@ -7156,8 +8119,11 @@ Looks like the \left and \right are necessary if you want to scale those 'verts'
 <p>
   Source: <a href="https://www.maths.tcd.ie/~dwilkins/LaTeXPrimer/BracketsNorms.html">https://www.maths.tcd.ie/~dwilkins/LaTeXPrimer/BracketsNorms.html</a>:
 
-<p>
-Brackets and Norms
+
+
+<h3>
+Brackets and Norms</h3>
+
 <p>
 The frequently used left delimiters include (, [ and {, which are obtained by typing (, [ and \{ respectively. The corresponding right delimiters are of course obtained by typing ), ] and \}. In addition | and || are used as both left and right delimiters, and are obtained by typing | and \| respectively. For example, we obtain
 
@@ -7175,7 +8141,7 @@ $f$, denoted by $\|f\|$, is defined by
 \[
  \|f\| = \inf \{ K \in [0,+\infty) :
           |f(x)| \leq K \|x\| \mbox{ for all } x \in X \}.
-\] 
+\]
 
 <p>
 Larger delimiters are sometimes required which have the appropriate height to match the size of the subformula which they enclose. Consider, for instance, the problem of typesetting the following formula:
@@ -7188,14 +8154,14 @@ The way to type the large parentheses is to type \left( for the left parenthesis
 
 \[
  f(x,y,z) = 3y^2 z \left( 3 + \frac{7x+5}{1 + y^2} \right).
-\] 
+\]
 
 <p>
 If you type a delimiter which is preceded by \left then LaTeX will search for a corresponding delimiter preceded by \right and calculate the size of the delimiters required to enclose the intervening subformula. One is allowed to balance a \left( with a \right] (say) if one desires: there is no reason why the enclosing delimiters have to have the same shape. One may also nest pairs of delimiters within one another: by typing
 
 \[
  \left| 4 x^3 + \left( x + \frac{42}{1+x^4} \right) \right|.
-\] 
+\]
 
 we obtain
 
@@ -7213,11 +8179,18 @@ We wish to make the vertical bar big enough to match the derivative preceding it
 
 \[
  \left. \frac{du}{dx} \right|_{x=0}.
-\] 
+\]
 
 
 
-<hr>
+
+
+
+</section>
+<section>
+<h2>#1: Samples</h2>
+
+
 
 
 
@@ -7288,7 +8261,7 @@ Source
 \mathbf{i} & \mathbf{j} & \mathbf{k} \\
 \frac{\partial X}{\partial u} &  \frac{\partial Y}{\partial u} & 0 \\
 \frac{\partial X}{\partial v} &  \frac{\partial Y}{\partial v} & 0
-\end{vmatrix}  
+\end{vmatrix}
 \end{equation*}
 \]
 
@@ -7299,7 +8272,7 @@ $$\begin{equation*}
 \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\
 \frac{\partial X}{\partial u} &amp;  \frac{\partial Y}{\partial u} &amp; 0 \\
 \frac{\partial X}{\partial v} &amp;  \frac{\partial Y}{\partial v} &amp; 0
-\end{vmatrix}  
+\end{vmatrix}
 \end{equation*}$$
 
 
@@ -7311,13 +8284,13 @@ The probability of getting (k) heads when flipping (n) coins is
 Source
 
 \begin{equation*}
-P(E)   = {n \choose k} p^k (1-p)^{ n-k} 
+P(E)   = {n \choose k} p^k (1-p)^{ n-k}
 \end{equation*}
 
 Display¶
 
 $$\begin{equation*}
-P(E)   = {n \choose k} p^k (1-p)^{ n-k} 
+P(E)   = {n \choose k} p^k (1-p)^{ n-k}
 \end{equation*}$$
 
 
@@ -7330,7 +8303,7 @@ Source
 \begin{equation*}
 \frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} =
 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}}
-{1+\frac{e^{-8\pi}} {1+\ldots} } } } 
+{1+\frac{e^{-8\pi}} {1+\ldots} } } }
 \end{equation*}
 
 Display
@@ -7338,7 +8311,7 @@ Display
 $$\begin{equation*}
 \frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} =
 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}}
-{1+\frac{e^{-8\pi}} {1+\ldots} } } } 
+{1+\frac{e^{-8\pi}} {1+\ldots} } } }
 \end{equation*}$$
 
 
@@ -7352,7 +8325,7 @@ Source
 \begin{equation*}
 1 + \frac{q^2}{(1-q)}+\frac{q^6}{(1-q)(1-q^2)}+\cdots =
 \prod_{j=0}^{\infty}\frac{1}{(1-q^{5j+2})(1-q^{5j+3})},
-\quad\quad \text{for $|q|&lt;1$}. 
+\quad\quad \text{for $|q|&lt;1$}.
 \end{equation*}
 
 Display
@@ -7360,7 +8333,7 @@ Display
 $$\begin{equation*}
 1 + \frac{q^2}{(1-q)}+\frac{q^6}{(1-q)(1-q^2)}+\cdots =
 \prod_{j=0}^{\infty}\frac{1}{(1-q^{5j+2})(1-q^{5j+3})},
-\quad\quad \text{for $|q|&lt;1$}. 
+\quad\quad \text{for $|q|&lt;1$}.
 \end{equation*}$$
 
 
@@ -7374,7 +8347,7 @@ Source
 \begin{aligned}
 \nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} & = \frac{4\pi}{c}\vec{\mathbf{j}} \\   \nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\
 \nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\
-\nabla \cdot \vec{\mathbf{B}} & = 0 
+\nabla \cdot \vec{\mathbf{B}} & = 0
 \end{aligned}
 
 Display
@@ -7382,7 +8355,7 @@ Display
 $$\begin{aligned}
 \nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} &amp; = \frac{4\pi}{c}\vec{\mathbf{j}} \\   \nabla \cdot \vec{\mathbf{E}} &amp; = 4 \pi \rho \\
 \nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} &amp; = \vec{\mathbf{0}} \\
-\nabla \cdot \vec{\mathbf{B}} &amp; = 0 
+\nabla \cdot \vec{\mathbf{B}} &amp; = 0
 \end{aligned}$$
 
 
@@ -7419,9 +8392,16 @@ This expression $\sqrt{3x-1}+(1+x)^2$ is an example of a TeX inline equation in 
 
 
 
-<hr>
 
-https://tex.stackexchange.com/questions/98433/interaction-of-boldmath-and-not
+
+
+</section>
+<section>
+<h2>#1: Samples</h2>
+
+
+
+Grabbed from https://tex.stackexchange.com/questions/98433/interaction-of-boldmath-and-not
 
 \[
 \newcommand*\longnot{%
@@ -7442,13 +8422,20 @@ $\bm{A\not\subseteq B}$ versus $\bm{A\longnot\subseteq B}$
 with color: $\color{red}{\bm{R \longnot\subseteq T,\ x \longnot\le y}}$
 
 
-<hr>
+
+
+
+</section>
+<section>
+<h2>#1: Samples</h2>
+
+
+
+<h3>
+Triangle</h3>
 
 <p>
-# Triangle 
-
-<p>
-Let the right triangle hypothenuse be aligned with the coordinate system *x-axis*. 
+Let the right triangle hypothenuse be aligned with the coordinate system *x-axis*.
 The vector loop closure equation then reads
 
 $$a{\bold e}_\alpha + b\tilde{\bold e}_\alpha + c{\bold e}_x = \bold 0$$ (1)
@@ -7458,12 +8445,12 @@ with
 $${\bold e}_\alpha = \begin{pmatrix}\cos\alpha\\ \sin\alpha\end{pmatrix} \quad and \quad {\tilde\bold e}_\alpha = \begin{pmatrix}-\sin\alpha\\ \cos\alpha\end{pmatrix}$$
 
 <p>
-Resolving for the hypothenuse part $c{\bold e}_x$ in the loop closure equation (1) 
+Resolving for the hypothenuse part $c{\bold e}_x$ in the loop closure equation (1)
 
 $$-c{\bold e}_x = a{\bold e}_\alpha + b\tilde{\bold e}_\alpha$$
 
 <p>
-and squaring 
+and squaring
 
 <p>
 > finally results in the Pythagorean theorem (2)
@@ -7473,7 +8460,7 @@ and squaring
 
 
 
-<h2>AsciiMath</h2>
+<h2>#1: AsciiMath</h2>
 
 <p>
   ... by noting that that `7 / ((k^2 + k + 1)(2k - 1)) = 4 / (2k - 1) - (2k + 3) / (k^2 + k + 1)` and that `sum_(k=-n)^(n+1) 1 / (2k - 1) = sum_(k=-n)^(n+1) (2k - 1) / (k^2 + k + 1) = 0` (quoting reference: Knuth Fascimile 5A, answer to exercise 129, pp. 49)
@@ -7484,25 +8471,23 @@ and squaring
 
 
 
-<h2>LaTeX Symbols</h2>
+<h2>#1: LaTeX Symbols</h2>
 
 <ul>
   <li>https://www.ctan.org/pkg/comprehensive
-<li>https://github.com/github/markup/issues/897
-<li>https://docsify.js.org/#/
+  <li>https://github.com/github/markup/issues/897
+  <li>https://docsify.js.org/#/
   <li>https://github.com/cben/mathdown/wiki/math-in-markdown
-    <li>https://marketplace.visualstudio.com/items?itemName=goessner.mdmath
-      <li>https://www.ctan.org/tex-archive/macros/latex/contrib/semantic
-        <li>https://github.com/gajus/usus#using-via-the-command-line-interface-cli
-
-
+  <li>https://marketplace.visualstudio.com/items?itemName=goessner.mdmath
+  <li>https://www.ctan.org/tex-archive/macros/latex/contrib/semantic
+  <li>https://github.com/gajus/usus#using-via-the-command-line-interface-cli
 </ul>
 
 
 
 
 
-<h1>Repeating decimal fractions are rational</h1>
+<h1>#1: Repeating decimal fractions are rational</h1>
 
 <p>Reference: From Calculus To Analysis (Steen Pedersen, 2015, Springer Verlag)</p>
 
@@ -7512,13 +8497,13 @@ and squaring
 
 \[\begin{array}{l}
 23.6\overline {321}  = 23.6321321321 \ldots \\
-\left. {23.6\overline {321}  = \frac{p}{q}} \right| p \in \mathbb{N} \wedge q \in \mathbb{N}\\ 
+\left. {23.6\overline {321}  = \frac{p}{q}} \right| p \in \mathbb{N} \wedge q \in \mathbb{N}\\
 \Leftrightarrow 23632.1\overline {321}  = 1000\frac{p}{q}\\
-23632.1\overline {321}  - 23.6\overline {321}  = 23608.5\\ 
-\Rightarrow 23608.5 = 1000\frac{p}{q} - \frac{p}{q} = 999\frac{p}{q}\\ 
-\Rightarrow 23608.5q = 999p\\ 
-\Leftrightarrow 47217q = 1998p\\ 
-\Leftrightarrow \frac{{47217}}{{1998}} = \frac{p}{q}\\ 
+23632.1\overline {321}  - 23.6\overline {321}  = 23608.5\\
+\Rightarrow 23608.5 = 1000\frac{p}{q} - \frac{p}{q} = 999\frac{p}{q}\\
+\Rightarrow 23608.5q = 999p\\
+\Leftrightarrow 47217q = 1998p\\
+\Leftrightarrow \frac{{47217}}{{1998}} = \frac{p}{q}\\
 \Leftrightarrow \frac{{15739}}{{666}} = \frac{p}{q}
 \end{array}\]
 
@@ -7543,19 +8528,19 @@ and squaring
 
 <p>
   \[\begin{array}{l}
-\left. {3.14\overline {15}  = \frac{p}{q}} \right|p \in \mathbb{N} \wedge q \in \mathbb{N}\\ 
+\left. {3.14\overline {15}  = \frac{p}{q}} \right|p \in \mathbb{N} \wedge q \in \mathbb{N}\\
 \Leftrightarrow 314.15\overline {15}  = 100\frac{p}{q}\\
-314.15\overline {15}  - 3.14\overline {15}  = 310.99\\ 
-\Rightarrow 310.99 = 100\frac{p}{q} - \frac{p}{q} = 99\frac{p}{q}\\ 
-\Rightarrow 310.99q = 99p\\ 
-\Leftrightarrow 31099q = 9900p\\ 
+314.15\overline {15}  - 3.14\overline {15}  = 310.99\\
+\Rightarrow 310.99 = 100\frac{p}{q} - \frac{p}{q} = 99\frac{p}{q}\\
+\Rightarrow 310.99q = 99p\\
+\Leftrightarrow 31099q = 9900p\\
 \Leftrightarrow \frac{{31099}}{{9900}} = \frac{p}{q}\\
 \end{array}\]
 
 
 
 
-<h1>Exercises</h1>
+<h1>#1: Exercises</h1>
 
 <p>Reference: The Complete Book of Fun Maths (Philip Carter &amp; Ken Russell, 2004, John Wiley &amp; Sons)</p>
 
@@ -7580,7 +8565,7 @@ f(x)=
     \alpha + x, &\text{if $0 \leq x \leq 1$;}\\
     x^{2}, &\text{otherwise.}
   \end{cases}
-x \in \left. {3.14\overline {15}  = \frac{p}{q}} \right|p \in \mathbb{N} \wedge q \in \mathbb{N}\\ 
+x \in \left. {3.14\overline {15}  = \frac{p}{q}} \right|p \in \mathbb{N} \wedge q \in \mathbb{N}\\
 
   \]
 
@@ -7593,12 +8578,12 @@ x \in \left. {3.14\overline {15}  = \frac{p}{q}} \right|p \in \mathbb{N} \wedge 
 
 
 
-<h1>Sample MathJax Equations</h1>
+<h1>#1: Sample MathJax Equations</h1>
 
 
 
 
-<h2>More on LaTeX advanced formulas</h2>
+<h2>#1: More on LaTeX advanced formulas</h2>
 
 <p><code>\cases</code> example:
 
@@ -7653,7 +8638,7 @@ x \in \left. {3.14\overline {15}  = \frac{p}{q}} \right|p \in \mathbb{N} \wedge 
 
 
 
-<p>However, when we want more spacing, we could do it this way, avec du <code>\quad</code>: 
+<p>However, when we want more spacing, we could do it this way, avec du <code>\quad</code>:
 
 \begin{equation*}
 \left\{\renewcommand\arraystretch{1.2}
@@ -7683,7 +8668,7 @@ x \in \left. {3.14\overline {15}  = \frac{p}{q}} \right|p \in \mathbb{N} \wedge 
   x = 2t + 1\\
   y = t + 2\\
   z = 3\end{cases}
-\end{empheq}  
+\end{empheq}
 
 
 
@@ -7854,21 +8839,21 @@ This page outlines some more advanced uses of mathematics markup using LaTeX. In
 
 
 <h3>
-Equation numbering
+#1: Equation numbering
 </h3>
 
 
 <p>
 The equation environment automatically numbers your equation:
 
-\begin{equation} 
+\begin{equation}
  f(x)=(x+a)(x+b)
 \end{equation}
 
 
 <p>
   \[
-{\displaystyle {f(x)}=(x+a)(x+b){\color {White}ww}(1)\,} 
+{\displaystyle {f(x)}=(x+a)(x+b){\color {White}ww}(1)\,}
 \]
 
 
@@ -7888,7 +8873,7 @@ this references equation \ref{eq:someequation}.
 
 <p>
 \[
-{\displaystyle 6^{2}-5=36-5=31\qquad (1)} 
+{\displaystyle 6^{2}-5=36-5=31\qquad (1)}
 \]
 
 <p>
@@ -7913,9 +8898,9 @@ where \eqref{eq:erl} is true if $a$ and $b$ are integers with $b \neq c$.
 
 <p>
 \[
-{\displaystyle {\text{where (1) is true if }}a{\text{ and }}b\,} 
+{\displaystyle {\text{where (1) is true if }}a{\text{ and }}b\,}
 
-{\displaystyle {\text{are integers with }}b\neq c.} 
+{\displaystyle {\text{are integers with }}b\neq c.}
 \]
 
 
@@ -7953,13 +8938,13 @@ to have the enumeration go to the subsection level.
 
 <p>
 \[
-{\displaystyle L'={L}{\sqrt {1-{\frac {v^{2}}{c^{2}}}}}{\color {White}ww}(1.1.1)\,} 
+{\displaystyle L'={L}{\sqrt {1-{\frac {v^{2}}{c^{2}}}}}{\color {White}ww}(1.1.1)\,}
 \]
 
 
 <p>
-  If the style you follow requires putting dots after ordinals (as it is required at least in Polish typography), the 
-  <code>\numberwithin{equation}{subsection}</code> 
+  If the style you follow requires putting dots after ordinals (as it is required at least in Polish typography), the
+  <code>\numberwithin{equation}{subsection}</code>
   command in the preamble will result in the equation number in the above example being rendered as follows: (1.1..1).
 
 
@@ -7980,7 +8965,7 @@ in the preamble of the document.
 
 
 <p>
-Note: Although it may look like the \renewcommand works by itself, it won't reset the equation number with each new section. It must be used together with manual equation number resetting after each new section beginning, or with the much cleaner 
+Note: Although it may look like the \renewcommand works by itself, it won't reset the equation number with each new section. It must be used together with manual equation number resetting after each new section beginning, or with the much cleaner
 <code>\numberwithin</code>.
 
 
@@ -8005,7 +8990,7 @@ To number subordinate equations in a numbered equation environment, place the pa
 
 <p>
 \[
-{\displaystyle {\begin{aligned}B'&=-\nabla \times E,&\quad &\mathrm {(1.1a)} \\E'&=\nabla \times B-4\pi j,&&\mathrm {(1.1b)} \end{aligned}}} 
+{\displaystyle {\begin{aligned}B'&=-\nabla \times E,&\quad &\mathrm {(1.1a)} \\E'&=\nabla \times B-4\pi j,&&\mathrm {(1.1b)} \end{aligned}}}
 \]
 
 <p>Unfortunately MathJAX does not support <code>\begin{subequations}</code> yet. Hence we cannot use it and must use <code>\begin{equation}</code> instead:
@@ -8014,20 +8999,20 @@ To number subordinate equations in a numbered equation environment, place the pa
 \begin{equation}
   \begin{aligned}
         B'&=-\nabla \times E,\\
-        E'&=\nabla \times B - 4\pi j, 
+        E'&=\nabla \times B - 4\pi j,
   \end{aligned}
 \end{equation}
 
 
 <p>
 \[
-{\displaystyle {\begin{aligned}B'&=-\nabla \times E,&\quad &\mathrm {(1.1a)} \\E'&=\nabla \times B-4\pi j,&&\mathrm {(1.1b)} \end{aligned}}} 
+{\displaystyle {\begin{aligned}B'&=-\nabla \times E,&\quad &\mathrm {(1.1a)} \\E'&=\nabla \times B-4\pi j,&&\mathrm {(1.1b)} \end{aligned}}}
 \]
 
 
 
 <p>
-Referencing subordinate equations can be done using either of two methods: adding a label after the 
+Referencing subordinate equations can be done using either of two methods: adding a label after the
 <code>\begin{subequations}</code> command, which will reference the main equation (1.1 above), or adding a label at the end of each line, before the <code>\\</code> command, which will reference the sub-equation (1.1a or 1.1b above). It is possible to add both labels in case both types of references are needed.
 
 
@@ -8054,7 +9039,7 @@ The <code>\overset</code> and <code>\underset</code> commands[1] typeset symbols
 
 <p>
 \[
-{\displaystyle A{\overset {!}{=}}B;~~A{\stackrel {!}{=}}B\,} 
+{\displaystyle A{\overset {!}{=}}B;~~A{\stackrel {!}{=}}B\,}
 \]
 
 
@@ -8071,7 +9056,7 @@ or to show usage of L'Hôpital's rule:
 
 <p>
 \[
-{\displaystyle \lim _{x\to 0}{\frac {e^{x}-1}{2x}}{\overset {\left[{\frac {0}{0}}\right]}{\underset {\mathrm {H} }{=}}}\lim _{x\to 0}{\frac {e^{x}}{2}}={\frac {1}{2}}} 
+{\displaystyle \lim _{x\to 0}{\frac {e^{x}-1}{2x}}{\overset {\left[{\frac {0}{0}}\right]}{\underset {\mathrm {H} }{=}}}\lim _{x\to 0}{\frac {e^{x}}{2}}={\frac {1}{2}}}
 \]
 
 
@@ -8111,7 +9096,7 @@ If the purpose is to make comments on particular parts of an equation, the <code
 
 <p>
 \[
-{\displaystyle z=\overbrace {\underbrace {x} _{\text{real}}+i\underbrace {y} _{\text{imaginary}}} ^{\text{complex number}}} 
+{\displaystyle z=\overbrace {\underbrace {x} _{\text{real}}+i\underbrace {y} _{\text{imaginary}}} ^{\text{complex number}}}
 \]
 
 
@@ -8123,7 +9108,7 @@ Sometimes the comments are longer than the formula being commented on, which can
 <p>
 \[
  y = a + f(\underbrace{b x}_{
-                    \ge 0 \text{ by assumption}}) 
+                    \ge 0 \text{ by assumption}})
    = a + f(\underbrace{b x}_{
           \mathclap{\ge 0 \text{ by assumption}}})
 \]
@@ -8134,7 +9119,7 @@ Sometimes the comments are longer than the formula being commented on, which can
 <p>
 \[
  y = a + f(\underbrace{b x}_{
-                    \ge 0 \text{ by assumption}}) 
+                    \ge 0 \text{ by assumption}})
    = a + f(\underbrace{\quad\quad b x \quad\quad}_{
           {\ge 0 \text{ by assumption}}})
 \]
@@ -8151,7 +9136,7 @@ Alternatively, to use brackets instead of braces use <code>\underbracket</code> 
  z = \overbracket[3pt]{
      \underbracket{x}_{\text{real}} +
      \underbracket[0.5pt][7pt]{iy}_{\text{imaginary}}
-     }^{\text{complex number}} 
+     }^{\text{complex number}}
 \]
 
 
@@ -8168,14 +9153,14 @@ The <code>\xleftarrow</code> and <code>\xrightarrow</code> commands[1] produce a
 
 <p>
 \[
- A \xleftarrow{\text{this way}} B 
+ A \xleftarrow{\text{this way}} B
   \xrightarrow[\text{or that way}]{ } C
 \]
 
 
 <p>
 \[
-{\displaystyle A{\xleftarrow {\text{this way}}}B{\xrightarrow[{\text{or that way}}]{}}C\,} 
+{\displaystyle A{\xleftarrow {\text{this way}}}B{\xrightarrow[{\text{or that way}}]{}}C\,}
 \]
 
 
@@ -8283,7 +9268,7 @@ The <code>align*</code> environment is used like the <code>displaymath</code> or
 
 <p>
 \[
-{\displaystyle {\begin{aligned}f(x)&=(x+a)(x+b)\\&=x^{2}+(a+b)x+ab\end{aligned}}\,} 
+{\displaystyle {\begin{aligned}f(x)&=(x+a)(x+b)\\&=x^{2}+(a+b)x+ab\end{aligned}}\,}
 \]
 
 
@@ -8307,7 +9292,7 @@ Note that the <code>align</code> environment must not be nested inside an <code>
 
 <p>
 \[
-{\displaystyle {\begin{aligned}f(x)&=x^{4}+7x^{3}+2x^{2}\\&\qquad {}+10x+12\qquad \qquad (3)\end{aligned}}} 
+{\displaystyle {\begin{aligned}f(x)&=x^{4}+7x^{3}+2x^{2}\\&\qquad {}+10x+12\qquad \qquad (3)\end{aligned}}}
 \]
 
 
@@ -8354,7 +9339,7 @@ If you want a brace to continue across a new line, do the following:
 
 
 <p>
-In this construction, the sizes of the left and right braces are not automatically equal, in spite of the use of <code>\left\{</code> and <code>\right\}</code>. This is because each line is typeset as a completely separate equation — notice the use of 
+In this construction, the sizes of the left and right braces are not automatically equal, in spite of the use of <code>\left\{</code> and <code>\right\}</code>. This is because each line is typeset as a completely separate equation — notice the use of
 <code>\right.</code> and <code>\left.</code> so there are no unpaired <code>\left</code> and <code>\right</code> commands within a line (these aren't needed if the formula is on one line). You can control the size of the braces manually with the <code>\big</code>, <code>\Big</code>, <code>\bigg</code>, and <code>\Bigg</code> commands.
 
 
@@ -8401,7 +9386,7 @@ You can also use <code>\left\{</code> and <code>\right.</code> to typeset piecew
   \end{array}
   }
   \right.
-} 
+}
 \]
 
 
@@ -8415,8 +9400,8 @@ The <code>cases</code> environment[1] allows the writing of piecewise functions:
 
 <p>
 \[
- u(x) = 
-  \begin{cases} 
+ u(x) =
+  \begin{cases}
    \exp{x} & \text{if } x \geq 0 \\
    1       & \text{if } x < 0
   \end{cases}
@@ -8424,7 +9409,7 @@ The <code>cases</code> environment[1] allows the writing of piecewise functions:
 
 <p>
 \[
-{\displaystyle u(x)={\begin{cases}\exp {x}&{\text{if }}x\geq 0\\1&{\text{if }}x<0\end{cases}}} 
+{\displaystyle u(x)={\begin{cases}\exp {x}&{\text{if }}x\geq 0\\1&{\text{if }}x<0\end{cases}}}
 \]
 
 
@@ -8438,7 +9423,7 @@ Within cases, text style math is used with results such as:
 
 <p>
   \[
-{\displaystyle a={\begin{cases}\int x\,\mathrm {d} x\\b^{2}\end{cases}}} 
+{\displaystyle a={\begin{cases}\int x\,\mathrm {d} x\\b^{2}\end{cases}}}
 \]
 
 
@@ -8457,7 +9442,7 @@ Display style may be used instead, by using the <code>dcases</code> environment[
 
 <p>
 \[
-{\displaystyle a={\begin{cases}\displaystyle \int x\,\mathrm {d} x\\\displaystyle b^{2}\end{cases}}} 
+{\displaystyle a={\begin{cases}\displaystyle \int x\,\mathrm {d} x\\\displaystyle b^{2}\end{cases}}}
 \]
 
 
@@ -8475,7 +9460,7 @@ Often the second column consists mostly of normal text. To set it in the normal 
 
 <p>
   \[
-{\displaystyle f(x)={\begin{cases}x&{\text{when }}x{\text{ is even}}\\-x&{\text{when }}x{\text{ is odd}}\end{cases}}} 
+{\displaystyle f(x)={\begin{cases}x&{\text{when }}x{\text{ is even}}\\-x&{\text{when }}x{\text{ is odd}}\end{cases}}}
 \]
 
 
@@ -8499,12 +9484,12 @@ eqnarray and eqnarray*
    <dd>First line left aligned, last line right aligned  Equation number aligned vertically with first line and not centered as with other environments
   <dt>
 gather and gather*[1]
-   <dd> Consecutive equations without alignment 
+   <dd> Consecutive equations without alignment
   <dt>
-flalign and flalign*[1] 
-   <dd> Similar to align, but left aligns first equation column, and right aligns last column 
+flalign and flalign*[1]
+   <dd> Similar to align, but left aligns first equation column, and right aligns last column
   <dt>
-alignat and alignat*[1] 
+alignat and alignat*[1]
    <dd> Takes an argument specifying number of columns. Allows control of the horizontal space between equations  This environment takes one argument, the number of “equation columns”: count the maximum number of &s in any row, add 1 and divide by 2. [1]
 </dl>
 
@@ -8517,16 +9502,16 @@ Math environment name Description
 
 <dl>
   <dt>
-gathered[1] 
+gathered[1]
    <dd> Allows gathering equations to be set under each other and assigned a single equation number
   <dt>
-split[1]  
+split[1]
    <dd> Similar to align*, but used inside another displayed mathematics environment
   <dt>
-aligned[1]  
+aligned[1]
    <dd> Similar to align, to be used inside another mathematics environment.
   <dt>
-alignedat[1]  
+alignedat[1]
    <dd> Similar to alignat, and likewise takes an additional argument specifying the number of columns of equations to set.
 </dl>
 
@@ -8552,8 +9537,8 @@ For example:
     B'&=-\partial \times E\\
     E'&=\partial \times B-4\pi j
   \end{aligned}}
-  \right\}\quad 
-  {\text{Maxwell}}'{\text{s equations}}\qquad \mathrm {(1.1)} 
+  \right\}\quad
+  {\text{Maxwell}}'{\text{s equations}}\qquad \mathrm {(1.1)}
 }
 \]
 
@@ -8561,14 +9546,14 @@ For example:
 
 <p>
 \begin{alignat}{2}
- \sigma_1 &= x + y  &\quad \sigma_2 &= \frac{x}{y} \\ 
- \sigma_1' &= \frac{\partial x + y}{\partial x} & \sigma_2' 
+ \sigma_1 &= x + y  &\quad \sigma_2 &= \frac{x}{y} \\
+ \sigma_1' &= \frac{\partial x + y}{\partial x} & \sigma_2'
     &= \frac{\partial \frac{x}{y}}{\partial x}
 \end{alignat}
 
 <p>
 \[
-{\displaystyle {\begin{aligned}\sigma _{1}&=x+y&\sigma _{2}&={\frac {x}{y}}&\qquad &\qquad &(1)\\\sigma _{1}'&={\frac {\partial x+y}{\partial x}}&\sigma _{2}'&={\frac {\partial {\frac {x}{y}}}{\partial x}}&&&(2)\end{aligned}}} 
+{\displaystyle {\begin{aligned}\sigma _{1}&=x+y&\sigma _{2}&={\frac {x}{y}}&\qquad &\qquad &(1)\\\sigma _{1}'&={\frac {\partial x+y}{\partial x}}&\sigma _{2}'&={\frac {\partial {\frac {x}{y}}}{\partial x}}&&&(2)\end{aligned}}}
 \]
 
 
@@ -8641,13 +9626,13 @@ Specific usage may look like this:
 
 <p>
 \begin{align*}
- &\vdots\\ 
+ &\vdots\\
  &=12+7 \int_0^2
   \left(
     -\frac{1}{4}\left(e^{-4t_1}+e^{4t_1-8}\right)
   \right)\,dt_1\displaybreak[3]\\
  &= 12-\frac{7}{4}\int_0^2 \left( e^{-4t_1}+e^{4t_1-8} \right)\,dt_1\\
- &\vdots % 
+ &\vdots %
 \end{align*}
 
 
@@ -8703,7 +9688,7 @@ If you want the entire line or several equations to be boxed, use a <code>minipa
 \boxed{
    x^2+y^2=z^2  \\
    x^3+y^3=z^3  \\
-   x^4+y^4=z^4  
+   x^4+y^4=z^4
 }
 \]
 
@@ -8736,13 +9721,13 @@ Although many common operators are available in LaTeX, sometimes you will need t
 
 <p>
 \[
- \operatorname{arg\,max}_a f(a) 
+ \operatorname{arg\,max}_a f(a)
  = \operatorname*{arg\,max}_b f(b)
 \]
 
 <p>
 \[
-{\displaystyle \operatorname {arg\,max} _{a}f(a)={\underset {b}{\operatorname {arg\,max} }}f(b)} 
+{\displaystyle \operatorname {arg\,max} _{a}f(a)={\underset {b}{\operatorname {arg\,max} }}f(b)}
 \]
 
 
@@ -8804,17 +9789,17 @@ To override this behavior, use the <code>\nolimits</code> operator:
 
 <p>
 \[
-{\displaystyle \lim \nolimits _{a\to \infty }{\tfrac {1}{a}}} 
+{\displaystyle \lim \nolimits _{a\to \infty }{\tfrac {1}{a}}}
 \]
 
 
 <p>
 A <code>lim</code> in running text (inside <code>$...$</code>) will have its limits placed on the side, so that additional leading won't be required. To override this behavior, use the <code>\limits</code> command:
 
-<p>Observe: 
+<p>Observe:
 $\lim _{a\to \infty} \tfrac{1}{a}$
 
-versus this one:  
+versus this one:
 $\lim \limits _{a\to \infty} \tfrac{1}{a}$.
 
 
@@ -8928,7 +9913,7 @@ It is very flexible: for example, to put letters in each corner of the symbol us
 
 <p>
 \[
-{\displaystyle \sideset {_{a}^{b}}{_{c}^{d}}\sum } 
+{\displaystyle \sideset {_{a}^{b}}{_{c}^{d}}\sum }
 \]
 
 
@@ -8992,7 +9977,7 @@ To add small interjections in math environments, use the <code>\intertext</code>
    B &= \rho_1+\rho_2\\
 \intertext{then}
 C(x) &= e^{Ax^2+\pi}+B
-\end{align*} 
+\end{align*}
 
 
 
@@ -9007,7 +9992,7 @@ Note that any usage of this command does not change the alignment.
    B &= \rho_1+\rho_2\\
 \shortintertext{then}
 C(x) &= e^{Ax^2+\pi}+B
-\end{align*} 
+\end{align*}
 
 
 <p>
@@ -9019,7 +10004,7 @@ Changing font size
 </h3>
 
 <p>
-There may be a time when you would prefer to have some control over the font size. For example, using text-mode maths, by default a simple fraction will look like this: 
+There may be a time when you would prefer to have some control over the font size. For example, using text-mode maths, by default a simple fraction will look like this:
 ${\frac {a}{b}}$ and
 ${\textstyle {\frac {a}{b}}}$, whereas you may prefer to have it displayed larger, like when in display mode, but still keeping it in-line, like this: ${\displaystyle {\frac {a}{b}}}$.
 
@@ -9033,7 +10018,7 @@ A simple approach is to utilize the predefined sizes for maths elements:
 Size command
      <dd> Description
   <dt>
-<code>\displaystyle</code> 
+<code>\displaystyle</code>
      <dd> Size for equations in display mode
   <dt>
 <code>\textstyle </code>
@@ -9042,7 +10027,7 @@ Size command
 <code>\scriptstyle</code>
      <dd>   Size for first sub/superscripts
   <dt>
-<code>\scriptscriptstyle</code> 
+<code>\scriptscriptstyle</code>
      <dd>  Size for subsequent sub/superscripts
 </dl>
 
@@ -9068,14 +10053,14 @@ As you can see, as the fractions continue, they get smaller (although they will 
 
 <p>
 \begin{equation}
-  x = a_0 + \frac{1}{\displaystyle a_1 
-          + \frac{1}{\displaystyle a_2 
+  x = a_0 + \frac{1}{\displaystyle a_1
+          + \frac{1}{\displaystyle a_2
           + \frac{1}{\displaystyle a_3 + a_4}}}
 \end{equation}
 
 <p>
   \[
-{\displaystyle x=a_{0}+{\frac {1}{\displaystyle a_{1}+{\frac {1}{\displaystyle a_{2}+{\frac {1}{\displaystyle a_{3}+a_{4}}}}}}}} 
+{\displaystyle x=a_{0}+{\frac {1}{\displaystyle a_{1}+{\frac {1}{\displaystyle a_{2}+{\frac {1}{\displaystyle a_{3}+a_{4}}}}}}}}
 \]
 
 
@@ -9139,6 +10124,645 @@ Short skips are used if the preceding line ends, horizontally, before the formul
 
 
 </blockquote>
+
+
+
+
+
+
+
+
+
+</section>
+
+<section>
+
+
+
+
+
+
+
+
+
+<p>Part of this page is extracted from:</p>
+<blockquote>
+
+<h1>KaTeX and MathJax Comparison Demo</h1>
+<small>Page by Murray Bourne, <a href="http://www.intmath.com/">IntMath.com</a>. Last updated: 28 Feb 2018</small>
+
+</blockquote>
+
+<p>Time to process page = <span id="ttp">1820</span> ms</p>
+
+
+<h3>Repeating fractions</h3>
+
+<script type="math/tex">
+\frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}} {1+\frac{e^{-8\pi}} {1+\cdots} } } }
+</script>
+
+<p>The LaTeX code:</p>
+<pre>\frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}} {1+\frac{e^{-8\pi}} {1+\cdots} } } }
+</pre>
+
+
+
+<h3>Summation notation</h3>
+
+
+
+
+
+
+<script  type="math/tex">
+\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
+</script>
+
+<p>The LaTeX code:</p><pre>
+\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
+</pre>
+
+<h3>Sum of a Series</h3>
+<p>I broke up the next two examples into separate lines so it behaves better on a mobile phone. That's why they include \displaystyle.</p>
+
+
+
+
+
+
+
+<script  type="math/tex">
+\displaystyle\sum_{i=1}^{k+1}i
+</script>
+
+<p>The LaTeX code:</p>
+<pre>\displaystyle\sum_{i=1}^{k+1}i
+</pre>
+
+
+
+
+
+
+<script  type="math/tex">\displaystyle= \left(\sum_{i=1}^{k}i\right) +(k+1)</script>
+
+<p>The LaTeX code:</p><pre>\displaystyle= \left(\sum_{i=1}^{k}i\right) +(k+1)</pre>
+
+
+
+
+
+
+<script  type="math/tex">
+\displaystyle= \frac{k(k+1)}{2}+k+1
+</script>
+
+<p>The LaTeX code:</p><pre>\displaystyle= \frac{k(k+1)}{2}+k+1
+</pre>
+
+
+
+
+
+
+<script  type="math/tex">
+\displaystyle= \frac{k(k+1)+2(k+1)}{2}
+</script>
+
+<p>The LaTeX code:</p><pre>\displaystyle= \frac{k(k+1)+2(k+1)}{2}
+</pre>
+
+
+
+
+
+
+<script  type="math/tex">
+\displaystyle= \frac{(k+1)(k+2)}{2}
+</script>
+
+<p>The LaTeX code:</p><pre>\displaystyle= \frac{(k+1)(k+2)}{2}
+</pre>
+
+
+
+
+
+
+<script  type="math/tex">
+\displaystyle= \frac{(k+1)((k+1)+1)}{2}
+</script>
+
+<p>The LaTeX code:</p><pre>\displaystyle= \frac{(k+1)((k+1)+1)}{2}
+</pre>
+
+
+<h3>Product notation</h3>
+
+
+
+
+
+
+
+<script  type="math/tex">\displaystyle
+1 +  \frac{q^2}{(1-q)}+\frac{q^6}{(1-q)(1-q^2)}+\cdots</script>
+
+<p>The LaTeX code:</p><pre>\displaystyle
+1 +  \frac{q^2}{(1-q)}+\frac{q^6}{(1-q)(1-q^2)}+\cdots</pre>
+
+
+
+
+<script  type="math/tex">= \displaystyle \prod_{j=0}^{\infty}\frac{1}{(1-q^{5j+2})(1-q^{5j+3})}, </script>
+
+<p>The LaTeX code:</p><pre>= \displaystyle \prod_{j=0}^{\infty}\frac{1}{(1-q^{5j+2})(1-q^{5j+3})}, </pre>
+
+
+
+
+
+
+<script  type="math/tex"> \displaystyle\text{ for }\lvert q\rvert < 1.
+</script>
+
+<p>The LaTeX code:</p><pre> \displaystyle\text{ for }\lvert q\rvert &lt; 1.
+</pre>
+
+
+
+<h3>Inline math</h3>
+
+<p>And here is some in-line math:
+
+
+
+<script  type="math/tex">k_{n+1} = n^2 + k_n^2 - k_{n-1}</script>, followed by some more text.</p>
+
+<p>The LaTeX code:</p><pre>k_{n+1} = n^2 + k_n^2 - k_{n-1}</pre>
+
+<p>Inline math uses</p> <pre>&lt;span class="math"&gt;...&lt;/span&gt;</pre> <p>rather than a div.</p>
+
+
+<h3>Greek Letters</h3>
+
+
+
+
+<script  type="math/tex">
+\Gamma\ \Delta\ \Theta\ \Lambda\ \Xi\ \Pi\ \Sigma\ \Upsilon\ \Phi\ \Psi\ \Omega
+</script>
+
+<p>The LaTeX code:</p><pre>\Gamma\ \Delta\ \Theta\ \Lambda\ \Xi\ \Pi\ \Sigma\ \Upsilon\ \Phi\ \Psi\ \Omega
+</pre>
+
+
+
+
+<script  type="math/tex">\alpha\ \beta\ \gamma\ \delta\ \epsilon\ \zeta\ \eta\ \theta\ \iota\ \kappa\ \lambda\ \mu\ \nu\ \xi</script>
+
+<p>The LaTeX code:</p><pre>\alpha\ \beta\ \gamma\ \delta\ \epsilon\ \zeta\ \eta\ \theta\ \iota\ \kappa\ \lambda\ \mu\ \nu\ \xi</pre>
+
+
+
+<script  type="math/tex">\ \omicron\ \pi\ \rho\ \sigma\ \tau\ \upsilon\ \phi\ \chi\ \psi\ \omega\ \varepsilon\ \vartheta\ \varpi\ \varrho\ \varsigma\ \varphi</script>
+
+<p><p>The LaTeX code:</p><pre>\ \omicron\ \pi\ \rho\ \sigma\ \tau\ \upsilon\ \phi\ \chi\ \psi\ \omega\ \varepsilon\ \vartheta\ \varpi\ \varrho\ \varsigma\ \varphi</pre>
+
+
+<h3>Arrows</h3>
+
+
+
+
+<script  type="math/tex">\gets\ \to\ \leftarrow\ \rightarrow\ \uparrow\ \Uparrow\ \downarrow\ \Downarrow\ \updownarrow\ \Updownarrow
+</script>
+
+<p>The LaTeX code:</p><pre>\gets\ \to\ \leftarrow\ \rightarrow\ \uparrow\ \Uparrow\ \downarrow\ \Downarrow\ \updownarrow\ \Updownarrow
+</pre>
+
+
+
+
+
+<script  type="math/tex">
+\Leftarrow\ \Rightarrow\ \leftrightarrow\ \Leftrightarrow\
+\mapsto\ \hookleftarrow
+</script>
+
+<p>The LaTeX code:</p><pre>\Leftarrow\ \Rightarrow\ \leftrightarrow\ \Leftrightarrow\
+\mapsto\ \hookleftarrow
+</pre>
+
+
+
+
+<script  type="math/tex">
+\leftharpoonup\ \leftharpoondown\ \rightleftharpoons\ \longleftarrow\ \Longleftarrow\ \longrightarrow
+</script>
+
+<p>The LaTeX code:</p><pre>\leftharpoonup\ \leftharpoondown\ \rightleftharpoons\ \longleftarrow\ \Longleftarrow\ \longrightarrow
+</pre>
+
+
+
+
+
+<script  type="math/tex">
+\Longrightarrow\ \longleftrightarrow\ \Longleftrightarrow\ \longmapsto\
+\hookrightarrow\ \rightharpoonup
+</script>
+
+<p>The LaTeX code:</p><pre>\Longrightarrow\ \longleftrightarrow\ \Longleftrightarrow\ \longmapsto\
+\hookrightarrow\ \rightharpoonup
+</pre>
+
+
+
+
+
+<script  type="math/tex">
+\rightharpoondown\ \leadsto\ \nearrow\
+\searrow\ \swarrow\ \nwarrow
+</script>
+
+<p>The LaTeX code:</p><pre>\rightharpoondown\ \leadsto\ \nearrow\
+\searrow\ \swarrow\ \nwarrow
+</pre>
+
+<h3>Symbols</h3>
+
+
+
+
+<script  type="math/tex">
+\surd\ \barwedge\ \veebar\ \odot\ \oplus\ \otimes\ \oslash\ \circledcirc\ \boxdot\
+\bigtriangleup
+</script>
+
+<p>The LaTeX code:</p><pre>
+\surd\ \barwedge\ \veebar\ \odot\ \oplus\ \otimes\ \oslash\ \circledcirc\ \boxdot\
+\bigtriangleup
+</pre>
+
+
+
+
+
+<script  type="math/tex">
+\bigtriangledown\ \dagger\ \diamond\ \star\ \triangleleft\
+\triangleright\ \angle\ \infty\ \prime\ \triangle
+</script>
+
+<p>The LaTeX code:</p><pre>
+\bigtriangledown\ \dagger\ \diamond\ \star\ \triangleleft\
+\triangleright\ \angle\ \infty\ \prime\ \triangle
+</pre>
+
+
+<h3>Calculus</h3>
+
+
+
+
+<script  type="math/tex">
+\int u \frac{dv}{dx}\,dx=uv-\int \frac{du}{dx}v\,dx
+</script>
+
+<p>The LaTeX code:</p><pre>
+\int u \frac{dv}{dx}\,dx=uv-\int \frac{du}{dx}v\,dx
+</pre>
+
+
+
+
+
+<script  type="math/tex">
+f(x) = \int_{-\infty}^\infty \hat f(\xi)\,e^{2 \pi i \xi x}
+</script>
+
+<p>The LaTeX code:</p><pre>
+f(x) = \int_{-\infty}^\infty \hat f(\xi)\,e^{2 \pi i \xi x}
+</pre>
+
+
+
+
+
+<script  type="math/tex">
+\oint \vec{F} \cdot d\vec{s}=0
+</script>
+
+<p>The LaTeX code:</p><pre>
+\oint \vec{F} \cdot d\vec{s}=0
+</pre>
+
+<h3>Lorenz Equations</h3>
+
+
+
+
+
+<script  type="math/tex">
+\begin{aligned}
+\dot{x} & = \sigma(y-x) \\
+\dot{y} & = \rho x - y - xz \\
+\dot{z} & = -\beta z + xy
+\end{aligned}
+</script>
+
+<p>The LaTeX code:</p><pre>\begin{aligned}
+\dot{x} &amp; = \sigma(y-x) \\
+\dot{y} &amp; = \rho x - y - xz \\
+\dot{z} &amp; = -\beta z + xy
+\end{aligned}
+</pre>
+
+
+<h3>Cross Product</h3>
+
+<p>This works in KaTeX, but the separation of fractions in this environment is not so good.</p>
+
+
+<script  type="math/tex">
+\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}
+\mathbf{i} & \mathbf{j} & \mathbf{k} \\
+\frac{\partial X}{\partial u} &  \frac{\partial Y}{\partial u} & 0 \\
+\frac{\partial X}{\partial v} &  \frac{\partial Y}{\partial v} & 0
+\end{vmatrix}
+</script>
+
+<p>The LaTeX code:</p>
+<pre>\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}
+\mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\
+\frac{\partial X}{\partial u} &amp;  \frac{\partial Y}{\partial u} &amp; 0 \\
+\frac{\partial X}{\partial v} &amp;  \frac{\partial Y}{\partial v} &amp; 0
+\end{vmatrix}
+</pre>
+
+<p>Here's a workaround: make the fractions smaller with an extra class that targets the spans with "mfrac" class (makes no difference in the MathJax case):</p>
+
+
+
+
+<script  type="math/tex">
+\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}
+\mathbf{i} & \mathbf{j} & \mathbf{k} \\
+\frac{\partial X}{\partial u} &  \frac{\partial Y}{\partial u} & 0 \\
+\frac{\partial X}{\partial v} &  \frac{\partial Y}{\partial v} & 0
+\end{vmatrix}
+</script>
+
+<p>The LaTeX code:</p>
+<pre>\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}
+\mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\
+\frac{\partial X}{\partial u} &amp;  \frac{\partial Y}{\partial u} &amp; 0 \\
+\frac{\partial X}{\partial v} &amp;  \frac{\partial Y}{\partial v} &amp; 0
+\end{vmatrix}
+</pre>
+
+<h3>Accents</h3>
+
+
+
+
+
+<script  type="math/tex">
+\hat{x}\ \vec{x}\ \ddot{x}
+</script>
+
+<p>The LaTeX code:</p><pre>
+\hat{x}\ \vec{x}\ \ddot{x}
+</pre>
+
+<h3>Stretchy brackets</h3>
+
+
+
+
+
+<script  type="math/tex">
+\left(\frac{x^2}{y^3}\right)
+</script>
+
+<p>The LaTeX code:</p><pre>
+\left(\frac{x^2}{y^3}\right)
+</pre>
+
+<h3>Evaluation at limits</h3>
+
+
+
+
+
+<script  type="math/tex">
+\left.\frac{x^3}{3}\right|_0^1
+</script>
+
+<p>The LaTeX code:</p><pre>
+\left.\frac{x^3}{3}\right|_0^1
+</pre>
+
+<h3>Case definitions</h3>
+
+
+
+
+<script  type="math/tex">
+f(n) = \begin{cases} \frac{n}{2}, & \text{if } n\text{ is even} \\ 3n+1, & \text{if } n\text{ is odd} \end{cases}
+</script>
+
+<p>The LaTeX code:</p><pre>
+f(n) = \begin{cases} \frac{n}{2}, &amp; \text{if } n\text{ is even} \\ 3n+1, &amp; \text{if } n\text{ is odd} \end{cases}
+</pre>
+
+<h3>Maxwell's Equations</h3>
+
+
+
+
+<script  type="math/tex">
+\begin{aligned}
+\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} & = \frac{4\pi}{c}\vec{\mathbf{j}} \\
+\nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\
+\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\
+\nabla \cdot \vec{\mathbf{B}} & = 0 \end{aligned}
+</script>
+
+<p>The LaTeX code:</p><pre>
+\begin{aligned}
+\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} &amp; = \frac{4\pi}{c}\vec{\mathbf{j}} \\
+\nabla \cdot \vec{\mathbf{E}} &amp; = 4 \pi \rho \\
+\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} &amp; = \vec{\mathbf{0}} \\
+\nabla \cdot \vec{\mathbf{B}} &amp; = 0 \end{aligned}
+</pre>
+
+<p>These equations are quite cramped. We can add vertical spacing using (for example) <code>[1em]</code> after each line break (<code>\\</code>). as you can see here:</p>
+
+
+
+
+
+<script  type="math/tex">
+\begin{aligned}
+\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} & = \frac{4\pi}{c}\vec{\mathbf{j}} \\[1em]
+\nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\[0.5em]
+\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\[1em]
+\nabla \cdot \vec{\mathbf{B}} & = 0 \end{aligned}
+</script>
+
+<p>The LaTeX code:</p><pre>
+\begin{aligned}
+\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} &amp; = \frac{4\pi}{c}\vec{\mathbf{j}} \\[1em]
+\nabla \cdot \vec{\mathbf{E}} &amp; = 4 \pi \rho \\[0.5em]
+\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} &amp; = \vec{\mathbf{0}} \\[1em]
+\nabla \cdot \vec{\mathbf{B}} &amp; = 0 \end{aligned}
+</pre>
+
+
+<h3>Statistics</h3>
+
+<p>Definition of combination:</p>
+
+
+
+
+
+<script  type="math/tex">
+\frac{n!}{k!(n-k)!} = {^n}C_k
+</script>
+
+<p>The LaTeX code:</p><pre>
+\frac{n!}{k!(n-k)!} = {^n}C_k
+</pre>
+
+
+
+
+
+
+<script  type="math/tex">
+{n \choose k}
+</script>
+
+<p>The LaTeX code:</p><pre>{n \choose k}
+</pre>
+
+
+<h3>Fractions on fractions</h3>
+
+
+
+
+
+<script  type="math/tex">
+\frac{\frac{1}{x}+\frac{1}{y}}{y-z}
+</script>
+
+<p>The LaTeX code:</p><pre>
+\frac{\frac{1}{x}+\frac{1}{y}}{y-z}
+</pre>
+
+<h3><em>n</em>-th root</h3>
+
+
+
+
+
+<script  type="math/tex">\sqrt[n]{1+x+x^2+x^3+\ldots}</script>
+
+<p>The LaTeX code:</p><pre>\sqrt[n]{1+x+x^2+x^3+\ldots}</pre>
+
+
+
+<h3>Matrices</h3>
+
+
+
+
+
+<script  type="math/tex">
+\begin{pmatrix}
+a_{11} & a_{12} & a_{13}\\
+a_{21} & a_{22} & a_{23}\\
+a_{31} & a_{32} & a_{33}
+\end{pmatrix}
+</script>
+
+<p>The LaTeX code:</p><pre>\begin{pmatrix}
+a_{11} &amp; a_{12} &amp; a_{13}\\
+a_{21} &amp; a_{22} &amp; a_{23}\\
+a_{31} &amp; a_{32} &amp; a_{33}
+\end{pmatrix}
+</pre>
+
+
+
+
+
+<script  type="math/tex">
+\begin{bmatrix} 0 & \cdots & 0 \\ \vdots & \ddots & \vdots \\ 0 & \cdots & 0 \end{bmatrix}
+</script>
+
+<p>The LaTeX code:</p><pre>\begin{bmatrix} 0 &amp; \cdots &amp; 0 \\ \vdots &amp; \ddots &amp; \vdots \\ 0 &amp; \cdots &amp; 0 \end{bmatrix}
+</pre>
+
+<h3>Punctuation</h3>
+
+
+
+
+<script  type="math/tex">
+f(x) = \sqrt{1+x} \quad (x \ge  -1)
+</script>
+
+<p>The LaTeX code:</p><pre>f(x) = \sqrt{1+x} \quad (x \ge  -1)
+</pre>
+
+
+
+
+<script  type="math/tex">
+f(x) \sim x^2 \quad (x\to\infty)
+</script>
+
+<p>The LaTeX code:</p><pre>f(x) \sim x^2 \quad (x\to\infty)
+</pre>
+
+
+<p>Now with punctuation:</p>
+
+
+
+
+<script  type="math/tex">
+f(x) = \sqrt{1+x}, \quad x \ge -1
+</script>
+
+<p>The LaTeX code:</p><pre>f(x) = \sqrt{1+x}, \quad x \ge -1
+</pre>
+
+
+
+
+<script  type="math/tex">
+f(x) \sim x^2, \quad x\to\infty
+</script>
+
+<p>The LaTeX code:</p><pre>f(x) \sim x^2, \quad x\to\infty
+</pre>
+
+
+
+</section>
+</article>
+
+
+
+
+
+
 
 </body>
 </html>
