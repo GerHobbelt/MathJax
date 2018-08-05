@@ -71,7 +71,7 @@ MathJax.Hub.Config({
 
 MathJax.InputJax.TeX = MathJax.InputJax({
   id: "TeX",
-  version: "2.7.4",
+  version: "2.7.5",
   directory: MathJax.InputJax.directory + "/TeX",
   extensionDir: MathJax.InputJax.extensionDir + "/TeX",
   
@@ -132,7 +132,7 @@ MathJax.InputJax.TeX.loadComplete("config.js");
 
 MathJax.InputJax.AsciiMath = MathJax.InputJax({
   id: "AsciiMath",
-  version: "2.7.4",
+  version: "2.7.5",
   directory: MathJax.InputJax.directory + "/AsciiMath",
   extensionDir: MathJax.InputJax.extensionDir + "/AsciiMath",
   
@@ -176,7 +176,7 @@ MathJax.InputJax.AsciiMath.loadComplete("config.js");
 
 MathJax.OutputJax.CommonHTML = MathJax.OutputJax({
   id: "CommonHTML",
-  version: "2.7.4",
+  version: "2.7.5",
   directory: MathJax.OutputJax.directory + "/CommonHTML",
   extensionDir: MathJax.OutputJax.extensionDir + "/CommonHTML",
   autoloadDir: MathJax.OutputJax.directory + "/CommonHTML/autoload",
@@ -241,7 +241,7 @@ MathJax.OutputJax.CommonHTML.loadComplete("config.js");
 
 MathJax.OutputJax.PreviewHTML = MathJax.OutputJax({
   id: "PreviewHTML",
-  version: "2.7.4",
+  version: "2.7.5",
   directory: MathJax.OutputJax.directory + "/PreviewHTML",
   extensionDir: MathJax.OutputJax.extensionDir + "/PreviewHTML",
   noFastPreview: true,  // don't do fast preview for this output jax
@@ -296,7 +296,7 @@ MathJax.OutputJax.PreviewHTML.loadComplete("config.js");
  */
 
 MathJax.Extension.tex2jax = {
-  version: "2.7.4",
+  version: "2.7.5",
   config: {
     inlineMath: [              // The start/stop pairs for in-line math
 //    ['$','$'],               //  (comment out any you don't want, or add your own, but
@@ -619,7 +619,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/tex2jax.js");
  */
 
 MathJax.Extension.asciimath2jax = {
-  version: "2.7.4",
+  version: "2.7.5",
   config: {
     delimiters: [['`','`']],   // The star/stop delimiter pairs for asciimath code
 
@@ -870,7 +870,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
  */
 
 (function (HUB,HTML,AJAX,CALLBACK,LOCALE,OUTPUT,INPUT) {
-  var VERSION = "2.7.4";
+  var VERSION = "2.7.5";
 
   var EXTENSION = MathJax.Extension;
   var ME = EXTENSION.MathEvents = {version: VERSION};
@@ -1507,7 +1507,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
  */
 
 (function (HUB,HTML,AJAX,HTMLCSS,nMML) {
-  var VERSION = "2.7.4";
+  var VERSION = "2.7.5";
 
   var CONFIG = HUB.CombineConfig("MathZoom",{
     styles: {
@@ -1879,7 +1879,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
  */
 
 (function (HUB,HTML,AJAX,CALLBACK,OUTPUT) {
-  var VERSION = "2.7.4";
+  var VERSION = "2.7.5";
 
   var SIGNAL = MathJax.Callback.Signal("menu");  // signal for menu events
 
@@ -3551,7 +3551,7 @@ MathJax.ElementJax.mml = MathJax.ElementJax({
   mimeType: "jax/mml"
 },{
   id: "mml",
-  version: "2.7.4",
+  version: "2.7.5",
   directory: MathJax.ElementJax.directory + "/mml",
   extensionDir: MathJax.ElementJax.extensionDir + "/mml",
   optableDir: MathJax.ElementJax.directory + "/mml/optable"
@@ -3859,6 +3859,7 @@ MathJax.ElementJax.mml.Augment({
     adjustChild_scriptlevel:   function (i,nodef) {return this.Get("scriptlevel",nodef)},   // always inherit from parent
     adjustChild_displaystyle:  function (i,nodef) {return this.Get("displaystyle",nodef)},  // always inherit from parent
     adjustChild_texprimestyle: function (i,nodef) {return this.Get("texprimestyle",nodef)}, // always inherit from parent
+    hasMMLspacing: function () {return false},
     childPosition: function () {
       var child = this, parent = child.parent;
       while (parent.notParent) {child = parent; parent = child.parent}
@@ -4081,12 +4082,16 @@ MathJax.ElementJax.mml.Augment({
       indentshiftlast: MML.INDENTSHIFT.INDENTSHIFT,
       texClass: MML.TEXCLASS.REL // for MML, but TeX sets ORD explicitly
     },
-    SPACE_ATTR: {lspace: 0x01, rspace: 0x02, form: 0x04},
-    useMMLspacing: 0x07,
+    SPACE_ATTR: {lspace: 0x01, rspace: 0x02},
+    useMMLspacing: 0x03,
+    hasMMLspacing: function () {
+      if (this.useMMLspacing) return true;
+      return this.form && (this.OPTABLE[this.form]||{})[this.data.join('')];
+    },
     autoDefault: function (name,nodefault) {
       var def = this.def;
       if (!def) {
-        if (name === "form") {this.useMMLspacing &= ~this.SPACE_ATTR.form; return this.getForm()}
+        if (name === "form") {return this.getForm()}
         var mo = this.data.join("");
         var forms = [this.Get("form"),MML.FORM.INFIX,MML.FORM.POSTFIX,MML.FORM.PREFIX];
         for (var i = 0, m = forms.length; i < m; i++) {
@@ -4179,7 +4184,7 @@ MathJax.ElementJax.mml.Augment({
     },
     setTeXclass: function (prev) {
       var values = this.getValues("form","lspace","rspace","fence"); // sets useMMLspacing
-      if (this.useMMLspacing) {this.texClass = MML.TEXCLASS.NONE; return this}
+      if (this.hasMMLspacing()) {this.texClass = MML.TEXCLASS.NONE; return this}
       if (values.fence && !this.texClass) {
         if (values.form === MML.FORM.PREFIX) {this.texClass = MML.TEXCLASS.OPEN}
         if (values.form === MML.FORM.POSTFIX) {this.texClass = MML.TEXCLASS.CLOSE}
@@ -4518,10 +4523,6 @@ MathJax.ElementJax.mml.Augment({
         this.SetData("open",MML.mo(values.open).With({
           fence:true, form:MML.FORM.PREFIX, texClass:MML.TEXCLASS.OPEN
         }));
-        //
-        //  Clear flag for using MML spacing even though form is specified
-        //
-        this.data.open.useMMLspacing = 0;
       }
       //
       //  Create fake nodes for the separators
@@ -4530,10 +4531,8 @@ MathJax.ElementJax.mml.Augment({
         while (values.separators.length < this.data.length)
           {values.separators += values.separators.charAt(values.separators.length-1)}
         for (var i = 1, m = this.data.length; i < m; i++) {
-          if (this.data[i]) {
-            this.SetData("sep"+i,MML.mo(values.separators.charAt(i-1)).With({separator:true}))
-            this.data["sep"+i].useMMLspacing = 0;
-          }
+          if (this.data[i])
+            {this.SetData("sep"+i,MML.mo(values.separators.charAt(i-1)).With({separator:true}))}
         }
       }
       //
@@ -4543,10 +4542,6 @@ MathJax.ElementJax.mml.Augment({
         this.SetData("close",MML.mo(values.close).With({
           fence:true, form:MML.FORM.POSTFIX, texClass:MML.TEXCLASS.CLOSE
         }));
-        //
-        //  Clear flag for using MML spacing even though form is specified
-        //
-        this.data.close.useMMLspacing = 0;
       }
     },
     texClass: MML.TEXCLASS.OPEN,
@@ -5367,7 +5362,7 @@ MathJax.ElementJax.mml.loadComplete("jax.js");
  */
 
 MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js",function () {
-  var VERSION = "2.7.4";
+  var VERSION = "2.7.5";
   
   var MML = MathJax.ElementJax.mml,
       SETTINGS = MathJax.Hub.config.menuSettings;
@@ -5654,7 +5649,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
  */
 
 (function (HUB,HTML) {
-  var VERSION = "2.7.4";
+  var VERSION = "2.7.5";
   
   var CONFIG = HUB.CombineConfig("TeX.noErrors",{
     disabled: false,               // set to true to return to original error messages
@@ -6036,7 +6031,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noErrors.js");
 //  The configuration defaults, augmented by the user settings
 //
 MathJax.Extension["TeX/noUndefined"] = {
-  version: "2.7.4",
+  version: "2.7.5",
   config: MathJax.Hub.CombineConfig("TeX.noUndefined",{
     disabled: false,      // set to true to return to original error messages
     attributes: {
@@ -7148,7 +7143,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       while (this.i < this.string.length) {
         c = this.string.charAt(this.i++); n = c.charCodeAt(0);
         if (n >= 0xD800 && n < 0xDC00) {c += this.string.charAt(this.i++)}
-        if (TEXDEF.special[c]) {this[TEXDEF.special[c]](c)}
+        if (TEXDEF.special.hasOwnProperty(c)) {this[TEXDEF.special[c]](c)}
         else if (TEXDEF.letter.test(c)) {this.Variable(c)}
         else if (TEXDEF.digit.test(c)) {this.Number(c)}
         else {this.Other(c)}
@@ -7175,17 +7170,19 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         if (!isArray(macro)) {macro = [macro]}
         var fn = macro[0]; if (!(fn instanceof Function)) {fn = this[fn]}
         fn.apply(this,[c+name].concat(macro.slice(1)));
-      } else if (TEXDEF.mathchar0mi[name])            {this.csMathchar0mi(name,TEXDEF.mathchar0mi[name])}
-        else if (TEXDEF.mathchar0mo[name])            {this.csMathchar0mo(name,TEXDEF.mathchar0mo[name])}
-        else if (TEXDEF.mathchar7[name])              {this.csMathchar7(name,TEXDEF.mathchar7[name])}
-        else if (TEXDEF.delimiter["\\"+name] != null) {this.csDelimiter(name,TEXDEF.delimiter["\\"+name])}
-        else                                          {this.csUndefined(c+name)}
+      } else if (TEXDEF.mathchar0mi.hasOwnProperty(name))    {this.csMathchar0mi(name,TEXDEF.mathchar0mi[name])}
+        else if (TEXDEF.mathchar0mo.hasOwnProperty(name))    {this.csMathchar0mo(name,TEXDEF.mathchar0mo[name])}
+        else if (TEXDEF.mathchar7.hasOwnProperty(name))      {this.csMathchar7(name,TEXDEF.mathchar7[name])}
+        else if (TEXDEF.delimiter.hasOwnProperty("\\"+name)) {this.csDelimiter(name,TEXDEF.delimiter["\\"+name])}
+        else                                                 {this.csUndefined(c+name)}
     },
     //
     //  Look up a macro in the macros list
     //  (overridden in begingroup extension)
     //
-    csFindMacro: function (name) {return TEXDEF.macros[name]},
+    csFindMacro: function (name) {
+      return (TEXDEF.macros.hasOwnProperty(name) ? TEXDEF.macros[name] : null);
+    },
     //
     //  Handle normal mathchar (as an mi)
     //
@@ -7361,7 +7358,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
     Other: function (c) {
       var def, mo;
       if (this.stack.env.font) {def = {mathvariant: this.stack.env.font}}
-      if (TEXDEF.remap[c]) {
+      if (TEXDEF.remap.hasOwnProperty(c)) {
         c = TEXDEF.remap[c];
         if (isArray(c)) {def = c[1]; c = c[0]}
         mo = MML.mo(MML.entity('#x'+c)).With(def);
@@ -7427,7 +7424,6 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         form: MML.FORM.PREFIX,
         texClass: MML.TEXCLASS.OP
       });
-      mml.useMMLspacing &= ~mml.SPACE_ATTR.form;  // don't count this explicit form setting
       this.Push(this.mmlToken(mml));
     },
     Limits: function (name,limits) {
@@ -7677,10 +7673,10 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       size *= TEXDEF.p_height;
       size = String(size).replace(/(\.\d\d\d).+/,'$1')+"em";
       var delim = this.GetDelimiter(name,true);
-      this.Push(MML.TeXAtom(MML.mo(delim).With({
+      this.Push(MML.mstyle(MML.TeXAtom(MML.mo(delim).With({
         minsize: size, maxsize: size,
         fence: true, stretchy: true, symmetric: true
-      })).With({texClass: mclass}));
+      })).With({texClass: mclass})).With({scriptlevel: 0}));
     },
 
     BuildRel: function (name) {
@@ -7940,7 +7936,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       }
       this.Push(mml);
     },
-    envFindName: function (name) {return TEXDEF.environment[name]},
+    envFindName: function (name) {
+      return (TEXDEF.environment.hasOwnProperty(name) ? TEXDEF.environment[name] : null);
+    },
 
     Equation: function (begin,row) {return row},
 
@@ -7997,7 +7995,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
      *  Convert delimiter to character
      */
     convertDelimiter: function (c) {
-      if (c) {c = TEXDEF.delimiter[c]}
+      if (c) {c = (TEXDEF.delimiter.hasOwnProperty(c) ? TEXDEF.delimiter[c] : null)}
       if (c == null) {return null}
       if (isArray(c)) {c = c[0]}
       if (c.length === 4) {c = String.fromCharCode(parseInt(c,16))}
@@ -8109,7 +8107,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
           this.i--;
           c = this.GetArgument(name).replace(/^\s+/,'').replace(/\s+$/,'');
         }
-        if (TEXDEF.delimiter[c] != null) {return this.convertDelimiter(c)}
+        if (TEXDEF.delimiter.hasOwnProperty(c)) {return this.convertDelimiter(c)}
       }
       TEX.Error(["MissingOrUnrecognizedDelim",
                  "Missing or unrecognized delimiter for %1",name]);
@@ -8461,7 +8459,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
  */
 
 MathJax.Extension["TeX/AMSmath"] = {
-  version: "2.7.4",
+  version: "2.7.5",
   
   number: 0,        // current equation number
   startNumber: 0,   // current starting equation number (for when equation is restarted)
@@ -9145,7 +9143,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSmath.js");
  */
 
 MathJax.Extension["TeX/AMSsymbols"] = {
-  version: "2.7.4"
+  version: "2.7.5"
 };
 
 MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
@@ -10125,12 +10123,15 @@ var AMsymbols = [
 {input:"vec", tag:"mover", output:"\u2192", tex:null, ttype:UNARY, acc:true},
 {input:"dot", tag:"mover", output:".",      tex:null, ttype:UNARY, acc:true},
 {input:"ddot", tag:"mover", output:"..",    tex:null, ttype:UNARY, acc:true},
+{input:"overarc", tag:"mover", output:"\u23DC", tex:"overparen", ttype:UNARY, acc:true},
 {input:"ul", tag:"munder", output:"\u0332", tex:"underline", ttype:UNARY, acc:true},
 {input:"ubrace", tag:"munder", output:"\u23DF", tex:"underbrace", ttype:UNARYUNDEROVER, acc:true},
 {input:"obrace", tag:"mover", output:"\u23DE", tex:"overbrace", ttype:UNARYUNDEROVER, acc:true},
 {input:"text", tag:"mtext", output:"text", tex:null, ttype:TEXT},
 {input:"mbox", tag:"mtext", output:"mbox", tex:null, ttype:TEXT},
 {input:"color", tag:"mstyle", ttype:BINARY},
+{input:"id", tag:"mrow", ttype:BINARY},
+{input:"class", tag:"mrow", ttype:BINARY},
 {input:"cancel", tag:"menclose", output:"cancel", tex:null, ttype:UNARY},
 AMquote, AMset,
 {input:"bb", tag:"mstyle", atname:"mathvariant", atval:"bold", output:"bb", tex:null, ttype:UNARY},
@@ -10426,13 +10427,20 @@ function AMparseSexpr(str) { //parses str and returns [node,tailstr]
     if (result2[0]==null) return [createMmlNode("mo",
                            document.createTextNode(symbol.input)),str];
     AMremoveBrackets(result2[0]);
-    if (symbol.input=="color") {
+    if (['color', 'class', 'id'].indexOf(symbol.input) >= 0) {
+      // Get the second argument
       if (str.charAt(0)=="{") i=str.indexOf("}");
       else if (str.charAt(0)=="(") i=str.indexOf(")");
       else if (str.charAt(0)=="[") i=str.indexOf("]");
       st = str.slice(1,i);
-      node = createMmlNode(symbol.tag,result2[0]);
-      node.setAttribute("mathcolor",st);
+
+      // Make a mathml node
+    	node = createMmlNode(symbol.tag,result2[0]);
+
+      // Set the correct attribute
+      if (symbol.input === "color") node.setAttribute("mathcolor", st);
+      else if (symbol.input === "class") node.setAttribute("class", st);
+      else if (symbol.input === "id") node.setAttribute("id", st);
       return [node,result2[1]];
     }
     if (symbol.input=="root" || symbol.output=="stackrel")
@@ -11218,12 +11226,12 @@ var junk = [window, navigator]; junk = null;
     ".mjx-test-inline .mjx-left-box": {
       display: "inline-block",
       width: 0,
-      float:"left"
+      "float":"left"
     },
     ".mjx-test-inline .mjx-right-box": {
       display: "inline-block",
       width: 0,
-      float:"right"
+      "float":"right"
     },
     ".mjx-test-display .mjx-right-box": {
       display: "table-cell!important",
@@ -11515,7 +11523,7 @@ var junk = [window, navigator]; junk = null;
           ex = this.defaultEx;
           cwidth = this.defaultWidth;
         }
-        if (cwidth === 0) cwidth = this.defaultWidth;
+        if (cwidth === 0 && !jax.CHTML.display) cwidth = this.defaultWidth;
         if (relwidth) maxwidth = cwidth;
         scale = (this.config.matchFontHeight ? ex/this.TEX.x_height/em : 1);
         scale = Math.floor(Math.max(this.config.minScaleAdjust/100,scale)*this.config.scale);
@@ -11654,7 +11662,6 @@ var junk = [window, navigator]; junk = null;
           //
           if (data.preview) {
             data.preview.innerHTML = "";
-            data.preview.style.display = "none";
             script.MathJax.preview = data.preview;
             delete data.preview;
           }
@@ -11793,6 +11800,15 @@ var junk = [window, navigator]; junk = null;
 
     /********************************************************/
 
+    //
+    //  True if text holds a single (unicode) glyph
+    //
+    isChar: function (text) {
+      if (text.length === 1) return true;
+      if (text.length !== 2) return false;
+      var n = text.charCodeAt(0);
+      return (n >= 0xD800 && n < 0xDBFF);
+    },
     //
     //  Get a unicode character by number (even when it takes two character)
     //
@@ -12901,8 +12917,8 @@ var junk = [window, navigator]; junk = null;
       toCommonHTML: function (node) {
         node = this.CHTMLdefaultNode(node);
         var bbox = this.CHTML, text = this.data.join("");
-        if (bbox.skew != null && text.length !== 1) delete bbox.skew;
-        if (bbox.r > bbox.w && text.length === 1 && !this.CHTMLvariant.noIC) {
+        if (bbox.skew != null && !CHTML.isChar(text)) delete bbox.skew;
+        if (bbox.r > bbox.w && CHTML.isChar(text) && !this.CHTMLvariant.noIC) {
           bbox.ic = bbox.r - bbox.w; bbox.w = bbox.r;
           node.lastChild.style.paddingRight = CHTML.Em(bbox.ic);
         }
@@ -12917,8 +12933,8 @@ var junk = [window, navigator]; junk = null;
       toCommonHTML: function (node) {
         node = this.CHTMLdefaultNode(node,{childOptions:{remap:this.CHTMLremapMinus}});
         var bbox = this.CHTML, text = this.data.join("");
-        if (bbox.skew != null && text.length !== 1) delete bbox.skew;
-        if (bbox.r > bbox.w && text.length === 1 && !this.CHTMLvariant.noIC) {
+        if (bbox.skew != null && !CHTML.isChar(text)) delete bbox.skew;
+        if (bbox.r > bbox.w && CHTML.isChar(text) && !this.CHTMLvariant.noIC) {
           bbox.ic = bbox.r - bbox.w; bbox.w = bbox.r;
           node.lastChild.style.paddingRight = CHTML.Em(bbox.ic);
         }
@@ -12952,7 +12968,7 @@ var junk = [window, navigator]; junk = null;
               remapchars: values.remapchars
             }});
           }
-          if (values.text.length !== 1) delete this.CHTML.skew;
+          if (!CHTML.isChar(values.text)) delete this.CHTML.skew;
             else if (this.CHTML.w === 0 && this.CHTML.l < 0) this.CHTMLfixCombiningChar(node);
           if (values.largeop) this.CHTMLcenterOp(node);
         }
@@ -12965,7 +12981,7 @@ var junk = [window, navigator]; junk = null;
         return node;
       },
       CHTMLhandleSpace: function (node) {
-        if (this.useMMLspacing) {
+        if (this.hasMMLspacing()) {
           var values = this.getValues("scriptlevel","lspace","rspace");
           values.lspace = Math.max(0,this.CHTMLlength2em(values.lspace));
           values.rspace = Math.max(0,this.CHTMLlength2em(values.rspace));
@@ -12985,7 +13001,7 @@ var junk = [window, navigator]; junk = null;
       },
       CHTMLadjustAccent: function (data) {
         var parent = this.CoreParent(); data.parent = parent;
-        if (data.text.length === 1 && parent && parent.isa(MML.munderover)) {
+        if (CHTML.isChar(data.text) && parent && parent.isa(MML.munderover)) {
           var over = parent.data[parent.over], under = parent.data[parent.under];
           if (over && this === over.CoreMO() && parent.Get("accent")) {
             data.remapchars = CHTML.FONTDATA.REMAPACCENT;
@@ -13025,7 +13041,7 @@ var junk = [window, navigator]; junk = null;
       },
       CHTMLcanStretch: function (direction,H,D) {
         if (!this.Get("stretchy")) return false;
-        var c = this.data.join(""); if (c.length !== 1) return false;
+        var c = this.data.join(""); if (!CHTML.isChar(c)) return false;
         var values = {text: c};
         this.CHTMLadjustAccent(values);
         if (values.remapchars) c = values.remapchars[c]||c;
@@ -13496,7 +13512,7 @@ var junk = [window, navigator]; junk = null;
         if (bmml) {
           if ((bmml.type === "mrow" || bmml.type === "mstyle") && bmml.data.length === 1) bmml = bmml.data[0];
           if (bmml.type === "mi" || bmml.type === "mo") {
-            if (bmml.data.join("").length === 1 && bbox.rscale === 1 && !bbox.sH &&
+            if (CHTML.isChar(bmml.data.join("")) && bbox.rscale === 1 && !bbox.sH &&
                 !bmml.Get("largeop")) {u = v = 0}
           }
         }
@@ -13885,7 +13901,7 @@ var junk = [window, navigator]; junk = null;
  */
 
 MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function () {
-  var VERSION = "2.7.4";
+  var VERSION = "2.7.5";
   var MML = MathJax.ElementJax.mml,
       CONFIG = MathJax.Hub.config,
       CHTML = MathJax.OutputJax.CommonHTML,
@@ -14731,7 +14747,6 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function () {
           //
           if (data.preview) {
             data.preview.innerHTML = "";
-            data.preview.style.display = "none";
             script.MathJax.preview = data.preview;
             delete data.preview;
           }
@@ -15594,7 +15609,7 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function () {
   var msieColorBug = BROWSER.isMSIE && (document.documentMode||0) < 8;
 
   var FastPreview = MathJax.Extension["fast-preview"] = {
-    version: "2.7.4",
+    version: "2.7.5",
     enabled: true,
 
     //
@@ -15746,7 +15761,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/fast-preview.js");
   var SETTINGS = HUB.config.menuSettings;
   
   var AssistiveMML = MathJax.Extension["AssistiveMML"] = {
-    version: "2.7.4",
+    version: "2.7.5",
     
     config: HUB.CombineConfig("AssistiveMML",{
       disabled: false,
@@ -15877,189 +15892,5 @@ MathJax.Callback.Queue(
 );
 
 
-/*************************************************************
- *
- *  [Contrib]/a11y/accessibility-menu.js
- *  
- *  A thin extension to add opt-in menu items for the accessibility
- *  extensions in the a11y contributed directory.
- *
- *  ---------------------------------------------------------------------
- *  
- *  Copyright (c) 2016-2018 The MathJax Consortium
- * 
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-
-(function(HUB,EXTENSIONS) {
-  var SETTINGS = HUB.config.menuSettings;
-  var ITEM, MENU; // filled in when MathMenu extension loads
-  
-  var BIND = (Function.prototype.bind ? function (f,t) {return f.bind(t)} :
-              function (f,t) {return function () {f.apply(t,arguments)}});
-  var KEYS = Object.keys || function (obj) {
-    var keys = [];
-    for (var id in obj) {if (obj.hasOwnProperty(id)) keys.push(id)}
-    return keys;
-  };
-  
-  //
-  //  Set up the a11y path,if it isn't already in place
-  //
-  var PATH = MathJax.Ajax.config.path;
-  if (!PATH.a11y) PATH.a11y = HUB.config.root + "/extensions/a11y";
-
-  var Accessibility = EXTENSIONS["accessibility-menu"] = {
-    version: '1.4.0',
-    prefix: '', //'Accessibility-',
-    defaults: {},
-    modules: [],
-    MakeOption: function(name) {
-      return Accessibility.prefix + name;
-    },
-    GetOption: function(option) {
-      return SETTINGS[Accessibility.MakeOption(option)];
-    },
-    AddDefaults: function() {
-      var keys = KEYS(Accessibility.defaults);
-      for (var i = 0, key; key = keys[i]; i++) {
-        var option = Accessibility.MakeOption(key);
-        if (typeof(SETTINGS[option]) === 'undefined') {
-          SETTINGS[option] = Accessibility.defaults[key];
-        }
-      }
-    },
-    // Attaches the menu items;
-    AddMenu: function() {
-      var items = Array(this.modules.length);
-      for (var i = 0, module; module = this.modules[i]; i++) items[i] = module.placeHolder;
-      var menu = MENU.FindId('Accessibility');
-      if (menu) {
-        items.unshift(ITEM.RULE());
-        menu.submenu.items.push.apply(menu.submenu.items,items);
-      } else {
-        var renderer = (MENU.FindId("Settings","Renderer")||{}).submenu;
-        if (renderer) {
-          // move AssitiveMML and InTabOrder from Renderer to Accessibility menu
-          items.unshift(ITEM.RULE());
-          items.unshift(renderer.items.pop());
-          items.unshift(renderer.items.pop());
-        }
-        items.unshift("Accessibility");
-        var menu = ITEM.SUBMENU.apply(ITEM.SUBMENU,items);
-        var locale = MENU.IndexOfId('Locale');
-        if (locale) {
-          MENU.items.splice(locale,0,menu);
-        } else {
-          MENU.items.push(ITEM.RULE(), menu);
-        }
-      }
-    },
-    Register: function(module) {
-      Accessibility.defaults[module.option] = false;
-      Accessibility.modules.push(module);
-    },
-    Startup: function() {
-      ITEM = MathJax.Menu.ITEM;
-      MENU = MathJax.Menu.menu;
-      for (var i = 0, module; module = this.modules[i]; i++) module.CreateMenu();
-      this.AddMenu();
-    },
-    LoadExtensions: function () {
-      var extensions = [];
-      for (var i = 0, module; module = this.modules[i]; i++) {
-        if (SETTINGS[module.option]) extensions.push(module.module);
-      }
-      return (extensions.length ? HUB.Startup.loadArray(extensions) : null);
-    }
-  };
-
-  var ModuleLoader = MathJax.Extension.ModuleLoader = MathJax.Object.Subclass({
-    option: '',
-    name: ['',''],
-    module: '',
-    placeHolder: null,
-    submenu: false,
-    extension: null,
-    Init: function(option, name, module, extension, submenu) {
-      this.option = option;
-      this.name = [name.replace(/ /g,''),name];
-      this.module = module;
-      this.extension = extension;
-      this.submenu = (submenu || false);
-    },
-    CreateMenu: function() {
-      var load = BIND(this.Load,this);
-      if (this.submenu) {
-        this.placeHolder =
-          ITEM.SUBMENU(this.name,
-            ITEM.CHECKBOX(["Activate","Activate"],
-                          Accessibility.MakeOption(this.option), {action: load}),
-            ITEM.RULE(),
-            ITEM.COMMAND(["OptionsWhenActive","(Options when Active)"],null,{disabled:true})
-          );
-      } else {
-        this.placeHolder = ITEM.CHECKBOX(
-          this.name, Accessibility.MakeOption(this.option), {action: load}
-        );
-      }
-    },
-    Load: function() {
-      HUB.Queue(["Require",MathJax.Ajax,this.module,["Enable",this]]);
-    },
-    Enable: function(menu) {
-      var extension = MathJax.Extension[this.extension];
-      if (extension) {
-        extension.Enable(true,true);
-        MathJax.Menu.saveCookie();
-      }
-    }
-  });
-
-  Accessibility.Register(
-    ModuleLoader(
-      'collapsible', 'Collapsible Math', '[a11y]/collapsible.js', 'collapsible'
-    )
-  );
-  Accessibility.Register(
-    ModuleLoader(
-      'autocollapse', 'Auto Collapse', '[a11y]/auto-collapse.js', 'auto-collapse'
-    )
-  );
-  Accessibility.Register(
-    ModuleLoader(
-      'explorer', 'Explorer', '[a11y]/explorer.js', 'explorer', true
-    )
-  );
-
-  Accessibility.AddDefaults();
-  
-  HUB.Register.StartupHook('End Extensions', function () {
-    HUB.Register.StartupHook('MathMenu Ready', function () {
-      Accessibility.Startup();
-      HUB.Startup.signal.Post('Accessibility Menu Ready');
-    },5);   // run before other extensions' menu hooks even if they are loaded first
-  },5);
-  
-  MathJax.Hub.Register.StartupHook("End Cookie", function () {
-    MathJax.Callback.Queue(
-      ["LoadExtensions",Accessibility],
-      ["loadComplete",MathJax.Ajax,"[a11y]/accessibility-menu.js"]
-    );
-  });
-
-})(MathJax.Hub,MathJax.Extension);
-
-
-
+!function(a,b){var c,d,e=a.config.menuSettings,f=Function.prototype.bind?function(a,b){return a.bind(b)}:function(a,b){return function(){a.apply(b,arguments)}},g=Object.keys||function(a){var b=[];for(var c in a)a.hasOwnProperty(c)&&b.push(c);return b},h=MathJax.Ajax.config.path;h.a11y||(h.a11y=a.config.root+"/extensions/a11y");var i=b["accessibility-menu"]={version:"1.5.0",prefix:"",defaults:{},modules:[],MakeOption:function(a){return i.prefix+a},GetOption:function(a){return e[i.MakeOption(a)]},AddDefaults:function(){for(var a,b=g(i.defaults),c=0;a=b[c];c++){var d=i.MakeOption(a);void 0===e[d]&&(e[d]=i.defaults[a])}},AddMenu:function(){for(var a,b=Array(this.modules.length),e=0;a=this.modules[e];e++)b[e]=a.placeHolder;var f=d.FindId("Accessibility");if(f)b.unshift(c.RULE()),f.submenu.items.push.apply(f.submenu.items,b);else{var g=(d.FindId("Settings","Renderer")||{}).submenu;g&&(b.unshift(c.RULE()),b.unshift(g.items.pop()),b.unshift(g.items.pop())),b.unshift("Accessibility");var f=c.SUBMENU.apply(c.SUBMENU,b),h=d.IndexOfId("Locale");h?d.items.splice(h,0,f):d.items.push(c.RULE(),f)}},Register:function(a){i.defaults[a.option]=!1,i.modules.push(a)},Startup:function(){c=MathJax.Menu.ITEM,d=MathJax.Menu.menu;for(var a,b=0;a=this.modules[b];b++)a.CreateMenu();this.AddMenu()},LoadExtensions:function(){for(var b,c=[],d=0;b=this.modules[d];d++)e[b.option]&&c.push(b.module);return c.length?a.Startup.loadArray(c):null}},j=MathJax.Extension.ModuleLoader=MathJax.Object.Subclass({option:"",name:["",""],module:"",placeHolder:null,submenu:!1,extension:null,Init:function(a,b,c,d,e){this.option=a,this.name=[b.replace(/ /g,""),b],this.module=c,this.extension=d,this.submenu=e||!1},CreateMenu:function(){var a=f(this.Load,this);this.submenu?this.placeHolder=c.SUBMENU(this.name,c.CHECKBOX(["Activate","Activate"],i.MakeOption(this.option),{action:a}),c.RULE(),c.COMMAND(["OptionsWhenActive","(Options when Active)"],null,{disabled:!0})):this.placeHolder=c.CHECKBOX(this.name,i.MakeOption(this.option),{action:a})},Load:function(){a.Queue(["Require",MathJax.Ajax,this.module,["Enable",this]])},Enable:function(a){var b=MathJax.Extension[this.extension];b&&(b.Enable(!0,!0),MathJax.Menu.saveCookie())}});i.Register(j("collapsible","Collapsible Math","[a11y]/collapsible.js","collapsible")),i.Register(j("autocollapse","Auto Collapse","[a11y]/auto-collapse.js","auto-collapse")),i.Register(j("explorer","Explorer","[a11y]/explorer.js","explorer",!0)),i.AddDefaults(),a.Register.StartupHook("End Extensions",function(){a.Register.StartupHook("MathMenu Ready",function(){i.Startup(),a.Startup.signal.Post("Accessibility Menu Ready")},5)},5),MathJax.Hub.Register.StartupHook("End Cookie",function(){MathJax.Callback.Queue(["LoadExtensions",i],["loadComplete",MathJax.Ajax,"[a11y]/accessibility-menu.js"])})}(MathJax.Hub,MathJax.Extension);
 MathJax.Ajax.loadComplete("[MathJax]/config/TeX-AM_CHTML-full.js");

@@ -655,12 +655,15 @@ var AMsymbols = [
 {input:"vec", tag:"mover", output:"\u2192", tex:null, ttype:UNARY, acc:true},
 {input:"dot", tag:"mover", output:".",      tex:null, ttype:UNARY, acc:true},
 {input:"ddot", tag:"mover", output:"..",    tex:null, ttype:UNARY, acc:true},
+{input:"overarc", tag:"mover", output:"\u23DC", tex:"overparen", ttype:UNARY, acc:true},
 {input:"ul", tag:"munder", output:"\u0332", tex:"underline", ttype:UNARY, acc:true},
 {input:"ubrace", tag:"munder", output:"\u23DF", tex:"underbrace", ttype:UNARYUNDEROVER, acc:true},
 {input:"obrace", tag:"mover", output:"\u23DE", tex:"overbrace", ttype:UNARYUNDEROVER, acc:true},
 {input:"text", tag:"mtext", output:"text", tex:null, ttype:TEXT},
 {input:"mbox", tag:"mtext", output:"mbox", tex:null, ttype:TEXT},
 {input:"color", tag:"mstyle", ttype:BINARY},
+{input:"id", tag:"mrow", ttype:BINARY},
+{input:"class", tag:"mrow", ttype:BINARY},
 {input:"cancel", tag:"menclose", output:"cancel", tex:null, ttype:UNARY},
 AMquote, AMset,
 {input:"bb", tag:"mstyle", atname:"mathvariant", atval:"bold", output:"bb", tex:null, ttype:UNARY},
@@ -956,13 +959,20 @@ function AMparseSexpr(str) { //parses str and returns [node,tailstr]
     if (result2[0]==null) return [createMmlNode("mo",
                            document.createTextNode(symbol.input)),str];
     AMremoveBrackets(result2[0]);
-    if (symbol.input=="color") {
+    if (['color', 'class', 'id'].indexOf(symbol.input) >= 0) {
+      // Get the second argument
       if (str.charAt(0)=="{") i=str.indexOf("}");
       else if (str.charAt(0)=="(") i=str.indexOf(")");
       else if (str.charAt(0)=="[") i=str.indexOf("]");
       st = str.slice(1,i);
-      node = createMmlNode(symbol.tag,result2[0]);
-      node.setAttribute("mathcolor",st);
+
+      // Make a mathml node
+    	node = createMmlNode(symbol.tag,result2[0]);
+
+      // Set the correct attribute
+      if (symbol.input === "color") node.setAttribute("mathcolor", st);
+      else if (symbol.input === "class") node.setAttribute("class", st);
+      else if (symbol.input === "id") node.setAttribute("id", st);
       return [node,result2[1]];
     }
     if (symbol.input=="root" || symbol.output=="stackrel")

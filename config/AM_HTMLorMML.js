@@ -69,7 +69,7 @@ MathJax.Hub.Config({
 
 MathJax.InputJax.AsciiMath = MathJax.InputJax({
   id: "AsciiMath",
-  version: "2.7.4",
+  version: "2.7.5",
   directory: MathJax.InputJax.directory + "/AsciiMath",
   extensionDir: MathJax.InputJax.extensionDir + "/AsciiMath",
   
@@ -113,7 +113,7 @@ MathJax.InputJax.AsciiMath.loadComplete("config.js");
 
 MathJax.OutputJax["HTML-CSS"] = MathJax.OutputJax({
   id: "HTML-CSS",
-  version: "2.7.4",
+  version: "2.7.5",
   directory: MathJax.OutputJax.directory + "/HTML-CSS",
   extensionDir: MathJax.OutputJax.extensionDir + "/HTML-CSS",
   autoloadDir: MathJax.OutputJax.directory + "/HTML-CSS/autoload",
@@ -290,7 +290,7 @@ MathJax.OutputJax["HTML-CSS"].loadComplete("config.js");
 
 MathJax.OutputJax.NativeMML = MathJax.OutputJax({
   id: "NativeMML",
-  version: "2.7.4",
+  version: "2.7.5",
   directory: MathJax.OutputJax.directory + "/NativeMML",
   extensionDir: MathJax.OutputJax.extensionDir + "/NativeMML",
   
@@ -343,7 +343,7 @@ MathJax.OutputJax.NativeMML.loadComplete("config.js");
 
 MathJax.OutputJax.PreviewHTML = MathJax.OutputJax({
   id: "PreviewHTML",
-  version: "2.7.4",
+  version: "2.7.5",
   directory: MathJax.OutputJax.directory + "/PreviewHTML",
   extensionDir: MathJax.OutputJax.extensionDir + "/PreviewHTML",
   noFastPreview: true,  // don't do fast preview for this output jax
@@ -513,7 +513,7 @@ MathJax.Ajax.loadComplete("[MathJax]/config/MMLorHTML.js");
  */
 
 MathJax.Extension.asciimath2jax = {
-  version: "2.7.4",
+  version: "2.7.5",
   config: {
     delimiters: [['`','`']],   // The star/stop delimiter pairs for asciimath code
 
@@ -764,7 +764,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
  */
 
 (function (HUB,HTML,AJAX,CALLBACK,LOCALE,OUTPUT,INPUT) {
-  var VERSION = "2.7.4";
+  var VERSION = "2.7.5";
 
   var EXTENSION = MathJax.Extension;
   var ME = EXTENSION.MathEvents = {version: VERSION};
@@ -1401,7 +1401,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
  */
 
 (function (HUB,HTML,AJAX,HTMLCSS,nMML) {
-  var VERSION = "2.7.4";
+  var VERSION = "2.7.5";
 
   var CONFIG = HUB.CombineConfig("MathZoom",{
     styles: {
@@ -1773,7 +1773,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
  */
 
 (function (HUB,HTML,AJAX,CALLBACK,OUTPUT) {
-  var VERSION = "2.7.4";
+  var VERSION = "2.7.5";
 
   var SIGNAL = MathJax.Callback.Signal("menu");  // signal for menu events
 
@@ -3445,7 +3445,7 @@ MathJax.ElementJax.mml = MathJax.ElementJax({
   mimeType: "jax/mml"
 },{
   id: "mml",
-  version: "2.7.4",
+  version: "2.7.5",
   directory: MathJax.ElementJax.directory + "/mml",
   extensionDir: MathJax.ElementJax.extensionDir + "/mml",
   optableDir: MathJax.ElementJax.directory + "/mml/optable"
@@ -3753,6 +3753,7 @@ MathJax.ElementJax.mml.Augment({
     adjustChild_scriptlevel:   function (i,nodef) {return this.Get("scriptlevel",nodef)},   // always inherit from parent
     adjustChild_displaystyle:  function (i,nodef) {return this.Get("displaystyle",nodef)},  // always inherit from parent
     adjustChild_texprimestyle: function (i,nodef) {return this.Get("texprimestyle",nodef)}, // always inherit from parent
+    hasMMLspacing: function () {return false},
     childPosition: function () {
       var child = this, parent = child.parent;
       while (parent.notParent) {child = parent; parent = child.parent}
@@ -3975,12 +3976,16 @@ MathJax.ElementJax.mml.Augment({
       indentshiftlast: MML.INDENTSHIFT.INDENTSHIFT,
       texClass: MML.TEXCLASS.REL // for MML, but TeX sets ORD explicitly
     },
-    SPACE_ATTR: {lspace: 0x01, rspace: 0x02, form: 0x04},
-    useMMLspacing: 0x07,
+    SPACE_ATTR: {lspace: 0x01, rspace: 0x02},
+    useMMLspacing: 0x03,
+    hasMMLspacing: function () {
+      if (this.useMMLspacing) return true;
+      return this.form && (this.OPTABLE[this.form]||{})[this.data.join('')];
+    },
     autoDefault: function (name,nodefault) {
       var def = this.def;
       if (!def) {
-        if (name === "form") {this.useMMLspacing &= ~this.SPACE_ATTR.form; return this.getForm()}
+        if (name === "form") {return this.getForm()}
         var mo = this.data.join("");
         var forms = [this.Get("form"),MML.FORM.INFIX,MML.FORM.POSTFIX,MML.FORM.PREFIX];
         for (var i = 0, m = forms.length; i < m; i++) {
@@ -4073,7 +4078,7 @@ MathJax.ElementJax.mml.Augment({
     },
     setTeXclass: function (prev) {
       var values = this.getValues("form","lspace","rspace","fence"); // sets useMMLspacing
-      if (this.useMMLspacing) {this.texClass = MML.TEXCLASS.NONE; return this}
+      if (this.hasMMLspacing()) {this.texClass = MML.TEXCLASS.NONE; return this}
       if (values.fence && !this.texClass) {
         if (values.form === MML.FORM.PREFIX) {this.texClass = MML.TEXCLASS.OPEN}
         if (values.form === MML.FORM.POSTFIX) {this.texClass = MML.TEXCLASS.CLOSE}
@@ -4412,10 +4417,6 @@ MathJax.ElementJax.mml.Augment({
         this.SetData("open",MML.mo(values.open).With({
           fence:true, form:MML.FORM.PREFIX, texClass:MML.TEXCLASS.OPEN
         }));
-        //
-        //  Clear flag for using MML spacing even though form is specified
-        //
-        this.data.open.useMMLspacing = 0;
       }
       //
       //  Create fake nodes for the separators
@@ -4424,10 +4425,8 @@ MathJax.ElementJax.mml.Augment({
         while (values.separators.length < this.data.length)
           {values.separators += values.separators.charAt(values.separators.length-1)}
         for (var i = 1, m = this.data.length; i < m; i++) {
-          if (this.data[i]) {
-            this.SetData("sep"+i,MML.mo(values.separators.charAt(i-1)).With({separator:true}))
-            this.data["sep"+i].useMMLspacing = 0;
-          }
+          if (this.data[i])
+            {this.SetData("sep"+i,MML.mo(values.separators.charAt(i-1)).With({separator:true}))}
         }
       }
       //
@@ -4437,10 +4436,6 @@ MathJax.ElementJax.mml.Augment({
         this.SetData("close",MML.mo(values.close).With({
           fence:true, form:MML.FORM.POSTFIX, texClass:MML.TEXCLASS.CLOSE
         }));
-        //
-        //  Clear flag for using MML spacing even though form is specified
-        //
-        this.data.close.useMMLspacing = 0;
       }
     },
     texClass: MML.TEXCLASS.OPEN,
@@ -5261,7 +5256,7 @@ MathJax.ElementJax.mml.loadComplete("jax.js");
  */
 
 MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js",function () {
-  var VERSION = "2.7.4";
+  var VERSION = "2.7.5";
   
   var MML = MathJax.ElementJax.mml,
       SETTINGS = MathJax.Hub.config.menuSettings;
@@ -6132,12 +6127,15 @@ var AMsymbols = [
 {input:"vec", tag:"mover", output:"\u2192", tex:null, ttype:UNARY, acc:true},
 {input:"dot", tag:"mover", output:".",      tex:null, ttype:UNARY, acc:true},
 {input:"ddot", tag:"mover", output:"..",    tex:null, ttype:UNARY, acc:true},
+{input:"overarc", tag:"mover", output:"\u23DC", tex:"overparen", ttype:UNARY, acc:true},
 {input:"ul", tag:"munder", output:"\u0332", tex:"underline", ttype:UNARY, acc:true},
 {input:"ubrace", tag:"munder", output:"\u23DF", tex:"underbrace", ttype:UNARYUNDEROVER, acc:true},
 {input:"obrace", tag:"mover", output:"\u23DE", tex:"overbrace", ttype:UNARYUNDEROVER, acc:true},
 {input:"text", tag:"mtext", output:"text", tex:null, ttype:TEXT},
 {input:"mbox", tag:"mtext", output:"mbox", tex:null, ttype:TEXT},
 {input:"color", tag:"mstyle", ttype:BINARY},
+{input:"id", tag:"mrow", ttype:BINARY},
+{input:"class", tag:"mrow", ttype:BINARY},
 {input:"cancel", tag:"menclose", output:"cancel", tex:null, ttype:UNARY},
 AMquote, AMset,
 {input:"bb", tag:"mstyle", atname:"mathvariant", atval:"bold", output:"bb", tex:null, ttype:UNARY},
@@ -6433,13 +6431,20 @@ function AMparseSexpr(str) { //parses str and returns [node,tailstr]
     if (result2[0]==null) return [createMmlNode("mo",
                            document.createTextNode(symbol.input)),str];
     AMremoveBrackets(result2[0]);
-    if (symbol.input=="color") {
+    if (['color', 'class', 'id'].indexOf(symbol.input) >= 0) {
+      // Get the second argument
       if (str.charAt(0)=="{") i=str.indexOf("}");
       else if (str.charAt(0)=="(") i=str.indexOf(")");
       else if (str.charAt(0)=="[") i=str.indexOf("]");
       st = str.slice(1,i);
-      node = createMmlNode(symbol.tag,result2[0]);
-      node.setAttribute("mathcolor",st);
+
+      // Make a mathml node
+    	node = createMmlNode(symbol.tag,result2[0]);
+
+      // Set the correct attribute
+      if (symbol.input === "color") node.setAttribute("mathcolor", st);
+      else if (symbol.input === "class") node.setAttribute("class", st);
+      else if (symbol.input === "id") node.setAttribute("id", st);
       return [node,result2[1]];
     }
     if (symbol.input=="root" || symbol.output=="stackrel")
@@ -7293,7 +7298,6 @@ var junk = [window, navigator]; junk = null;
           //
           if (data.preview) {
             data.preview.innerHTML = "";
-            data.preview.style.display = "none";
             script.MathJax.preview = data.preview;
             delete data.preview;
           }
@@ -8156,7 +8160,7 @@ var junk = [window, navigator]; junk = null;
   var msieColorBug = BROWSER.isMSIE && (document.documentMode||0) < 8;
 
   var FastPreview = MathJax.Extension["fast-preview"] = {
-    version: "2.7.4",
+    version: "2.7.5",
     enabled: true,
 
     //
@@ -8308,7 +8312,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/fast-preview.js");
   var SETTINGS = HUB.config.menuSettings;
   
   var AssistiveMML = MathJax.Extension["AssistiveMML"] = {
-    version: "2.7.4",
+    version: "2.7.5",
     
     config: HUB.CombineConfig("AssistiveMML",{
       disabled: false,
@@ -8439,189 +8443,5 @@ MathJax.Callback.Queue(
 );
 
 
-/*************************************************************
- *
- *  [Contrib]/a11y/accessibility-menu.js
- *  
- *  A thin extension to add opt-in menu items for the accessibility
- *  extensions in the a11y contributed directory.
- *
- *  ---------------------------------------------------------------------
- *  
- *  Copyright (c) 2016-2018 The MathJax Consortium
- * 
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-
-(function(HUB,EXTENSIONS) {
-  var SETTINGS = HUB.config.menuSettings;
-  var ITEM, MENU; // filled in when MathMenu extension loads
-  
-  var BIND = (Function.prototype.bind ? function (f,t) {return f.bind(t)} :
-              function (f,t) {return function () {f.apply(t,arguments)}});
-  var KEYS = Object.keys || function (obj) {
-    var keys = [];
-    for (var id in obj) {if (obj.hasOwnProperty(id)) keys.push(id)}
-    return keys;
-  };
-  
-  //
-  //  Set up the a11y path,if it isn't already in place
-  //
-  var PATH = MathJax.Ajax.config.path;
-  if (!PATH.a11y) PATH.a11y = HUB.config.root + "/extensions/a11y";
-
-  var Accessibility = EXTENSIONS["accessibility-menu"] = {
-    version: '1.4.0',
-    prefix: '', //'Accessibility-',
-    defaults: {},
-    modules: [],
-    MakeOption: function(name) {
-      return Accessibility.prefix + name;
-    },
-    GetOption: function(option) {
-      return SETTINGS[Accessibility.MakeOption(option)];
-    },
-    AddDefaults: function() {
-      var keys = KEYS(Accessibility.defaults);
-      for (var i = 0, key; key = keys[i]; i++) {
-        var option = Accessibility.MakeOption(key);
-        if (typeof(SETTINGS[option]) === 'undefined') {
-          SETTINGS[option] = Accessibility.defaults[key];
-        }
-      }
-    },
-    // Attaches the menu items;
-    AddMenu: function() {
-      var items = Array(this.modules.length);
-      for (var i = 0, module; module = this.modules[i]; i++) items[i] = module.placeHolder;
-      var menu = MENU.FindId('Accessibility');
-      if (menu) {
-        items.unshift(ITEM.RULE());
-        menu.submenu.items.push.apply(menu.submenu.items,items);
-      } else {
-        var renderer = (MENU.FindId("Settings","Renderer")||{}).submenu;
-        if (renderer) {
-          // move AssitiveMML and InTabOrder from Renderer to Accessibility menu
-          items.unshift(ITEM.RULE());
-          items.unshift(renderer.items.pop());
-          items.unshift(renderer.items.pop());
-        }
-        items.unshift("Accessibility");
-        var menu = ITEM.SUBMENU.apply(ITEM.SUBMENU,items);
-        var locale = MENU.IndexOfId('Locale');
-        if (locale) {
-          MENU.items.splice(locale,0,menu);
-        } else {
-          MENU.items.push(ITEM.RULE(), menu);
-        }
-      }
-    },
-    Register: function(module) {
-      Accessibility.defaults[module.option] = false;
-      Accessibility.modules.push(module);
-    },
-    Startup: function() {
-      ITEM = MathJax.Menu.ITEM;
-      MENU = MathJax.Menu.menu;
-      for (var i = 0, module; module = this.modules[i]; i++) module.CreateMenu();
-      this.AddMenu();
-    },
-    LoadExtensions: function () {
-      var extensions = [];
-      for (var i = 0, module; module = this.modules[i]; i++) {
-        if (SETTINGS[module.option]) extensions.push(module.module);
-      }
-      return (extensions.length ? HUB.Startup.loadArray(extensions) : null);
-    }
-  };
-
-  var ModuleLoader = MathJax.Extension.ModuleLoader = MathJax.Object.Subclass({
-    option: '',
-    name: ['',''],
-    module: '',
-    placeHolder: null,
-    submenu: false,
-    extension: null,
-    Init: function(option, name, module, extension, submenu) {
-      this.option = option;
-      this.name = [name.replace(/ /g,''),name];
-      this.module = module;
-      this.extension = extension;
-      this.submenu = (submenu || false);
-    },
-    CreateMenu: function() {
-      var load = BIND(this.Load,this);
-      if (this.submenu) {
-        this.placeHolder =
-          ITEM.SUBMENU(this.name,
-            ITEM.CHECKBOX(["Activate","Activate"],
-                          Accessibility.MakeOption(this.option), {action: load}),
-            ITEM.RULE(),
-            ITEM.COMMAND(["OptionsWhenActive","(Options when Active)"],null,{disabled:true})
-          );
-      } else {
-        this.placeHolder = ITEM.CHECKBOX(
-          this.name, Accessibility.MakeOption(this.option), {action: load}
-        );
-      }
-    },
-    Load: function() {
-      HUB.Queue(["Require",MathJax.Ajax,this.module,["Enable",this]]);
-    },
-    Enable: function(menu) {
-      var extension = MathJax.Extension[this.extension];
-      if (extension) {
-        extension.Enable(true,true);
-        MathJax.Menu.saveCookie();
-      }
-    }
-  });
-
-  Accessibility.Register(
-    ModuleLoader(
-      'collapsible', 'Collapsible Math', '[a11y]/collapsible.js', 'collapsible'
-    )
-  );
-  Accessibility.Register(
-    ModuleLoader(
-      'autocollapse', 'Auto Collapse', '[a11y]/auto-collapse.js', 'auto-collapse'
-    )
-  );
-  Accessibility.Register(
-    ModuleLoader(
-      'explorer', 'Explorer', '[a11y]/explorer.js', 'explorer', true
-    )
-  );
-
-  Accessibility.AddDefaults();
-  
-  HUB.Register.StartupHook('End Extensions', function () {
-    HUB.Register.StartupHook('MathMenu Ready', function () {
-      Accessibility.Startup();
-      HUB.Startup.signal.Post('Accessibility Menu Ready');
-    },5);   // run before other extensions' menu hooks even if they are loaded first
-  },5);
-  
-  MathJax.Hub.Register.StartupHook("End Cookie", function () {
-    MathJax.Callback.Queue(
-      ["LoadExtensions",Accessibility],
-      ["loadComplete",MathJax.Ajax,"[a11y]/accessibility-menu.js"]
-    );
-  });
-
-})(MathJax.Hub,MathJax.Extension);
-
-
-
+!function(a,b){var c,d,e=a.config.menuSettings,f=Function.prototype.bind?function(a,b){return a.bind(b)}:function(a,b){return function(){a.apply(b,arguments)}},g=Object.keys||function(a){var b=[];for(var c in a)a.hasOwnProperty(c)&&b.push(c);return b},h=MathJax.Ajax.config.path;h.a11y||(h.a11y=a.config.root+"/extensions/a11y");var i=b["accessibility-menu"]={version:"1.5.0",prefix:"",defaults:{},modules:[],MakeOption:function(a){return i.prefix+a},GetOption:function(a){return e[i.MakeOption(a)]},AddDefaults:function(){for(var a,b=g(i.defaults),c=0;a=b[c];c++){var d=i.MakeOption(a);void 0===e[d]&&(e[d]=i.defaults[a])}},AddMenu:function(){for(var a,b=Array(this.modules.length),e=0;a=this.modules[e];e++)b[e]=a.placeHolder;var f=d.FindId("Accessibility");if(f)b.unshift(c.RULE()),f.submenu.items.push.apply(f.submenu.items,b);else{var g=(d.FindId("Settings","Renderer")||{}).submenu;g&&(b.unshift(c.RULE()),b.unshift(g.items.pop()),b.unshift(g.items.pop())),b.unshift("Accessibility");var f=c.SUBMENU.apply(c.SUBMENU,b),h=d.IndexOfId("Locale");h?d.items.splice(h,0,f):d.items.push(c.RULE(),f)}},Register:function(a){i.defaults[a.option]=!1,i.modules.push(a)},Startup:function(){c=MathJax.Menu.ITEM,d=MathJax.Menu.menu;for(var a,b=0;a=this.modules[b];b++)a.CreateMenu();this.AddMenu()},LoadExtensions:function(){for(var b,c=[],d=0;b=this.modules[d];d++)e[b.option]&&c.push(b.module);return c.length?a.Startup.loadArray(c):null}},j=MathJax.Extension.ModuleLoader=MathJax.Object.Subclass({option:"",name:["",""],module:"",placeHolder:null,submenu:!1,extension:null,Init:function(a,b,c,d,e){this.option=a,this.name=[b.replace(/ /g,""),b],this.module=c,this.extension=d,this.submenu=e||!1},CreateMenu:function(){var a=f(this.Load,this);this.submenu?this.placeHolder=c.SUBMENU(this.name,c.CHECKBOX(["Activate","Activate"],i.MakeOption(this.option),{action:a}),c.RULE(),c.COMMAND(["OptionsWhenActive","(Options when Active)"],null,{disabled:!0})):this.placeHolder=c.CHECKBOX(this.name,i.MakeOption(this.option),{action:a})},Load:function(){a.Queue(["Require",MathJax.Ajax,this.module,["Enable",this]])},Enable:function(a){var b=MathJax.Extension[this.extension];b&&(b.Enable(!0,!0),MathJax.Menu.saveCookie())}});i.Register(j("collapsible","Collapsible Math","[a11y]/collapsible.js","collapsible")),i.Register(j("autocollapse","Auto Collapse","[a11y]/auto-collapse.js","auto-collapse")),i.Register(j("explorer","Explorer","[a11y]/explorer.js","explorer",!0)),i.AddDefaults(),a.Register.StartupHook("End Extensions",function(){a.Register.StartupHook("MathMenu Ready",function(){i.Startup(),a.Startup.signal.Post("Accessibility Menu Ready")},5)},5),MathJax.Hub.Register.StartupHook("End Cookie",function(){MathJax.Callback.Queue(["LoadExtensions",i],["loadComplete",MathJax.Ajax,"[a11y]/accessibility-menu.js"])})}(MathJax.Hub,MathJax.Extension);
 MathJax.Ajax.loadComplete("[MathJax]/config/AM_HTMLorMML.js");

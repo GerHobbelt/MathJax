@@ -36,7 +36,7 @@
  *
  */
 MathJax.Localization.addTranslation("scn","MathML",{
-        version: "2.7.4",
+        version: "2.7.5",
         isLoaded: true,
         strings: {
           BadMglyph: "mglyph sbagghiatu: %1",

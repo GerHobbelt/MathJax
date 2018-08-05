@@ -36,7 +36,7 @@
  *
  */
 MathJax.Localization.addTranslation("es","HelpDialog",{
-        version: "2.7.4",
+        version: "2.7.5",
         isLoaded: true,
         strings: {
           Help: "Ayuda de MathJax",

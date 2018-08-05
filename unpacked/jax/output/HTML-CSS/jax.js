@@ -377,12 +377,12 @@
         ".mjx-test-inline .MathJax_left_box": {
           display: "inline-block",
           width: 0,
-          float:"left"
+          "float":"left"
         },
         ".mjx-test-inline .MathJax_right_box": {
           display: "inline-block",
           width: 0,
-          float:"right"
+          "float":"right"
         },
         ".mjx-test-display .MathJax_right_box": {
           display: (oldIE ? "block" : "table-cell") + "!important",
@@ -678,7 +678,7 @@
           jax.HTMLCSS.isHidden = true;
           ex = this.defaultEx; em = this.defaultEm; cwidth = this.defaultWidth;
         }
-        if (cwidth === 0) cwidth = this.defaultWidth;
+        if (cwidth === 0 && !jax.HTMLCSS.display) cwidth = this.defaultWidth;
         if (relwidth) {maxwidth = cwidth}
         scale = (this.config.matchFontHeight ? ex/this.TeX.x_height/em : 1);
         scale = Math.floor(Math.max(this.config.minScaleAdjust/100,scale)*this.config.scale);
@@ -805,10 +805,7 @@
         if (script && script.parentNode && script.MathJax.elementJax) {
           var div = (script.MathJax.elementJax.HTMLCSS||{}).div;
           if (div) {div.className = div.className.split(/ /)[0]}
-          if (script.MathJax.preview) {
-            script.MathJax.preview.innerHTML = "";
-            script.MathJax.preview.style.display = "none";
-          }
+          if (script.MathJax.preview) script.MathJax.preview.innerHTML = "";
         }
       }
       //
@@ -879,8 +876,8 @@
       //
       //  get em sizes (taken from HTMLCSS.preTranslate)
       //
-      var emex = span.appendChild(this.EmExSpan.cloneNode(true));
-      var em = emex.lastChild.firstChild.offsetHeight/60;
+      var emex = span.appendChild(this.TestSpan.cloneNode(true));
+      var em = emex.childNodes[2].offsetHeight/60;
       this.em = MML.mbase.prototype.em = em;
       this.outerEm = em / jax.HTMLCSS.scale;
       emex.parentNode.removeChild(emex);
@@ -1587,6 +1584,7 @@
               if (RANGES[id].remap && RANGES[id].remap[n]) {
                 n = N + RANGES[id].remap[n];
               } else {
+                if (RANGES[id].remapOnly) break;
                 n = n - RANGES[id].low + N;
                 if (RANGES[id].add) {n += RANGES[id].add}
               }
@@ -1632,7 +1630,7 @@
         span.bbox.h *= span.scale; span.bbox.d *= span.scale;
         span.bbox.w *= span.scale; span.bbox.lw *= span.scale; span.bbox.rw *= span.scale;
       }
-      if (text.length == 1 && font.skew && font.skew[n]) {span.bbox.skew = font.skew[n]}
+      if (HTMLCSS.isChar(text) && font.skew && font.skew[n]) {span.bbox.skew = font.skew[n]}
     },
     checkFont: function (font,style) {
       var weight = (style.fontWeight||"normal");
@@ -1734,6 +1732,13 @@
       if (!unknown[n]) {unknown[n] = [800,200,500,0,500,{isUnknown:true}]} // [h,d,w,lw,rw,{data}]
       HUB.signal.Post(["HTML-CSS Jax - unknown char",n,variant]);
       return unknown;
+    },
+    
+    isChar: function (text) {
+      if (text.length === 1) return true;
+      if (text.length !== 2) return false;
+      var n = text.charCodeAt(0);
+      return (n >= 0xD800 && n < 0xDBFF);
     },
 
     findBlock: function (font,c) {
@@ -2099,7 +2104,7 @@
       },
 
       HTMLhandleSpace: function (span) {
-        if (this.useMMLspacing) {
+        if (this.hasMMLspacing()) {
           if (this.type !== "mo") return;
           var values = this.getValues("scriptlevel","lspace","rspace");
           if (values.scriptlevel <= 0 || this.hasValue("lspace") || this.hasValue("rspace")) {
@@ -2302,8 +2307,8 @@
           {if (this.data[i]) {this.data[i].toHTML(span,variant)}}
         if (!span.bbox) {span.bbox = this.HTMLzeroBBox()}
         var text = this.data.join(""), bbox = span.bbox;
-        if (bbox.skew && text.length !== 1) {delete bbox.skew}
-        if (bbox.rw > bbox.w && text.length === 1 && !variant.noIC) {
+        if (bbox.skew && !HTMLCSS.isChar(text)) {delete bbox.skew}
+        if (bbox.rw > bbox.w && HTMLCSS.isChar(text) && !variant.noIC) {
           bbox.ic = bbox.rw - bbox.w;
           HTMLCSS.createBlank(span,bbox.ic/this.mscale);
           bbox.w = bbox.rw;
@@ -2328,7 +2333,7 @@
           }
         }
         if (!span.bbox) {span.bbox = this.HTMLzeroBBox()}
-        if (this.data.join("").length !== 1) {delete span.bbox.skew}
+        if (!HTMLCSS.isChar(this.data.join(""))) {delete span.bbox.skew}
         this.HTMLhandleSpace(span);
         this.HTMLhandleColor(span);
         this.HTMLhandleDir(span);
@@ -2354,8 +2359,8 @@
         var parent = this.CoreParent(),
             isScript = (parent && parent.isa(MML.msubsup) && this !== parent.data[parent.base]),
             mapchars = (isScript?this.remapChars:null);
-        if (text.length === 1 && parent && parent.isa(MML.munderover) &&
-            this.CoreText(parent.data[parent.base]).length === 1) {
+        if (HTMLCSS.isChar(text) && parent && parent.isa(MML.munderover) &&
+            HTMLCSS.isChar(this.CoreText(parent.data[parent.base]))) {
           var over = parent.data[parent.over], under = parent.data[parent.under];
           if (over && this === over.CoreMO() && parent.Get("accent")) {mapchars = HTMLCSS.FONTDATA.REMAPACCENT}
           else if (under && this === under.CoreMO() && parent.Get("accentunder")) {mapchars = HTMLCSS.FONTDATA.REMAPACCENTUNDER}
@@ -2371,12 +2376,12 @@
         for (var i = 0, m = this.data.length; i < m; i++)
           {if (this.data[i]) {this.data[i].toHTML(span,variant,this.remap,mapchars)}}
         if (!span.bbox) {span.bbox = this.HTMLzeroBBox()}
-        if (text.length !== 1) {delete span.bbox.skew}
+        if (!HTMLCSS.isChar(text)) {delete span.bbox.skew}
 
         //
         //  Handle combining character bugs
         //
-        if (HTMLCSS.AccentBug && span.bbox.w === 0 && text.length === 1 && span.firstChild) {
+        if (HTMLCSS.AccentBug && span.bbox.w === 0 && HTMLCSS.isChar(text) && span.firstChild) {
           //
           //  adding a non-breaking space and removing that width
           //
@@ -2420,7 +2425,7 @@
         if (c.length > 1) {return false}
         var parent = this.CoreParent();
         if (parent && parent.isa(MML.munderover) &&
-            this.CoreText(parent.data[parent.base]).length === 1) {
+            HTMLCSS.isChar(this.CoreText(parent.data[parent.base]))) {
           var over = parent.data[parent.over], under = parent.data[parent.under];
           if (over && this === over.CoreMO() && parent.Get("accent")) {c = HTMLCSS.FONTDATA.REMAPACCENT[c]||c}
           else if (under && this === under.CoreMO() && parent.Get("accentunder")) {c = HTMLCSS.FONTDATA.REMAPACCENTUNDER[c]||c}
@@ -2482,7 +2487,7 @@
         for (var i = 0, m = this.data.length; i < m; i++)
           {if (this.data[i]) {this.data[i].toHTML(span,variant)}}
         if (!span.bbox) {span.bbox = this.HTMLzeroBBox()}
-        if (this.data.join("").length !== 1) {delete span.bbox.skew}
+        if (!HTMLCSS.isChar(this.data.join(""))) {delete span.bbox.skew}
         this.HTMLhandleSpace(span);
         this.HTMLhandleColor(span);
         this.HTMLhandleDir(span);
@@ -2948,7 +2953,7 @@
         }
         if (this.data[this.base] && HW == null && D == null &&
            (this.data[this.base].type === "mi" || this.data[this.base].type === "mo")) {
-          if (this.data[this.base].data.join("").length === 1 && children[0].scale === 1 &&
+          if (HTMLCSS.isChar(this.data[this.base].data.join("")) && children[0].scale === 1 &&
               !this.data[this.base].Get("largeop")) {u = v = 0}
         }
         var min = this.getValues("subscriptshift","superscriptshift");
@@ -3248,7 +3253,7 @@
           safariTextNodeBug: !v3p0,
           forceReflow: true,
           FontFaceBug: true,
-          combiningCharBug: parseInt(browser.webkit) >= 603,
+          combiningCharBug: parseInt(browser.webkit) >= 602,
           allowWebFonts: (v3p1 && !forceImages ? "otf" : false)
         });
         if (trueSafari) {

@@ -30,7 +30,7 @@
 /* global MathJax:true */
 
 MathJax.Extension["TeX/mediawiki-texvc"] = {
-  version: "2.7.4"
+  version: "2.7.5"
 };
 
 MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
