@@ -227,7 +227,7 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
 
 /*
  *  MathJax.Callback.Signal(name)
- *                             -- finds or creates a names signal, to which listeners
+ *                             -- finds or creates a named signal, to which listeners
  *                                can be attached and are signaled by messages posted
  *                                to the signal.  Responses can be asynchronous.
  */
