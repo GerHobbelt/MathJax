@@ -140,6 +140,7 @@ MathJax.InputJax.AsciiMath = MathJax.InputJax({
     fixphi: true,                     // switch phi and varphi unicode values
     useMathMLspacing: true,           // use MathML spacing rather than TeX spacing?
     displaystyle: true,               // put limits above and below operators
+    decimalsignAlternative: ",",      // added to support both . and ,
     decimalsign: "."                  // can change to "," but watch out for "(1,2)"
   }
 });
@@ -9753,6 +9754,7 @@ var mathcolor = "blue";        // change it to "" (to inherit) or another color
 var displaystyle = true;      // puts limits above and below large operators
 var showasciiformulaonhover = true; // helps students learn ASCIIMath
 var decimalsign = ".";        // change to "," if you like, beware of `(1,2)`!
+var decimalsignAlternative = ",";
 //var AMdelimiter1 = "`", AMescape1 = "\\\\`"; // can use other characters
 //var AMdocumentId = "wikitext" // PmWiki element containing math (default=body)
 var fixphi = true;      //false to return to legacy phi/varphi mapping
@@ -10284,7 +10286,7 @@ function AMgetSymbol(str) {
     st = str.slice(k,k+1);
     k++;
   }
-  if (st == decimalsign) {
+  if (st == decimalsign || st == decimalsignAlternative) {
     st = str.slice(k,k+1);
     if ("0"<=st && st<="9") {
       integ = false;
@@ -10926,6 +10928,7 @@ ASCIIMATH.Augment({
       // Old versions use the "decimal" option, so take it into account if it
       // is defined by the user. See issue 384.
       decimalsign = (ASCIIMATH.config.decimal || ASCIIMATH.config.decimalsign);
+      decimalsignAlternative = ASCIIMATH.config.decimalsignAlternative || ASCIIMATH.config.decimal || ASCIIMATH.config.decimalsign;
       // unfix phi and varphi, if requested
       if (!ASCIIMATH.config.fixphi) {
         for (var i = 0, m = AMsymbols.length; i < m; i++) {
