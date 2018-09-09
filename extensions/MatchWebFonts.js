@@ -162,7 +162,7 @@
         //
         for (i = 0, m = scripts.length; i < m; i++) {
           script = scripts[i];
-          if (script.parentNode && script.MathJax.elementJax) {
+          if (script.parentNode && script.MathJax.elementJax && this.EmExSpan) {
             script.parentNode.insertBefore(this.EmExSpan.cloneNode(true),script);
           }
         }
