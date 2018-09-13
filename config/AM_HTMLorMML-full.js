@@ -7192,7 +7192,7 @@ var junk = [window, navigator]; junk = null;
       this.Mouseout    = HOVER.Mouseout;
       this.Mousemove   = HOVER.Mousemove;
 
-      if (!HUB.Browser.hasMathPlayer) {
+      // if (!HUB.Browser.hasMathPlayer) {
         // Used in preTranslate to get scaling factors
         this.EmExSpan = HTML.Element("span",
           {style:{position:"absolute","font-size-adjust":"none"}},
@@ -7202,7 +7202,7 @@ var junk = [window, navigator]; junk = null;
           ]
         );
         MML.math(MML.mspace().With({width:"60ex"})).toNativeMML(this.EmExSpan.lastChild);
-      }
+      // }
 
       //  Set up styles
       return AJAX.Styles(this.config.styles);
@@ -7286,7 +7286,7 @@ var junk = [window, navigator]; junk = null;
         //
         //  Add the test span for determining scales
         //
-        if (!isMSIE) {script.parentNode.insertBefore(this.EmExSpan.cloneNode(true),script)}
+        if (!isMSIE && this.EmExSpan) {script.parentNode.insertBefore(this.EmExSpan.cloneNode(true),script)}
       }
       //
       //  Determine the scaling factors for each script

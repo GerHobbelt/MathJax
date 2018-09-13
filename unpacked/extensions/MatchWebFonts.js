@@ -79,8 +79,11 @@
         //  Check to see if anything has changed
         //
         for (i = 0, m = scripts.length; i < m; i++) {
-          script = scripts[i]; if (!script.parentNode) continue; retry = true;
-          var jax = script.MathJax.elementJax; if (!jax) continue;
+          script = scripts[i]; 
+          if (!script.parentNode) continue; 
+          retry = true;
+          var jax = script.MathJax.elementJax; 
+          if (!jax) continue;
           //
           //  Check if ex or mex has changed
           //
@@ -152,8 +155,11 @@
         //  Check to see if anything has changed
         //
         for (i = 0, m = scripts.length; i < m; i++) {
-          script = scripts[i]; if (!script.parentNode) continue; retry = true;
-          var jax = script.MathJax.elementJax; if (!jax) continue;
+          script = scripts[i]; 
+          if (!script.parentNode) continue; 
+          retry = true;
+          var jax = script.MathJax.elementJax; 
+          if (!jax) continue;
           //
           //  Check if ex or mex has changed
           //
