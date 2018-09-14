@@ -2371,7 +2371,8 @@ MathJax.Hub = {
         //  Go on to the next script, and check if we need to update the processing message
         //
         state.i++; var now = new Date().getTime();
-        if (now - state.start > this.processUpdateTime && state.i < state.scripts.length)
+        var delta = now - state.start;
+        if (delta > this.processUpdateTime && state.i < state.scripts.length)
           {state.start = now; this.RestartAfter(MathJax.Callback.Delay(1))}
       }
     } catch (err) {return this.processError(err,state,"Input")}
@@ -2483,7 +2484,8 @@ MathJax.Hub = {
         //  Update the processing message, if needed
         //
         var now = new Date().getTime();
-        if (now - state.start > this.processUpdateTime && state.i < state.scripts.length)
+        var delta = now - state.start;
+        if (delta > this.processUpdateTime && state.i < state.scripts.length)
           {state.start = now; this.RestartAfter(MathJax.Callback.Delay(this.processUpdateDelay))}
       }
     } catch (err) {return this.processError(err,state,"Output")}

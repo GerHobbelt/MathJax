@@ -27,11 +27,13 @@
   "scripts": {
     "test": "npm run build && echo 'No tests here!'",
     "build": "cd node_modules/@gerhobbelt/mathjax-dev && make all",
+    "prettier": "cd node_modules/@gerhobbelt/mathjax-dev && make prettier",
     "clean": "cd node_modules/@gerhobbelt/mathjax-dev && make clean-destination",
     "pub": "npm publish --access public"
   },
   "devDependencies": {
-    "@gerhobbelt/mathjax-dev": "1.0.1-5",
+    "@gerhobbelt/mathjax-dev": "1.0.1-7",
     "usus": "1.6.0"
-  }
+  },
+  "dependencies": {}
 }
