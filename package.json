@@ -32,7 +32,7 @@
     "pub": "npm publish --access public"
   },
   "devDependencies": {
-    "@gerhobbelt/mathjax-dev": "1.0.1-7",
+    "@gerhobbelt/mathjax-dev": "1.0.1-8",
     "usus": "1.6.0"
   },
   "dependencies": {}
