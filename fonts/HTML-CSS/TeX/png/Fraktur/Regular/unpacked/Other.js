@@ -1,7 +1,7 @@
 /*************************************************************
  *
  *  MathJax/fonts/HTML-CSS/TeX/png/Fraktur/Regular/Other.js
- *  
+ *
  *  Defines the image size data needed for the HTML-CSS OutputJax
  *  to display mathematics using fallback images when the fonts
  *  are not available to the client browser.
@@ -25,21 +25,61 @@
  */
 
 MathJax.OutputJax["HTML-CSS"].defineImageData({
-  "MathJax_Fraktur": {
-    0xA0: [  // NO-BREAK SPACE
-      [1,1,0],[1,1,0],[1,1,0],[1,1,0],[1,1,0],[1,1,0],[1,1,0],[1,1,0],
-      [1,1,0],[1,1,0],[1,1,0],[1,1,0],[1,1,0],[1,1,0]
+  MathJax_Fraktur: {
+    0xa0: [
+      // NO-BREAK SPACE
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0]
     ],
-    0x2018: [  // LEFT SINGLE QUOTATION MARK
-      [2,2,-2],[2,3,-3],[2,3,-4],[2,4,-5],[3,5,-5],[3,5,-7],[4,6,-7],[4,7,-9],
-      [5,8,-11],[6,10,-14],[7,12,-16],[8,14,-18],[9,17,-21],[11,20,-26]
+    0x2018: [
+      // LEFT SINGLE QUOTATION MARK
+      [2, 2, -2],
+      [2, 3, -3],
+      [2, 3, -4],
+      [2, 4, -5],
+      [3, 5, -5],
+      [3, 5, -7],
+      [4, 6, -7],
+      [4, 7, -9],
+      [5, 8, -11],
+      [6, 10, -14],
+      [7, 12, -16],
+      [8, 14, -18],
+      [9, 17, -21],
+      [11, 20, -26]
     ],
-    0x2019: [  // RIGHT SINGLE QUOTATION MARK
-      [2,2,-2],[2,3,-3],[2,3,-4],[2,4,-5],[3,5,-5],[3,5,-7],[4,6,-7],[4,7,-9],
-      [5,8,-11],[6,10,-14],[7,12,-16],[8,14,-18],[10,17,-21],[11,20,-26]
+    0x2019: [
+      // RIGHT SINGLE QUOTATION MARK
+      [2, 2, -2],
+      [2, 3, -3],
+      [2, 3, -4],
+      [2, 4, -5],
+      [3, 5, -5],
+      [3, 5, -7],
+      [4, 6, -7],
+      [4, 7, -9],
+      [5, 8, -11],
+      [6, 10, -14],
+      [7, 12, -16],
+      [8, 14, -18],
+      [10, 17, -21],
+      [11, 20, -26]
     ]
   }
 });
 
-MathJax.Ajax.loadComplete(MathJax.OutputJax["HTML-CSS"].imgDir+"/Fraktur/Regular"+
-                          MathJax.OutputJax["HTML-CSS"].imgPacked+"/Other.js");
+MathJax.Ajax.loadComplete(
+  MathJax.OutputJax["HTML-CSS"].imgDir + "/Fraktur/Regular" + MathJax.OutputJax["HTML-CSS"].imgPacked + "/Other.js"
+);

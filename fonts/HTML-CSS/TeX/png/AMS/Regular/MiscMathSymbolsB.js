@@ -1,7 +1,7 @@
 /*
  *  ../../../..//fonts/HTML-CSS/TeX/png/AMS/Regular/MiscMathSymbolsB.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 /*************************************************************
  *
  *  MathJax/fonts/HTML-CSS/TeX/png/AMS/Regular/MiscMathSymbolsB.js
- *  
+ *
  *  Defines the image size data needed for the HTML-CSS OutputJax
  *  to display mathematics using fallback images when the fonts
  *  are not available to the client browser.
@@ -43,14 +43,30 @@
  */
 
 MathJax.OutputJax["HTML-CSS"].defineImageData({
-  "MathJax_AMS": {
-    0x29EB: [  // BLACK LOZENGE
-      [5,6,1],[6,8,2],[7,10,2],[8,11,2],[9,12,2],[11,15,3],[12,17,3],[15,21,4],
-      [17,24,4],[21,29,5],[25,35,6],[29,41,7],[34,48,8],[41,57,9]
+  MathJax_AMS: {
+    0x29eb: [
+      // BLACK LOZENGE
+      [5, 6, 1],
+      [6, 8, 2],
+      [7, 10, 2],
+      [8, 11, 2],
+      [9, 12, 2],
+      [11, 15, 3],
+      [12, 17, 3],
+      [15, 21, 4],
+      [17, 24, 4],
+      [21, 29, 5],
+      [25, 35, 6],
+      [29, 41, 7],
+      [34, 48, 8],
+      [41, 57, 9]
     ]
   }
 });
 
-MathJax.Ajax.loadComplete(MathJax.OutputJax["HTML-CSS"].imgDir+"/AMS/Regular"+
-                          MathJax.OutputJax["HTML-CSS"].imgPacked+"/MiscMathSymbolsB.js");
-
+MathJax.Ajax.loadComplete(
+  MathJax.OutputJax["HTML-CSS"].imgDir +
+    "/AMS/Regular" +
+    MathJax.OutputJax["HTML-CSS"].imgPacked +
+    "/MiscMathSymbolsB.js"
+);

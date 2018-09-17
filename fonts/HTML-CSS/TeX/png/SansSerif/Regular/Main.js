@@ -1,7 +1,7 @@
 /*
  *  ../../../..//fonts/HTML-CSS/TeX/png/SansSerif/Regular/Main.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 /*************************************************************
  *
  *  MathJax/fonts/HTML-CSS/TeX/png/SansSerif/Regular/Main.js
- *  
+ *
  *  Defines the image size data needed for the HTML-CSS OutputJax
  *  to display mathematics using fallback images when the fonts
  *  are not available to the client browser.
@@ -43,11 +43,9 @@
  */
 
 MathJax.OutputJax["HTML-CSS"].defineImageData({
-  "MathJax_SansSerif": {
-
-  }
+  MathJax_SansSerif: {}
 });
 
-MathJax.Ajax.loadComplete(MathJax.OutputJax["HTML-CSS"].imgDir+"/SansSerif/Regular"+
-                          MathJax.OutputJax["HTML-CSS"].imgPacked+"/Main.js");
-
+MathJax.Ajax.loadComplete(
+  MathJax.OutputJax["HTML-CSS"].imgDir + "/SansSerif/Regular" + MathJax.OutputJax["HTML-CSS"].imgPacked + "/Main.js"
+);

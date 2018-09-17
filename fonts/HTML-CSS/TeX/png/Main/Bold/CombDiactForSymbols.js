@@ -1,7 +1,7 @@
 /*
  *  ../../../..//fonts/HTML-CSS/TeX/png/Main/Bold/CombDiactForSymbols.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 /*************************************************************
  *
  *  MathJax/fonts/HTML-CSS/TeX/png/Main/Bold/CombDiactForSymbols.js
- *  
+ *
  *  Defines the image size data needed for the HTML-CSS OutputJax
  *  to display mathematics using fallback images when the fonts
  *  are not available to the client browser.
@@ -44,13 +44,29 @@
 
 MathJax.OutputJax["HTML-CSS"].defineImageData({
   "MathJax_Main-bold": {
-    0x20D7: [  // COMBINING RIGHT ARROW ABOVE
-      [4,2,-3],[5,3,-4],[6,3,-5],[7,3,-6],[8,3,-7],[9,5,-8],[11,5,-10],[13,6,-11],
-      [15,6,-14],[17,8,-16],[21,9,-20],[25,11,-23],[29,13,-28],[34,15,-33]
+    0x20d7: [
+      // COMBINING RIGHT ARROW ABOVE
+      [4, 2, -3],
+      [5, 3, -4],
+      [6, 3, -5],
+      [7, 3, -6],
+      [8, 3, -7],
+      [9, 5, -8],
+      [11, 5, -10],
+      [13, 6, -11],
+      [15, 6, -14],
+      [17, 8, -16],
+      [21, 9, -20],
+      [25, 11, -23],
+      [29, 13, -28],
+      [34, 15, -33]
     ]
   }
 });
 
-MathJax.Ajax.loadComplete(MathJax.OutputJax["HTML-CSS"].imgDir+"/Main/Bold"+
-                          MathJax.OutputJax["HTML-CSS"].imgPacked+"/CombDiactForSymbols.js");
-
+MathJax.Ajax.loadComplete(
+  MathJax.OutputJax["HTML-CSS"].imgDir +
+    "/Main/Bold" +
+    MathJax.OutputJax["HTML-CSS"].imgPacked +
+    "/CombDiactForSymbols.js"
+);

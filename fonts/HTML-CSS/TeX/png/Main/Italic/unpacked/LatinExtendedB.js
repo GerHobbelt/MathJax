@@ -1,7 +1,7 @@
 /*************************************************************
  *
  *  MathJax/fonts/HTML-CSS/TeX/png/Main/Italic/LatinExtendedB.js
- *  
+ *
  *  Defines the image size data needed for the HTML-CSS OutputJax
  *  to display mathematics using fallback images when the fonts
  *  are not available to the client browser.
@@ -26,12 +26,26 @@
 
 MathJax.OutputJax["HTML-CSS"].defineImageData({
   "MathJax_Main-italic": {
-    0x237: [  // LATIN SMALL LETTER DOTLESS J
-      [4,4,1],[4,6,2],[5,6,2],[5,7,2],[6,9,3],[7,10,3],[8,13,4],[9,14,4],
-      [11,17,5],[12,21,6],[15,25,8],[18,31,10],[21,37,12],[24,43,14]
+    0x237: [
+      // LATIN SMALL LETTER DOTLESS J
+      [4, 4, 1],
+      [4, 6, 2],
+      [5, 6, 2],
+      [5, 7, 2],
+      [6, 9, 3],
+      [7, 10, 3],
+      [8, 13, 4],
+      [9, 14, 4],
+      [11, 17, 5],
+      [12, 21, 6],
+      [15, 25, 8],
+      [18, 31, 10],
+      [21, 37, 12],
+      [24, 43, 14]
     ]
   }
 });
 
-MathJax.Ajax.loadComplete(MathJax.OutputJax["HTML-CSS"].imgDir+"/Main/Italic"+
-                          MathJax.OutputJax["HTML-CSS"].imgPacked+"/LatinExtendedB.js");
+MathJax.Ajax.loadComplete(
+  MathJax.OutputJax["HTML-CSS"].imgDir + "/Main/Italic" + MathJax.OutputJax["HTML-CSS"].imgPacked + "/LatinExtendedB.js"
+);

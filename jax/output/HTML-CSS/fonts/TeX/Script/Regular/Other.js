@@ -36,12 +36,8 @@
  *
  */
 
-MathJax.Hub.Insert(
-  MathJax.OutputJax['HTML-CSS'].FONTDATA.FONTS['MathJax_Script'],
-  {
-    0xA0: [0,0,250,0,0]                // NO-BREAK SPACE
-  }
-);
+MathJax.Hub.Insert(MathJax.OutputJax["HTML-CSS"].FONTDATA.FONTS["MathJax_Script"], {
+  0xa0: [0, 0, 250, 0, 0] // NO-BREAK SPACE
+});
 
 MathJax.Ajax.loadComplete(MathJax.OutputJax["HTML-CSS"].fontDir + "/Script/Regular/Other.js");
-

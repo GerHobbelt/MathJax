@@ -19,7 +19,7 @@
 /*************************************************************
  *
  *  MathJax/fonts/HTML-CSS/TeX/png/Fraktur/Regular/Main.js
- *  
+ *
  *  Defines the image size data needed for the HTML-CSS OutputJax
  *  to display mathematics using fallback images when the fonts
  *  are not available to the client browser.
@@ -43,11 +43,9 @@
  */
 
 MathJax.OutputJax["HTML-CSS"].defineImageData({
-  "MathJax_Fraktur": {
-
-  }
+  MathJax_Fraktur: {}
 });
 
-MathJax.Ajax.loadComplete(MathJax.OutputJax["HTML-CSS"].imgDir+"/Fraktur/Regular"+
-                          MathJax.OutputJax["HTML-CSS"].imgPacked+"/Main.js");
-
+MathJax.Ajax.loadComplete(
+  MathJax.OutputJax["HTML-CSS"].imgDir + "/Fraktur/Regular" + MathJax.OutputJax["HTML-CSS"].imgPacked + "/Main.js"
+);

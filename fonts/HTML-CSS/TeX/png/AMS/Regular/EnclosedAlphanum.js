@@ -1,7 +1,7 @@
 /*
  *  ../../../..//fonts/HTML-CSS/TeX/png/AMS/Regular/EnclosedAlphanum.js
  *
- *  Copyright (c) 2009-2017 The MathJax Consortium
+ *  Copyright (c) 2009-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 /*************************************************************
  *
  *  MathJax/fonts/HTML-CSS/TeX/png/AMS/Regular/EnclosedAlphanum.js
- *  
+ *
  *  Defines the image size data needed for the HTML-CSS OutputJax
  *  to display mathematics using fallback images when the fonts
  *  are not available to the client browser.
@@ -43,14 +43,30 @@
  */
 
 MathJax.OutputJax["HTML-CSS"].defineImageData({
-  "MathJax_AMS": {
-    0x24C8: [  // CIRCLED LATIN CAPITAL LETTER S
-      [7,6,1],[8,8,2],[9,9,2],[11,10,2],[13,12,2],[15,15,3],[18,17,3],[21,20,4],
-      [25,24,5],[30,29,6],[35,34,7],[42,41,8],[50,49,10],[59,58,12]
+  MathJax_AMS: {
+    0x24c8: [
+      // CIRCLED LATIN CAPITAL LETTER S
+      [7, 6, 1],
+      [8, 8, 2],
+      [9, 9, 2],
+      [11, 10, 2],
+      [13, 12, 2],
+      [15, 15, 3],
+      [18, 17, 3],
+      [21, 20, 4],
+      [25, 24, 5],
+      [30, 29, 6],
+      [35, 34, 7],
+      [42, 41, 8],
+      [50, 49, 10],
+      [59, 58, 12]
     ]
   }
 });
 
-MathJax.Ajax.loadComplete(MathJax.OutputJax["HTML-CSS"].imgDir+"/AMS/Regular"+
-                          MathJax.OutputJax["HTML-CSS"].imgPacked+"/EnclosedAlphanum.js");
-
+MathJax.Ajax.loadComplete(
+  MathJax.OutputJax["HTML-CSS"].imgDir +
+    "/AMS/Regular" +
+    MathJax.OutputJax["HTML-CSS"].imgPacked +
+    "/EnclosedAlphanum.js"
+);

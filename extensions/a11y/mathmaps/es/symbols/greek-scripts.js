@@ -16,5 +16,4 @@
  *  limitations under the License.
  */
 
-[{"locale":"es"}]
-
+[{ locale: "es" }];

@@ -1,7 +1,7 @@
 /*************************************************************
  *
  *  MathJax/fonts/HTML-CSS/TeX/png/AMS/Regular/LatinExtendedA.js
- *  
+ *
  *  Defines the image size data needed for the HTML-CSS OutputJax
  *  to display mathematics using fallback images when the fonts
  *  are not available to the client browser.
@@ -25,13 +25,27 @@
  */
 
 MathJax.OutputJax["HTML-CSS"].defineImageData({
-  "MathJax_AMS": {
-    0x127: [  // LATIN SMALL LETTER H WITH STROKE
-      [4,5,0],[5,6,0],[6,7,0],[7,8,0],[8,10,0],[10,12,0],[11,14,0],[13,16,0],
-      [16,19,0],[19,23,0],[22,27,0],[26,34,1],[31,40,1],[37,47,1]
+  MathJax_AMS: {
+    0x127: [
+      // LATIN SMALL LETTER H WITH STROKE
+      [4, 5, 0],
+      [5, 6, 0],
+      [6, 7, 0],
+      [7, 8, 0],
+      [8, 10, 0],
+      [10, 12, 0],
+      [11, 14, 0],
+      [13, 16, 0],
+      [16, 19, 0],
+      [19, 23, 0],
+      [22, 27, 0],
+      [26, 34, 1],
+      [31, 40, 1],
+      [37, 47, 1]
     ]
   }
 });
 
-MathJax.Ajax.loadComplete(MathJax.OutputJax["HTML-CSS"].imgDir+"/AMS/Regular"+
-                          MathJax.OutputJax["HTML-CSS"].imgPacked+"/LatinExtendedA.js");
+MathJax.Ajax.loadComplete(
+  MathJax.OutputJax["HTML-CSS"].imgDir + "/AMS/Regular" + MathJax.OutputJax["HTML-CSS"].imgPacked + "/LatinExtendedA.js"
+);

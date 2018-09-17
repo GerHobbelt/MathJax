@@ -1,7 +1,7 @@
 /*************************************************************
  *
  *  MathJax/fonts/HTML-CSS/TeX/png/Main/Regular/CombDiactForSymbols.js
- *  
+ *
  *  Defines the image size data needed for the HTML-CSS OutputJax
  *  to display mathematics using fallback images when the fonts
  *  are not available to the client browser.
@@ -25,13 +25,30 @@
  */
 
 MathJax.OutputJax["HTML-CSS"].defineImageData({
-  "MathJax_Main": {
-    0x20D7: [  // COMBINING RIGHT ARROW ABOVE
-      [4,2,-3],[4,2,-4],[5,3,-5],[6,3,-6],[7,3,-7],[8,4,-8],[10,5,-9],[11,5,-12],
-      [14,6,-14],[16,7,-17],[18,9,-20],[21,10,-24],[26,12,-28],[30,14,-33]
+  MathJax_Main: {
+    0x20d7: [
+      // COMBINING RIGHT ARROW ABOVE
+      [4, 2, -3],
+      [4, 2, -4],
+      [5, 3, -5],
+      [6, 3, -6],
+      [7, 3, -7],
+      [8, 4, -8],
+      [10, 5, -9],
+      [11, 5, -12],
+      [14, 6, -14],
+      [16, 7, -17],
+      [18, 9, -20],
+      [21, 10, -24],
+      [26, 12, -28],
+      [30, 14, -33]
     ]
   }
 });
 
-MathJax.Ajax.loadComplete(MathJax.OutputJax["HTML-CSS"].imgDir+"/Main/Regular"+
-                          MathJax.OutputJax["HTML-CSS"].imgPacked+"/CombDiactForSymbols.js");
+MathJax.Ajax.loadComplete(
+  MathJax.OutputJax["HTML-CSS"].imgDir +
+    "/Main/Regular" +
+    MathJax.OutputJax["HTML-CSS"].imgPacked +
+    "/CombDiactForSymbols.js"
+);
