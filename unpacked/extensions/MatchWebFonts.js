@@ -63,9 +63,19 @@
         return POSTTRANSLATE.apply(this,arguments); // do the original function
       },
       
+      //
+      //  Check to see if web fonts have been loaded that change the ex size
+      //  of the surrounding font, the ex size within the math, or the widths
+      //  of math elements.  We do this by rechecking the ex and mex sizes
+      //  (to see if the font scaling needs adjusting) and by checking the
+      //  size of the inner mrow of math elements and mtd elements.  The
+      //  sizes of these have been stored in the NativeMML object of the
+      //  element jax so that we can check for them here.
+      //
       checkFonts: function (check,scripts) {
         if (check.time(function () {})) return;
-        var size = [], i, m, retry = false;
+        var size = [], i, m, script, retry = false;
+debugger;
         //
         //  Add the elements used for testing ex and em sizes
         //
@@ -94,13 +104,12 @@
           if (ex !== jax.HTMLCSS.ex || em !== jax.HTMLCSS.em) {
             var scale = ex/this.TeX.x_height/em;
             scale = Math.floor(Math.max(this.config.minScaleAdjust/100,scale)*this.config.scale);
-            if (scale/100 !== jax.scale) {size.push(script); scripts[i] = {}}
+            if (scale/100 !== jax.scale) {size.push(script);}
           }
         }
         //
         //  Remove markers
         //
-        scripts = scripts.concat(size);  // some scripts have been moved to the size array
         for (i = 0, m = scripts.length; i < m; i++) {
           script = scripts[i];
           if (script && script.parentNode && script.MathJax.elementJax) {
@@ -112,7 +121,7 @@
         //
         if (size.length) {HUB.Queue(["Rerender",HUB,[size],{}])}
         //
-        //  Try again later
+        //  Try again later (if not all the scripts are null)
         //
         if (retry) {
           setTimeout(check, check.delay);
@@ -127,7 +136,7 @@
 
     SVG.Augment({
       postTranslate: function (state,partial) {
-        if (!partial && CONFIG.matchFor.SVG) {
+        if (!partial && CONFIG.matchFor.SVG && this.config.matchFontHeight) {
           //
           //  Check for changes in the web fonts that might affect the font
           //  size for math elements.  This is a periodic check that goes on
@@ -139,9 +148,19 @@
         return POSTTRANSLATE.apply(this,arguments); // do the original function
       },
       
+      //
+      //  Check to see if web fonts have been loaded that change the ex size
+      //  of the surrounding font, the ex size within the math, or the widths
+      //  of math elements.  We do this by rechecking the ex and mex sizes
+      //  (to see if the font scaling needs adjusting) and by checking the
+      //  size of the inner mrow of math elements and mtd elements.  The
+      //  sizes of these have been stored in the NativeMML object of the
+      //  element jax so that we can check for them here.
+      //
       checkFonts: function (check,scripts) {
         if (check.time(function () {})) return;
-        var size = [], i, m, retry = false;
+        var size = [], i, m, script, retry = false;
+debugger;
         //
         //  Add the elements used for testing ex and em sizes
         //
@@ -166,15 +185,14 @@
           var test = script.previousSibling;
           var ex = test.firstChild.offsetHeight/60;
           if (ex === 0 || ex === "NaN") {ex = this.defaultEx}
-          if (ex !== jax.SVG.ex) {size.push(script); scripts[i] = {}}
+          if (ex !== jax.SVG.ex) {size.push(script);}
         }
         //
         //  Remove markers
         //
-        scripts = scripts.concat(size);  // some scripts have been moved to the size array
         for (i = 0, m = scripts.length; i < m; i++) {
           script = scripts[i];
-          if (script.parentNode && script.MathJax.elementJax) {
+          if (script && script.parentNode && script.MathJax.elementJax) {
             script.parentNode.removeChild(script.previousSibling);
           }
         }
@@ -185,7 +203,6 @@
         //
         //  Try again later (if not all the scripts are null)
         //
-
         if (retry) {
           setTimeout(check, check.delay);
         }
@@ -198,17 +215,17 @@
     var POSTTRANSLATE = nMML.postTranslate;
     
     nMML.Augment({
-      postTranslate: function (state) {
-        if (!HUB.Browser.isMSIE && CONFIG.matchFor.NativeMML) {
+      postTranslate: function (state,partial) {
+        if (!HUB.Browser.isMSIE && !partial && CONFIG.matchFor.NativeMML && this.config.matchFontHeight) {
           //
-          //  Check for changes in the web fonts that might affect the sizes
-          //  of math elements.  This is a periodic check that goes on until
-          //  a timeout is reached.
+          //  Check for changes in the web fonts that might affect the font
+          //  size for math elements.  This is a periodic check that goes on
+          //  until a timeout is reached.
           //
           AJAX.timer.start(AJAX,["checkFonts",this,state.jax[this.id]],
                            CONFIG.fontCheckDelay,CONFIG.fontCheckTimeout);
         }
-        POSTTRANSLATE.apply(this,arguments); // do the original routine
+        return POSTTRANSLATE.apply(this,arguments); // do the original function
       },
       
       //
@@ -222,7 +239,8 @@
       //
       checkFonts: function (check,scripts) {
         if (check.time(function () {})) return;
-        var adjust = [], mtd = [], size = [], i, m, script;
+        var adjust = [], mtd = [], size = [], i, m, script, retry = false;
+debugger;
         //
         //  Add the elements used for testing ex and em sizes
         //
@@ -236,10 +254,14 @@
         //  Check to see if anything has changed
         //
         for (i = 0, m = scripts.length; i < m; i++) {
-          script = scripts[i]; if (!script.parentNode) continue;
-          var jax = script.MathJax.elementJax; if (!jax) continue;
+          script = scripts[i]; 
+          if (!script.parentNode) continue; 
+          retry = true;
+          var jax = script.MathJax.elementJax; 
+          if (!jax) continue;
           var span = document.getElementById(jax.inputID+"-Frame");
-          var math = span.getElementsByTagName("math")[0]; if (!math) continue;
+          var math = span.getElementsByTagName("math")[0]; 
+          if (!math) continue;
           jax = jax.NativeMML;
           //
           //  Check if ex or mex has changed
@@ -281,7 +303,7 @@
         //
         for (i = 0, m = scripts.length; i < m; i++) {
           script = scripts[i];
-          if (script.parentNode && script.MathJax.elementJax) {
+          if (script && script.parentNode && script.MathJax.elementJax) {
             script.parentNode.removeChild(script.previousSibling);
           }
         }
