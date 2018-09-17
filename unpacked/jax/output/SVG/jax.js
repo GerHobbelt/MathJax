@@ -709,7 +709,9 @@
           })
           if (variant.h != null) {box.h = variant.h}; if (variant.d != null) {box.d = variant.d}
           c = BBOX.G(); c.Add(box); svg.Add(c,svg.w,0);
-          HUB.signal.Post(["SVG Jax - unknown char",n,variant]);
+          HUB.signal.Post(["SVG Jax - unknown char",n,
+            "(0x"+n.toString(16).toUpperCase()+")",
+            JSON.stringify({font: font, fonts: variant.fonts}, null, 2)]);
         }
       }
       if (SVG.isChar(text) && font.skew && font.skew[n]) {svg.skew = font.skew[n]*1000}
