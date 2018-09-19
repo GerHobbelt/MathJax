@@ -15498,6 +15498,7 @@ asciimath.translate = translate;
 
       // if (!HUB.Browser.hasMathPlayer) {
       // Used in preTranslate to get scaling factors
+      debugger;
       this.EmExSpan = HTML.Element("span", { style: { position: "absolute", "font-size-adjust": "none" } }, [
         ["div", { className: "MathJax_mmlExBox" }],
         ["span", { className: "MathJax_MathML" }]
@@ -15560,6 +15561,7 @@ asciimath.translate = translate;
         document.body.appendChild(this.EmExSpan);
         this.defaultEx = this.EmExSpan.firstChild.offsetWidth / 60;
         this.defaultMEx = this.EmExSpan.lastChild.offsetWidth / 60;
+        debugger;
         document.body.removeChild(this.EmExSpan);
       }
     },
@@ -15577,6 +15579,7 @@ asciimath.translate = translate;
         ex,
         mex,
         scale;
+      debugger;
       for (i = 0; i < m; i++) {
         script = scripts[i];
         if (!script.parentNode) continue;
@@ -17987,7 +17990,7 @@ asciimath.translate = translate;
           c = BBOX.G();
           c.Add(box);
           svg.Add(c, svg.w, 0);
-          HUB.signal.Post(["SVG Jax - unknown char", n, variant]);
+          HUB.signal.Post(["SVG Jax - unknown char", n, "(0x"+n.toString(16).toUpperCase() + ")", JSON.stringify(variant, null, 2)]);
         }
       }
       if (SVG.isChar(text) && font.skew && font.skew[n]) {

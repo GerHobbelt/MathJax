@@ -13507,7 +13507,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
           c = BBOX.G();
           c.Add(box);
           svg.Add(c, svg.w, 0);
-          HUB.signal.Post(["SVG Jax - unknown char", n, variant]);
+          HUB.signal.Post(["SVG Jax - unknown char", n, "(0x"+n.toString(16).toUpperCase() + ")", JSON.stringify(variant, null, 2)]);
         }
       }
       if (SVG.isChar(text) && font.skew && font.skew[n]) {

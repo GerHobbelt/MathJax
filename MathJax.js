@@ -3792,7 +3792,13 @@ if (document.getElementById && document.childNodes && document.createElement) {
           },
           needsUpdate: function(jax) {
             var script = jax.SourceElement();
-            return jax.originalText !== BASE.HTML.getScript(script);
+            var original = jax.originalText;
+            var actual = BASE.HTML.getScript(script);
+            console.error("needsUpdate:", {
+              original,
+              actual,
+            });
+            return (original !== actual);
           },
           Register: function(mimetype) {
             if (!HUB.inputJax) {
