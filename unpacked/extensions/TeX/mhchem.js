@@ -366,7 +366,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       if (c === "T") {
         if (!bracket.match(/^\{.*\}$/)) {bracket = "{"+bracket+"}"}
         bracket = "\\text"+bracket;
-      };
+      }
       return bracket;
     },
 

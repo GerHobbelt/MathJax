@@ -833,7 +833,7 @@ debugger;
             var width = 100, forceWidth = this.parent.nMMLforceWidth;
             if ((this.parent.width||"").match(/%/)) {
               width -= parseFloat(this.parent.width)
-            };
+            }
             var w = width;
             //
             //  Add spacing (and possibly label) at the left if needed
@@ -841,7 +841,8 @@ debugger;
             if (forceWidth || side !== "r") {
               NOPADDING("Left",mtr.firstChild);
               if (align !== "l") {
-                if (align === "c") {w /= 2}; width -= w;
+                if (align === "c") {w /= 2} 
+                width -= w;
                 mtr.insertBefore(this.NativeMMLelement("mtd"),mtr.firstChild)
                    .setAttribute("style","padding:0;width:"+w+"%");
               }
@@ -1018,7 +1019,7 @@ debugger;
           if (mtable.nMMLforceWidth || !mtable.nMMLlaMatch) {
             tag.setAttribute("style","width:100%")  // mrow node
             if (annotate) tag.parentNode.setAttribute("style","width:100%"); // semantics node
-          };
+          }
           if (mtable.nMMLlaMatch) {
             if (parent.parentNode.parentNode.nodeName.toLowerCase() === "div") {
               parent.parentNode.parentNode.style

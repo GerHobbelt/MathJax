@@ -301,7 +301,7 @@
       if (!width) {math.style.position = "absolute"}
       var zW = span.offsetWidth, zH = span.offsetHeight,
           mH = math.offsetHeight, mW = math.offsetWidth;
-      if (mW === 0) {mW = math.parentNode.offsetWidth}; // IE7 gets mW == 0?
+      if (mW === 0) {mW = math.parentNode.offsetWidth;} // IE7 gets mW == 0?
       span.style.position = math.style.position = "";
       //
       return {Y:-EVENT.getBBox(span).h, mW:mW, mH:mH, zW:zW, zH:zH};
@@ -502,7 +502,7 @@
         if (this.type === "mo" && this.data.join("") === "\u222B") {PHTML.lastIsInt = true}
         else if (this.type !== "mspace" || this.width !== "negativethinmathspace") {PHTML.lastIsInt = false}
         //  ###
-        if (!this.PHTMLspanID) {this.PHTMLspanID = PHTML.GetID()};
+        if (!this.PHTMLspanID) {this.PHTMLspanID = PHTML.GetID();}
         var id = (this.id || "MJXp-Span-"+this.PHTMLspanID);
         return HTML.addElement(span,"span",{className:"MJXp-"+this.type, id:id});
       },

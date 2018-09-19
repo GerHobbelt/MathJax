@@ -575,7 +575,8 @@
       var emFactor = (this.zoomScale || 1) / SVG.em;
       var match = length.match(/^\s*([-+]?(?:\.\d+|\d+(?:\.\d*)?))?(pt|em|ex|mu|px|pc|in|mm|cm|%)?/);
       var m = parseFloat(match[1]||"1") * 1000, unit = match[2];
-      if (size == null) {size = 1000};  if (mu == null) {mu = 1}
+      if (size == null) {size = 1000}  
+      if (mu == null) {mu = 1}
       if (unit === "em") {return m}
       if (unit === "ex") {return m * SVG.TeX.x_height/1000}
       if (unit === "%")  {return m / 100 * size / 1000}
@@ -643,7 +644,8 @@
       if (!variant) {variant = this.FONTDATA.VARIANT[MML.VARIANT.NORMAL]}
       if (variant.forceFamily) {
         text = BBOX.TEXT(scale,text,variant.font);
-        if (variant.h != null) {text.h = variant.h}; if (variant.d != null) {text.d = variant.d}
+        if (variant.h != null) {text.h = variant.h} 
+        if (variant.d != null) {text.d = variant.d}
         svg.Add(text); text = "";
       }
       VARIANT = variant;
@@ -707,7 +709,8 @@
             "font-style":(variant.italic?"italic":""),
             "font-weight":(variant.bold?"bold":"")
           })
-          if (variant.h != null) {box.h = variant.h}; if (variant.d != null) {box.d = variant.d}
+          if (variant.h != null) {box.h = variant.h} 
+          if (variant.d != null) {box.d = variant.d}
           c = BBOX.G(); c.Add(box); svg.Add(c,svg.w,0);
           HUB.signal.Post(["SVG Jax - unknown char",n,
             "(0x"+n.toString(16).toUpperCase()+")",
@@ -769,7 +772,7 @@
     },
 
     createDelimiter: function (code,HW,scale,font) {
-      if (!scale) {scale = 1};
+      if (!scale) {scale = 1}
       var svg = BBOX.G();
       if (!code) {
         svg.Clean(); delete svg.element;
@@ -927,7 +930,8 @@
     },
     With: function (def) {return HUB.Insert(this,def)},
     Add: function (svg,dx,dy,forcew,infront) {
-      if (dx) {svg.x += dx}; if (dy) {svg.y += dy};
+      if (dx) {svg.x += dx} 
+      if (dy) {svg.y += dy}
       if (svg.element) {
         if (svg.removeable && svg.element.childNodes.length === 1 && svg.n === 1) {
           var child = svg.element.firstChild, nodeName = child.nodeName.toLowerCase();
@@ -1038,7 +1042,8 @@
   BBOX.FRAME = BBOX.Subclass({
     type: "rect", removeable: false,
     Init: function (h,d,w,t,dash,color,def) {
-      if (def == null) {def = {}}; def.fill = "none";
+      if (def == null) {def = {}} 
+      def.fill = "none";
       def["stroke-width"] = SVG.Fixed(t,2);
       def.width = Math.floor(w-t); def.height = Math.floor(h+d-t);
       def.transform = "translate("+Math.floor(t/2)+","+Math.floor(-d+t/2)+")";
@@ -1093,7 +1098,8 @@
   BBOX.TEXT = BBOX.Subclass({
     type: "text", removeable: false,
     Init: function (scale,text,def) {
-      if (!def) {def = {}}; def.stroke = "none";
+      if (!def) {def = {}} 
+      def.stroke = "none";
       if (def["font-style"] === "") delete def["font-style"];
       if (def["font-weight"] === "") delete def["font-weight"];
       this.SUPER(arguments).Init.call(this,def);
@@ -1782,7 +1788,8 @@
           if (values.height !== "") {svg.h = this.SVGlength2em(svg,values.height,mu,"h",0)}
           if (values.depth  !== "") {svg.d = this.SVGlength2em(svg,values.depth,mu,"d",0)}
           if (values.width  !== "") {svg.w = this.SVGlength2em(svg,values.width,mu,"w",0)}
-          if (svg.h > svg.H) {svg.H = svg.h}; if (svg.d > svg.D) {svg.D = svg.d}
+          if (svg.h > svg.H) {svg.H = svg.h} 
+          if (svg.d > svg.D) {svg.D = svg.d}
         }
         this.SVGhandleColor(svg);
         this.SVGsaveData(svg);

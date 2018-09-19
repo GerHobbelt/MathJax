@@ -1351,12 +1351,12 @@
     },
 
     NamedFn: function (name,id) {
-      if (!id) {id = name.substr(1)};
+      if (!id) {id = name.substr(1);}
       var mml = MML.mi(id).With({texClass: MML.TEXCLASS.OP});
       this.Push(STACKITEM.fn(this.mmlToken(mml)));
     },
     NamedOp: function (name,id) {
-      if (!id) {id = name.substr(1)};
+      if (!id) {id = name.substr(1);}
       id = id.replace(/&thinsp;/,"\u2006");
       var mml = MML.mo(id).With({
         movablelimits: true,
@@ -2013,7 +2013,7 @@
      *  Get an optional LaTeX argument in brackets
      */
     GetBrackets: function (name,def) {
-      if (this.GetNext() != '[') {return def};
+      if (this.GetNext() != '[') {return def;}
       var j = ++this.i, parens = 0;
       while (this.i < this.string.length) {
         switch (this.string.charAt(this.i++)) {

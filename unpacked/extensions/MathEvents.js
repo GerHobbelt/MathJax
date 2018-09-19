@@ -164,7 +164,7 @@
       if (!event) event = window.event;
       if (event.keyCode === EVENT.KEY.SPACE) {
         EVENT.ContextMenu(event, this);
-      };
+      }
     },
 
     //

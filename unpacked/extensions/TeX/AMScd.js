@@ -129,7 +129,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
           }
         }
       }
-      if (mml) {this.Push(mml)};
+      if (mml) {this.Push(mml);}
       this.CD_cell(name);
     },
     CD_cell: function (name) {

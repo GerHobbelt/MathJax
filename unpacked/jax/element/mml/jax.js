@@ -897,11 +897,11 @@ MathJax.ElementJax.mml.Augment({
     },
     adjustChild_scriptlevel: function (n) {
       var level = this.Get("scriptlevel");
-      if (n === 1) {level += 2}
+      if (n === 1) {level += 2;}
       return level;
     },
     adjustChild_texprimestyle: function (n) {
-      if (n === 0) {return true};
+      if (n === 0) {return true;}
       return this.Get("texprimestyle");
     },
     setTeXclass: MML.mbase.setSeparateTeXclasses

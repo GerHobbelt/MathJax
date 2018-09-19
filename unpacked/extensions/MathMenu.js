@@ -277,8 +277,8 @@
     title: null,
     margin: 5,
 
-    Init: function (def) {this.items = [].slice.call(arguments,0)},
-    With: function (def) {if (def) {HUB.Insert(this,def)}; return this},
+    Init: function (def) {this.items = [].slice.call(arguments,0);},
+    With: function (def) {if (def) {HUB.Insert(this,def);} return this;},
 
     /*
      *  Display the menu
@@ -704,7 +704,7 @@
       return menu.Remove(event,menu);
     },
 
-    With: function (def) {if (def) {HUB.Insert(this,def)}; return this},
+    With: function (def) {if (def) {HUB.Insert(this,def);} return this;},
 
     isRTL: function () {return MENU.isRTL},
     rtlClass: function () {return (this.isRTL() ? " RTL" : "")}
@@ -1220,9 +1220,9 @@
         var H = (w.outerHeight-w.innerHeight)||30, W = (w.outerWidth-w.innerWidth)||30, x, y;
         W = Math.max(140,Math.min(Math.floor(.5*screen.width),table.offsetWidth+W+25));
         H = Math.max(40,Math.min(Math.floor(.5*screen.height),table.offsetHeight+H+25));
-        if (MENU.prototype.msieHeightBug) {H += 35}; // for title bar in XP
+        if (MENU.prototype.msieHeightBug) {H += 35;} // for title bar in XP
         w.resizeTo(W,H);
-        var X; try {X = event.screenX} catch (e) {}; // IE8 throws an error accessing screenX
+        var X; try {X = event.screenX;} catch (e) {} // IE8 throws an error accessing screenX
         if (event && X != null) {
           x = Math.max(0,Math.min(event.screenX-Math.floor(W/2), screen.width-W-20));
           y = Math.max(0,Math.min(event.screenY-Math.floor(H/2), screen.height-H-20));

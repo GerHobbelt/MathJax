@@ -778,7 +778,7 @@
       }
   };
   
-  for (var id in delim) {if (delim.hasOwnProperty(id)) {DELIMITERS[id] = delim[id]}};
+  for (var id in delim) {if (delim.hasOwnProperty(id)) {DELIMITERS[id] = delim[id]}}
 
   MathJax.Ajax.loadComplete(HTMLCSS.fontDir + "/fontdata-extra.js");
 

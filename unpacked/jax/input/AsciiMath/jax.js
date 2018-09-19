@@ -1447,9 +1447,9 @@ ASCIIMATH.Augment({
          case "initSymbols": initSymbols = def[id]; break;
          case "refreshSymbols": refreshSymbols = def[id]; break;
          case "compareNames": compareNames = def[id]; break;
-        };
+        }
         this[id] = def[id];
-      }};
+      }}
     },
     parseMath:  parseMath,
     parseExpr:  AMparseExpr,

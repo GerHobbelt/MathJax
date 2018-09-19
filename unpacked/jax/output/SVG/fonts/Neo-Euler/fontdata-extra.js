@@ -170,7 +170,7 @@
       }
   };
   
-  for (var id in delim) {if (delim.hasOwnProperty(id)) {DELIMITERS[id] = delim[id]}};
+  for (var id in delim) {if (delim.hasOwnProperty(id)) {DELIMITERS[id] = delim[id]}}
 
   MathJax.Ajax.loadComplete(SVG.fontDir + "/fontdata-extra.js");
 

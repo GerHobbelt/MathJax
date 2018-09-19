@@ -33,7 +33,8 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
   BBOX.ELLIPSE = BBOX.Subclass({
     type: "ellipse", removeable: false,
     Init: function (h,d,w,t,color,def) {
-      if (def == null) {def = {}}; def.fill = "none";
+      if (def == null) {def = {}} 
+      def.fill = "none";
       if (color) {def.stroke = color}
       def["stroke-width"] = t.toFixed(2).replace(/\.?0+$/,"");
       def.cx = Math.floor(w/2); def.cy = Math.floor((h+d)/2-d);
@@ -47,7 +48,8 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
   BBOX.DLINE = BBOX.Subclass({
     type: "line", removeable: false,
     Init: function (h,d,w,t,color,updown,def) {
-      if (def == null) {def = {}}; def.fill = "none";
+      if (def == null) {def = {}} 
+      def.fill = "none";
       if (color) {def.stroke = color}
       def["stroke-width"] = t.toFixed(2).replace(/\.?0+$/,"");
       if (updown == "up") {
@@ -71,8 +73,10 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
       var P = [], mx = 100000000, my = mx, Mx = -mx, My = Mx;
       for (var i = 0, m = points.length; i < m; i++) {
         var x = points[i][0], y = points[i][1];
-        if (x > Mx) {Mx = x}; if (x < mx) {mx = x}
-        if (y > My) {My = y}; if (y < my) {my = y}
+        if (x > Mx) {Mx = x} 
+        if (x < mx) {mx = x}
+        if (y > My) {My = y} 
+        if (y < my) {my = y}
         P.push(Math.floor(x)+","+Math.floor(y));
       }
       def.points = P.join(" ");
@@ -85,7 +89,8 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
   BBOX.PPATH = BBOX.Subclass({
     type: "path", removeable: false,
     Init: function (h,d,w,p,t,color,def) {
-      if (def == null) {def = {}}; def.fill = "none";
+      if (def == null) {def = {}} 
+      def.fill = "none";
       if (color) {def.stroke = color}
       def["stroke-width"] = t.toFixed(2).replace(/\.?0+$/,"");
       def.d = p;

@@ -156,7 +156,8 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       //
       var index = info.index.slice(0), i = info.index.shift(),
           m = this.data.length, W, w, scanW, broken = (info.index.length > 0), better = false;
-      if (i == null) {i = -1}; if (!broken) {i++; info.W += info.w; info.w = 0}
+      if (i == null) {i = -1} 
+      if (!broken) {i++; info.W += info.w; info.w = 0}
       scanW = info.scanW = info.W; info.nest++;
       //
       //  Look through the line for breakpoints,
@@ -274,7 +275,8 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     //  
     HTMLmoveLine: function (start,end,span,state,values) {
       var i = start[0], j = end[0];
-      if (i == null) {i = -1}; if (j == null) {j = this.data.length-1}
+      if (i == null) {i = -1} 
+      if (j == null) {j = this.data.length-1}
       if (i === j && start.length > 1) {
         //
         //  If starting and ending in the same element move the subpiece to the new line
@@ -403,7 +405,8 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       //
       var index = info.index.slice(0), i = info.index.shift(),
           m = this.data.length, W, w, scanW, broken = (info.index.length > 0), better = false;
-      if (i == null) {i = -1}; if (!broken) {i++; info.W += info.w; info.w = 0}
+      if (i == null) {i = -1} 
+      if (!broken) {i++; info.W += info.w; info.w = 0}
       scanW = info.scanW = info.W; info.nest++;
       //
       //  Create indices that include the delimiters and separators
@@ -445,7 +448,8 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
     
     HTMLmoveLine: function (start,end,span,state,values) {
       var i = start[0], j = end[0];
-      if (i == null) {i = -1}; if (j == null) {j = this.dataI.length-1}
+      if (i == null) {i = -1} 
+      if (j == null) {j = this.dataI.length-1}
       if (i === j && start.length > 1) {
         //
         //  If starting and ending in the same element move the subpiece to the new line
