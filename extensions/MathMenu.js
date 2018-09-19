@@ -317,7 +317,6 @@
             break;
           default:
             return;
-            break;
         }
         return FALSE(event);
       },
@@ -490,7 +489,7 @@
         if (div) {
           div.parentNode.removeChild(div);
           if (this.msieFixedPositionBug) {
-            detachEvent("onresize", MENU.Resize);
+            window.detachEvent("onresize", MENU.Resize);
           }
         }
         if (MENU.jax.hover) {
@@ -653,7 +652,7 @@
           //  and an onresize handler to update it (stupid, but necessary)
           div.width = div.height = 0;
           this.Resize();
-          attachEvent("onresize", this.Resize);
+          window.attachEvent("onresize", this.Resize);
         } else {
           // otherwise, use a fixed position DIV to cover the viewport
           bg.style.position = "fixed";
@@ -766,7 +765,7 @@
       //TODO: Move to utility class.
       // Computes a mod n.
       Mod: function(a, n) {
-        return (a % n + n) % n;
+        return ((a % n) + n) % n;
       },
       IndexOf: Array.prototype.indexOf
         ? function(A, item, start) {

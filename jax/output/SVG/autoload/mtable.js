@@ -77,7 +77,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready", function() {
       );
       //  Handle relative width as fixed width in relation to container
       if (values.width.match(/%$/)) {
-        svg.width = values.width = SVG.Em(SVG.cwidth / 1000 * (parseFloat(values.width) / 100));
+        svg.width = values.width = SVG.Em((SVG.cwidth / 1000) * (parseFloat(values.width) / 100));
       }
 
       var mu = this.SVGgetMu(svg);
@@ -129,11 +129,11 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready", function() {
                 HD = mo.SVGdata.h + mo.SVGdata.d;
                 if (HD) {
                   min = SVG.length2em(min, mu, HD);
-                  if (min * mo.SVGdata.h / HD > H[i]) {
-                    H[i] = min * mo.SVGdata.h / HD;
+                  if ((min * mo.SVGdata.h) / HD > H[i]) {
+                    H[i] = (min * mo.SVGdata.h) / HD;
                   }
-                  if (min * mo.SVGdata.d / HD > D[i]) {
-                    D[i] = min * mo.SVGdata.d / HD;
+                  if ((min * mo.SVGdata.d) / HD > D[i]) {
+                    D[i] = (min * mo.SVGdata.d) / HD;
                   }
                 }
               } else if (mo.SVGcanStretch("Horizontal")) {

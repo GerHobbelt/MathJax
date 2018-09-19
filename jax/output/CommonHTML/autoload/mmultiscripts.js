@@ -123,16 +123,16 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready", function() {
       //
       if (!sup && !presup) {
         v = Math.max(v, CHTML.TEX.sub1, values.subscriptshift);
-        if (sub) v = Math.max(v, sbox.h - 4 / 5 * ex);
-        if (presub) v = Math.max(v, pbox.h - 4 / 5 * ex);
+        if (sub) v = Math.max(v, sbox.h - (4 / 5) * ex);
+        if (presub) v = Math.max(v, pbox.h - (4 / 5) * ex);
         if (sub) this.CHTMLplaceSubOnly(sub, sbox, x, v, s);
         if (presub) this.CHTMLplacePresubOnly(presub, pbox, v, s);
       } else {
         if (!sub && !presub) {
           p = CHTML.TEX[values.displaystyle ? "sup1" : values.texprimestyle ? "sup3" : "sup2"];
           u = Math.max(u, p, values.superscriptshift);
-          if (sup) u = Math.max(u, Sbox.d + 1 / 4 * ex);
-          if (presup) u = Math.max(u, Pbox.d + 1 / 4 * ex);
+          if (sup) u = Math.max(u, Sbox.d + (1 / 4) * ex);
+          if (presup) u = Math.max(u, Pbox.d + (1 / 4) * ex);
           if (sup) this.CHTMLplaceSupOnly(sup, Sbox, x, delta, u, s);
           if (presup) this.CHTMLplacePresupOnly(presup, Pbox, delta, u, s);
         } else {
@@ -144,7 +144,7 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready", function() {
           if (presup) d = Math.max(d, Pbox.d);
           if (u - d - (h - v) < 3 * t) {
             v = 3 * t - u + d + h;
-            q = 4 / 5 * ex - (u - d);
+            q = (4 / 5) * ex - (u - d);
             if (q > 0) {
               u += q;
               v -= q;

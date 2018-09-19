@@ -2130,7 +2130,7 @@ sre.SemanticUtil.unicodeToNumber = function(a) {
 sre.SemanticUtil.numberToUnicode = function(a) {
   return 65536 > a
     ? String.fromCharCode(a)
-    : String.fromCharCode((a - 65536) / 1024 + 55296, (a - 65536) % 1024 + 56320);
+    : String.fromCharCode((a - 65536) / 1024 + 55296, ((a - 65536) % 1024) + 56320);
 };
 sre.SemanticUtil.splitUnicode = function(a) {
   a = a.split("");

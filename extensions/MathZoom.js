@@ -298,9 +298,9 @@
         overlay.onmouseover = this.Remove;
       }
       if (window.addEventListener) {
-        addEventListener("resize", this.Resize, false);
+        window.addEventListener("resize", this.Resize, false);
       } else if (window.attachEvent) {
-        attachEvent("onresize", this.Resize);
+        window.attachEvent("onresize", this.Resize);
       } else {
         this.onresize = window.onresize;
         window.onresize = this.Resize;
@@ -386,7 +386,7 @@
     //
     getOverflow: window.getComputedStyle
       ? function(obj) {
-          return getComputedStyle(obj).overflow;
+          return window.getComputedStyle(obj).overflow;
         }
       : function(obj) {
           return (obj.currentStyle || { overflow: "visible" }).overflow;
@@ -394,7 +394,7 @@
     getBorder: function(obj) {
       var size = { thin: 1, medium: 2, thick: 3 };
       var style = window.getComputedStyle
-        ? getComputedStyle(obj)
+        ? window.getComputedStyle(obj)
         : obj.currentStyle || { borderLeftWidth: 0, borderTopWidth: 0 };
       var x = style.borderLeftWidth,
         y = style.borderTopWidth;
@@ -468,9 +468,9 @@
           document.body.removeChild(overlay);
         }
         if (window.removeEventListener) {
-          removeEventListener("resize", ZOOM.Resize, false);
+          window.removeEventListener("resize", ZOOM.Resize, false);
         } else if (window.detachEvent) {
-          detachEvent("onresize", ZOOM.Resize);
+          window.detachEvent("onresize", ZOOM.Resize);
         } else {
           window.onresize = ZOOM.onresize;
           delete ZOOM.onresize;

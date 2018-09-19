@@ -40,6 +40,8 @@
  *  limitations under the License.
  */
 
+/* global sre:false */
+
 MathJax.Extension["semantic-enrich"] = {
   version: "1.5.0",
   config: MathJax.Hub.CombineConfig("semantic-enrich", { disabled: false }),
@@ -108,10 +110,10 @@ MathJax.Extension["semantic-enrich"] = {
 
 (function() {
   //
-  //  Set up the a11y path,if it isn't already in place
+  //  Set up the a11y path, if it isn't already in place
   //
   var PATH = MathJax.Ajax.config.path;
-  if (!PATH.a11y) PATH.a11y = HUB.config.root + "/extensions/a11y";
+  if (!PATH.a11y) PATH.a11y = MathJax.Hub.config.root + "/extensions/a11y";
 
   //
   //  Load SRE and use the signal to tell MathJax when it is loaded.
@@ -162,6 +164,7 @@ MathJax.Callback.Queue(
           lookup = ENRICH.running ? ENRICH.mstyleLookup[this.type] || [] : [];
         var attr = [],
           ATTR = this.attr || {};
+        var value;
 
         if (this.type === "math" && (!this.attr || !("xmlns" in this.attr)))
           attr.push('xmlns="http://www.w3.org/1998/Math/MathML"');

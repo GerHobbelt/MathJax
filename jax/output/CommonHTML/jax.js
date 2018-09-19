@@ -584,7 +584,7 @@
         jax.CHTML.scale = scale / 100;
         jax.CHTML.fontSize = scale + "%";
         jax.CHTML.outerEm = em;
-        jax.CHTML.em = this.em = em * scale / 100;
+        jax.CHTML.em = this.em = (em * scale) / 100;
         jax.CHTML.ex = ex;
         jax.CHTML.cwidth = cwidth / this.em;
         jax.CHTML.lineWidth = linebreak ? this.length2em(width, maxwidth / this.em, 1) : maxwidth;
@@ -1291,7 +1291,7 @@
           bbox.offset = 0.6 * bbox.w;
           if (BBOX) {
             bbox.scale = BBOX.scale;
-            BBOX.rscale = BBOX.rscale;
+            bbox.rscale = BBOX.rscale;
           }
           return bbox;
         }
@@ -1524,14 +1524,14 @@
       scale = 1 / this.em / scale;
       if (unit === "em") return m;
       if (unit === "ex") return m * this.TEX.x_height;
-      if (unit === "%") return m / 100 * size;
+      if (unit === "%") return (m / 100) * size;
       if (unit === "px") return m * scale;
       if (unit === "pt") return m / 10; // 10 pt to an em
       if (unit === "pc") return m * 1.2; // 12 pt to a pc
       scale *= this.pxPerInch;
       if (unit === "in") return m * scale;
-      if (unit === "cm") return m * scale / 2.54; // 2.54 cm to an inch
-      if (unit === "mm") return m * scale / 25.4; // 10 mm to a cm
+      if (unit === "cm") return (m * scale) / 2.54; // 2.54 cm to an inch
+      if (unit === "mm") return (m * scale) / 25.4; // 10 mm to a cm
       if (unit === "mu") return m / 18; // 18mu to an em for the scriptlevel
       return m * size; // relative to given size (or 1em as default)
     },
@@ -2380,7 +2380,7 @@
           //  Get a delimiter of the proper height and save the height
           //
           if (H != values.minsize) {
-            H = [Math.max(H * CHTML.TEX.delimiterfactor / 1000, H - CHTML.TEX.delimitershortfall), H];
+            H = [Math.max((H * CHTML.TEX.delimiterfactor) / 1000, H - CHTML.TEX.delimitershortfall), H];
           }
           while (node.firstChild) node.removeChild(node.firstChild);
           this.CHTML = bbox = CHTML.createDelimiter(node, this.data.join("").charCodeAt(0), H, bbox);
@@ -2391,7 +2391,7 @@
           if (values.symmetric) {
             H = (bbox.h + bbox.d) / 2 + a;
           } else {
-            H = (bbox.h + bbox.d) * h / (h + d);
+            H = ((bbox.h + bbox.d) * h) / (h + d);
           }
           H -= bbox.h;
           if (Math.abs(H) > 0.05) {
@@ -2940,7 +2940,7 @@
         if (sup) Sbox.w += s;
         if (!sup) {
           if (sub) {
-            v = Math.max(v, CHTML.TEX.sub1, sscale * sbox.h - 4 / 5 * ex, values.subscriptshift);
+            v = Math.max(v, CHTML.TEX.sub1, sscale * sbox.h - (4 / 5) * ex, values.subscriptshift);
             sub.style.verticalAlign = CHTML.Em(-v / sscale);
             sub.style.paddingRight = CHTML.Em(s / sscale);
             BBOX.combine(sbox, x, -v);
@@ -2948,7 +2948,7 @@
         } else {
           if (!sub) {
             p = CHTML.TEX[values.displaystyle ? "sup1" : values.texprimestyle ? "sup3" : "sup2"];
-            u = Math.max(u, p, Sscale * Sbox.d + 1 / 4 * ex, values.superscriptshift);
+            u = Math.max(u, p, Sscale * Sbox.d + (1 / 4) * ex, values.superscriptshift);
             sup.style.verticalAlign = CHTML.Em(u / Sscale);
             sup.style.paddingLeft = CHTML.Em(delta / Sscale);
             sup.style.paddingRight = CHTML.Em(s / Sscale);
@@ -2958,7 +2958,7 @@
             var t = CHTML.TEX.rule_thickness;
             if (u - Sscale * Sbox.d - (sscale * sbox.h - v) < 3 * t) {
               v = 3 * t - u + Sscale * Sbox.d + sscale * sbox.h;
-              q = 4 / 5 * ex - (u - Sscale * Sbox.d);
+              q = (4 / 5) * ex - (u - Sscale * Sbox.d);
               if (q > 0) {
                 u += q;
                 v -= q;
@@ -2967,7 +2967,7 @@
             u = Math.max(u, values.superscriptshift);
             v = Math.max(v, values.subscriptshift);
             sub.style.paddingRight = CHTML.Em(s / sscale);
-            sup.style.paddingBottom = CHTML.Em(u / Sscale + v / sscale - Sbox.d - sbox.h / sscale * Sscale);
+            sup.style.paddingBottom = CHTML.Em(u / Sscale + v / sscale - Sbox.d - (sbox.h / sscale) * Sscale);
             sup.style.paddingLeft = CHTML.Em(delta / Sscale);
             sup.style.paddingRight = CHTML.Em(s / Sscale);
             stack.style.verticalAlign = CHTML.Em(-v);
@@ -3035,8 +3035,8 @@
           var bevel = CHTML.Element("mjx-bevel");
           frac.insertBefore(bevel, denom);
           var bbox = CHTML.createDelimiter(bevel, 0x2f, H);
-          u = nscale * (nbox.d - nbox.h) / 2 + a + delta;
-          v = dscale * (dbox.d - dbox.h) / 2 + a - delta;
+          u = (nscale * (nbox.d - nbox.h)) / 2 + a + delta;
+          v = (dscale * (dbox.d - dbox.h)) / 2 + a - delta;
           if (u) num.style.verticalAlign = CHTML.Em(u / nscale);
           if (v) denom.style.verticalAlign = CHTML.Em(v / dscale);
           bevel.style.marginLeft = bevel.style.marginRight = CHTML.Em(-delta / 2);

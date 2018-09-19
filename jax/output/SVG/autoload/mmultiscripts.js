@@ -99,10 +99,10 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready", function() {
       if (!sup && !presup) {
         v = Math.max(v, SVG.TeX.sub1 * scale, min.subscriptshift);
         if (sub) {
-          v = Math.max(v, sub.h - 4 / 5 * x_height);
+          v = Math.max(v, sub.h - (4 / 5) * x_height);
         }
         if (presub) {
-          v = Math.max(v, presub.h - 4 / 5 * x_height);
+          v = Math.max(v, presub.h - (4 / 5) * x_height);
         }
         if (sub) {
           svg.Add(sub, dx + base.w + s - delta, -v);
@@ -116,10 +116,10 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready", function() {
           p = SVG.TeX[values.displaystyle ? "sup1" : values.texprimestyle ? "sup3" : "sup2"];
           u = Math.max(u, p * scale, min.superscriptshift);
           if (sup) {
-            u = Math.max(u, sup.d + 1 / 4 * x_height);
+            u = Math.max(u, sup.d + (1 / 4) * x_height);
           }
           if (presup) {
-            u = Math.max(u, presup.d + 1 / 4 * x_height);
+            u = Math.max(u, presup.d + (1 / 4) * x_height);
           }
           if (sup) {
             svg.Add(sup, dx + base.w + s, u);
@@ -140,7 +140,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready", function() {
           }
           if (u - d - (h - v) < 3 * t) {
             v = 3 * t - u + d + h;
-            q = 4 / 5 * x_height - (u - d);
+            q = (4 / 5) * x_height - (u - d);
             if (q > 0) {
               u += q;
               v -= q;

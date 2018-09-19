@@ -970,7 +970,7 @@
         jax.HTMLCSS.scale = scale / 100;
         jax.HTMLCSS.fontSize = scale + "%";
         jax.HTMLCSS.em = jax.HTMLCSS.outerEm = em;
-        this.em = em * scale / 100;
+        this.em = (em * scale) / 100;
         jax.HTMLCSS.ex = ex;
         jax.HTMLCSS.cwidth = cwidth / this.em;
         jax.HTMLCSS.lineWidth = linebreak ? this.length2em(width, 1, maxwidth / this.em) : 1000000;
@@ -1541,13 +1541,13 @@
         return m * HTMLCSS.TeX.x_height * factor;
       }
       if (unit === "%") {
-        return m / 100 * size;
+        return (m / 100) * size;
       }
       if (unit === "px") {
         return m * emFactor;
       }
       if (unit === "pt") {
-        return m / 10 * factor;
+        return (m / 10) * factor;
       } // 10 pt to an em
       if (unit === "pc") {
         return m * 1.2 * factor;
@@ -1556,13 +1556,13 @@
         return m * this.pxPerInch * emFactor;
       }
       if (unit === "cm") {
-        return m * this.pxPerInch * emFactor / 2.54;
+        return (m * this.pxPerInch * emFactor) / 2.54;
       } // 2.54 cm to an inch
       if (unit === "mm") {
-        return m * this.pxPerInch * emFactor / 25.4;
+        return (m * this.pxPerInch * emFactor) / 25.4;
       } // 10 mm to a cm
       if (unit === "mu") {
-        return m / 18 * factor * mu;
+        return (m / 18) * factor * mu;
       } // 18mu to an em for the scriptlevel
       return m * size; // relative to given size (or 1em as default)
     },
@@ -1725,7 +1725,7 @@
         w = min / this.em;
       }
       if (h + d > 0 && (h + d) * this.em < min) {
-        f = 1 / (h + d) * (min / this.em);
+        f = (1 / (h + d)) * (min / this.em);
         h *= f;
         d *= f;
       }
@@ -2105,7 +2105,7 @@
         if (!delim.fullExtenders) {
           eh = (H - h) / (k * n);
         }
-        var dy = n / (n + 1) * (eH - eh);
+        var dy = (n / (n + 1)) * (eH - eh);
         eh = eH - dy;
         y += dy + eh - ext.bbox.h;
         while (k-- > 0) {
@@ -2182,7 +2182,7 @@
         if (!delim.fillExtenders) {
           rw = (W - w) / (k * n);
         }
-        dx = n / (n + 1) * (rW - rw);
+        dx = (n / (n + 1)) * (rW - rw);
         rw = rW - dx;
         x -= rep.bbox.lw + dx;
         while (k-- > 0) {
@@ -3169,7 +3169,7 @@
             var space = this.texSpacing();
             if (space !== "") {
               this.HTMLgetScale();
-              space = HTMLCSS.length2em(space, this.scale) / (span.scale || 1) * this.mscale;
+              space = (HTMLCSS.length2em(space, this.scale) / (span.scale || 1)) * this.mscale;
               if (span.style.paddingLeft) {
                 space += HTMLCSS.unEm(span.style.paddingLeft);
               }
@@ -3635,14 +3635,14 @@
         values.minsize = HTMLCSS.length2em(values.minsize, mu, span.bbox.h + span.bbox.d);
         H = Math.max(values.minsize, Math.min(values.maxsize, H));
         if (H != values.minsize) {
-          H = [Math.max(H * HTMLCSS.TeX.delimiterfactor / 1000, H - HTMLCSS.TeX.delimitershortfall), H];
+          H = [Math.max((H * HTMLCSS.TeX.delimiterfactor) / 1000, H - HTMLCSS.TeX.delimitershortfall), H];
         }
         span = this.HTMLcreateSpan(box); // clear contents and attributes
         HTMLCSS.createDelimiter(span, this.data.join("").charCodeAt(0), H, scale);
         if (values.symmetric) {
           H = (span.bbox.h + span.bbox.d) / 2 + axis;
         } else {
-          H = (span.bbox.h + span.bbox.d) * h / (h + d);
+          H = ((span.bbox.h + span.bbox.d) * h) / (h + d);
         }
         HTMLCSS.positionDelimiter(span, H);
         this.HTMLhandleSpace(span); // add in lspace/rspace, if any
@@ -3996,7 +3996,7 @@
         } else {
           p = t;
         }
-        q = Math.max(t + p / 4, 1.5 * HTMLCSS.TeX.min_rule_thickness / this.em); // force to be at least 1px
+        q = Math.max(t + p / 4, (1.5 * HTMLCSS.TeX.min_rule_thickness) / this.em); // force to be at least 1px
         var BASE = this.HTMLboxChild(0, base);
         H = BASE.bbox.h + BASE.bbox.d + q + t;
         HTMLCSS.createDelimiter(surd, 0x221a, H, scale);
@@ -4356,21 +4356,21 @@
         min.superscriptshift = min.superscriptshift === "" ? 0 : HTMLCSS.length2em(min.superscriptshift, mu);
         if (!sup) {
           if (sub) {
-            v = Math.max(v, HTMLCSS.TeX.sub1 * scale, sub.bbox.h - 4 / 5 * x_height, min.subscriptshift);
+            v = Math.max(v, HTMLCSS.TeX.sub1 * scale, sub.bbox.h - (4 / 5) * x_height, min.subscriptshift);
             HTMLCSS.placeBox(sub, base.bbox.w, -v, sub.bbox);
           }
         } else {
           if (!sub) {
             values = this.getValues("displaystyle", "texprimestyle");
             p = HTMLCSS.TeX[values.displaystyle ? "sup1" : values.texprimestyle ? "sup3" : "sup2"];
-            u = Math.max(u, p * scale, sup.bbox.d + 1 / 4 * x_height, min.superscriptshift);
+            u = Math.max(u, p * scale, sup.bbox.d + (1 / 4) * x_height, min.superscriptshift);
             HTMLCSS.placeBox(sup, base.bbox.w + delta, u, sup.bbox);
           } else {
             v = Math.max(v, HTMLCSS.TeX.sub2 * scale);
             var t = HTMLCSS.TeX.rule_thickness * scale;
             if (u - sup.bbox.d - (sub.bbox.h - v) < 3 * t) {
               v = 3 * t - u + sup.bbox.d + sub.bbox.h;
-              q = 4 / 5 * x_height - (u - sup.bbox.d);
+              q = (4 / 5) * x_height - (u - sup.bbox.d);
               if (q > 0) {
                 u += q;
                 v -= q;
@@ -4637,7 +4637,6 @@
           initialSkipBug: mode < 8, // confused by initial left-margin values
           msieNegativeBBoxBug: mode >= 8, // negative bboxes have positive widths
           msieIE6: !isIE7,
-          msieItalicWidthBug: true,
           FontFaceBug: mode < 9,
           msieFontCSSBug: browser.isIE9,
           allowWebFonts: mode >= 9 ? "woff" : "eot"

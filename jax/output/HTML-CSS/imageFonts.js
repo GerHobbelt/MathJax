@@ -70,7 +70,7 @@
           span.scale = 1;
         }
         var index = this.imgIndex(span.scale * bscale);
-        if (index == this.imgEmWidth.length - 1 && this.em * span.scale * bscale / this.imgEmWidth[index] > 1.1) {
+        if (index == this.imgEmWidth.length - 1 && (this.em * span.scale * bscale) / this.imgEmWidth[index] > 1.1) {
           bscale = this.imgEmWidth[index] / (this.em * span.scale);
         }
         var factor = this.imgEmWidth[index] / (this.em * (span.scale || 1) * bscale);
@@ -284,7 +284,7 @@
               return 3;
             } // Mac Opera scales very nicely
             var H = this.imgDoc.clientHeight,
-              d = Math.floor(15 * H / window.innerHeight);
+              d = Math.floor((15 * H) / window.innerHeight);
             if (this.imgDoc.clientWidth < this.imgDoc.scrollWidth - d) {
               H += d;
             }

@@ -623,7 +623,7 @@
         span.style.width = span.parentNode.style.width = "";
       }
       if (span.parentNode.style.width.match(/%$/)) {
-        span.parentNode.style.minWidth = Math.ceil(3 * Mh / 4) + "px";
+        span.parentNode.style.minWidth = Math.ceil((3 * Mh) / 4) + "px";
       } // for full-width tables
       var mW = math.offsetWidth || math.scrollWidth,
         mH = math.offsetHeight || math.scrollHeight;
@@ -741,7 +741,7 @@
           value = nMML.NAMEDSPACE[value];
         } // MP doesn't do negative spaces
         else if (value.match(/^\s*(([-+])?(\d+(\.\d*)?|\.\d+))\s*mu\s*$/)) {
-          value = (RegExp.$2 || "") + (1 / 18 * RegExp.$3).toFixed(3).replace(/\.?0+$/, "") + "em";
+          value = (RegExp.$2 || "") + ((1 / 18) * RegExp.$3).toFixed(3).replace(/\.?0+$/, "") + "em";
         } // FIXME:  should take scriptlevel into account
         else if (this.NativeMMLvariants[value]) {
           value = this.NativeMMLvariants[value];

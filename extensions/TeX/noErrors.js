@@ -454,7 +454,7 @@
         var bbox = (this.CHTML = CHTML.BBOX.zero());
         bbox.w = node.offsetWidth / CHTML.em;
         if (m > 1) {
-          var H2 = 1.2 * m / 2;
+          var H2 = (1.2 * m) / 2;
           bbox.h = H2 + 0.25;
           bbox.d = H2 - 0.25;
           node.style.verticalAlign = CHTML.Em(0.45 - H2);

@@ -2834,6 +2834,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
       },
 
       processInput: function(state) {
+        state.start = state.start || new Date().getTime();
         var jax,
           STATE = MathJax.ElementJax.STATE;
         var script,
@@ -2886,7 +2887,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
             var now = new Date().getTime();
             var delta = now - state.start;
             if (delta > this.processUpdateTime && state.i < state.scripts.length) {
-              state.start = now;
+              state.start = 0;
               this.RestartAfter(MathJax.Callback.Delay(1));
             }
           }
@@ -2970,6 +2971,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
       },
 
       processOutput: function(state) {
+        state.start = state.start || new Date().getTime();
         var result,
           STATE = MathJax.ElementJax.STATE,
           script,
@@ -3020,7 +3022,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
             var now = new Date().getTime();
             var delta = now - state.start;
             if (delta > this.processUpdateTime && state.i < state.scripts.length) {
-              state.start = now;
+              state.start = 0;
               this.RestartAfter(MathJax.Callback.Delay(this.processUpdateDelay));
             }
           }
@@ -3039,7 +3041,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
       },
 
       processMessage: function(state, type) {
-        var m = Math.floor(state.i / state.scripts.length * 100);
+        var m = Math.floor((state.i / state.scripts.length) * 100);
         var message =
           type === "Output" ? ["TypesetMath", "Typesetting math: %1%%"] : ["ProcessMath", "Processing math: %1%%"];
         if (this.config.showProcessingMessages) {
@@ -3348,7 +3350,12 @@ if (document.getElementById && document.childNodes && document.createElement) {
         var queue = MathJax.Callback.Queue();
         for (var i = 0, m = scripts.length; i < m; i++) {
           var type = String(scripts[i].type).replace(/ /g, "");
-          console.log("ConfigBlocks:check script:", { i, type, node: scripts[i], text: scripts[i].innerText });
+          console.log("ConfigBlocks:check script:", {
+            i: i,
+            type: type,
+            node: scripts[i],
+            text: scripts[i].innerText
+          });
           if (type.match(/^text\/x-mathjax-config(;.*)?$/) && !type.match(/;executed=true/)) {
             scripts[i].type += ";executed=true";
             console.log("ConfigBlocks:queue script:", i, scripts[i].innerHTML);
@@ -3795,10 +3802,10 @@ if (document.getElementById && document.childNodes && document.createElement) {
             var original = jax.originalText;
             var actual = BASE.HTML.getScript(script);
             console.error("needsUpdate:", {
-              original,
-              actual,
+              original: original,
+              actual: actual
             });
-            return (original !== actual);
+            return original !== actual;
           },
           Register: function(mimetype) {
             if (!HUB.inputJax) {
@@ -4212,7 +4219,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
             browser.noContextMenu = browser.isMobile = !!navigator.userAgent.match(/ Mobile[ \/]/);
           },
           Opera: function(browser) {
-            browser.version = opera.version();
+            browser.version = window.opera.version();
           },
           Edge: function(browser) {
             browser.isMobile = !!navigator.userAgent.match(/ Phone/);

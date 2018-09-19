@@ -54,7 +54,8 @@ MathJax.OutputJax.SVG.FONTDATA.FONTS["MathJax_Main"] = {
     [0x2b0, 0x2ff, "SpacingModLetters"],
     [0x300, 0x36f, "CombDiacritMarks"],
     [0x370, 0x3ff, "GreekAndCoptic"],
-    [0x2100, 0x214f, "LetterlikeSymbols"][(0x25a0, 0x25ff, "GeometricShapes")],
+    [0x2100, 0x214f, "LetterlikeSymbols"],
+    [0x25a0, 0x25ff, "GeometricShapes"],
     [0x2600, 0x26ff, "MiscSymbols"],
     [0x2a00, 0x2aff, "SuppMathOperators"]
   ],

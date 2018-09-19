@@ -405,13 +405,13 @@
         if (!jax) continue;
         ex = test.childNodes[1].offsetHeight / 60;
         cwidth =
-          Math.max(
+          (Math.max(
             0,
             jax.SVG.display
               ? test.lastChild.offsetWidth - 1
               : test.lastChild.offsetLeft - test.firstChild.offsetLeft - 2
           ) /
-          this.config.scale *
+            this.config.scale) *
           100;
         if (ex === 0 || ex === "NaN") {
           // can't read width, so move to hidden div for processing
@@ -425,9 +425,9 @@
           maxwidth = cwidth;
         }
         jax.SVG.ex = ex;
-        jax.SVG.em = em = ex / SVG.TeX.x_height * 1000; // scale ex to x_height
-        jax.SVG.cwidth = cwidth / em * 1000;
-        jax.SVG.lineWidth = linebreak ? this.length2em(width, 1, maxwidth / em * 1000) : SVG.BIGDIMEN;
+        jax.SVG.em = em = (ex / SVG.TeX.x_height) * 1000; // scale ex to x_height
+        jax.SVG.cwidth = (cwidth / em) * 1000;
+        jax.SVG.lineWidth = linebreak ? this.length2em(width, 1, (maxwidth / em) * 1000) : SVG.BIGDIMEN;
       }
       for (i = 0, n = hidden.length; i < n; i++) {
         this.hiddenDiv.appendChild(hidden[i]);
@@ -634,7 +634,7 @@
       //
       var emex = span.appendChild(this.TestSpan.cloneNode(true));
       var ex = emex.childNodes[1].offsetHeight / 60;
-      this.em = MML.mbase.prototype.em = ex / SVG.TeX.x_height * 1000;
+      this.em = MML.mbase.prototype.em = (ex / SVG.TeX.x_height) * 1000;
       this.ex = ex;
       this.linebreakWidth = jax.SVG.lineWidth;
       this.cwidth = jax.SVG.cwidth;
@@ -748,10 +748,10 @@
         return m;
       }
       if (unit === "ex") {
-        return m * SVG.TeX.x_height / 1000;
+        return (m * SVG.TeX.x_height) / 1000;
       }
       if (unit === "%") {
-        return m / 100 * size / 1000;
+        return ((m / 100) * size) / 1000;
       }
       if (unit === "px") {
         return m * emFactor;
@@ -766,15 +766,15 @@
         return m * this.pxPerInch * emFactor;
       }
       if (unit === "cm") {
-        return m * this.pxPerInch * emFactor / 2.54;
+        return (m * this.pxPerInch * emFactor) / 2.54;
       } // 2.54 cm to an inch
       if (unit === "mm") {
-        return m * this.pxPerInch * emFactor / 25.4;
+        return (m * this.pxPerInch * emFactor) / 25.4;
       } // 10 mm to a cm
       if (unit === "mu") {
-        return m / 18 * mu;
+        return (m / 18) * mu;
       }
-      return m * size / 1000; // relative to given size (or 1em as default)
+      return (m * size) / 1000; // relative to given size (or 1em as default)
     },
     thickness2em: function(length, mu) {
       var thick = SVG.TeX.rule_thickness;
@@ -947,7 +947,7 @@
             N = n - 0x10000;
             c = String.fromCharCode((N >> 10) + 0xd800) + String.fromCharCode((N & 0x3ff) + 0xdc00);
           }
-          var box = BBOX.TEXT(scale * 100 / SVG.config.scale, c, {
+          var box = BBOX.TEXT((scale * 100) / SVG.config.scale, c, {
             "font-family": variant.defaultFamily || SVG.config.undefinedFamily,
             "font-style": variant.italic ? "italic" : "",
             "font-weight": variant.bold ? "bold" : ""
@@ -965,7 +965,7 @@
             "SVG Jax - unknown char",
             n,
             "(0x" + n.toString(16).toUpperCase() + ")",
-            JSON.stringify({font: font, fonts: variant.fonts}, null, 2)
+            JSON.stringify({ font: font, fonts: variant.fonts }, null, 2)
           ]);
         }
       }
@@ -2307,13 +2307,13 @@
         values.minsize = SVG.length2em(values.minsize, mu, svg.h + svg.d);
         H = Math.max(values.minsize, Math.min(values.maxsize, H));
         if (H != values.minsize) {
-          H = [Math.max(H * SVG.TeX.delimiterfactor / 1000, H - SVG.TeX.delimitershortfall), H];
+          H = [Math.max((H * SVG.TeX.delimiterfactor) / 1000, H - SVG.TeX.delimitershortfall), H];
         }
         svg = SVG.createDelimiter(this.data.join("").charCodeAt(0), H, svg.scale);
         if (values.symmetric) {
           H = (svg.h + svg.d) / 2 + axis;
         } else {
-          H = (svg.h + svg.d) * h / (h + d);
+          H = ((svg.h + svg.d) * h) / (h + d);
         }
         svg.y = H - svg.h;
         this.SVGhandleSpace(svg);
@@ -2399,7 +2399,7 @@
             } else if (variant.match(/sans-serif/)) {
               def["class"] = "MJX-sans-serif";
             }
-            svg.Add(BBOX.TEXT(scale * 100 / SVG.config.scale, this.data.join(""), def));
+            svg.Add(BBOX.TEXT((scale * 100) / SVG.config.scale, this.data.join(""), def));
             svg.Clean();
             this.SVGhandleColor(svg);
             this.SVGsaveData(svg);
@@ -2665,7 +2665,7 @@
             q,
             u,
             v;
-          var mt = SVG.TeX.min_rule_thickness / SVG.em * 1000;
+          var mt = (SVG.TeX.min_rule_thickness / SVG.em) * 1000;
           if (isDisplay) {
             u = SVG.TeX.num1;
             v = SVG.TeX.denom1;
@@ -2742,7 +2742,7 @@
         } else {
           p = t;
         }
-        q = Math.max(t + p / 4, 1000 * SVG.TeX.min_root_space / SVG.em);
+        q = Math.max(t + p / 4, (1000 * SVG.TeX.min_root_space) / SVG.em);
         H = base.h + base.d + q + t;
         surd = SVG.createDelimiter(0x221a, H, scale);
         if (surd.h + surd.d > H) {
@@ -3034,7 +3034,7 @@
         var x = base.w + base.x;
         if (!sup) {
           if (sub) {
-            v = Math.max(v, SVG.TeX.sub1 * scale, sub.h - 4 / 5 * x_height, min.subscriptshift);
+            v = Math.max(v, SVG.TeX.sub1 * scale, sub.h - (4 / 5) * x_height, min.subscriptshift);
             svg.Add(sub, x, -v);
             this.data[this.sub].SVGdata.dy = -v;
           }
@@ -3042,7 +3042,7 @@
           if (!sub) {
             var values = this.getValues("displaystyle", "texprimestyle");
             p = SVG.TeX[values.displaystyle ? "sup1" : values.texprimestyle ? "sup3" : "sup2"];
-            u = Math.max(u, p * scale, sup.d + 1 / 4 * x_height, min.superscriptshift);
+            u = Math.max(u, p * scale, sup.d + (1 / 4) * x_height, min.superscriptshift);
             svg.Add(sup, x + delta, u);
             this.data[this.sup].SVGdata.dx = delta;
             this.data[this.sup].SVGdata.dy = u;
@@ -3051,7 +3051,7 @@
             var t = SVG.TeX.rule_thickness * scale;
             if (u - sup.d - (sub.h - v) < 3 * t) {
               v = 3 * t - u + sup.d + sub.h;
-              q = 4 / 5 * x_height - (u - sup.d);
+              q = (4 / 5) * x_height - (u - sup.d);
               if (q > 0) {
                 u += q;
                 v -= q;
@@ -3153,7 +3153,7 @@
           //    so if they are close to full width, make sure they aren't too big.
           //
           if (Math.abs(w - SVG.cwidth) < 10)
-            style.maxWidth = SVG.Fixed(SVG.cwidth * SVG.em / 1000 * SVG.config.scale) + "px";
+            style.maxWidth = SVG.Fixed(((SVG.cwidth * SVG.em) / 1000) * SVG.config.scale) + "px";
           //
           //  Add it to the MathJax span
           //

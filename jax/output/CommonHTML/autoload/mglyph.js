@@ -92,11 +92,11 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready", function() {
               HH = H;
             if (w !== "") {
               W = this.CHTMLlength2em(w, WW);
-              H = WW ? W / WW * HH : 0;
+              H = WW ? (W / WW) * HH : 0;
             }
             if (h !== "") {
               H = this.CHTMLlength2em(h, HH);
-              if (w === "") W = HH ? H / HH * WW : 0;
+              if (w === "") W = HH ? (H / HH) * WW : 0;
             }
             img.style.width = CHTML.Em(W);
             bbox.w = bbox.r = W;

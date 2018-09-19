@@ -829,7 +829,6 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
           var annotations = source.items[2];
           annotations.disabled = true;
           var annotationItems = annotations.submenu.items;
-          annotationList = MathJax.Hub.Config.semanticsAnnotations;
           for (var i = 0, m = annotationItems.length; i < m; i++) {
             var name = annotationItems[i].name[1];
             if (jax.root && jax.root.getAnnotation(name) !== null) {
@@ -1619,9 +1618,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
         overlay.onmouseover = this.Remove;
       }
       if (window.addEventListener) {
-        addEventListener("resize", this.Resize, false);
+        window.addEventListener("resize", this.Resize, false);
       } else if (window.attachEvent) {
-        attachEvent("onresize", this.Resize);
+        window.attachEvent("onresize", this.Resize);
       } else {
         this.onresize = window.onresize;
         window.onresize = this.Resize;
@@ -1707,7 +1706,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
     //
     getOverflow: window.getComputedStyle
       ? function(obj) {
-          return getComputedStyle(obj).overflow;
+          return window.getComputedStyle(obj).overflow;
         }
       : function(obj) {
           return (obj.currentStyle || { overflow: "visible" }).overflow;
@@ -1715,7 +1714,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
     getBorder: function(obj) {
       var size = { thin: 1, medium: 2, thick: 3 };
       var style = window.getComputedStyle
-        ? getComputedStyle(obj)
+        ? window.getComputedStyle(obj)
         : obj.currentStyle || { borderLeftWidth: 0, borderTopWidth: 0 };
       var x = style.borderLeftWidth,
         y = style.borderTopWidth;
@@ -1789,9 +1788,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
           document.body.removeChild(overlay);
         }
         if (window.removeEventListener) {
-          removeEventListener("resize", ZOOM.Resize, false);
+          window.removeEventListener("resize", ZOOM.Resize, false);
         } else if (window.detachEvent) {
-          detachEvent("onresize", ZOOM.Resize);
+          window.detachEvent("onresize", ZOOM.Resize);
         } else {
           window.onresize = ZOOM.onresize;
           delete ZOOM.onresize;
@@ -2144,7 +2143,6 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
             break;
           default:
             return;
-            break;
         }
         return FALSE(event);
       },
@@ -2317,7 +2315,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
         if (div) {
           div.parentNode.removeChild(div);
           if (this.msieFixedPositionBug) {
-            detachEvent("onresize", MENU.Resize);
+            window.detachEvent("onresize", MENU.Resize);
           }
         }
         if (MENU.jax.hover) {
@@ -2480,7 +2478,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
           //  and an onresize handler to update it (stupid, but necessary)
           div.width = div.height = 0;
           this.Resize();
-          attachEvent("onresize", this.Resize);
+          window.attachEvent("onresize", this.Resize);
         } else {
           // otherwise, use a fixed position DIV to cover the viewport
           bg.style.position = "fixed";
@@ -2593,7 +2591,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
       //TODO: Move to utility class.
       // Computes a mod n.
       Mod: function(a, n) {
-        return (a % n + n) % n;
+        return ((a % n) + n) % n;
       },
       IndexOf: Array.prototype.indexOf
         ? function(A, item, start) {
@@ -6212,7 +6210,7 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js", function() {
       }
       for (var i = 0, m = names.length; i < m; i++) {
         if (copy[names[i]] === 1 && !defaults.hasOwnProperty(names[i])) continue;
-        value = (this.attr || {})[names[i]];
+        var value = (this.attr || {})[names[i]];
         if (value == null) {
           value = this[names[i]];
         }
@@ -6252,7 +6250,7 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js", function() {
     toMathMLattribute: function(value) {
       if (typeof value === "string" && value.replace(/ /g, "").match(/^(([-+])?(\d+(\.\d*)?|\.\d+))mu$/)) {
         // FIXME:  should take scriptlevel into account
-        return (RegExp.$2 || "") + (1 / 18 * RegExp.$3).toFixed(3).replace(/\.?0+$/, "") + "em";
+        return (RegExp.$2 || "") + ((1 / 18) * RegExp.$3).toFixed(3).replace(/\.?0+$/, "") + "em";
       } else if (this.toMathMLvariants[value]) {
         return this.toMathMLvariants[value];
       }
@@ -6375,7 +6373,7 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js", function() {
       var tag = this.type;
       var base = this.data[this.base];
       if (base && base.isa(MML.TeXAtom) && base.movablelimits && !base.Get("displaystyle")) {
-        type = "msubsup";
+        tag = "msubsup";
         if (this.data[this.under] == null) {
           tag = "msup";
         }
@@ -7716,13 +7714,13 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
         if (!jax) continue;
         ex = test.childNodes[1].offsetHeight / 60;
         cwidth =
-          Math.max(
+          (Math.max(
             0,
             jax.SVG.display
               ? test.lastChild.offsetWidth - 1
               : test.lastChild.offsetLeft - test.firstChild.offsetLeft - 2
           ) /
-          this.config.scale *
+            this.config.scale) *
           100;
         if (ex === 0 || ex === "NaN") {
           // can't read width, so move to hidden div for processing
@@ -7736,9 +7734,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
           maxwidth = cwidth;
         }
         jax.SVG.ex = ex;
-        jax.SVG.em = em = ex / SVG.TeX.x_height * 1000; // scale ex to x_height
-        jax.SVG.cwidth = cwidth / em * 1000;
-        jax.SVG.lineWidth = linebreak ? this.length2em(width, 1, maxwidth / em * 1000) : SVG.BIGDIMEN;
+        jax.SVG.em = em = (ex / SVG.TeX.x_height) * 1000; // scale ex to x_height
+        jax.SVG.cwidth = (cwidth / em) * 1000;
+        jax.SVG.lineWidth = linebreak ? this.length2em(width, 1, (maxwidth / em) * 1000) : SVG.BIGDIMEN;
       }
       for (i = 0, n = hidden.length; i < n; i++) {
         this.hiddenDiv.appendChild(hidden[i]);
@@ -7945,7 +7943,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
       //
       var emex = span.appendChild(this.TestSpan.cloneNode(true));
       var ex = emex.childNodes[1].offsetHeight / 60;
-      this.em = MML.mbase.prototype.em = ex / SVG.TeX.x_height * 1000;
+      this.em = MML.mbase.prototype.em = (ex / SVG.TeX.x_height) * 1000;
       this.ex = ex;
       this.linebreakWidth = jax.SVG.lineWidth;
       this.cwidth = jax.SVG.cwidth;
@@ -8059,10 +8057,10 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
         return m;
       }
       if (unit === "ex") {
-        return m * SVG.TeX.x_height / 1000;
+        return (m * SVG.TeX.x_height) / 1000;
       }
       if (unit === "%") {
-        return m / 100 * size / 1000;
+        return ((m / 100) * size) / 1000;
       }
       if (unit === "px") {
         return m * emFactor;
@@ -8077,15 +8075,15 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
         return m * this.pxPerInch * emFactor;
       }
       if (unit === "cm") {
-        return m * this.pxPerInch * emFactor / 2.54;
+        return (m * this.pxPerInch * emFactor) / 2.54;
       } // 2.54 cm to an inch
       if (unit === "mm") {
-        return m * this.pxPerInch * emFactor / 25.4;
+        return (m * this.pxPerInch * emFactor) / 25.4;
       } // 10 mm to a cm
       if (unit === "mu") {
-        return m / 18 * mu;
+        return (m / 18) * mu;
       }
-      return m * size / 1000; // relative to given size (or 1em as default)
+      return (m * size) / 1000; // relative to given size (or 1em as default)
     },
     thickness2em: function(length, mu) {
       var thick = SVG.TeX.rule_thickness;
@@ -8258,7 +8256,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
             N = n - 0x10000;
             c = String.fromCharCode((N >> 10) + 0xd800) + String.fromCharCode((N & 0x3ff) + 0xdc00);
           }
-          var box = BBOX.TEXT(scale * 100 / SVG.config.scale, c, {
+          var box = BBOX.TEXT((scale * 100) / SVG.config.scale, c, {
             "font-family": variant.defaultFamily || SVG.config.undefinedFamily,
             "font-style": variant.italic ? "italic" : "",
             "font-weight": variant.bold ? "bold" : ""
@@ -8272,7 +8270,12 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
           c = BBOX.G();
           c.Add(box);
           svg.Add(c, svg.w, 0);
-          HUB.signal.Post(["SVG Jax - unknown char", n, "(0x"+n.toString(16).toUpperCase() + ")", JSON.stringify(variant, null, 2)]);
+          HUB.signal.Post([
+            "SVG Jax - unknown char",
+            n,
+            "(0x" + n.toString(16).toUpperCase() + ")",
+            JSON.stringify({ font: font, fonts: variant.fonts }, null, 2)
+          ]);
         }
       }
       if (SVG.isChar(text) && font.skew && font.skew[n]) {
@@ -9613,13 +9616,13 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
         values.minsize = SVG.length2em(values.minsize, mu, svg.h + svg.d);
         H = Math.max(values.minsize, Math.min(values.maxsize, H));
         if (H != values.minsize) {
-          H = [Math.max(H * SVG.TeX.delimiterfactor / 1000, H - SVG.TeX.delimitershortfall), H];
+          H = [Math.max((H * SVG.TeX.delimiterfactor) / 1000, H - SVG.TeX.delimitershortfall), H];
         }
         svg = SVG.createDelimiter(this.data.join("").charCodeAt(0), H, svg.scale);
         if (values.symmetric) {
           H = (svg.h + svg.d) / 2 + axis;
         } else {
-          H = (svg.h + svg.d) * h / (h + d);
+          H = ((svg.h + svg.d) * h) / (h + d);
         }
         svg.y = H - svg.h;
         this.SVGhandleSpace(svg);
@@ -9705,7 +9708,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
             } else if (variant.match(/sans-serif/)) {
               def["class"] = "MJX-sans-serif";
             }
-            svg.Add(BBOX.TEXT(scale * 100 / SVG.config.scale, this.data.join(""), def));
+            svg.Add(BBOX.TEXT((scale * 100) / SVG.config.scale, this.data.join(""), def));
             svg.Clean();
             this.SVGhandleColor(svg);
             this.SVGsaveData(svg);
@@ -9971,7 +9974,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
             q,
             u,
             v;
-          var mt = SVG.TeX.min_rule_thickness / SVG.em * 1000;
+          var mt = (SVG.TeX.min_rule_thickness / SVG.em) * 1000;
           if (isDisplay) {
             u = SVG.TeX.num1;
             v = SVG.TeX.denom1;
@@ -10048,7 +10051,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
         } else {
           p = t;
         }
-        q = Math.max(t + p / 4, 1000 * SVG.TeX.min_root_space / SVG.em);
+        q = Math.max(t + p / 4, (1000 * SVG.TeX.min_root_space) / SVG.em);
         H = base.h + base.d + q + t;
         surd = SVG.createDelimiter(0x221a, H, scale);
         if (surd.h + surd.d > H) {
@@ -10340,7 +10343,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
         var x = base.w + base.x;
         if (!sup) {
           if (sub) {
-            v = Math.max(v, SVG.TeX.sub1 * scale, sub.h - 4 / 5 * x_height, min.subscriptshift);
+            v = Math.max(v, SVG.TeX.sub1 * scale, sub.h - (4 / 5) * x_height, min.subscriptshift);
             svg.Add(sub, x, -v);
             this.data[this.sub].SVGdata.dy = -v;
           }
@@ -10348,7 +10351,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
           if (!sub) {
             var values = this.getValues("displaystyle", "texprimestyle");
             p = SVG.TeX[values.displaystyle ? "sup1" : values.texprimestyle ? "sup3" : "sup2"];
-            u = Math.max(u, p * scale, sup.d + 1 / 4 * x_height, min.superscriptshift);
+            u = Math.max(u, p * scale, sup.d + (1 / 4) * x_height, min.superscriptshift);
             svg.Add(sup, x + delta, u);
             this.data[this.sup].SVGdata.dx = delta;
             this.data[this.sup].SVGdata.dy = u;
@@ -10357,7 +10360,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
             var t = SVG.TeX.rule_thickness * scale;
             if (u - sup.d - (sub.h - v) < 3 * t) {
               v = 3 * t - u + sup.d + sub.h;
-              q = 4 / 5 * x_height - (u - sup.d);
+              q = (4 / 5) * x_height - (u - sup.d);
               if (q > 0) {
                 u += q;
                 v -= q;
@@ -10459,7 +10462,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
           //    so if they are close to full width, make sure they aren't too big.
           //
           if (Math.abs(w - SVG.cwidth) < 10)
-            style.maxWidth = SVG.Fixed(SVG.cwidth * SVG.em / 1000 * SVG.config.scale) + "px";
+            style.maxWidth = SVG.Fixed(((SVG.cwidth * SVG.em) / 1000) * SVG.config.scale) + "px";
           //
           //  Add it to the MathJax span
           //
@@ -10651,7 +10654,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready", function() {
       );
       //  Handle relative width as fixed width in relation to container
       if (values.width.match(/%$/)) {
-        svg.width = values.width = SVG.Em(SVG.cwidth / 1000 * (parseFloat(values.width) / 100));
+        svg.width = values.width = SVG.Em((SVG.cwidth / 1000) * (parseFloat(values.width) / 100));
       }
 
       var mu = this.SVGgetMu(svg);
@@ -10703,11 +10706,11 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready", function() {
                 HD = mo.SVGdata.h + mo.SVGdata.d;
                 if (HD) {
                   min = SVG.length2em(min, mu, HD);
-                  if (min * mo.SVGdata.h / HD > H[i]) {
-                    H[i] = min * mo.SVGdata.h / HD;
+                  if ((min * mo.SVGdata.h) / HD > H[i]) {
+                    H[i] = (min * mo.SVGdata.h) / HD;
                   }
-                  if (min * mo.SVGdata.d / HD > D[i]) {
-                    D[i] = min * mo.SVGdata.d / HD;
+                  if ((min * mo.SVGdata.d) / HD > D[i]) {
+                    D[i] = (min * mo.SVGdata.d) / HD;
                   }
                 }
               } else if (mo.SVGcanStretch("Horizontal")) {
@@ -11654,7 +11657,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready", function() {
         return m * this.TeX.x_height;
       }
       if (unit === "%") {
-        return m / 100 * size;
+        return (m / 100) * size;
       }
       if (unit === "px") {
         return m / this.em;
@@ -11666,13 +11669,13 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready", function() {
         return m * 1.2;
       } // 12 pt to a pc
       if (unit === "in") {
-        return m * this.pxPerInch / this.em;
+        return (m * this.pxPerInch) / this.em;
       }
       if (unit === "cm") {
-        return m * this.pxPerInch / this.em / 2.54;
+        return (m * this.pxPerInch) / this.em / 2.54;
       } // 2.54 cm to an inch
       if (unit === "mm") {
-        return m * this.pxPerInch / this.em / 25.4;
+        return (m * this.pxPerInch) / this.em / 25.4;
       } // 10 mm to a cm
       if (unit === "mu") {
         return m / 18;
@@ -11979,10 +11982,10 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready", function() {
         var scale = H / (bbox.h + bbox.d - 0.3); // ### adjusted for extra tall bbox
         var box = HTML.Element("span", { style: { "font-size": PHTML.Em(scale) } });
         if (scale > 1.25) {
-          var sX = Math.ceil(1.25 / scale * 10);
+          var sX = Math.ceil((1.25 / scale) * 10);
           box.className = "MJXp-right MJXp-scale" + sX;
           box.style.marginLeft = PHTML.Em(bbox.w * (sX / 10 - 1) + 0.07);
-          bbox.w *= scale * sX / 10;
+          bbox.w *= (scale * sX) / 10;
         }
         box.appendChild(span.firstChild);
         span.appendChild(box);
@@ -12297,12 +12300,12 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready", function() {
         var root = HTML.Element("span", { className: "MJXp-root" }, [
           ["span", { className: "MJXp-rule", style: { "border-top": ".08em solid" } }]
         ]);
-        var W = 1.2 / 2.2 * scale / 100; // width-of-surd = (height/H-to-W-ratio)
+        var W = ((1.2 / 2.2) * scale) / 100; // width-of-surd = (height/H-to-W-ratio)
         if (scale > 150) {
-          var sX = Math.ceil(150 / scale * 10);
+          var sX = Math.ceil((150 / scale) * 10);
           surd.firstChild.className = "MJXp-right MJXp-scale" + sX;
-          surd.firstChild.style.marginLeft = PHTML.Em(W * (sX / 10 - 1) / scale * 100);
-          W = W * sX / 10;
+          surd.firstChild.style.marginLeft = PHTML.Em(((W * (sX / 10 - 1)) / scale) * 100);
+          W = (W * sX) / 10;
           root.firstChild.style.borderTopWidth = PHTML.Em(0.08 / Math.sqrt(sX / 10));
         }
         root.appendChild(base);
@@ -12331,7 +12334,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready", function() {
         var v = 0.55 * (scale / 120) + rbox.d * 0.8,
           r = -0.6 * (scale / 120);
         if (scale > 150) {
-          r *= 0.95 * Math.ceil(150 / scale * 10) / 10;
+          r *= (0.95 * Math.ceil((150 / scale) * 10)) / 10;
         }
         root.style.marginRight = PHTML.Em(r);
         root.style.verticalAlign = PHTML.Em(v);
@@ -12949,7 +12952,7 @@ MathJax.Callback.Queue(
           items.unshift(renderer.items.pop());
         }
         items.unshift("Accessibility");
-        var menu = ITEM.SUBMENU.apply(ITEM.SUBMENU, items);
+        menu = ITEM.SUBMENU.apply(ITEM.SUBMENU, items);
         var locale = MENU.IndexOfId("Locale");
         if (locale) {
           MENU.items.splice(locale, 0, menu);

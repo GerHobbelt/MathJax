@@ -2321,16 +2321,16 @@
         return m * 1.2;
       } // 12 pt to a pc
       if (unit === "px") {
-        return m * this.emPerInch / this.pxPerInch;
+        return (m * this.emPerInch) / this.pxPerInch;
       }
       if (unit === "in") {
         return m * this.emPerInch;
       }
       if (unit === "cm") {
-        return m * this.emPerInch / 2.54;
+        return (m * this.emPerInch) / 2.54;
       } // 2.54 cm to an inch
       if (unit === "mm") {
-        return m * this.emPerInch / 25.4;
+        return (m * this.emPerInch) / 25.4;
       } // 10 mm to a cm
       if (unit === "mu") {
         return m / 18;

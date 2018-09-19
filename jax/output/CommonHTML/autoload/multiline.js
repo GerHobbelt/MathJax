@@ -832,7 +832,7 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready", function() {
         offset += info.shift - shift;
       }
       //
-      var penalty = Math.floor(offset / CHTML.linebreakWidth * 1000);
+      var penalty = Math.floor((offset / CHTML.linebreakWidth) * 1000);
       if (penalty < 0) penalty = PENALTY.toobig - 3 * penalty;
       if (values.fence) penalty += PENALTY.fence;
       if (
@@ -892,7 +892,7 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready", function() {
       if (W - info.shift === 0) return false; // don't break at zero width (FIXME?)
       var offset = CHTML.linebreakWidth - W;
       //
-      var penalty = Math.floor(offset / CHTML.linebreakWidth * 1000);
+      var penalty = Math.floor((offset / CHTML.linebreakWidth) * 1000);
       if (penalty < 0) penalty = PENALTY.toobig - 3 * penalty;
       penalty += info.nest * PENALTY.nestfactor;
       //

@@ -106,7 +106,7 @@
           items.unshift(renderer.items.pop());
         }
         items.unshift("Accessibility");
-        var menu = ITEM.SUBMENU.apply(ITEM.SUBMENU, items);
+        menu = ITEM.SUBMENU.apply(ITEM.SUBMENU, items);
         var locale = MENU.IndexOfId("Locale");
         if (locale) {
           MENU.items.splice(locale, 0, menu);

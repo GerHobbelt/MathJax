@@ -58,19 +58,19 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready", function() {
       if (def == null) {
         def = {};
       }
-      var W = img.width * 1000 / SVG.em,
-        H = img.height * 1000 / SVG.em;
+      var W = (img.width * 1000) / SVG.em,
+        H = (img.height * 1000) / SVG.em;
       var WW = W,
         HH = H,
         y = 0;
       if (w !== "") {
         W = SVG.length2em(w, mu, WW);
-        H = WW ? W / WW * HH : 0;
+        H = WW ? (W / WW) * HH : 0;
       }
       if (h !== "") {
         H = SVG.length2em(h, mu, HH);
         if (w === "") {
-          W = HH ? H / HH * WW : 0;
+          W = HH ? (H / HH) * WW : 0;
         }
       }
       if (align !== "" && align.match(/\d/)) {

@@ -948,7 +948,7 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
   */
   CToP.applyTokens = {
     rem: CToP.transforms.binary("mod", 3),
-    divide: CToP.transforms.binary("/", 3),
+    //divide: CToP.transforms.binary('/',3),
     remainder: CToP.transforms.binary("mod", 3),
     implies: CToP.transforms.binary("\u21D2", 3),
     factorof: CToP.transforms.binary("|", 3),
@@ -960,7 +960,7 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
     eq: CToP.transforms.infix("=", 1),
     compose: CToP.transforms.infix("\u2218", 0),
     left_compose: CToP.transforms.infix("\u2218", 1),
-    xor: CToP.transforms.infix("xor", 3),
+    //xor: CToP.transforms.infix('xor',3),
     neq: CToP.transforms.infix("\u2260", 1),
     gt: CToP.transforms.infix(">", 1),
     lt: CToP.transforms.infix("<", 1),
@@ -1629,7 +1629,7 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
       mfrac.appendChild(toprow);
       mfrac.appendChild(bottomrow);
 
-      var differendNode, degree, children;
+      var differendNode, outNode, degree, children;
 
       if (bvars.length === 0 && args.length === 2 && args[0].nodeName === "list") {
         if (args[1].nodeName === "lambda") {

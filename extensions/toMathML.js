@@ -102,7 +102,7 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js", function() {
       }
       for (var i = 0, m = names.length; i < m; i++) {
         if (copy[names[i]] === 1 && !defaults.hasOwnProperty(names[i])) continue;
-        value = (this.attr || {})[names[i]];
+        var value = (this.attr || {})[names[i]];
         if (value == null) {
           value = this[names[i]];
         }
@@ -142,7 +142,7 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js", function() {
     toMathMLattribute: function(value) {
       if (typeof value === "string" && value.replace(/ /g, "").match(/^(([-+])?(\d+(\.\d*)?|\.\d+))mu$/)) {
         // FIXME:  should take scriptlevel into account
-        return (RegExp.$2 || "") + (1 / 18 * RegExp.$3).toFixed(3).replace(/\.?0+$/, "") + "em";
+        return (RegExp.$2 || "") + ((1 / 18) * RegExp.$3).toFixed(3).replace(/\.?0+$/, "") + "em";
       } else if (this.toMathMLvariants[value]) {
         return this.toMathMLvariants[value];
       }
@@ -265,7 +265,7 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js", function() {
       var tag = this.type;
       var base = this.data[this.base];
       if (base && base.isa(MML.TeXAtom) && base.movablelimits && !base.Get("displaystyle")) {
-        type = "msubsup";
+        tag = "msubsup";
         if (this.data[this.under] == null) {
           tag = "msup";
         }

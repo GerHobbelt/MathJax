@@ -1254,7 +1254,6 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
           var annotations = source.items[2];
           annotations.disabled = true;
           var annotationItems = annotations.submenu.items;
-          annotationList = MathJax.Hub.Config.semanticsAnnotations;
           for (var i = 0, m = annotationItems.length; i < m; i++) {
             var name = annotationItems[i].name[1];
             if (jax.root && jax.root.getAnnotation(name) !== null) {
@@ -2044,9 +2043,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
         overlay.onmouseover = this.Remove;
       }
       if (window.addEventListener) {
-        addEventListener("resize", this.Resize, false);
+        window.addEventListener("resize", this.Resize, false);
       } else if (window.attachEvent) {
-        attachEvent("onresize", this.Resize);
+        window.attachEvent("onresize", this.Resize);
       } else {
         this.onresize = window.onresize;
         window.onresize = this.Resize;
@@ -2132,7 +2131,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
     //
     getOverflow: window.getComputedStyle
       ? function(obj) {
-          return getComputedStyle(obj).overflow;
+          return window.getComputedStyle(obj).overflow;
         }
       : function(obj) {
           return (obj.currentStyle || { overflow: "visible" }).overflow;
@@ -2140,7 +2139,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
     getBorder: function(obj) {
       var size = { thin: 1, medium: 2, thick: 3 };
       var style = window.getComputedStyle
-        ? getComputedStyle(obj)
+        ? window.getComputedStyle(obj)
         : obj.currentStyle || { borderLeftWidth: 0, borderTopWidth: 0 };
       var x = style.borderLeftWidth,
         y = style.borderTopWidth;
@@ -2214,9 +2213,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
           document.body.removeChild(overlay);
         }
         if (window.removeEventListener) {
-          removeEventListener("resize", ZOOM.Resize, false);
+          window.removeEventListener("resize", ZOOM.Resize, false);
         } else if (window.detachEvent) {
-          detachEvent("onresize", ZOOM.Resize);
+          window.detachEvent("onresize", ZOOM.Resize);
         } else {
           window.onresize = ZOOM.onresize;
           delete ZOOM.onresize;
@@ -2569,7 +2568,6 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
             break;
           default:
             return;
-            break;
         }
         return FALSE(event);
       },
@@ -2742,7 +2740,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
         if (div) {
           div.parentNode.removeChild(div);
           if (this.msieFixedPositionBug) {
-            detachEvent("onresize", MENU.Resize);
+            window.detachEvent("onresize", MENU.Resize);
           }
         }
         if (MENU.jax.hover) {
@@ -2905,7 +2903,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
           //  and an onresize handler to update it (stupid, but necessary)
           div.width = div.height = 0;
           this.Resize();
-          attachEvent("onresize", this.Resize);
+          window.attachEvent("onresize", this.Resize);
         } else {
           // otherwise, use a fixed position DIV to cover the viewport
           bg.style.position = "fixed";
@@ -3018,7 +3016,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/asciimath2jax.js");
       //TODO: Move to utility class.
       // Computes a mod n.
       Mod: function(a, n) {
-        return (a % n + n) % n;
+        return ((a % n) + n) % n;
       },
       IndexOf: Array.prototype.indexOf
         ? function(A, item, start) {
@@ -6637,7 +6635,7 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js", function() {
       }
       for (var i = 0, m = names.length; i < m; i++) {
         if (copy[names[i]] === 1 && !defaults.hasOwnProperty(names[i])) continue;
-        value = (this.attr || {})[names[i]];
+        var value = (this.attr || {})[names[i]];
         if (value == null) {
           value = this[names[i]];
         }
@@ -6677,7 +6675,7 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js", function() {
     toMathMLattribute: function(value) {
       if (typeof value === "string" && value.replace(/ /g, "").match(/^(([-+])?(\d+(\.\d*)?|\.\d+))mu$/)) {
         // FIXME:  should take scriptlevel into account
-        return (RegExp.$2 || "") + (1 / 18 * RegExp.$3).toFixed(3).replace(/\.?0+$/, "") + "em";
+        return (RegExp.$2 || "") + ((1 / 18) * RegExp.$3).toFixed(3).replace(/\.?0+$/, "") + "em";
       } else if (this.toMathMLvariants[value]) {
         return this.toMathMLvariants[value];
       }
@@ -6800,7 +6798,7 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js", function() {
       var tag = this.type;
       var base = this.data[this.base];
       if (base && base.isa(MML.TeXAtom) && base.movablelimits && !base.Get("displaystyle")) {
-        type = "msubsup";
+        tag = "msubsup";
         if (this.data[this.under] == null) {
           tag = "msup";
         }
@@ -7307,7 +7305,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
         var bbox = (this.CHTML = CHTML.BBOX.zero());
         bbox.w = node.offsetWidth / CHTML.em;
         if (m > 1) {
-          var H2 = 1.2 * m / 2;
+          var H2 = (1.2 * m) / 2;
           bbox.h = H2 + 0.25;
           bbox.d = H2 - 0.25;
           node.style.verticalAlign = CHTML.Em(0.45 - H2);
@@ -9707,16 +9705,16 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
         return m * 1.2;
       } // 12 pt to a pc
       if (unit === "px") {
-        return m * this.emPerInch / this.pxPerInch;
+        return (m * this.emPerInch) / this.pxPerInch;
       }
       if (unit === "in") {
         return m * this.emPerInch;
       }
       if (unit === "cm") {
-        return m * this.emPerInch / 2.54;
+        return (m * this.emPerInch) / 2.54;
       } // 2.54 cm to an inch
       if (unit === "mm") {
-        return m * this.emPerInch / 25.4;
+        return (m * this.emPerInch) / 25.4;
       } // 10 mm to a cm
       if (unit === "mu") {
         return m / 18;
@@ -10850,7 +10848,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
           rowspacing: ".5em",
           columnalign: align,
           columnspacing: spacing || "1em",
-          rowspacing: "3pt",
+          //rowspacing: "3pt",
           side: TEX.config.TagSide,
           minlabelspacing: TEX.config.TagIndent
         }
@@ -11911,7 +11909,9 @@ THE SOFTWARE.
 
   //(function(){
   var mathcolor = "blue"; // change it to "" (to inherit) or another color
+  var mathfontsize = "";
   //var mathfontsize = "1em";      // change to e.g. 1.2em for larger math
+  var mathfontfamily;
   //var mathfontfamily = "serif";  // change to "" to inherit (works in IE)
   // or another family (e.g. "arial")
   //var automathrecognize = false; // writing "amath" on page makes this true
@@ -12041,25 +12041,26 @@ function translate(spanclassAM) {
   }
 }
 */
-  function createElementXHTML(t) {
+
+  var createElementXHTML = function createElementXHTML(t) {
     if (isIE) return document.createElement(t);
     else return document.createElementNS("http://www.w3.org/1999/xhtml", t);
-  }
+  };
 
   var AMmathml = "http://www.w3.org/1998/Math/MathML";
 
-  function AMcreateElementMathML(t) {
+  var AMcreateElementMathML = function AMcreateElementMathML(t) {
     if (isIE) return document.createElement("m:" + t);
     else return document.createElementNS(AMmathml, t);
-  }
+  };
 
-  function createMmlNode(t, frag) {
+  var createMmlNode = function createMmlNode(t, frag) {
     var node;
     if (isIE) node = document.createElement("m:" + t);
     else node = document.createElementNS(AMmathml, t);
     if (frag) node.appendChild(frag);
     return node;
-  }
+  };
 
   function newcommand(oldstr, newstr) {
     AMsymbols.push({ input: oldstr, tag: "mo", output: newstr, tex: null, ttype: DEFINITION });
@@ -12601,14 +12602,14 @@ var AMbbb = [0xEF8C,0xEF8D,0x2102,0xEF8E,0xEF8F,0xEF90,0xEF91,0x210D,0xEF92,0xEF
     }
   ];
 
-  function compareNames(s1, s2) {
+  var compareNames = function compareNames(s1, s2) {
     if (s1.input > s2.input) return 1;
     else return -1;
-  }
+  };
 
   var AMnames = []; //list of input symbols
 
-  function initSymbols() {
+  var initSymbols = function initSymbols() {
     var i;
     var symlen = AMsymbols.length;
     for (i = 0; i < symlen; i++) {
@@ -12623,29 +12624,29 @@ var AMbbb = [0xEF8C,0xEF8D,0x2102,0xEF8E,0xEF8F,0xEF90,0xEF91,0x210D,0xEF92,0xEF
       }
     }
     refreshSymbols();
-  }
+  };
 
-  function refreshSymbols() {
+  var refreshSymbols = function refreshSymbols() {
     var i;
     AMsymbols.sort(compareNames);
     for (i = 0; i < AMsymbols.length; i++) AMnames[i] = AMsymbols[i].input;
-  }
+  };
 
   function define(oldstr, newstr) {
     AMsymbols.push({ input: oldstr, tag: "mo", output: newstr, tex: null, ttype: DEFINITION });
     refreshSymbols(); // this may be a problem if many symbols are defined!
   }
 
-  function AMremoveCharsAndBlanks(str, n) {
+  var AMremoveCharsAndBlanks = function AMremoveCharsAndBlanks(str, n) {
     //remove n characters and any following blanks
     var st;
     if (str.charAt(n) == "\\" && str.charAt(n + 1) != "\\" && str.charAt(n + 1) != " ") st = str.slice(n + 1);
     else st = str.slice(n);
     for (var i = 0; i < st.length && st.charCodeAt(i) <= 32; i = i + 1);
     return st.slice(i);
-  }
+  };
 
-  function position(arr, str, n) {
+  var position = function position(arr, str, n) {
     // return position >=n where str appears or would be inserted
     // assumes arr is sorted
     if (n == 0) {
@@ -12660,9 +12661,9 @@ var AMbbb = [0xEF8C,0xEF8D,0x2102,0xEF8E,0xEF8F,0xEF90,0xEF91,0x210D,0xEF92,0xEF
       return h;
     } else for (var i = n; i < arr.length && arr[i] < str; i++);
     return i; // i=arr.length || arr[i]>=str
-  }
+  };
 
-  function AMgetSymbol(str) {
+  var AMgetSymbol = function AMgetSymbol(str) {
     //return maximal initial substring of str that appears in names
     //return null if there is none
     var k = 0; //new pos
@@ -12721,9 +12722,9 @@ var AMbbb = [0xEF8C,0xEF8D,0x2102,0xEF8E,0xEF8F,0xEF90,0xEF91,0x210D,0xEF92,0xEF
       return { input: st, tag: tagst, output: st, ttype: UNARY, func: true };
     }
     return { input: st, tag: tagst, output: st, ttype: CONST };
-  }
+  };
 
-  function AMremoveBrackets(node) {
+  var AMremoveBrackets = function AMremoveBrackets(node) {
     var st;
     if (!node.hasChildNodes()) {
       return;
@@ -12736,7 +12737,7 @@ var AMbbb = [0xEF8C,0xEF8D,0x2102,0xEF8E,0xEF8F,0xEF90,0xEF91,0x210D,0xEF92,0xEF
       st = node.lastChild.firstChild.nodeValue;
       if (st == ")" || st == "]" || st == "}") node.removeChild(node.lastChild);
     }
-  }
+  };
 
   /*Parsing ASCII math expressions with the following grammar
 v ::= [A-Za-z] | greek letters | numbers | other constant symbols
@@ -12751,7 +12752,7 @@ Each terminal symbol is translated into a corresponding mathml node.*/
 
   var AMnestingDepth, AMpreviousSymbol, AMcurrentSymbol;
 
-  function AMparseSexpr(str) {
+  var AMparseSexpr = function AMparseSexpr(str) {
     //parses str and returns [node,tailstr]
     var symbol,
       node,
@@ -12970,9 +12971,9 @@ Each terminal symbol is translated into a corresponding mathml node.*/
           str
         ];
     }
-  }
+  };
 
-  function AMparseIexpr(str) {
+  var AMparseIexpr = function AMparseIexpr(str) {
     var symbol, sym1, sym2, node, result, underover;
     str = AMremoveCharsAndBlanks(str, 0);
     sym1 = AMgetSymbol(str);
@@ -13024,9 +13025,9 @@ Each terminal symbol is translated into a corresponding mathml node.*/
       }
     }
     return [node, str];
-  }
+  };
 
-  function AMparseExpr(str, rightbracket) {
+  var AMparseExpr = function AMparseExpr(str, rightbracket) {
     var symbol,
       node,
       result,
@@ -13154,9 +13155,9 @@ Each terminal symbol is translated into a corresponding mathml node.*/
       }
     }
     return [newFrag, str];
-  }
+  };
 
-  function parseMath(str, latex) {
+  var parseMath = function parseMath(str, latex) {
     var frag, node;
     AMnestingDepth = 0;
     //some basic cleanup for dealing with stuff editors like TinyMCE adds
@@ -13180,7 +13181,7 @@ Each terminal symbol is translated into a corresponding mathml node.*/
       //fixed by djhsu so newline
       node.setAttribute("title", str.replace(/\s+/g, " ")); //does not show in Gecko
     return node;
-  }
+  };
 
   /*
 function strarr2docFrag(arr, linebreaks, latex) {
@@ -13419,50 +13420,50 @@ asciimath.translate = translate;
                 displaystyle = def[id];
                 break;
               case "decimal":
-                decimal = def[id];
+                decimalsign = def[id];
                 break;
               case "parseMath":
                 parseMath = def[id];
-                break;
+                break; // function
               case "parseExpr":
                 AMparseExpr = def[id];
-                break;
+                break; // function
               case "parseIexpr":
                 AMparseIexpr = def[id];
-                break;
+                break; // function
               case "parseSexpr":
                 AMparseSexpr = def[id];
-                break;
+                break; // function
               case "removeBrackets":
                 AMremoveBrackets = def[id];
-                break;
+                break; // function
               case "getSymbol":
                 AMgetSymbol = def[id];
-                break;
+                break; // function
               case "position":
                 position = def[id];
-                break;
+                break; // function
               case "removeCharsAndBlanks":
                 AMremoveCharsAndBlanks = def[id];
-                break;
+                break; // function
               case "createMmlNode":
                 createMmlNode = def[id];
-                break;
+                break; // function
               case "createElementMathML":
                 AMcreateElementMathML = def[id];
-                break;
+                break; // function
               case "createElementXHTML":
                 createElementXHTML = def[id];
-                break;
+                break; // function
               case "initSymbols":
                 initSymbols = def[id];
-                break;
+                break; // function
               case "refreshSymbols":
                 refreshSymbols = def[id];
-                break;
+                break; // function
               case "compareNames":
                 compareNames = def[id];
-                break;
+                break; // function
             }
             this[id] = def[id];
           }
@@ -13517,7 +13518,7 @@ asciimath.translate = translate;
 
   /************************************************************************/
 
-  var MML;
+  // var MML;
 
   ASCIIMATH.Augment({
     sourceMenuTitle: /*_(MathMenu)*/ ["AsciiMathInput", "AsciiMath Input"],
@@ -14084,7 +14085,7 @@ asciimath.translate = translate;
         return m * this.TeX.x_height;
       }
       if (unit === "%") {
-        return m / 100 * size;
+        return (m / 100) * size;
       }
       if (unit === "px") {
         return m / this.em;
@@ -14096,13 +14097,13 @@ asciimath.translate = translate;
         return m * 1.2;
       } // 12 pt to a pc
       if (unit === "in") {
-        return m * this.pxPerInch / this.em;
+        return (m * this.pxPerInch) / this.em;
       }
       if (unit === "cm") {
-        return m * this.pxPerInch / this.em / 2.54;
+        return (m * this.pxPerInch) / this.em / 2.54;
       } // 2.54 cm to an inch
       if (unit === "mm") {
-        return m * this.pxPerInch / this.em / 25.4;
+        return (m * this.pxPerInch) / this.em / 25.4;
       } // 10 mm to a cm
       if (unit === "mu") {
         return m / 18;
@@ -14409,10 +14410,10 @@ asciimath.translate = translate;
         var scale = H / (bbox.h + bbox.d - 0.3); // ### adjusted for extra tall bbox
         var box = HTML.Element("span", { style: { "font-size": PHTML.Em(scale) } });
         if (scale > 1.25) {
-          var sX = Math.ceil(1.25 / scale * 10);
+          var sX = Math.ceil((1.25 / scale) * 10);
           box.className = "MJXp-right MJXp-scale" + sX;
           box.style.marginLeft = PHTML.Em(bbox.w * (sX / 10 - 1) + 0.07);
-          bbox.w *= scale * sX / 10;
+          bbox.w *= (scale * sX) / 10;
         }
         box.appendChild(span.firstChild);
         span.appendChild(box);
@@ -14727,12 +14728,12 @@ asciimath.translate = translate;
         var root = HTML.Element("span", { className: "MJXp-root" }, [
           ["span", { className: "MJXp-rule", style: { "border-top": ".08em solid" } }]
         ]);
-        var W = 1.2 / 2.2 * scale / 100; // width-of-surd = (height/H-to-W-ratio)
+        var W = ((1.2 / 2.2) * scale) / 100; // width-of-surd = (height/H-to-W-ratio)
         if (scale > 150) {
-          var sX = Math.ceil(150 / scale * 10);
+          var sX = Math.ceil((150 / scale) * 10);
           surd.firstChild.className = "MJXp-right MJXp-scale" + sX;
-          surd.firstChild.style.marginLeft = PHTML.Em(W * (sX / 10 - 1) / scale * 100);
-          W = W * sX / 10;
+          surd.firstChild.style.marginLeft = PHTML.Em(((W * (sX / 10 - 1)) / scale) * 100);
+          W = (W * sX) / 10;
           root.firstChild.style.borderTopWidth = PHTML.Em(0.08 / Math.sqrt(sX / 10));
         }
         root.appendChild(base);
@@ -14761,7 +14762,7 @@ asciimath.translate = translate;
         var v = 0.55 * (scale / 120) + rbox.d * 0.8,
           r = -0.6 * (scale / 120);
         if (scale > 150) {
-          r *= 0.95 * Math.ceil(150 / scale * 10) / 10;
+          r *= (0.95 * Math.ceil((150 / scale) * 10)) / 10;
         }
         root.style.marginRight = PHTML.Em(r);
         root.style.verticalAlign = PHTML.Em(v);
@@ -15379,7 +15380,7 @@ MathJax.Callback.Queue(
           items.unshift(renderer.items.pop());
         }
         items.unshift("Accessibility");
-        var menu = ITEM.SUBMENU.apply(ITEM.SUBMENU, items);
+        menu = ITEM.SUBMENU.apply(ITEM.SUBMENU, items);
         var locale = MENU.IndexOfId("Locale");
         if (locale) {
           MENU.items.splice(locale, 0, menu);

@@ -781,7 +781,6 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
           var annotations = source.items[2];
           annotations.disabled = true;
           var annotationItems = annotations.submenu.items;
-          annotationList = MathJax.Hub.Config.semanticsAnnotations;
           for (var i = 0, m = annotationItems.length; i < m; i++) {
             var name = annotationItems[i].name[1];
             if (jax.root && jax.root.getAnnotation(name) !== null) {
@@ -1571,9 +1570,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
         overlay.onmouseover = this.Remove;
       }
       if (window.addEventListener) {
-        addEventListener("resize", this.Resize, false);
+        window.addEventListener("resize", this.Resize, false);
       } else if (window.attachEvent) {
-        attachEvent("onresize", this.Resize);
+        window.attachEvent("onresize", this.Resize);
       } else {
         this.onresize = window.onresize;
         window.onresize = this.Resize;
@@ -1659,7 +1658,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
     //
     getOverflow: window.getComputedStyle
       ? function(obj) {
-          return getComputedStyle(obj).overflow;
+          return window.getComputedStyle(obj).overflow;
         }
       : function(obj) {
           return (obj.currentStyle || { overflow: "visible" }).overflow;
@@ -1667,7 +1666,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
     getBorder: function(obj) {
       var size = { thin: 1, medium: 2, thick: 3 };
       var style = window.getComputedStyle
-        ? getComputedStyle(obj)
+        ? window.getComputedStyle(obj)
         : obj.currentStyle || { borderLeftWidth: 0, borderTopWidth: 0 };
       var x = style.borderLeftWidth,
         y = style.borderTopWidth;
@@ -1741,9 +1740,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
           document.body.removeChild(overlay);
         }
         if (window.removeEventListener) {
-          removeEventListener("resize", ZOOM.Resize, false);
+          window.removeEventListener("resize", ZOOM.Resize, false);
         } else if (window.detachEvent) {
-          detachEvent("onresize", ZOOM.Resize);
+          window.detachEvent("onresize", ZOOM.Resize);
         } else {
           window.onresize = ZOOM.onresize;
           delete ZOOM.onresize;
@@ -2096,7 +2095,6 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
             break;
           default:
             return;
-            break;
         }
         return FALSE(event);
       },
@@ -2269,7 +2267,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
         if (div) {
           div.parentNode.removeChild(div);
           if (this.msieFixedPositionBug) {
-            detachEvent("onresize", MENU.Resize);
+            window.detachEvent("onresize", MENU.Resize);
           }
         }
         if (MENU.jax.hover) {
@@ -2432,7 +2430,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
           //  and an onresize handler to update it (stupid, but necessary)
           div.width = div.height = 0;
           this.Resize();
-          attachEvent("onresize", this.Resize);
+          window.attachEvent("onresize", this.Resize);
         } else {
           // otherwise, use a fixed position DIV to cover the viewport
           bg.style.position = "fixed";
@@ -2545,7 +2543,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
       //TODO: Move to utility class.
       // Computes a mod n.
       Mod: function(a, n) {
-        return (a % n + n) % n;
+        return ((a % n) + n) % n;
       },
       IndexOf: Array.prototype.indexOf
         ? function(A, item, start) {
@@ -6164,7 +6162,7 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js", function() {
       }
       for (var i = 0, m = names.length; i < m; i++) {
         if (copy[names[i]] === 1 && !defaults.hasOwnProperty(names[i])) continue;
-        value = (this.attr || {})[names[i]];
+        var value = (this.attr || {})[names[i]];
         if (value == null) {
           value = this[names[i]];
         }
@@ -6204,7 +6202,7 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js", function() {
     toMathMLattribute: function(value) {
       if (typeof value === "string" && value.replace(/ /g, "").match(/^(([-+])?(\d+(\.\d*)?|\.\d+))mu$/)) {
         // FIXME:  should take scriptlevel into account
-        return (RegExp.$2 || "") + (1 / 18 * RegExp.$3).toFixed(3).replace(/\.?0+$/, "") + "em";
+        return (RegExp.$2 || "") + ((1 / 18) * RegExp.$3).toFixed(3).replace(/\.?0+$/, "") + "em";
       } else if (this.toMathMLvariants[value]) {
         return this.toMathMLvariants[value];
       }
@@ -6327,7 +6325,7 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js", function() {
       var tag = this.type;
       var base = this.data[this.base];
       if (base && base.isa(MML.TeXAtom) && base.movablelimits && !base.Get("displaystyle")) {
-        type = "msubsup";
+        tag = "msubsup";
         if (this.data[this.under] == null) {
           tag = "msup";
         }
@@ -7847,7 +7845,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
         jax.CHTML.scale = scale / 100;
         jax.CHTML.fontSize = scale + "%";
         jax.CHTML.outerEm = em;
-        jax.CHTML.em = this.em = em * scale / 100;
+        jax.CHTML.em = this.em = (em * scale) / 100;
         jax.CHTML.ex = ex;
         jax.CHTML.cwidth = cwidth / this.em;
         jax.CHTML.lineWidth = linebreak ? this.length2em(width, maxwidth / this.em, 1) : maxwidth;
@@ -8554,7 +8552,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
           bbox.offset = 0.6 * bbox.w;
           if (BBOX) {
             bbox.scale = BBOX.scale;
-            BBOX.rscale = BBOX.rscale;
+            bbox.rscale = BBOX.rscale;
           }
           return bbox;
         }
@@ -8787,14 +8785,14 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
       scale = 1 / this.em / scale;
       if (unit === "em") return m;
       if (unit === "ex") return m * this.TEX.x_height;
-      if (unit === "%") return m / 100 * size;
+      if (unit === "%") return (m / 100) * size;
       if (unit === "px") return m * scale;
       if (unit === "pt") return m / 10; // 10 pt to an em
       if (unit === "pc") return m * 1.2; // 12 pt to a pc
       scale *= this.pxPerInch;
       if (unit === "in") return m * scale;
-      if (unit === "cm") return m * scale / 2.54; // 2.54 cm to an inch
-      if (unit === "mm") return m * scale / 25.4; // 10 mm to a cm
+      if (unit === "cm") return (m * scale) / 2.54; // 2.54 cm to an inch
+      if (unit === "mm") return (m * scale) / 25.4; // 10 mm to a cm
       if (unit === "mu") return m / 18; // 18mu to an em for the scriptlevel
       return m * size; // relative to given size (or 1em as default)
     },
@@ -9643,7 +9641,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
           //  Get a delimiter of the proper height and save the height
           //
           if (H != values.minsize) {
-            H = [Math.max(H * CHTML.TEX.delimiterfactor / 1000, H - CHTML.TEX.delimitershortfall), H];
+            H = [Math.max((H * CHTML.TEX.delimiterfactor) / 1000, H - CHTML.TEX.delimitershortfall), H];
           }
           while (node.firstChild) node.removeChild(node.firstChild);
           this.CHTML = bbox = CHTML.createDelimiter(node, this.data.join("").charCodeAt(0), H, bbox);
@@ -9654,7 +9652,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
           if (values.symmetric) {
             H = (bbox.h + bbox.d) / 2 + a;
           } else {
-            H = (bbox.h + bbox.d) * h / (h + d);
+            H = ((bbox.h + bbox.d) * h) / (h + d);
           }
           H -= bbox.h;
           if (Math.abs(H) > 0.05) {
@@ -10203,7 +10201,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
         if (sup) Sbox.w += s;
         if (!sup) {
           if (sub) {
-            v = Math.max(v, CHTML.TEX.sub1, sscale * sbox.h - 4 / 5 * ex, values.subscriptshift);
+            v = Math.max(v, CHTML.TEX.sub1, sscale * sbox.h - (4 / 5) * ex, values.subscriptshift);
             sub.style.verticalAlign = CHTML.Em(-v / sscale);
             sub.style.paddingRight = CHTML.Em(s / sscale);
             BBOX.combine(sbox, x, -v);
@@ -10211,7 +10209,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
         } else {
           if (!sub) {
             p = CHTML.TEX[values.displaystyle ? "sup1" : values.texprimestyle ? "sup3" : "sup2"];
-            u = Math.max(u, p, Sscale * Sbox.d + 1 / 4 * ex, values.superscriptshift);
+            u = Math.max(u, p, Sscale * Sbox.d + (1 / 4) * ex, values.superscriptshift);
             sup.style.verticalAlign = CHTML.Em(u / Sscale);
             sup.style.paddingLeft = CHTML.Em(delta / Sscale);
             sup.style.paddingRight = CHTML.Em(s / Sscale);
@@ -10221,7 +10219,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
             var t = CHTML.TEX.rule_thickness;
             if (u - Sscale * Sbox.d - (sscale * sbox.h - v) < 3 * t) {
               v = 3 * t - u + Sscale * Sbox.d + sscale * sbox.h;
-              q = 4 / 5 * ex - (u - Sscale * Sbox.d);
+              q = (4 / 5) * ex - (u - Sscale * Sbox.d);
               if (q > 0) {
                 u += q;
                 v -= q;
@@ -10230,7 +10228,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
             u = Math.max(u, values.superscriptshift);
             v = Math.max(v, values.subscriptshift);
             sub.style.paddingRight = CHTML.Em(s / sscale);
-            sup.style.paddingBottom = CHTML.Em(u / Sscale + v / sscale - Sbox.d - sbox.h / sscale * Sscale);
+            sup.style.paddingBottom = CHTML.Em(u / Sscale + v / sscale - Sbox.d - (sbox.h / sscale) * Sscale);
             sup.style.paddingLeft = CHTML.Em(delta / Sscale);
             sup.style.paddingRight = CHTML.Em(s / Sscale);
             stack.style.verticalAlign = CHTML.Em(-v);
@@ -10298,8 +10296,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
           var bevel = CHTML.Element("mjx-bevel");
           frac.insertBefore(bevel, denom);
           var bbox = CHTML.createDelimiter(bevel, 0x2f, H);
-          u = nscale * (nbox.d - nbox.h) / 2 + a + delta;
-          v = dscale * (dbox.d - dbox.h) / 2 + a - delta;
+          u = (nscale * (nbox.d - nbox.h)) / 2 + a + delta;
+          v = (dscale * (dbox.d - dbox.h)) / 2 + a - delta;
           if (u) num.style.verticalAlign = CHTML.Em(u / nscale);
           if (v) denom.style.verticalAlign = CHTML.Em(v / dscale);
           bevel.style.marginLeft = bevel.style.marginRight = CHTML.Em(-delta / 2);
@@ -11073,7 +11071,7 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready", function() {
           //  Attach appropriate widths to the columns
           //
           for (j = 0; j <= J; j++) {
-            cell = row[j].style;
+            var cell = row[j].style;
             if (CWIDTH[j] === "auto" && !hasFit) cell.width = "";
             else if (CWIDTH[j] === "fit") cell.width = "";
             else if (CWIDTH[j].match(/%$/)) cell.width = CWIDTH[j];
@@ -11835,7 +11833,7 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready", function() {
         return m * this.TeX.x_height;
       }
       if (unit === "%") {
-        return m / 100 * size;
+        return (m / 100) * size;
       }
       if (unit === "px") {
         return m / this.em;
@@ -11847,13 +11845,13 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready", function() {
         return m * 1.2;
       } // 12 pt to a pc
       if (unit === "in") {
-        return m * this.pxPerInch / this.em;
+        return (m * this.pxPerInch) / this.em;
       }
       if (unit === "cm") {
-        return m * this.pxPerInch / this.em / 2.54;
+        return (m * this.pxPerInch) / this.em / 2.54;
       } // 2.54 cm to an inch
       if (unit === "mm") {
-        return m * this.pxPerInch / this.em / 25.4;
+        return (m * this.pxPerInch) / this.em / 25.4;
       } // 10 mm to a cm
       if (unit === "mu") {
         return m / 18;
@@ -12160,10 +12158,10 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready", function() {
         var scale = H / (bbox.h + bbox.d - 0.3); // ### adjusted for extra tall bbox
         var box = HTML.Element("span", { style: { "font-size": PHTML.Em(scale) } });
         if (scale > 1.25) {
-          var sX = Math.ceil(1.25 / scale * 10);
+          var sX = Math.ceil((1.25 / scale) * 10);
           box.className = "MJXp-right MJXp-scale" + sX;
           box.style.marginLeft = PHTML.Em(bbox.w * (sX / 10 - 1) + 0.07);
-          bbox.w *= scale * sX / 10;
+          bbox.w *= (scale * sX) / 10;
         }
         box.appendChild(span.firstChild);
         span.appendChild(box);
@@ -12478,12 +12476,12 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready", function() {
         var root = HTML.Element("span", { className: "MJXp-root" }, [
           ["span", { className: "MJXp-rule", style: { "border-top": ".08em solid" } }]
         ]);
-        var W = 1.2 / 2.2 * scale / 100; // width-of-surd = (height/H-to-W-ratio)
+        var W = ((1.2 / 2.2) * scale) / 100; // width-of-surd = (height/H-to-W-ratio)
         if (scale > 150) {
-          var sX = Math.ceil(150 / scale * 10);
+          var sX = Math.ceil((150 / scale) * 10);
           surd.firstChild.className = "MJXp-right MJXp-scale" + sX;
-          surd.firstChild.style.marginLeft = PHTML.Em(W * (sX / 10 - 1) / scale * 100);
-          W = W * sX / 10;
+          surd.firstChild.style.marginLeft = PHTML.Em(((W * (sX / 10 - 1)) / scale) * 100);
+          W = (W * sX) / 10;
           root.firstChild.style.borderTopWidth = PHTML.Em(0.08 / Math.sqrt(sX / 10));
         }
         root.appendChild(base);
@@ -12512,7 +12510,7 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready", function() {
         var v = 0.55 * (scale / 120) + rbox.d * 0.8,
           r = -0.6 * (scale / 120);
         if (scale > 150) {
-          r *= 0.95 * Math.ceil(150 / scale * 10) / 10;
+          r *= (0.95 * Math.ceil((150 / scale) * 10)) / 10;
         }
         root.style.marginRight = PHTML.Em(r);
         root.style.verticalAlign = PHTML.Em(v);
@@ -13130,7 +13128,7 @@ MathJax.Callback.Queue(
           items.unshift(renderer.items.pop());
         }
         items.unshift("Accessibility");
-        var menu = ITEM.SUBMENU.apply(ITEM.SUBMENU, items);
+        menu = ITEM.SUBMENU.apply(ITEM.SUBMENU, items);
         var locale = MENU.IndexOfId("Locale");
         if (locale) {
           MENU.items.splice(locale, 0, menu);

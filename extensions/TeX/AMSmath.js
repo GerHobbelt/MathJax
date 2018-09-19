@@ -407,7 +407,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
           rowspacing: ".5em",
           columnalign: align,
           columnspacing: spacing || "1em",
-          rowspacing: "3pt",
+          //rowspacing: "3pt",
           side: TEX.config.TagSide,
           minlabelspacing: TEX.config.TagIndent
         }

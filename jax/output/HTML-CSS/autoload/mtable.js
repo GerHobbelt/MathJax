@@ -135,11 +135,11 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function() {
                 HD = bbox.h + bbox.d;
                 if (HD) {
                   min = HTMLCSS.length2em(min, mu, HD);
-                  if (min * bbox.h / HD > H[i]) {
-                    H[i] = min * bbox.h / HD;
+                  if ((min * bbox.h) / HD > H[i]) {
+                    H[i] = (min * bbox.h) / HD;
                   }
-                  if (min * bbox.d / HD > D[i]) {
-                    D[i] = min * bbox.d / HD;
+                  if ((min * bbox.d) / HD > D[i]) {
+                    D[i] = (min * bbox.d) / HD;
                   }
                 }
               } else if (mo.HTMLcanStretch("Horizontal")) {
@@ -511,9 +511,9 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function() {
           wp,
           wm;
         if (f) {
-          (wp = 100 * (1 - WP) / f), (wm = Wt / f);
+          (wp = (100 * (1 - WP)) / f), (wm = Wt / f);
         } else {
-          wp = 100 * (1 - WP) / (J + 1);
+          wp = (100 * (1 - WP)) / (J + 1);
           wm = Wt / (J + 1);
         }
         for (j = 0; j <= J; j++) {

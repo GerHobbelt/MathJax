@@ -289,7 +289,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function() {
       //    fill it with the proper elements,
       //    and clean up the bbox
       //
-      line = HTMLCSS.createBox(stack);
+      var line = HTMLCSS.createBox(stack);
       line.bbox = this.HTMLemptyBBox({});
       state.first = broken;
       state.last = true;
@@ -970,7 +970,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function() {
         offset += info.shift - shift;
       }
       //
-      var penalty = Math.floor(offset / HTMLCSS.linebreakWidth * 1000);
+      var penalty = Math.floor((offset / HTMLCSS.linebreakWidth) * 1000);
       if (penalty < 0) {
         penalty = PENALTY.toobig - 3 * penalty;
       }
@@ -1045,7 +1045,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function() {
       } // don't break at zero width (FIXME?)
       var offset = HTMLCSS.linebreakWidth - W;
       //
-      var penalty = Math.floor(offset / HTMLCSS.linebreakWidth * 1000);
+      var penalty = Math.floor((offset / HTMLCSS.linebreakWidth) * 1000);
       if (penalty < 0) {
         penalty = PENALTY.toobig - 3 * penalty;
       }

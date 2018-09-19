@@ -209,6 +209,12 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function() {
               T = t;
               frame.bbox.w += p - t;
             }
+            frame.style.borderRight = SOLID;
+            if (!HTMLCSS.msieBorderWidthBug) {
+              R = t;
+            }
+            break;
+
           case MML.NOTATION.RIGHT:
             frame.style.borderRight = SOLID;
             if (!HTMLCSS.msieBorderWidthBug) {
@@ -279,7 +285,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function() {
                 svg = this.HTMLsvg(stack, H, D, W, t, values.mathcolor);
               }
               var l = Math.sqrt(W * W + (H + D) * (H + D)),
-                f = 1 / l * 10 * this.scale / HTMLCSS.em * t / 0.075;
+                f = ((((1 / l) * 10 * this.scale) / HTMLCSS.em) * t) / 0.075;
               w = W * f;
               h = (H + D) * f;
               var x = W - t / 2,

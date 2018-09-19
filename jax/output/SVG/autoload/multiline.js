@@ -883,7 +883,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready", function() {
         offset += info.shift - shift;
       }
       //
-      var penalty = Math.floor(offset / SVG.linebreakWidth * 1000);
+      var penalty = Math.floor((offset / SVG.linebreakWidth) * 1000);
       if (penalty < 0) {
         penalty = PENALTY.toobig - 3 * penalty;
       }
@@ -955,7 +955,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready", function() {
       } // don't break at zero width (FIXME?)
       var offset = SVG.linebreakWidth - W;
       //
-      var penalty = Math.floor(offset / SVG.linebreakWidth * 1000);
+      var penalty = Math.floor((offset / SVG.linebreakWidth) * 1000);
       if (penalty < 0) {
         penalty = PENALTY.toobig - 3 * penalty;
       }

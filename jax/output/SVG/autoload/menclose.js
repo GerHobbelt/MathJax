@@ -223,6 +223,9 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready", function() {
 
           case MML.NOTATION.ACTUARIAL:
             borders[0] = true;
+            borders[1] = true;
+            break;
+
           case MML.NOTATION.RIGHT:
             borders[1] = true;
             break;
@@ -253,7 +256,7 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready", function() {
 
           case MML.NOTATION.UPDIAGONALARROW:
             var l = Math.sqrt(W * W + (H + D) * (H + D)),
-              f = 1 / l * 10 / SVG.em * t / 0.075;
+              f = ((((1 / l) * 10) / SVG.em) * t) / 0.075;
             w = W * f;
             h = (H + D) * f;
             var x = 0.4 * h;
