@@ -258,14 +258,14 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
           if (A[i][j]) {
             s = (this.data[i].type === "mlabeledtr" ? LABEL : 0);
             cell = this.data[i].data[j-s];
-	    if (cell.SVGcanStretch("Horizontal")) {
-	      A[i][j] = cell.SVGstretchH(W[j]);
-	    } else if (cell.SVGcanStretch("Vertical")) {
-	      mo = cell.CoreMO();
-	      var symmetric = mo.symmetric; mo.symmetric = false;
-	      A[i][j] = cell.SVGstretchV(H[i],D[i]);
-	      mo.symmetric = symmetric;
-	    }
+      if (cell.SVGcanStretch("Horizontal")) {
+        A[i][j] = cell.SVGstretchH(W[j]);
+      } else if (cell.SVGcanStretch("Vertical")) {
+        mo = cell.CoreMO();
+        var symmetric = mo.symmetric; mo.symmetric = false;
+        A[i][j] = cell.SVGstretchV(H[i],D[i]);
+        mo.symmetric = symmetric;
+      }
             align = cell.rowalign||this.data[i].rowalign||RALIGN[i];
             dy = ({top:    H[i] - A[i][j].h,
                    bottom: A[i][j].d - D[i],

@@ -68,7 +68,7 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js",function () {
       }
       for (var i = 0, m = names.length; i < m; i++) {
         if (copy[names[i]] === 1 && !defaults.hasOwnProperty(names[i])) continue;
-        value = (this.attr||{})[names[i]]; if (value == null) {value = this[names[i]]}
+        var value = (this.attr||{})[names[i]]; if (value == null) {value = this[names[i]]}
         if (value != null) {attr.push(names[i]+'="'+this.toMathMLquote(value)+'"')}
       }
       this.toMathMLclass(attr);

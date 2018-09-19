@@ -142,6 +142,9 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
 
           case MML.NOTATION.ACTUARIAL:
             borders[0] = true;
+            borders[1] = true;
+            break;
+
           case MML.NOTATION.RIGHT:
             borders[1] = true;
             break;
@@ -171,12 +174,12 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
             break;
 
           case MML.NOTATION.UPDIAGONALARROW:
-              var l = Math.sqrt(W*W + (H+D)*(H+D)), f = 1/l * 10/SVG.em * t/.075;
-              w = W * f; h = (H+D) * f; var x = .4*h;
-              svg.Add(BBOX.DLINE(H-.5*h,D,W-.5*w,t,values.mathcolor,"up"));
-              svg.Add(BBOX.FPOLY(
-                [[x+w,h], [x-.4*h,.4*w], [x+.3*w,.3*h], [x+.4*h,-.4*w], [x+w,h]],
-                values.mathcolor),W-w-x,H-h);
+            var l = Math.sqrt(W*W + (H+D)*(H+D)), f = 1/l * 10/SVG.em * t/.075;
+            w = W * f; h = (H+D) * f; var x = .4*h;
+            svg.Add(BBOX.DLINE(H-.5*h,D,W-.5*w,t,values.mathcolor,"up"));
+            svg.Add(BBOX.FPOLY(
+              [[x+w,h], [x-.4*h,.4*w], [x+.3*w,.3*h], [x+.4*h,-.4*w], [x+w,h]],
+              values.mathcolor),W-w-x,H-h);
             break;
 
           case MML.NOTATION.DOWNDIAGONALSTRIKE:

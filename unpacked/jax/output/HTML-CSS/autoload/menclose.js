@@ -114,6 +114,9 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
             
           case MML.NOTATION.ACTUARIAL:
             frame.style.borderTop = SOLID; if (!HTMLCSS.msieBorderWidthBug) {T = t; frame.bbox.w += p-t}
+            frame.style.borderRight = SOLID; if (!HTMLCSS.msieBorderWidthBug) {R = t}
+            break;
+
           case MML.NOTATION.RIGHT:
             frame.style.borderRight = SOLID; if (!HTMLCSS.msieBorderWidthBug) {R = t}
             break;

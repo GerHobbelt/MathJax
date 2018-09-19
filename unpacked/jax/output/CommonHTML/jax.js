@@ -1131,7 +1131,7 @@
           if (delim.HW[i][3]) code = delim.HW[i][3];
           bbox = this.createChar(node,[code,delim.HW[i][1]],(delim.HW[i][2]||1),font);
           bbox.offset = .6 * bbox.w;
-          if (BBOX) {bbox.scale = BBOX.scale; BBOX.rscale = BBOX.rscale}
+          if (BBOX) {bbox.scale = BBOX.scale; bbox.rscale = BBOX.rscale;}
           return bbox;
         }
       }

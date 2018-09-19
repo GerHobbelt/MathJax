@@ -194,17 +194,17 @@
         jax = script.MathJax.elementJax; if (!jax) continue;
         jax.PHTML = {display: (jax.root.Get("display") === "block")}
         span = div = HTML.Element("span",{
-	  className:"MathJax_PHTML", id:jax.inputID+"-Frame", isMathJax:true, jaxID:this.id,
+          className:"MathJax_PHTML", id:jax.inputID+"-Frame", isMathJax:true, jaxID:this.id,
           oncontextmenu:EVENT.Menu, onmousedown: EVENT.Mousedown,
           onmouseover:EVENT.Mouseover, onmouseout:EVENT.Mouseout, onmousemove:EVENT.Mousemove,
-	  onclick:EVENT.Click, ondblclick:EVENT.DblClick,
+          onclick:EVENT.Click, ondblclick:EVENT.DblClick,
           // Added for keyboard accessible menu.
           onkeydown: EVENT.Keydown, tabIndex: HUB.getTabOrder(jax)
         });
-	if (HUB.Browser.noContextMenu) {
-	  span.ontouchstart = TOUCH.start;
-	  span.ontouchend = TOUCH.end;
-	}
+        if (HUB.Browser.noContextMenu) {
+          span.ontouchstart = TOUCH.start;
+          span.ontouchend = TOUCH.end;
+        }
         if (jax.PHTML.display) {
           div = HTML.Element("div",{className:"MathJax_PHTML_Display"});
           div.appendChild(span);
@@ -749,10 +749,10 @@
 
     MML.munderover.Augment({
       toPreviewHTML: function (span) {
-	var values = this.getValues("displaystyle","accent","accentunder","align");
+        var values = this.getValues("displaystyle","accent","accentunder","align");
         var base = this.data[this.base];
-	if (!values.displaystyle && base != null &&
-	    (base.movablelimits || base.CoreMO().Get("movablelimits"))) {
+        if (!values.displaystyle && base != null &&
+            (base.movablelimits || base.CoreMO().Get("movablelimits"))) {
           span = MML.msubsup.prototype.toPreviewHTML.call(this,span);
           //
           //  Change class to msubsup for CSS rules.

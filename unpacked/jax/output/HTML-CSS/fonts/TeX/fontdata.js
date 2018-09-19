@@ -1874,14 +1874,14 @@
                 "-smallOp": {fonts:[WinIE6,SIZE1,MAIN],
                              remap: {0x220F:0xE280, 0x2211:0xE281, 0x222B:0xE285, 0x222E:0xE286}},
                 "-WinIE6":  {fonts:[WinIE6]}
-	      },
-	      DELIMITERS: {
-	        0x221A: {
-	          HW:{
+        },
+        DELIMITERS: {
+          0x221A: {
+            HW:{
                     0:[1,WinIE6,null,0xE213], 1:[1.2,WinIE6,null,0xE282], 2:[1.8,WinIE6,null,0xE292],
                     3:[2.4,WinIE6,null,0xE2A2], 4:[3,WinIE6,null,0xE2B2]
                   }
-	        },
+          },
                 0x007C: {stretch:{ext:[0xE217,WinIE6]}},
                 0x2223: {HW:{0:[1,WinIE6,null,0xE217]}, stretch:{ext:[0xE217,WinIE6]}},
                 0x23D0: {HW:{1:[1,WinIE6,null,0xE217]}, stretch:{ext:[0xE217,WinIE6]}},

@@ -3208,7 +3208,6 @@
           initialSkipBug: (mode < 8),        // confused by initial left-margin values
           msieNegativeBBoxBug: (mode >= 8),  // negative bboxes have positive widths
           msieIE6: !isIE7,
-          msieItalicWidthBug: true,
           FontFaceBug: (mode < 9),
           msieFontCSSBug: browser.isIE9,
           allowWebFonts: (mode >= 9 ? "woff" : "eot")

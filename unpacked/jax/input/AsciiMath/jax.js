@@ -230,7 +230,9 @@ THE SOFTWARE.
 
 //(function(){
 var mathcolor = "blue";        // change it to "" (to inherit) or another color
+var mathfontsize = "";
 //var mathfontsize = "1em";      // change to e.g. 1.2em for larger math
+var mathfontfamily;
 //var mathfontfamily = "serif";  // change to "" to inherit (works in IE) 
                                // or another family (e.g. "arial")
 //var automathrecognize = false; // writing "amath" on page makes this true
@@ -968,7 +970,7 @@ function AMparseSexpr(str) { //parses str and returns [node,tailstr]
       st = str.slice(1,i);
 
       // Make a mathml node
-    	node = createMmlNode(symbol.tag,result2[0]);
+      node = createMmlNode(symbol.tag,result2[0]);
 
       // Set the correct attribute
       if (symbol.input === "color") node.setAttribute("mathcolor", st);
@@ -1105,9 +1107,9 @@ function AMparseExpr(str,rightbracket) {
     // if (AMnestingDepth > 0) AMnestingDepth--;
     var len = newFrag.childNodes.length;
     if (len>0 && newFrag.childNodes[len-1].nodeName == "mrow"
-    	    && newFrag.childNodes[len-1].lastChild
-    	    && newFrag.childNodes[len-1].lastChild.firstChild ) { //matrix
-      	    //removed to allow row vectors: //&& len>1 && 
+          && newFrag.childNodes[len-1].lastChild
+          && newFrag.childNodes[len-1].lastChild.firstChild ) { //matrix
+            //removed to allow row vectors: //&& len>1 && 
           //newFrag.childNodes[len-2].nodeName == "mo" &&
           //newFrag.childNodes[len-2].firstChild.nodeValue == ","
       var right = newFrag.childNodes[len-1].lastChild.firstChild.nodeValue;
@@ -1195,12 +1197,12 @@ function parseMath(str,latex) {
   node = createMmlNode("mstyle",frag);
   if (mathcolor != "") node.setAttribute("mathcolor",mathcolor);
   if (mathfontsize != "") {
-	  node.setAttribute("fontsize", mathfontsize);
-	  node.setAttribute("mathsize", mathfontsize);
+    node.setAttribute("fontsize", mathfontsize);
+    node.setAttribute("mathsize", mathfontsize);
   }
   if (mathfontfamily != "") {
-	  node.setAttribute("fontfamily", mathfontfamily);
-	  node.setAttribute("mathvariant", mathfontfamily);
+    node.setAttribute("fontfamily", mathfontfamily);
+    node.setAttribute("mathvariant", mathfontfamily);
   }
   if (displaystyle) node.setAttribute("displaystyle","true");
   node = createMmlNode("math",node);
@@ -1432,7 +1434,7 @@ ASCIIMATH.Augment({
       for (var id in def) {if (def.hasOwnProperty(id)) {
         switch (id) {
          case "displaystyle": displaystyle = def[id]; break;
-         case "decimal": decimal = def[id]; break;
+         case "decimal": decimalsign = def[id]; break;
          case "parseMath": parseMath = def[id]; break;
          case "parseExpr": AMparseExpr = def[id]; break;
          case "parseIexpr": AMparseIexpr = def[id]; break;

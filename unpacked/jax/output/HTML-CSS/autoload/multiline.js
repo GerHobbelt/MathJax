@@ -211,7 +211,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       //    fill it with the proper elements,
       //    and clean up the bbox
       //
-      line = HTMLCSS.createBox(stack);
+      var line = HTMLCSS.createBox(stack);
       line.bbox = this.HTMLemptyBBox({});
       state.first = broken; state.last = true;
       this.HTMLmoveLine(start,end,line,state,values);
@@ -372,7 +372,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
         //
         //  Move color and span
         //
-	var color = document.getElementById("MathJax-Color-"+this.spanID+HTMLCSS.idPostfix);
+  var color = document.getElementById("MathJax-Color-"+this.spanID+HTMLCSS.idPostfix);
         if (color) {line.appendChild(color)}
         var span = this.HTMLspanElement();
         if (this.href) span = span.parentNode;
@@ -540,8 +540,8 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
           if (s.href) box = box.parentNode;
           var stack = box.parentNode;
           if (this.data[this.base]) {stack.removeChild(stack.firstChild)}
-	  for (box = stack.firstChild; box; box = box.nextSibling)
-	    {box.style.left = HTMLCSS.Em(HTMLCSS.unEm(box.style.left)-this.HTMLbaseW)}
+    for (box = stack.firstChild; box; box = box.nextSibling)
+      {box.style.left = HTMLCSS.Em(HTMLCSS.unEm(box.style.left)-this.HTMLbaseW)}
           stack.bbox.w -= this.HTMLbaseW; stack.style.width = HTMLCSS.Em(stack.bbox.w);
           this.HTMLcombineBBoxes(stack,span.bbox);
           span.appendChild(stack);
@@ -640,7 +640,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
       if (end.length === 0) {
         if (this.data[this.base]) {stack.removeChild(stack.firstChild)}
         for (box = stack.firstChild; box; box = box.nextSibling)
-	  {box.style.left = HTMLCSS.Em(HTMLCSS.unEm(box.style.left)-data.px)}
+    {box.style.left = HTMLCSS.Em(HTMLCSS.unEm(box.style.left)-data.px)}
         stack.bbox.w -= data.px; stack.style.width = HTMLCSS.Em(stack.bbox.w);
         this.HTMLcombineBBoxes(stack,span.bbox);
         span.appendChild(stack);

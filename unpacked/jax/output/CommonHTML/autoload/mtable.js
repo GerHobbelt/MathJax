@@ -368,7 +368,7 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function () {
           //  Attach appropriate widths to the columns
           //  
           for (j = 0; j <= J; j++) {
-            cell = row[j].style;
+            var cell = row[j].style;
             if (CWIDTH[j] === "auto" && !hasFit) cell.width = "";
             else if (CWIDTH[j] === "fit") cell.width = "";
             else if (CWIDTH[j].match(/%$/)) cell.width = CWIDTH[j];

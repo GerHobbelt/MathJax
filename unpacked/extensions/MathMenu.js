@@ -253,7 +253,6 @@
         break;
       default:
         return;
-        break;
       }
       return FALSE(event);
     },

@@ -114,8 +114,8 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
     //
     SVGsetStatus: function (event) {
       // FIXME:  Do something better with non-token elements
-      this.messageID = MathJax.Message.Set
-        ((this.data[1] && this.data[1].isToken) ?
+      this.messageID = MathJax.Message.Set(
+            (this.data[1] && this.data[1].isToken) ?
              this.data[1].data.join("") : this.data[1].toString());
     },
     SVGclearStatus: function (event) {

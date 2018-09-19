@@ -27,6 +27,7 @@
   "scripts": {
     "test": "npm run build && echo 'No tests here!'",
     "lint": "cd node_modules/@gerhobbelt/mathjax-dev && make lint",
+    "fix": "cd node_modules/@gerhobbelt/mathjax-dev && make fix",
     "build": "cd node_modules/@gerhobbelt/mathjax-dev && make all",
     "prettier": "cd node_modules/@gerhobbelt/mathjax-dev && make prettier",
     "clean": "cd node_modules/@gerhobbelt/mathjax-dev && make clean-destination",
