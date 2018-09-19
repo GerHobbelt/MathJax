@@ -1237,7 +1237,7 @@ MathJax.HTML = {
       if (!obj) {obj = {}}
       var pattern = new RegExp("(?:^|;\\s*)"+this.prefix+"\\."+name+"=([^;]*)(?:;|$)");
       var match;
-      try {match = pattern.exec(document.cookie)} catch (err) {}; // ignore errors reading cookies
+      try {match = pattern.exec(document.cookie);} catch (err) {} // ignore errors reading cookies
       if (match && match[1] !== "") {
         var keys = unescape(match[1]).split('&;');
         for (var i = 0, m = keys.length; i < m; i++) {
@@ -1508,7 +1508,7 @@ MathJax.Localization = {
       //  Process the string that follows matches pattern
       //
       if (parts[i+7] !== "") {string += parts[i+7]}
-    };
+    }
     //
     //  Add any pending string and return the resulting snippet
     //
@@ -2301,13 +2301,11 @@ MathJax.Hub = {
         postJax = post.nodeValue.match(config.postJax);
       }
       if (preJax && (!config.postJax || postJax)) {
-        pre.nodeValue  = pre.nodeValue.replace
-          (config.preJax,(preJax.length > 1? preJax[1] : ""));
+        pre.nodeValue  = pre.nodeValue.replace(config.preJax,(preJax.length > 1? preJax[1] : ""));
         pre = null;
       }
       if (postJax && (!config.preJax || preJax)) {
-        post.nodeValue = post.nodeValue.replace
-          (config.postJax,(postJax.length > 1? postJax[1] : ""));
+        post.nodeValue = post.nodeValue.replace(config.postJax,(postJax.length > 1? postJax[1] : ""));
       }
       if (pre && !pre.nodeValue.match(/\S/)) {pre = pre.previousSibling}
     }
@@ -2333,7 +2331,7 @@ MathJax.Hub = {
         //
         //  Check if already processed or needs processing
         //
-        if (!script.parentNode || !script.MathJax || script.MathJax.state === STATE.PROCESSED) {state.i++; continue};
+        if (!script.parentNode || !script.MathJax || script.MathJax.state === STATE.PROCESSED) {state.i++; continue;}
         if (!script.MathJax.elementJax || script.MathJax.state === STATE.UPDATE) {
           this.checkScriptSiblings(script);                 // remove preJax/postJax etc.
           var type = script.type.replace(/ *;(.|\s)*/,"");  // the input jax type
@@ -2717,7 +2715,12 @@ MathJax.Hub.Startup = {
     var queue = MathJax.Callback.Queue();
     for (var i = 0, m = scripts.length; i < m; i++) {
       var type = String(scripts[i].type).replace(/ /g,"");
-      console.log("ConfigBlocks:check script:", {i, type, node: scripts[i], text: scripts[i].innerText});
+      console.log("ConfigBlocks:check script:", {
+        i: i, 
+        type: type, 
+        node: scripts[i], 
+        text: scripts[i].innerText
+      });
       if (type.match(/^text\/x-mathjax-config(;.*)?$/) && !type.match(/;executed=true/)) {
         scripts[i].type += ";executed=true";
         console.log("ConfigBlocks:queue script:", i, scripts[i].innerHTML);
@@ -2748,7 +2751,7 @@ MathJax.Hub.Startup = {
             if (jax[i].substr(0,7) === "output/") break;
           }
           if (i == m-1) {jax.pop()} else {
-            while (i < m) {if (jax[i] === name) {jax.splice(i,1); break}; i++}
+            while (i < m) {if (jax[i] === name) {jax.splice(i,1); break;} i++;}
           }
           jax.unshift(name);
         }
@@ -3057,7 +3060,7 @@ MathJax.Hub.Startup = {
       for (var i = 0, m = jax.length; i < m; i++) {
         file = BASE.ElementJax.directory+"/"+jax[i]+"/"+this.JAXFILE;
         if (!this.require) {this.require = []}
-          else if (!BASE.Object.isArray(this.require)) {this.require = [this.require]};
+          else if (!BASE.Object.isArray(this.require)) {this.require = [this.require];}
         this.require.push(file);  // so Startup will wait for it to be loaded
         queue.Push(AJAX.Require(file));
       }
@@ -3077,7 +3080,13 @@ MathJax.Hub.Startup = {
     },
     needsUpdate: function (jax) {
       var script = jax.SourceElement();
-      return (jax.originalText !== BASE.HTML.getScript(script));
+      var original = jax.originalText;
+      var actual = BASE.HTML.getScript(script);
+      console.error("needsUpdate:", {
+        original: original,
+        actual: actual,
+      });
+      return (original !== actual);
     },
     Register: function (mimetype) {
       if (!HUB.inputJax) {HUB.inputJax = {}}
@@ -3115,7 +3124,7 @@ MathJax.Hub.Startup = {
         {jax[mimetype].unshift(this)} else {jax[mimetype].push(this)}
       //  Make sure the element jax is loaded before Startup is called
       if (!this.require) {this.require = []}
-        else if (!BASE.Object.isArray(this.require)) {this.require = [this.require]};
+        else if (!BASE.Object.isArray(this.require)) {this.require = [this.require];}
       this.require.push(BASE.ElementJax.directory+"/"+(mimetype.split(/\//)[1])+"/"+this.JAXFILE);
     },
     Remove: function (jax) {}
@@ -3262,7 +3271,7 @@ MathJax.Hub.Startup = {
 
   var HUB = BASE.Hub; var STARTUP = HUB.Startup; var CONFIG = HUB.config;
   var HEAD = document.head || (document.getElementsByTagName("head")[0]);
-  if (!HEAD) {HEAD = document.childNodes[0]};
+  if (!HEAD) {HEAD = document.childNodes[0];}
   var scripts = (document.documentElement || document).getElementsByTagName("script");
   if (scripts.length === 0 && HEAD.namespaceURI)
     scripts = document.getElementsByTagNameNS(HEAD.namespaceURI,"script");
@@ -3331,7 +3340,7 @@ MathJax.Hub.Startup = {
       HUB.Browser.version = MATCH[2] || MATCH[4] || MATCH[6];
       break;
     }
-  }};
+  }}
 
   //
   //  Initial browser-specific info (e.g., touch up version or name, check for MathPlayer, etc.)
@@ -3381,7 +3390,7 @@ MathJax.Hub.Startup = {
     Chrome: function (browser) {
       browser.noContextMenu = browser.isMobile = !!navigator.userAgent.match(/ Mobile[ \/]/);
     },
-    Opera: function (browser) {browser.version = opera.version()},
+    Opera: function (browser) {browser.version = window.opera.version()},
     Edge: function (browser) {
       browser.isMobile = !!navigator.userAgent.match(/ Phone/);
     },
