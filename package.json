@@ -26,6 +26,7 @@
   "main": "./unpacked/MathJax.js",
   "scripts": {
     "test": "npm run build && echo 'No tests here!'",
+    "lint": "cd node_modules/@gerhobbelt/mathjax-dev && make lint",
     "build": "cd node_modules/@gerhobbelt/mathjax-dev && make all",
     "prettier": "cd node_modules/@gerhobbelt/mathjax-dev && make prettier",
     "clean": "cd node_modules/@gerhobbelt/mathjax-dev && make clean-destination",
@@ -33,6 +34,9 @@
   },
   "devDependencies": {
     "@gerhobbelt/mathjax-dev": "1.0.1-8",
+    "eslint": "^5.6.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
     "usus": "1.6.0"
   },
   "dependencies": {}
