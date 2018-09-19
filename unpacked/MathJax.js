@@ -2315,6 +2315,7 @@ MathJax.Hub = {
   },
 
   processInput: function (state) {
+    state.start = state.start || new Date().getTime();
     var jax, STATE = MathJax.ElementJax.STATE;
     var script, prev, m = state.scripts.length;
     try {
@@ -2322,7 +2323,8 @@ MathJax.Hub = {
       //  Loop through the scripts
       //
       while (state.i < m) {
-        script = state.scripts[state.i]; if (!script) {state.i++; continue}
+        script = state.scripts[state.i]; 
+        if (!script) {state.i++; continue}
         //
         //  Remove previous error marker, if any
         //
@@ -2353,7 +2355,7 @@ MathJax.Hub = {
         state.i++; var now = new Date().getTime();
         var delta = now - state.start;
         if (delta > this.processUpdateTime && state.i < state.scripts.length)
-          {state.start = now; this.RestartAfter(MathJax.Callback.Delay(1))}
+          {state.start = 0; this.RestartAfter(MathJax.Callback.Delay(1))}
       }
     } catch (err) {return this.processError(err,state,"Input")}
     //
@@ -2361,7 +2363,8 @@ MathJax.Hub = {
     //
     if (state.scripts.length && this.config.showProcessingMessages)
       {MathJax.Message.Set(["ProcessMath","Processing math: %1%%",100],0)}
-    state.start = new Date().getTime(); state.i = state.j = 0;
+    state.start = new Date().getTime(); 
+    state.i = state.j = 0;
     return null;
   },
   postInputHooks: MathJax.Callback.Hooks(true),  // hooks to run after element jax is created
@@ -2426,6 +2429,7 @@ MathJax.Hub = {
   },
 
   processOutput: function (state) {
+    state.start = state.start || new Date().getTime();
     var result, STATE = MathJax.ElementJax.STATE, script, m = state.scripts.length;
     try {
       //
@@ -2466,7 +2470,7 @@ MathJax.Hub = {
         var now = new Date().getTime();
         var delta = now - state.start;
         if (delta > this.processUpdateTime && state.i < state.scripts.length)
-          {state.start = now; this.RestartAfter(MathJax.Callback.Delay(this.processUpdateDelay))}
+          {state.start = 0; this.RestartAfter(MathJax.Callback.Delay(this.processUpdateDelay))}
       }
     } catch (err) {return this.processError(err,state,"Output")}
     //
