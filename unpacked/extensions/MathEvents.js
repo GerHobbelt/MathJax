@@ -214,7 +214,6 @@
           //
           var annotations = source.items[2]; annotations.disabled = true;
           var annotationItems = annotations.submenu.items;
-          annotationList = MathJax.Hub.Config.semanticsAnnotations;
           for (var i = 0, m = annotationItems.length; i < m; i++) {
             var name = annotationItems[i].name[1]
             if (jax.root && jax.root.getAnnotation(name) !== null) {

@@ -362,19 +362,20 @@ function translate(spanclassAM) {
   }
 }
 */
-function createElementXHTML(t) {
+
+var createElementXHTML = function createElementXHTML(t) {
   if (isIE) return document.createElement(t);
   else return document.createElementNS("http://www.w3.org/1999/xhtml",t);
 }
 
 var AMmathml = "http://www.w3.org/1998/Math/MathML";
 
-function AMcreateElementMathML(t) {
+var AMcreateElementMathML = function AMcreateElementMathML(t) {
   if (isIE) return document.createElement("m:"+t);
   else return document.createElementNS(AMmathml,t);
 }
 
-function createMmlNode(t,frag) {
+var createMmlNode = function createMmlNode(t,frag) {
   var node;
   if (isIE) node = document.createElement("m:"+t);
   else node = document.createElementNS(AMmathml,t);
@@ -683,14 +684,14 @@ AMquote, AMset,
 {input:"mathfrak",  tag:"mstyle", atname:"mathvariant", atval:"fraktur", output:"mathfrak", tex:null, ttype:UNARY, codes:AMfrk}
 ];
 
-function compareNames(s1,s2) {
+var compareNames = function compareNames(s1,s2) {
   if (s1.input > s2.input) return 1
   else return -1;
 }
 
 var AMnames = []; //list of input symbols
 
-function initSymbols() {
+var initSymbols = function initSymbols() {
   var i;
   var symlen = AMsymbols.length;
   for (i=0; i<symlen; i++) {
@@ -703,7 +704,7 @@ function initSymbols() {
   refreshSymbols();
 }
 
-function refreshSymbols(){
+var refreshSymbols = function refreshSymbols(){
   var i;
   AMsymbols.sort(compareNames);
   for (i=0; i<AMsymbols.length; i++) AMnames[i] = AMsymbols[i].input;
@@ -714,7 +715,7 @@ function define(oldstr,newstr) {
   refreshSymbols(); // this may be a problem if many symbols are defined!
 }
 
-function AMremoveCharsAndBlanks(str,n) {
+var AMremoveCharsAndBlanks = function AMremoveCharsAndBlanks(str,n) {
 //remove n characters and any following blanks
   var st;
   if (str.charAt(n)=="\\" && str.charAt(n+1)!="\\" && str.charAt(n+1)!=" ")
@@ -724,7 +725,7 @@ function AMremoveCharsAndBlanks(str,n) {
   return st.slice(i);
 }
 
-function position(arr, str, n) {
+var position = function position(arr, str, n) {
 // return position >=n where str appears or would be inserted
 // assumes arr is sorted
   if (n==0) {
@@ -741,7 +742,7 @@ function position(arr, str, n) {
   return i; // i=arr.length || arr[i]>=str
 }
 
-function AMgetSymbol(str) {
+var AMgetSymbol = function AMgetSymbol(str) {
 //return maximal initial substring of str that appears in names
 //return null if there is none
   var k = 0; //new pos
@@ -802,7 +803,7 @@ function AMgetSymbol(str) {
   return {input:st, tag:tagst, output:st, ttype:CONST};
 }
 
-function AMremoveBrackets(node) {
+var AMremoveBrackets = function AMremoveBrackets(node) {
   var st;
   if (!node.hasChildNodes()) { return; }
   if (node.firstChild.hasChildNodes() && (node.nodeName=="mrow" || node.nodeName=="M:MROW")) {
@@ -828,7 +829,7 @@ Each terminal symbol is translated into a corresponding mathml node.*/
 
 var AMnestingDepth,AMpreviousSymbol,AMcurrentSymbol;
 
-function AMparseSexpr(str) { //parses str and returns [node,tailstr]
+var AMparseSexpr = function AMparseSexpr(str) { //parses str and returns [node,tailstr]
   var symbol, node, result, i, st,// rightvert = false,
       newFrag = document.createDocumentFragment();
   str = AMremoveCharsAndBlanks(str,0);
@@ -1024,7 +1025,7 @@ function AMparseSexpr(str) { //parses str and returns [node,tailstr]
   }
 }
 
-function AMparseIexpr(str) {
+var AMparseIexpr = function AMparseIexpr(str) {
   var symbol, sym1, sym2, node, result, underover;
   str = AMremoveCharsAndBlanks(str,0);
   sym1 = AMgetSymbol(str);
@@ -1077,7 +1078,7 @@ function AMparseIexpr(str) {
   return [node,str];
 }
 
-function AMparseExpr(str,rightbracket) {
+var AMparseExpr = function AMparseExpr(str,rightbracket) {
   var symbol, node, result, i,
   newFrag = document.createDocumentFragment();
   do {
@@ -1186,7 +1187,7 @@ function AMparseExpr(str,rightbracket) {
   return [newFrag,str];
 }
 
-function parseMath(str,latex) {
+var parseMath = function parseMath(str,latex) {
   var frag, node;
   AMnestingDepth = 0;
   //some basic cleanup for dealing with stuff editors like TinyMCE adds
@@ -1435,20 +1436,20 @@ ASCIIMATH.Augment({
         switch (id) {
          case "displaystyle": displaystyle = def[id]; break;
          case "decimal": decimalsign = def[id]; break;
-         case "parseMath": parseMath = def[id]; break;
-         case "parseExpr": AMparseExpr = def[id]; break;
-         case "parseIexpr": AMparseIexpr = def[id]; break;
-         case "parseSexpr": AMparseSexpr = def[id]; break;
-         case "removeBrackets": AMremoveBrackets = def[id]; break;
-         case "getSymbol": AMgetSymbol = def[id]; break;
-         case "position": position = def[id]; break;
-         case "removeCharsAndBlanks": AMremoveCharsAndBlanks = def[id]; break;
-         case "createMmlNode": createMmlNode = def[id]; break;
-         case "createElementMathML": AMcreateElementMathML = def[id]; break;
-         case "createElementXHTML": createElementXHTML = def[id]; break;
-         case "initSymbols": initSymbols = def[id]; break;
-         case "refreshSymbols": refreshSymbols = def[id]; break;
-         case "compareNames": compareNames = def[id]; break;
+         case "parseMath": parseMath = def[id]; break;                               // function
+         case "parseExpr": AMparseExpr = def[id]; break;                               // function
+         case "parseIexpr": AMparseIexpr = def[id]; break;                               // function
+         case "parseSexpr": AMparseSexpr = def[id]; break;                               // function
+         case "removeBrackets": AMremoveBrackets = def[id]; break;                               // function
+         case "getSymbol": AMgetSymbol = def[id]; break;                               // function
+         case "position": position = def[id]; break;                               // function
+         case "removeCharsAndBlanks": AMremoveCharsAndBlanks = def[id]; break;                               // function
+         case "createMmlNode": createMmlNode = def[id]; break;                               // function
+         case "createElementMathML": AMcreateElementMathML = def[id]; break;                               // function
+         case "createElementXHTML": createElementXHTML = def[id]; break;                               // function
+         case "initSymbols": initSymbols = def[id]; break;                               // function
+         case "refreshSymbols": refreshSymbols = def[id]; break;                               // function
+         case "compareNames": compareNames = def[id]; break;                               // function
         }
         this[id] = def[id];
       }}
@@ -1497,7 +1498,7 @@ var junk = [window, navigator]; junk = null;
 /************************************************************************/
 
 
-  var MML;
+  // var MML;
   
   ASCIIMATH.Augment({
     sourceMenuTitle: /*_(MathMenu)*/ ["AsciiMathInput","AsciiMath Input"],

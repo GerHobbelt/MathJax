@@ -21,6 +21,8 @@
  *  limitations under the License.
  */
 
+/* global sre:false */
+
 MathJax.Hub.Register.StartupHook('Sre Ready', function() {
   var FALSE, KEY;
   var SETTINGS = MathJax.Hub.config.menuSettings;
@@ -117,8 +119,8 @@ MathJax.Hub.Register.StartupHook('Sre Ready', function() {
       }
     },
 
-    hook: null,
-    locHook: null,
+    // hook: null,
+    // locHook: null,
     Enable: function(update, menu) {
       SETTINGS.explorer = true;
       if (menu) COOKIE.explorer = true;

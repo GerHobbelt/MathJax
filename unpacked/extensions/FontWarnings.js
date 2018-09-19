@@ -296,8 +296,8 @@
       if (message.match(/HTML-CSS Jax - /) && !DATA.div) {
         var HTMLCSS = MathJax.OutputJax["HTML-CSS"], FONTS = HTMLCSS.config.availableFonts, MSG;
         var localFonts = (FONTS && FONTS.length);
-      	if (!localFonts) {CONFIG.HTML.fonts = [""]}
-      	else if (FONTS.length === 1) {
+        if (!localFonts) {CONFIG.HTML.fonts = [""]}
+        else if (FONTS.length === 1) {
           CONFIG.HTML.fonts = CONFIG.HTML[FONTS[0]+"fonts"];
         }
         if (HTMLCSS.allowWebFonts) {

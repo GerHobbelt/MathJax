@@ -232,10 +232,10 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         } else if (this.MatchParam(param)) {
           if (hasBraces) {i++; j -= 2}
           return this.string.substr(i,j);
-	} else if (c === "\\") {
-	  this.i++; j++; hasBraces = 0;
-	  var match = this.string.substr(this.i).match(/[a-z]+|./i);
-	  if (match) {this.i += match[0].length; j = this.i - i}
+  } else if (c === "\\") {
+    this.i++; j++; hasBraces = 0;
+    var match = this.string.substr(this.i).match(/[a-z]+|./i);
+    if (match) {this.i += match[0].length; j = this.i - i}
         } else {
           this.i++; j++; hasBraces = 0;
         }

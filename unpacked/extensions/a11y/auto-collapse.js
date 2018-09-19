@@ -245,9 +245,9 @@
     GetContainerWidths: function (element) {
       var JAX = HUB.getAllJax(element);
       var i, m, script, span = MathJax.HTML.Element("span",{style:{display:"block"}});
-      var math = [], jax, root;
+      var math = [], jax, root, SRE;
       for (i = 0, m = JAX.length; i < m; i++) {
-        jax = JAX[i], root = jax.root, SRE = root.SRE;
+        jax = JAX[i]; root = jax.root; SRE = root.SRE;
         if (SRE && SRE.action.length) {
           if (SRE.width == null) {
             jax.sreGetMetrics();

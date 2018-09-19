@@ -347,7 +347,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
           } else {
             CjStyle.width = HTMLCSS.Em(W[j]); xf += W[j];
           }
-	  if (HTMLCSS.msieRelativeWidthBug) {
+    if (HTMLCSS.msieRelativeWidthBug) {
             HTMLCSS.addText(Cj.firstChild,HTMLCSS.NBSP); // gets correct baseline
             Cj.firstChild.style.position = "relative";
           }

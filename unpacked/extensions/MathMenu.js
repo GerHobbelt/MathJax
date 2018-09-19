@@ -380,7 +380,7 @@
       var div = document.getElementById("MathJax_MenuFrame");
       if (div) {
         div.parentNode.removeChild(div);
-        if (this.msieFixedPositionBug) {detachEvent("onresize",MENU.Resize)}
+        if (this.msieFixedPositionBug) {window.detachEvent("onresize",MENU.Resize)}
       }
       if (MENU.jax.hover) {
         delete MENU.jax.hover.nofade;
@@ -494,7 +494,7 @@
         //  MSIE can't do fixed position, so use a full-sized background
         //  and an onresize handler to update it (stupid, but necessary)
         div.width = div.height = 0; this.Resize();
-        attachEvent("onresize",this.Resize);
+        window.attachEvent("onresize",this.Resize);
       } else {
         // otherwise, use a fixed position DIV to cover the viewport
         bg.style.position = "fixed";

@@ -53,7 +53,7 @@
     },
     AddDefaults: function() {
       var keys = KEYS(Accessibility.defaults);
-      for (var i = 0, key; key = keys[i]; i++) {
+      for (var i = 0, key; ((key = keys[i])); i++) {
         var option = Accessibility.MakeOption(key);
         if (typeof(SETTINGS[option]) === 'undefined') {
           SETTINGS[option] = Accessibility.defaults[key];
@@ -63,7 +63,7 @@
     // Attaches the menu items;
     AddMenu: function() {
       var items = Array(this.modules.length);
-      for (var i = 0, module; module = this.modules[i]; i++) items[i] = module.placeHolder;
+      for (var i = 0, module; ((module = this.modules[i])); i++) items[i] = module.placeHolder;
       var menu = MENU.FindId('Accessibility');
       if (menu) {
         items.unshift(ITEM.RULE());
@@ -77,7 +77,7 @@
           items.unshift(renderer.items.pop());
         }
         items.unshift("Accessibility");
-        var menu = ITEM.SUBMENU.apply(ITEM.SUBMENU,items);
+        menu = ITEM.SUBMENU.apply(ITEM.SUBMENU,items);
         var locale = MENU.IndexOfId('Locale');
         if (locale) {
           MENU.items.splice(locale,0,menu);
@@ -93,12 +93,12 @@
     Startup: function() {
       ITEM = MathJax.Menu.ITEM;
       MENU = MathJax.Menu.menu;
-      for (var i = 0, module; module = this.modules[i]; i++) module.CreateMenu();
+      for (var i = 0, module; ((module = this.modules[i])); i++) module.CreateMenu();
       this.AddMenu();
     },
     LoadExtensions: function () {
       var extensions = [];
-      for (var i = 0, module; module = this.modules[i]; i++) {
+      for (var i = 0, module; ((module = this.modules[i])); i++) {
         if (SETTINGS[module.option]) extensions.push(module.module);
       }
       return (extensions.length ? HUB.Startup.loadArray(extensions) : null);

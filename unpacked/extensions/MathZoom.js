@@ -206,8 +206,8 @@
       //  Add event handlers
       //
       if (this.settings.zoom === "Hover") {overlay.onmouseover = this.Remove}
-      if (window.addEventListener) {addEventListener("resize",this.Resize,false)}
-      else if (window.attachEvent) {attachEvent("onresize",this.Resize)}
+      if (window.addEventListener) {window.addEventListener("resize",this.Resize,false)}
+      else if (window.attachEvent) {window.attachEvent("onresize",this.Resize)}
       else {this.onresize = window.onresize; window.onresize = this.Resize}
 
       //
@@ -275,11 +275,11 @@
     //  Look up CSS properties (use getComputeStyle if available, or currentStyle if not)
     //
     getOverflow: (window.getComputedStyle ?
-      function (obj) {return getComputedStyle(obj).overflow} :
+      function (obj) {return window.getComputedStyle(obj).overflow} :
       function (obj) {return (obj.currentStyle||{overflow:"visible"}).overflow}),
     getBorder: function (obj) {
       var size = {thin: 1, medium: 2, thick: 3};
-      var style = (window.getComputedStyle ? getComputedStyle(obj) :
+      var style = (window.getComputedStyle ? window.getComputedStyle(obj) :
                      (obj.currentStyle || {borderLeftWidth:0,borderTopWidth:0}));
       var x = style.borderLeftWidth, y = style.borderTopWidth;
       if (size[x]) {x = size[x]} else {x = parseInt(x)}
@@ -320,8 +320,8 @@
           });
           document.body.removeChild(overlay);
         }
-        if (window.removeEventListener) {removeEventListener("resize",ZOOM.Resize,false)}
-        else if (window.detachEvent) {detachEvent("onresize",ZOOM.Resize)}
+        if (window.removeEventListener) {window.removeEventListener("resize",ZOOM.Resize,false)}
+        else if (window.detachEvent) {window.detachEvent("onresize",ZOOM.Resize)}
         else {window.onresize = ZOOM.onresize; delete ZOOM.onresize}
       }
       return FALSE(event);

@@ -1568,10 +1568,10 @@
         FONTDATA.REMAP[0x2DA] = 0xB0; // ring above
         // MSIE can't access Greek block
         FONTDATA.RANGES[5] = FONTDATA.RANGES[4]; FONTDATA.RANGES[4] = FONTDATA.RANGES[3]
-	FONTDATA.RANGES[3] = {name: "greek", low: 0x03B1, high: 0x03F6, offset: "GG",
-	  remap: {0x03F5: 26, 0x03D1: 27, 0x03F0: 28, 0x03D5: 29, 0x03F1: 30, 0x03D6: 31}};
-	FONTDATA.VARIANT["bold"].offsetGG = 0x1D6C2; FONTDATA.VARIANT["bold"].offsetG = 0x1D6A8;
-	FONTDATA.VARIANT["italic"].offsetGG = 0x1D6FC; FONTDATA.VARIANT["italic"].offsetG = 0x1D6E2;
+  FONTDATA.RANGES[3] = {name: "greek", low: 0x03B1, high: 0x03F6, offset: "GG",
+    remap: {0x03F5: 26, 0x03D1: 27, 0x03F0: 28, 0x03D5: 29, 0x03F1: 30, 0x03D6: 31}};
+  FONTDATA.VARIANT["bold"].offsetGG = 0x1D6C2; FONTDATA.VARIANT["bold"].offsetG = 0x1D6A8;
+  FONTDATA.VARIANT["italic"].offsetGG = 0x1D6FC; FONTDATA.VARIANT["italic"].offsetG = 0x1D6E2;
         FONTDATA.VARIANT["bold-italic"].offsetGG = 0x1D736; FONTDATA.VARIANT["bold-italic"].offsetG = 0x1D71C;
       }
     },

@@ -27,9 +27,9 @@ MathJax.Extension["TeX/text-macros"] = {
 };
 
 MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
-  MML = MathJax.ElementJax.mml;
-  TEX = MathJax.InputJax.TeX;
-  TEXDEF = TEX.Definitions;
+  var MML = MathJax.ElementJax.mml;
+  var TEX = MathJax.InputJax.TeX;
+  var TEXDEF = TEX.Definitions;
 
   TEX.Parse.Augment({
     //
@@ -273,7 +273,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
     //
     Math: function (open) {
       this.SaveText();
-      var i = this.i, j;
+      var i = this.i, j, c;
       var braces = 0;
       while ((c = this.GetNext())) {
         j = this.i++;
@@ -281,6 +281,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
           case '\\':
             var cs = this.GetCS();
             if (cs === ')') c = '\\(';
+            // falls through
+            
           case '$':
             if (braces === 0 && open === c) {
               this.Push(TEX.Parse(this.string.substr(i, j-i),this.env).mml());
