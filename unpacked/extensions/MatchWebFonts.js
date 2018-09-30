@@ -98,9 +98,14 @@ debugger;
           //  Check if ex or mex has changed
           //
           var test = script.previousSibling;
-          var ex = test.firstChild.offsetHeight/60;
-          var em = test.lastChild.lastChild.offsetHeight/60;
-          if (ex === 0 || ex === "NaN") {ex = this.defaultEx; em = this.defaultEm}
+          var ex = test.firstChild && (test.firstChild.offsetHeight/60);
+          var em = test.lastChild && test.lastChild.lastChild && (test.lastChild.lastChild.offsetHeight/60);
+          if (!ex || !isFinite(ex)) {
+            ex = this.defaultEx; 
+          }
+          if (!em || !isFinite(em)) {
+            em = this.defaultEm;
+          }
           if (ex !== jax.HTMLCSS.ex || em !== jax.HTMLCSS.em) {
             var scale = ex/this.TeX.x_height/em;
             scale = Math.floor(Math.max(this.config.minScaleAdjust/100,scale)*this.config.scale);
@@ -183,8 +188,10 @@ debugger;
           //  Check if ex or mex has changed
           //
           var test = script.previousSibling;
-          var ex = test.firstChild.offsetHeight/60;
-          if (ex === 0 || ex === "NaN") {ex = this.defaultEx}
+          var ex = test.firstChild && (test.firstChild.offsetHeight/60);
+          if (!ex || !isFinite(ex)) {
+            ex = this.defaultEx; 
+          }
           if (ex !== jax.SVG.ex) {size.push(script);}
         }
         //
@@ -267,9 +274,14 @@ debugger;
           //  Check if ex or mex has changed
           //
           var test = script.previousSibling;
-          var ex = test.firstChild.offsetWidth/60;
-          var mex = test.lastChild.offsetWidth/60;
-          if (ex === 0 || ex === "NaN") {ex = this.defaultEx; mex = this.defaultMEx}
+          var ex = test.firstChild && (test.firstChild.offsetWidth/60);
+          var mex = test.lastChild && (test.lastChild.offsetWidth/60);
+          if (!ex || !isFinite(ex)) {
+            ex = this.defaultEx; 
+          }
+          if (!mex || !isFinite(mex)) {
+            mex = this.defaultMEx; 
+          }
           var newEx = (ex !== jax.ex);
           if (newEx || mex != jax.mex) {
             var scale = (this.config.matchFontHeight && mex > 1 ? ex/mex : 1);
