@@ -2208,7 +2208,10 @@ MathJax.Hub = {
   Process:   function (element,callback) {return this.takeAction("Process",element,callback)},
   Update:    function (element,callback) {return this.takeAction("Update",element,callback)},
   Reprocess: function (element,callback) {return this.takeAction("Reprocess",element,callback)},
-  Rerender:  function (element,callback) {return this.takeAction("Rerender",element,callback)},
+  Rerender:  function (element,callback) {
+    debugger;
+    return this.takeAction("Rerender",element,callback);
+  },
 
   takeAction: function (action,element,callback) {
     var ec = this.elementCallback(element,callback);
@@ -2253,16 +2256,28 @@ MathJax.Hub = {
     Process: function (script) {},
     Update: function (script) {
       var jax = script.MathJax.elementJax;
-      if (jax && jax.needsUpdate()) {jax.Remove(true); script.MathJax.state = jax.STATE.UPDATE}
-        else {script.MathJax.state = jax.STATE.PROCESSED}
+      if (jax && jax.needsUpdate()) {
+        jax.Remove(true); 
+        script.MathJax.state = jax.STATE.UPDATE;
+      } else {
+        script.MathJax.state = jax.STATE.PROCESSED;
+      }
     },
     Reprocess: function (script) {
+      debugger;
       var jax = script.MathJax.elementJax;
-      if (jax) {jax.Remove(true); script.MathJax.state = jax.STATE.UPDATE}
+      if (jax) {
+        jax.Remove(true); 
+        script.MathJax.state = jax.STATE.UPDATE;
+      }
     },
     Rerender: function (script) {
+      debugger;
       var jax = script.MathJax.elementJax;
-      if (jax) {jax.Remove(true); script.MathJax.state = jax.STATE.OUTPUT}
+      if (jax) {
+        jax.Remove(true); 
+        script.MathJax.state = jax.STATE.OUTPUT;
+      }
     }
   },
 
@@ -3165,9 +3180,10 @@ MathJax.Hub.Startup = {
       script.MathJax.state = this.STATE.UPDATE;
       return HUB.Reprocess(script,callback);
     },
-    Update: function (callback) {return this.Rerender(callback)},
+    Update: function (callback) {return this.Rerender(callback);},
     Rerender: function (callback) {
       var script = this.SourceElement();
+      debugger;
       script.MathJax.state = this.STATE.OUTPUT;
       return HUB.Process(script,callback);
     },

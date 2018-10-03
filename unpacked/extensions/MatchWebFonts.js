@@ -4,22 +4,22 @@
 /*************************************************************
  *
  *  MathJax/extensions/MatchWebFonts.js
- *  
+ *
  *  Adds code to the output jax so that if web fonts are used on the page,
  *  MathJax will be able to detect their arrival and update the math to
  *  accommodate the change in font.  For the NativeMML output, this works
  *  both for web fonts in main text, and for web fonts in the math as well.
  *
  *  ---------------------------------------------------------------------
- *  
+ *
  *  Copyright (c) 2013-2018 The MathJax Consortium
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,10 +27,10 @@
  *  limitations under the License.
  */
 
-(function (HUB,AJAX) {
+(function(HUB, AJAX) {
   var VERSION = "2.7.5";
-  
-  var CONFIG = MathJax.Hub.CombineConfig("MatchWebFonts",{
+
+  var CONFIG = MathJax.Hub.CombineConfig("MatchWebFonts", {
     matchFor: {
       "HTML-CSS": true,
       NativeMML: true,
@@ -39,7 +39,7 @@
     fontCheckDelay: 500,          // initial delay for the first check for web fonts
     fontCheckTimeout: 15 * 1000,  // how long to keep looking for fonts (15 seconds)
   });
-  
+
   MathJax.Extension.MatchWebFonts = {
     version: VERSION,
     config: CONFIG
@@ -60,9 +60,9 @@
           AJAX.timer.start(AJAX,["checkFonts",this,state.jax[this.id]],
                            CONFIG.fontCheckDelay,CONFIG.fontCheckTimeout);
         }
-        return POSTTRANSLATE.apply(this,arguments); // do the original function
+        return POSTTRANSLATE.apply(this, arguments); // do the original function
       },
-      
+
       //
       //  Check to see if web fonts have been loaded that change the ex size
       //  of the surrounding font, the ex size within the math, or the widths
@@ -74,7 +74,7 @@
       //
       checkFonts: function (check,scripts) {
         if (check.time(function () {})) return;
-        var size = [], i, m, script, retry = false;
+        var size = [], i, m, script;
 debugger;
         //
         //  Add the elements used for testing ex and em sizes
@@ -89,48 +89,58 @@ debugger;
         //  Check to see if anything has changed
         //
         for (i = 0, m = scripts.length; i < m; i++) {
-          script = scripts[i]; 
-          if (!script.parentNode) continue; 
-          retry = true;
-          var jax = script.MathJax.elementJax; 
+          script = scripts[i];
+          if (!script.parentNode) continue;
+          var jax = script.MathJax.elementJax;
           if (!jax) continue;
           //
           //  Check if ex or mex has changed
           //
           var test = script.previousSibling;
-          var ex = test.firstChild && (test.firstChild.offsetHeight/60);
-          var em = test.lastChild && test.lastChild.lastChild && (test.lastChild.lastChild.offsetHeight/60);
+          var ex = test && test.firstChild && test.firstChild.offsetHeight / 60;
+          var em = test && test.lastChild && test.lastChild.lastChild && test.lastChild.lastChild.offsetHeight / 60;
           if (!ex || !isFinite(ex)) {
-            ex = this.defaultEx; 
+            ex = this.defaultEx;
           }
           if (!em || !isFinite(em)) {
             em = this.defaultEm;
           }
-          if (ex !== jax.HTMLCSS.ex || em !== jax.HTMLCSS.em) {
+          if (jax.HTMLCSS && (ex !== jax.HTMLCSS.ex || em !== jax.HTMLCSS.em)) {
             var scale = ex/this.TeX.x_height/em;
             scale = Math.floor(Math.max(this.config.minScaleAdjust/100,scale)*this.config.scale);
-            if (scale/100 !== jax.scale) {size.push(script);}
+            if (scale/100 !== jax.scale) {
+              size.push(script);
+            }
+console.log({
+  i,
+  scale,
+  jaxScale: jax.scale,
+  ex,
+  em,
+});
+            jax.scale = scale/100; // jax.ex = ex; jax.mex = mex;
           }
         }
         //
-        //  Remove markers
+        //  Remove markers which were added above
         //
         for (i = 0, m = scripts.length; i < m; i++) {
           script = scripts[i];
-          if (script && script.parentNode && script.MathJax.elementJax) {
+          if (script && script.parentNode && script.MathJax.elementJax && this.EmExSpan) {
             script.parentNode.removeChild(script.previousSibling);
           }
         }
         //
         //  Rerender the changed items
         //
-        if (size.length) {HUB.Queue(["Rerender",HUB,[size],{}])}
-        //
-        //  Try again later (if not all the scripts are null)
-        //
-        if (retry) {
-          setTimeout(check, check.delay);
+        if (size.length) {
+          HUB.Queue(["Rerender", HUB]);
         }
+        //
+        //  Try again later
+        //
+debugger;
+        setTimeout(check, check.delay);
       }
     });
   });
@@ -152,7 +162,7 @@ debugger;
         }
         return POSTTRANSLATE.apply(this,arguments); // do the original function
       },
-      
+
       //
       //  Check to see if web fonts have been loaded that change the ex size
       //  of the surrounding font, the ex size within the math, or the widths
@@ -164,7 +174,7 @@ debugger;
       //
       checkFonts: function (check,scripts) {
         if (check.time(function () {})) return;
-        var size = [], i, m, script, retry = false;
+        var size = [], i, m, script;
 debugger;
         //
         //  Add the elements used for testing ex and em sizes
@@ -179,40 +189,42 @@ debugger;
         //  Check to see if anything has changed
         //
         for (i = 0, m = scripts.length; i < m; i++) {
-          script = scripts[i]; 
-          if (!script.parentNode) continue; 
-          retry = true;
-          var jax = script.MathJax.elementJax; 
+          script = scripts[i];
+          if (!script.parentNode) continue;
+          var jax = script.MathJax.elementJax;
           if (!jax) continue;
           //
           //  Check if ex or mex has changed
           //
           var test = script.previousSibling;
-          var ex = test.firstChild && (test.firstChild.offsetHeight/60);
+          var ex = test && test.firstChild && test.firstChild.offsetHeight / 60;
           if (!ex || !isFinite(ex)) {
-            ex = this.defaultEx; 
+            ex = this.defaultEx;
           }
-          if (ex !== jax.SVG.ex) {size.push(script);}
+          if (ex !== jax.SVG.ex) {
+            size.push(script);
+          }
         }
         //
-        //  Remove markers
+        //  Remove markers which were added above
         //
         for (i = 0, m = scripts.length; i < m; i++) {
           script = scripts[i];
-          if (script && script.parentNode && script.MathJax.elementJax) {
+          if (script && script.parentNode && script.MathJax.elementJax && this.EmExSpan) {
             script.parentNode.removeChild(script.previousSibling);
           }
         }
         //
         //  Rerender the changed items
         //
-        if (size.length) {HUB.Queue(["Rerender",HUB,[size],{}])}
-        //
-        //  Try again later (if not all the scripts are null)
-        //
-        if (retry) {
-          setTimeout(check, check.delay);
+        if (size.length) {
+          HUB.Queue(["Rerender", HUB]);
         }
+        //
+        //  Try again later
+        //
+debugger;
+        setTimeout(check, check.delay);
       }
     });
   });
@@ -220,7 +232,7 @@ debugger;
   HUB.Register.StartupHook("NativeMML Jax Ready",function () {
     var nMML = MathJax.OutputJax.NativeMML;
     var POSTTRANSLATE = nMML.postTranslate;
-    
+
     nMML.Augment({
       postTranslate: function (state,partial) {
         if (!HUB.Browser.isMSIE && !partial && CONFIG.matchFor.NativeMML && this.config.matchFontHeight) {
@@ -246,7 +258,7 @@ debugger;
       //
       checkFonts: function (check,scripts) {
         if (check.time(function () {})) return;
-        var adjust = [], mtd = [], size = [], i, m, script, retry = false;
+        var adjust = [], mtd = [], size = [], i, m, script;
 debugger;
         //
         //  Add the elements used for testing ex and em sizes
@@ -261,10 +273,9 @@ debugger;
         //  Check to see if anything has changed
         //
         for (i = 0, m = scripts.length; i < m; i++) {
-          script = scripts[i]; 
-          if (!script.parentNode) continue; 
-          retry = true;
-          var jax = script.MathJax.elementJax; 
+          script = scripts[i];
+          if (!script.parentNode) continue;
+          var jax = script.MathJax.elementJax;
           if (!jax) continue;
           var span = document.getElementById(jax.inputID+"-Frame");
           var math = span.getElementsByTagName("math")[0]; 
@@ -274,19 +285,21 @@ debugger;
           //  Check if ex or mex has changed
           //
           var test = script.previousSibling;
-          var ex = test.firstChild && (test.firstChild.offsetWidth/60);
-          var mex = test.lastChild && (test.lastChild.offsetWidth/60);
+          var ex = test && test.firstChild && test.firstChild.offsetWidth / 60;
+          var mex = test && test.lastChild && test.lastChild.offsetWidth / 60;
           if (!ex || !isFinite(ex)) {
-            ex = this.defaultEx; 
+            ex = this.defaultEx;
           }
           if (!mex || !isFinite(mex)) {
-            mex = this.defaultMEx; 
+            mex = this.defaultMEx;
           }
           var newEx = (ex !== jax.ex);
           if (newEx || mex != jax.mex) {
             var scale = (this.config.matchFontHeight && mex > 1 ? ex/mex : 1);
             scale = Math.floor(Math.max(this.config.minScaleAdjust/100,scale) * this.config.scale);
-            if (scale/100 !== jax.scale) {size.push([span.style,scale])}
+            if (scale/100 !== jax.scale) {
+              size.push([span.style,scale]);
+            }
             jax.scale = scale/100; jax.fontScale = scale+"%"; jax.ex = ex; jax.mex = mex;
           }
           
@@ -311,11 +324,11 @@ debugger;
           }
         }
         //
-        //  Remove markers
+        //  Remove markers which were added above
         //
         for (i = 0, m = scripts.length; i < m; i++) {
           script = scripts[i];
-          if (script && script.parentNode && script.MathJax.elementJax) {
+          if (script && script.parentNode && script.MathJax.elementJax && this.EmExSpan) {
             script.parentNode.removeChild(script.previousSibling);
           }
         }
@@ -346,7 +359,7 @@ debugger;
       }
     });
   });
-  
+
   HUB.Startup.signal.Post("MatchWebFonts Extension Ready");
   AJAX.loadComplete("[MathJax]/extensions/MatchWebFonts.js");
 

@@ -99,8 +99,7 @@
         var size = [],
           i,
           m,
-          script,
-          retry = false;
+          script;
         debugger;
         //
         //  Add the elements used for testing ex and em sizes
@@ -117,35 +116,42 @@
         for (i = 0, m = scripts.length; i < m; i++) {
           script = scripts[i];
           if (!script.parentNode) continue;
-          retry = true;
           var jax = script.MathJax.elementJax;
           if (!jax) continue;
           //
           //  Check if ex or mex has changed
           //
           var test = script.previousSibling;
-          var ex = test.firstChild && test.firstChild.offsetHeight / 60;
-          var em = test.lastChild && test.lastChild.lastChild && test.lastChild.lastChild.offsetHeight / 60;
+          var ex = test && test.firstChild && test.firstChild.offsetHeight / 60;
+          var em = test && test.lastChild && test.lastChild.lastChild && test.lastChild.lastChild.offsetHeight / 60;
           if (!ex || !isFinite(ex)) {
             ex = this.defaultEx;
           }
           if (!em || !isFinite(em)) {
             em = this.defaultEm;
           }
-          if (ex !== jax.HTMLCSS.ex || em !== jax.HTMLCSS.em) {
+          if (jax.HTMLCSS && (ex !== jax.HTMLCSS.ex || em !== jax.HTMLCSS.em)) {
             var scale = ex / this.TeX.x_height / em;
             scale = Math.floor(Math.max(this.config.minScaleAdjust / 100, scale) * this.config.scale);
             if (scale / 100 !== jax.scale) {
               size.push(script);
             }
+            console.log({
+              i,
+              scale,
+              jaxScale: jax.scale,
+              ex,
+              em
+            });
+            jax.scale = scale / 100; // jax.ex = ex; jax.mex = mex;
           }
         }
         //
-        //  Remove markers
+        //  Remove markers which were added above
         //
         for (i = 0, m = scripts.length; i < m; i++) {
           script = scripts[i];
-          if (script && script.parentNode && script.MathJax.elementJax) {
+          if (script && script.parentNode && script.MathJax.elementJax && this.EmExSpan) {
             script.parentNode.removeChild(script.previousSibling);
           }
         }
@@ -153,14 +159,13 @@
         //  Rerender the changed items
         //
         if (size.length) {
-          HUB.Queue(["Rerender", HUB, [size], {}]);
+          HUB.Queue(["Rerender", HUB]);
         }
         //
-        //  Try again later (if not all the scripts are null)
+        //  Try again later
         //
-        if (retry) {
-          setTimeout(check, check.delay);
-        }
+        debugger;
+        setTimeout(check, check.delay);
       }
     });
   });
@@ -201,8 +206,7 @@
         var size = [],
           i,
           m,
-          script,
-          retry = false;
+          script;
         debugger;
         //
         //  Add the elements used for testing ex and em sizes
@@ -219,14 +223,13 @@
         for (i = 0, m = scripts.length; i < m; i++) {
           script = scripts[i];
           if (!script.parentNode) continue;
-          retry = true;
           var jax = script.MathJax.elementJax;
           if (!jax) continue;
           //
           //  Check if ex or mex has changed
           //
           var test = script.previousSibling;
-          var ex = test.firstChild && test.firstChild.offsetHeight / 60;
+          var ex = test && test.firstChild && test.firstChild.offsetHeight / 60;
           if (!ex || !isFinite(ex)) {
             ex = this.defaultEx;
           }
@@ -235,11 +238,11 @@
           }
         }
         //
-        //  Remove markers
+        //  Remove markers which were added above
         //
         for (i = 0, m = scripts.length; i < m; i++) {
           script = scripts[i];
-          if (script && script.parentNode && script.MathJax.elementJax) {
+          if (script && script.parentNode && script.MathJax.elementJax && this.EmExSpan) {
             script.parentNode.removeChild(script.previousSibling);
           }
         }
@@ -247,14 +250,13 @@
         //  Rerender the changed items
         //
         if (size.length) {
-          HUB.Queue(["Rerender", HUB, [size], {}]);
+          HUB.Queue(["Rerender", HUB]);
         }
         //
-        //  Try again later (if not all the scripts are null)
+        //  Try again later
         //
-        if (retry) {
-          setTimeout(check, check.delay);
-        }
+        debugger;
+        setTimeout(check, check.delay);
       }
     });
   });
@@ -297,8 +299,7 @@
           size = [],
           i,
           m,
-          script,
-          retry = false;
+          script;
         debugger;
         //
         //  Add the elements used for testing ex and em sizes
@@ -315,7 +316,6 @@
         for (i = 0, m = scripts.length; i < m; i++) {
           script = scripts[i];
           if (!script.parentNode) continue;
-          retry = true;
           var jax = script.MathJax.elementJax;
           if (!jax) continue;
           var span = document.getElementById(jax.inputID + "-Frame");
@@ -326,8 +326,8 @@
           //  Check if ex or mex has changed
           //
           var test = script.previousSibling;
-          var ex = test.firstChild && test.firstChild.offsetWidth / 60;
-          var mex = test.lastChild && test.lastChild.offsetWidth / 60;
+          var ex = test && test.firstChild && test.firstChild.offsetWidth / 60;
+          var mex = test && test.lastChild && test.lastChild.offsetWidth / 60;
           if (!ex || !isFinite(ex)) {
             ex = this.defaultEx;
           }
@@ -368,11 +368,11 @@
           }
         }
         //
-        //  Remove markers
+        //  Remove markers which were added above
         //
         for (i = 0, m = scripts.length; i < m; i++) {
           script = scripts[i];
-          if (script && script.parentNode && script.MathJax.elementJax) {
+          if (script && script.parentNode && script.MathJax.elementJax && this.EmExSpan) {
             script.parentNode.removeChild(script.previousSibling);
           }
         }

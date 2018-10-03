@@ -1517,7 +1517,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
       directory: "[MathJax]/localization",
       strings: {
         // Currently, this list is not modified by the MathJax-i18n script. You can
-        // run the following command in MathJax/unpacked/localization to update it:
+        // run the following command in MathJax/localization to update it:
         //
         // find . -name "*.js" | xargs grep menuTitle\: | grep -v qqq | sed 's/^\.\/\(.*\)\/.*\.js\:  /    "\1"\: \{/' | sed 's/,$/\},/' | sed 's/"English"/"English", isLoaded: true/' > tmp ; sort tmp > tmp2 ; sed '$ s/,$//' tmp2 ; rm tmp*
         //
@@ -2695,6 +2695,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
         return this.takeAction("Reprocess", element, callback);
       },
       Rerender: function(element, callback) {
+        debugger;
         return this.takeAction("Rerender", element, callback);
       },
 
@@ -2752,6 +2753,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
           }
         },
         Reprocess: function(script) {
+          debugger;
           var jax = script.MathJax.elementJax;
           if (jax) {
             jax.Remove(true);
@@ -2759,6 +2761,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
           }
         },
         Rerender: function(script) {
+          debugger;
           var jax = script.MathJax.elementJax;
           if (jax) {
             jax.Remove(true);
@@ -3909,6 +3912,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
           },
           Rerender: function(callback) {
             var script = this.SourceElement();
+            debugger;
             script.MathJax.state = this.STATE.OUTPUT;
             return HUB.Process(script, callback);
           },
