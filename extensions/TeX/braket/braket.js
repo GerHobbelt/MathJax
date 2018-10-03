@@ -1,3 +1,21 @@
+/*
+ *  ../../../..//extensions/TeX/braket/braket.js
+ *
+ *  Copyright (c) 2009-2018 The MathJax Consortium
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 /*braket.js
  *  
  * Implements the Braket Package for LaTeX input.
@@ -43,4 +61,5 @@ MathJax.InputJax.TeX.Definitions.Add({
 MathJax.Hub.Startup.signal.Post("TeX braket Ready")}); 
 MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/braket.js");
 
-//MathJax.Ajax.loadComplete("[Contrib]/physics/unpacked/physics.js");
+//MathJax.Ajax.loadComplete("[Contrib]/physics/physics.js");
+
