@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MathJax Equation Numbering</title>
+<!-- Copyright (c) 2012-2018 The MathJax Consortium -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script type="text/x-mathjax-config">
+  MathJax.Ajax.config.path["Contrib"] = "../../mathjax-third-party-extensions/legacy";
+
+  MathJax.Hub.Config({ 
+    TeX: { 
+      equationNumbers: {
+        autoNumber: "AMS"
+      } 
+    }, 
+    extensions: [
+      "[Contrib]/arabic/arabic.js"
+    ],
+    'HTML-CSS': {
+      undefinedFamily: 'Amiri'
+    }
+  });
+</script>
+<script type="text/javascript" src="../MathJax.js?config=TeX-AMS_HTML"></script>
+
+<style>
+h1 {
+  background: #CCCCCC;
+  padding: .2em 1em;
+  border-top: 3px solid #666666;
+  border-bottom: 3px solid #999999;
+}
+</style>
+
+</head>
+<body>
+
+<center>
+<h1>A test of Equation Numbering</h1>
+</center>
+
+<div style="padding:0 2em">
+<hr>
+Equation:
+
+\begin{equation}
+\alwaysar{
+E = mc^2
+}
+\end{equation}
+
+Equation*:
+
+\begin{equation*}
+\alwaysar{
+E = mc^2
+}
+\end{equation*}
+
+<hr>
+Brackets:
+
+\[\alwaysar{
+E = mc^2
+}\]
+
+Brackets tagged:
+
+\[\alwaysar{
+E = mc^2\tag{x}
+}\]
+
+<hr>
+Split:
+
+\begin{equation}
+\alwaysar{
+\begin{split} 
+a& =b+c-d\\ 
+& \quad +e-f\\ 
+& =g+h\\ 
+& =i 
+\end{split} 
+}
+\end{equation} 
+
+<hr>
+Multline:
+
+\begin{multline}
+\alwaysar{
+  a+b+c+d+e+f+g\\
+  M+N+O+P+Q\\
+  R+S+T\\
+  u+v+w+x+y+z
+}
+\end{multline}
+
+Multline*:
+
+\begin{multline*}
+\alwaysar{
+  a+b+c+d+e+f+g\\
+  M+N+O+P+Q\\
+  R+S+T\\
+  u+v+w+x+y+z
+}
+\end{multline*}
+
+<hr>
+Gather:
+
+\begin{gather} 
+\alwaysar{
+a_1=b_1+c_1\\ 
+a_2=b_2+c_2-d_2+e_2 
+}
+\end{gather} 
+
+Gather*:
+
+\begin{gather*} 
+\alwaysar{
+a_1=b_1+c_1\\ 
+a_2=b_2+c_2-d_2+e_2 
+}
+\end{gather*} 
+
+<hr>
+Align:
+
+\begin{align} 
+a_1& =b_1+c_1\\ 
+a_2& =b_2+c_2-d_2+e_2 
+\end{align}
+
+Align*:
+
+\begin{align*} 
+a_1& =b_1+c_1\\ 
+a_2& =b_2+c_2-d_2+e_2 
+\end{align*}
+
+Align:
+
+\begin{align} 
+a_{11}& =b_{11}& a_{12}& =b_{12}\\ 
+a_{21}& =b_{21}& a_{22}& =b_{22}+c_{22} 
+\end{align}
+
+Align with \notag and \tag:
+
+\begin{align} 
+a_{11}& =b_{11}& a_{12}& =b_{12}\notag\\ 
+a_{21}& =b_{21}& a_{22}& =b_{22}+c_{22} \tag{y}
+\end{align}
+
+Align* with \tag:
+
+\begin{align*} 
+a_1& =b_1+c_1\tag{z}\\ 
+a_2& =b_2+c_2-d_2+e_2 
+\end{align*}
+
+<hr>
+
+<h1> MathJax Arabic Extension</h1>
+
+<p>
+This is an extension to MathJax (v2.5+), that provides basic Arabic support to MathJax.
+
+<p>
+The extension so far only supports TeX input with HTML-CSS output. However, support to other input and output
+jaxes is possible.
+
+<p>
+## Key Features
+
+<p>
+It provides the following:
+
+<p>
+  - Flip the Equation and render it the Right-to-left (RTL) way!
+<p>
+  - Translate commonly used identifiers and functions.
+
+
+<p>
+### The Amiri Font
+
+<p>
+The extension relies (sort of) on the
+[Amiri font](https://www.google.com/fonts#UsePlace:use/Collection:Amiri)
+to render beautifully (kinda).
+
+<p>
+One way to include the font is to add the following CSS from Google Fonts:
+
+<p>
+    <link href='https://fonts.googleapis.com/css?family=Amiri' rel='stylesheet' type='text/css'>
+
+
+<p>
+Also you'd like to set the font as the undefined family. Because of a bug in MathJax, you should stick with a single
+font-family e.g. use `Amiri` or `serif` but not `Amiri, serif`.
+
+<p>
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            undefinedFamily: 'Amiri'
+        }
+    });
+
+<p>
+### Typeset an Arabic Equation
+
+<p>
+The extension provides the following additional TeX commands to be typeset an Arabic equation:
+
+<p>
+1. **`\alwaysar`**
+
+<p>
+   `\alwaysar{EQUATION}` A macro to translate and RTL'ize an `EQUATION`,  where `EQUATION` can be anything from
+   `x = 1` to `e^x=\lim_{n\to\infty}`.
+
+<p>
+   Wrap any TeX equation with it, and it *should* just work.
+
+<p>
+2. **`\ar`**
+
+<p>
+   `\ar{EQUATION}` (**Recommended**) A similar macro to `\alwaysar{EQUATION}`, but it only translate and RTL'ize the equation if  the page is Arabic.
+
+<p>
+   Bellow is an example equation:
+
+<p>
+       \ar{x=1}
+
+<p>
+   The above would render **x=1** beautifully in an English page, while it should render **س=١** in an Arabic page
+   even more beautifully ( in my opinion :) ).
+
+<p>
+## Supported Features
+
+<p>
+ - Flip everything (almost) including:
+<p>
+     * Parentheses `()`, braces `{}`, and brackets `[]`
+<p>
+     * Things that should be flipped like: Integration `∫`, Root `√` and Sigma `Σ`
+
+<p>
+ - Doesn't flip the things that should't be flipped,
+   like the following letters: Theta `Θ`, Pi `π`, and Epsilon `ε`
+
+<p>
+ - Translate the basic math functions:
+<p>
+     * `\sin` --> `جا`
+     * `\cos` --> `تا`
+     * `\tan` --> `ظا`
+     * `\cot` --> `ظتا`
+     * `\sec` --> `قا`
+     * `\csc` --> `قتا`
+     * `\log` --> `لو`
+
+
+<p>
+ - Translate `\lim` into `نها`, Although some would prefer `غــا`, but that's just
+   a preference, may someone can patch it to support `ar_IQ` for the Iraqi people!
+
+<p>
+ - Render the Arabic numbers (١, ٢, ٣) instead of (1, 2, 3), which is awesome!
+
+<p>
+ - The following new commands:
+<p>
+     * **Circle radius:** `\radius` Translates to `r` and `نق`
+<p>
+     * **Area of circle:** (and other stuff) `\Area` Translates to `A` and `م`
+<p>
+     * **Arabic Zero:** `\zero` Renders the `صفر`in Arabic while printing normal `0` in English.
+       The former is usually preferred by the Arabic Math textbooks.
+
+<p>
+ - Bilingual commands, which prints the first argument on English pages and the second argument on Arabic pages.
+   Useful to to build bilingual equations for strings that the extension provides no explicit support to.
+   **Note** The first (English) argument is always a TeX input, while the second (Arabic) can be 
+   TeX, Text or TeX with Symbols, depending on the command you're using.
+<p>
+     * **Translate a TeX input** `\transx` 
+<p>
+     * **Translate a text input** `\transt` e.g. `\transt{\text{if}}{إذا}` for the Math piecewise equations.
+<p>
+     * **Translate a TeX input with Arabic symbols** `\transs`: e.g. `\transs{A_b}{أ_ب}`
+
+<p>
+ - Basic variable and function names translation:
+<p>
+     * `A` --> `أ`
+     * `B` --> `ب`
+     * `C` --> `حـ`
+     * `a` --> `ا`
+     * `b` --> `ب`
+     * `c` --> `حـ`
+     * `d` --> `د`
+     * `e` --> `هـ`
+     * `m` --> `م`
+     * `l` --> `ل`
+     * `n` --> `ن`
+     * `f` --> `ق`
+     * `g` --> `حـ`
+     * `h` --> `هـ`
+     * `k` --> `ك`
+     * `r` --> `ر`
+     * `t` --> `ت`
+     * `x` --> `س`
+     * `y` --> `ص`
+     * `z` --> `ع`
+
+
+<p>
+ - Translation to other identifiers and operators like limits (`\lim`), sine, cosine and tan.
+
+<p>
+ - A very configurable translation utility to provide English/Arabic TeX
+   commands (same command, with language-dependent output).
+
+<p>
+ - A configurable page language detection (defaults to the `lang` attribute of `<html>` tag).
+
+<p>
+ - It is generally configurable, but I haven't documented how to do it!
+
+<p>
+## Experimental Stuff
+
+<p>
+Additional extensions for Physics and some Chemistry units and symbols exists,
+however, it is not tested/developed well. If you're curious, you can take a look
+at the following extensions:
+
+<p>
+ - [`phys1.js`](https://github.com/Edraak/arabic-mathjax-dev/blob/master/testcases/test-extensions/phys1.js):
+   Contains general physics units like Farad and speed of light. Interesting stuff, but haven't had proper
+   testing and usage (yet).
+
+<p>
+ - [`phys2.js`](https://github.com/Edraak/arabic-mathjax-dev/blob/master/testcases/test-extensions/phys2.js):
+   Additional advanced physics units that I don't understand as much!
+
+<p>
+ - [`hacks.js`](https://github.com/Edraak/arabic-mathjax-dev/blob/master/testcases/test-extensions/hacks.js):
+   A hack to convert the English decimal mark from `.` to `٫`
+   ([Arabic decimal mark, Unicode 0x066b](http://www.unicodemap.org/details/0x066B/index.html)).
+   Although the Arabic decimal mark exists, I'm not sure if it is
+   [common enough](https://en.wikipedia.org/wiki/Decimal_mark#Countries_using_Arabic_numerals_with_decimal_comma)
+   to include it in the main installation.
+
+<p>
+# Author
+
+<p>
+ - Omar Al-Ithawi <i@omardo.com>
+
+<p>
+# A bit of a Background
+
+<p>
+Why this plugin exists? Well, I could tell you an interesting story like I wanted to change the world,
+but frankly we needed it to display Math equations for our Arabic learners at [Edraak.org](https://www.edraak.org),
+and therefore I made it.
+
+<p>
+Well, it does change the world somehow, at the least in the eyes of our learners ^_^
+
+
+</div>
+
+</body>
+</html>

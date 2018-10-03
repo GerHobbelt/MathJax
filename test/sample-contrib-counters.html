@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MathJax Equation Numbering</title>
+<!-- Copyright (c) 2012-2018 The MathJax Consortium -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script type="text/x-mathjax-config">
+  MathJax.Ajax.config.path["Contrib"] = "../../mathjax-third-party-extensions/legacy";
+
+  MathJax.Hub.Config({ 
+    TeX: { 
+      equationNumbers: {
+        autoNumber: "AMS"
+      } 
+    }, 
+    extensions: [
+      "[Contrib]/counters/counters.js"
+    ],
+    'HTML-CSS': {
+      undefinedFamily: 'Amiri'
+    }
+  });
+</script>
+<script type="text/javascript" src="../MathJax.js?config=TeX-AMS_HTML"></script>
+
+<style>
+h1 {
+  background: #CCCCCC;
+  padding: .2em 1em;
+  border-top: 3px solid #666666;
+  border-bottom: 3px solid #999999;
+}
+</style>
+
+</head>
+<body>
+
+<center>
+<h1>A test of Equation Numbering</h1>
+</center>
+
+<div style="padding:0 2em">
+<hr>
+Equation:
+
+\begin{equation}
+E = mc^2
+\end{equation}
+
+Equation*:
+
+\begin{equation*}
+E = mc^2
+\end{equation*}
+
+<hr>
+Brackets:
+
+\[E = mc^2\]
+
+Brackets tagged:
+
+\[E = mc^2\tag{x}\]
+
+<hr>
+Split:
+
+\begin{equation}
+\begin{split} 
+a& =b+c-d\\ 
+& \quad +e-f\\ 
+& =g+h\\ 
+& =i 
+\end{split} 
+\end{equation} 
+
+<hr>
+Multline:
+
+\begin{multline}
+  a+b+c+d+e+f+g\\
+  M+N+O+P+Q\\
+  R+S+T\\
+  u+v+w+x+y+z
+\end{multline}
+
+Multline*:
+
+\begin{multline*}
+  a+b+c+d+e+f+g\\
+  M+N+O+P+Q\\
+  R+S+T\\
+  u+v+w+x+y+z
+\end{multline*}
+
+<hr>
+Gather:
+
+\begin{gather} 
+a_1=b_1+c_1\\ 
+a_2=b_2+c_2-d_2+e_2 
+\end{gather} 
+
+Gather*:
+
+\begin{gather*} 
+a_1=b_1+c_1\\ 
+a_2=b_2+c_2-d_2+e_2 
+\end{gather*} 
+
+<hr>
+Align:
+
+\begin{align} 
+a_1& =b_1+c_1\\ 
+a_2& =b_2+c_2-d_2+e_2 
+\end{align}
+
+Align*:
+
+\begin{align*} 
+a_1& =b_1+c_1\\ 
+a_2& =b_2+c_2-d_2+e_2 
+\end{align*}
+
+Align:
+
+\begin{align} 
+a_{11}& =b_{11}& a_{12}& =b_{12}\\ 
+a_{21}& =b_{21}& a_{22}& =b_{22}+c_{22} 
+\end{align}
+
+Align with \notag and \tag:
+
+\begin{align} 
+a_{11}& =b_{11}& a_{12}& =b_{12}\notag\\ 
+a_{21}& =b_{21}& a_{22}& =b_{22}+c_{22} \tag{y}
+\end{align}
+
+Align* with \tag:
+
+\begin{align*} 
+a_1& =b_1+c_1\tag{z}\\ 
+a_2& =b_2+c_2-d_2+e_2 
+\end{align*}
+
+<hr>
+
+<h1> MathJax Counters Extension</h1>
+
+<p>
+#Extension: counters for the MathJax third party repository
+
+<p>
+A version of `counters.js` for the [MathJax third party extension repository](https://github.com/mathjax/MathJax-third-party-extensions), including a compressed version (using YUI, see the [MathJax-dev tools](https://github.com/mathjax/mathjax-dev)).
+
+<p>
+# About counters
+
+<p>
+Implements LaTeX counters for MathJax.
+
+<p>
+##Usage:
+
+<pre>
+    \newcounter{name}[depend]
+    \setcounter{name}{number}
+    \addtocounter{name}{number}
+    \arabic{name}
+    \alph{name}
+    \Alph{name}
+    \roman{name}
+    \Roman{name}
+    \value{name}
+</pre>
+
+<p>
+The `\value` macro is only valid in the number argument for `\setcounter` and 
+`\addtocounter`.
+
+<p>
+The extension does not implement the `\fnsymbol` or `\usecounter` macros, 
+which only make sense in the context of LaTeX features which MathJax does not support. 
+Similarly, the extension does not implement the standard LaTeX counters, 
+such as page, section, figure, and enumi.
+
+
+<p>
+References:
+
+<p>
+- counters: https://github.com/leathrum/mathjax-ext-contrib/tree/master/counters
+<p>
+- MathJax: http://www.mathjax.org/
+
+
+<p>
+## Using the MathJax CDN {#CDN}
+
+The MathJax CDN hosts a copy of this extension via the [MathJax third party extension repository](https://github.com/mathjax/MathJax-third-party-extensions). To use the CDN copy, you need MathJax v2.4 (or higher) and configure the third party extension repository as described in the [MathJax documentation](http://docs.mathjax.org/). 
+
+<p>
+Then add the extension to your configuration like any other third party extension from the MathJax CDN. For example, your inline configuration might be
+
+<p>
+     <script type="text/x-mathjax-config>
+     MathJax.Hub.Config({
+       extensions: ["tex2jax.js","[Contrib]/counters.js"],
+       jax: ["input/TeX","output/HTML-CSS"],
+       tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]},
+       TeX: {extensions: ["AMSmath.js","AMSsymbols.js"]}
+     });
+     </script>
+
+
+</div>
+
+</body>
+</html>

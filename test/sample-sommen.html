@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Windows version 5.6.0">
+  <title>MathJax / Sommen</title>
+  <!-- Copyright (c) 2009-2017 The MathJax Consortium -->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="bootstrap4/css/bootstrap.css">
+
+<script type="text/x-mathjax-config">
+  MathJax.Ajax.timeout = 5*1000;   // timeout for loading of files (5 seconds)
+  MathJax.Ajax.config.path.Contrib = "../../mathjax-third-party-extensions/legacy";
+
+  MathJax.Hub.Config({
+    //config: ["MMLorHTML.js"],
+    extensions: [
+      "tex2jax.js",
+      "mml2jax.js",
+      "asciimath2jax.js",
+      //"CHTML-preview.js",
+      //"fast-preview.js",
+      "FontWarnings.js",
+      "MatchWebFonts.js",
+      "[Contrib]/longdiv/unpacked/longdiv.js",
+      "[Contrib]/counters/counters.js",
+    ],
+    //jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/HTML-CSS", "output/PreviewHTML", "output/SVG", "output/PlainSource" ],
+    jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/SVG" ],
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true,
+      processEnvironments: true,
+    },
+    TeX: {
+      extensions: [
+        "AMSmath.js",
+        "AMSsymbols.js",
+        "bbox.js",
+        "begingroup.js",
+        "cancel.js",
+        "color.js",
+        "enclose.js",
+        "extpfeil.js",
+        "mathchoice.js",
+        "mediawiki-texvc.js",
+        "newcommand.js",
+        "noErrors.js",
+        "noUndefined.js",
+        "unicode.js",
+        "verb.js",
+      ],
+      equationNumbers: {autoNumber: "AMS"},
+    },
+    showProcessingMessages: true,
+    showMathMenu: true,
+    menuSettings: {
+      assistiveMML: false,    // do not produce any 'assistive' MathML-within-SPAN
+      FastPreview: false,     // do not produce a preview SPAN
+    },
+    CommonHTML: {
+      font: "Gyre-Pagella",
+    },
+    "HTML-CSS": {
+      preferredFont: "Gyre-Pagella",
+      linebreaks: {
+        automatic: true,
+        width: "container",
+      },
+      EqnChunkDelay: 1,
+      noReflows: false,
+    },
+    SVG: {
+      font: "Gyre-Pagella",
+    },
+    errorSettings: {
+      // message: ["[Math Error]"],
+    }
+  });
+</script>
+
+<style>
+body {
+  max-width: 70em;
+  margin: 0 auto;
+}
+h1 {
+  text-align: center;
+}
+h2 {
+  font-weight: bold;
+  background-color: #DDDDDD;
+  padding: .2em .5em;
+  margin-top: 1.5em;
+}
+h3 {
+  padding-top: 2em;
+  padding-bottom: 1em;
+}
+blockquote {
+  border: 1px solid #ccdee3;
+  padding: .25em 1em;
+  margin: 2em 5em;
+  background-color: #e9f7fb;
+}
+blockquote blockquote {
+  border: 1px solid #ccdee3;
+  padding: .25em 1em;
+  margin: 2em 1em 2em 1em;
+  background-color: #f8fbfb;
+
+  font-size: 89%;
+}
+blockquote p {
+  text-align: justify;
+}
+def {
+  font-weight: 500;
+  font-style: italic;
+}
+article pre {
+  white-space: pre-line;
+}
+
+.multicol5 {
+  column-count: 5;
+  column-rule: 1px dotted grey;
+  column-gap: 1em;
+  
+
+  /* border-top:    solid grey 1px; */
+  border-bottom: solid grey 1px;
+  margin-top:     .5em;
+  margin-bottom:   1em;
+  padding-top:    .5em;
+  padding-bottom: .5em;
+
+  /* compensate for last column of sums looking like it's got too little white space on the right side */
+  padding-right: 2em;
+}
+.multicol5 p {
+  padding: 0;
+  margin: 0;
+}
+/* https://css-tricks.com/almanac/properties/b/break-inside/ */
+.column {
+  -webkit-column-break-inside: avoid; /* Chrome, Safari, Opera */
+            page-break-inside: avoid; /* Firefox */
+                 break-inside: avoid; /* IE 10+ */
+}
+
+/* http://www.css3.info/preview/web-fonts-with-font-face/ */
+@font-face {
+  font-family: "Fiona Script";
+  src: url(fonts/FionaScript-Regular.otf) format("opentype");
+}
+@font-face {
+  font-family: "Fiona Script";
+  font-weight: bold;
+  src: url(fonts/FionaScript-Bold.otf) format("opentype");
+}
+
+.speech {
+  /* font-family: "Fiona Script"; */
+  font-family: Palatino, Georgia;
+  font-style: italic;
+  font-size: 114%;
+}
+.speech em {
+  font-weight: bold;
+}
+
+
+/* prevent oversized output from producing horizontal scroll bar */
+/*
+div.width-limited {
+  max-width: 100%;
+  overflow: auto;
+  margin: 1em 0 1em 0;
+  border: 1px dotted grey;
+  background-color: #f7f7f7;
+  padding: 0.2em 1em;
+}
+*/
+
+/* diagnostic style: */
+/*
+.MathJax_SVG_Display,
+.MathJax_SVG {
+  border: 1px solid red           !important;
+  background-color: #f7f7f7;
+}
+*/
+
+@media screen {
+  html {
+    margin-left: .5em;
+    margin-right: .5em;
+  }
+}
+@media screen and (max-width: 1140px) {
+  body {
+    font-size: 90%;
+  }
+}
+@media screen and (max-width: 1024px) {
+  blockquote {
+    margin-left: 2em;
+    margin-right: 2em;
+  }
+}
+@media screen and (max-width: 700px) {
+  blockquote {
+    margin-left: 1em;
+    margin-right: 1em;
+
+    font-size: 95%;
+  }
+
+  .multicol5 {
+    column-count: 3;
+  }
+}
+
+@media print {
+  body {
+    margin: 0.5em;  /* extra margin is delivered by the browser/printer itself so we keep this tiny */
+    max-width: 100%;
+
+    font-size: 85%;
+  }
+  blockquote {
+    page-break-before: avoid;
+    page-break-inside: auto;
+    margin: 1em 1em;
+  }
+
+  /* https://css-tricks.com/almanac/properties/p/page-break/ */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-before: auto;
+    page-break-after: avoid;
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+
+  .multicol5 {
+    page-break-inside: avoid;
+  }
+
+  blockquote {
+    page-break-inside: avoid;
+  }
+
+  /* https://css-tricks.com/child-and-sibling-selectors/ */
+  h1 + blockquote,
+  h2 + blockquote,
+  h3 + blockquote,
+  h4 + blockquote {
+    page-break-before: avoid;
+    page-break-after: avoid;
+  }
+}
+</style>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
+    var TEX = MathJax.InputJax.TeX;
+    var PREFILTER = TEX.prefilterMath;
+    TEX.Augment({
+      prefilterMath: function (math, displaymode, script) {
+        console.log("TeX rendering Math:", {math, displaymode, script});
+        //math = "\\displaystyle{" + math + "}";
+        //math = "\\mathsf{" + math + "}";
+        return PREFILTER.call(TEX, math, displaymode, script);
+      }
+    });
+
+    var AM = MathJax.InputJax.AsciiMath;
+    var AMPREFILTER = AM.prefilterMath;
+    AM.Augment({
+      prefilterMath: function (math, displaymode, script) {
+        console.log("AsciiMath rendering Math:", {math, displaymode, script});
+        return AMPREFILTER.call(AM, math, displaymode, script);
+      }
+    });
+  });
+</script>
+<!--
+  WARNING:
+
+MathJax.js script must load AFTER ALL text/x-mathjax-config SCRIPTS have been defined
+as those scripts won't otherwise be detected by MathJax (ConfigBlocks() internal call)
+on startup as the init code is executed immeditately once the MathJax script has loaded!
+-->
+
+<script type="text/javascript" src="../MathJax.js"></script>
+</head>
+<body>
+  <noscript>
+  <div style="color:#CC0000; text-align:center">
+    <b>Warning: <a href="http://www.mathjax.org/">MathJax</a> requires JavaScript to
+    process the mathematics on this page.<br>
+    If your browser supports JavaScript, be sure it is enabled.</b>
+  </div>
+  <hr>
+  </noscript>
+
+  <article contentediable="true">
+    <section>
+    <h1>Sommen: optellen en aftrekken</h1>
+
+    <section>
+      <h2>tot 10</h2>
+
+      <h3>Optellen</h3>
+
+<div class="multicol5">
+  <div class="column">
+<p>2 + 5 = …
+<p>7 + 2 = …
+<p>1 + 3 = …
+  </div>
+  <div class="column">
+<p>4 + 4 = …
+<p>5 + 5 = …
+<p>6 + 3 = …
+  </div>
+  <div class="column">
+<p>2 + 5 + 1 = …
+<p>8 + 1 + 1 = …
+<p>2 + 3 + 4 = …
+  </div>
+  <div class="column">
+<p>1 + 2 + 3 = …
+<p>3 + 3 + 3 = …
+<p>2 + 3 + 5 = …
+  </div>
+  <div class="column">
+<p>2 + 1 + 2 + 1 = …
+<p>1 + 4 + 3 + 2 = …
+<p>2 + 2 + 2 + 2 = …
+  </div>
+</div>
+
+      <h3 class="page-break">Aftrekken</h3>
+
+      <blockquote>
+        <p>Het is handig om aftrekkingen zoals de som 5 - 2 uit te spreken (in je hoofd of hardop) als <span class="speech">"vijf <em>eraf</em> twee"</span> en <em>niet</em> als <span class="speech">"vijf <em>min</em> twee"</span>.
+        <h4>Waarom <span class="speech">"eraf"</span> in plaats van <span class="speech">"min"</span>? </h4>
+          <p>Omdat je later zult zien dat je dan één woord (<span class="speech">"min"</span>) moet gebruiken voor twéé heel verschillende dingen: 
+            <ol>
+            <li> negatieve <em>waarden</em> zoals <span class="speech">"min vijf"</span> en 
+            <li> de rekenkundige bewerking "aftrekken" zoals <span class="speech">"vijf min twee"</span>.
+          </ol>
+          <p>Eén woord voor twee verschillende zaken gebruiken kan gemakkelijk tot verwarring leiden. Daarom is het handig om jezelf nu alvast aan te leren om aftrek-sommen te lezen als <span class="speech">"getal <em>eraf</em> ander getal"</span>. 
+          <blockquote>
+            <p> Voor sommigen zal het jaren duren voordat ze met de eerste variant worden geconfronteerd op school&#xA0;<a href="http://www.thepunctuationguide.com/em-dash.html">—</a>&#xA0;terwijl je allemaal al gehoord hebt (of zelf al hebt meegemaakt) wat <em>schulden maken</em>, <em>geld lenen</em> en <em>schulden hebben</em> betekent: <span class="speech">"lenen"</span> en <span class="speech">"schuld"</span> zijn woorden die we gebruiken in de dagelijkse omgang als er een <em>negatieve waarde</em> in onze <a href="https://juffrouwjo.wordpress.com/2015/07/31/portemonnaie-of-portemonnee-portemonnaie-natuurlijk/">portemonnee</a> zit.
+          </p>
+          <p>De gedachte achter het gebruik van <span class="speech">"eraf"</span> i.p.v. (in plaats van) <span class="speech">"min"</span> of <span class="speech">"minus"</span> is deze: met <span class="speech">"eraf"</span> kun je nooit de mist in gaan: dat woord kan alleen maar op een <em>aftrekking</em> slaan, zodat dit taalgebruik je nooit in verwarring kan brengen, terwijl dat met <span class="speech">"min"</span> makkelijk lukt: is <span class="speech">"min twee"</span> een getal(waarde) of onderdeel van een aftrekking? Met <span class="speech">"eraf twee"</span> weet je zeker wat je moet doen.   
+          </blockquote>
+        <p>   
+      </blockquote>
+
+<div class="multicol5">
+  <div class="column">
+<p>5 - 2 = …
+<p>7 - 2 = …
+<p>3 - 1 = …
+  </div>
+  <div class="column">
+<p>6 - 4 = …
+<p>10 - 5 = …
+<p>6 - 3 = …
+  </div>
+  <div class="column">
+<p>5 - 2 - 1 = …
+<p>10 - 1 - 1 = …
+<p>9 - 4 - 2 = …
+  </div>
+  <div class="column">
+<p>5 - 2 - 1 = …
+<p>3 - 1 - 1 = …
+<p>5 - 3 - 1 = …
+  </div>
+  <div class="column">
+<p>6 - 1 - 2 - 1 = …
+<p>10 - 4 - 3 - 2 = …
+<p>7 - 2 - 2 - 2 = …
+  </div>
+</div>
+
+      <h3>Gemengde opgaven</h3>
+
+<div class="multicol5">
+  <div class="column">
+<p>2 + 5 = …
+<p>8 - 7 = …
+<p>8 - 1 = …
+  </div>
+  <div class="column">
+<p>3 + 6 = …
+<p>5 + 4 = …
+<p>5 - 4 = …
+  </div>
+  <div class="column">
+<p>4 + 2 + 1 = …
+<p>2 + 1 + 7 = …
+<p>7 + 2 + 1 = …
+  </div>
+  <div class="column">
+<p>4 - 2 + 4 = …
+<p>6 + 3 - 5 = …
+<p>8 - 6 + 3 = …
+  </div>
+  <div class="column">
+<p>1 + 2 + 4 + 2 = …
+<p>4 + 2 + 1 + 2 = …
+<p>4 - 2 + 1 - 2 = …
+  </div>
+</div>
+
+      <h3 class="page-break">3,2,1,0: het getal <a href="https://www.wiskunde.net/getal-nul">"nul"</a></h3>
+
+<div class="multicol5">
+  <div class="column">
+<p>5 - 2 = …
+<p>5 - 3 = …
+<p>5 - 4 = …
+<p>5 - 5 = …
+  </div>
+  <div class="column">
+<p>7 - 7 = …
+<p>1 - 1 = …
+<p>4 + 4 = …
+  </div>
+  <div class="column">
+<p>1 - 0 = …
+<p>7 - 0 = …
+<p>2 + 0 = …
+<p>0 + 3 = …
+  </div>
+  <div class="column">
+<p>0 + 4 = …
+<p>0 - 0 = …
+<p>4 - 4 = …
+  </div>
+  <div class="column">
+<p>0 + 0 = …
+<p>10 + 0 = …
+<p>10 - 10 = …
+  </div>
+  <div class="column">
+<p>9 - 8 = …
+<p>9 - 9 = …
+<p>3 + 3 = …
+<p>5 - 3 = …
+  </div>
+  <div class="column">
+<p>5 - 3 - 2 = …
+<p>8 - 4 - 4 = …
+<p>9 - 4 - 4 = …
+<p>3 - 2 - 1 = …
+  </div>
+  <div class="column">
+<p>2 + 3 - 5 = …
+<p>10 - 5 - 5 = …
+<p>10 - 9 + 1 = …
+  </div>
+  <div class="column">
+<p>2 + 1 - 2 - 1 = …
+<p>1 + 4 - 3 - 2 = …
+<p>6 - 2 - 2 - 2 = …
+  </div>
+  <div class="column">
+<p>8 - 4 - 4 + 4 = …
+<p>1 + 2 + 0 - 3 = …
+<p>6 - 4 - 4 + 2 = …
+<p>4 - 4 - 4 + 4 = …
+  </div>
+</div>
+
+      <h3>ADVANCED: negatieve getallen</h3>
+
+      <blockquote>
+        <p>Je gaat zometeen ontdekken wat <em>negatieve getallen</em> zijn: dit zijn <em>negatieve waarden</em> en dat concept (idee) kom je overal tegen in het leven: een <em>negatieve waarde</em> is niets anders dan een deftige term voor een <em>tekort</em>.
+        <p>Wil je wat kopen en kom je <em>tekort</em>. Wil je het toch hebben, dan zul je geld van iemand moeten <em>lenen</em>, wat je dan op enig later moment weer terug moet geven als jij weer geld hebt gekregen, bijvoorbeeld je wekelijkse/maandelijkse zakgeld. Tot die tijd moet je die lening onthouden. En het begon allemaal met iets wat je wilde kopen maar niet kon betalen. Op dat moment kwam je dus <em>tekort</em>.
+        <p>Zo kun je <em>negatieve getallen</em> in taal beschrijven als bijvoorbeeld <span class="speech">"min twee"</span>, maar ook als <span class="speech">"twee <em>tekort</em>"</span>! <span class="speech">"Tekort"</span> gebruiken i.p.v. <span class="speech">"min"</span> is handig om dezelfde reden als dat we <em>aftrekken</em> kunnen benoemen als <span class="speech">"eraf"</span>: één woord, één betekenis, géén verwarring!
+        <p>Later zul je op school zien dat iedereen <span class="speech">"min"</span> overal en nergens gebruikt en dat is niet erg: tegen die tijd heb je zoveel oefening gehad dat je je die "onduidelijkheid" in je taal wel kunt veroorloven (permitteren). De eerste tijd is het echter handig om jezelf niet in verwarring te laten brengen door taal, dus <span class="speech">"eraf"</span> voor aftrekking en <span class="speech">"tekort"</span> voor negatieve getallen.
+       </blockquote>
+
+<div class="multicol5">
+  <div class="column">
+<p>3 - 1 = …
+<p>3 - 2 = …
+<p>3 - 3 = …
+<p>3 - 4 = …
+  </div>
+  <div class="column">
+<p>3 - 5 = …
+<p>3 - 6 = …
+<p>3 - 7 = …
+  </div>
+  <div class="column">
+<p>3 - 8 = …
+<p>3 - 9 = …
+<p>3 - 10 = …
+<p>3 - 11 = …
+  </div>
+  <div class="column">
+<p>3 - 12 = …
+<p>3 - 13 = …
+<p>3 - 14 = …
+  </div>
+  <div class="column">
+<p>8 - 3 = …
+<p>9 - 3 = …
+<p>10 - 3 = …
+<p>11 - 3 = …
+  </div>
+  <div class="column">
+<p>0 - 3 = …
+<p>-1 - 3 = …
+<p>-3 - 4 = …
+  </div>
+  <div class="column">
+<p>5 - 2 - 5 = …
+<p>7 - 4 - 3 = …
+<p>7 - 4 - 7 = …
+<p>7 - 4 - 5 = …
+  </div>
+  <div class="column">
+<p>8 - 5 - 0 = …
+<p>9 - 0 - 9 = …
+<p>0 - 5 - 5 = …
+  </div>
+  <div class="column">
+<p>2 - 1 - 2 - 1 = …
+<p>1 + 4 - 3 - 2 = …
+<p>2 - 2 - 2 - 2 = …
+<p>8 - 4 - 8 + 4 = …
+  </div>
+  <div class="column">
+<p>1 - 2 - 0 + 3 = …
+<p>6 - 4 - 4 + 2 = …
+<p>4 - 4 - 4 + 4 = …
+  </div>
+</div>
+
+    </section>
+    <section>
+      <h2>tot 20</h2>
+
+    </section>
+    <section>
+      <h2>tot 100</h2>
+
+    </section>
+    <section>
+      <h2>tot 1000</h2>
+
+    </section>
+    <section>
+      <h2>boven de 1000</h2>
+
+
+    </section>
+    <section>
+      <h2>Stip-sommen / vlek-sommen</h2>
+
+
+    </section>
+  </section>
+
+  <section>
+    <h1>Tafels van vermenigvuldiging / vermenigvuldigen</h1>
+
+    <section>
+      <h2>Tafels van vermenigvuldiging</h2>
+
+
+    </section>
+    <section>
+      <h2>Bijzondere vermenigvuldigingen: kwadraten</h2>
+
+
+    </section>
+    <section>
+      <h2>Bijzondere vermenigvuldigingen: "derde machten" ~ kubieke maten</h2>
+
+
+    </section>
+    <section>
+      <h2>Vermenigvuldigen: gemengde opgaven</h2>
+
+
+    </section>
+    <section>
+      <h2>Vermenigvuldigen "onder elkaar": verwerken van grotere getallen</h2>
+
+
+
+
+    </section>
+    <section>
+      <h2><a href="https://nl.wikipedia.org/wiki/SI-voorvoegsel">SI voorvoegsels</a> (a.k.a. <a href="https://en.wikipedia.org/wiki/Metric_prefix">prefix</a>): kilo, mega, giga, milli, micro, ...</h2>
+
+
+
+
+    </section>
+    <section>
+      <h2>Maten: lengten, oppervlaktes en volumes</h2>
+
+
+
+
+    </section>
+    <section>
+      <h2>Optellen, Aftrekken, Vermenigvuldigen, ...: Operatoren</h2>
+      <section>
+
+
+
+
+      </section>
+      <section>
+        <h3>Operatoren: Prioriteit</h3>
+
+
+
+
+      </section>
+      <section>
+        <h3>Operatoren: <a href="https://www.mathsisfun.com/associative-commutative-distributive.html">Associatief, Commutatief, Distributief</a></h3>
+
+
+
+
+      </section>
+      <section>
+        <h3>Meneer van Dalen en de Haakjes</h3>
+
+
+
+
+      </section>
+    </section>
+    <section>
+      <h2>Vermenigvuldigen: gemengde opgaven</h2>
+
+
+    </section>
+    <section>
+      <h2>Stip-sommen: op weg naar "delen"</h2>
+
+
+
+    </section>
+  </section>
+
+  <section>
+    <h1>Delen / Delingen</h1>
+
+    <section>
+      <h2>Delingen (zonder rest)</h2>
+
+
+    </section>
+    <section>
+      <h2>Delingen (met rest)</h2>
+
+
+    </section>
+    <section>
+      <h2>"Modulo" rekening: delingen met rest, net even anders</h2>
+
+
+
+
+    </section>
+    <section>
+      <h2>Ontbinden in factoren</h2>
+
+
+
+
+    </section>
+    <section>
+      <h2>KGV en GGD: Kleinst Gemene Veelvoud en Grootst Gemene Deler</h2>
+
+
+
+
+    </section>
+    <section>
+      <h2>Delingen = "breuken": halven en kwarten</h2>
+
+
+
+
+    </section>
+    <section>
+      <h2>Delingen = "breuken": "echte breuken"</h2>
+
+
+
+
+    </section>
+    <section>
+      <h2>Breuken: helen uithalen</h2>
+
+
+
+
+    </section>
+    <section>
+      <h2>Breuken vereenvoudigen</h2>
+
+
+
+
+    </section>
+    <section>
+      <h2>Breuken optellen</h2>
+
+
+
+
+    </section>
+    <section>
+      <h2>Breuken van elkaar aftrekken</h2>
+
+
+
+
+    </section>
+    <section>
+      <h2>Breuken vermenigvuldigen</h2>
+
+
+
+
+    </section>
+    <section>
+      <h2>Breuken op elkaar delen</h2>
+
+
+
+
+    </section>
+  </section>
+
+
+  <section>
+    <h1>Onderwerpen in calculus (rekenen)</h1>
+
+
+    <section>
+      <h2>"Complementaire bewerkingen": Optellen vs. aftrekken</h2>
+
+
+
+    </section>
+    <section>
+      <h2>Wat als we meerdere malen hetzelfde er bij optellen? Vermenigvuldigen!</h2>
+
+
+
+    </section>
+    <section>
+      <h2>"Complementaire bewerkingen": Vermenigvuldigen vs. delen</h2>
+
+
+
+    </section>
+    <section>
+      <h2>Wat is de functie van "delen" in de praktijk?</h2>
+
+
+
+    </section>
+    <section>
+      <h2>Meermalen optellen = vermenigvuldigen. Wat is meermalen vermenigvuldigen? Machtsverheffen!</h2>
+
+
+
+    </section>
+    <section>
+      <h2>Wat is de complementaire bewerking van machtsverheffen? Worteltrekken &amp; logarithmes</h2>
+
+
+
+    </section>
+    <section>
+      <h2>De rangorde van bewerkingen (prioriteit): wat moet eerst? Meneer van Dale...</h2>
+
+
+
+    </section>
+    <section>
+      <h2>Haakjes: gedwongen groepering van bewerkingen. Meneer van Dale heeft het nakijken...</h2>
+
+
+
+    </section>
+    <section>
+      <h2><a href="https://nl.wikipedia.org/wiki/Procent">Percentage</a>, <a href="https://nl.wikipedia.org/wiki/Promille">Promillage</a> en Perunage</h2>
+
+      <p>Zie ook de aardappelparadox: https://nl.wikipedia.org/wiki/Aardappelparadox
+
+
+
+    </section>
+    <section>
+      <h2>Afronden, Schatten en Foutmarges</h2>
+
+
+
+    </section>
+    <section>
+      <h2>De stap van calculus (rekenen) naar algebra: stip-sommen met letters</h2>
+
+
+
+
+
+<div class="multicol5">
+  <div class="column">
+<p>2 + 5 = …
+  </div>
+  <div class="column">
+  </div>
+  <div class="column">
+  </div>
+  <div class="column">
+  </div>
+  <div class="column">
+  </div>
+</div>
+
+
+    </section>
+<!--
+    <section>
+      <h2>tot 20</h2>
+
+<div class="column1of3">
+<p>2 + 5 = …
+<p>2 + 5 = …
+<p>2 + 5 = …
+<p>2 + 5 = …
+<p>2 + 5 = …
+<p>2 + 5 = …
+<p>2 + 5 = …
+<p>2 + 5 = …
+<p>2 + 5 = …
+<p>2 + 5 = …
+<p>2 + 5 = …
+<p>2 + 5 = …
+<p>2 + 5 = …
+<p>2 + 5 = …
+</div>
+</div>
+
+÷×…
+
+<p>
+Set 2: 20906, 43405, 158315, 680505, 707858
+Set 3: 59306, 189708, 409768, 478635, 811149
+Set 4: 50195, 136150, 246127, 285822, 520000
+Set 5: 18551, 424664, 438686, 467199, 838626
+Set 6: 30700, 279642, 483400, 489863, 935963
+Set 7: 9948, 42936, 67784, 534176, 551550
+Set 8: 482087, 599853, 730947, 734465, 775094
+Set 9: 144422, 183687, 526697, 568330, 928085
+Set 10: 174337, 265885, 458261, 471691, 871650
+Set 1: 137721, 311840, 594348, 686667, 979141
+Set 2: 5128, 132601, 613717, 840621, 908396
+Set 3: 334376, 390663, 535371, 621478, 797707
+Set 4: 135907, 691915, 917021, 948391, 954690
+Set 5: 371006, 390740, 447731, 690034, 902152
+Set 6: 4136, 99197, 101920, 305469, 366696
+Set 7: 221688, 278875, 286674, 469608, 869561
+Set 8: 70113, 95166, 193445, 572624, 931611
+Set 9: 131026, 439765, 541266, 727506, 753858
+Set 10: 41988, 113075, 251239, 469235, 498638
+Set 1: 287755, 578868, 618380, 676047, 754549
+Set 2: 208277, 219033, 264942, 882155, 890829
+Set 3: 146218, 762432, 814155, 867880, 894373
+Set 4: 218466, 548285, 550627, 551001, 822008
+Set 5: 365450, 452408, 720647, 736185, 924885
+Set 6: 99848, 117404, 146195, 455676, 854753
+Set 7: 108313, 174437, 223293, 282641, 994142
+Set 8: 423540, 649260, 925167, 953652, 973910
+Set 9: 203183, 563306, 791557, 851761, 894769
+Set 10: 81532, 226615, 615647, 805461, 893025      
+
+<p>
+\[
+    \left( x \right)
+\]
+</p>
+
+      <h2>#1</h2>
+
+<p>
+\[
+    \left( x^2 \right) % comment
+\]
+</p>
+
+
+
+-->
+
+</section>
+
+
+<h1>xxx</h1>
+
+<section>
+https://nl.wikipedia.org/wiki/Hoofdrekenen
+https://nl.wikipedia.org/wiki/Rekenen
+https://nl.wikipedia.org/wiki/Procent
+https://nl.wikibooks.org/wiki/Rekenen
+https://nl.wikibooks.org/wiki/Wiskunde/Talstelsels
+https://nl.wikipedia.org/wiki/Tellen
+
+</section>
+</article>
+</body>
+</html>
