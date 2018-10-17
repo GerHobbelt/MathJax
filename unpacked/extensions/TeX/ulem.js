@@ -1,10 +1,9 @@
 
-
 MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
 
   var TEX = MathJax.InputJax.TeX;
   var TEXDEF = TEX.Definitions;
-  
+
   TEXDEF.Add({
     macros: {
       uwave:    'UWAVE_style',
