@@ -639,10 +639,20 @@
     ucMatch: HTML.ucMatch,
 
     HandleVariant: function (variant,scale,text) {
+      //debugger;
       var svg = BBOX.G();
       var n, N, c, font, VARIANT, i, m, id, M, RANGES;
       if (!variant) {variant = this.FONTDATA.VARIANT[MML.VARIANT.NORMAL]}
-      if (variant.forceFamily) {
+      var txtmatch = /[\w\d\s=+%,.:;'"_~…∞∂εα-φ±-]+/.test(text);
+      console.log("HandleVariant: ", {
+        variant,
+        italic: variant.italic,
+        scale,
+        text,
+        txtmatch,
+        fullTxtMatch: /[^\w\d\s=+%,.:;'"_~…∞∂εα-φ±-]+$/.test(text),
+      });
+      if (variant.forceFamily || txtmatch) {
         text = BBOX.TEXT(scale,text,variant.font);
         if (variant.h != null) {text.h = variant.h} 
         if (variant.d != null) {text.d = variant.d}
@@ -1140,6 +1150,11 @@
       }
       if (cache) {
         def = {}; if (transform) {def.transform = transform}
+console.log("Glyph: ", {
+  id,
+  scale, h, d, w, l, r, p, 
+  t,
+});
         this.element = SVG.Element("use",def);
         this.element.setAttributeNS(XLINKNS,"href",SVGURL+"#"+id);
       }
@@ -1384,6 +1399,7 @@
       },
 
       SVGgetVariant: function () {
+        debugger;
         var values = this.getValues("mathvariant","fontfamily","fontweight","fontstyle");
         var variant = values.mathvariant;
         if (this.variantForm) variant = "-"+SVG.fontInUse+"-variant";
