@@ -24,6 +24,8 @@
  *  limitations under the License.
  */
 
+MathJax.Ajax.Require("[MathJax]/extensions/TeX/mathchoice.js");
+
 MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function () {
   var VERSION = "2.7.5";
   var MML = MathJax.ElementJax.mml,

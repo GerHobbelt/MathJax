@@ -30,6 +30,8 @@
   
   var EVENT, TOUCH, HOVER, ZOOM; // filled in later
 
+  AJAX.Require("[MathJax]/extensions/TeX/mathchoice.js");
+
   HUB.Register.StartupHook("MathZoom Ready",function () {ZOOM = MathJax.Extension.MathZoom});
   
   var NOPADDING = function (side,obj) {
