@@ -237,10 +237,10 @@ MathJax.OutputJax.SVG = MathJax.OutputJax({
   config: {
     scale: 100,
     minScaleAdjust: 50, // global math scaling factor, and minimum adjusted scale factor
-    font: "TeX", // currently the only font available
+    font: "TeX", // the preferred font. One of: "TeX","STIX","STIX-Web","Asana-Math","Gyre-Termes","Gyre-Pagella","Latin-Modern","Neo-Euler"
     blacker: 1, // stroke-width to make fonts blacker
     mtextFontInherit: false, // to make <mtext> be in page font rather than MathJax font
-    undefinedFamily: "STIXGeneral,'Arial Unicode MS',serif", // fonts to use for missing characters
+    undefinedFamily: "STIXGeneral,'Cambria Math','Arial Unicode MS',serif", // fonts to use for missing characters
 
     addMMLclasses: false, // keep MathML structure and use CSS classes to mark elements
     useFontCache: true, // use <use> elements to re-use font paths rather than repeat paths every time

@@ -250,10 +250,10 @@ MathJax.OutputJax.SVG = MathJax.OutputJax({
   config: {
     scale: 100,
     minScaleAdjust: 50, // global math scaling factor, and minimum adjusted scale factor
-    font: "TeX", // currently the only font available
+    font: "TeX", // the preferred font. One of: "TeX","STIX","STIX-Web","Asana-Math","Gyre-Termes","Gyre-Pagella","Latin-Modern","Neo-Euler"
     blacker: 1, // stroke-width to make fonts blacker
     mtextFontInherit: false, // to make <mtext> be in page font rather than MathJax font
-    undefinedFamily: "STIXGeneral,'Arial Unicode MS',serif", // fonts to use for missing characters
+    undefinedFamily: "STIXGeneral,'Cambria Math','Arial Unicode MS',serif", // fonts to use for missing characters
 
     addMMLclasses: false, // keep MathML structure and use CSS classes to mark elements
     useFontCache: true, // use <use> elements to re-use font paths rather than repeat paths every time
@@ -368,11 +368,20 @@ MathJax.OutputJax["HTML-CSS"] = MathJax.OutputJax({
     matchFontHeight: true, // try to match math font height to surrounding font?
     scale: 100,
     minScaleAdjust: 50, // global math scaling factor, and minimum adjusted scale factor
-    availableFonts: ["STIX", "TeX"], // list of local fonts to check for
+    availableFonts: [
+      "TeX",
+      "STIX",
+      "STIX-Web",
+      "Asana-Math",
+      "Gyre-Termes",
+      "Gyre-Pagella",
+      "Latin-Modern",
+      "Neo-Euler"
+    ], // list of local fonts to check for
     preferredFont: "TeX", // preferred local font (TeX or STIX)
     webFont: "TeX", // web-based font to use when no local fonts found (TeX is only choice)
     imageFont: "TeX", // font to use for image fallback mode (TeX is only choice)
-    undefinedFamily: "STIXGeneral,'Arial Unicode MS',serif", // fonts to use for unknown unicode characters
+    undefinedFamily: "STIXGeneral,'Cambria Math','Arial Unicode MS',serif", // fonts to use for unknown unicode characters
     mtextFontInherit: false, // to make <mtext> be in page font rather than MathJax font
 
     EqnChunk: MathJax.Hub.Browser.isMobile ? 10 : 50,
@@ -17889,12 +17898,22 @@ asciimath.translate = translate;
     ucMatch: HTML.ucMatch,
 
     HandleVariant: function(variant, scale, text) {
+      //debugger;
       var svg = BBOX.G();
       var n, N, c, font, VARIANT, i, m, id, M, RANGES;
       if (!variant) {
         variant = this.FONTDATA.VARIANT[MML.VARIANT.NORMAL];
       }
-      if (variant.forceFamily) {
+      var txtmatch = /[\w\d\s=+%,.:;'"_~…∞∂εα-φ±-]+/.test(text);
+      console.log("HandleVariant: ", {
+        variant,
+        italic: variant.italic,
+        scale,
+        text,
+        txtmatch,
+        fullTxtMatch: /[^\w\d\s=+%,.:;'"_~…∞∂εα-φ±-]+$/.test(text)
+      });
+      if (variant.forceFamily || txtmatch) {
         text = BBOX.TEXT(scale, text, variant.font);
         if (variant.h != null) {
           text.h = variant.h;
@@ -18639,6 +18658,17 @@ asciimath.translate = translate;
           if (transform) {
             def.transform = transform;
           }
+          console.log("Glyph: ", {
+            id,
+            scale,
+            h,
+            d,
+            w,
+            l,
+            r,
+            p,
+            t
+          });
           this.element = SVG.Element("use", def);
           this.element.setAttributeNS(XLINKNS, "href", SVGURL + "#" + id);
         }
@@ -18995,6 +19025,7 @@ asciimath.translate = translate;
         },
 
         SVGgetVariant: function() {
+          debugger;
           var values = this.getValues("mathvariant", "fontfamily", "fontweight", "fontstyle");
           var variant = values.mathvariant;
           if (this.variantForm) variant = "-" + SVG.fontInUse + "-variant";
