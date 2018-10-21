@@ -2190,7 +2190,7 @@ console.log("Glyph: ", {
       toSVG: function (span,div) {
         var CONFIG = SVG.config;
         //
-        //  All the data should be in an inferrerd row
+        //  All the data should be in an inferred row
         //
         if (this.data[0]) {
           this.SVGgetStyles();
