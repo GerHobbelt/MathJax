@@ -1095,6 +1095,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
             var name = this.fileName(file);
             var script = document.createElement("script");
             var timeout = BASE.Callback(["loadTimeout", this, file]);
+        debugger;
             this.loading[file] = {
               callback: callback,
               timeout: setTimeout(timeout, this.timeout),
@@ -1186,6 +1187,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
           //  For JS file loads, call the proper routine according to status
           //
           file: function(file, status) {
+        debugger;
             if (status < 0) {
               BASE.Ajax.loadTimeout(file);
             } else {
@@ -1263,6 +1265,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
               }
               SCRIPTS.push(loading.script);
             }
+        debugger;
             this.loaded[file] = loading.status;
             delete this.loading[file];
             this.addHook(file, loading.callback);
@@ -1270,7 +1273,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
             if (loading) {
               delete this.loading[file];
             }
-            this.loaded[file] = this.STATUS.OK;
+        debugger;
             loading = { status: this.STATUS.OK };
           }
           if (!this.loadHooks[file]) {
@@ -1284,6 +1287,14 @@ if (document.getElementById && document.childNodes && document.createElement) {
         //  is called), this routine runs to signal the error condition.
         //
         loadTimeout: function(file) {
+      if (!this.loading[file]) {
+        console.error("loadTimeout:", {
+          file,
+          loading: this.loading[file],
+          loaded: this.loaded[file] 
+        });
+        debugger;
+      }
           if (this.loading[file].timeout) {
             clearTimeout(this.loading[file].timeout);
           }

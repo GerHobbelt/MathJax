@@ -7765,7 +7765,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
 
       // if (!HUB.Browser.hasMathPlayer) {
       // Used in preTranslate to get scaling factors
-      debugger;
+      // debugger;
       this.EmExSpan = HTML.Element("span", { style: { position: "absolute", "font-size-adjust": "none" } }, [
         ["div", { className: "MathJax_mmlExBox" }],
         ["span", { className: "MathJax_MathML" }]

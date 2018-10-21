@@ -901,6 +901,14 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
         var name = this.fileName(file);
         var script = document.createElement("script");
         var timeout = BASE.Callback(["loadTimeout",this,file]);
+        console.error("JS loader:", {
+          file,
+          loading: this.loading[file],
+          loaded: this.loaded[file],
+          name,
+          timeout: this.timeout, 
+        });
+        debugger;
         this.loading[file] = {
           callback: callback,
           timeout: setTimeout(timeout,this.timeout),
@@ -988,6 +996,13 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
       //  For JS file loads, call the proper routine according to status
       //
       file: function (file,status) {
+        console.error("JS load FILE:", {
+          file,
+          loading: this.loading[file],
+          loaded: this.loaded[file],
+          status,
+        });
+        debugger;
         if (status < 0) {
           BASE.Ajax.loadTimeout(file);
         } else {
@@ -1056,9 +1071,21 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
           }
           SCRIPTS.push(loading.script);
         }
+        console.error("JS loadComplete:", {
+          file,
+          loading: this.loading[file],
+          loaded: this.loaded[file],
+        });
+        debugger;
         this.loaded[file] = loading.status; delete this.loading[file];
         this.addHook(file,loading.callback);
       } else {
+        console.error("JS loadComplete on PRELOADED:", {
+          file,
+          loading: this.loading[file],
+          loaded: this.loaded[file],
+        });
+        debugger;
         if (loading) {delete this.loading[file]}
         this.loaded[file] = this.STATUS.OK;
         loading = {status: this.STATUS.OK}
@@ -1072,6 +1099,14 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
     //  is called), this routine runs to signal the error condition.
     //
     loadTimeout: function (file) {
+      if (!this.loading[file]) {
+        console.error("loadTimeout:", {
+          file,
+          loading: this.loading[file],
+          loaded: this.loaded[file] 
+        });
+        debugger;
+      }
       if (this.loading[file].timeout) {clearTimeout(this.loading[file].timeout)}
       this.loading[file].status = this.STATUS.ERROR;
       this.loadError(file);
