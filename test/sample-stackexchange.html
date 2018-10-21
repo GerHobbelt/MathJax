@@ -1,0 +1,3077 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Windows version 5.6.0">
+  <title>MathJax / Sommen</title>
+  <!-- Copyright (c) 2009-2017 The MathJax Consortium -->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="bootstrap4/css/bootstrap.css">
+
+<script type="text/x-mathjax-config">
+  MathJax.Ajax.timeout = 5*1000;   // timeout for loading of files (5 seconds)
+  MathJax.Ajax.config.path.Contrib = "../../mathjax-third-party-extensions/legacy";
+
+  MathJax.Hub.Config({
+    //config: ["MMLorHTML.js"],
+    extensions: [
+      "tex2jax.js",
+      "mml2jax.js",
+      "asciimath2jax.js",
+      //"CHTML-preview.js",
+      //"fast-preview.js",
+      "FontWarnings.js",
+      "MatchWebFonts.js",
+      "[Contrib]/longdiv/unpacked/longdiv.js",
+      "[Contrib]/counters/counters.js",
+    ],
+    //jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/CommonHTML", "output/NativeMML", "output/HTML-CSS", "output/PreviewHTML", "output/SVG", "output/PlainSource" ],
+    jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/CommonHTML", "output/NativeMML", "output/HTML-CSS", "output/PreviewHTML", "output/SVG", "output/PlainSource" ],
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true,
+      processEnvironments: true,
+      ignoreClass: "tex2jax_ignore|dno",
+    },
+    TeX: {
+      extensions: [
+        "AMSmath.js",
+        "AMSsymbols.js",
+        "bbox.js",
+        "begingroup.js",
+        "cancel.js",
+        "color.js",
+        "enclose.js",
+        "extpfeil.js",
+        "mathchoice.js",
+        "mediawiki-texvc.js",
+        "newcommand.js",
+        "noErrors.js",
+        "noUndefined.js",
+        "unicode.js",
+        "verb.js",
+      ],
+      equationNumbers: {autoNumber: "AMS"},
+      noUndefined: { 
+        attributes: { 
+          mathcolor: "red", 
+          mathbackground: "#FFEEEE", 
+          mathsize: "90%" 
+        } 
+      }, 
+      Macros: { 
+        href: "{}" 
+      }, 
+    },
+    // messageStyle: "none",
+    showProcessingMessages: true,
+    showMathMenu: true,
+    menuSettings: {
+      assistiveMML: false,    // do not produce any 'assistive' MathML-within-SPAN
+      FastPreview: false,     // do not produce a preview SPAN
+    },
+    CommonHTML: {
+      // font: "Gyre-Pagella",
+      font: "Segoe UI",
+    },
+    "HTML-CSS": {
+      // preferredFont: "Gyre-Pagella",
+      preferredFont: "Segoe UI",
+
+      linebreaks: {
+        automatic: true,
+        width: "container",
+      },
+      EqnChunkDelay: 1,
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50), 
+      noReflows: false,
+    },
+    SVG: {
+      // font: "Gyre-Pagella",
+      font: "Segoe UI",
+    },
+    errorSettings: {
+      // message: ["[Math Error]"],
+    },
+    styles: { 
+      ".MathJax_Display, .MathJax_Preview, .MathJax_Preview > *": { 
+        "background": "inherit" 
+      } 
+    },
+  });
+</script>
+
+
+<style>
+body {
+  max-width: 70em;
+  margin: 0 auto;
+}
+h1 {
+  text-align: center;
+}
+h2 {
+  font-weight: bold;
+  background-color: #DDDDDD;
+  padding: .2em .5em;
+  margin-top: 1.5em;
+}
+h3 {
+  padding-top: 2em;
+  padding-bottom: 1em;
+}
+blockquote {
+  border: 1px solid #ccdee3;
+  padding: .25em 1em;
+  margin: 2em 5em;
+  background-color: #e9f7fb;
+}
+blockquote blockquote {
+  border: 1px solid #ccdee3;
+  padding: .25em 1em;
+  margin: 2em 1em 2em 1em;
+  background-color: #f8fbfb;
+
+  font-size: 89%;
+}
+blockquote p {
+  text-align: justify;
+}
+def {
+  font-weight: 500;
+  font-style: italic;
+}
+article pre {
+  white-space: pre-line;
+}
+
+.multicol5 {
+  column-count: 5;
+  column-rule: 1px dotted grey;
+  column-gap: 1em;
+  
+
+  /* border-top:    solid grey 1px; */
+  border-bottom: solid grey 1px;
+  margin-top:     .5em;
+  margin-bottom:   1em;
+  padding-top:    .5em;
+  padding-bottom: .5em;
+
+  /* compensate for last column of sums looking like it's got too little white space on the right side */
+  padding-right: 2em;
+}
+.multicol5 p {
+  padding: 0;
+  margin: 0;
+}
+/* https://css-tricks.com/almanac/properties/b/break-inside/ */
+.column {
+  -webkit-column-break-inside: avoid; /* Chrome, Safari, Opera */
+            page-break-inside: avoid; /* Firefox */
+                 break-inside: avoid; /* IE 10+ */
+}
+
+/* http://www.css3.info/preview/web-fonts-with-font-face/ */
+@font-face {
+  font-family: "Fiona Script";
+  src: url(fonts/FionaScript-Regular.otf) format("opentype");
+}
+@font-face {
+  font-family: "Fiona Script";
+  font-weight: bold;
+  src: url(fonts/FionaScript-Bold.otf) format("opentype");
+}
+
+.speech {
+  /* font-family: "Fiona Script"; */
+  font-family: Palatino, Georgia;
+  font-style: italic;
+  font-size: 114%;
+}
+.speech em {
+  font-weight: bold;
+}
+
+
+/* prevent oversized output from producing horizontal scroll bar */
+/*
+div.width-limited {
+  max-width: 100%;
+  overflow: auto;
+  margin: 1em 0 1em 0;
+  border: 1px dotted grey;
+  background-color: #f7f7f7;
+  padding: 0.2em 1em;
+}
+*/
+
+/* diagnostic style: */
+/*
+.MathJax_SVG_Display,
+.MathJax_SVG {
+  border: 1px solid red           !important;
+  background-color: #f7f7f7;
+}
+*/
+
+@media screen {
+  html {
+    margin-left: .5em;
+    margin-right: .5em;
+  }
+}
+@media screen and (max-width: 1140px) {
+  body {
+    font-size: 90%;
+  }
+}
+@media screen and (max-width: 1024px) {
+  blockquote {
+    margin-left: 2em;
+    margin-right: 2em;
+  }
+}
+@media screen and (max-width: 700px) {
+  blockquote {
+    margin-left: 1em;
+    margin-right: 1em;
+
+    font-size: 95%;
+  }
+
+  .multicol5 {
+    column-count: 3;
+  }
+}
+
+@media print {
+  body {
+    margin: 0.5em;  /* extra margin is delivered by the browser/printer itself so we keep this tiny */
+    max-width: 100%;
+
+    font-size: 85%;
+  }
+  blockquote {
+    page-break-before: avoid;
+    page-break-inside: auto;
+    margin: 1em 1em;
+  }
+
+  /* https://css-tricks.com/almanac/properties/p/page-break/ */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-before: auto;
+    page-break-after: avoid;
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+
+  .multicol5 {
+    page-break-inside: avoid;
+  }
+
+  blockquote {
+    page-break-inside: avoid;
+  }
+
+  /* https://css-tricks.com/child-and-sibling-selectors/ */
+  h1 + blockquote,
+  h2 + blockquote,
+  h3 + blockquote,
+  h4 + blockquote {
+    page-break-before: avoid;
+    page-break-after: avoid;
+  }
+}
+
+div {
+	border: 1px solid orange;
+	margin: 3px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+ul {
+	border: 1px solid green;
+	margin: 3px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+p {
+	border: 1px solid brown;
+	margin: 3px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+h1,h2,h3,pre {
+	border: 1px solid teal;
+	margin: 3px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+div.question {
+	border: 3px solid orange;
+	margin: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+div.answer {
+	border: 3px solid green;
+	margin: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+div.post-text {
+	border: 3px solid pink;
+	margin: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+section {
+	border: 3px solid black;
+	margin: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+</style>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
+    var TEX = MathJax.InputJax.TeX;
+    var PREFILTER = TEX.prefilterMath;
+    TEX.Augment({
+      prefilterMath: function (math, displaymode, script) {
+        console.log("TeX rendering Math:", {math, displaymode, script});
+        //math = "\\displaystyle{" + math + "}";
+        //math = "\\mathsf{" + math + "}";
+        return PREFILTER.call(TEX, math, displaymode, script);
+      }
+    });
+
+    var AM = MathJax.InputJax.AsciiMath;
+    var AMPREFILTER = AM.prefilterMath;
+    AM.Augment({
+      prefilterMath: function (math, displaymode, script) {
+        console.log("AsciiMath rendering Math:", {math, displaymode, script});
+        return AMPREFILTER.call(AM, math, displaymode, script);
+      }
+    });
+  });
+</script>
+<!--
+  WARNING:
+
+MathJax.js script must load AFTER ALL text/x-mathjax-config SCRIPTS have been defined
+as those scripts won't otherwise be detected by MathJax (ConfigBlocks() internal call)
+on startup as the init code is executed immeditately once the MathJax script has loaded!
+-->
+
+<script type="text/javascript" src="../MathJax.js"></script>
+</head>
+<body>
+  <noscript>
+  <div style="color:#CC0000; text-align:center">
+    <b>Warning: <a href="http://www.mathjax.org/">MathJax</a> requires JavaScript to
+    process the mathematics on this page.<br>
+    If your browser supports JavaScript, be sure it is enabled.</b>
+  </div>
+  <hr>
+  </noscript>
+
+  <article contentediable="true">
+    <section>
+
+
+
+
+
+
+
+
+
+
+
+        <h2>numbering - How can I label only one line of an equation array? - TeX - LaTeX Stack Exchange</h2>
+
+                    <h1 itemprop="name" class="grid--cell fs-headline1 fl1"><a href="/questions/135567/how-can-i-label-only-one-line-of-an-equation-array" class="question-hyperlink">How can I label only one line of an equation array?</a></h1>
+
+            
+
+
+<div class="question" data-questionid="135567"  id="question">
+
+    <div class="post-text" itemprop="text">
+
+<p>Consider the following commands to create a labelled multi-line equation array:</p>
+
+<pre><code>\begin{eqnarray}
+\label{eqn:1}
+X&amp;=&amp;Y+Z\\
+&amp;\leq &amp; U \times W.
+
+\end{eqnarray}
+</code></pre>
+
+
+\begin{eqnarray}
+\label{eqn:1}
+X&amp;=&amp;Y+Z\\
+&amp;\leq &amp; U \times W.
+
+\end{eqnarray}
+
+
+<p>It creates a two-line equations with two numbers. How can I associate only one equation number to this two-line equations? or better, how can I associated different equation numbers to each line? (of course, without breaking the equation array into several disjoint equations!) </p>
+    </div>
+
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="/posts/135567/revisions" title="show all edits to this post">edited <span title="2017-07-15 03:50:41Z" class="relativetime">Jul 15 '17 at 3:50</span></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/48/shreevatsar">ShreevatsaR</a>
+    </div>
+</div>
+<div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2013-09-29 05:47:08Z" class="relativetime">Sep 29 '13 at 5:47</span>
+    </div>
+    <div class="user-details">
+        user24323
+    </div>
+</div>
+
+            <ul class="comments-list js-comments-list"
+                    data-remaining-comments-count="0"
+                    data-canpost="false"
+                    data-cansee="true"
+                    data-comments-unavailable="false"
+                    data-addlink-disabled="true">
+
+
+    <li id="comment-306436" class="comment js-comment " data-comment-id="306436">
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">Please don&#39;t use <code>eqnarray</code>. See <a href="http://goo.gl/3R7Ln" rel="nofollow noreferrer"><code>\eqnarray</code> vs <code>\align</code></a>.</span>
+                    &ndash;&nbsp;<a href="/users/5764/werner"
+                       title="422,946 reputation"
+                       class="comment-user">Werner</a>
+                <span class="comment-date" dir="ltr"><span title="2013-09-29 06:04:12Z" class="relativetime-clean">Sep 29 '13 at 6:04</span></span>
+        </div>
+    </li>
+            </ul>
+
+
+
+<div id="answer-135570" class="answer accepted-answer" data-answerid="135570"   itemprop="acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+    <div class="post-text" itemprop="text">
+<p><a href="http://ctan.org/pkg/amsmath" rel="noreferrer"><code>amsmath</code></a> provides a similar interface to <code>eqnarray</code>, but is better in terms of it's horizontal spacing/alignment:</p>
+
+<p><img src="https://i.stack.imgur.com/f4vmx.png" alt="enter image description here"></p>
+
+<pre><code>\documentclass{article}
+\usepackage{amsmath}% http://ctan.org/pkg/amsmath
+\begin{document}
+\begin{align}
+  X &amp;= Y + Z \label{eqn:1} \\
+    &amp;\leq U \times W. \nonumber \\
+    &amp; = Y + Z \tag{a}
+\end{align}
+\end{document}
+</code></pre>
+
+
+\begin{align}
+  X &amp;= Y + Z \label{eqn:1} \\
+    &amp;\leq U \times W. \nonumber \\
+    &amp; = Y + Z \tag{a}
+\end{align}
+
+
+
+<p><code>\nonumber</code> removes the number for that line in the <code>align</code> environment. <code>\tag</code> can also be 
+used to create a manual tag.</p>
+    </div>
+
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="/posts/135570/revisions" title="show all edits to this post">edited <span title="2017-06-11 11:52:49Z" class="relativetime">Jun 11 '17 at 11:52</span></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/89949/moriambar">Moriambar</a>
+    </div>
+</div>    
+            
+
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2013-09-29 06:10:13Z" class="relativetime">Sep 29 '13 at 6:10</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/5764/werner">Werner</a>
+    </div>
+</div>
+
+            <ul class="comments-list js-comments-list"
+                    data-remaining-comments-count="0"
+                    data-canpost="false"
+                    data-cansee="true"
+                    data-comments-unavailable="false"
+                    data-addlink-disabled="true">
+
+
+    <li id="comment-306441" class="comment js-comment " data-comment-id="306441">
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">Though I never use it myself.  I still forget when answering questions on this site that it&#39;s recommended not to use <code>eqnarray</code>.</span>
+                    &ndash;&nbsp;<a href="/users/22413/a-ellett"
+                       title="35,188 reputation"
+                       class="comment-user">A.Ellett</a>
+                <span class="comment-date" dir="ltr"><span title="2013-09-29 06:18:19Z" class="relativetime-clean">Sep 29 '13 at 6:18</span></span>
+                        <span title="this comment was edited 1 time">
+                            <svg aria-hidden="true" class="svg-icon va-text-bottom o50 iconPencilSm" width="14" height="15" viewBox="0 0 14 15"><path d="M8.37 4.7L2 11.11V13h1.88l6.37-6.43zM12.23 3.83L11.1 2.71a.5.5 0 0 0-.7 0L9.2 3.86l1.88 1.84 1.14-1.16a.5.5 0 0 0 0-.71z"/></svg>
+                        </span>
+        </div>
+    </li>
+    <li id="comment-306445" class="comment js-comment " data-comment-id="306445">
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy"><code>\tag*{a}</code> for labels without parentheses</span>
+                    &ndash;&nbsp;<a href="/users/2478/herbert"
+                       title="262,497 reputation"
+                       class="comment-user">Herbert</a>
+                <span class="comment-date" dir="ltr"><span title="2013-09-29 06:33:45Z" class="relativetime-clean">Sep 29 '13 at 6:33</span></span>
+        </div>
+    </li>
+            </ul>
+        </div>
+
+<div id="answer-135616" class="answer" data-answerid="135616"   itemscope itemtype="http://schema.org/Answer">
+
+    <div class="post-text" itemprop="text">
+<p>if only one equation number is wanted for a group, the <code>split</code> environment from
+<code>amsmath</code> is a reasonable candidate; it must be "wrapped" in an <code>equation</code> environment for the equation number to appear.</p>
+
+<p>if all the equations in a group are to be numbered, then (as pointed out in other answers)
+the <code>align</code> environment is more suitable.</p>
+
+<pre><code>\begin{equation}
+\begin{split}
+ X &amp;=Y+Z\\
+   &amp;\leq U \times W
+\end{split}
+ \label{eqn:1}
+\end{equation}
+
+\begin{align}
+ X &amp;=Y+Z \label{eqn:2}\\
+   &amp;\leq U \times W \label{eqn:3}
+\end{align}
+</code></pre>
+
+
+\begin{equation}
+\begin{split}
+ X &amp;=Y+Z\\
+   &amp;\leq U \times W
+\end{split}
+ \label{eqn:1}
+\end{equation}
+
+\begin{align}
+ X &amp;=Y+Z \label{eqn:2}\\
+   &amp;\leq U \times W \label{eqn:3}
+\end{align}
+
+
+
+<p><img src="https://i.stack.imgur.com/FqOGe.png" alt="output of example code"></p>
+    </div>
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="/posts/135616/revisions" title="show all edits to this post">edited <span title="2017-06-16 06:51:36Z" class="relativetime">Jun 16 '17 at 6:51</span></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/1090/david-carlisle">David Carlisle</a>
+    </div>
+</div>    
+            
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2013-09-29 14:32:57Z" class="relativetime">Sep 29 '13 at 14:32</span>
+    </div>
+    <div class="user-details">
+        <a href="/users/579/barbara-beeton">barbara beeton</a>
+    </div>
+</div>
+
+
+            <ul class="comments-list js-comments-list"
+                    data-remaining-comments-count="0"
+                    data-canpost="false"
+                    data-cansee="true"
+                    data-comments-unavailable="false"
+                    data-addlink-disabled="true">
+
+
+    <li id="comment-306551" class="comment js-comment " data-comment-id="306551">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">All these cases are applicable from time to time. Thanks for your answer.</span>
+                    &ndash;&nbsp;<span class="comment-user">user24323</span>
+                <span class="comment-date" dir="ltr"><span title="2013-09-29 14:50:05Z" class="relativetime-clean">Sep 29 '13 at 14:50</span></span>
+
+        </div>
+    </li>
+            </ul>
+        </div>
+
+<div id="answer-135568" class="answer" data-answerid="135568"   itemscope itemtype="http://schema.org/Answer">
+
+    <div class="post-text" itemprop="text">
+<p>Use <code>\notag</code>:</p>
+
+<pre><code>\begin{eqnarray}
+\label{eqn:1}
+X&amp;=&amp;Y+Z\\
+\notag
+&amp;\leq &amp; U \times W.    
+\end{eqnarray}
+</code></pre>
+
+
+\begin{eqnarray}
+\label{eqn:1}
+X&amp;=&amp;Y+Z\\
+\notag
+&amp;\leq &amp; U \times W.    
+\end{eqnarray}
+
+
+
+<p>But, as @werner reminds us, it is not advised to use <code>eqnarray</code>, <code>align</code> does a better job:</p>
+
+<pre><code>\begin{align}
+\label{eqn:1}
+     X &amp; = Y + Z \\
+\notag &amp; \leq  U \times W.    
+\end{align}
+</code></pre>
+
+
+\begin{align}
+\label{eqn:1}
+     X &amp; = Y + Z \\
+\notag &amp; \leq  U \times W.    
+\end{align}
+
+
+<p>This requires that you load the package <code>amsmath</code> to have access to <code>\notag</code></p>
+
+<p>Math environments in LaTeX are not happy with empty lines.  If you want each line to have a number, just don't use <code>\notag</code>.</p>
+
+<p>See <a href="https://tex.stackexchange.com/a/13397/22413">How to get only one vertically centered equation number in align environment with two equations</a> for how to get one equation number for multiple lines.</p>
+    </div>
+
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="/posts/135568/revisions" title="show all edits to this post">edited <span title="2017-06-16 06:51:59Z" class="relativetime">Jun 16 '17 at 6:51</span></a>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/1090/david-carlisle">David Carlisle</a>
+
+    </div>
+</div>    
+            
+
+<div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2013-09-29 05:47:49Z" class="relativetime">Sep 29 '13 at 5:47</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/22413/a-ellett">A.Ellett</a>
+
+    </div>
+</div>
+
+
+    
+
+            <ul class="comments-list js-comments-list"
+                    data-remaining-comments-count="0"
+                    data-canpost="false"
+                    data-cansee="true"
+                    data-comments-unavailable="false"
+                    data-addlink-disabled="true">
+
+
+    <li id="comment-306434" class="comment js-comment " data-comment-id="306434">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">Thanks for your answer. How can I label each line individually?</span>
+                    &ndash;&nbsp;<span class="comment-user">user24323</span>
+                <span class="comment-date" dir="ltr"><span title="2013-09-29 05:50:34Z" class="relativetime-clean">Sep 29 '13 at 5:50</span></span>
+
+        </div>
+    </li>
+    <li id="comment-306515" class="comment js-comment " data-comment-id="306515">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@VahidShirbisheh -- instead of <code>\notag</code>, put a <code>\label</code> on the second line.  each line can be individually labeled for later reference.</span>
+                    &ndash;&nbsp;<a href="/users/579/barbara-beeton"
+                       title="68,470 reputation"
+                       class="comment-user">barbara beeton</a>
+                <span class="comment-date" dir="ltr"><span title="2013-09-29 13:24:55Z" class="relativetime-clean">Sep 29 '13 at 13:24</span></span>
+
+        </div>
+    </li>
+            </ul>
+        </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+<section>
+
+
+        <h2>vertical alignment - How to get only one vertically centered equation number in align environment with two equations - TeX - LaTeX Stack Exchange</h2>
+
+
+
+                    <h1 itemprop="name" class="grid--cell fs-headline1 fl1"><a href="/questions/13396/how-to-get-only-one-vertically-centered-equation-number-in-align-environment-wit" class="question-hyperlink">How to get only one vertically centered equation number in align environment with two equations</a></h1>
+
+
+
+
+
+<div class="question" data-questionid="13396"  id="question">
+
+
+    <div class="post-text" itemprop="text">
+
+<p>What I have are two equations with <code>align</code> and I want one single equation number to refer to this system of equations. To illustrate, I have</p>
+
+<pre><code>\begin{align}
+  dr_t &amp;= \kappa ( \theta - r_t ) dt + \sigma_r r^{\xi} dW_t \\
+  dA_t &amp;= \mu A_t dt + \sigma_A^{\alpha} dZ_t,
+\end{align}
+</code></pre>
+
+
+\begin{align}
+  dr_t &amp;= \kappa ( \theta - r_t ) dt + \sigma_r r^{\xi} dW_t \\
+  dA_t &amp;= \mu A_t dt + \sigma_A^{\alpha} dZ_t,
+\end{align}
+
+
+<p><a href="https://i.stack.imgur.com/59Koq.png"><img src="https://i.stack.imgur.com/59Koq.png" alt="1"></a>
+
+<p>and I want neither</p>
+
+<pre><code>\begin{align}
+  dr_t &amp;= \kappa ( \theta - r_t ) dt + \sigma_r r^{\xi} dW_t \nonumber \\
+  dA_t &amp;= \mu A_t dt + \sigma_A^{\alpha} dZ_t,
+\end{align}
+</code></pre>
+
+
+\begin{align}
+  dr_t &amp;= \kappa ( \theta - r_t ) dt + \sigma_r r^{\xi} dW_t \nonumber \\
+  dA_t &amp;= \mu A_t dt + \sigma_A^{\alpha} dZ_t,
+\end{align}
+
+
+<p><a href="https://i.stack.imgur.com/o2FdA.png"><img src="https://i.stack.imgur.com/o2FdA.png" alt="enter image description here"></a>
+<p>
+nor </p>
+
+<pre><code>\begin{align}
+  dr_t &amp;= \kappa ( \theta - r_t ) dt + \sigma_r r^{\xi} dW_t \\
+  dA_t &amp;= \mu A_t dt + \sigma_A^{\alpha} dZ_t, \nonumber
+\end{align}
+</code></pre>
+
+
+
+\begin{align}
+  dr_t &amp;= \kappa ( \theta - r_t ) dt + \sigma_r r^{\xi} dW_t \\
+  dA_t &amp;= \mu A_t dt + \sigma_A^{\alpha} dZ_t, \nonumber
+\end{align}
+
+
+<p><a href="https://i.stack.imgur.com/oFzfb.png"><img src="https://i.stack.imgur.com/oFzfb.png" alt="enter image description here"></a></p>
+
+<p>but having a single number in the middle. I know this can be achieved by nesting an <code>array</code> inside of an equation but then some symbols (sums, etc.) look differently and I thought there had to be a better way of doing this.</p>
+    </div>
+
+
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="/posts/13396/revisions" title="show all edits to this post">edited <span title="2015-09-19 12:01:14Z" class="relativetime">Sep 19 '15 at 12:01</span></a>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/37825/np8">np8</a>
+
+    </div>
+</div>                
+
+<div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2011-03-14 14:51:55Z" class="relativetime">Mar 14 '11 at 14:51</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/4177/paul-koer">Paul Koer</a>
+
+    </div>
+</div>
+</div>                
+
+
+                
+
+
+
+<div id="answer-13397" class="answer accepted-answer" data-answerid="13397"   itemprop="acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+
+    <div class="post-text" itemprop="text">
+<p>Use <code>aligned</code> instead.</p>
+
+<pre><code>\begin{equation}
+\begin{aligned}
+  dr_t &amp;= \kappa ( \theta - r_t ) dt + \sigma_r r^{\xi} dW_t \\
+  dA_t &amp;= \mu A_t dt + \sigma_A^{\alpha} dZ_t, 
+\end{aligned}
+\end{equation}
+</code></pre>
+
+
+\begin{equation}
+\begin{aligned}
+  dr_t &amp;= \kappa ( \theta - r_t ) dt + \sigma_r r^{\xi} dW_t \\
+  dA_t &amp;= \mu A_t dt + \sigma_A^{\alpha} dZ_t, 
+\end{aligned}
+\end{equation}
+
+
+<p><img src="https://i.stack.imgur.com/Paoq3.png" alt="enter image description here"></p>
+    </div>
+
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="/posts/13397/revisions" title="show all edits to this post">edited <span title="2017-06-09 20:59:08Z" class="relativetime">Jun 9 '17 at 20:59</span></a>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/89949/moriambar">Moriambar</a>
+
+    </div>
+</div>    
+            
+
+<div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2011-03-14 14:58:47Z" class="relativetime">Mar 14 '11 at 14:58</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/647/th">TH.</a>
+
+    </div>
+</div>
+
+
+    
+
+            <ul class="comments-list js-comments-list"
+                    data-remaining-comments-count="10"
+                    data-canpost="false"
+                    data-cansee="true"
+                    data-comments-unavailable="false"
+                    data-addlink-disabled="true">
+
+
+    <li id="comment-24476" class="comment js-comment " data-comment-id="24476">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@Paul: That seems wrong. Hmm.</span>
+                    &ndash;&nbsp;<a href="/users/647/th"
+                       title="46,454 reputation"
+                       class="comment-user">TH.</a>
+                <span class="comment-date" dir="ltr"><span title="2011-03-14 15:11:29Z" class="relativetime-clean">Mar 14 '11 at 15:11</span></span>
+</div>                
+
+    </li>
+    <li id="comment-24518" class="comment js-comment " data-comment-id="24518">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@Martin: I think it was rejected because most of the TeX code here is designed to display as TeX, not as graphics.</span>
+                    &ndash;&nbsp;<a href="/users/647/th"
+                       title="46,454 reputation"
+                       class="comment-user">TH.</a>
+                <span class="comment-date" dir="ltr"><span title="2011-03-14 17:34:54Z" class="relativetime-clean">Mar 14 '11 at 17:34</span></span>
+                                                                            </div>
+
+    </li>
+    <li id="comment-25947" class="comment js-comment " data-comment-id="25947">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">also with the complicated LaTeX constructions sometimes shown here, it may be difficualt to secure a LaTeX to image renderer. Depending on the system it might e.g. be easy to fill a disk/partition or make LaTeX run in an infinite loop. Thus I thinkthe current situation is the best compromise.</span>
+                    &ndash;&nbsp;<a href="/users/3929/daleif"
+                       title="31,365 reputation"
+                       class="comment-user">daleif</a>
+                <span class="comment-date" dir="ltr"><span title="2011-03-22 23:05:17Z" class="relativetime-clean">Mar 22 '11 at 23:05</span></span>
+                                                                            </div>
+
+    </li>
+    <li id="comment-32582" class="comment js-comment " data-comment-id="32582">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@TH.: I have a comment on your answer which is too big to give as a comment, so I&#39;ve put it as a separate (noncompeting) answer.</span>
+                    &ndash;&nbsp;<a href="/users/575/ryan-reich"
+                       title="30,845 reputation"
+                       class="comment-user">Ryan Reich</a>
+                <span class="comment-date" dir="ltr"><span title="2011-05-05 15:05:39Z" class="relativetime-clean">May 5 '11 at 15:05</span></span>
+                                                                            </div>
+
+    </li>
+    <li id="comment-941574" class="comment js-comment " data-comment-id="941574">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">Environments <code>equation</code> and <code>align</code> serve similar kinds of purposes. Whereas the purpose of <code>split</code> or <code>aligned</code>is quite distinct: i.e. they typically fit <i>inside</i> <code>equation</code>, <code>align*</code>, etc.</span>
+                    &ndash;&nbsp;<a href="/users/15665/evgeni-sergeev"
+                       title="284 reputation"
+                       class="comment-user">Evgeni Sergeev</a>
+                <span class="comment-date" dir="ltr"><span title="2017-07-12 05:14:58Z" class="relativetime-clean">Jul 12 '17 at 5:14</span></span>
+                                                                            </div>
+
+    </li>
+            </ul>
+</div>                
+
+<div id="answer-59628" class="answer" data-answerid="59628"   itemscope itemtype="http://schema.org/Answer">
+
+    <div class="post-text" itemprop="text">
+<p>Here's a slightly better way to do this (IMO):</p>
+
+<p>Using the <code>split</code> environment within an <code>align</code> will produce one equation number, vertically centered within the <code>split</code> (so long as there's not a page break involved, as discussed <a href="https://tex.stackexchange.com/questions/42726/align-but-show-one-equation-number-at-the-end?rq=1">here</a>).</p>
+
+<p>Note that you can have individual labels for each equation by adding <code>\label{}</code> to the end of each line before the line break <code>\\</code></p>
+
+<p>For example:</p>
+
+<pre><code>\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document} 
+
+\begin{align}
+  E_1&amp;=A+B \label{eq:1}\\
+   \begin{split}
+    E_2&amp;=(C-D)E_1 \label{eq:2}\\
+    &amp;\quad +[(1-R)+R(1-Y)\\
+    &amp;\quad +\pi(1-\delta)]E_2\\
+    &amp;\quad +F\cdot E_3
+   \end{split}\\
+  E_3 &amp;=(\pi\cdot \chi)-(R\cdot E_1)-(RY\delta\cdot E_2) \label{eq:3}
+\end{align}
+
+\end{document}
+</code></pre>
+
+<p>which gives:</p>
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{align}
+  E_1&amp;=A+B \label{eq:1}\\
+   \begin{split}
+    E_2&amp;=(C-D)E_1 \label{eq:2}\\
+    &amp;\quad +[(1-R)+R(1-Y)\\
+    &amp;\quad +\pi(1-\delta)]E_2\\
+    &amp;\quad +F\cdot E_3
+   \end{split}\\
+  E_3 &amp;=(\pi\cdot \chi)-(R\cdot E_1)-(RY\delta\cdot E_2) \label{eq:3}
+\end{align}
+
+
+
+<p><img src="https://i.stack.imgur.com/hpQq9.png" alt="enter image description here"></p>
+    </div>
+
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="/posts/59628/revisions" title="show all edits to this post">edited <span title="2017-06-09 20:59:21Z" class="relativetime">Jun 9 '17 at 20:59</span></a>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/89949/moriambar">Moriambar</a>
+
+    </div>
+</div>    
+            
+
+<div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2012-06-12 21:32:00Z" class="relativetime">Jun 12 '12 at 21:32</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/15338/trevor">Trevor</a>
+
+    </div>
+</div>
+
+</div>                
+
+
+<div id="answer-17483" class="answer" data-answerid="17483"   itemscope itemtype="http://schema.org/Answer">
+
+    <div class="post-text" itemprop="text">
+<p>This is really a comment on TH.'s accepted answer (which should stay that way).  Using just one <code>aligned</code> doesn't work if you have multiple columns: they are separated by only a small space, since <code>aligned</code> "shrinks to fit".  The workaround is to use one <code>aligned</code> <em>per column</em>, and wrap the whole thing in a larger <code>align</code>, like so:</p>
+
+<pre><code>\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+ \begin{align}
+  \begin{aligned}
+   x &amp;= y \\       f(x) &amp;= f(y)
+  \end{aligned}
+  &amp;&amp;
+  \begin{aligned}
+   a &amp;= b \\       g(a) &amp;= g(b)
+  \end{aligned}
+ \end{align}
+\end{document}
+</code></pre>
+
+
+
+
+ \begin{align}
+  \begin{aligned}
+   x &amp;= y \\       f(x) &amp;= f(y)
+  \end{aligned}
+  &amp;&amp;
+  \begin{aligned}
+   a &amp;= b \\       g(a) &amp;= g(b)
+  \end{aligned}
+ \end{align}
+
+
+<p>This should produce two pairs of equations, each aligned at the equals sign, and with one equation number centered between the lines. </p>
+
+<p><a href="https://i.stack.imgur.com/mhBOP.png" rel="noreferrer"><img src="https://i.stack.imgur.com/mhBOP.png" alt="enter image description here"></a></p>
+    </div>
+
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="/posts/17483/revisions" title="show all edits to this post">edited <span title="2016-04-20 20:19:20Z" class="relativetime">Apr 20 '16 at 20:19</span></a>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/62340/casimir">Casimir</a>
+
+    </div>
+</div>    
+            
+
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2011-05-05 15:04:54Z" class="relativetime">May 5 '11 at 15:04</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/575/ryan-reich">Ryan Reich</a>
+
+    </div>
+</div>
+</div>                
+
+
+    
+
+<div id="answer-445327" class="answer" data-answerid="445327"   itemscope itemtype="http://schema.org/Answer">
+
+    <div class="post-text" itemprop="text">
+<p>Using </p>
+
+<pre><code>\begin{equation}
+\begin{split}
+  dr_t &amp;= \kappa ( \theta - r_t ) dt + \sigma_r r^{\xi} dW_t \\
+  dA_t &amp;= \mu A_t dt + \sigma_A^{\alpha} dZ_t,
+\end{split}
+\end{equation}
+</code></pre>
+
+
+\begin{equation}
+\begin{split}
+  dr_t &amp;= \kappa ( \theta - r_t ) dt + \sigma_r r^{\xi} dW_t \\
+  dA_t &amp;= \mu A_t dt + \sigma_A^{\alpha} dZ_t,
+\end{split}
+\end{equation}
+
+
+<p>will produce one equation number that is vertically centered on the group of equations.</p>
+    </div>
+
+<div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2018-08-09 13:59:07Z" class="relativetime">Aug 9 at 13:59</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/63689/usernumber">usernumber</a>
+
+    </div>
+</div>
+</div>                
+
+
+
+
+
+
+
+
+
+
+
+</section>
+<section>
+
+
+
+
+
+
+
+        <h2>numbering - align* but show one equation number at the end - TeX - LaTeX Stack Exchange</h2>
+
+    
+
+
+                    <h1 itemprop="name" class="grid--cell fs-headline1 fl1"><a href="/questions/42726/align-but-show-one-equation-number-at-the-end" class="question-hyperlink">align* but show one equation number at the end</a></h1>
+
+            
+
+
+
+
+<div class="question" data-questionid="42726"  id="question">
+
+
+    <div class="post-text" itemprop="text">
+
+<p>I am using <code>align*</code>, but I still need an equation number. I know one solution is to use <code>align</code> and add <code>\nonumber</code> to all lines but the last. Is there a 'lazy' way to do it?</p>
+
+<p>I searched a little and found similar ones suggesting use <code>split</code>: 
+<a href="https://tex.stackexchange.com/questions/17528/show-equation-number-only-once-in-align-environment">Show equation number only once in align environment</a></p>
+
+<p>Unfortunately, due to the page break issue I have, I need to use <code>align</code>, because <code>split</code> won't auto page break, as described in <a href="https://tex.stackexchange.com/questions/42720/long-equation-does-not-page-break">Long equation does not page break</a>.</p>
+    </div>
+
+
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="/posts/42726/revisions" title="show all edits to this post">edited <span title="2017-04-13 12:34:49Z" class="relativetime">Apr 13 '17 at 12:34</span></a>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/-1/community">Community</a><span class="mod-flair" title="moderator">&#9830;</span>
+
+    </div>
+</div>                
+
+<div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2012-01-29 22:03:24Z" class="relativetime">Jan 29 '12 at 22:03</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/11272/digit-plumber">digit plumber</a>
+
+    </div>
+</div>
+</div>                
+
+
+
+<div id="answer-42728" class="answer accepted-answer" data-answerid="42728"   itemprop="acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+
+    <div class="post-text" itemprop="text">
+<p>Use <code>\tag</code>:</p>
+
+<pre><code>\documentclass{article}
+\usepackage{amsmath}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\begin{document}
+\begin{align*}
+a &amp;=b \\
+  &amp;=c \numberthis \label{eqn}
+\end{align*}
+Equation \eqref{eqn} shows that $a=c$.
+\begin{equation}
+d = e
+\end{equation}
+\end{document}
+</code></pre>
+
+
+\[
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\]
+
+\begin{align*}
+a &amp;=b \\
+  &amp;=c \numberthis \label{eqn}
+\end{align*}
+
+Equation \eqref{eqn} shows that $a=c$.
+
+\begin{equation}
+d = e
+\end{equation}
+
+
+<p>See page 3 of the <a href="http://www.ctan.org/pkg/amsmath" rel="noreferrer">amsmath package documentation</a> for details.</p>
+    </div>
+
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="/posts/42728/revisions" title="show all edits to this post">edited <span title="2017-07-18 08:44:16Z" class="relativetime">Jul 18 '17 at 8:44</span></a>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/1090/david-carlisle">David Carlisle</a>
+
+    </div>
+</div>    
+            
+
+
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2012-01-29 22:09:38Z" class="relativetime">Jan 29 '12 at 22:09</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/2417/ian-thompson">Ian Thompson</a>
+
+    </div>
+</div>
+
+
+
+            <ul class="comments-list js-comments-list"
+                    data-remaining-comments-count="1"
+                    data-canpost="false"
+                    data-cansee="true"
+                    data-comments-unavailable="false"
+                    data-addlink-disabled="true">
+
+
+    <li id="comment-295283" class="comment js-comment " data-comment-id="295283">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">Why didn&#39;t you use <code>\stepcounter</code> or <code>\refstepcounter</code> instead of <code>\addtocounter</code>?</span>
+                    &ndash;&nbsp;<a href="/users/19356/kiss-my-armpit"
+                       title="11,824 reputation"
+                       class="comment-user">kiss my armpit</a>
+                <span class="comment-date" dir="ltr"><span title="2013-08-31 06:14:59Z" class="relativetime-clean">Aug 31 '13 at 6:14</span></span>
+                                                                            </div>
+
+    </li>
+    <li id="comment-295876" class="comment js-comment " data-comment-id="295876">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@PSTikZ --- <code>\refstepcounter</code> isn&#39;t needed, as the <code>\ref</code> value is set correctly already. <code>\stepcounter</code> is probably the best choice, to take care of subsidiary counters. I don&#39;t think I gave much thought to this when I composed the answer.</span>
+                    &ndash;&nbsp;<a href="/users/2417/ian-thompson"
+                       title="31,160 reputation"
+                       class="comment-user">Ian Thompson</a>
+                <span class="comment-date" dir="ltr"><span title="2013-09-02 08:25:26Z" class="relativetime-clean">Sep 2 '13 at 8:25</span></span>
+                                                                            </div>
+
+    </li>
+    <li id="comment-295972" class="comment js-comment " data-comment-id="295972">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">OK. Thank you for responding!</span>
+                    &ndash;&nbsp;<a href="/users/19356/kiss-my-armpit"
+                       title="11,824 reputation"
+                       class="comment-user">kiss my armpit</a>
+                <span class="comment-date" dir="ltr"><span title="2013-09-02 13:44:04Z" class="relativetime-clean">Sep 2 '13 at 13:44</span></span>
+                                                                            </div>
+
+    </li>
+    <li id="comment-384788" class="comment js-comment " data-comment-id="384788">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">Your example works perfectly for me, thank you. I have a followup question though. How can I make the number on the same line than the last line of the euqation provided that the last line is longer normal <code>align</code> would allow (it does fit in <code>align*</code> though)</span>
+                    &ndash;&nbsp;<a href="/users/47340/magu"
+                       title="381 reputation"
+                       class="comment-user">magu_</a>
+                <span class="comment-date" dir="ltr"><span title="2014-03-24 09:56:54Z" class="relativetime-clean">Mar 24 '14 at 9:56</span></span>
+                                                                            </div>
+
+    </li>
+    <li id="comment-384877" class="comment js-comment " data-comment-id="384877">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@magu_ Please post a new question with an example showing exactly what you want. I think I understand your question, but I&#39;m not 100% sure. Also, other users (who may have better solutions than me) will see the new question, whereas they are unlikely to see new comments here.</span>
+                    &ndash;&nbsp;<a href="/users/2417/ian-thompson"
+                       title="31,160 reputation"
+                       class="comment-user">Ian Thompson</a>
+                <span class="comment-date" dir="ltr"><span title="2014-03-24 12:04:52Z" class="relativetime-clean">Mar 24 '14 at 12:04</span></span>
+                                                                            </div>
+
+    </li>
+            </ul>
+</div>                
+
+<div id="answer-162474" class="answer" data-answerid="162474"   itemscope itemtype="http://schema.org/Answer">
+
+    <div class="post-text" itemprop="text">
+<p>Another option is to use <code>align</code>, and then use <code>\nonumber</code>, as mentioned in <a href="http://mirrors.dotsrc.org/ctan/info/math/voss/mathmode/Mathmode.pdf">http://mirrors.dotsrc.org/ctan/info/math/voss/mathmode/Mathmode.pdf</a>.</p>
+
+<p>Example:</p>
+
+<pre><code>\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+\begin{align}
+a &amp;=b \nonumber \\
+b &amp;=c
+\label{eq:test}
+\end{align}
+Equation \eqref{eq:test} shows that $a=c$.
+\end{document}
+</code></pre>
+
+
+
+\begin{align}
+a &amp;=b \nonumber \\
+b &amp;=c
+\label{eq:test}
+\end{align}
+
+Equation \eqref{eq:test} shows that $a=c$.
+
+
+    </div>
+
+<div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2014-02-26 09:31:33Z" class="relativetime">Feb 26 '14 at 9:31</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/46907/martinweiss">martinweiss</a>
+
+    </div>
+</div>
+
+
+            <ul class="comments-list js-comments-list"
+                    data-remaining-comments-count="0"
+                    data-canpost="false"
+                    data-cansee="true"
+                    data-comments-unavailable="false"
+                    data-addlink-disabled="true">
+
+
+    <li id="comment-372239" class="comment js-comment " data-comment-id="372239">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">The user seems to want to use an <code>align*</code> environment, though. Your approach would involve a lot of <code>\nonumber</code>, if the <code>align</code> contains a lot of lines.</span>
+                    &ndash;&nbsp;<a href="/users/21891/jubobs"
+                       title="40,514 reputation"
+                       class="comment-user">jubobs</a>
+                <span class="comment-date" dir="ltr"><span title="2014-02-26 09:50:46Z" class="relativetime-clean">Feb 26 '14 at 9:50</span></span>
+                                                                            </div>
+
+    </li>
+    <li id="comment-372240" class="comment js-comment " data-comment-id="372240">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">Welcome to TeX.SX! This answer, while technically correct, is already mentioned in the second sentence of the question; the asker is looking for a different solution.</span>
+                    &ndash;&nbsp;<a href="/users/24113/chriss"
+                       title="11,435 reputation"
+                       class="comment-user">ChrisS</a>
+                <span class="comment-date" dir="ltr"><span title="2014-02-26 09:51:00Z" class="relativetime-clean">Feb 26 '14 at 9:51</span></span>
+                                                                            </div>
+
+    </li>
+    <li id="comment-372906" class="comment js-comment " data-comment-id="372906">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">I must have misread the question. I did not see that. Sorry.</span>
+                    &ndash;&nbsp;<a href="/users/46907/martinweiss"
+                       title="383 reputation"
+                       class="comment-user">martinweiss</a>
+                <span class="comment-date" dir="ltr"><span title="2014-02-27 13:03:21Z" class="relativetime-clean">Feb 27 '14 at 13:03</span></span>
+                                                                            </div>
+
+    </li>
+            </ul>
+</div>                
+
+
+
+<div id="answer-42747" class="answer" data-answerid="42747"   itemscope itemtype="http://schema.org/Answer">
+
+    <div class="post-text" itemprop="text">
+<p>Here are minimal working examples that I use. This is what I have 
+as a header </p>
+
+<pre><code>\documentclass[12pt]{amsart}           
+\usepackage{amsmath,amsfonts,amssymb}
+</code></pre>
+
+<p>Two equations each with separate equation numbers and separate reference labels</p>
+
+<pre><code>\begin{align}
+        \dot{a} &amp;  =2\alpha(t)\eta\label{classicalmotion1}\\
+        \dot{\eta} &amp;  =-2\gamma(t)a\label{classicalmotion2}%
+\end{align}%
+</code></pre>
+
+
+\begin{align}
+        \dot{a} &amp;  =2\alpha(t)\eta\label{classicalmotion1}\\
+        \dot{\eta} &amp;  =-2\gamma(t)a\label{classicalmotion2}%
+\end{align}%
+
+
+<p>Two equations with a single equation number and a single reference label</p>
+
+<pre><code>\begin{equation}
+        \begin{aligned}[b]
+        \dot{A} &amp;  =2i\alpha(t)B\\
+        \dot{B} &amp;  =2i\gamma(t)A
+        \end{aligned}
+\label{eqn2.qo}
+\end{equation}
+</code></pre>
+
+
+\begin{equation}
+        \begin{aligned}[b]
+        \dot{A} &amp;  =2i\alpha(t)B\\
+        \dot{B} &amp;  =2i\gamma(t)A
+        \end{aligned}
+\label{eqn2.qo}
+\end{equation}
+
+
+<p>I am guessing you know how to do the one without equation numbers.</p>
+    </div>
+
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="/posts/42747/revisions" title="show all edits to this post">edited <span title="2017-07-13 03:41:50Z" class="relativetime">Jul 13 '17 at 3:41</span></a>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/94691/yudai-nkt">yudai-nkt</a>
+
+    </div>
+</div>    
+            
+
+
+
+<div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2012-01-30 04:07:45Z" class="relativetime">Jan 30 '12 at 4:07</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/10284/predrag-punosevac">Predrag Punosevac</a>
+
+    </div>
+</div>
+
+
+    
+
+            <ul class="comments-list js-comments-list"
+                    data-remaining-comments-count="0"
+                    data-canpost="false"
+                    data-cansee="true"
+                    data-comments-unavailable="false"
+                    data-addlink-disabled="true">
+
+
+    <li id="comment-488576" class="comment js-comment " data-comment-id="488576">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">thanks! somewhat surprisingly putting the \label(eqn2.qo} before \begin{aligned} changed the position of the eqn number in my case...</span>
+                    &ndash;&nbsp;<a href="/users/9503/xian"
+                       title="106 reputation"
+                       class="comment-user">Xi&#39;an</a>
+                <span class="comment-date" dir="ltr"><span title="2014-10-26 16:38:22Z" class="relativetime-clean">Oct 26 '14 at 16:38</span></span>
+                                                                            </div>
+
+    </li>
+    <li id="comment-941997" class="comment js-comment " data-comment-id="941997">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@Xi&#39;an -- putting the <code>\label</code> before the <code>align</code> might change the position of the equation number, but it will also give an incorrect value with <code>\eqref</code>.</span>
+                    &ndash;&nbsp;<a href="/users/579/barbara-beeton"
+                       title="68,470 reputation"
+                       class="comment-user">barbara beeton</a>
+                <span class="comment-date" dir="ltr"><span title="2017-07-13 01:50:01Z" class="relativetime-clean">Jul 13 '17 at 1:50</span></span>
+                                                                            </div>
+
+    </li>
+            </ul>
+
+</div>                
+</section>
+<section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+
+
+
+
+
+
+
+
+
+
+
+
+<p>
+\begin{equation}
+x=\left\{ \begin{array}{cl}
+0 & \textrm{if A=...}\\
+1 & \textrm{if B=...}\\
+x & \textrm{this runs with as much text as you like, but without an
+raggedright text.}\end{array}\right.
+\end{equation}
+
+
+
+      <div class="width-limited">
+<p>
+\begin{equation}
+x = \left\{%
+\begin{array}{l>{\raggedright}p{.5\textwidth}}%
+0 & if A=...\tabularnewline
+1 & if B=...\tabularnewline
+x & \parbox{0.5\columnwidth}{this runs with as much text as you like, %
+because an automatic linebreak is given with %
+a raggedright text. Without this %
+\raggedright command, you’ll get a formatted %
+text like the following one ... but with a parbox ... it works}
+\end{array}%
+\right. %
+\end{equation}
+
+        <p>instead of:</p>
+
+<p>
+\begin{equation}
+x = \left\{%
+\begin{array}{l>{\raggedright}p{.5\textwidth}}%
+0 & if A=...\\
+1 & if B=...\\
+x & \textrm{this runs with as much text as you like, %
+because an automatic linebreak is given with %
+a raggedright text. Without this %
+\raggedright command, you’ll get a formatted %
+text like the following one ... but with a parbox ... it works}
+\end{array}%
+\right. %
+\end{equation}
+</p>
+      </div>
+
+
+
+
+
+
+
+</section>
+<section>
+<h2>Try again?</h2>
+
+<p class="butts">
+<span>Processed by MathJax</span>
+</p>
+
+
+<h2>Background and explanation</h2>
+
+<p>Read more about KaTeX and the examples above here:</p>
+<blockquote><p><a href="https://www.intmath.com/blog/mathematics/katex-a-new-way-to-display-math-on-the-web-9445">
+KaTeX – a new way to display math on the Web</a></p></blockquote>
+
+<p><b>See also:</b> <a href="asciimathml-katex-mathjax.php">ASCIIMathML, KaTeX and MathJax Demo</a></p>
+
+
+<script src="jquery/jquery.js"></script>
+<script type="text/javascript">
+var timeStart,timeNow,timeToProcess;
+timeStart = new Date();
+var myTime = setInterval(function () {myTimer()}, 10);
+function myTimer() {
+  timeNow = new Date();
+  timeToProcess = timeNow - timeStart;
+  var el = $("#ttp");
+  if (el) {
+    el.text(timeToProcess);
+  }
+}
+</script>
+
+<script id="mainScript">
+if (typeof MathJax === 'undefined') {
+  var html = katex.renderToString("c = \\pm\\sqrt{a^2 + b^2}");
+  $("#output").html(html);
+}
+(function(){
+  var mathArr = [];
+  $(".math").each(function() {
+    var texTxt = $(this).text();
+    el = $(this).get(0);
+    if (el.tagName == "DIV") {
+      addDisp = "\\displaystyle";
+    } else {
+      addDisp = "";
+    }
+    if (typeof MathJax === 'undefined') {
+      try {
+        katex.render(addDisp+texTxt, el);
+      }
+      catch(err) {
+        $(this).html("<span class='err'>"+err);
+      }
+      timeNow = new Date();
+      timeToProcess = timeNow - timeStart;
+      $("#ttp").text(timeToProcess);
+    }
+    if (el.tagName == "DIV") {
+      $(this).after("<p>The LaTeX code:</p><pre>"+texTxt);
+    } else {
+      $(this).parent().after("<p>The LaTeX code:</p><pre>"+texTxt);
+    }
+  });
+  if (typeof MathJax !== 'undefined') {
+      fin = function () {
+          clearInterval(myTime);
+      };
+  }
+})();
+</script>
+
+</main>
+</div>
+
+
+</section>
+<section>
+
+
+<hr>
+        <h2>calculus - Integrals of the form ${\large\int}_0^\infty\operatorname{arccot}(x)\cdot\operatorname{arccot}(a\,x)\cdot\operatorname{arccot}(b\,x)\ dx$ - Mathematics Stack Exchange</h2>
+        
+        
+
+                    <svg aria-hidden="true" class="svg-icon native iconLogoSEAlternativeSm" width="110" height="15" viewBox="0 0 110 15"><g><path d="M50.4 11.92l-1.98-3.23-1.05 1.17v2.06h-1.42V2.08h1.42v6.07l2.76-3.24h1.73L49.4 7.66l2.77 4.26h-1.76zm-7.86.08c-1.6 0-3.16-.97-3.16-3.6 0-2.62 1.56-3.57 3.16-3.57.97 0 1.66.28 2.33.98l-.98.94c-.45-.48-.8-.66-1.35-.66s-1.01.22-1.32.62c-.3.39-.42.88-.42 1.7 0 .81.11 1.32.42 1.71.3.4.77.62 1.32.62s.9-.18 1.35-.66l.98.93c-.67.7-1.36.99-2.33.99zm-5.7-3.18h-1.67c-.84 0-1.27.38-1.27 1.01 0 .64.4 1 1.3 1 .54 0 .95-.05 1.33-.4.2-.21.3-.54.3-1.04v-.57zm.02 3.1v-.64c-.51.51-1 .72-1.88.72-.89 0-1.47-.2-1.9-.64a2.13 2.13 0 0 1-.57-1.5c0-1.17.83-2.02 2.45-2.02h1.87v-.5c0-.88-.44-1.3-1.55-1.3-.78 0-1.16.17-1.55.67l-.94-.87c.67-.77 1.37-1 2.55-1 1.94 0 2.92.8 2.92 2.4v4.68h-1.4zm-6.44 0c-1.33 0-1.95-.94-1.95-1.95V6.12h-.8V5.04h.8V2.9h1.43v2.13h1.37v1.08H29.9V9.9c0 .51.25.82.78.82h.59v1.2h-.85zm-6.9.08c-1.5 0-2.57-.35-3.52-1.3l1-.98a3.3 3.3 0 0 0 2.55.94c1.3 0 2.06-.55 2.06-1.5 0-.43-.13-.8-.4-1.03-.25-.23-.5-.33-1.09-.41l-1.17-.17a3.43 3.43 0 0 1-1.89-.79 2.43 2.43 0 0 1-.72-1.87c0-1.72 1.25-2.89 3.32-2.89 1.32 0 2.24.33 3.1 1.12l-.97.94a2.94 2.94 0 0 0-2.17-.76c-1.17 0-1.82.66-1.82 1.53 0 .36.12.68.38.91.25.22.66.39 1.12.46l1.13.16c.93.14 1.44.36 1.86.74.55.47.81 1.17.81 2.01 0 1.81-1.5 2.89-3.58 2.89z" fill="#FFF"/><path d="M107.4 6.88c-.2-.44-.61-.76-1.23-.76-.63 0-1.04.32-1.23.76-.12.27-.16.46-.17.79h2.8a2 2 0 0 0-.17-.8zm-2.63 2.04c0 .94.58 1.63 1.6 1.63.81 0 1.21-.23 1.68-.69l1.11 1.08a3.52 3.52 0 0 1-2.8 1.16c-1.74 0-3.4-.8-3.4-3.76 0-2.39 1.3-3.74 3.2-3.74 2.06 0 3.22 1.5 3.22 3.5v.82h-4.61zm-5.68-2.67c-1.1 0-1.2.92-1.2 1.9 0 .96.1 1.9 1.2 1.9 1.08 0 1.21-.94 1.21-1.9 0-.98-.13-1.9-1.21-1.9zm-.19 8.53c-1.13 0-1.9-.22-2.67-.96l1.14-1.15c.41.4.83.56 1.45.56 1.1 0 1.48-.77 1.48-1.51v-.75c-.48.53-1.03.73-1.75.73s-1.34-.24-1.76-.65c-.69-.68-.74-1.63-.74-2.9 0-1.29.05-2.21.74-2.9a2.5 2.5 0 0 1 1.77-.65c.78 0 1.29.21 1.8.77V4.7h1.78v7.05c0 1.76-1.26 3.04-3.24 3.04zm-5.58-2.77V7.58c0-1-.63-1.33-1.21-1.33s-1.23.33-1.23 1.33v4.43h-1.84V4.7h1.8v.67c.47-.5 1.15-.76 1.83-.76.74 0 1.33.24 1.74.65.6.59.75 1.28.75 2.08V12h-1.84zm-7.14-3.1h-1.46c-.66 0-1.03.32-1.03.84 0 .5.34.84 1.06.84.51 0 .84-.04 1.16-.35.2-.18.27-.48.27-.93v-.4zm.04 3.1v-.63c-.5.49-.96.7-1.8.7-.84 0-1.45-.21-1.89-.65-.4-.4-.6-1-.6-1.64 0-1.17.8-2.12 2.51-2.12h1.74V7.3c0-.8-.4-1.15-1.37-1.15-.7 0-1.03.17-1.42.6l-1.17-1.14c.72-.78 1.43-1 2.66-1 2.06 0 3.14.86 3.14 2.58V12h-1.8zm-7 0V7.54c0-.97-.62-1.3-1.2-1.3-.57 0-1.18.34-1.18 1.3v4.47H75V2h1.84v3.36c.5-.5 1.11-.76 1.76-.76 1.62 0 2.47 1.13 2.47 2.67v4.74h-1.84zm-7.7.09c-1.48 0-3.3-.8-3.3-3.76 0-2.97 1.82-3.74 3.3-3.74 1 0 1.77.31 2.42.99L72.7 6.82c-.38-.4-.7-.57-1.19-.57-.44 0-.78.15-1.05.47-.28.36-.4.85-.4 1.62 0 .77.12 1.28.4 1.63.27.33.61.48 1.05.48.48 0 .8-.17 1.19-.58l1.24 1.23c-.65.67-1.41 1-2.43 1zm-6.07-.1l-1.36-2.2-1.34 2.2h-2.2l2.54-3.74-2.45-3.58h2.2l1.25 2.1 1.26-2.1h2.2l-2.44 3.58L67.65 12h-2.2zm-12.46 0V2h6.63v1.74h-4.66V6.1h3.97v1.75h-3.97v2.43h4.66V12H53z" fill="#2F96E8"/><path d="M2 1h8a2 2 0 0 1 2 2H0c0-1.1.9-2 2-2z" fill="#8FD8F7"/><path d="M0 10h12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm7 2v3l3-3z" fill="#155397"/><path fill="#46A2D9" d="M0 4h12v2H0z"/><path fill="#2D6DB5" d="M0 7h12v2H0z"/></g></svg>
+
+
+
+            
+
+                    <h2 itemprop="name" class="grid--cell fs-headline1 fl1"><a href="/questions/1279165/integrals-of-the-form-large-int-0-infty-operatornamearccotx-cdot-operat" class="question-hyperlink">Integrals of the form ${\large\int}_0^\infty\operatorname{arccot}(x)\cdot\operatorname{arccot}(a\,x)\cdot\operatorname{arccot}(b\,x)\ dx$</a></h2>
+
+            
+            
+
+<div class="question" data-questionid="42726"  >
+
+    <div class="post-text" itemprop="text">
+
+<p>I'm interested in integrals of the form
+$$I(a,b)=\int_0^\infty\operatorname{arccot}(x)\cdot\operatorname{arccot}(a\,x)\cdot\operatorname{arccot}(b\,x)\ dx,\color{#808080}{\text{ for }a&gt;0,\,b&gt;0}\tag1$$
+It's known$\require{action}\require{enclose}\texttip{{}^\dagger}{Gradshteyn &amp; Ryzhik, Table of Integrals, Series, and Products, 7th edition, page 599, (4.511)}$ that
+$$I(a,0)=\frac{\pi^2}4\left[\ln\left(1+\frac1a\right)+\frac{\ln(1+a)}a\right].\tag2$$
+<em>Maple</em> and <em>Mathematica</em> are also able to evaluate
+$$I(1,1)=\frac{3\pi^2}4\ln2-\frac{21}8\zeta(3).\tag3$$</p>
+
+<hr>
+
+<p>Is it possible to find a general closed form for $I(a,1)$? Or, at least, for $I(2,1)$ or $I(3,1)$?</p>
+
+<div class="post-signature owner grid--cell">
+    <div class="user-action-time">
+        asked <span title="2015-05-12 18:32:26Z" class="relativetime">May 12 '15 at 18:32</span>
+    </div>
+    <div class="user-details">
+        <a href="/users/19661/vladimir-reshetnikov">Vladimir Reshetnikov</a>
+    </div>
+</div>
+
+<ul class="comments-list js-comments-list"
+                    data-remaining-comments-count="0"
+                    data-canpost="false"
+                    data-cansee="true"
+                    data-comments-unavailable="false"
+                    data-addlink-disabled="true">
+
+
+    <li id="comment-2597482" class="comment js-comment " data-comment-id="2597482">
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">When is the book coming out? ;)</span>
+                    &ndash;&nbsp;<a href="/users/28743/nbubis"
+                       title="26,796 reputation"
+                       class="comment-user">nbubis</a>
+                <span class="comment-date" dir="ltr"><span title="2015-05-12 18:39:38Z" class="relativetime-clean">May 12 '15 at 18:39</span></span>
+                                                                            </div>
+    </li>
+    <li id="comment-2597620" class="comment js-comment " data-comment-id="2597620">
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">i would try the following: introduce an additional parameter $c$ in the first $\text{arccot}$ and then differentiate w.r.t to all three paramaters. The resulting integral should be doable. Then integrating back and see how far you get staying as general eas possible. I&#39;m somehow expecting that we end up with a quite ugly combinations of dilogarithms.</span>
+                    &ndash;&nbsp;<a href="/users/101233/tired"
+                       title="10,427 reputation"
+                       class="comment-user">tired</a>
+                <span class="comment-date" dir="ltr"><span title="2015-05-12 19:25:49Z" class="relativetime-clean">May 12 '15 at 19:25</span></span>
+                        <span title="this comment was edited 2 times">
+                            <svg aria-hidden="true" class="svg-icon va-text-bottom o50 iconPencilSm" width="14" height="15" viewBox="0 0 14 15"><path d="M8.37 4.7L2 11.11V13h1.88l6.37-6.43zM12.23 3.83L11.1 2.71a.5.5 0 0 0-.7 0L9.2 3.86l1.88 1.84 1.14-1.16a.5.5 0 0 0 0-.71z"/></svg>
+                        </span>
+                                                                            </div>
+    </li>
+            </ul>
+    </div>
+
+
+
+<div id="answer-1285149" class="answer" data-answerid="1285149"   itemscope itemtype="http://schema.org/Answer">
+    <div class="post-text" itemprop="text">
+<p>By the substitution $x\mapsto x^{-1}$ it is not hard to see that
+$$I(\nu^{-1},1)=\int^\infty_0\frac{\arctan^2{x}\arctan(\nu x)}{x^2}{\rm d}x$$</p>
+
+<p>First, start off by re-expressing the integral
+
+\begin{align}
+\int^\pi_0x^2\cos(nx)\cot\left(\frac{x}{2}\right)\ {\rm d}x
+&amp;=-{\rm Re}\int_C\frac{z+1}{z-1}z^{n-1}\ln^2{z}\ {\rm d}z\\
+&amp;=(-1)^{n}\int^1_0\frac{1-x}{1+x}x^{n-1}(\ln^2{x}-\pi^2)\ {\rm d}x-\int^1_0\frac{1+x}{1-x}x^{n-1}\ln^2{x}\ {\rm d}x\\
+\end{align}
+
+where $C$ is the arc joining $z=1$ to $z=-1$. (The first equality follows from $z=e^{ix}$, whereas the second follows from the fact that the integral along $[-1,\epsilon]\cup\epsilon\exp(i[\pi,0])\cup[\epsilon,1]\cup C$ is $0$ since $z=1$ is a removable singularity and the indent around $z=0$ vanishes.)</p>
+
+<p>Next, note that
+
+\begin{align}
+I_\nu(\nu^{-1},1)
+&amp;=\int^\frac{\pi}{2}_0\frac{x^2}{\tan{x}(\cos^2{x}+\nu^2\sin^2{x})}{\rm d}x\\
+&amp;=\frac{1}{4}\int^\pi_0\frac{x^2}{\tan\left(\frac{x}{2}\right)(1+(1-\nu^2)\cos{x}+\nu^2)}{\rm d}x\\
+&amp;=\frac{1}{8\nu}\int^\pi_0\left(x^2\cot\left(\frac{x}{2}\right)+2\sum^\infty_{n=1}\left(\frac{\nu-1}{\nu+1}\right)^nx^2\cos(nx)\cot\left(\frac{x}{2}\right)\right){\rm d}x\\
+&amp;=\frac{\pi^2}{4\nu}\ln{2}-\frac{7\zeta(3)}{8\nu}-\frac{\xi}{4\nu}\left(\int^1_0\frac{1-x}{(1+x)(1+\xi x)}(\ln^2{x}-\pi^2)+\frac{1+x}{(1-x)(1-\xi x)}\ln^2{x}\ {\rm d}x\right)
+\end{align}
+
+Here $\xi=\dfrac{\nu-1}{\nu+1}$. Utilising the partial fraction decompositions
+
+$$\frac{1-x}{(1+x)(1+\xi x)}=\frac{\nu+1}{1+x}-\frac{\nu}{1+\xi x}$$
+
+$$\frac{1+x}{(1-x)(1-\xi x)}=\frac{\nu+1}{1-x}-\frac{\nu}{1-\xi x}$$
+
+in tandem with the easily verifiable fact
+
+$$\int^1_0\frac{\ln^2{x}}{1+\lambda x}{\rm d}x=-\frac{2{\rm Li}_3(-\lambda)}{\lambda}$$
+
+yields
+
+\begin{align}
+I_\nu(\nu^{-1},1)
+&amp;=\frac{\pi^2}{4\nu}\ln{2}-\frac{7\zeta(3)}{8\nu}-\frac{\xi}{4\nu}\left(\frac{\pi^2\nu}{\xi}\ln(1+\xi)-\pi^2(\nu+1)\ln{2}+\frac{7\zeta(3)}{2}(\nu+1)-\frac{4\nu}{\xi}\chi_3(\xi)\right)\\
+&amp;=\chi_3\left(\frac{\nu-1}{\nu+1}\right)-\frac{7\zeta(3)}{8}+\frac{\pi^2}{4}\ln\left(1+\frac{1}{\nu}\right)
+\end{align}
+
+where $\displaystyle\chi_s(z)=\sum_{n\ \text{odd}}\frac{z^n}{n^s}=\frac{1}{2}\left({\rm Li}_s(z)-{\rm Li}_s(-z)\right)$ is the Legendre-chi function.</p>
+
+<p>Integrating back,
+
+\begin{align}
+I_\nu(\nu^{-1},1)
+&amp;=\underbrace{\frac{\pi^2}{4}\ln\left(\frac{(1+\nu)^{1+\nu}}{\nu^\nu}\right)-\frac{7\zeta(3)}{8}\nu}_{\text{Let this be C}}+2\int^\frac{1-\nu}{1+\nu}_1\frac{\chi_3(v)}{(1+v)^2}{\rm d}v\\
+&amp;=C-\left.\frac{2\chi_3(v)}{1+v}\right|^\frac{1-\nu}{1+\nu}_1+2\int^\frac{1-\nu}{1+\nu}_1\frac{\chi_2(v)}{v(1+v)}{\rm d}v\\
+&amp;=C+(1-\nu)\chi_3\left(\frac{1-\nu}{1+\nu}\right)-\frac{7\zeta(3)}{8}-\left.\color{lightgrey}{\frac{1}{1}}2\chi_2(v)\ln(1+v)\right|^\frac{1-\nu}{1+\nu}_1+\int^\frac{1-\nu}{1+\nu}_1\frac{\ln(1+v)\ln\left(\frac{1+v}{1-v}\right)}{v}{\rm d}v\\
+&amp;=C+(1-\nu)\chi_3\left(\frac{1-\nu}{1+\nu}\right)-\frac{7\zeta(3)}{8}+2\chi_2\left(\frac{1-\nu}{1+\nu}\right)\ln\left(\frac{1+\nu}{2}\right)+\frac{\pi^2}{4}\ln{2}\\
+&amp;\ \ \ \ +\frac{1}{2}\int^\frac{1-\nu}{1+\nu}_1\frac{\ln^2(1+v)-\ln^2(1-v)+\ln^2\left(\frac{1-v}{1+v}\right)}{v}{\rm d}v
+\end{align}
+
+Repeatedly integrating by parts, it is not hard to derive that
+
+\begin{align}
+\frac{1}{2}\int^\frac{1-\nu}{1+\nu}_1\frac{\ln^2(1+v)}{v}{\rm d}v
+=&amp;\ -\frac{1}{6}\ln^3\left(\frac{1+\nu}{2}\right)+\frac{7\zeta(3)}{8}-{\rm Li}_3\left(\frac{1+\nu}{2}\right)+{\rm Li}_2\left(\frac{1+\nu}{2}\right)\ln\left(\frac{1+\nu}{2}\right)\\
+&amp;\ +\frac{1}{2}\ln\left(\frac{1-\nu}{2}\right)\ln^2\left(\frac{1+\nu}{2}\right)\\
+-\frac{1}{2}\int^\frac{1-\nu}{1+\nu}_1\frac{\ln^2(1-v)}{v}{\rm d}v
+=&amp;\ {\rm Li}_3\left(\frac{2\nu}{1+\nu}\right)-{\rm Li}_2\left(\frac{2\nu}{1+\nu}\right)\ln\left(\frac{2\nu}{1+\nu}\right)-\frac{1}{2}\ln\left(\frac{1-\nu}{1+\nu}\right)\ln^2\left(\frac{2\nu}{1+\nu}\right)\\
+\frac{1}{2}\int^\frac{1-\nu}{1+\nu}_1\frac{\ln^2\left(\frac{1-v}{1+v}\right)}{v}{\rm d}v
+=&amp;\ -2\chi_3(\nu)+2\chi_2(\nu)\ln{\nu}+\frac{1}{2}\ln^2\nu\ln\left(\frac{1-\nu}{1+\nu}\right)
+\end{align}
+
+Therefore, we get, for $I(\nu^{-1},1)$,
+
+\begin{align}
+I(\nu^{-1},1)
+=&amp;\color{brown}{\ (1-\nu)\chi_3\left(\frac{1-\nu}{1+\nu}\right)-2\chi_3(\nu)+{\rm Li}_3\left(\frac{2\nu}{1+\nu}\right)-{\rm Li}_3\left(\frac{1+\nu}{2}\right)-\frac{7\zeta(3)}{8}\nu}\\
+&amp;\ \color{brown}{+2\chi_2(\nu)\ln{\nu}+2\chi_2\left(\frac{1-\nu}{1+\nu}\right)\ln\left(\frac{1+\nu}{2}\right)-{\rm Li}_2\left(\frac{2\nu}{1+\nu}\right)\ln\left(\frac{2\nu}{1+\nu}\right)}\\
+&amp;\ \color{brown}{+{\rm Li}_2\left(\frac{1+\nu}{2}\right)\ln\left(\frac{1+\nu}{2}\right)+\frac{\pi^2}{4}\ln\left(\frac{(1+\nu)^{1+\nu}}{\nu^\nu}\right)+\frac{\pi^2}{4}\ln{2}}\\
+&amp;\ \color{brown}{+\frac{1}{2}\ln^2\nu\ln\left(\frac{1-\nu}{1+\nu}\right)+\frac{1}{2}\ln\left(\frac{1-\nu}{2}\right)\ln^2\left(\frac{1+\nu}{2}\right)-\frac{1}{6}\ln^3\left(\frac{1+\nu}{2}\right)}\\
+&amp;\ \color{brown}{-\frac{1}{2}\ln\left(\frac{1-\nu}{1+\nu}\right)\ln^2\left(\frac{2\nu}{1+\nu}\right)}
+\end{align}
+
+If no mistakes were made, this formula should hold for $0&lt;\nu\le1$. Further simplifications to the formula may be possible through some polylogarithm identities.</p>
+    </div>
+
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="/posts/1285149/revisions" title="show all edits to this post">edited <span title="2015-05-17 09:04:10Z" class="relativetime">May 17 '15 at 9:04</span></a>
+    </div>
+
+    <div class="user-action-time">
+        answered <span title="2015-05-16 17:30:08Z" class="relativetime">May 16 '15 at 17:30</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/178187/m-n-c-e">M.N.C.E.</a>
+    </div>
+</div>
+
+            <ul class="comments-list js-comments-list"
+                    data-remaining-comments-count="0"
+                    data-canpost="false"
+                    data-cansee="true"
+                    data-comments-unavailable="false"
+                    data-addlink-disabled="true">
+
+
+    <li id="comment-2609622" class="comment js-comment " data-comment-id="2609622">
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">nice work (+1). what exactly is the reason for the reformulation in terms of the two auxillary integrals? i would have guessed that one can dig in the orignal integral by more or less the same techniques.</span>
+                    &ndash;&nbsp;<a href="/users/101233/tired"
+                       title="10,427 reputation"
+                       class="comment-user">tired</a>
+                <span class="comment-date" dir="ltr"><span title="2015-05-16 18:01:01Z" class="relativetime-clean">May 16 '15 at 18:01</span></span>
+                                                                            </div>
+    </li>
+    <li id="comment-2610542" class="comment js-comment " data-comment-id="2610542">
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">Bravo!! Very good work!</span>
+                    &ndash;&nbsp;<a href="/users/168555/iaroslav-blagouchine"
+                       title="317 reputation"
+                       class="comment-user">Iaroslav Blagouchine</a>
+                <span class="comment-date" dir="ltr"><span title="2015-05-16 23:45:13Z" class="relativetime-clean">May 16 '15 at 23:45</span></span>
+                                                                            </div>
+    </li>
+    <li id="comment-2610773" class="comment js-comment " data-comment-id="2610773">
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">Very nice result! +1. By the way, maybe I&#39;m wrong, but in the last expression there is a condition $0 &lt; a \leq 1$, therefore this is a closed-form for $I(c,1)$ for $c \geq 1$.</span>
+                    &ndash;&nbsp;<a href="/users/153012/user153012"
+                       title="6,123 reputation"
+                       class="comment-user">user153012</a>
+                <span class="comment-date" dir="ltr"><span title="2015-05-17 01:39:44Z" class="relativetime-clean">May 17 '15 at 1:39</span></span>
+                                                                            </div>
+    </li>
+    <li id="comment-2611406" class="comment js-comment " data-comment-id="2611406">
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@tired Thanks. I have followed your suggestion and simplified the answer.</span>
+                    &ndash;&nbsp;<a href="/users/178187/m-n-c-e"
+                       title="8,716 reputation"
+                       class="comment-user">M.N.C.E.</a>
+                <span class="comment-date" dir="ltr"><span title="2015-05-17 08:58:50Z" class="relativetime-clean">May 17 '15 at 8:58</span></span>
+                                                                            </div>
+    </li>
+    <li id="comment-2611419" class="comment js-comment " data-comment-id="2611419">
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@user153012 Thank you. Yes, this should hold for $c\ge 1$. I have not checked if the formula is valid for $0&lt;c&lt;1$ though.</span>
+                    &ndash;&nbsp;<a href="/users/178187/m-n-c-e"
+                       title="8,716 reputation"
+                       class="comment-user">M.N.C.E.</a>
+                <span class="comment-date" dir="ltr"><span title="2015-05-17 09:01:53Z" class="relativetime-clean">May 17 '15 at 9:01</span></span>
+                        <span title="this comment was edited 1 time">
+                            <svg aria-hidden="true" class="svg-icon va-text-bottom o50 iconPencilSm" width="14" height="15" viewBox="0 0 14 15"><path d="M8.37 4.7L2 11.11V13h1.88l6.37-6.43zM12.23 3.83L11.1 2.71a.5.5 0 0 0-.7 0L9.2 3.86l1.88 1.84 1.14-1.16a.5.5 0 0 0 0-.71z"/></svg>
+                        </span>
+                                                                            </div>
+    </li>
+            </ul>
+    </div>
+ 
+<div id="answer-1279591" class="answer" data-answerid="1279591"   itemscope itemtype="http://schema.org/Answer">
+    <div class="post-text" itemprop="text">
+<p>
+$$
+\begin{align}
+I(2,1)&amp;=\frac{\pi^2}3\ln2-\frac{\pi^2}6\ln3+2\ln^22\cdot\ln3-3\ln2\cdot\ln^23+\frac{29}{24}\ln^33\\
+&amp;+\frac{73}{16}\zeta(3)-2\ln2\cdot\operatorname{Li}_2\left(\tfrac13\right)-\frac{13}4\operatorname{Li}_3\left(\tfrac13\right)-4\operatorname{Li}_3\left(\tfrac23\right)
+\end{align}
+$$
+</p>
+
+<hr>
+
+<p>
+$$
+\begin{align}
+I(3,1)&amp;=\frac{13\,\pi^2}{12}\ln2-\frac{4\,\pi^2}9\ln3-\frac13\ln2\cdot\ln^23+\frac7{18}\ln^33\\&amp;-\frac{13}8\zeta(3)+\ln3\cdot\operatorname{Li}_2\left(\tfrac13\right)+\frac43\operatorname{Li}_3\left(\tfrac13\right)-\frac23\operatorname{Li}_3\left(\tfrac23\right)
+\end{align}
+$$
+</p>
+
+<hr>
+
+<p>Update (in response to a comment):
+
+$$
+\begin{align}
+I(\phi,1)&amp;=\frac32\ln^32+\frac{\pi^2}{12}\Big[\left(6-3\sqrt5\right)\ln2+\left(3\sqrt5-4\right)\ln\left(1+\sqrt5\right)\Big]+\frac{51-21\sqrt5}{48}\zeta(3)\\
+&amp;-\frac{\ln\left(1+\sqrt5\right)}2\Bigg[15\ln^22-15\ln\left(1+\sqrt5\right)\ln2+4\ln^2\left(1+\sqrt5\right)+2\operatorname{Li}_2\left(\frac{1-\sqrt5}4\right)\Bigg]\\
+&amp;-\ln\left(3+\sqrt5\right)\operatorname{Li}_2\left(\sqrt5-2\right)+\frac{11+3\sqrt5}{48}\operatorname{Li}_3\left(9-4\sqrt5\right)-\frac{13+3\sqrt5}6\operatorname{Li}_3\left(\sqrt5-2\right)
+\end{align}
+$$
+</p>
+    </div>
+
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="/posts/1279591/revisions" title="show all edits to this post">edited <span title="2015-05-15 23:46:56Z" class="relativetime">May 15 '15 at 23:46</span></a>
+    </div>
+
+    <div class="user-action-time">
+        answered <span title="2015-05-12 23:54:33Z" class="relativetime">May 12 '15 at 23:54</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/97378/cleo">Cleo</a>
+    </div>
+</div>
+
+            <ul class="comments-list js-comments-list"
+                    data-remaining-comments-count="3"
+                    data-canpost="false"
+                    data-cansee="true"
+                    data-comments-unavailable="false"
+                    data-addlink-disabled="true">
+
+
+    <li id="comment-2598390" class="comment js-comment " data-comment-id="2598390">
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">Obviously. Are you sure about that $\frac{7}{18}$?</span>
+                    &ndash;&nbsp;<a href="/users/13079/marty-cohen"
+                       title="70,169 reputation"
+                       class="comment-user">marty cohen</a>
+                <span class="comment-date" dir="ltr"><span title="2015-05-13 00:57:49Z" class="relativetime-clean">May 13 '15 at 0:57</span></span>
+                        <span title="this comment was edited 1 time">
+                            <svg aria-hidden="true" class="svg-icon va-text-bottom o50 iconPencilSm" width="14" height="15" viewBox="0 0 14 15"><path d="M8.37 4.7L2 11.11V13h1.88l6.37-6.43zM12.23 3.83L11.1 2.71a.5.5 0 0 0-.7 0L9.2 3.86l1.88 1.84 1.14-1.16a.5.5 0 0 0 0-.71z"/></svg>
+                        </span>
+                                                                            </div>
+    </li>
+    <li id="comment-2604322" class="comment js-comment " data-comment-id="2604322">
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@Winther I checked to 1000 decimal places - it matches.</span>
+                    &ndash;&nbsp;<a href="/users/19661/vladimir-reshetnikov"
+                       title="23,859 reputation"
+                       class="comment-user owner">Vladimir Reshetnikov</a>
+                <span class="comment-date" dir="ltr"><span title="2015-05-14 22:24:17Z" class="relativetime-clean">May 14 '15 at 22:24</span></span>
+                                                                            </div>
+    </li>
+    <li id="comment-2606990" class="comment js-comment " data-comment-id="2606990">
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@Cleo Do you get your answers using integer relation algorithms? Could you post a closed form for something more tricky, like $I(\phi,1)$ where $\phi$ is the golden ratio?</span>
+                    &ndash;&nbsp;<a href="/users/19661/vladimir-reshetnikov"
+                       title="23,859 reputation"
+                       class="comment-user owner">Vladimir Reshetnikov</a>
+                <span class="comment-date" dir="ltr"><span title="2015-05-15 19:46:23Z" class="relativetime-clean">May 15 '15 at 19:46</span></span>
+                                                                            </div>
+    </li>
+    <li id="comment-2607580" class="comment js-comment " data-comment-id="2607580">
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@martycohen Yes, absolutely.</span>
+                    &ndash;&nbsp;<a href="/users/97378/cleo"
+                       title="12,745 reputation"
+                       class="comment-user">Cleo</a>
+                <span class="comment-date" dir="ltr"><span title="2015-05-15 23:48:11Z" class="relativetime-clean">May 15 '15 at 23:48</span></span>
+                                                                            </div>
+    </li>
+    <li id="comment-2607582" class="comment js-comment " data-comment-id="2607582">
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@VladimirReshetnikov I updated my answer.</span>
+                    &ndash;&nbsp;<a href="/users/97378/cleo"
+                       title="12,745 reputation"
+                       class="comment-user">Cleo</a>
+                <span class="comment-date" dir="ltr"><span title="2015-05-15 23:49:29Z" class="relativetime-clean">May 15 '15 at 23:49</span></span>
+                                                                            </div>
+    </li>
+            </ul>
+    </div>
+
+<div id="answer-1557349" class="answer accepted-answer" data-answerid="1557349"   itemprop="acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+    <div class="post-text" itemprop="text">
+<p>I finally managed to find a general solution to this problem. Although I put a lot of effort into simplification of the result, it is still not as pretty and symmetric as I would like it to be. I hope to improve it later. Sorry for poor typesetting.</p>
+
+<p>Assuming $0&lt;a&lt;b&lt;c,$
+$$
+\int_0^\infty\operatorname{arccot}(ax)\,\operatorname{arccot}(bx)\,\operatorname{arccot}(cx)\,dx=\\
+\frac1{24 a b c}\left(2 a (b+2 c) \ln ^3(a)-3 \left(2 b (a+c) \ln (b)+(4 a c-2 b c) \ln (c)+\\
+b \left(-2 c \operatorname{artanh}\left(\frac{b}{c}\right)+(c-a) \ln
+   (c-a)-(a+c) \ln (a+c)+a \ln \left(c^2-b^2\right)\right)\right) \ln ^2(a)\\
++3 \left(b c \left(\ln ^2(b)+2 \left(2 \ln (a+c)+\ln
+   \left(-\frac{c (b+c)}{(a-b) (a-c) (b-c)}\right)\right) \ln (b)+\ln ^2(b-a)\\
+-3 \ln ^2(c)+\ln ^2(c-a)-\ln ^2(c-b)+\ln ^2(b+c)-4 \operatorname{artanh}\left(\frac{a}{c}\right) \ln (a+b)+\\
+2 \ln (b-a) \ln \left(\frac{c}{c-a}\right)-6 \ln (c) \ln (a+c)+2 \ln (a+c) \ln (c-b)\\
++4 \ln (c)
+   (\ln (c-a)+\ln (c-b))-4 \ln (c) \ln (b+c)-2 \ln (c-a) \ln (b+c)\right)\\
++a \left(b \left(2 \ln ^2(b)-2 \ln
+   \left(\frac{a^2-c^2}{b^2-c^2}\right) \ln (b)+\ln ^2(a+b)-\ln ^2(c-a)-\ln ^2(a+c)\\
+-3 \ln ^2(b+c)-2 \ln (b-a) \ln (c-b)+2 \ln (c-a) (\ln
+   (b-a)+\ln (b+c))\\
++2 \ln (a+b) \ln \left(\frac{b+c}{c^2-a^2}\right)+2 \ln (a+c) \ln \left(c^2-b^2\right)\right)-c \left(\ln ^2(b)-2 (\ln
+   ((b-a) c)-\ln (a+c)) \ln (b)+\ln ^2(b-a)+\ln ^2(a+b)\\
+-3 \ln ^2(c)+\ln ^2(a+c)+\ln ^2(c-b)+2 \ln ^2(b+c)+2 \ln (b-a) \ln
+   \left(\frac{c}{c-b}\right)\\
+-2 \ln (a+b) \ln (b+c)-2 \ln (a+c) \ln (c (b+c))\right)\right)\right) \ln (a)\\
+-2 (a (b-c)+b c) \ln ^3(b)+a c \ln
+   ^3(b-a)-b c \ln ^3(b-a)-3 a c \ln ^3(c)+5 b c \ln ^3(c)\\
++2 a b \ln ^3(c-a)-2 b c \ln ^3(c-a)+2 a c \ln ^3(a+c)-2 b c \ln ^3(a+c)-a b \ln
+   ^3(c-b)\\
+-b c \ln ^3(c-b)-a b \ln ^3(b+c)-3 b c \ln ^3(b+c)-3 b c \ln (b-a) \ln ^2(c)\\
+-3 a b \ln ((a-b) (b-c)) \ln ^2(c-a)+3 b c \ln ((a-b)
+   (b-c)) \ln ^2(c-a)\\
++3 b c \ln \left(\left(b^2-a^2\right) c\right) \ln ^2(a+c)-3 a c \ln (a+b) \ln ^2(c-b)+3 a c \ln ((b-a) c) \ln
+   ^2(c-b)\\
+-3 a b (\ln (b-a)-\ln ((a+b) (a+c))) \ln ^2(c-b)+3 b c \ln (c (a+c)) \ln ^2(c-b)\\
+-3 a c \ln \left(\frac{b-a}{a+b}\right) \ln
+   ^2(b+c)+6 a c \ln (c) \ln ^2(b+c)-12 b c \ln (c) \ln ^2(b+c)\\
++3 a b \ln (a+c) \ln ^2(b+c)+3 b c \left(\ln \left(b^2-a^2\right)+\ln
+   (a+c)\right) \ln ^2(b+c)\\
+-3 a c \ln ^2(b-a) \ln \left(1-\frac{b}{c}\right)-b c \pi ^2 \left(\ln (b-a)+\ln
+   \left(\frac{b-c}{a-c}\right)\right)-5 a c \pi ^2 \ln (c)-5 b c \pi ^2 \ln (c)\\
+-3 b c \ln ^2(b-a) \ln \left(-\frac{c}{b-c}\right)-12 b c \ln
+   ^2(c) \ln \left(\frac{c-a}{a+c}\right)-12 b c \ln (a+b) \ln (c) \ln \left(\frac{c-a}{a+c}\right)\\
++\pi ^2 a c (\ln (b-a)-\ln (a+c))+3 a b
+   \pi ^2 \ln (a+c)+4 b c \pi ^2 \ln (a+c)-6 b c \ln ^2(c) \ln (c-b)\\
++6 a b \ln (b-a) \ln (c-a) \ln (c-b)-6 b c \ln (b-a) \ln (c-a) \ln
+   (c-b)\\
+-6 a b \ln (a+b) \ln (a+c) \ln (c-b)-6 b c \ln (a+b) \ln (a+c) \ln (c-b)\\
+-12 b c \ln (c) \ln (a+c) \ln (c-b)-a b \pi ^2 (\ln
+   (c-a)+\ln (c-b))\\
++3 a c \ln ^2(a+b) \ln \left(\frac{c (c-b)}{b+c}\right)+3 a c \ln ^2(c) (\ln (b-a)-\ln (b+c))+9 b c \ln ^2(c) \ln
+   (b+c)\\
+-6 a c \ln (a+b) \ln (c) \ln (b+c)+6 b c \ln (a+b) \ln (c) \ln (b+c)+12 b c \ln (c) \ln (c-a) \ln (b+c)\\
++5 \pi ^2 a b \ln (b+c)+6
+   a c \pi ^2 \ln (b+c)+3 b c \pi ^2 \ln (b+c)-3 a b \ln ^2(a+c) \ln \left(\frac{b+c}{a+b}\right)\\
++6 a c \ln (b-a) \ln (a+c) \ln (c (b+c))-6
+   b c \ln (b-a) \ln (a+c) \ln (c (b+c))\\
+-3 a c \ln ^2(a+c) (\ln (b-a)+\ln (c (b+c)))-3 b c \ln ^2(a+b) \ln \left(-\frac{c
+   (b+c)}{b-c}\right)\\
+-3 \ln ^2(b) \left(a \left(c (\ln (b-a)+\ln (c)-2 \ln (a+c)+\ln (b+c))\\
++b \ln
+   \left(\frac{b^2-c^2}{a^2-c^2}\right)\right)-b c \ln \left(\frac{(a-b) c (c-b)}{a^2-c^2}\right)\right)-6 a c \ln (b-a) \ln (c) \ln
+   \left(c^2-b^2\right)\\
++6 b c \ln (b-a) \ln (c) \ln \left(c^2-b^2\right)\\
+-\ln (b) \left(b c \left(3 \left(-\ln ^2(a+b)+2 (\ln ((a+c)
+   (b+c))-\ln (c-a)) \ln (a+b)\\
++2 \ln ^2(c)+\ln ^2(c-a)+\ln ^2(a+c)-3 \ln ^2(b+c)-2 \ln (a+c) \ln (c-b)\\
++2 \ln (c-a) \ln (b+c)+2 \ln (c)
+   (\ln ((a+c) (b+c))-2 \ln (c-a))\\
+-2 \ln (b-a) \ln \left(c^2-a^2\right)+2 \ln (b-a) \ln \left(c^2-b^2\right)\right)+\pi ^2\right)\\
++a \left(c
+   \left(6 (\ln (b-a)+\ln (c)-\ln (a+c)) \ln \left(\frac{a+c}{b+c}\right)+\pi ^2\right)\\
++3 b \left(\ln ^2(a+b)+2 \ln
+   \left(\frac{b+c}{c^2-a^2}\right) \ln (a+b)-\ln ^2(c-a)-\ln ^2(a+c)-3 \ln ^2(b+c)\\
++2 \ln (b-a) \ln \left(\frac{a-c}{b-c}\right)+2 \ln (c-a)
+   \ln (b+c)+2 \ln (a+c) \ln \left(c^2-b^2\right)+2 \pi ^2\right)\right)\right)\\
++6 \left(2 \left(a \ln \left(\frac{a}{c}\right)+b \ln
+   \left(\frac{c}{b}\right)\right) \operatorname{Li}_2\left(\frac{a}{c}\right) c+2 \left(a \ln \left(\frac{a}{c}\right)+b \ln
+   \left(\frac{c}{b}\right)\right) \operatorname{Li}_2\left(-\frac{c}{a}\right) c\\
+-2 b \ln \left(\frac{b}{c}\right) \operatorname{Li}_2\left(\frac{b (a+c)}{a
+   (b-c)}\right) c+2 b \ln \left(\frac{b}{c}\right) \operatorname{Li}_2\left(\frac{b (a-c)}{a (b+c)}\right) c\\
+-2 a \operatorname{Li}_3\left(\frac{a}{c}\right) c+2
+   b \operatorname{Li}_3\left(-\frac{b}{c}\right) c-2 b \operatorname{Li}_3\left(\frac{b}{c}\right) c+2 a \operatorname{Li}_3\left(-\frac{c}{a}\right) c\\
+-(a-b)
+   \operatorname{Li}_3\left(\frac{(b-a) c}{b (a+c)}\right) c-(a-b) \operatorname{Li}_3\left(\frac{a (c-b)}{(a-b) c}\right) c\\
++(a+b) \operatorname{Li}_3\left(\frac{a
+   (c-b)}{(a+b) c}\right) c-(a-b) \operatorname{Li}_3\left(\frac{b-a}{b+c}\right) c\\
++(a+b) \operatorname{Li}_3\left(\frac{a+b}{b+c}\right) c-(a+b)
+   \operatorname{Li}_3\left(\frac{a (b+c)}{(a+b) c}\right) c\\
++(a-3 b) \zeta (3) c+2 a b \ln \left(\frac{a}{b}\right) \operatorname{Li}_2\left(\frac{a}{b}\right)\\
++2
+   a b \ln \left(\frac{a}{b}\right) \operatorname{Li}_2\left(-\frac{b}{a}\right)\\
++\left(a b \ln \left(\frac{a}{b}\right)+b c \ln
+   \left(\frac{b}{c}\right)+a c \ln \left(\frac{c}{a}\right)\right) \operatorname{Li}_2\left(\frac{b-a}{b-c}\right)\\
++\left(a b \ln
+   \left(\frac{a}{b}\right)+b c \ln \left(\frac{b}{c}\right)+a c \ln \left(\frac{c}{a}\right)\right)
+   \operatorname{Li}_2\left(\frac{b-c}{a+b}\right)\\
+-\left(a b \ln \left(\frac{a}{b}\right)+a c \ln \left(\frac{a}{c}\right)-b c \ln
+   \left(\frac{b}{c}\right)\right) \operatorname{Li}_2\left(\frac{a+b}{b+c}\right)\\
+-\left(a b \ln \left(\frac{a}{b}\right)+a c \ln
+   \left(\frac{a}{c}\right)-b c \ln \left(\frac{b}{c}\right)\right) \operatorname{Li}_2\left(\frac{a+c}{b+c}\right)\\
+-2 a b
+   \operatorname{Li}_3\left(\frac{a}{b}\right)+2 a b \operatorname{Li}_3\left(-\frac{b}{a}\right)\\
+-b (a-c) \operatorname{Li}_3\left(\frac{a-b}{a-c}\right)-a (b-c)
+   \operatorname{Li}_3\left(\frac{b-a}{b-c}\right)\\
++a (b-c) \operatorname{Li}_3\left(\frac{a+b}{b-c}\right)-b (a-c) \operatorname{Li}_3\left(\frac{a (b-c)}{b
+   (a-c)}\right)\\
++b (a+c) \operatorname{Li}_3\left(\frac{a+b}{a+c}\right)+b (a+c) \operatorname{Li}_3\left(\frac{b (a+c)}{a (b-c)}\right)\\
++b (a-c)
+   \operatorname{Li}_3\left(\frac{b (a-c)}{a (b+c)}\right)-b (a-c) \operatorname{Li}_3\left(\frac{c-a}{b+c}\right)\\
++b (a+c)
+   \operatorname{Li}_3\left(\frac{a+c}{b+c}\right)-a (b+c) \operatorname{Li}_3\left(\frac{a (b+c)}{b (a+c)}\right)\right)\right)
+$$</p>
+
+<p><a href="http://gist.githubusercontent.com/VladimirReshetnikov/f34cd9013a432df47696/raw/9fab5d759698cb7f50e9dc63a3c09cc22d7b28e2/ArcTan.nb">Here</a> is the equivalent <em>Mathematica</em> expression. The formula can be proved using differentiation by parameters $a,b,c$. </p>
+
+<p>In fact, the integrand even has a closed-form antiderivative in terms of elementary functions, dilogarithms and trilogarithms, but it is too large to put it here.</p>
+    </div>
+
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2015-12-02 23:45:14Z" class="relativetime">Dec 2 '15 at 23:45</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/19661/vladimir-reshetnikov">Vladimir Reshetnikov</a>
+    </div>
+</div>
+
+            <ul class="comments-list js-comments-list"
+                    data-remaining-comments-count="0"
+                    data-canpost="false"
+                    data-cansee="true"
+                    data-comments-unavailable="false"
+                    data-addlink-disabled="true">
+
+
+    <li id="comment-3179605" class="comment js-comment " data-comment-id="3179605">
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">How much paper did you use to simplify this??</span>
+                    &ndash;&nbsp;<a href="/users/85798/user85798"
+                       title="1 reputation"
+                       class="comment-user">user85798</a>
+                <span class="comment-date" dir="ltr"><span title="2015-12-05 21:52:08Z" class="relativetime-clean">Dec 5 '15 at 21:52</span></span>
+                        <span title="this comment was edited 1 time">
+                            <svg aria-hidden="true" class="svg-icon va-text-bottom o50 iconPencilSm" width="14" height="15" viewBox="0 0 14 15"><path d="M8.37 4.7L2 11.11V13h1.88l6.37-6.43zM12.23 3.83L11.1 2.71a.5.5 0 0 0-.7 0L9.2 3.86l1.88 1.84 1.14-1.16a.5.5 0 0 0 0-.71z"/></svg>
+                        </span>
+                                                                            </div>
+    </li>
+    <li id="comment-3183555" class="comment js-comment " data-comment-id="3183555">
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">You may be interested in this paper (especially appendix B): <a href="http://homeweb.unifr.ch/kellerha/pub/gafa.pdf">homeweb.unifr.ch/kellerha/pub/gafa.pdf</a> . There are a handful of auxiliary functions defined there to denote various sums of polylog terms, which would probably go a long way towards grouping the terms of your ghastly result in a more organized manner. There are also a few general closed forms for certain integrals that may also come in handy. And congratulations on your progress!</span>
+                    &ndash;&nbsp;<a href="/users/55051/david-h"
+                       title="21,251 reputation"
+                       class="comment-user">David H</a>
+                <span class="comment-date" dir="ltr"><span title="2015-12-07 03:15:18Z" class="relativetime-clean">Dec 7 '15 at 3:15</span></span>
+                                                                            </div>
+    </li>
+    <li id="comment-3195540" class="comment js-comment " data-comment-id="3195540">
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">I made some progress on simplification. A draft is <a href="http://meta.math.stackexchange.com/a/22127/19661">here</a>.</span>
+                    &ndash;&nbsp;<a href="/users/19661/vladimir-reshetnikov"
+                       title="23,859 reputation"
+                       class="comment-user owner">Vladimir Reshetnikov</a>
+                <span class="comment-date" dir="ltr"><span title="2015-12-10 19:09:10Z" class="relativetime-clean">Dec 10 '15 at 19:09</span></span>
+                                                                            </div>
+    </li>
+    <li id="comment-3202659" class="comment js-comment " data-comment-id="3202659">
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">It starts looking that the antiderivative itself might be not as scary as it seemed in the beginning. But it needs some more work...</span>
+                    &ndash;&nbsp;<a href="/users/19661/vladimir-reshetnikov"
+                       title="23,859 reputation"
+                       class="comment-user owner">Vladimir Reshetnikov</a>
+                <span class="comment-date" dir="ltr"><span title="2015-12-13 04:28:01Z" class="relativetime-clean">Dec 13 '15 at 4:28</span></span>
+                                                                            </div>
+    </li>
+    <li id="comment-3204632" class="comment js-comment " data-comment-id="3204632">
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@VladimirReshetnikov are there any values $0&lt;a&lt;b&lt;c$ such that this integral can be expressed in terms of elementary functions only, without $\text{Li}_2$ and $\text{Li}_3$?</span>
+                    &ndash;&nbsp;<span class="comment-user">user294724</span>
+                <span class="comment-date" dir="ltr"><span title="2015-12-13 20:07:15Z" class="relativetime-clean">Dec 13 '15 at 20:07</span></span>
+                        <span title="this comment was edited 2 times">
+                            <svg aria-hidden="true" class="svg-icon va-text-bottom o50 iconPencilSm" width="14" height="15" viewBox="0 0 14 15"><path d="M8.37 4.7L2 11.11V13h1.88l6.37-6.43zM12.23 3.83L11.1 2.71a.5.5 0 0 0-.7 0L9.2 3.86l1.88 1.84 1.14-1.16a.5.5 0 0 0 0-.71z"/></svg>
+                        </span>
+                                                                            </div>
+    </li>
+            </ul>
+    </div>
+
+
+<div id="answer-1283294" class="answer" data-answerid="1283294"   itemscope itemtype="http://schema.org/Answer">
+    <div class="post-text" itemprop="text">
+<p>Some further raw results (largely inspired by Cleo's answer :+1) for the impatient :</p>
+
+<p>$$I\left(4,1\right)=- \frac{1915}{128}\zeta(3)+\left(\frac {359}{192}\ln(2) + 2\ln(3) + \frac{175}{96}\ln(5)\right)\pi^2\\
+ +\frac{513}{32}\ln(2)^2\ln(5) - \frac{1535}{96}\ln(2)^3 - \frac {15}4\ln(3)^3 - \frac{1031}{96}\ln(5)^3 \\
+- \frac{31}8\ln(2)\ln(5)^2  + \frac{93}8\ln(3)\ln(5)^2 + \frac {45}4\operatorname{Li}_3(1/3) +\frac{93}8\operatorname{Li}_3(2/3) \\
+- \frac{81}{32}\operatorname{Li}_3(1/5)  - \operatorname{Li}_3(2/5) - \frac 38\operatorname{Li}_3(3/5) - \frac {91}{32}\operatorname{Li}_3(4/5)\\
+- \frac 38\operatorname{Li}_3(1/6) + \frac 5{16}\operatorname{Li}_3(1/10) \\
+- \ln(2)\left(12\operatorname{Li}_2(1/3) + 8\operatorname{Li}_2(1/4) + 2\operatorname{Li}_2(1/5)+\frac {163}{16}\operatorname{Li}_2(2/5) + \frac {195}{16}\operatorname{Li}_2(3/5)\right) \\
+- \frac{189}{16}\,\ln(5)\;(\operatorname{Li}_2(2/5)+\operatorname{Li}_2(3/5))$$</p>
+
+<hr>
+
+<p>$$I\left(5,1\right)=- \frac{577}{160}\zeta(3)+\left(\frac {11}{15}\ln(3) + \frac{191}{480}\ln(4) - \frac{11}{60}\ln(5)\right)\pi^2 + \frac{17}{10}\ln(3)\ln(5)^2 \\
+- \frac{17}{30}\ln(3)^3 - \frac{173}{960}\ln(4)^3 - \frac{181}{120}\ln(5)^3  - \frac 1{10}\ln(4)\ln(5)^2 \\
++ \frac{51}{160}\ln(4)^2\ln(5) + 2\operatorname{Li}_3(1/3) + \frac 75\operatorname{Li}_3(2/3) \\
+- \frac 38\operatorname{Li}_3(1/5) + \frac 9{10}\operatorname{Li}_3(2/5) - \frac 35\operatorname{Li}_3(3/5) -\frac 18\operatorname{Li}_3(4/5) \\
++ \frac 14\operatorname{Li}_3(1/10) - \frac 75\ln(2)\,\left(\operatorname{Li}_2(1/3)+\frac{\operatorname{Li}_2(1/4)}2 +\operatorname{Li}_2(2/5)+\operatorname{Li}_2(3/5)\right) \\
+- \ln(5)\,\left(\operatorname{Li}_2(2/5)+2\operatorname{Li}_2(3/5)\right)$$</p>
+
+<hr>
+
+<p>$$I\left(\frac 12,1\right)=-\frac{39}8\zeta(3)+\left(\ln(2)+5\ln(3)+2\ln(5)\right)\zeta(2)-\frac 5{12}\ln(3)^3+\ln(2)^2\ln(25/8)-\ln(25/9)\ln(5)^2 \\
+-\ln(4)\left(\operatorname{Li}_2(1/3)+\frac 34 \operatorname{Li}_2(1/4)\right)-(\ln(4)+2\ln(5))\;(\operatorname{Li}_2(2/5)+\operatorname{Li}_2(3/5))\\
++\frac 12\operatorname{Li}_3(1/3)+2\operatorname{Li}_3(2/3)$$</p>
+
+<hr>
+
+<p>$$I\left(\frac 13,1\right)=-\frac{139}{24}\zeta(3)+\left(\frac 94\ln(2)-\frac 5{12}\ln(3)+\frac 13\ln(5)\right)\pi^2 \\
++ 2\ln(2)^2\ln(5) - 2\ln(2)^3 -\frac 23\ln(3)^3 - 2\ln(5)^3  + 2\ln(3)\ln(5)^2 \\
++ 2\operatorname{Li}_3(1/3) + 2\operatorname{Li}_3(2/3) - 2\ln(2)\,\left(\operatorname{Li}_2(1/3)+\frac 12\operatorname{Li}_2(1/4)\\
++\operatorname{Li}_2(2/5) +\operatorname{Li}_2(3/5)\right) - 2\ln(5)\;(\operatorname{Li}_2(2/5)+\operatorname{Li}_2(3/5))$$</p>
+
+<hr>
+
+<p>$$I\left(\frac 23,1\right)=\frac{573}{128}\zeta(3)+\left(\frac{31}{64}\ln(2)-\frac 23\ln(3)-\frac 5{48}\ln(5)\right)\pi^2 \\
++ \frac {47}{32}\ln(2)^3 + \frac 34\ln(3)^3 + \frac {79}{32}\ln(5)^3 - 3\ln(2)\ln(5)^2 + \frac{45}{32}\ln(2)^2\ln(5) - \frac 74\ln(3)\ln(5)^2 \\
+- \frac 54\operatorname{Li}_3(1/3) - \frac 94\operatorname{Li}_3(2/3) - \frac {17}{32}\operatorname{Li}_3(1/5) - \operatorname{Li}_3(1/6) - \frac {13}8\operatorname{Li}_3(2/5) \\
+- \operatorname{Li}_3(3/5) - \frac {27}{32}\operatorname{Li}_3(4/5) - \frac 5{16}\operatorname{Li}_3(1/10) + \ln(2)\,\left(\frac 54\operatorname{Li}_2(1/3) + \frac 58\operatorname{Li}_2(1/4)\right) \\
++ (\ln(3)-\ln(2))\operatorname{Li}_2(1/5) + \frac{3\ln(2)+7\ln(5)}4\,(\operatorname{Li}_2(2/5) + \operatorname{Li}_2(3/5))$$</p>
+
+<hr>
+
+<p>$$I\left(\frac 14,1\right)=\frac{335}{32}\zeta(3)-\left(\frac{95}{48}\ln(2)+\frac 23\ln(3)+\frac 1{24}\ln(5)\right)\pi^2 \\
++ \frac {107}{24}\ln(2)^3 + \frac 73\ln(3)^3 + \frac {41}8\ln(5)^3 - \ln(2)\ln(5)^2 - \frac{21}8\ln(2)^2\ln(5) - \frac {11}2\ln(3)\ln(5)^2 \\
+- 7\operatorname{Li}_3(1/3) - \frac{11}2\operatorname{Li}_3(2/3) - \frac 78\operatorname{Li}_3(1/5) + \operatorname{Li}_3(2/5) - \frac 32\operatorname{Li}_3(3/5) \\
++ \frac 38\operatorname{Li}_3(4/5) - \frac 32\operatorname{Li}_3(1/6)- \frac 54\operatorname{Li}_3(1/10) + \ln(2)\;\left(4\operatorname{Li}_2(1/3) \\
++ 2\operatorname{Li}_2(1/4) + \frac 54\operatorname{Li}_2(2/5) + \frac {13}4\operatorname{Li}_2(3/5)\right) + \frac {19}4\ln(5)\;\left(\operatorname{Li}_2(2/5) \\
++ \operatorname{Li}_2(3/5)\right)$$</p>
+
+<hr>
+<p>=================================================
+
+<p>Alt version rewritten in MathType:
+
+\[
+I\left( \frac{1}{4},1 \right) = \frac{{335}}{{32}}\zeta (3) - \left( \frac{{95}}{{48}}\ln (2) + \frac{2}{3}\ln (3) + \frac{1}{{24}}\ln (5) \right){\pi ^2}\\
+ + \frac{{107}}{{24}}\ln {{(2)}^3} + \frac{7}{3}\ln {{(3)}^3} + \frac{{41}}{8}\ln {{(5)}^3} - \ln (2)\ln {{(5)}^2}\\
+ - \frac{{21}}{8}\ln {{(2)}^2}\ln (5) - \frac{{11}}{2}\ln (3)\ln {{(5)}^2} - 7{{{\mathop{\rm Li}\nolimits} }_3}(1/3) - \frac{{11}}{2}{{{\mathop{\rm Li}\nolimits} }_3}(2/3)\\
+ - \frac{7}{8}{{{\mathop{\rm Li}\nolimits} }_3}(1/5) + {{{\mathop{\rm Li}\nolimits} }_3}(2/5) - \frac{3}{2}{{{\mathop{\rm Li}\nolimits} }_3}(3/5) + \frac{3}{8}{{{\mathop{\rm Li}\nolimits} }_3}(4/5)\\
+ - \frac{3}{2}{{{\mathop{\rm Li}\nolimits} }_3}(1/6) - \frac{5}{4}{{{\mathop{\rm Li}\nolimits} }_3}(1/10)\\
+ + \ln (2)\;\left( {4{{{\mathop{\rm Li}\nolimits} }_2}(1/3) + 2{{{\mathop{\rm Li}\nolimits} }_2}(1/4) + \frac{5}{4}{{{\mathop{\rm Li}\nolimits} }_2}(2/5) + \frac{{13}}{4}{{{\mathop{\rm Li}\nolimits} }_2}(3/5)} \right)\\
+ + \frac{{19}}{4}\ln (5)\;\left( {{{{\mathop{\rm Li}\nolimits} }_2}(2/5) + {{{\mathop{\rm Li}\nolimits} }_2}(3/5)} \right)
+ \]
+
+
+<hr>
+
+<p>Raw expressions for (<em>the much needed</em>) simplifications and manipulations<br>
+($I(4,1),I(5,1),I(1/2,1),I(1/3,1),I(2/3,1),I(1/4,1)$ respectively)</p>
+
+<pre><code>- 1915/128*zeta(3)+(359/192*ln(2) + 2*ln(3) + 175/96*ln(5))*PI^2 +(513/32*ln(2)^2*ln(5) - 1535/96*ln(2)^3 - 15/4*ln(3)^3 - 1031/96*ln(5)^3 - 31/8*ln(2)*ln(5)^2  + 93/8*ln(3)*ln(5)^2 + 45/4*polylog(3, 1/3) +93/8*polylog(3, 2/3) - 81/32*polylog(3, 1/5) - 3/8*polylog(3, 1/6) - polylog(3, 2/5) - 3/8*polylog(3, 3/5) - 91/32*polylog(3, 4/5) + 5/16*polylog(3, 1/10) - 12*ln(2)*polylog(2, 1/3) - 8*ln(2)*polylog(2, 1/4) - 2*ln(2)*polylog(2, 1/5) - 163/16*ln(2)*polylog(2, 2/5) - 195/16*ln(2)*polylog(2, 3/5) - 189/16*ln(5)*polylog(2, 2/5) - 189/16*ln(5)*polylog(2, 3/5))
+
+- 577/160*zeta(3) +(191/240*ln(2)+11/15*ln(3)-11/60*ln(5))*PI^2 + 17/10*ln(3)*ln(5)^2 - 17/30*ln(3)^3 - 173/960*ln(4)^3 - 181/120*ln(5)^3  - 1/10*ln(4)*ln(5)^2 + 51/160*ln(4)^2*ln(5) + 2*polylog(3, 1/3) + 7/5*polylog(3, 2/3) - 3/8*polylog(3, 1/5) + 9/10*polylog(3, 2/5) - 3/5*polylog(3, 3/5) - 1/8*polylog(3, 4/5) + 1/4*polylog(3, 1/10) - 7/10*ln(4)*(polylog(2,1/3)+polylog(2,1/4)/2+polylog(2,2/5)+polylog(2,3/5)) - ln(5)*polylog(2, 2/5) - 2*ln(5)*polylog(2, 3/5)
+
+-39/8*zeta(3)+(ln(2)+5*ln(3)+2*ln(5))*zeta(2)-5/12*ln(3)^3+ln(2)^2*ln(25/8)-ln(25/9)*ln(5)^2 -ln(4)*(polylog(2,1/3)+3/4*polylog(2,1/4))- (ln(4)+2*ln(5))*(polylog(2,2/5)+polylog(2,3/5))+polylog(3,1/3)/2+2*polylog(3,2/3)
+
+-139/24*zeta(3)+(9/4*ln(2)-5/12*ln(3)+1/3*ln(5))*PI^2 + 2*ln(2)^2*ln(5) - 2*ln(2)^3 -2/3*ln(3)^3 - 2*ln(5)^3  + 2*ln(3)*ln(5)^2 + 2*polylog(3,1/3) + 2*polylog(3, 2/3) - 2*ln(2)*(polylog(2, 1/3)+polylog(2, 1/4)/2+polylog(2, 2/5) +polylog(2, 3/5)) - 2*ln(5)*(polylog(2,2/5)+polylog(2, 3/5))
+
+573/128*zeta(3)+(31/64*ln(2)-2/3*ln(3)-5/48*ln(5))*PI^2 + 47/32*ln(2)^3 + 3/4*ln(3)^3 + 79/32*ln(5)^3 - 3*ln(2)*ln(5)^2 + 45/32*ln(2)^2*ln(5) - 7/4*ln(3)*ln(5)^2 - 5/4*polylog(3, 1/3) - 9/4*polylog(3, 2/3) - 17/32*polylog(3, 1/5) - polylog(3, 1/6) - 13/8*polylog(3, 2/5) - polylog(3, 3/5) - 27/32*polylog(3, 4/5) - 5/16*polylog(3, 1/10) + ln(2)*(5/4*polylog(2,1/3) + 5/8*polylog(2, 1/4)) + (ln(3)-ln(2))*polylog(2, 1/5) + (3*ln(2)+7*ln(5))/4*(polylog(2, 2/5) + polylog(2, 3/5))
+
+335/32*zeta(3)-(95/48*ln(2)+2/3*ln(3)+1/24*ln(5))*PI^2 + 107/24*ln(2)^3 + 7/3*ln(3)^3 + 41/8*ln(5)^3 - ln(2)*ln(5)^2 - 21/8*ln(2)^2*ln(5) - 11/2*ln(3)*ln(5)^2 - 7*polylog(3, 1/3) - 11/2*polylog(3, 2/3) - 7/8*polylog(3, 1/5) + polylog(3, 2/5) - 3/2*polylog(3, 3/5) + 3/8*polylog(3, 4/5) - 3/2*polylog(3, 1/6)- 5/4*polylog(3, 1/10) + ln(2)*(4*polylog(2, 1/3) + 2*polylog(2, 1/4) + 5/4*polylog(2, 2/5) + 13/4*polylog(2,3/5)) + 19/4*ln(5)*(polylog(2, 2/5) + polylog(2, 3/5))
+</code></pre>
+    </div>
+
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="/posts/1283294/revisions" title="show all edits to this post">edited <span title="2015-05-15 18:05:08Z" class="relativetime">May 15 '15 at 18:05</span></a>
+    </div>
+
+    <div class="user-action-time">
+        answered <span title="2015-05-15 10:04:03Z" class="relativetime">May 15 '15 at 10:04</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/21783/raymond-manzoni">Raymond Manzoni</a>
+
+    </div>
+</div>
+
+
+            <ul class="comments-list js-comments-list"
+                    data-remaining-comments-count="9"
+                    data-canpost="false"
+                    data-cansee="true"
+                    data-comments-unavailable="false"
+                    data-addlink-disabled="true">
+
+
+    <li id="comment-2606615" class="comment js-comment " data-comment-id="2606615">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">Can you do $I\left(\frac23,1\right)$?</span>
+                    &ndash;&nbsp;<a href="/users/19661/vladimir-reshetnikov"
+                       title="23,859 reputation"
+                       class="comment-user owner">Vladimir Reshetnikov</a>
+                <span class="comment-date" dir="ltr"><span title="2015-05-15 17:22:58Z" class="relativetime-clean">May 15 '15 at 17:22</span></span>
+                                                                            </div>
+
+    </li>
+    <li id="comment-2606651" class="comment js-comment " data-comment-id="2606651">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@VladimirReshetnikov: yes it works (I&#39;ll update my answer later).</span>
+                    &ndash;&nbsp;<a href="/users/21783/raymond-manzoni"
+                       title="36,623 reputation"
+                       class="comment-user">Raymond Manzoni</a>
+                <span class="comment-date" dir="ltr"><span title="2015-05-15 17:34:41Z" class="relativetime-clean">May 15 '15 at 17:34</span></span>
+                                                                            </div>
+
+    </li>
+    <li id="comment-2606729" class="comment js-comment " data-comment-id="2606729">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@Ant: that&#39;s pslq (or LLL) at work! Compute a value to high precision (say $400$ digits), conjecture a vector of expressions like $[\ln(3)^3, \ln(3)\ln(2)^2,\zeta(3)]$ and so on and the software will use an <a href="http://en.wikipedia.org/wiki/Integer_relation_algorithm" >integer relation algorithm</a> to return you the wished integer coefficients like <a href="http://math.stackexchange.com/questions/108510/approximation-of-e-using-pi-and-phi/108520#108520">here</a>.</span>
+                    &ndash;&nbsp;<a href="/users/21783/raymond-manzoni"
+                       title="36,623 reputation"
+                       class="comment-user">Raymond Manzoni</a>
+                <span class="comment-date" dir="ltr"><span title="2015-05-15 18:15:12Z" class="relativetime-clean">May 15 '15 at 18:15</span></span>
+                        <span title="this comment was edited 1 time">
+                            <svg aria-hidden="true" class="svg-icon va-text-bottom o50 iconPencilSm" width="14" height="15" viewBox="0 0 14 15"><path d="M8.37 4.7L2 11.11V13h1.88l6.37-6.43zM12.23 3.83L11.1 2.71a.5.5 0 0 0-.7 0L9.2 3.86l1.88 1.84 1.14-1.16a.5.5 0 0 0 0-.71z"/></svg>
+                        </span>
+                                                                            </div>
+
+    </li>
+    <li id="comment-2606735" class="comment js-comment " data-comment-id="2606735">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">That $\dfrac14$ looks so lonely there... He&#39;s searching for his brother, $\dfrac34$ , and he&#39;s all sad, and crying... :-$)$</span>
+                    &ndash;&nbsp;<a href="/users/93448/lucian"
+                       title="40,615 reputation"
+                       class="comment-user">Lucian</a>
+                <span class="comment-date" dir="ltr"><span title="2015-05-15 18:15:51Z" class="relativetime-clean">May 15 '15 at 18:15</span></span>
+                                                                            </div>
+
+    </li>
+    <li id="comment-2609505" class="comment js-comment " data-comment-id="2609505">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@Ant: Of course without a proof you can&#39;t be sure but I could challenge you to disprove them! :-) This should be easy by increasing the precision but the neat thing about the integer relation algorithms is that you will get the <i>same</i> constants by increasing the precision once you crossed the minimal threshold while in my link the constants will change rather randomly with the number of digits (the total count of digits staying near the fixed precision). Of course this could be an illusion with a second threshold much higher and so on (like when playing with $\theta$ functions).</span>
+                    &ndash;&nbsp;<a href="/users/21783/raymond-manzoni"
+                       title="36,623 reputation"
+                       class="comment-user">Raymond Manzoni</a>
+                <span class="comment-date" dir="ltr"><span title="2015-05-16 17:22:53Z" class="relativetime-clean">May 16 '15 at 17:22</span></span>
+                        <span title="this comment was edited 2 times">
+                            <svg aria-hidden="true" class="svg-icon va-text-bottom o50 iconPencilSm" width="14" height="15" viewBox="0 0 14 15"><path d="M8.37 4.7L2 11.11V13h1.88l6.37-6.43zM12.23 3.83L11.1 2.71a.5.5 0 0 0-.7 0L9.2 3.86l1.88 1.84 1.14-1.16a.5.5 0 0 0 0-.71z"/></svg>
+                        </span>
+                                                                            </div>
+
+    </li>
+            </ul>
+
+    </div>
+    </div>
+    </div>
+
+</section>
+<section>
+            
+            
+
+  <h4 id="h-linked">Linked</h4>
+  <div class="linked" data-tracker="lq=1">
+
+<div class="spacer">
+    <a href="/questions/108510/approximation-of-e-using-pi-and-phi?noredirect=1" class="question-hyperlink">Approximation of $e$ using $\pi$ and $\phi$?</a>
+</div>
+<div class="spacer">
+    <a href="/questions/1554038/integral-int-0-infty-operatornamearccotx-operatornamearccot2x-ope?noredirect=1" class="question-hyperlink">Integral $\int_0^\infty\operatorname{arccot}(x)\,\operatorname{arccot}(2x)\,\operatorname{arccot}(5x)\,dx$</a>
+</div>
+<div class="spacer">
+    <a href="/questions/1308769/double-integral-of-symmetric-polylogarithmic-function-over-rectangular-region?noredirect=1" class="question-hyperlink">Double integral of symmetric polylogarithmic function over rectangular region</a>
+</div>      </div>
+</div>
+
+                <div class="module sidebar-related">
+                    <h4 id="h-related">Related</h4>
+                        <div class="spacer">
+							<a href="/questions/493674/need-help-with-int-0-infty-left-pi-x-fracsx-cos-frac-pi-x22-cx-sin" class="question-hyperlink">Need help with $\int_0^\infty\left(\pi\,x+\frac{S(x)\cos\frac{\pi x^2}2-C(x)\sin\frac{\pi x^2}2}{S(x)^2+C(x)^2}\right)dx$</a></div><div class="spacer">
+						<a href="/questions/581215/integral-int-0-infty-x2-e-x2-operatornameerfx-logx-dx" class="question-hyperlink">Integral $\int_0^\infty x^2\,e^{-x^2}\operatorname{erf}(x)\,\log(x)\,dx$</a></div><div class="spacer">
+						<a href="/questions/908108/how-to-find-large-int-01-frac-ln31x-ln-xx-mathrm-dx" class="question-hyperlink">How to find ${\large\int}_0^1\frac{\ln^3(1+x)\ln x}x\mathrm dx$</a></div><div class="spacer">
+						<a href="/questions/918821/closed-form-for-large-int-01-frac-ln2x-sqrt1-xx2dx" class="question-hyperlink">Closed form for ${\large\int}_0^1\frac{\ln^2x}{\sqrt{1-x+x^2}}dx$</a></div><div class="spacer">
+						<a href="/questions/932888/closed-form-for-large-int-01-frac-ln3x-sqrtx2-x1dx" class="question-hyperlink">Closed form for ${\large\int}_0^1\frac{\ln^3x}{\sqrt{x^2-x+1}}dx$</a></div><div class="spacer">
+						<a href="/questions/972775/what-is-a-closed-form-for-large-int-01-frac-ln31x-ln2xxdx" class="question-hyperlink">What is a closed form for ${\large\int}_0^1\frac{\ln^3(1+x)\,\ln^2x}xdx$?</a></div><div class="spacer">
+						<a href="/questions/980112/integral-large-int-01-frac-ln2-ln-left-frac1x-right1xx2dx" class="question-hyperlink">Integral ${\large\int}_0^1\frac{\ln^2\ln\left(\frac1x\right)}{1+x+x^2}dx$</a></div><div class="spacer">
+						<a href="/questions/1292884/integral-involving-clausen-function-large-int-02-pi-operatornamecl-2x" class="question-hyperlink">Integral involving Clausen function ${\large\int}_0^{2\pi}\operatorname{Cl}_2(x)^2\,x^p\,dx$</a></div><div class="spacer">
+						<a href="/questions/1301728/looking-for-a-proof-of-cleos-result-for-large-int-0-infty-operatornameei" class="question-hyperlink">Looking for a proof of Cleo&#39;s result for ${\large\int}_0^\infty\operatorname{Ei}^4(-x)\,dx$</a></div><div class="spacer">
+						<a href="/questions/2865791/on-the-integrals-int-0-infty-1-xn-operatornamearccotnx-mathrmd" class="question-hyperlink">On the integrals $\int_0^\infty [1-x^n \operatorname{arccot}^n(x)] \, \mathrm{d} x$</a></div>
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+<section>
+
+
+
+<hr>
+        <h2>elementary number theory - Approximation of $e$ using $\pi$ and $\phi$? - Mathematics Stack Exchange</h2>
+
+
+                    <h1 itemprop="name" class="grid--cell fs-headline1 fl1"><a href="/questions/108510/approximation-of-e-using-pi-and-phi" class="question-hyperlink">Approximation of $e$ using $\pi$ and $\phi$?</a></h1>
+
+
+
+<div class="question" data-questionid="108510"  id="question">
+
+    <div class="post-text" itemprop="text">
+
+<p>$$e \approx \frac{4 \phi +3 \pi-5}{4}$$</p>
+
+<p>where $~\phi~$ is a <a href="http://en.wikipedia.org/wiki/Golden_ratio">Golden ratio</a> .</p>
+
+<p>Is it possible to construct better approximation of $e$ using $\pi$ , $\phi$ and integers ?</p>
+    </div>
+
+
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="/posts/108510/revisions" title="show all edits to this post">edited <span title="2016-01-26 09:34:05Z" class="relativetime">Jan 26 '16 at 9:34</span></a>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/134791/jaume-oliver-lafont">Jaume Oliver Lafont</a>
+
+    </div>
+</div>
+
+<div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2012-02-12 14:08:37Z" class="relativetime">Feb 12 '12 at 14:08</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/15660/pe%c4%91a-terzi%c4%87">Peđa Terzić</a>
+
+    </div>
+</div>
+
+
+            <ul class="comments-list js-comments-list"
+                    data-remaining-comments-count="0"
+                    data-canpost="false"
+                    data-cansee="true"
+                    data-comments-unavailable="false"
+                    data-addlink-disabled="true">
+
+
+    <li id="comment-413904" class="comment js-comment " data-comment-id="413904">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">It is possible, if unlikely, that $e+\pi$ is rational, in which case we would have an excellent (<i>exact</i>) &quot;approximation&quot; $e=p/q-\pi$ with $p,q\in \mathbf N$. :)</span>
+                    &ndash;&nbsp;<a href="/users/30222/tomasz"
+                       title="22,951 reputation"
+                       class="comment-user">tomasz</a>
+                <span class="comment-date" dir="ltr"><span title="2012-08-07 00:41:09Z" class="relativetime-clean">Aug 7 '12 at 0:41</span></span>
+                        <span title="this comment was edited 1 time">
+                            <svg aria-hidden="true" class="svg-icon va-text-bottom o50 iconPencilSm" width="14" height="15" viewBox="0 0 14 15"><path d="M8.37 4.7L2 11.11V13h1.88l6.37-6.43zM12.23 3.83L11.1 2.71a.5.5 0 0 0-.7 0L9.2 3.86l1.88 1.84 1.14-1.16a.5.5 0 0 0 0-.71z"/></svg>
+                        </span>
+
+        </div>
+    </li>
+    <li id="comment-2232907" class="comment js-comment " data-comment-id="2232907">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">Just for illustration, these connect $e,\,\pi,\,\phi$: $$\begin{aligned}e^{\pi\sqrt{5}} &amp;\approx 2^6\phi^6-24.2\dots\\ e^{\pi\sqrt{10}} &amp;\approx 2^6\phi^{12}+24.98\dots\\ e^{\pi\sqrt{15}} &amp;\approx 2^{12}\phi^8-24.001\dots\\ e^{\pi\sqrt{25}} &amp;\approx 2^6\phi^{24}-24.00004\dots \end{aligned}$$ The fact that the &quot;excess&quot; involve $24$ is not coincidence, as these were found using the Dedekind eta function (which contains a $24$th root).</span>
+                    &ndash;&nbsp;<a href="/users/4781/tito-piezas-iii"
+                       title="26,286 reputation"
+                       class="comment-user">Tito Piezas III</a>
+                <span class="comment-date" dir="ltr"><span title="2015-01-07 20:31:47Z" class="relativetime-clean">Jan 7 '15 at 20:31</span></span>
+
+        </div>
+    </li>
+            </ul>
+    </div>
+
+
+
+
+<div id="answer-108520" class="answer accepted-answer" data-answerid="108520"   itemprop="acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+
+    <div class="post-text" itemprop="text">
+<p>Yes :
+$$e \approx \pi+\phi +\frac{1-\pi\cdot\phi}2 \approx 2.718$$
+$$e \approx \frac{-\phi+2\pi-1+2\pi^2}3-\pi\cdot\phi \approx 2.71825$$
+$$e \approx \frac{6\phi-2\pi+2\pi\cdot\phi}5 \approx 2.71828$$</p>
+
+<p>Should you accept only linear expressions :
+$$e \approx \frac{46\phi+173\pi-183}{160} \approx 2.718281828459$$
+$$e \approx \frac{45483\phi-2961\pi-18765}{16748} \approx 2.718281828459045235360$$
+In fact we may find approximations as precise as you want. But note that their expression is as long as the decimal expansion obtained!</p>
+
+<hr>
+
+<p>(Answering Peter) Of course it is more funny to find such relations yourself so let's use the free and excellent <a href="http://pari.math.u-bordeaux.fr/download.html">pari/gp software</a> (the .exe should be fine for Windows (*)) to get some other relations using the $\textrm{lindep}$ function. This function implements the PSLQ and LLL algorithm (the <a href="http://en.wikipedia.org/wiki/Integer_relation_algorithm">integer relation algorithms</a> suggested by lhf) that is for a given vector $[x_1,x_2,\cdots,x_n],\ x_i \in \mathbb{R}$ it returns a vector $[a_1,a_2,\cdots,a_n],\ a_i\in \mathbb{Z}$ such that $\sum_{i=1}^n a_i\cdot x_i \approx 0$ (in fact to a given precision : 22 digits in our first example) :</p>
+
+<blockquote>
+  <p>\p 100             (100 digits precision should be enough)<br>
+  phi=(sqrt(5)+1)/2<br>
+  lindep([exp(1),phi,Pi,1],22)  </p>
+</blockquote>
+
+<p>returns $[-16748, 45483, -2961, -18765]~$    (with $\sum_{i=1}^n a_i\cdot x_i \approx 10^{-17}$)</p>
+
+<blockquote>
+  <p>%/16748</p>
+</blockquote>
+
+<p>returns $[-1, 45483/16748, -2961/16748, -18765/16748]$ that is :
+$$e \approx \frac{45483\phi-2961\pi-18765}{16748} \approx 2.718281828459045235360$$</p>
+
+<p>These algorithms are also implemented in Mathematica, Maple and others but let's continue with pari/gp and search this time a multiplicative answer (to a precision of 5 digits) :</p>
+
+<blockquote>
+  <p>lindep([1,log(phi),log(Pi)],5)     (note that $1=\log(\exp(1))$)</p>
+</blockquote>
+
+<p>returns [-7, -14, 12]~  or (divided by 7)<br>
+        [-1, -2, 12/7]~</p>
+
+<p>so that $-1 -2\log(\phi)+\frac{12}7\log(\pi) \approx 0$<br>
+or $1 \approx -2\log(\phi)+\frac{12}7\log(\pi)$<br>
+and the exponential of this becomes :
+$$e\approx \frac{\pi^{\frac{12}7}}{\phi^2}\approx 2.7182$$</p>
+
+<p>You may even find expressions like these proposed by Robert Israel using :</p>
+
+<blockquote>
+  <p>lindep([1,phi,Pi,Pi^2,Pi^3,-exp(1),-exp(1)*phi,-exp(1)*Pi,-exp(1)*Pi^2,-exp(1)*Pi^3],{precision})</p>
+</blockquote>
+
+<p>These very powerful methods have many applications in diophantine equations and cryptography and for discovering exact relations using <a href="http://www.ams.org/notices/200505/fea-borwein.pdf">'experimental mathematics'</a>!</p>
+
+<p>But it's time to let you play with that too so : have fun!!</p>
+
+<hr>
+
+<p>(*) On Windows you may encounter the typical problems with console applications (unnatural rectangular copy/paste and windows resize). To avoid frustrations with gp I would recommend to use <a href="http://sourceforge.net/projects/console">Console2</a> and launch gp using a syntax like :<br>
+C:\tools\Console2\Console.exe -r "/k C:\tools\pari\gp.exe"<br>
+(supposing that Console2 and pari are in C:\tools).<br>
+If you want to use Ctrl-C and Ctrl-V as usual you'll have to change the default settings (right click/Edit/Settings/Hotkeys). A text may be selected with 'shift' down before mouse-drag.<br>
+Hoping all this will help you to appreciate this excellent tool (great for number theory but not only!). There is even a version of pari for android <a href="http://code.google.com/p/paridroid">paridroid</a> but I didn't try it...</p>
+    </div>
+
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="/posts/108520/revisions" title="show all edits to this post">edited <span title="2012-02-14 00:43:39Z" class="relativetime">Feb 14 '12 at 0:43</span></a>
+    </div>
+
+
+    <div class="user-action-time">
+        answered <span title="2012-02-12 15:00:22Z" class="relativetime">Feb 12 '12 at 15:00</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/21783/raymond-manzoni">Raymond Manzoni</a>
+
+    </div>
+</div>
+
+
+
+            <ul class="comments-list js-comments-list"
+                    data-remaining-comments-count="5"
+                    data-canpost="false"
+                    data-cansee="true"
+                    data-comments-unavailable="false"
+                    data-addlink-disabled="true">
+
+
+    <li id="comment-253725" class="comment js-comment " data-comment-id="253725">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">What might be fun to do  is to construct a telescoping infinite product using the linear expressions in the second part of your answer.</span>
+                    &ndash;&nbsp;<a href="/users/890/deoxygerbe"
+                       title="3,067 reputation"
+                       class="comment-user">deoxygerbe</a>
+                <span class="comment-date" dir="ltr"><span title="2012-02-12 15:24:53Z" class="relativetime-clean">Feb 12 '12 at 15:24</span></span>
+                        <span title="this comment was edited 1 time">
+                            <svg aria-hidden="true" class="svg-icon va-text-bottom o50 iconPencilSm" width="14" height="15" viewBox="0 0 14 15"><path d="M8.37 4.7L2 11.11V13h1.88l6.37-6.43zM12.23 3.83L11.1 2.71a.5.5 0 0 0-.7 0L9.2 3.86l1.88 1.84 1.14-1.16a.5.5 0 0 0 0-.71z"/></svg>
+                        </span>
+
+        </div>
+    </li>
+    <li id="comment-253731" class="comment js-comment " data-comment-id="253731">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@deoxygerbe: Hi! Could you elaborate on this?</span>
+                    &ndash;&nbsp;<a href="/users/21783/raymond-manzoni"
+                       title="36,623 reputation"
+                       class="comment-user">Raymond Manzoni</a>
+                <span class="comment-date" dir="ltr"><span title="2012-02-12 15:37:08Z" class="relativetime-clean">Feb 12 '12 at 15:37</span></span>
+
+        </div>
+    </li>
+    <li id="comment-253733" class="comment js-comment " data-comment-id="253733">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">Sure. If you can generate a sequence of expressions of the form $v_{n}=\frac{a_{n}\phi-b_{n}\pi-c_{n}}{u_{n}}$, then the infinite product $\prod_{n=1}^{\infty} \frac{v_{n+1}}{v_{n}}=e$.</span>
+                    &ndash;&nbsp;<a href="/users/890/deoxygerbe"
+                       title="3,067 reputation"
+                       class="comment-user">deoxygerbe</a>
+                <span class="comment-date" dir="ltr"><span title="2012-02-12 15:39:41Z" class="relativetime-clean">Feb 12 '12 at 15:39</span></span>
+                        <span title="this comment was edited 1 time">
+                            <svg aria-hidden="true" class="svg-icon va-text-bottom o50 iconPencilSm" width="14" height="15" viewBox="0 0 14 15"><path d="M8.37 4.7L2 11.11V13h1.88l6.37-6.43zM12.23 3.83L11.1 2.71a.5.5 0 0 0-.7 0L9.2 3.86l1.88 1.84 1.14-1.16a.5.5 0 0 0 0-.71z"/></svg>
+                        </span>
+
+        </div>
+    </li>
+    <li id="comment-253740" class="comment js-comment " data-comment-id="253740">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@deoxygerbe: I see. I fear that the difficult part will be to find a general expression for your $(a_n,b_n,c_n,u_n)\ $ (the link between $\pi\ $, $\phi\ $ and $e\ $ doesn&#39;t appear &#39;natural&#39; enough for that...). But I don&#39;t want to temper your enthusiasm! :-)</span>
+                    &ndash;&nbsp;<a href="/users/21783/raymond-manzoni"
+                       title="36,623 reputation"
+                       class="comment-user">Raymond Manzoni</a>
+                <span class="comment-date" dir="ltr"><span title="2012-02-12 15:54:48Z" class="relativetime-clean">Feb 12 '12 at 15:54</span></span>
+
+        </div>
+    </li>
+    <li id="comment-253742" class="comment js-comment " data-comment-id="253742">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">It may not necessarily be something that we can explicitly write down. Do you mind using the methods you used to generate those two to make, say, maybe 10 to 20 more terms?</span>
+                    &ndash;&nbsp;<a href="/users/890/deoxygerbe"
+                       title="3,067 reputation"
+                       class="comment-user">deoxygerbe</a>
+                <span class="comment-date" dir="ltr"><span title="2012-02-12 15:58:27Z" class="relativetime-clean">Feb 12 '12 at 15:58</span></span>
+
+        </div>
+    </li>
+            </ul>
+    </div>
+
+
+  
+
+<div id="answer-108512" class="answer" data-answerid="108512"   itemscope itemtype="http://schema.org/Answer">
+
+    <div class="post-text" itemprop="text">
+<p>Of course. $ \phi \approx 1.618033989$ and 
+$ e \approx 2.718281828$ so $\displaystyle e \approx \frac{2718281828}{1618033989} \phi .$ Extend to whatever accuracy you desire. </p>
+
+<p>Edit in response to comment: If you require using $\pi$ as well, then we can do $$\displaystyle e \approx \frac{2718281828}{2\cdot 1618033989} \phi + \frac{2718281828}{2\cdot 3141692654} \pi.$$ </p>
+    </div>
+
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2012-02-12 14:16:33Z" class="relativetime">Feb 12 '12 at 14:16</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/14657/ragib-zaman">Ragib Zaman</a>
+
+    </div>
+</div>
+
+
+
+            <ul class="comments-list js-comments-list"
+                    data-remaining-comments-count="0"
+                    data-canpost="false"
+                    data-cansee="true"
+                    data-comments-unavailable="false"
+                    data-addlink-disabled="true">
+
+
+    <li id="comment-253694" class="comment js-comment " data-comment-id="253694">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">where is $\pi$ in your equation?</span>
+                    &ndash;&nbsp;<a href="/users/15660/pe%c4%91a-terzi%c4%87"
+                       title="8,103 reputation"
+                       class="comment-user owner">Peđa Terzić</a>
+                <span class="comment-date" dir="ltr"><span title="2012-02-12 14:17:53Z" class="relativetime-clean">Feb 12 '12 at 14:17</span></span>
+                        <span title="this comment was edited 1 time">
+                            <svg aria-hidden="true" class="svg-icon va-text-bottom o50 iconPencilSm" width="14" height="15" viewBox="0 0 14 15"><path d="M8.37 4.7L2 11.11V13h1.88l6.37-6.43zM12.23 3.83L11.1 2.71a.5.5 0 0 0-.7 0L9.2 3.86l1.88 1.84 1.14-1.16a.5.5 0 0 0 0-.71z"/></svg>
+                        </span>
+
+        </div>
+    </li>
+    <li id="comment-253697" class="comment js-comment " data-comment-id="253697">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@pedja I didn&#39;t realize using $\pi$ was required, but I&#39;ve edited my post to include it.</span>
+                    &ndash;&nbsp;<a href="/users/14657/ragib-zaman"
+                       title="28,159 reputation"
+                       class="comment-user">Ragib Zaman</a>
+                <span class="comment-date" dir="ltr"><span title="2012-02-12 14:21:56Z" class="relativetime-clean">Feb 12 '12 at 14:21</span></span>
+
+        </div>
+    </li>
+    <li id="comment-253707" class="comment js-comment " data-comment-id="253707">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">A more interesting question would result, if we define &quot;better&quot; in terms of the approximation error multiplied by the maximum absolute value of the integer coefficients used.</span>
+                    &ndash;&nbsp;<a href="/users/11619/jyrki-lahtonen"
+                       title="105,708 reputation"
+                       class="comment-user">Jyrki Lahtonen</a>
+                <span class="comment-date" dir="ltr"><span title="2012-02-12 14:34:58Z" class="relativetime-clean">Feb 12 '12 at 14:34</span></span>
+
+        </div>
+    </li>
+    <li id="comment-253727" class="comment js-comment " data-comment-id="253727">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">@Jyrki&#39;s comment makes me think of a three-dimensional extension of continued fractions, where at each level instead of $n+\frac1\ldots$ you could also have $n\phi+\frac\pi\ldots$ or $n\phi+\frac\phi\ldots$...</span>
+                    &ndash;&nbsp;<a href="/users/856/rahul"
+                       title="32,574 reputation"
+                       class="comment-user">Rahul</a>
+                <span class="comment-date" dir="ltr"><span title="2012-02-12 15:27:25Z" class="relativetime-clean">Feb 12 '12 at 15:27</span></span>
+                        <span title="this comment was edited 1 time">
+                            <svg aria-hidden="true" class="svg-icon va-text-bottom o50 iconPencilSm" width="14" height="15" viewBox="0 0 14 15"><path d="M8.37 4.7L2 11.11V13h1.88l6.37-6.43zM12.23 3.83L11.1 2.71a.5.5 0 0 0-.7 0L9.2 3.86l1.88 1.84 1.14-1.16a.5.5 0 0 0 0-.71z"/></svg>
+                        </span>
+
+        </div>
+    </li>
+            </ul>
+    </div>
+
+<div id="answer-108570" class="answer" data-answerid="108570"   itemscope itemtype="http://schema.org/Answer">
+
+    <div class="post-text" itemprop="text">
+<p>Try: $${\frac {16+31\,\phi+6\,\pi +25\,{\pi }^{2}-14\,{\pi }^{3}}{11+25\,\phi
++4\,\pi -48\,{\pi }^{2}+12\,{\pi }^{3}}}
+$$</p>
+    </div>
+
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2012-02-12 18:43:17Z" class="relativetime">Feb 12 '12 at 18:43</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/8508/robert-israel">Robert Israel</a>
+
+    </div>
+</div>
+
+
+    
+
+            <ul class="comments-list js-comments-list"
+                    data-remaining-comments-count="0"
+                    data-canpost="false"
+                    data-cansee="true"
+                    data-comments-unavailable="false"
+                    data-addlink-disabled="true">
+
+
+    <li id="comment-253822" class="comment js-comment " data-comment-id="253822">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">Is that in any way related to a Pad&#233; aproximant?</span>
+                    &ndash;&nbsp;<a href="/users/23350/pedro-tamaroff"
+                       title="94,788 reputation"
+                       class="comment-user">Pedro Tamaroff<span class="mod-flair" title="moderator">&#9830;</span></a>
+                <span class="comment-date" dir="ltr"><span title="2012-02-12 18:50:25Z" class="relativetime-clean">Feb 12 '12 at 18:50</span></span>
+                        <span title="this comment was edited 1 time">
+                            <svg aria-hidden="true" class="svg-icon va-text-bottom o50 iconPencilSm" width="14" height="15" viewBox="0 0 14 15"><path d="M8.37 4.7L2 11.11V13h1.88l6.37-6.43zM12.23 3.83L11.1 2.71a.5.5 0 0 0-.7 0L9.2 3.86l1.88 1.84 1.14-1.16a.5.5 0 0 0 0-.71z"/></svg>
+                        </span>
+
+        </div>
+    </li>
+    <li id="comment-254087" class="comment js-comment " data-comment-id="254087">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">No, it isn&#39;t.  What I did was use Maple&#39;s LinearDependency function on $[1, \phi, \pi, \pi^2, \pi^3, e, e \phi, e \pi, e \pi^2, e \pi^3]$.</span>
+                    &ndash;&nbsp;<a href="/users/8508/robert-israel"
+                       title="308,616 reputation"
+                       class="comment-user">Robert Israel</a>
+                <span class="comment-date" dir="ltr"><span title="2012-02-13 01:23:38Z" class="relativetime-clean">Feb 13 '12 at 1:23</span></span>
+
+        </div>
+    </li>
+    <li id="comment-254088" class="comment js-comment " data-comment-id="254088">
+
+            <div class="comment-body" style="display: block;" >
+                <span class="comment-copy">Is there any way this results could be obtained without a computer?</span>
+                    &ndash;&nbsp;<a href="/users/23350/pedro-tamaroff"
+                       title="94,788 reputation"
+                       class="comment-user">Pedro Tamaroff<span class="mod-flair" title="moderator">&#9830;</span></a>
+                <span class="comment-date" dir="ltr"><span title="2012-02-13 01:27:41Z" class="relativetime-clean">Feb 13 '12 at 1:27</span></span>
+
+        </div>
+    </li>
+            </ul>
+    </div>
+
+<div id="answer-108629" class="answer" data-answerid="108629"   itemscope itemtype="http://schema.org/Answer">
+
+    <div class="post-text" itemprop="text">
+<p>You can approximate any number using only $\phi$ by expressing it in the <strong><a href="http://en.wikipedia.org/wiki/Golden_ratio_base" >Golden ratio base</a></strong>.</p>
+
+<p>For example, $e \approx \phi^2 + \phi^{-5} + \phi^{-10} + \phi^{-13} = 100.0000100001001_\phi = 2.71825392998$</p>
+    </div>
+
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="/posts/108629/revisions" title="show all edits to this post">edited <span title="2012-08-10 12:15:07Z" class="relativetime">Aug 10 '12 at 12:15</span></a>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/18240/potato">Potato</a>
+
+    </div>
+</div>
+
+<div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2012-02-12 21:02:22Z" class="relativetime">Feb 12 '12 at 21:02</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/18422/steevedroz">SteeveDroz</a>
+
+    </div>
+</div>
+    </div>
+
+
+
+<div id="answer-108634" class="answer" data-answerid="108634"   itemscope itemtype="http://schema.org/Answer">
+
+    <div class="post-text" itemprop="text">
+<p>Since $\phi$ is algebraic, and $e$ is transcendent, it follows that $\frac{e}{\phi}$ is irrational.</p>
+
+<p>Then, the set $\{ m\frac{\pi}{\phi} +n | m,n \in Z \}$ is dense in $R$ and thus is also </p>
+
+<p>$$ \{ m \pi +n\phi | m,n \in Z \}$$</p>
+
+<p>Thus, for each $\epsilon &gt;0$ there exists infinitely many pairs $(m,n)$ of integers so that </p>
+
+<p>$$e \approx  m \pi +n\phi \,,$$</p>
+
+<p>with the error of the approximation less than $\epsilon$...</p>
+    </div>
+
+<div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2012-02-12 21:17:38Z" class="relativetime">Feb 12 '12 at 21:17</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/9176/n-s">N. S.</a>
+
+    </div>
+</div>
+    </div>
+
+
+
+<div id="answer-108706" class="answer" data-answerid="108706"   itemscope itemtype="http://schema.org/Answer">
+
+    <div class="post-text" itemprop="text">
+<p>Here's a generalization of continued fractions that <a href="https://math.stackexchange.com/questions/108510/approximation-of-e-using-pi-and-phi/108512#comment253707_108512">Jyrki's comment</a> inspired.</p>
+
+<p>$$\begin{array}{rlcrlcrlcrlcrlll}
+e = &amp;\!\!\!\! 2 &amp;\!\!\!\! + &amp;\!\!\!\! 1/(&amp;\!\!\!\! 1 &amp;\!\!\!\! + &amp;\!\!\!\! 1/(&amp;\!\!\!\! 2 &amp;\!\!\!\! + &amp;\!\!\!\! 1/(&amp;\!\!\!\!1 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! 0 &amp;\!\!\!\! + &amp;\!\!\!\! \pi^2/(&amp;\!\!\!\!3 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! \phi &amp;\!\!\!\! + &amp;\!\!\!\! \phi^2/(&amp;\!\!\!\!2 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! )&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! 0 &amp;\!\!\!\! + &amp;\!\!\!\! \pi^2/(&amp;\!\!\!\! 7 &amp;\!\!\!\! + &amp;\!\!\!\! 1/(&amp;\!\!\!\!11 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! 2\pi &amp;\!\!\!\! + &amp;\!\!\!\! \pi^2/(&amp;\!\!\!\!12 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! 4\phi &amp;\!\!\!\! + &amp;\!\!\!\! \phi^2/(&amp;\!\!\!\!4 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! )&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! 0 &amp;\!\!\!\! + &amp;\!\!\!\! \phi^2/(&amp;\!\!\!\! 1 &amp;\!\!\!\! + &amp;\!\!\!\! 1/(&amp;\!\!\!\!1 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! 0 &amp;\!\!\!\! + &amp;\!\!\!\! \pi^2/(&amp;\!\!\!\!5 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! \phi &amp;\!\!\!\! + &amp;\!\!\!\! \phi^2/(&amp;\!\!\!\!9 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! )&amp;\!\!\!\! )&amp;\!\!\!\! ) \\ \text{or } &amp;\!\!\!\! 0 &amp;\!\!\!\! + &amp;\!\!\!\! \pi^2/(&amp;\!\!\!\! 3 &amp;\!\!\!\! + &amp;\!\!\!\! 1/(&amp;\!\!\!\! 1 &amp;\!\!\!\! + &amp;\!\!\!\! 1/(&amp;\!\!\!\!1 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! 0 &amp;\!\!\!\! + &amp;\!\!\!\! \pi^2/(&amp;\!\!\!\!6 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! 0 &amp;\!\!\!\! + &amp;\!\!\!\! \phi^2/(&amp;\!\!\!\!1 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! )&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! \pi &amp;\!\!\!\! + &amp;\!\!\!\! \pi^2/(&amp;\!\!\!\! 20 &amp;\!\!\!\! + &amp;\!\!\!\! 1/(&amp;\!\!\!\!5 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! 6\pi &amp;\!\!\!\! + &amp;\!\!\!\! \pi^2/(&amp;\!\!\!\!7 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! 12\phi &amp;\!\!\!\! + &amp;\!\!\!\! \phi^2/(&amp;\!\!\!\!3 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! )&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! 2\phi &amp;\!\!\!\! + &amp;\!\!\!\! \phi^2/(&amp;\!\!\!\! 6 &amp;\!\!\!\! + &amp;\!\!\!\! 1/(&amp;\!\!\!\!1 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! 2\pi &amp;\!\!\!\! + &amp;\!\!\!\! \pi^2/(&amp;\!\!\!\!28 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! 4\phi &amp;\!\!\!\! + &amp;\!\!\!\! \phi^2/(&amp;\!\!\!\!16 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! )&amp;\!\!\!\! )&amp;\!\!\!\! ) \\ \text{or } &amp;\!\!\!\! \phi &amp;\!\!\!\! + &amp;\!\!\!\! \phi^2/(&amp;\!\!\!\! 2 &amp;\!\!\!\! + &amp;\!\!\!\! 1/(&amp;\!\!\!\! 2 &amp;\!\!\!\! + &amp;\!\!\!\! 1/(&amp;\!\!\!\!1 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! 0 &amp;\!\!\!\! + &amp;\!\!\!\! \pi^2/(&amp;\!\!\!\!3 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! \phi &amp;\!\!\!\! + &amp;\!\!\!\! \phi^2/(&amp;\!\!\!\!2 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! )&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! 0 &amp;\!\!\!\! + &amp;\!\!\!\! \pi^2/(&amp;\!\!\!\! 4 &amp;\!\!\!\! + &amp;\!\!\!\! 1/(&amp;\!\!\!\!6 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! \pi &amp;\!\!\!\! + &amp;\!\!\!\! \pi^2/(&amp;\!\!\!\!9 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! 2\phi &amp;\!\!\!\! + &amp;\!\!\!\! \phi^2/(&amp;\!\!\!\!2 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! )&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! \phi &amp;\!\!\!\! + &amp;\!\!\!\! \phi^2/(&amp;\!\!\!\! 3 &amp;\!\!\!\! + &amp;\!\!\!\! 1/(&amp;\!\!\!\!2 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! \pi &amp;\!\!\!\! + &amp;\!\!\!\! \pi^2/(&amp;\!\!\!\!33 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! ) \\  &amp;\!\!\!\!  &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\!  &amp;\!\!\!\! &amp;\!\!\!\! \text{or } &amp;\!\!\!\! 2\phi &amp;\!\!\!\! + &amp;\!\!\!\! \phi^2/(&amp;\!\!\!\!12 &amp;\!\!\!\! + &amp;\!\!\!\! \ldots&amp;\!\!\!\! )&amp;\!\!\!\! )&amp;\!\!\!\! )
+\end{array}$$</p>
+
+<p>Apparently, $0+\cfrac{\pi^2}{2\phi+\cfrac{\phi^2}{2\pi}} = \dfrac{2\pi^3}{4\pi\phi+\phi^2} \approx 2.702$ and $\phi+\dfrac{\phi^2}{\phi+\dfrac{\phi^2}{\pi}} = \dfrac{2\pi\phi+\phi^2}{\pi+\phi} \approx 2.686$ are good approximations. At least, relative to the coefficients of $\pi$ and $\phi$, if not their powers. I guess this shows that you're better off only using integers in continued fractions...</p>
+
+<p>(Also, I spent entirely too much time typesetting this.)</p>
+
+<p><em>Update:</em> Expanding the tree two more levels, I found a couple of rather good approximations,
+$$\phi + \cfrac{\phi^2}{\phi + \cfrac{\phi^2}{2\phi + \cfrac{\phi^2}{8\phi}}} = \dfrac{42\phi}{25} \approx 2.718297$$
+and
+$$0 + \cfrac{\pi^2}{2\phi + \cfrac{\phi^2}{2\pi + \cfrac{\pi^2}{9\pi}}} = \dfrac{19\pi^2}{9\phi^2 + 38\pi\phi} \approx 2.718292,$$
+and a couple of not-so-good ones,
+$$2 + \cfrac{1}{1 + \cfrac{1}{2 + \cfrac{1}{\phi + \cfrac{\phi^2}{13}}}} = \dfrac{8\phi^2 + 104\phi + 39}{3\phi^2 + 39\phi + 13} \approx 2.718280$$
+and
+$$0 + \cfrac{\pi^2}{3 + \cfrac{1}{0 + \cfrac{\pi^2}{\pi + \cfrac{\pi^2}{\pi}}}} = \dfrac{\pi^3}{2 + 3\pi} \approx 2.713950.$$
+Interestingly, the approximation accuracy differs greatly between different branches of the tree at similar depths. I'm curious whether there is a natural way to arrange such representations in increasing order of accuracy vs. complexity.</p>
+    </div>
+
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="/posts/108706/revisions" title="show all edits to this post">edited <span title="2017-04-13 12:20:45Z" class="relativetime">Apr 13 '17 at 12:20</span></a>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/-1/community">Community</a><span class="mod-flair" title="moderator">&#9830;</span>
+
+    </div>
+</div>
+
+<div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2012-02-13 00:35:30Z" class="relativetime">Feb 13 '12 at 0:35</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/856/rahul">Rahul</a>
+
+    </div>
+</div>
+    </div>
+
+
+
+<div id="answer-108564" class="answer" data-answerid="108564"   itemscope itemtype="http://schema.org/Answer">
+
+    <div class="post-text" itemprop="text">
+<p>Try an <a href="http://en.wikipedia.org/wiki/Integer_relation_algorithm" >integer relation algorithm</a>, such as PSLQ, but you'll probably need high-precision approximations of $e$, $\pi$, and $\phi$.</p>
+    </div>
+
+<div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2012-02-12 18:17:11Z" class="relativetime">Feb 12 '12 at 18:17</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/589/lhf">lhf</a>
+
+    </div>
+</div>
+    </div>
+
+
+<div id="answer-517628" class="answer" data-answerid="517628"   itemscope itemtype="http://schema.org/Answer">
+
+    <div class="post-text" itemprop="text">
+<p>We know that $\phi^2 = \phi + 1$ , from where we deduce that $\frac1\phi + \frac1{\phi\ +\ 1} = \frac1\phi + \frac1{\phi^2} = 1$ .</p>
+
+<p>At the same time, we also know that $e = 2.718^{^+}$ , and $\phi = 1.618^{^+}$ , from where we deduce that $e \simeq \phi + 1.1 = \phi^2 + \frac1{10}$ .</p>
+
+<p>Putting the two together, we get the following approximations:</p>
+
+<p>$$\frac1e + \frac1\phi + \frac1{71} \simeq 1 \qquad,\qquad \frac1e + \frac1{\sqrt{e}} + \frac1{39} \simeq 1$$</p>
+
+<p>$$\frac1{\sqrt{e}} + \frac1{\phi^2} + \frac1{87}\ =\ \frac1{\sqrt{e}} + \frac1{\phi + 1} + \frac1{87} \simeq 1$$</p>
+
+<p>I would also like to recommend the following resources : I hope you'll find them helpful.</p>
+
+<p><i>www.mrob.com/pub/ries/</p>
+
+<p>en.wikipedia.org/wiki/Almost_integer</p>
+
+<p>en.wikipedia.org/wiki/Mathematical_coincidence</i></p>
+    </div>
+
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2013-10-07 12:26:36Z" class="relativetime">Oct 7 '13 at 12:26</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/93448/lucian">Lucian</a>
+
+    </div>
+</div>
+    </div>
+
+
+<div id="answer-2901152" class="answer" data-answerid="2901152"   itemscope itemtype="http://schema.org/Answer">
+
+    <div class="post-text" itemprop="text">
+<p>I also once played with these famous constants- I came across to this following relation :</p>
+
+<p>$e+\pi \cong 3\phi+1$ </p>
+
+<p>Approximation error:$|3\phi-(e+\pi-1)|\approx0,00577 &lt; \frac{3}{500}$</p>
+
+<p>Here we go:  $e\approx 3\phi+1-\pi$</p>
+    </div>
+
+<div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2018-08-31 21:18:20Z" class="relativetime">Aug 31 at 21:18</span>
+    </div>
+
+    <div class="user-details">
+        <a href="/users/586889/krzysztof-my%c5%9bliwiec">Krzysztof Myśliwiec</a>
+
+    </div>
+</div>
+
+
+
+
+
+
+</section>
+</article>
+</body>
+</html>

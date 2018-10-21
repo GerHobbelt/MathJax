@@ -653,7 +653,7 @@ MathJax.Hub.Config({
     //  use of the STIX fonts, or set it to an empty list, [], if
     //  you want to force MathJax to use web-based or image fonts.
     //
-    availableFonts: ["STIX","TeX"],
+    availableFonts: ["TeX","STIX","STIX-Web","Asana-Math","Gyre-Termes","Gyre-Pagella","Latin-Modern","Neo-Euler"],
     
     //
     //  This is the preferred font to use when more than one of those
@@ -699,7 +699,7 @@ MathJax.Hub.Config({
     //  stop looking after the first font that exists on the system (even
     //  if it doesn't contain the needed character), so order these carefully.
     //  
-    undefinedFamily: "STIXGeneral,'Arial Unicode MS',serif",
+    undefinedFamily: "STIXGeneral,'Cambria Math','Arial Unicode MS',serif",
 
     //
     //  This setting controls whether <mtext> elements will be typeset
@@ -748,7 +748,6 @@ MathJax.Hub.Config({
     //  especially in width fractions or roots.
     //
     noReflows: true,
-
     
     //
     //  These settings control automatic line breaking.  It is off by
@@ -866,8 +865,8 @@ MathJax.Hub.Config({
     minScaleAdjust: 50,
     
     //
-    //  This specifies the font to use for SVG output (currently the only
-    //  one available)
+    //  This specifies the font to use for SVG output. 
+    //  One of: "TeX","STIX","STIX-Web","Asana-Math","Gyre-Termes","Gyre-Pagella","Latin-Modern","Neo-Euler"
     //
     font: "TeX",
     
@@ -884,7 +883,7 @@ MathJax.Hub.Config({
     //  that exists on the system (even if it doesn't contain the needed
     //  character), so order these carefully.
     //  
-    undefinedFamily: "STIXGeneral,'Arial Unicode MS',serif",
+    undefinedFamily: "STIXGeneral,'Cambria Math','Arial Unicode MS',serif",
 
     //
     //  This setting controls whether <mtext> elements will be typeset
