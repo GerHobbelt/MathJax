@@ -908,7 +908,7 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
           name,
           timeout: this.timeout, 
         });
-        debugger;
+// debugger;
         this.loading[file] = {
           callback: callback,
           timeout: setTimeout(timeout,this.timeout),
@@ -1002,7 +1002,7 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
           loaded: this.loaded[file],
           status,
         });
-        debugger;
+// debugger;
         if (status < 0) {
           BASE.Ajax.loadTimeout(file);
         } else {
@@ -1076,7 +1076,7 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
           loading: this.loading[file],
           loaded: this.loaded[file],
         });
-        debugger;
+// debugger;
         this.loaded[file] = loading.status; delete this.loading[file];
         this.addHook(file,loading.callback);
       } else {
@@ -1085,7 +1085,7 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
           loading: this.loading[file],
           loaded: this.loaded[file],
         });
-        debugger;
+// debugger;
         if (loading) {delete this.loading[file]}
         this.loaded[file] = this.STATUS.OK;
         loading = {status: this.STATUS.OK}
@@ -1107,10 +1107,12 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
         });
         debugger;
       }
-      if (this.loading[file].timeout) {clearTimeout(this.loading[file].timeout)}
-      this.loading[file].status = this.STATUS.ERROR;
-      this.loadError(file);
-      this.loadComplete(file);
+      if (this.loading[file] && this.loading[file].timeout) {clearTimeout(this.loading[file].timeout)}
+      if (!this.loaded[file]) {
+        this.loading[file].status = this.STATUS.ERROR;
+        this.loadError(file);
+        this.loadComplete(file);
+      }
     },
 
     //
@@ -2244,7 +2246,7 @@ MathJax.Hub = {
   Update:    function (element,callback) {return this.takeAction("Update",element,callback)},
   Reprocess: function (element,callback) {return this.takeAction("Reprocess",element,callback)},
   Rerender:  function (element,callback) {
-    debugger;
+// debugger;
     return this.takeAction("Rerender",element,callback);
   },
 
@@ -2299,7 +2301,7 @@ MathJax.Hub = {
       }
     },
     Reprocess: function (script) {
-      debugger;
+// debugger;
       var jax = script.MathJax.elementJax;
       if (jax) {
         jax.Remove(true); 
@@ -2307,7 +2309,7 @@ MathJax.Hub = {
       }
     },
     Rerender: function (script) {
-      debugger;
+// debugger;
       var jax = script.MathJax.elementJax;
       if (jax) {
         jax.Remove(true); 
@@ -3218,7 +3220,7 @@ MathJax.Hub.Startup = {
     Update: function (callback) {return this.Rerender(callback);},
     Rerender: function (callback) {
       var script = this.SourceElement();
-      debugger;
+// debugger;
       script.MathJax.state = this.STATE.OUTPUT;
       return HUB.Process(script,callback);
     },
