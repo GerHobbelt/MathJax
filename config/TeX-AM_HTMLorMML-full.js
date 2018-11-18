@@ -13916,6 +13916,8 @@ asciimath.translate = translate;
 
   var EVENT, TOUCH, HOVER, ZOOM; // filled in later
 
+  AJAX.Require("[MathJax]/extensions/TeX/mathchoice.js");
+
   HUB.Register.StartupHook("MathZoom Ready", function() {
     ZOOM = MathJax.Extension.MathZoom;
   });
@@ -14072,7 +14074,7 @@ asciimath.translate = translate;
 
       // if (!HUB.Browser.hasMathPlayer) {
       // Used in preTranslate to get scaling factors
-      debugger;
+      // debugger;
       this.EmExSpan = HTML.Element("span", { style: { position: "absolute", "font-size-adjust": "none" } }, [
         ["div", { className: "MathJax_mmlExBox" }],
         ["span", { className: "MathJax_MathML" }]
@@ -14135,7 +14137,7 @@ asciimath.translate = translate;
         document.body.appendChild(this.EmExSpan);
         this.defaultEx = this.EmExSpan.firstChild.offsetWidth / 60;
         this.defaultMEx = this.EmExSpan.lastChild.offsetWidth / 60;
-        debugger;
+        // debugger;
         document.body.removeChild(this.EmExSpan);
       }
     },

@@ -1095,7 +1095,14 @@ if (document.getElementById && document.childNodes && document.createElement) {
             var name = this.fileName(file);
             var script = document.createElement("script");
             var timeout = BASE.Callback(["loadTimeout", this, file]);
-        debugger;
+            console.error("JS loader:", {
+              file,
+              loading: this.loading[file],
+              loaded: this.loaded[file],
+              name,
+              timeout: this.timeout
+            });
+// debugger;
             this.loading[file] = {
               callback: callback,
               timeout: setTimeout(timeout, this.timeout),
@@ -1187,7 +1194,13 @@ if (document.getElementById && document.childNodes && document.createElement) {
           //  For JS file loads, call the proper routine according to status
           //
           file: function(file, status) {
-        debugger;
+            console.error("JS load FILE:", {
+              file,
+              loading: this.loading[file],
+              loaded: this.loaded[file],
+              status
+            });
+// debugger;
             if (status < 0) {
               BASE.Ajax.loadTimeout(file);
             } else {
@@ -1265,15 +1278,26 @@ if (document.getElementById && document.childNodes && document.createElement) {
               }
               SCRIPTS.push(loading.script);
             }
-        debugger;
+            console.error("JS loadComplete:", {
+              file,
+              loading: this.loading[file],
+              loaded: this.loaded[file]
+            });
+// debugger;
             this.loaded[file] = loading.status;
             delete this.loading[file];
             this.addHook(file, loading.callback);
           } else {
+            console.error("JS loadComplete on PRELOADED:", {
+              file,
+              loading: this.loading[file],
+              loaded: this.loaded[file]
+            });
+// debugger;
             if (loading) {
               delete this.loading[file];
             }
-        debugger;
+            this.loaded[file] = this.STATUS.OK;
             loading = { status: this.STATUS.OK };
           }
           if (!this.loadHooks[file]) {
@@ -1287,20 +1311,22 @@ if (document.getElementById && document.childNodes && document.createElement) {
         //  is called), this routine runs to signal the error condition.
         //
         loadTimeout: function(file) {
-      if (!this.loading[file]) {
-        console.error("loadTimeout:", {
-          file,
-          loading: this.loading[file],
-          loaded: this.loaded[file] 
-        });
-        debugger;
-      }
-          if (this.loading[file].timeout) {
+          if (!this.loading[file]) {
+            console.error("loadTimeout:", {
+              file,
+              loading: this.loading[file],
+              loaded: this.loaded[file]
+            });
+            debugger;
+          }
+          if (this.loading[file] && this.loading[file].timeout) {
             clearTimeout(this.loading[file].timeout);
           }
-          this.loading[file].status = this.STATUS.ERROR;
-          this.loadError(file);
-          this.loadComplete(file);
+          if (!this.loaded[file]) {
+            this.loading[file].status = this.STATUS.ERROR;
+            this.loadError(file);
+            this.loadComplete(file);
+          }
         },
 
         //
@@ -2706,7 +2732,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
         return this.takeAction("Reprocess", element, callback);
       },
       Rerender: function(element, callback) {
-        debugger;
+// debugger;
         return this.takeAction("Rerender", element, callback);
       },
 
@@ -2764,7 +2790,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
           }
         },
         Reprocess: function(script) {
-          debugger;
+// debugger;
           var jax = script.MathJax.elementJax;
           if (jax) {
             jax.Remove(true);
@@ -2772,7 +2798,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
           }
         },
         Rerender: function(script) {
-          debugger;
+// debugger;
           var jax = script.MathJax.elementJax;
           if (jax) {
             jax.Remove(true);
@@ -3923,7 +3949,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
           },
           Rerender: function(callback) {
             var script = this.SourceElement();
-            debugger;
+// debugger;
             script.MathJax.state = this.STATE.OUTPUT;
             return HUB.Process(script, callback);
           },

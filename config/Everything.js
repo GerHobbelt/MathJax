@@ -15352,6 +15352,8 @@ asciimath.translate = translate;
 
   var EVENT, TOUCH, HOVER, ZOOM; // filled in later
 
+  AJAX.Require("[MathJax]/extensions/TeX/mathchoice.js");
+
   HUB.Register.StartupHook("MathZoom Ready", function() {
     ZOOM = MathJax.Extension.MathZoom;
   });
@@ -15571,7 +15573,7 @@ asciimath.translate = translate;
         document.body.appendChild(this.EmExSpan);
         this.defaultEx = this.EmExSpan.firstChild.offsetWidth / 60;
         this.defaultMEx = this.EmExSpan.lastChild.offsetWidth / 60;
-        debugger;
+        // debugger;
         document.body.removeChild(this.EmExSpan);
       }
     },
@@ -20141,7 +20143,7 @@ asciimath.translate = translate;
       toSVG: function(span, div) {
         var CONFIG = SVG.config;
         //
-        //  All the data should be in an inferrerd row
+        //  All the data should be in an inferred row
         //
         if (this.data[0]) {
           this.SVGgetStyles();
