@@ -95,7 +95,7 @@ td, th {
 <a href="https://github.com/mathjax/MathJax/issues/712">Issue #712</a> test code: 
 
 <p>
-Consider the form $\hat{f}^p$. Mathjax renders it in HTML-CSS mode with the superscript p above f, rather than to the right, as you'd get with $f^p$.
+Consider the form $\hat{f}^p$. Mathjax renders it in HTML-CSS mode with the superscript <code>p</code> above <code>f</code>, rather than to the right, as you'd get with $f^p$.
 
 <p>
 @geomblog Yes, it's not a browser bug or bad CSS-interaction. MathJax is just laying it out "wrong".
@@ -107,20 +107,29 @@ Consider the form $\hat{f}^p$. Mathjax renders it in HTML-CSS mode with the supe
 dpvc commented on Jan 9, 2014:
 The natural MathML translation of <code>\hat{f}^p</code> is
 
-<msup>
-  <mover>
-    <mi>f</mi>
-    <mo>^</mo>
-  </mover>
-  <mi>p</mi>
-</msup>
+<pre>
+&lt;msup&gt;
+  &lt;mover&gt;
+    &lt;mi&gt;f&lt;/mi&gt;
+    &lt;mo&gt;^&lt;/mo&gt;
+  &lt;/mover&gt;
+  &lt;mi&gt;p&lt;/mi&gt;
+&lt;/msup&gt;
+</pre>
 
 <p>
-That means the base of the power is the f with the hat. Superscripts are placed in relation to the height of the base, and that height includes the hat in this case, so the p is placed higher than it is when the f doesn't have the hat. (This is complicated by the fact that the OP has the STIX fonts, and it appears that the wrong hat is being used -- when used as an accent, the U+005E should be replaced by one of the smaller versions intended for accents -- so the height is even larger than usual; it looks better with the MathJax fonts, though still higher than for a plain f.)
+That means the base of the power is the <code>f</code> with the hat. Superscripts are placed in relation to the height of the base, and that height includes the hat in this case, so the <code>p</code> is placed higher than it is when the <code>f</code> doesn't have the hat. (This is complicated by the fact that the OP has the STIX fonts, and it appears that the wrong hat is being used -- when used as an accent, the U+005E should be replaced by one of the smaller versions intended for accents -- so the height is even larger than usual; it looks better with the MathJax fonts, though still higher than for a plain <code>f</code>.)
 
 <p>
-To get the same output as TeX, the layout for superscripts would have to ignore the height of the accent, and just use the height of the f. That would be possible, but would require making special cases in the treatment of &lt;msup&gt;. It is complicated by the fact that TeX is inconsistent about this. For example <code>\bar{f}^p</code> is positioned as though the bar is not there, but <code>\overline{f}^p</code> is positioned taking the overline into account. Both of these are handled through <code>&lt;msup&gt;&lt;mover&gt;</code> constructs like the one above in MathJax, and there is no natural way to distinguish which is which (other than using a list of characters to ignore when they are used as accents). It also depends on what is below the hat. For example, <code>\hat{ff}^p</code> has the <code>p</code> in the higher position, as does <code>\hat{\rule{1em}{1em}}^p</code> or <code>\hat{\hbox{f}}^p</code> or <code>\hat{+}^p</code>.
+To get the same output as TeX, the layout for superscripts would have to ignore the height of the accent, and just use the height of the <code>f</code>. That would be possible, but would require making special cases in the treatment of <code>&lt;msup&gt;</code>. It is complicated by the fact that TeX is inconsistent about this. For example <code>\bar{f}^p</code> is positioned as though the bar is not there, but <code>\overline{f}^p</code> is positioned taking the overline into account. Both of these are handled through <code>&lt;msup&gt;&lt;mover&gt;</code> constructs like the one above in MathJax, and there is no natural way to distinguish which is which (other than using a list of characters to ignore when they are used as accents). It also depends on what is below the hat. For example, <code>\hat{ff}^p</code> has the <code>p</code> in the higher position, as does <code>\hat{\rule{1em}{1em}}^p</code> or <code>\hat{\hbox{f}}^p</code> or <code>\hat{+}^p</code>.
 
+$$ \bar{f}^p \ \ \ \  \overline{f}^p \ \ \ \  \hat{ff}^p $$
+
+$$ \hat{\rule{1em}{1em}}^p $$
+
+$$ \hat{\hbox{f}}^p \ \ \ \  \hat{+}^p $$
+
+<p>
 Finally, note that native MathML in Firefox currently treats the <code>&lt;msup&gt;&lt;mover&gt;</code> as MathJax does, so even if we change the HTML-CSS and SVG output, it will still be &quot;wrong&quot; in the NativeMML output.
 
 <p>
@@ -134,6 +143,8 @@ A TeX example is
 $$ f^p \hat{f}^p  {{}\hat{f}}^p  F^p   \hat{F}^p$$
 \end{document}
 </pre>
+
+$$ f^p \ \  \hat{f}^p \ \  {{}\hat{f}}^p \ \  F^p \ \  \hat{F}^p $$
 
 <p>
 as Davide commented neither TeX nor MathML really offers any user-level control over this, TeX just has some heuristics in appendix G that tweak the superscript position in some simple cases (basically if the base is a single letter and the accent is a single glyph placed with the <code>\accent</code> primitive, even adding <code>{}</code> to the base is enough to prevent this.
@@ -151,21 +162,27 @@ if the base is a single letter and the accent is a single glyph placed with the 
 <p>
 I think this is correct, except that there is one more restriction, which is that the class of the base has to be ORD. For example, <code>\hat{+}^p</code> and <code>+^p</code> differ, as do <code>\hat{(}^p</code> and <code>(^p</code>, etc. On the other hand, <code>\hat{\hat{f}}^p</code> ignores the height of both accents. So the code needed to determine the exceptions using the internal MathML would have to be fairly complicated. I suppose it could be simplified if we only wanted to handle this for TeX input rather than arbitrary MathML (in that case, the TeX input processor could mark the internal MathML to indicate what came from <code>\accent</code>, but I&apos;ve been trying to avoid that as much as possible).
 
+$$ \hat{+}^p \ \ \ \  +^p \ \ \ \  \hat{(}^p \ \ \ \  (^p \ \ \ \  \hat{\hat{f}}^p $$
+
 <p>
 In terms of using <code>&lt;mpadded&gt;</code>, you can get the desired effect from
 
-<msup>
-  <mover accent="true">
-    <mi>f</mi>
-    <mpadded height="0">
-      <mo stretchy="false">^</mo>
-    </mpadded>
-  </mover>
-  <mi>p</mi>
-</msup>
+<pre>
+&lt;msup&gt;
+  &lt;mover accent=&quot;true&quot;&gt;
+    &lt;mi&gt;f&lt;/mi&gt;
+    &lt;mpadded height=&quot;0&quot;&gt;
+      &lt;mo stretchy=&quot;false&quot;&gt;^&lt;/mo&gt;
+    &lt;/mpadded&gt;
+  &lt;/mover&gt;
+  &lt;mi&gt;p&lt;/mi&gt;
+&lt;/msup&gt;
+</pre>
 
 <p>
 where we make the height of the hat 0), but this would not be appropriate for all uses of <code>\hat</code>, since you want <code>\sqrt{\hat{f}}</code> to place the root over the hat, not the <code>f</code>. Also, Firefox doesn&apos;t render this as expected, because the <code>&lt;mpadded&gt;</code> causes Firefox to place the accent too high (apparently it only removes the space below the glyph if it is the direct child of the <code>&lt;mover&gt;</code>; I think this is probably a bug, as the <code>&lt;mpadded&gt;</code> should make it an embellished operator, and it should still position the result using its core).
+
+$$ \sqrt{\hat{f}} $$
 
 <p>
 that would require the generated markup knowing the size of the accent (or base) ... (although I would guess mathjax has that information to hand?)
@@ -174,7 +191,7 @@ that would require the generated markup knowing the size of the accent (or base)
 Actually, the TeX input processor has no idea about the size of the output (intentionally), and so it could not be done at the time \accent is processed. Certainly the HTML-CSS and SVG output processors know the sizes, but it is difficult to determine when to take this into account at this point (my claim that the algorithm would be complicated above). The NativeMML output processor doesn&apos;t know the sizes of things, but I suppose that since we already tweak the output for Firefox in other ways, it would be possible to modify the MathML at output time for this as well.
 
 <p>
-I don&apos;t think the high p is wrong, it&apos;s &quot;just&quot; a quality of rendering issue
+I don&apos;t think the high p is wrong, it&apos;s &quot;just&quot; a quality of rendering issue.
 
 <p>
 I agree, and am not sure it is worth trying to make it match the TeX output in this case. I suspect that it would be difficult to get it to handle exactly the situations that TeX does.
@@ -216,20 +233,11 @@ This is a question, mostly out of curiosity (though it came up in production) an
 <p>
 Comparing MathJax with real TeX, the following renders differently
 
-$$\hat{G}^J\widehat{G}^J\widehat{GG}^J\overline{GG}^J\overline{G}^J\bar{G}^J G^J$$
+$$\hat{G}^J\ \ \ \ \widehat{G}^J\ \ \ \ \widehat{GG}^J\ \ \ \ \overline{GG}^J\ \ \ \ \overline{G}^J\ \ \ \ \bar{G}^J\ \ \ \ G^J$$
 
 <p>
 MathJax consistently (i.e. in all outputs) has the superscript at (I think) 4 different heights whereas TeX has them at 3 different heights; and they disagree on which one gets which.
 
-<p>
-MathJax screenshot:
-
-image
-
-<p>
-TeX screenshot:
-
-image
 
 <p>
 dpvc commented on Mar 5:
@@ -253,8 +261,6 @@ $$\dot{R}(t)R^{\top}(t) + R(t){\dot{R}}^{\top}(t) = 0$$
 <p>
 The transpose symbols are not along the same line and this is bugging me. It seems to work on share latex though. How do I correct this?
 
-<p>
-output
 
 <p>
 pkra commented on Sep 27, 2017:
@@ -274,12 +280,12 @@ $$\dot{R}(t)R^{\top}(t) + R(t){\smash{\dot{R}}}^{\top}(t) = 0$$
 <p>
 Note that for your second example in the image, the output is consistent with TeX (if your input is the following:
 
-$$\dot{R}(t)R^{\top}(t) = - {(\dot{R}{R^{\top}(t))}^{\top}$$
+$$\dot{R}(t)R^{\top}(t) = - {(\dot{R} {R^{\top}(t))}^{\top}}$$
 
 <p>
 If you remove the outermost braces on the right
 
-$$\dot{R}(t)R^{\top}(t) = - (\dot{R}{R^{\top}(t))^{\top}$$
+$$\dot{R}(t)R^{\top}(t) = - (\dot{R} {R^{\top}(t))}^{\top}$$
 
 <p>
 you will get the alignment that you desire in both MathJax and TeX. See the discussion in the issue linked above for details of why these differ.
@@ -295,6 +301,8 @@ Thank you for the quick response! I&apos;ve fixed them now. The problem for me w
 <p>
 infusion commented on Jul 13, 2016:
 I was wondering if <code>\vec{A}_r^2</code> could be formatted a bit better by setting the exponent not so high. As an alternative <code>\vec{A^2}_r</code> sets the arrow on A too high. I think the first form is the convenient way to express this.
+
+$$\vec{A}_r^2 \ \ \ \  \vec{A^2}_r \ \ \ \  \vec{A}^2_r$$
 
 <p>
 dpvc commented on Jul 14, 2016:
