@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { extensions: ["ulem.js"] },
+    styleSheets:"ulem.css"
+  });
+  </script>
+ <script type="text/javascript"
+         src="http://127.0.0.1:8000/MathJax/unpacked/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <!-- <link rel="stylesheet" href="http://127.0.0.1:8000/MathJax/unpacked/extensions/TeX/ulem.css"> -->
+</head>
+<body>
+    <div>
+        An <span class="error" style="position: relative;">error</span>, a <span class="warning">warning</span> and an <span class="info">info</span> baked by techbrood.
+    </div>
+    <p>TeX: \(\frac a b\)</p>
+    <p>MathML: <math><msqrt><mi>x</mi></msqrt></math></p>
+    <p>\[ 艾瑟顿\uwave{了飞机}按时来对付就 \]</p>
+    <p>\[ 艾瑟顿\uline{了飞机}按时来对付就 \]</p>
+    <p>\[ 艾瑟顿\uuline{了飞机}按时来对付就 \]</p>
+    <p>\[ 艾瑟顿\uwave{\dotuline{了飞机}}按时来对付就 \]</p>
+    <span class="divcss5 warning">dask打算的减肥</span>
+    <span style="border-bottom:3px double black;cursor:pointer;">asdfasd </span>
+  </body>
+</body>
+</html>
