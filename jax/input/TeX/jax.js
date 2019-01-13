@@ -1694,7 +1694,7 @@
       this.stack.env.color = color;
       var math = this.ParseArg(name);
       if (old) {
-        this.stack.env.color;
+        this.stack.env.color = old;
       } else {
         delete this.stack.env.color;
       }

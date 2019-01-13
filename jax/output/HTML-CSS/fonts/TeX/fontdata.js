@@ -850,6 +850,9 @@
   //
   //  Handle error with reversed glyphs for \bigcap and \bigcup in version 1 of fonts
   //
+  if (!HTMLCSS.Font) {
+    debugger;
+  }
   HTMLCSS.Font.oldLoadComplete = HTMLCSS.Font.loadComplete;
   HTMLCSS.Font.loadComplete = function(font, n, done, status) {
     if (n != null) {

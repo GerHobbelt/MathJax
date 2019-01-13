@@ -1102,7 +1102,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
               name,
               timeout: this.timeout
             });
-// debugger;
+            // debugger;
             this.loading[file] = {
               callback: callback,
               timeout: setTimeout(timeout, this.timeout),
@@ -1200,7 +1200,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
               loaded: this.loaded[file],
               status
             });
-// debugger;
+            // debugger;
             if (status < 0) {
               BASE.Ajax.loadTimeout(file);
             } else {
@@ -1283,7 +1283,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
               loading: this.loading[file],
               loaded: this.loaded[file]
             });
-// debugger;
+            // debugger;
             this.loaded[file] = loading.status;
             delete this.loading[file];
             this.addHook(file, loading.callback);
@@ -1293,7 +1293,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
               loading: this.loading[file],
               loaded: this.loaded[file]
             });
-// debugger;
+            // debugger;
             if (loading) {
               delete this.loading[file];
             }
@@ -2732,7 +2732,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
         return this.takeAction("Reprocess", element, callback);
       },
       Rerender: function(element, callback) {
-// debugger;
+        // debugger;
         return this.takeAction("Rerender", element, callback);
       },
 
@@ -2790,7 +2790,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
           }
         },
         Reprocess: function(script) {
-// debugger;
+          // debugger;
           var jax = script.MathJax.elementJax;
           if (jax) {
             jax.Remove(true);
@@ -2798,7 +2798,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
           }
         },
         Rerender: function(script) {
-// debugger;
+          // debugger;
           var jax = script.MathJax.elementJax;
           if (jax) {
             jax.Remove(true);
@@ -3949,7 +3949,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
           },
           Rerender: function(callback) {
             var script = this.SourceElement();
-// debugger;
+            // debugger;
             script.MathJax.state = this.STATE.OUTPUT;
             return HUB.Process(script, callback);
           },

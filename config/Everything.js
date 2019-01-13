@@ -9932,7 +9932,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noUndefined.js");
       this.stack.env.color = color;
       var math = this.ParseArg(name);
       if (old) {
-        this.stack.env.color;
+        this.stack.env.color = old;
       } else {
         delete this.stack.env.color;
       }
@@ -30198,7 +30198,7 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready", function() {
       //
       //  Adjust widths of columns
       //
-      if (setWidths) {
+      if (setWidths || (relWidth && hasFit)) {
         if (relWidth) {
           //
           //  Attach appropriate widths to the columns
