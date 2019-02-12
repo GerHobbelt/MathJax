@@ -40,7 +40,7 @@ MathJax.Localization.addTranslation("de", "FontWarnings", {
   isLoaded: true,
   strings: {
     webFont:
-      "MathJax nutz web-basierte Fonts zur Darstellung der Mathematik auf dieser Seite. Da diese heruntergeladen werden m\u00FCssen, l\u00E4dt die Seite schneller, wenn Mathe-Fonts auf dem System installiert sind.",
+      "MathJax nutzt web-basierte Fonts zur Darstellung der Mathematik auf dieser Seite. Da diese heruntergeladen werden m\u00FCssen, l\u00E4dt die Seite schneller, wenn Mathe-Fonts auf dem System installiert sind.",
     imageFonts:
       "MathJax verwendet die Bildschriften anstatt der lokalen oder webbasierten Schriften. Das Rendern dauert l\u00E4nger als gew\u00F6hnlich und die Inhalte werden m\u00F6glicherweise nicht mit der vollen Aufl\u00F6sung deines Druckers ausgedruckt.",
     noFonts:
