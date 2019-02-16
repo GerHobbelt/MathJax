@@ -457,7 +457,7 @@
         0x27FD: {alias: 0x2906, dir:H}, // long left double arrow from bar
         0x27FE: {alias: 0x2907, dir:H}, // long right double arrow from bar
 
-        0x02C7: EXTRAH, // caron
+//        0x02C7: EXTRAH, // caron    -- dupe entry
         0x02CD: EXTRAH, // low macron
         0x02F7: EXTRAH, // low tilde
         0x219F: EXTRAV, // upwards two headed arrow

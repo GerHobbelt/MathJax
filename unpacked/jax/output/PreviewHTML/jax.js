@@ -288,7 +288,7 @@
       return BBOX;
     },
     
-    Zoom: function (jax,span,math,Mw,Mh) {
+    Zoom: function (jax,span,math,width,height) {
       //
       //  Re-render at larger size
       //

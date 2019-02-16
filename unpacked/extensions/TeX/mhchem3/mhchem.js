@@ -131,7 +131,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
       var watchdog = 10;
       /** @type {ParserOutput[]} */
       var output = [];
-      while (true) {
+      for (;;) {
         if (lastInput !== input) {
           watchdog = 10;
           lastInput = input;
@@ -143,7 +143,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
         //
         var machine = mhchemParser.stateMachines[stateMachine];
         var t = machine.transitions[state] || machine.transitions['*'];
-        iterateTransitions:
+iterateTransitions:
         for (var i=0; i<t.length; i++) {
           var matches = mhchemParser.patterns.match_(t[i].pattern, input);
           if (matches) {

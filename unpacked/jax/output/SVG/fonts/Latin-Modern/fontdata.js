@@ -271,11 +271,12 @@
           dir: H,
           HW: [[370,MAIN], [652,SIZE1], [778,SIZE2], [931,SIZE3], [1115,SIZE4], [1335,SIZE5], [1599,SIZE6], [1915,SIZE7]]
         },
-        0x2212:
-        {
-          HW: [],
-          stretch: {rep:[0x2212,MAIN,0,0,0,-.31,-.31]}
-        },
+// duplicate entry removed:
+        // 0x2212:
+        // {
+        //   HW: [],
+        //   stretch: {rep:[0x2212,MAIN,0,0,0,-.31,-.31]}
+        // },
         0x306: EXTRAH,
         0x30C:
         {

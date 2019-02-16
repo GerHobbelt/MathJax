@@ -57,7 +57,8 @@
       if (node.parent) {node.parent.removeChild(node)}
       if (this.lastChild) {this.lastChild.nextSibling = node}
       if (!this.firstChild) {this.firstChild = node}
-      this.childNodes.push(node); node.parent = this;
+      this.childNodes.push(node); 
+      node.parent = this;
       this.lastChild = node;
       return node;
     },
@@ -80,7 +81,8 @@
         {if (this.childNodes[i] === old) break}
       if (i) {this.childNodes[i-1].nextSibling = node} else {this.firstChild = node}
       if (i >= m-1) {this.lastChild = node}
-      this.childNodes[i] = node; node.nextSibling = old.nextSibling;
+      this.childNodes[i] = node; 
+      node.nextSibling = old.nextSibling;
       old.nextSibling = old.parent = null;
       return old;
     },
@@ -146,7 +148,8 @@
         // FIXME:  make this work with DOCFRAG's?
         if (i) {this.childNodes[i-1].nextSibling = node} else {this.firstChild = node}
         if (i >= m-1) {this.lastChild = node}
-        this.SetData(i,node); node.nextSibling = old.nextSibling;
+        this.SetData(i,node); 
+        node.nextSibling = old.nextSibling;
         old.nextSibling = old.parent = null;
         return old;
       },
@@ -785,7 +788,7 @@ var AMgetSymbol = function AMgetSymbol(str) {
         outsym = AMsymbols[mk].output[symcnt-1];
       } else {
         outsym = '';
-        for (var i=0;i<symcnt;i++) {
+        for (i=0;i<symcnt;i++) {
           outsym += AMsymbols[mk].output[0];
         }
       }

@@ -1571,6 +1571,19 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
 
       var differendNode, outNode, degree, children;
 
+      function addDiff(n,degree) {
+        CToP.appendToken(bottomrow,'mo','\u2202');
+        var bvar = bvarNames[n];
+        if (degree>1) {
+          var msup = CToP.createElement('msup');
+          CToP.applyTransform(msup,bvar,0);
+          CToP.appendToken(msup,'mn',degree);
+          bottomrow.appendChild(msup);
+        } else {
+          CToP.applyTransform(bottomrow,bvar,0);
+        }
+      }
+
       if (bvars.length === 0 && args.length === 2 && args[0].nodeName === 'list') {
         if (args[1].nodeName === 'lambda') {	// `d^(n+m)/(dx^n dy^m) f` form, through a lambda
           degree = CToP.getChildren(args[0]).length;
@@ -1598,18 +1611,7 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
 
           var lastN = null;
           degree = 0;
-          function addDiff(n,degree) {
-            CToP.appendToken(bottomrow,'mo','\u2202');
-            var bvar = bvarNames[n];
-            if (degree>1) {
-              var msup = CToP.createElement('msup');
-              CToP.applyTransform(msup,bvar,0);
-              CToP.appendToken(msup,'mn',degree);
-              bottomrow.appendChild(msup);
-            } else {
-              CToP.applyTransform(bottomrow,bvar,0);
-            }
-          }
+
           for (i = 0, l = lambdaSequence.length; i<l; i++ ) {
             var n = Number(CToP.getTextContent(lambdaSequence[i]))-1;
             if (lastN !== null && n != lastN) {

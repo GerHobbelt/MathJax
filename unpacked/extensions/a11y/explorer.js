@@ -61,7 +61,7 @@ MathJax.Hub.Register.StartupHook('Sre Ready', function() {
     addDefaults: function() {
       var defaults = MathJax.Hub.CombineConfig('explorer', Assistive.defaults);
       var keys = Object.keys(defaults);
-      for (var i = 0, key; key = keys[i]; i++) {
+      for (var i = 0, key; (key = keys[i]); i++) {
         if (typeof(SETTINGS[Assistive.prefix + key]) === 'undefined') {
           Assistive.addMenuOption(key, defaults[key]);
         }
@@ -162,7 +162,7 @@ MathJax.Hub.Register.StartupHook('Sre Ready', function() {
         if (menu) {
           menu = menu.submenu;
           var items = menu.items;
-          for (var i = 2, item; item = items[i]; i++) item.disabled = state;
+          for (var i = 2, item; (item = items[i]); i++) item.disabled = state;
           if (!state && menu.FindId('SpeechOutput') && !SETTINGS[Assistive.prefix + 'speech']) {
             menu.FindId('Subtitles').disabled = true;
           }
@@ -589,7 +589,7 @@ MathJax.Hub.Register.StartupHook('Sre Ready', function() {
     },
     FlameEnriched: function() {
       Explorer.UnFlame();
-      for (var i = 0, all = MathJax.Hub.getAllJax(), jax; jax = all[i]; i++) {
+      for (var i = 0, all = MathJax.Hub.getAllJax(), jax; (jax = all[i]); i++) {
         Explorer.Flame(jax.SourceElement().previousSibling);
       }
     },
@@ -681,7 +681,7 @@ MathJax.Hub.Register.StartupHook('Sre Ready', function() {
     //
     RemoveSpeech: function() {
       Assistive.setSpeechOption();
-      for (var i = 0, all = MathJax.Hub.getAllJax(), jax; jax = all[i]; i++) {
+      for (var i = 0, all = MathJax.Hub.getAllJax(), jax; (jax = all[i]); i++) {
         var math = document.getElementById(jax.inputID + '-Frame');
         if (math) {
           math.removeAttribute('hasspeech');
@@ -693,7 +693,7 @@ MathJax.Hub.Register.StartupHook('Sre Ready', function() {
     // Regenerates speech.
     //
     Regenerate: function() {
-      for (var i = 0, all = MathJax.Hub.getAllJax(), jax; jax = all[i]; i++) {
+      for (var i = 0, all = MathJax.Hub.getAllJax(), jax; (jax = all[i]); i++) {
         var math = document.getElementById(jax.inputID + '-Frame');
         if (math) {
           math.removeAttribute('hasspeech');
