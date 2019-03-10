@@ -84,7 +84,7 @@ body {
   margin: 0 auto;
 }
 h1 {
-  text-align:center;
+  text-align: center;
 }
 h2 {
   font-weight: bold;
@@ -109,22 +109,59 @@ blockquote blockquote {
   padding: .25em 1em;
   margin: 2em 1em 2em 1em;
   background-color: #f8fbfb;
+
+  font-size: 89%;
+}
+blockquote p {
+  text-align: justify;
 }
 def {
   font-weight: 500;
   font-style: italic;
 }
+article pre {
+  white-space: pre-line;
+}
 
-@media print { 
-body {
-  margin: 1in .7in 1in 1.4in;
-  max-width: 100%;
-}
-blockquote {
-  page-break-before: avoid;
-  page-break-inside: auto;
-  margin: 1em 1em;
-}
+@media print {
+  body {
+    margin: 1in .7in 1in 1.4in;
+    max-width: 100%;
+
+    font-size: 85%;
+  }
+  blockquote {
+    page-break-before: avoid;
+    page-break-inside: auto;
+    margin: 1em 1em;
+  }
+
+  /* https://css-tricks.com/almanac/properties/p/page-break/ */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-before: auto;
+    page-break-after: avoid;
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+
+  .multicol5 {
+    page-break-inside: avoid;
+  }
+
+  blockquote {
+    page-break-inside: avoid;
+  }
+
+  /* https://css-tricks.com/child-and-sibling-selectors/ */
+  h1 + blockquote,
+  h2 + blockquote,
+  h3 + blockquote,
+  h4 + blockquote {
+    page-break-before: avoid;
+    page-break-after: avoid;
+  }
 }
 </style>
 

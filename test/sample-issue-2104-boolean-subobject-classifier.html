@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<!-- original grabbed from url=http://kwhfoobartemp.blogspot.com/2018/12/mathjax-27-2-as-boolean-subobject.html -->
+<html>
+<head>
+  <title>MathJax Test Page: MathJax 2.7 issue 2104 - 2 as the Boolean subobject classifier</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+table {
+  border: 3px solid silver;
+  margin-left: auto; 
+  margin-right: auto; 
+  margin-top: 3ex;
+  text-align: center; 
+  border-spacing: 0; /* 10px */
+}
+td, th {
+  border-bottom: 2px solid #cecece;
+  border-right: 2px solid #cecece;
+  padding: .5em 1em;
+}
+</style>
+<script type="text/x-mathjax-config">
+  //MathJax.Ajax.timeout = 13*1000;   // timeout for loading of files (15 seconds)
+  MathJax.Ajax.config.path.Contrib = "../../mathjax-third-party-extensions/legacy";
+
+  var MathJaxFontNames = ["TeX","STIX","STIX-Web","Asana-Math",
+                "Gyre-Termes","Gyre-Pagella","Latin-Modern","Neo-Euler","Verdana"];
+
+  var fontNum = 8;
+  function getFontName() {
+    var i = fontNum;
+    i = Math.max(i, 0);
+    i = Math.min(i, MathJaxFontNames.length - 1);
+    return MathJaxFontNames[i];
+  }
+  console.warn("DEMO: selected font name:", getFontName());
+
+  MathJax.Hub.Config({
+    extensions: [
+      "tex2jax.js",
+      "FontWarnings.js",
+      //"MatchWebFonts.js",
+    ],
+    //jax: [ "input/TeX", "input/AsciiMath", "input/MathML", "output/HTML-CSS", "output/CommonHTML", "output/PreviewHTML", "output/SVG", "output/PlainSource" ],
+    jax: ["input/TeX", "output/CommonHTML"],
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    TeX: {
+      extensions: [
+        //"AMScd.js",
+        //"AMSmath.js", 
+        "AMSsymbols.js", 
+        //"extpfeil.js", 
+      ],
+      Macros: {
+        twoheaddownarrow: "{\\unicode\{0x21A1\}}",
+        mapsdownto: "{\\unicode\{0x21A7\}}",
+        Cat: "{\\bf Cat}",
+        CAT: "{\\bf CAT}",
+        Set: "{\\bf Set}",
+        SET: "{\\bf SET}",
+        Mon: "{\\bf Mon}",
+        Graph: "{\\bf Graph}",
+        bfone: "{\\bf 1}",
+        bftwo: "{\\bf 2}",
+        cata: "{\\bf A}",
+        catb: "{\\bf B}",
+        catc: "{\\bf C}",
+        catd: "{\\bf D}",
+        cati: "{\\bf I}",
+        catA: "{\\bf A}",
+        catB: "{\\bf B}",
+        catC: "{\\bf C}",
+        catD: "{\\bf D}",
+        catI: "{\\bf I}",
+        calA: "{\\cal A}",
+        calB: "{\\cal B}",
+        calC: "{\\cal C}",
+        calD: "{\\cal D}",
+        calI: "{\\cal I}",
+        calL: "{\\cal L}",
+        calR: "{\\cal R}",
+        calV: "{\\cal V}",
+        obja: "{a}",
+        objap: "{\{a'\}}",
+        objb: "{b}",
+        objbp: "{\{b'\}}",
+        objA: "{A}",
+        objB: "{B}",
+        objBp: "{B'}",
+        objC: "{C}",
+        objD: "{D}",
+        objE: "{E}",
+        objF: "{F}",
+        objI: "{I}",
+        objX: "{X}",
+        objY: "{Y}",
+        functf: "{f}",
+        functg: "{g}",
+        functF: "{F}",
+        functG: "{G}",
+        functL: "{L}",
+        functM: "{M}",
+        functR: "{R}",
+        functU: "{U}",
+        functX: "{X}",
+        functY: "{Y}",
+        functorA: "{A}",
+        functionA: "{A}",
+        functionB: "{B}",
+        functionf: "{f}",
+        functiong: "{g}",
+        functions: "{s}",
+        setA: "{A}",
+        setB: "{B}",
+        setC:   "{C}",
+        setD: "{D}",
+        setS: "{S}",
+        setT: "{T}",
+        setX: "{X}",
+        setY: "{Y}",
+        setZ:   "{Z}",
+        elta: "{a}",
+        eltb: "{b}",
+        eltc:  "{c}",
+        eltx: "{x}",
+        eltxp: "{\{x'\}}",
+        elty: "{y}",
+        eltyp: "{\{y'\}}",
+        varx: "{x}",
+        varxp: "{\{x'\}}",
+        vary: "{y}",
+        varyp: "{\{y'\}}",
+        numberd: "{d}",
+        numberi: "{i}",
+        numberj: "{j}",
+        numberk: "{k}",
+        numberl: "{l}",
+        numberm: "{m}",
+        numbern: "{n}",
+        twocatk: "{\\cal K}",
+        twocatK: "{\\cal K}",
+        SymGraph: "{\\bf SymGraph}",
+        Groupoid: "{\\bf Groupoid}",
+        Reln: "{\\bf Reln}",
+        PreOrd: "{\\bf PreOrd}",
+        SymReln: "{\\bf SymReln}",
+        EquivReln: "{\\bf EquivReln}",
+        FinSet: "{\\bf FinSet}",
+        Surj: "{\\bf Surj}",
+        Inj: "{\\bf Inj}",
+        Bij: "{\\bf Bij}",
+        Mat: "{\\bf Mat}",
+        N: "{\\bf N}",
+        Z: "{\\bf Z}",
+        R: "{\\bf R}",
+        ladjbot: "{\\leftadj\\bot}",
+        radjtop: "{\\rightadj\\top}",
+        graphsoverx: "\{\\leftcat\{\\Set\\mathord\\downdownarrows\}X\}",
+        setsunderx: "\{X\\rightcat\{\\mathord\\downarrow\\Set\}\}",
+        source: ["{\{\\class\{source\}\{#1\}\}}", 1],
+        target: ["{\{\\class\{target\}\{#1\}\}}", 1],
+        leftadj: ["{\{\\class\{leftadj\}\{#1\}\}}", 1],
+        rightadj: ["{\{\\class\{rightadj\}\{#1\}\}}", 1],
+        leftcat: ["{\{\\class\{leftcat\}\{#1\}\}}", 1],
+        rightcat: ["{\{\\class\{rightcat\}\{#1\}\}}", 1],
+        black: ["{\{\\class\{black\}\{#1\}\}}", 1],
+        red: ["{\{\\class\{red\}\{#1\}\}}", 1],
+        taglabel: ["{\\tag\{#1\}\\label\{#1\}}", 1],
+        Leftcat: "{\\leftcat\{\\bf Leftcat\}}",
+        Rightcat: "{\\rightcat\{\\bf Rightcat\}}",
+        hom: ["{\{\{\}_\{#1\}\{#2\}_\{#3\}\}}", 3],
+        homst: ["{\{\{\}_\{\\source\{#1\}\}\{#2\}_\{\\target\{#3\}\}\}}", 3],
+        homts: ["{\{\{\}_\{\\target\{#1\}\}\{#2\}_\{\\source\{#3\}\}\}}", 3],
+        twocellctb: ["{\\mathrel\{ \\begin\{smallmatrix\} \\xrightarrow\{\\textstyle #2\}\\\\ \\textstyle\\big\\Downarrow\\rlap\{#1\}\\\\ \\xrightarrow[\\textstyle #3]\{\}\\\\ \\end\{smallmatrix\} \}}", 3],
+        twocellctblr: ["{#4 \\mathrel\{ \\twocellctb \{#1\} \{#2\} \{#3\} \} #5}", 5],
+        Aut: ["{\{\{\\mathrm Aut\}_\{#1\}\}}", 1],
+          Lan:  "\\mathop\{\\mathrm \{Lan\}\}",
+          Ran:  "\\mathop\{\\mathrm \{Ran\}\}",
+          Lanl:  ["\\mathop\{\\mathrm \{Lan\}_\{#1\}\}", 1],
+          Ranl:  ["\\mathop\{\\mathrm \{Ran\}_\{#1\}\}", 1],
+        Sub: "{\\mathrm \{Sub\}}",
+          Eval: "\\mathrm \{Eval\}",
+            tensor:    "\\mathrel\\otimes",      
+            cotensor:  "\\mathrel\\pitchfork",
+            power:     "\\mathrel\\pitchfork",      
+            copower:   "\\mathrel\\odot",      
+        kernelreln: "{\\mathop\{\\text\{kernel-reln\}\}}",
+        kernelpart: "{\\mathop\{\\text\{kernel-part\}\}}",
+        image: "{\\mathop\{\\text\{image\}\}}",
+          inv: "{\{\}^\{\{-1\}\}}",
+        op: "{\{\}^\{\\text\{op\}\}}",
+        forktwoone: "{\\mathrel\{\\class\{fork\}\\curlyvee\}}",
+        forkonetwo: "{\\mathrel\{\\class\{fork\}\\curlywedge\}}",
+        name: ["{\{\\ulcorner \{#1\} \\urcorner \}}", 1],
+        ncomp: ["{ \\mathbin\{ \\ast_\{#1\} \} }", 1]
+      },
+      equationNumbers: {
+        autoNumber: "AMS"
+      } 
+    },
+    showProcessingMessages: true,
+    showMathMenu: false,
+    CommonHTML: {
+      availableFonts: [ getFontName() ],     // MathJaxFontNames,
+      font: getFontName()
+    },
+    noErrors: {
+      disabled: true
+    },
+    errorSettings: {
+      // message: ["[Math Error]"],
+    }
+  });
+
+  /////////////////////////////////////////////////////////////////////////
+
+  MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
+    var TEX = MathJax.InputJax.TeX;
+    var PREFILTER = TEX.prefilterMath;
+    TEX.Augment({
+      prefilterMath: function (math, displaymode, script) {
+        console.log("TeX rendering Math:", {math, displaymode, script});
+        //math = "\\displaystyle{" + math + "}";
+        //math = "\\mathsf{" + math + "}";
+        return PREFILTER.call(TEX, math, displaymode, script);
+      }
+    });
+  });
+</script>
+</head>
+
+<body>
+  <noscript>
+  <div style="color:#CC0000; text-align:center">
+    <b>Warning: <a href="http://www.mathjax.org/">MathJax</a> requires JavaScript to
+    process the mathematics on this page.<br>
+    If your browser supports JavaScript, be sure it is enabled.</b>
+  </div>
+  <hr>
+  </noscript>
+
+    <div id="MathJax_Message"></div>
+
+<p>
+<a href="https://github.com/mathjax/MathJax/issues/2104">Issue #2104</a> test code: 
+
+
+    <h3 class='post-title entry-title' itemprop='name'>
+MathJax 2.7 - <b>2</b> as the Boolean subobject classifier
+    </h3>
+
+    <div class='post-body entry-content' itemprop='description articleBody'>
+        <p>Version of 2019-01-07:<br />
+        
+		<p>Our aim is to illustrate the meaning of the term &#8220;<em>subobject classifier</em>&#8221; (<a href="https://en.wikipedia.org/wiki/Subobject_classifier" target="_blank">Wikipedia</a>, <a href="https://ncatlab.org/nlab/show/subobject+classifier" target="_blank">nLab</a>)
+         by giving some examples of how the set $\bftwo = \{\ladjbot, \radjtop\}$
+         serves as a (&#8220;the&#8221;) subobject classifier in the familiar <a href="https://ncatlab.org/nlab/show/Boolean+topos" target="_blank">Boolean topos</a> $\Set$.
+        <p>Notation: The symbol &#8220;$\lrcorner$&#8221; indicates that (the square in which it is contained) is (a <a href="https://en.wikipedia.org/wiki/Pullback_(category_theory)" target="_blank">pullback square</a>),
+        with (the pullback object) being (that which is bounded by the &#8220;$\lrcorner$&#8221;).
+        <h3 id="examples">Basic examples of subobject classification</h3>
+        <table>
+
+            <tr>
+
+                <td colspan=4>
+$\bbox[2ex, border:1px black solid] { \begin{array}{}
+&& \emptyset & \xrightarrow[]{} & \bfone \\
+&& \llap{\emptyset = 1_\emptyset} \Big\Vert & \mkern-1.8em{\raise2ex\hbox{$\lrcorner$}} & \Big\downarrow\rlap\radjtop & \\
+&& \emptyset & \xrightarrow[\displaystyle \emptyset]{} &\bftwo \\
+\end{array} }$
+                </td>
+
+                <td style="text-align:left;">
+$2^0 =  {0 \choose 0} = 1$
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>
+$\bbox[2ex, border:1px black solid] { \begin{array}{}
+& \emptyset & \xrightarrow[]{} & \bfone \\
+& \llap{\emptyset}\Big\downarrow & \mkern-1.8em{\raise2ex\hbox{$\lrcorner$}} & \Big\downarrow\rlap\radjtop & \\
+& \bfone & \xrightarrow[\displaystyle \ladjbot]{} &\bftwo \\
+\end{array} }$
+                </td>
+
+                <td>
+                </td>
+
+                <td>
+                </td>
+
+                <td>
+$\bbox[2ex, border:1px black solid] { \begin{array}{}
+& \bfone & \xrightarrow[]{} & \bfone \\
+& \llap{1_\bfone} \Big\Vert & \mkern-1.8em{\raise2ex\hbox{$\lrcorner$}} & \Big\downarrow\rlap\radjtop & \\
+& \bfone & \xrightarrow[\displaystyle \radjtop]{} &\bftwo \\
+\end{array} }$
+                </td>
+
+                <td style="text-align:left;">
+$2^1 = {1 \choose 0} + {1 \choose 1} = 1 + 1 = 2$
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>
+$\bbox[2ex, border:1px black solid] { \begin{array}{}
+& \emptyset & \xrightarrow[]{} & \bfone \\
+& \llap{\emptyset}\Big\downarrow & \mkern-1.8em{\raise2ex\hbox{$\lrcorner$}} & \Big\downarrow\rlap\radjtop & \\
+& \bftwo & \xrightarrow[\displaystyle !\ladjbot]{} &\bftwo \\
+\end{array} }$
+                </td>
+
+                <td>
+$\bbox[2ex, border:1px black solid] { \begin{array}{}
+\{\radjtop\} \cong \bfone & \xrightarrow[]{} & \bfone \\
+\llap{\radjtop}\Big\downarrow & \mkern-1.8em{\raise2ex\hbox{$\lrcorner$}} & \Big\downarrow\rlap\radjtop & \\
+\bftwo & \xrightarrow[\displaystyle 1_\bftwo]{} &\bftwo \\
+\end{array} }$
+                </td>
+
+                <td>
+$\bbox[2ex, border:1px black solid] { \begin{array}{}
+\{\ladjbot\} \cong \bfone & \xrightarrow[]{} & \bfone \\
+\llap{\ladjbot}\Big\downarrow & \mkern-1.8em{\raise2ex\hbox{$\lrcorner$}} & \Big\downarrow\rlap\radjtop & \\
+\bftwo & \xrightarrow[\displaystyle \neg\vphantom{1_\bftwo}]{} &\bftwo \\
+\end{array} }$
+                </td>
+
+                <td>
+$\bbox[2ex, border:1px black solid] { \begin{array}{}
+& \bftwo & \xrightarrow[]{} & \bfone \\
+& \llap{1_\bftwo} \Big\Vert & \mkern-1.8em{\raise2ex\hbox{$\lrcorner$}} & \Big\downarrow\rlap\radjtop & \\
+& \bftwo & \xrightarrow[\displaystyle !\radjtop]{} &\bftwo \\
+\end{array} }$ 
+                </td>
+
+                <td style="text-align:left;" rowspan=2>
+$\begin{array}{l}
+2^2 = (1+1)^2 = (1+1)\cdot(1+1) = \\
+= 1\cdot 1 + 1\cdot 1 + 1\cdot 1 + 1\cdot 1 = \\
+= 1 + 1 + 1 + 1 = \\
+= {2\choose 0} + {2\choose 1} + {2\choose 2} = 1+2+1 =4\\
+\bftwo^2 \cong (\ladjbot+\radjtop)^2 = (\ladjbot+\radjtop) \times (\ladjbot+\radjtop) \cong \\
+{} \cong \ladjbot\times\ladjbot + \ladjbot\times\radjtop + \radjtop\times\ladjbot + \radjtop\times\radjtop \sim \\
+{} \sim {!\ladjbot} + 1_\bftwo + {\neg} + {!\radjtop} \\
+\end{array}$
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>
+$\bbox[2ex, border:1px black solid] { \begin{array}{lccc}
+\text{graph} & \radjtop \\
+\text{of  }\mkern.25em !\ladjbot & \ladjbot & \text{X} & \text{X} \\
+\text{output} & & \ladjbot & \ladjbot \\
+\text{input} & & \ladjbot & \radjtop \\
+\end{array} }$
+                </td>
+
+                <td>
+$\bbox[2ex, border:1px black solid] { \begin{array}{lccc}
+\text{graph} & \radjtop & & \class {red} {\text{X}} \\
+\text{of  }\mkern.25em 1_\bftwo & \ladjbot & \text{X}  \\
+\text{output} & & \ladjbot & \class {red} {\radjtop} \\
+\text{input} & & \ladjbot & \radjtop \\
+\end{array} }$
+                </td>
+
+                <td>
+$\bbox[2ex, border:1px black solid] { \begin{array}{lccc}
+\text{graph} & \radjtop & \class {red} {\text{X}} \\
+\text{of  }\mkern.25em \neg & \ladjbot & & \text{X} \\
+\text{output} & & \class {red} {\radjtop} & \ladjbot \\
+\text{input} & & \ladjbot & \radjtop \\
+\end{array} }$
+                </td>
+
+                <td>
+$\bbox[2ex, border:1px black solid] { \begin{array}{lccc}
+\text{graph} & \radjtop & \class {red} {\text{X}} & \class {red} {\text{X}} \\
+\text{of  }\mkern.25em !\radjtop & \ladjbot \\
+\text{output} & & \class {red} {\radjtop} & \class {red} {\radjtop} \\
+\text{input} & & \ladjbot & \radjtop \\
+\end{array} }$
+                </td>
+
+            </tr>
+
+        </table>
+
+        <br />
+        <hr />
+        <br />
+        <h3 id="theorem">General theorem: 2 is a subobject classifier for Set</h3> 
+		<p>For an arbitrary set $\setX\in\Set$, there is a bijection $\Sub(\setX) \cong \hom \setX \Set \bftwo$.
+        <p>The correspondence between (subsets $\setA \subseteq \setX$, which are also denoted $i_\setA : \setA \rightarrowtail \setX$) and ($\bftwo$-valued predicates $\functionA : \setX \to \bftwo$) is given by:
+
+
+        <table>
+            <tr>
+                <td style="text-align:center;">From subsets to predicates</td>
+                <td rowspan=2 style="width:8em;">
+                    <td style="text-align:center;">From predicates to subsets</td>
+            </tr>
+            <tr>
+                <td style="vertical-align:top;">
+$\bbox[2ex, border:1px black solid] { \begin{array}{}
+& \functionA & \xrightarrow[]{\displaystyle !} & \bfone \\
+& \llap{i_\setA}\Big\downarrow & \mkern-10em{\raise2ex\hbox{$\lrcorner$}} & \Big\downarrow\rlap\radjtop & \\
+& X & \xrightarrow[
+\displaystyle \boxed{ \begin{array}{}
+?\in\functionA\\
+(\exists\elta\in\setA)(?=\elta) \\
+(\exists\elta)(\elta\in\setA \wedge {?=\elta} \wedge \radjtop) \\
+\int^{\elta\in\setA} \hom ? \setX \elta \otimes {!\radjtop} \\
+\Lan_{i_\setA} !\radjtop \\
+\end{array} }
+]{} &\bftwo \\
+\end{array} }$
+				</td>
+
+                <td style="vertical-align:top;">
+$\bbox[2ex, border:1px black solid] { \begin{array}{}
+    %%% & \{ \eltx \mid \functionA_\eltx = \radjtop \}      %%%
+& \boxed{ \begin{array}{} 
+\{ \eltx \mid \functionA_\eltx \}\\ 
+\{ \eltx \mid \functionA_\eltx = \radjtop \}\\ 
+\functionA^{-1}\radjtop\\ 
+\end{array} } 
+    & \xrightarrow[]{\displaystyle !} & \bfone \\
+& \llap{}\Big\downarrow & \mkern-3em{\raise2ex\hbox{$\lrcorner$}} & \Big\downarrow\rlap\radjtop & \\
+& X & \xrightarrow[\displaystyle \functionA]{} &\bftwo \\
+\end{array} }$
+				</td>
+            </tr>
+        </table>
+
+
+		<blockquote>
+		<p>Old version of those TeX expressions (december 2018):
+
+        <table>
+            <tr>
+                <td style="text-align:center;">From subsets to predicates</td>
+                <td rowspan=2 style="width:8em;">
+                    <td style="text-align:center;">From predicates to subsets</td>
+            </tr>
+            <tr>
+                <td style="vertical-align:top;">
+$\bbox[2ex, border:1px black solid] { \begin{array}{}
+& \functionA & \xrightarrow[]{\displaystyle !} & \bfone \\
+& \llap{i_\setA}\Big\downarrow & \mkern-10em{\raise2ex\hbox{$\lrcorner$}} & \Big\downarrow\rlap\radjtop & \\
+& X & \xrightarrow[
+\displaystyle { \begin{array}{}
+?\in\functionA\\
+(\exists\elta\in\setA)(?=\elta) \\
+(\exists\elta)(\elta\in\setA \wedge {?=\elta} \wedge \radjtop) \\
+\int^{\elta\in\setA} \hom ? \setX \elta \otimes {!\radjtop} \\
+\Lan_{i_\setA} !\radjtop \\
+\end{array} }
+]{} &\bftwo \\
+\end{array} }$
+				</td>
+
+                <td style="vertical-align:top;">
+$\bbox[2ex, border:1px black solid] { \begin{array}{} 
+& \{ \eltx \mid \functionA_\eltx = \radjtop \} 
+    & \xrightarrow[]{\displaystyle !} & \bfone \\ 
+& \llap{}\Big\downarrow & \mkern-3em{\raise2ex\hbox{$\lrcorner$}} & \Big\downarrow\rlap\radjtop & \\ 
+& X & \xrightarrow[\displaystyle \functionA]{} &\bftwo \\ 
+\end{array} }$
+				</td>
+            </tr>
+        </table>
+		</blockquote>
+    </div>
+
+
+
+
+
+
+<!--
+  WARNING:
+
+MathJax.js script must load AFTER ALL text/x-mathjax-config SCRIPTS have been defined
+as those scripts won't otherwise be detected by MathJax (ConfigBlocks() internal call)
+on startup as the init code is executed immeditately once the MathJax script has loaded!
+-->
+
+<script async type="text/javascript" src="../MathJax.js"></script>
+</body>
+</html>

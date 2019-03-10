@@ -17,14 +17,14 @@
   var MathJaxFontNames = ["TeX","STIX","STIX-Web","Asana-Math",
                 "Gyre-Termes","Gyre-Pagella","Latin-Modern","Neo-Euler","Verdana"];
 
-  var fontNum = 1;
+  var fontNum = 8;
   function getFontName() {
     var i = fontNum;
     i = Math.max(i, 0);
     i = Math.min(i, MathJaxFontNames.length - 1);
     return MathJaxFontNames[i];
   }
-  console.error("font name:", getFontName());
+  console.warn("DEMO: selected font name:", getFontName());
 
   MathJax.Hub.Config({
     //config: ["MMLorHTML.js"],
@@ -100,7 +100,7 @@ body {
   margin: 0 auto;
 }
 h1 {
-  text-align:center;
+  text-align: center;
 }
 h2 {
   font-weight: bold;
@@ -125,6 +125,11 @@ blockquote blockquote {
   padding: .25em 1em;
   margin: 2em 1em 2em 1em;
   background-color: #f8fbfb;
+
+  font-size: 89%;
+}
+blockquote p {
+  text-align: justify;
 }
 def {
   font-weight: 500;
@@ -155,6 +160,8 @@ div.width-limited {
   body {
     margin: 1in .7in 1in 1.4in;
     max-width: 100%;
+
+    font-size: 85%;
   }
   blockquote {
     page-break-before: avoid;
@@ -212,6 +219,873 @@ on startup as the init code is executed immeditately once the MathJax script has
 
 <section>
   <h2>TeX sample files</h2>
+
+<h4>
+Fractions</h4>
+
+<p>
+\[
+\newcommand{\placefraction}[2]{%
+    \frac{#1}{#2}%
+}
+\]
+
+The % at the end of the line prevent extra spaces as Boris said in his answer.
+
+<p>
+... Assuming that $x=0$ we can see that $\placefraction{1}{2}$ is obviously not
+the same as $1+\placefraction{2}{8}-x$ ...
+
+
+
+<h4>xxxx</h4>
+
+How can I make the underbraced bigger?
+
+
+
+I have to kind of underbraces:
+
+\begin{equation}\label{eq:romberg2}
+M=N\left(\frac{h}{2}\right)+\underbrace{K_{1}\frac{h}{2}+K_{2}\frac{h^{2}}{4}+K_{3}\frac{h^{3}}{8}+\hdots}_{\text{\normalsize{Error}}}
+\end{equation}
+
+which works well (except from the not-centered "Error"), and:
+
+\begin{equation}
+M=\underbrace{N\left(\frac{h}{2}\right)+\left[N\left(\frac{h}{2}\right)-N(h)\right]}_{N_{2}(h)}+K_{2}\left(\frac{h^{2}}{2}-h^{2}\right)+K_{3}\left(\frac{h^{3}}{4}-h^{3}\right)+\hdots
+\end{equation}
+
+which makes my $N_{2}(h)$ small. I have tried using \normalsize, \large, \big, etc. inside the underbrace but didn´t make any difference.
+
+<p>
+Do you know how to make the $N_{2}(h)$ bigger? and how can I center the underbraced "Error" from the first equation?
+
+
+<p>
+math-mode underbrace
+
+
+<p>
+You could use \displaystyle: 
+
+\begin{equation} 
+M=\underbrace{N\left(\frac{h}{2}\right)+\left[N\left(\frac{h}{2}\right)-N(h)\right]}_{\displaystyle N_{2}(h)}+K_{2}\left(\frac{h^{2}}{2}-h^{2}\right)+K_{3}\left(\frac{h^{3}}{4}-h^{3}\right)+\hdots 
+\end{equation}
+
+
+<p>
+looks like using "\cfrac" instead of "\frac" will help quite a bit with this specific example; still curious if there's font size control though
+
+<p>
+It seems MathJax supports size Latex commands:
+
+<p>
+  \tiny, \scriptsize, \footnotesize, \small, \normalsize (default), \large, \Large (capital "L"), \LARGE (all caps), \huge, \Huge (capital "H")
+Which go from smallest to largest. A quick test showed that \large or \Large worked rather well for the equation you have above (getting larger might be just too much).
+
+
+\begin{equation}
+M=N\left(\frac{h}{2}\right)+\underbrace{K_{1}\frac{h}{2}+K_{2}\frac{h^{2}}{4}+K_{3}\frac{h^{3}}{8}+\hdots}_{\large{\text{\normalsize{Error}}}}
+\end{equation}
+
+\begin{equation}
+M=N\left(\cfrac{h}{2}\right)+\underbrace{K_{1}\cfrac{h}{2}+K_{2}\cfrac{h^{2}}{4}+K_{3}\cfrac{h^{3}}{8}+\hdots}_{\text{\normalsize{Error}}}
+\end{equation}
+
+
+<h4>
+MathJax: Set same font size in fractions
+</h4>
+
+<p>
+  What I'm looking for is that all numbers that are not exponentials have the same font size (the same as the paragraph they are in). Currently when testing this, I try using two fractions within a third, like so:
+
+$$
+\frac{\frac{1}{2}}{\frac{3}{4}}
+$$
+
+<p>
+All four numbers above are smaller than this surrounding text (70.7%). I have tried setting scale and minScaleAdjust to 100 which made a slight difference, but all the text is still smaller for each fraction level. Messing around with inline, block, \displaystyle and \dfrac didn't help either.
+
+<p>
+For the above example using \large modifies everything up to 95.5% of font size, but that's something I'd have to add manually to each fraction (plus \normalsize for the rest of the expression) and it's still not 100%.. very hacky.
+
+$$
+\large\frac{\frac{1}{2}}{\frac{3}{4}}\normalsize+2
+$$
+
+<p>
+Is there a setting/solution to force all numbers having the same size? Thanks.
+
+<p>
+try \dfrac instead of \frac... 
+
+<p>
+Aww, I only tried \dfrac on the main one and not the two within. Thanks a lot! The sizes are nice now, but commas are no longer treated as decimal signs. :( 
+
+<p>
+As for "that's something I'd have to add manually to each fraction". Macros are useful (among other things) for situations like this. When you are not sure how to typeset something in TeX, just make a macro. Then you only need to make a change in one place, after you find out better way.
+
+<p>
+Just use \dfrac instead of \frac.
+
+<p>
+P.S. I hope that this is only a minimal example; if you actually plan to use abcd — please don't, it takes a lot of vertical space and looks ugly (even something like $\frac{a/b}{c/d}$ is better).
+
+<p>
+Ah, but I need this for a math site, asked specifically about this kind of expressions and there will be a few. 
+
+<p>
+  I disapprove of \dfrac as you are forcing TEX to do something it wasn't meant to do. A better solution would be to put your fractions on a line of their own:
+
+  $$\frac{\frac{a}{b}}{\frac{c}{d}}$$
+
+  This is rendered like \dfrac. For a lengthier discussion, see here: https://math.meta.stackexchange.com/questions/12978/should-dfrac-be-edited-in
+
+
+<p>
+One thing where I find \tfrac useful (not always) are simple fractions in function arguments, like
+
+$$
+\Gamma\left( z + \tfrac{1}{2}\right),
+$$
+
+which I usually find better than
+
+$$
+\Gamma\left(z + \frac{1}{2}\right).
+$$
+
+<p>
+I find that I tend to use \tfrac when the fraction is an explicit rational number in a line which otherwise has no fraction. So I'd write
+
+$$
+a+\tfrac12b+\tfrac16c
+$$
+
+but
+
+$$
+\frac{a^2}{b-c}+\frac b2
+$$
+
+. It's a bit related to how I'd pronounce the expression: if I consider the whole rational number a single entity, it's small, otherwise it's a proper fraction which also needs more space when pronouncing.
+
+
+<p>
+Actually, \cfrac is better suited for this:
+
+$$
+\cfrac{\cfrac12}{\cfrac34}
+$$
+
+<p>
+I appreciate this as well. I tried it and it works!.. except for the commas, but perhaps we won't be using any in fractions.
+
+<p>
+  @LGT, use braces around the commas: \frac{1{,}23}{45{,}6} produces $\frac{1{,}23}{45{,}6}$. You should need this in math mode whether the number is in a fraction or not, as otherwise TEX thinks the comma is a separator between numbers, which gets a little extra space.
+
+<p>
+  Thank you. I ended up redefining digits and numbers (works) but I'll remember this as well.
+
+<p>
+  And using \dfrac:
+
+
+$$
+\dfrac{\dfrac12}{\dfrac34}
+$$
+
+or \dfrac with \tfrac:
+
+$$
+\dfrac{\tfrac12}{\tfrac34}
+$$
+
+or \, to enhance the major fraction line:
+
+
+$$
+\frac{\, \frac12 \,}{\frac34}
+$$
+
+
+
+
+
+
+
+
+<h4>
+size and mathmode anyway...</h4>
+
+<p>
+  Sizes
+
+<p>
+The following type size commands, in order of increasing font size, are supported by LaTeX.
+
+<ul>
+  <li>
+\tiny
+  <li>
+\scriptsize
+  <li>
+\footnotesize
+  <li>
+\small
+  <li>
+\normalsize (default)
+  <li>
+\large
+  <li>
+\Large (capital "L")
+  <li>
+\LARGE (all caps)
+  <li>
+\huge
+  <li>
+\Huge (capital "H")
+</ul>
+
+<p>
+The default for \normalsize is 10-point, but it may differ for some Document Styles or their options. The actual size produced by these commands also depends on the Document Style and, in some styles, more than one of these size commands may produce the same actual size.
+
+<p>
+The new size takes effect immediately after the size command; if an entire paragraph or unit is set in a certain size, the size command should include the blank line or the \end{} which delimites the unit. (See Declarations.)
+
+<p>
+These commands cannot be used in math mode. However, part of a formula may be set in a different size by using an \mbox command containing the size command.
+
+<blockquote>
+
+<p>
+A consequence of Wien's displacement law is that the wavelength at which the intensity per unit wavelength of the radiation produced by a black body is at a maximum, $\lambda_\max$, is a function only of the temperature:
+
+$$
+\displaystyle \lambda _{\max }={\frac {b}{T}},
+$$
+where the constant $b$, known as Wien's displacement constant, is equal to 2.8977729(17)×10−3 K m.[31]
+
+<p>
+Planck's law was also stated above as a function of frequency. The intensity maximum for this is given by
+
+$$
+\displaystyle \nu _{\max }=T\times 1.04\times 10^{11}\ \mathrm {Hz} /\mathrm {K}
+$$
+
+<p>
+Stefan–Boltzmann law
+<p>
+By integrating $B_{\nu }(T)$ over the frequency the integrated radiance $L$ is
+
+$$
+L={\frac {2\pi ^{5}}{15}}{\frac {k^{4}T^{4}}{c^{2}h^{3}}}{\frac {1}{\pi }}=:\sigma T^{4}{\frac {1}{\pi }}
+$$
+by using $\int _{0}^{\infty }dx\,{\frac {x^{3}}{e^{x}-1}}={\frac {\pi ^{4}}{15}}$ with $x\equiv {\frac {h\nu }{kT}}$ and with $\sigma \equiv {\frac {2\pi ^{5}}{15}}{\frac {k^{4}}{c^{2}h^{3}}}=5.670373\times 10^{-8}{\frac {W}{m^{2}K^{4}}}$ being the Stefan–Boltzmann constant. The radiance $L$ is then
+
+$$
+\sigma T^{4}{\frac {\cos \theta }{\pi }}
+$$
+per unit of emitting surface.
+
+<p>
+On a side note, at a distance d, the intensity $dI$ per area $dA$ of radiating surface is the useful expression
+
+$$
+dI=\sigma T^{4}{\frac {\cos \theta }{\pi d^{2}}}dA
+$$
+when the receiving surface is perpendicular to the radiation.
+
+<p>
+By subsequently integrating over the solid angle $\Omega$  (where $\theta <\pi /2$) the Stefan–Boltzmann law is calculated, stating that the power j* emitted per unit area of the surface of a black body is directly proportional to the fourth power of its absolute temperature:
+
+$$
+j^{\star }=\sigma T^{4},
+$$
+by using
+$\int \cos \theta \,d\Omega =\int _{0}^{2\pi }\int _{0}^{\pi /2}\cos \theta \sin \theta \,d\theta \,d\phi =\pi$.
+
+
+<p>
+Human-body emission
+
+<p>
+Much of a person's energy is radiated away in the form of infrared light. Some materials are transparent in the infrared, but opaque to visible light, as is the plastic bag in this infrared image (bottom). Other materials are transparent to visible light, but opaque or reflective in the infrared, noticeable by the darkness of the man's glasses.
+
+<p>
+The human body radiates energy as infrared light. The net power radiated is the difference between the power emitted and the power absorbed:
+
+$$
+P_{\text{net}}=P_{\text{emit}}-P_{\text{absorb}}.
+$$
+
+<p>
+Applying the Stefan–Boltzmann law,
+
+$$
+P_{\text{net}}=A\sigma \varepsilon \left(T^{4}-T_{0}^{4}\right),
+$$
+where A and T are the body surface area and temperature, $\varepsilon$  is the emissivity, and $T_{0}$ is the ambient temperature.
+
+<p>
+The total surface area of an adult is about 2 m2, and the mid- and far-infrared emissivity of skin and most clothing is near unity, as it is for most nonmetallic surfaces.[33][34] Skin temperature is about 33 °C,[35] but clothing reduces the surface temperature to about 28 °C when the ambient temperature is 20 °C.[36] Hence, the net radiative heat loss is about
+
+$$
+P_{\text{net}}=100~{\text{W}}.
+$$
+
+
+<p>
+The total energy radiated in one day is about 8 MJ, or 2000 kcal (food calories). Basal metabolic rate for a 40-year-old male is about 35 kcal/(m2·h),[37] which is equivalent to 1700 kcal per day, assuming the same 2 m2 area. However, the mean metabolic rate of sedentary adults is about 50% to 70% greater than their basal rate.[38]
+
+<p>
+There are other important thermal loss mechanisms, including convection and evaporation. Conduction is negligible – the Nusselt number is much greater than unity. Evaporation by perspiration is only required if radiation and convection are insufficient to maintain a steady-state temperature (but evaporation from the lungs occurs regardless). Free-convection rates are comparable, albeit somewhat lower, than radiative rates.[39] Thus, radiation accounts for about two-thirds of thermal energy loss in cool, still air. Given the approximate nature of many of the assumptions, this can only be taken as a crude estimate. Ambient air motion, causing forced convection, or evaporation reduces the relative importance of radiation as a thermal-loss mechanism.
+
+<p>
+Application of Wien's law to human-body emission results in a peak wavelength of
+
+$$
+\lambda _{\text{peak}}={\frac {2.898\times 10^{-3}~{\text{K}}\cdot {\text{m}}}{305~{\text{K}}}}=9.50~\mu {\text{m}}.
+$$
+
+<p>
+For this reason, thermal imaging devices for human subjects are most sensitive in the 7–14 micrometer range.
+
+<p>
+Temperature relation between a planet and its star
+<p>
+Main article: Planetary equilibrium temperature
+<p>
+The black-body law may be used to estimate the temperature of a planet orbiting the Sun.
+
+
+<p>
+Earth's longwave thermal radiation intensity, from clouds, atmosphere and ground
+<p>
+The temperature of a planet depends on several factors:
+
+<p>
+Incident radiation from its star
+<p>
+Emitted radiation of the planet, e.g., Earth's infrared glow
+<p>
+The albedo effect causing a fraction of light to be reflected by the planet
+<p>
+The greenhouse effect for planets with an atmosphere
+<p>
+Energy generated internally by a planet itself due to radioactive decay, tidal heating, and adiabatic contraction due by cooling.
+<p>
+The analysis only considers the Sun's heat for a planet in a Solar System.
+
+<p>
+The Stefan–Boltzmann law gives the total power (energy/second) the Sun is emitting:
+
+
+<p>
+The Earth only has an absorbing area equal to a two dimensional disk, rather than the surface of a sphere.
+
+$$
+P_{\rm {S\ emt}}=4\pi R_{\rm {S}}^{2}\sigma T_{\rm {S}}^{4}\qquad \qquad (1)
+$$
+
+where 
+
+<ul>
+<li>
+  $\sigma \,$ is the Stefan–Boltzmann constant,
+<li>
+$T_{\rm {S}} \,$ is the effective temperature of the Sun, and
+<li>
+$R_{\rm {S}} \,$ is the radius of the Sun.
+</ul>
+
+<p>
+The Sun emits that power equally in all directions. Because of this, the planet is hit with only a tiny fraction of it. The power from the Sun that strikes the planet (at the top of the atmosphere) is:
+
+$$
+P_{\rm {SE}}=P_{\rm {S\ emt}}\left({\frac {\pi R_{\rm {E}}^{2}}{4\pi D^{2}}}\right)\qquad \qquad (2)
+$$
+
+where
+
+<ul>
+  <li>
+    $R_{\rm {E}} \,$ is the radius of the planet and
+<li>
+$D \,$ is the distance between the Sun and the planet.
+</ul>
+
+<p>
+Because of its high temperature, the Sun emits to a large extent in the ultraviolet and visible (UV-Vis) frequency range. In this frequency range, the planet reflects a fraction $\alpha$  of this energy where $\alpha$  is the albedo or reflectance of the planet in the UV-Vis range. In other words, the planet absorbs a fraction $1-\alpha$ of the Sun's light, and reflects the rest. The power absorbed by the planet and its atmosphere is then:
+
+$$
+P_{\rm {abs}}=(1-\alpha )\,P_{\rm {SE}}\qquad \qquad (3
+$$
+
+
+<p>
+Even though the planet only absorbs as a circular area $\pi R^{2}$, it emits equally in all directions as a sphere. If the planet were a perfect black body, it would emit according to the Stefan–Boltzmann law
+
+$$
+P_{\rm {emt\,bb}}=4\pi R_{\rm {E}}^{2}\sigma T_{\rm {E}}^{4}\qquad \qquad (4)
+$$
+
+where $T_{\rm {E}}$  is the temperature of the planet. This temperature, calculated for the case of the planet acting as a black body by setting $P_{\rm {abs}}=P_{\rm {emt\,bb}}$, is known as the effective temperature. The actual temperature of the planet will likely be different, depending on its surface and atmospheric properties. Ignoring the atmosphere and greenhouse effect, the planet, since it is at a much lower temperature than the Sun, emits mostly in the infrared (IR) portion of the spectrum. In this frequency range, it emits ${\overline {\epsilon }}$ of the radiation that a black body would emit where ${\overline {\epsilon }}$ is the average emissivity in the IR range. The power emitted by the planet is then:
+
+$$
+P_{\rm {emt}}={\overline {\epsilon }}\,P_{\rm {emt\,bb}}\qquad \qquad (5)
+$$
+
+
+<p>
+For a body in radiative exchange equilibrium with its surroundings, the rate at which it emits radiant energy is equal to the rate at which it absorbs it:[40][41]
+
+$$
+P_{\rm {abs}}=P_{\rm {emt}}\qquad \qquad (6)
+$$
+
+<p>
+Substituting the expressions for solar and planet power in equations 1–6 and simplifying yields the estimated temperature of the planet, ignoring greenhouse effect, TP:
+
+$$
+T_{P}=T_{S}{\sqrt {\frac {R_{S}{\sqrt {\large {\frac {1-\alpha }{\overline {\varepsilon }}}}}}{2D}}}\qquad \qquad (7)
+$$
+
+<p>
+In other words, given the assumptions made, the temperature of a planet depends only on the surface temperature of the Sun, the radius of the Sun, the distance between the planet and the Sun, the albedo and the IR emissivity of the planet.
+
+<p>
+Notice that a gray (flat spectrum) ball where $({1-\alpha })={\overline {\varepsilon }}$ comes to the same temperature as a black body no matter how dark or light gray.
+
+
+</blockquote>
+
+
+
+
+
+<h4>
+Sans serif...</h4>
+
+
+<p>
+It is possible to specify a font for an individual character via
+
+$$
+\style{font-family:Arial}{x} + \style{font-family:Arial}{1}
+$$
+
+but this is pretty verbose, and although you can make a macro to help, it has an important problem: MathJax doesn't know the size of the characters in the font, and so won't be able to place accents, superscripts and other layout properly for the letters in this font. It simply assumes a default height and depth (it can determine the width) of .8em and .2em (which should cover most characters, but is too large for many). Although it would be possible to have MathJax make better guesses for things like alphabetic letters, that is really the reason that MathJax has detailed information about the fonts it uses.
+
+<p>
+  I suspected you were really only worried about the letters and numbers (not all the other mathematical characters), which you confirmed below. In that case, there is some hope. MathJax does have a web-based sans-serif font, so if you just want sans-serif but it doesn't have to be Arial, then MathJax can accommodate that. For example
+
+$$
+{\sf x + 1}
+$$
+
+
+
+
+<h4>Fences</h4>
+
+<p>
+
+$$
+        \left( \frac{ \left( \frac{a}{b} \right)^{e} }{L} \right)
+$$
+
+I have some math structured like the following in a display math environment:
+
+$$
+\left( \frac{ \left( \frac{a}{b} \right)^{e} }{L} \right)
+$$
+
+
+<p>
+Apparently, the outer fraction is centered vertically in the surrounding parentheses even though its numerator requires more space than the denominator L.
+
+<p>
+To me this looks unbalanced with too much space below the L.
+
+<p>
+Is there a way of shifting the entire content of the outer parentheses down?
+
+<p>
+()'s are always vertically centered through the math centerline of the object they enclose. It would look strange to try moving it up or down. I'd say there is no reason to use autoscalled () here at all, try 
+
+$$
+\Bigl( \frac{ ( \frac{a}{b} )^{e} }{L} \Bigr)
+$$
+
+<p>
+I tend to use the following rule for fence scaling: "It should be clear for the reader what is being fenced in. But not to such an extent that the fences dominate the expression." This also implies that there is often no reason to use the big, bigger, biggger ... manta, the fences can just as easily get smaller the more levels you go out, and still be perfectly readable. Here it might even be much more readable if you pull \frac{1}{L} out in front.
+
+<p>
+$$
+\frac{(a/b)^e}{L}$$
+ is much better. Do you really need the outer parentheses? 
+
+ <p>
+You might indeed use \biggl( and \biggr) but the parenthesis will look a bit short then.
+
+<p>
+If really you don't mind the parenthesis not being aligned with the surrounding text, you may lower the expression inside the parenthesis and then raise the whole expression.
+
+$$
+\raise 2pt \hbox{$\displaystyle\left( \lower 2pt \hbox{$\displaystyle\frac{ \left( \frac{a}{b} \right)^{e} }{L}$} \right)$}
+$$
+
+
+
+
+
+<h4>underset</h4>
+
+<p>
+How to manually adjust symbol positioning in `\underset`?
+
+<p>
+I have the following:
+
+$$
+\underset{{}^u}{\sim}
+$$
+
+which looks like the left; I would like it to look more like the right image.
+
+
+<p>
+The changes were shrinking the "u", bringing it closer to the tilde, and raising the whole thing so it doesn't hang below the line. I tried using a \raisebox but had no success.
+
+
+<p>
+\raisebox apparently works only in text mode (and not in math mode). A soft hack could bypass this limitation by first creating a text environment with the \text{...} command from amsmath, and implement raisbox inside it-- of course again surrounding the math symbol to be underset within $s.
+
+<p>
+To raise the whole operator, could use \scalebox from the graphics package. This translates better, as is found independent of the font size option of the documentclass (the original version doesn't scale equally well to a 10pt or 11pt document)
+
+$$
+\newcommand{\upperset}[2]{\:
+  \underset{
+            \text{\raisebox{1.2ex}{\smash{\scalebox{0.8}{$#1$}}}}%
+           }
+           {
+            \text{\raisebox{0.2ex}{\smash{$#2$}}}
+           }
+                       \:}
+%\begin{document}
+    $x \underset{{}^u}{\sim} y$ \quad\phantom{\strut}
+    $x \upperset{{}^u}{\sim} y$
+%\end{document}
+$$
+
+giving very near to what you wanted:
+
+
+<p>
+Maybe this could be a possible solution:
+
+$$
+\newcommand{\uppersetB}[2]{%
+    \underset{%
+        \text{\raisebox{1ex}{\smash{\fontsize{5}{5}$#1$}}}
+              }{#2}%
+                         }
+%\begin{document}
+    $x \undersetB{{}^u}{\sim} y$ \quad\phantom{\strut}
+    $x \uppersetB{{}^u}{\sim} y$
+%\end{document}
+
+which gives this:
+
+enter image description here
+
+
+<p>
+If I understand correctly, the OP wants the underset to sit on the baseline.
+
+$$
+\newcommand\runderset[2][\sim]{\mathrel{\ensurestackMath{%
+  \stackengine{-.2pt}{\scriptscriptstyle#2}{#1}{O}{c}{F}{F}{S}}}}
+
+%\begin{document}
+$$
+
+$$a\runderset{x}b$$
+
+$$a\runderset[=]y b$$
+
+
+
+
+
+
+<h4>vphantom and derivatives</h4>
+
+<p>
+Derivatives specifying dependency of a function on its arguments
+
+<p>
+I want to write the partial derivative of a function, while making the parameters of that function explicit, like so:
+
+$$
+\dfrac{\partial f(x, y)}{\partial x}
+$$
+
+But this leads to an elongated horizontal line, which I don't think looks very nice (although it's possible that this is just the right way of doing it, and I should live with it). I have seen some books where the line ends before the parentheses start, so that df and dx are aligned.
+
+
+<p>
+Another way is:
+
+$$
+\dfrac{\partial f}{\partial x}(x, y)
+$$
+
+but then the parentheses are not level with the function, and in fact, this kind of changes the meaning of the line.
+
+
+<p>
+Is the first approach the standard / usual way of doing it? I've seen both approaches in textbooks and papers.
+Is there a third, more correct way of placing the parentheses, that I am not aware of?
+
+
+<p>
+Code that can be compiled to reproduce the two methods:
+
+\begin{equation*}
+    \dfrac{\partial f(x, y)}{\partial x}
+\end{equation*}
+\item Method 2
+\begin{equation*}
+    \dfrac{\partial f}{\partial x}(x, y)
+\end{equation*}
+
+
+<p>
+I’ve usually seen it written either f_x (x, y)or the second way, that is \dfrac{\partial f}{\partial x} (x, y).
+
+
+<p>
+I’m not sure exactly what you mean by parentheses “level with the function.” If you want the parentheses to match the height of the fraction, you might use this unusual formatting:
+
+$$
+\newcommand\dfracparens[3]{%
+\sbox{\frac@box}{\dfrac{#1}{#2}}%
+\usebox{\frac@box}%
+\left( \vphantom{\usebox{\frac@box}}%
+       \vcenter{\hbox{\(#3\)}}%
+\right)%
+}
+$$
+
+$$
+\( \dfracparens{\partial f}{\partial x}{x, y} \)
+$$
+
+
+<p>
+Sample of large parentheses
+
+
+<p>
+That version forces the parentheses to be at least as tall as the fraction by inserting a \vphantom inside them, then vertically aligns the contents inside a box.
+
+
+<p>
+To get vertical alignment between the numerator and the following parentheses, you could use:
+
+$$
+
+\newcommand\dfracparensB[3]{%
+\sbox{\numerator@box}{#1}%
+\sbox{\frac@box}{\dfrac{#1}{#2}}%
+\settoheight{\frac@height}{\usebox{\frac@box}}%
+\settoheight{\numerator@height}{\usebox{\numerator@box}}%
+\addtolength{\frac@height}{-\numerator@height}%
+\usebox{\frac@box}%
+\raisebox{\frac@height}{%
+\( \left( {#3} \right)
+\)}%
+}
+
+\( \dfracparensB{\partial f}{\partial x}{x, y} \)
+$$
+
+<p>
+Example of raised parentheses
+
+
+<p>
+That version raises the parentheses by the difference between the height of the fraction and the height of the numerator. (It would need to be tweaked to lower the parentheses if necessary, but you might not want to match the depth of, say, subscripts in the numerator.)
+
+
+<p>
+\[\left.\frac{\partial f}{\partial x}\right|_{(x,y)}\]
+
+\[\left.\frac{\partial f}{\partial x}\right|_{(x,y)=(x_0,y_0)}\]
+
+<p>
+The diffcoeff package or the cool package might be more helpful, since you can automate the layout of partial derivatives, and then you can more easily change your mind later about how you want them laid out.
+
+<p>
+  I might be wrong, but I think this conveys a different meaning from what I had intended. I wanted to express that "f is a function of x and y, and now I'm going to differentiate it w.r.t. x", rather than "differentiate f w.r.t. x, and then evaluate it at (x, y)". 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>
+How can I write in a equation “~” with more aesthetics?
+</h4>
+
+<p>I know that \tilde{a} in a equation shows:
+
+\[
+  \tilde{a}
+\]
+
+but when I write $\tilde{V^{\mu}},\tilde{V}^{\mu}$ in a equation, it shows:
+
+\[
+  \tilde{V^{\mu}},\tilde{V}^{\mu}
+\]
+
+How can I write this V with wider tilde?
+
+<p>
+Perhaps <code>\widetilde</code>? $\widetilde{V}^{\mu}$:
+
+\[ \widetilde{V}\quad \widetilde{V}^\mu \]
+
+
+
+<h4>
+Force line break inside a \lim argument in align environment
+</h4>
+
+Inside an align environment I have a <code>\lim</code> with two variables which should be displayed in two lines.
+
+<p>
+Use substack to specify the two variables.
+
+<p>
+As <code>egreg</code> pointed out you can also use <code>subarray</code> and the last two solutions provided use this. The last one also account for the fact that the a and b don't take up the same amount of space, and create a box the width of an x and centers the a and b within that amount of space.
+
+<p>
+Also, in this case it is better to use \to instead of \rightarrow as that better represents the mathematical sense here.
+
+\[
+
+\newcommand*{\AlignChar}[1]{\makebox[1ex][c]{\scriptstyle#1}}%
+
+\]
+
+\begin{align}
+ \lim _{\substack{a \to -\infty \\ b \to \infty}} =
+ \lim _{\begin{subarray}{l} a \to -\infty \\ b \to \infty \end{subarray}} =
+ \lim _{\begin{subarray}{l} \AlignChar{a}  \to -\infty \\ \AlignChar{b} \to \infty \end{subarray}}
+\end{align}
+
+
+
+
+
+\[
+
+\newcommand*{\AlignCharB}[1]{\makebox[1ex][c]{{\scriptstyle#1}}}%
+
+\]
+
+
+\[
+
+\begin{align}
+ \lim _{\substack{a \to -\infty \\ b \to \infty}} =
+\end{align}
+
+\]
+
+
+\[
+
+\begin{align}
+ \lim _{\begin{subarray}{l} a \to -\infty \\ b \to \infty \end{subarray}} =
+\end{align}
+
+\]
+
+
+\[
+
+\begin{align}
+ \lim _{\begin{subarray}{l} \AlignChar{a}  \to -\infty \\ \AlignChar{b} \to \infty \end{subarray}}
+\end{align}
+
+\]
+
+<p>
+As per egreg's comments, you could also write:
+
+<pre>
+\newcommand*{\AlignCharC}[1]{\makebox[1ex][c]{$\scriptstyle#1$}}
+</pre>
+
+which would make that macro easier to read, but my personal preference is to use \ensuremath as that to me explicitly captures the fact that it can be used in mode. In this case, the reason that <code>$...$</code> is ok is that \makebox enters text mode so you can use <code>$..$</code> or \ensuremath inside it.
+
+<p>
+Or, maybe better:
+
+\[
+ \lim _{\begin{subarray}{l} a \to -\infty \\ \hphantom{a}\to \infty \end{subarray}}
+\]
+
+
+<p>
+Why \ensuremath? Wouldn't $\scriptstyle#1$ be easier to read? – egreg 
+
+<p>
+@egreg: Thanks for pointing that out. Have added it to the solution.
+
+<p>
+Here is a, perhaps less attractive, alternative to stacking limits to operators by using \mathop:
+
+\[
+\begin{align}
+f & = \mathop{\lim_{a\to-\infty}}_{b\to\infty}
+\end{align}
+\]
+
+<p>
+thank you, maybe i need this at other points, here i'll use the stacking ;) – Florian 
+
+
+
+
 
 <h3>
 Triangle</h3>

@@ -88,7 +88,7 @@ body {
   margin: 0 auto;
 }
 h1 {
-  text-align:center;
+  text-align: center;
 }
 h2 {
   font-weight: bold;
@@ -113,6 +113,11 @@ blockquote blockquote {
   padding: .25em 1em;
   margin: 2em 1em 2em 1em;
   background-color: #f8fbfb;
+
+  font-size: 89%;
+}
+blockquote p {
+  text-align: justify;
 }
 def {
   font-weight: 500;
@@ -143,6 +148,8 @@ div.width-limited {
   body {
     margin: 1in .7in 1in 1.4in;
     max-width: 100%;
+
+    font-size: 85%;
   }
   blockquote {
     page-break-before: avoid;
@@ -684,20 +691,94 @@ text like the following one ... but with a parbox ... it works}
 
 
 <p>
+  matrix:
+
 $\begin{matrix}
 A & B & C \\
 d & e & f \\
 1 & 2 & 3 \\
 \end{matrix}$
 
+<p>
+construct to simulate <code>bordermatrix</code>:
+
+$$
+\begin{align}
+  f(x) &= ax^2 + bx + c \\
+  &= \begin{array}{c c}
+    & \begin{array} {@{} c c c @{}}
+      u_1 & \cdots & u_q
+    \end{array} \\
+    \begin{array}{c}
+      e_1 \\ \vdots \\ e_n
+    \end{array}\hspace{-1em} &
+    \left(
+      \begin{array}{@{} c c c @{}}
+        u_{11} & \cdots & u_{1q} \\
+        \vdots &        & \vdots \\
+        u_{n1} & \cdots & u_{nq}
+      \end{array}
+    \right) \\
+    \mbox{} % Blank line to match column names so as to align the = vertically
+  \end{array} \\[-12pt] % Correction for blank line
+  &= ax^2 + bx + c
+\end{align}
+$$
+
 
 <p>
-$\bordermatrix{%
+  Bold support?
+
+$$
+x = \bm{\theta}
+$$
+
+and
+
+$$
+x = \boldmath{\theta}
+$$
+
+
+
+
+<p>
+smallmatrix:
+
+$
+\begin{smallmatrix}%
+ A & B & C \\
+ d & e & f \\
+ 1 & 2 & 3
+\end{smallmatrix}
+$
+
+
+<p>
+<a href="https://texfaq.org/">https://texfaq.org/</a>
+
+And here we define \bordermatrix to be equal to \matrix:
+
+$
+\newcommand{\bordermatrix}[1]{\begin{matrix}#1\end{matrix}}
+$
+$
+\newcommand{\bordermatrix*}[1]{\begin{matrix}#1\end{matrix}}
+$
+$
+% \endline is not defined by default, so we define it here too:
+\newcommand\endline{\\}
+\newcommand\cr{\endline}
+$
+
+$$
+\bordermatrix{%
   & 0 & 1 & 2 \cr
 0 & A & B & C \cr
 1 & d & e & f \cr
 2 & 1 & 2 & 3 \cr
-}$
+}
+$$
 
 
 <p>
@@ -757,6 +838,8 @@ x5 & x6 & 3 \cr
 
 
 <p>
+showcasing the \atop operator:
+
 \begin{equation}\label{eq:atop}
 \sum_{{1\le j\le p\atop {%
 {1\le j\le q\atop 1\le k\le r}}}%
@@ -1370,7 +1453,7 @@ $\tfrac{112}{126}$ reduced to lowest terms is $\tfrac{8}{9}$.
 The second method of simplifying fractions involves finding the
 "greatest common factor" between the numerator and the denominator. We do this by
 breaking up both the numerator and the denominator into their prime factors
-(greatest common factor = 2x2 = 4):
+(greatest common factor $= 2x2 = 4$):
 
 \[
 \frac{12}{16}=\frac{2 \times 2 \times 3}{2 \times 2 \times 2 \times 2} = \frac{2\!\!\!/ \times 2\!\!\!/ \times 3}{2\!\!\!/ \times 2\!\!\!/ \times 2 \times 2} = \frac {3}{4}
@@ -1497,7 +1580,7 @@ When adding fractions that do not have the same denominator, you must make the d
 <p>
 :Least common multiple of 4 and 5 is 20; therefore, make the denominators 20:
 
-\]
+\[
 \frac{1}{4} + \frac{2}{5} = \frac{1 \times 5}{4 \times 5} + \frac{2 \times 4}{5 \times 4} = \frac{5}{20} + \frac{8}{20}
 \]
 
@@ -8397,7 +8480,7 @@ $${\bold e}_\alpha = \begin{pmatrix}\cos\alpha\\ \sin\alpha\end{pmatrix}
 {\tilde\bold e}_\alpha = \begin{pmatrix}-\sin\alpha\\ \cos\alpha\end{pmatrix}$$
 
 <p>
-Resolving for the hypothenuse part $c{\bold e}_x$ in the loop closure equation 
+Resolving for the hypothenuse part $c{\bold e}_x$ in the loop closure equation (1)
 
 $$-c{\bold e}_x = a{\bold e}_\alpha + b\tilde{\bold e}_\alpha$$
 
