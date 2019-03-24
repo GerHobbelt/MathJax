@@ -1814,8 +1814,11 @@ MathJax.Message = {
     //  ASCIIMathML replaces the entire page with a copy of itself (@#!#%@!!)
     //  so check that this.div is still part of the page, otherwise look up
     //  the copy and use that.
+    //  
+    //  Also detects whether the web page author has already provided a (custom)
+    //  MathJax Message DIV area.
     //
-    if (this.div && this.div.parentNode == null) {
+    if (!this.div || this.div.parentNode == null) {
       this.div = document.getElementById("MathJax_Message");
       this.text = (this.div ? this.div.firstChild : null);
     }
@@ -1832,8 +1835,9 @@ MathJax.Message = {
         window.attachEvent("onresize",this.MoveFrame);
         this.MoveFrame();
       }
-      this.div = this.addDiv(frame); this.div.style.display = "none";
-    }
+      this.div = this.addDiv(frame);
+      this.div.style.display = "none";
+    } 
     if (!this.text) {
       this.text = this.div.appendChild(document.createTextNode(""));
     }
@@ -1919,7 +1923,9 @@ MathJax.Message = {
     //
     //  Save the message and filtered message.
     //
-    this.log[n].text = text; this.log[n].filteredText = text = this.filterText(text,n,id);
+    console.debug("MathJax Message:", id, text);
+    this.log[n].text = text; 
+    this.log[n].filteredText = text = this.filterText(text,n,id);
     //
     //  Hook the message into the message list so we can tell
     //   what message to put up when this one is removed.
@@ -1930,7 +1936,7 @@ MathJax.Message = {
       this.current = n;
     }
     //
-    //  Show the message if it is the currently active one.
+    // Show the message if it is the currently active one.
     //
     if (this.current === n && MathJax.Hub.config.messageStyle !== "none") {
       if (this.Init()) {
@@ -1956,7 +1962,7 @@ MathJax.Message = {
     if (clearDelay) {
       setTimeout(MathJax.Callback(["Clear",this,n]),clearDelay);
     }
-    else if (clearDelay == 0) {
+    else {
       this.Clear(n,0);
     }
     //
@@ -2404,7 +2410,8 @@ MathJax.Hub = {
         //
         //  Go on to the next script, and check if we need to update the processing message
         //
-        state.i++; var now = new Date().getTime();
+        state.i++; 
+        var now = new Date().getTime();
         var delta = now - state.start;
         if (delta > this.processUpdateTime && state.i < state.scripts.length)
           {state.start = 0; this.RestartAfter(MathJax.Callback.Delay(1))}
