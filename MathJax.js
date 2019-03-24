@@ -1094,15 +1094,8 @@ if (document.getElementById && document.childNodes && document.createElement) {
           JS: function(file, callback) {
             var name = this.fileName(file);
             var script = document.createElement("script");
-            var timeout = BASE.Callback(["loadTimeout", this, file]);
-            console.error("JS loader:", {
-              file,
-              loading: this.loading[file],
-              loaded: this.loaded[file],
-              name,
-              timeout: this.timeout
-            });
             // debugger;
+            var timeout = BASE.Callback(["loadTimeout", this, file]);
             this.loading[file] = {
               callback: callback,
               timeout: setTimeout(timeout, this.timeout),
@@ -1114,7 +1107,15 @@ if (document.getElementById && document.childNodes && document.createElement) {
             //  when loading the initial localization file (before loading message is available)
             //
             this.loading[file].message = BASE.Message.File(name);
-            script.onerror = timeout; // doesn't work in IE and no apparent substitute
+            script.onerror = function MathJaxOnError(message, source, lineno, colno, error) { 
+              console.error("OnError:", {
+                message, source, lineno, colno, error,
+                args: arguments,
+                file
+              });
+              debugger;
+              timeout.apply(this, arguments); // doesn't work in IE and no apparent substitute
+            };
             script.type = "text/javascript";
             script.src = file + this.fileRev(name);
             this.head.appendChild(script);
@@ -1148,6 +1149,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
           //  to be processed.
           //
           create: function(callback, node) {
+            console.warn("create timer:", callback, node);
             callback = BASE.Callback(callback);
             if (node.nodeName === "STYLE" && node.styleSheet && typeof node.styleSheet.cssText !== "undefined") {
               callback(this.STATUS.OK); // MSIE processes style immediately, but doesn't set its styleSheet!
@@ -1165,12 +1167,14 @@ if (document.getElementById && document.childNodes && document.createElement) {
           //  Start the timer for the given callback checker
           //
           start: function(AJAX, check, delay, timeout) {
+            console.warn("start timer:", check, this, delay, timeout);
             check = BASE.Callback(check);
             check.execute = this.execute;
             check.time = this.time;
             check.STATUS = AJAX.STATUS;
             check.timeout = timeout || AJAX.timeout;
             check.delay = check.total = delay || 0;
+            check.timestamp = Date.now();
             if (delay) {
               setTimeout(check, delay);
             } else {
@@ -1182,9 +1186,15 @@ if (document.getElementById && document.childNodes && document.createElement) {
           //  and test if we are past the timeout time.
           //
           time: function(callback) {
-            this.total += this.delay;
+            var timestamp = Date.now();
+            var delta = (timestamp - this.timestamp) - this.delay;
+            console.warn("time extra delta:", delta);
+            this.total += this.delay + Math.max(0, delta);    // account for extra time spent until now in rendering/execution/elsewhere...
             this.delay = Math.floor(this.delay * 1.05 + 5);
+            this.timestamp = timestamp;
+            console.warn("timer increment:", this, this.total, this.timeoutdelay, this.delay, delta);
             if (this.total >= this.timeout) {
+              debugger;
               callback(this.STATUS.ERROR);
               return 1;
             }
@@ -1200,8 +1210,8 @@ if (document.getElementById && document.childNodes && document.createElement) {
               loaded: this.loaded[file],
               status
             });
-            // debugger;
             if (status < 0) {
+              debugger;
               BASE.Ajax.loadTimeout(file);
             } else {
               BASE.Ajax.loadComplete(file);
@@ -1278,7 +1288,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
               }
               SCRIPTS.push(loading.script);
             }
-            console.error("JS loadComplete:", {
+            console.warn("JS loadComplete:", {
               file,
               loading: this.loading[file],
               loaded: this.loaded[file]
@@ -1311,13 +1321,13 @@ if (document.getElementById && document.childNodes && document.createElement) {
         //  is called), this routine runs to signal the error condition.
         //
         loadTimeout: function(file) {
-          if (!this.loading[file]) {
+          if (true || !this.loading[file]) {
+            debugger;
             console.error("loadTimeout:", {
               file,
               loading: this.loading[file],
               loaded: this.loaded[file]
             });
-            debugger;
           }
           if (this.loading[file] && this.loading[file].timeout) {
             clearTimeout(this.loading[file].timeout);
@@ -1333,6 +1343,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
         //  The default error hook for file load failures
         //
         loadError: function(file) {
+          debugger;
           BASE.Message.Set(["LoadFailed", "File failed to load: %1", file], null, 2000);
           BASE.Hub.signal.Post(["file load error", file]);
         },
@@ -1940,6 +1951,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
         //
         var load = MathJax.Ajax.Require(file, function() {
           data.isLoaded = true;
+          console.warn("loadFile: loaded callback:", file, data);
           return callback();
         });
         //
@@ -2182,7 +2194,11 @@ if (document.getElementById && document.childNodes && document.createElement) {
         //  so check that this.div is still part of the page, otherwise look up
         //  the copy and use that.
         //
-        if (this.div && this.div.parentNode == null) {
+        //  
+        //  Also detects whether the web page author has already provided a (custom)
+        //  MathJax Message DIV area.
+        //
+        if (!this.div || this.div.parentNode == null) {
           this.div = document.getElementById("MathJax_Message");
           this.text = this.div ? this.div.firstChild : null;
         }
@@ -2315,6 +2331,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
         //
         //  Save the message and filtered message.
         //
+        console.debug("MathJax Message:", id, text);
         this.log[n].text = text;
         this.log[n].filteredText = text = this.filterText(text, n, id);
         //
@@ -3015,6 +3032,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
         var result,
           STATE = MathJax.ElementJax.STATE,
           script,
+          delta,
           m = state.scripts.length;
         try {
           //
@@ -3060,13 +3078,21 @@ if (document.getElementById && document.childNodes && document.createElement) {
             //  Update the processing message, if needed
             //
             var now = new Date().getTime();
-            var delta = now - state.start;
+            delta = now - state.start;
             if (delta > this.processUpdateTime && state.i < state.scripts.length) {
               state.start = 0;
               this.RestartAfter(MathJax.Callback.Delay(this.processUpdateDelay));
             }
           }
         } catch (err) {
+          console.warn("processOutput EXCEPTION:", {
+            err,
+            state_index: state.i,
+            state_count: state.scripts.length,
+            m,
+            delta,
+            upTime: this.processUpdateTime
+          });
           return this.processError(err, state, "Output");
         }
         //
@@ -3075,6 +3101,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
         if (state.scripts.length && this.config.showProcessingMessages) {
           MathJax.Message.Set(["TypesetMath", "Typesetting math: %1%%", 100], 0);
           MathJax.Message.Clear(0);
+          console.warn("processOutput: ALL math has been typeset. DONE.", state);
         }
         state.i = state.j = 0;
         return null;
@@ -3164,6 +3191,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
         //  Report the error as a signal
         //
         this.lastError = err;
+        console.warn("formatError:", {message, script, err});
         this.signal.Post(["Math Processing Error", script, err]);
       },
 

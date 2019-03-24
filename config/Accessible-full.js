@@ -6782,7 +6782,8 @@ MathJax.ElementJax.mml.Augment(
           "+": MO.BIN4, // plus sign
           ",": [0, 3, TEXCLASS.PUNCT, { linebreakstyle: "after", separator: true }], // comma
           "-": MO.BIN4, // hyphen-minus
-          ".": [3, 3, TEXCLASS.ORD], // full stop
+          //        '.': [3,3,TEXCLASS.ORD], // full stop       -- the other dupe entry for '.': we pick the last one, so this one will be disabled.
+          ".": [0, 3, TEXCLASS.PUNCT, { separator: true }], // \ldotp
           "/": MO.ORD11, // solidus
           ":": [1, 2, TEXCLASS.REL], // colon
           ";": [0, 3, TEXCLASS.PUNCT, { linebreakstyle: "after", separator: true }], // semicolon
@@ -6796,7 +6797,7 @@ MathJax.ElementJax.mml.Augment(
           "|": [2, 2, TEXCLASS.ORD, { fence: true, stretchy: true, symmetric: true }], // vertical line
           "#": MO.ORD, // #
           $: MO.ORD, // $
-          "\u002E": [0, 3, TEXCLASS.PUNCT, { separator: true }], // \ldotp
+          //        '\u002E': [0,3,TEXCLASS.PUNCT,{separator: true}], // \ldotp    -- dupe entry for '.''!
           ʹ: MO.ORD, // prime
           "\u0300": MO.ACCENT, // \grave
           "\u0301": MO.ACCENT, // \acute
@@ -20387,7 +20388,7 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function() {
       return BBOX;
     },
 
-    Zoom: function(jax, span, math, Mw, Mh) {
+    Zoom: function(jax, span, math, width, height) {
       //
       //  Re-render at larger size
       //

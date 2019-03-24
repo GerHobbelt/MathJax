@@ -451,6 +451,7 @@
       state.SVGi = -1;
       state.SVGchunk = this.config.EqnChunk;
       state.SVGdelay = false;
+      state.SVGstart = new Date().getTime();
     },
 
     Translate: function(script, state) {
@@ -535,10 +536,16 @@
         //
         state.SVGeqn += state.i - state.SVGi;
         state.SVGi = state.i;
-        if (state.SVGeqn >= state.SVGlast + state.SVGchunk) {
+        var now = new Date().getTime();
+        var delta = now - state.SVGstart;
+        var trigger = (delta > MathJax.Hub.processUpdateTime);
+        // debugger;
+        if (trigger || state.SVGeqn >= state.SVGlast + state.SVGchunk) {
+          // debugger;
           this.postTranslate(state, true);
           state.SVGchunk = Math.floor(state.SVGchunk * this.config.EqnChunkFactor);
           state.SVGdelay = true; // delay if there are more scripts
+          state.SVGstart = now;
         }
       }
     },
@@ -866,14 +873,6 @@
         variant = this.FONTDATA.VARIANT[MML.VARIANT.NORMAL];
       }
       var txtmatch = /[\w\d\s=+%,.:;'"_~…∞∂εα-φ±-]+/.test(text);
-      console.log("HandleVariant: ", {
-        variant,
-        italic: variant.italic,
-        scale,
-        text,
-        txtmatch,
-        fullTxtMatch: /[^\w\d\s=+%,.:;'"_~…∞∂εα-φ±-]+$/.test(text)
-      });
       if (variant.forceFamily || txtmatch) {
         text = BBOX.TEXT(scale, text, variant.font);
         if (variant.h != null) {
@@ -1986,7 +1985,7 @@
         },
 
         SVGgetVariant: function() {
-          debugger;
+          // debugger;
           var values = this.getValues("mathvariant", "fontfamily", "fontweight", "fontstyle");
           var variant = values.mathvariant;
           if (this.variantForm) variant = "-" + SVG.fontInUse + "-variant";

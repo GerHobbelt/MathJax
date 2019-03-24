@@ -153,7 +153,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
       var watchdog = 10;
       /** @type {ParserOutput[]} */
       var output = [];
-      while (true) {
+      for (;;) {
         if (lastInput !== input) {
           watchdog = 10;
           lastInput = input;

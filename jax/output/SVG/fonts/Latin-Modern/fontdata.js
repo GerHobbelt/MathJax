@@ -599,10 +599,12 @@
             [1915, SIZE7]
           ]
         },
-        0x2212: {
-          HW: [],
-          stretch: { rep: [0x2212, MAIN, 0, 0, 0, -0.31, -0.31] }
-        },
+        // duplicate entry removed:
+        // 0x2212:
+        // {
+        //   HW: [],
+        //   stretch: {rep:[0x2212,MAIN,0,0,0,-.31,-.31]}
+        // },
         0x306: EXTRAH,
         0x30c: {
           dir: H,

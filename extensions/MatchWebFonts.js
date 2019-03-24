@@ -69,12 +69,17 @@
 
     HTMLCSS.Augment({
       postTranslate: function(state, partial) {
+        console.warn("postTranslate: partial HTMLCSS:", partial, state);
         if (!partial && CONFIG.matchFor["HTML-CSS"] && this.config.matchFontHeight) {
           //
           //  Check for changes in the web fonts that might affect the font
           //  size for math elements.  This is a periodic check that goes on
           //  until a timeout is reached.
           //
+          state.checkFontsCount |= 0;   // make sure the attribute is set to zero
+          state.checkFontsCount++;
+          console.warn("TIMER START HTMLCSS: Check for changes in the web fonts that might affect the font size for math elements.", {
+            state, partial, self: this, HTMLCSSdelay: state.HTMLCSSdelay, checkFontsCount: state.checkFontsCount});
           AJAX.timer.start(
             AJAX,
             ["checkFonts", this, state.jax[this.id]],
@@ -95,12 +100,14 @@
       //  element jax so that we can check for them here.
       //
       checkFonts: function(check, scripts) {
-        if (check.time(function() {})) return;
+        if (check.time(function(status) {
+          console.warn("checkFonts CALLBACK:", status);
+        })) return;
         var size = [],
           i,
           m,
           script;
-        debugger;
+        // debugger;
         //
         //  Add the elements used for testing ex and em sizes
         //
@@ -136,13 +143,6 @@
             if (scale / 100 !== jax.scale) {
               size.push(script);
             }
-            console.log({
-              i,
-              scale,
-              jaxScale: jax.scale,
-              ex,
-              em
-            });
             jax.scale = scale / 100; // jax.ex = ex; jax.mex = mex;
           }
         }
@@ -164,7 +164,7 @@
         //
         //  Try again later
         //
-        debugger;
+        // debugger;
         setTimeout(check, check.delay);
       }
     });
@@ -176,12 +176,17 @@
 
     SVG.Augment({
       postTranslate: function(state, partial) {
+        console.warn("postTranslate SVG: partial:", partial, state);
         if (!partial && CONFIG.matchFor.SVG && this.config.matchFontHeight) {
           //
           //  Check for changes in the web fonts that might affect the font
           //  size for math elements.  This is a periodic check that goes on
           //  until a timeout is reached.
           //
+          state.checkFontsCount |= 0;   // make sure the attribute is set to zero
+          state.checkFontsCount++;
+          console.warn("TIMER START SVG: Check for changes in the web fonts that might affect the font size for math elements.", {
+            state, partial, self: this, HTMLCSSdelay: state.HTMLCSSdelay, checkFontsCount: state.checkFontsCount});
           AJAX.timer.start(
             AJAX,
             ["checkFonts", this, state.jax[this.id]],
@@ -207,7 +212,7 @@
           i,
           m,
           script;
-        debugger;
+        // debugger;
         //
         //  Add the elements used for testing ex and em sizes
         //
@@ -255,7 +260,7 @@
         //
         //  Try again later
         //
-        debugger;
+        // debugger;
         setTimeout(check, check.delay);
       }
     });
@@ -267,12 +272,17 @@
 
     nMML.Augment({
       postTranslate: function(state, partial) {
+        console.warn("postTranslate: partial MML:", partial, state);
         if (!HUB.Browser.isMSIE && !partial && CONFIG.matchFor.NativeMML && this.config.matchFontHeight) {
           //
           //  Check for changes in the web fonts that might affect the font
           //  size for math elements.  This is a periodic check that goes on
           //  until a timeout is reached.
           //
+          state.checkFontsCount |= 0;   // make sure the attribute is set to zero
+          state.checkFontsCount++;
+          console.warn("TIMER START MML: Check for changes in the web fonts that might affect the font size for math elements.", {
+            state, partial, self: this, HTMLCSSdelay: state.HTMLCSSdelay, checkFontsCount: state.checkFontsCount});
           AJAX.timer.start(
             AJAX,
             ["checkFonts", this, state.jax[this.id]],
@@ -300,7 +310,7 @@
           i,
           m,
           script;
-        debugger;
+        // debugger;
         //
         //  Add the elements used for testing ex and em sizes
         //
