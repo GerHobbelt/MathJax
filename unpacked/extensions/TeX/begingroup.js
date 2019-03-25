@@ -50,28 +50,39 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     //
     //  Find a macro or environment by name
     //
-    Find: function (name,type) {if (this[type].hasOwnProperty(name)) {return this[type][name]}},
+    Find: function(name, type) {
+      if (this[type].hasOwnProperty(name)) {
+        return this[type][name];
+      }
+    },
     //
     //  Define or remove a macro or environment
     //
-    Def: function (name,value,type) {this[type][name] = value},
-    Undef: function (name,type) {delete this[type][name]},
+    Def: function(name, value, type) {
+      this[type][name] = value;
+    },
+    Undef: function(name, type) {
+      delete this[type][name];
+    },
     //
     //  Merge two namespaces (used when the equation namespace is combined with the root one)
     //
-    Merge: function (frame) {
-      MathJax.Hub.Insert(this.macros,frame.macros);
-      MathJax.Hub.Insert(this.environments,frame.environments);
+    Merge: function(frame) {
+      MathJax.Hub.Insert(this.macros, frame.macros);
+      MathJax.Hub.Insert(this.environments, frame.environments);
     },
     //
     //  Move global macros to the stack (globally) and remove from the frame
     //
     MergeGlobals: function (stack) {
       var macros = this.macros;
-      for (var cs in macros) {if (macros.hasOwnProperty(cs) && macros[cs].global) {
-        stack.Def(cs,macros[cs],"macros",true);
-        delete macros[cs].global; delete macros[cs];
-      }}
+      for (var cs in macros) {
+        if (macros.hasOwnProperty(cs) && macros[cs].global) {
+          stack.Def(cs, macros[cs], "macros", true);
+          delete macros[cs].global;
+          delete macros[cs];
+        }
+      }
     },
     //
     //  Clear the macro and environment lists
@@ -79,10 +90,14 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     //
     Clear: function (all) {
       this.environments = {};
-      if (all) {this.macros = {}} else {
+      if (all) {
+        this.macros = {};
+      } else {
         var macros = this.macros;
         for (var cs in macros) {
-          if (macros.hasOwnProperty(cs) && !macros[cs].global) {delete macros[cs]}
+          if (macros.hasOwnProperty(cs) && !macros[cs].global) {
+            delete macros[cs];
+          }
         }
       }
       return this;
@@ -102,9 +117,13 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     //  Set up the initial stack frame
     //
     Init: function (eqn) {
-      this.isEqn = eqn; this.stack = [];
-      if (!eqn) {this.Push(NSFRAME(TEXDEF.macros,TEXDEF.environment))}
-           else {this.Push(NSFRAME())}
+      this.isEqn = eqn;
+      this.stack = [];
+      if (!eqn) {
+        this.Push(NSFRAME(TEXDEF.macros, TEXDEF.environment));
+      } else {
+        this.Push(NSFRAME());
+      }
     },
     //
     //  Define a macro or environment in the top frame
@@ -117,9 +136,16 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         //  from all other frames.  Mark the global ones in equations
         //  so they can be made global when merged with the root stack.
         //
-        while (n > 0) {this.stack[n].Undef(name,type); n--}
-        if (!MathJax.Object.isArray(value)) {value = [value]}
-        if (this.isEqn) {value.global = true}
+        while (n > 0) {
+          this.stack[n].Undef(name, type);
+          n--;
+        }
+        if (!MathJax.Object.isArray(value)) {
+          value = [value];
+        }
+        if (this.isEqn) {
+          value.global = true;
+        }
       }
       this.stack[n].Def(name,value,type);
     },
@@ -139,7 +165,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       var top;
       if (this.top > 1) {
         top = this.stack[--this.top];
-        if (this.isEqn) {this.stack.pop()}
+        if (this.isEqn) {
+          this.stack.pop();
+        }
       } else if (this.isEqn) {
         this.Clear();
       }
@@ -152,7 +180,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     Find: function (name,type) {
       for (var i = this.top-1; i >= 0; i--) {
         var def = this.stack[i].Find(name,type);
-        if (def) {return def}
+        if (def) {
+          return def;
+        }
       }
       return null;
     },
@@ -172,7 +202,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     //
     //  Put back the temporarily poped items
     //
-    Reset: function () {this.top = this.stack.length},
+    Reset: function() {
+      this.top = this.stack.length;
+    },
     //
     //  Clear the stack and start with a blank frame
     //
@@ -252,9 +284,12 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     //  Implement \global (for \global\let, \global\def and \global\newcommand)
     //
     Global: function (name) {
-      var i = this.i; var cs = this.GetCSname(name); this.i = i;
+      var i = this.i;
+      var cs = this.GetCSname(name);
+      this.i = i;
       if (cs !== "let" && cs !== "def" && cs !== "newcommand" &&
-          cs !== "DeclareMathOperator" && cs !== "Newextarrow") {
+          cs !== "DeclareMathOperator" && cs !== "Newextarrow"
+      ) {
         TEX.Error(["GlobalNotFollowedBy",
                    "%1 not followed by \\let, \\def, or \\newcommand",name]);
       }

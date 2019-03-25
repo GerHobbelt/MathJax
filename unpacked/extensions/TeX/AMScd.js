@@ -67,7 +67,11 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
 
     CD_arrow: function (name) {
       var c = this.string.charAt(this.i);
-      if (!c.match(/[><VA.|=]/)) {return this.Other(name)} else {this.i++}
+      if (!c.match(/[><VA.|=]/)) {
+        return this.Other(name);
+      } else {
+        this.i++;
+      }
 
       var top = this.stack.Top();
       if (!top.isa(STACKITEM.array) || top.data.length) {
@@ -79,7 +83,10 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       //
       var arrowRow = ((top.table.length % 2) === 1);
       var n = (top.row.length + (arrowRow ? 0 : 1)) % 2;
-      while (n) {this.CD_cell(name); n--}
+      while (n) {
+        this.CD_cell(name);
+        n--;
+      }
 
       var mml;
       var hdef = {minsize: top.minw, stretchy:true},
@@ -101,7 +108,10 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
           //  Lay out horizontal arrows with munderover if it has labels
           //
           mml = MML.mo(arrow).With(hdef);
-          if (!a) {a = "\\kern "+top.minw} // minsize needs work
+          if (!a) {
+            // minsize needs work
+            a = "\\kern " + top.minw;
+          } 
           if (a || b) {
             var pad = {width:"+11mu", lspace:"6mu"};
             mml = MML.munderover(this.mmlToken(mml));
@@ -113,8 +123,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
               b = TEX.Parse(b,this.stack.env).mml();
               mml.SetData(mml.under,MML.mpadded(b).With(pad));
             }
-            if (CONFIG.hideHorizontalLabels)
-              {mml = MML.mpadded(mml).With({depth:0, height:".67em"})}
+            if (CONFIG.hideHorizontalLabels) {
+              mml = MML.mpadded(mml).With({ depth: 0, height: ".67em" });
+            }
           }
         } else {
           //
@@ -123,13 +134,19 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
           mml = arrow = this.mmlToken(MML.mo(arrow).With(vdef));
           if (a || b) {
             mml = MML.mrow();
-            if (a) {mml.Append(TEX.Parse("\\scriptstyle\\llap{"+a+"}",this.stack.env).mml())}
+            if (a) {
+              mml.Append(TEX.Parse("\\scriptstyle\\llap{" + a + "}", this.stack.env).mml());
+            }
             mml.Append(arrow.With({texClass: MML.TEXCLASS.ORD}));
-            if (b) {mml.Append(TEX.Parse("\\scriptstyle\\rlap{"+b+"}",this.stack.env).mml())}
+            if (b) {
+              mml.Append(TEX.Parse("\\scriptstyle\\rlap{" + b + "}", this.stack.env).mml());
+            }
           }
         }
       }
-      if (mml) {this.Push(mml);}
+      if (mml) {
+        this.Push(mml);
+      }
       this.CD_cell(name);
     },
     CD_cell: function (name) {

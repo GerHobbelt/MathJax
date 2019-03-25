@@ -77,7 +77,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     //
     //  Store the string when a CE object is created
     //
-    Init: function (string) {this.string = string},
+    Init: function(string) {
+      this.string = string;
+    },
     
     //
     //  These are the special characters and the methods that
@@ -141,12 +143,17 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     //  method depending on the ccurrent character.
     //  
     Parse: function () {
-      this.tex = ""; this.atom = false;
+      this.tex = ""; 
+      this.atom = false;
       while (this.i < this.string.length) {
         var c = this.string.charAt(this.i);
-        if (c.match(/[a-z]/i)) {this.ParseLetter()}
-        else if (c.match(/[0-9]/)) {this.ParseNumber()}
-        else {this["Parse"+(this.ParseTable[c]||"Other")](c)}
+        if (c.match(/[a-z]/i)) {
+          this.ParseLetter();
+        } else if (c.match(/[0-9]/)) {
+          this.ParseNumber();
+        } else {
+          this["Parse" + (this.ParseTable[c] || "Other")](c);
+        }
       }
       this.FinishAtom(true);
       return this.TEX;
@@ -181,7 +188,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
           this.tex += "\\mathchoice{\\textstyle"+frac+"}{"+frac+"}{"+frac+"}{"+frac+"}";
         } else {
           this.tex += n;
-          if (this.i < this.string.length) {this.tex += "\\,"}
+          if (this.i < this.string.length) {
+            this.tex += "\\,";
+          }
         }
       }
     },
@@ -194,8 +203,13 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         this.sup += c;
       } else {
         this.FinishAtom();
-        if (this.string.substr(this.i,2) === "->") {this.i += 2; this.AddArrow("->"); return}
-        else {this.tex += "{-}"}
+        if (this.string.substr(this.i, 2) === "->") {
+          this.i += 2;
+          this.AddArrow("->");
+          return;
+        } else {
+          this.tex += "{-}";
+        }
       }
       this.i++;
     },
@@ -204,16 +218,33 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     //  Make a superscript plus, or pass it through
     //
     ParsePlus: function (c) {
-      if (this.atom) {this.sup += c} else {this.FinishAtom(); this.tex += c}
+      if (this.atom) {
+        this.sup += c;
+      } else {
+        this.FinishAtom();
+        this.tex += c;
+      }
       this.i++;
     },
     
     //
     //  Handle dots and double or triple bonds
     //
-    ParseDot:   function (c) {this.FinishAtom(); this.tex += "\\cdot "; this.i++},
-    ParseEqual: function (c) {this.FinishAtom(); this.tex += "{=}"; this.i++},
-    ParsePound: function (c) {this.FinishAtom(); this.tex += "{\\equiv}"; this.i++},
+    ParseDot: function(c) {
+      this.FinishAtom();
+      this.tex += "\\cdot ";
+      this.i++;
+    },
+    ParseEqual: function(c) {
+      this.FinishAtom();
+      this.tex += "{=}";
+      this.i++;
+    },
+    ParsePound: function(c) {
+      this.FinishAtom();
+      this.tex += "{\\equiv}";
+      this.i++;
+    },
 
     //
     //  Look for (v) or (^), or pass it through
@@ -221,13 +252,22 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     ParseOpen: function (c) {
       this.FinishAtom();
       var match = this.Match(/^\([v^]\)/);
-      if (match) {this.tex += "{\\"+this.Arrows[match.charAt(1)]+"}"}
-        else {this.tex += "{"+c; this.i++}
+      if (match) {
+        this.tex += "{\\" + this.Arrows[match.charAt(1)] + "}";
+      } else {
+        this.tex += "{" + c;
+        this.i++;
+      }
     },
     //
     //  Allow ) and ] to get super- and subscripts
     //
-    ParseClose: function (c) {this.FinishAtom(); this.atom = true; this.tex += c+"}"; this.i++},
+    ParseClose: function(c) {
+      this.FinishAtom();
+      this.atom = true;
+      this.tex += c + "}";
+      this.i++;
+    },
 
     //
     //  Make the proper arrow
@@ -235,7 +275,12 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     ParseLess: function (c) {
       this.FinishAtom();
       var arrow = this.Match(/^(<->?|<=>>?|<<=>)/);
-      if (!arrow) {this.tex += c; this.i++} else {this.AddArrow(arrow)}
+      if (!arrow) {
+        this.tex += c;
+        this.i++;
+      } else {
+        this.AddArrow(arrow);
+      }
     },
 
     //
@@ -244,14 +289,23 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     ParseSuperscript: function (c) {
       c = this.string.charAt(++this.i);
       if (c === "{") {
-        this.i++; var m = this.Find("}");
-        if (m === "-.") {this.sup += "{-}{\\cdot}"}
-        else if (m) {this.sup += CE(m).Parse().replace(/^\{-\}/,"-")}
+        this.i++;
+        var m = this.Find("}");
+        if (m === "-.") {
+          this.sup += "{-}{\\cdot}";
+        } else if (m) {
+          this.sup += CE(m)
+            .Parse()
+            .replace(/^\{-\}/, "-");
+        }
       } else if (c === " " || c === "") {
-        this.tex += "{\\"+this.Arrows["^"]+"}"; this.i++;
+        this.tex += "{\\" + this.Arrows["^"] + "}";
+        this.i++;
       } else {
         var n = this.Match(/^(\d+|-\.)/);
-        if (n) {this.sup += n}
+        if (n) {
+          this.sup += n;
+        }
       }
     },
     //
@@ -259,10 +313,15 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     //
     ParseSubscript: function (c) {
       if (this.string.charAt(++this.i) == "{") {
-        this.i++; this.sub += CE(this.Find("}")).Parse().replace(/^\{-\}/,"-");
+        this.i++;
+        this.sub += CE(this.Find("}"))
+          .Parse()
+          .replace(/^\{-\}/, "-");
       } else {
         var n = this.Match(/^\d+/);
-        if (n) {this.sub += n}
+        if (n) {
+          this.sub += n;
+        }
       }
     },
 
@@ -271,7 +330,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     //
     ParseMath: function (c) {
       this.FinishAtom();
-      this.i++; this.tex += this.Find(c);
+      this.i++;
+      this.tex += this.Find(c);
     },
     
     //
@@ -280,44 +340,65 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     //
     ParseMacro: function (c) {
       this.FinishAtom();
-      this.i++; var match = this.Match(/^([a-z]+|.)/i)||" ";
-      if (match === "sbond") {this.tex += "{-}"}
-      else if (match === "dbond") {this.tex += "{=}"}
-      else if (match === "tbond") {this.tex += "{\\equiv}"}
-      else if (match === "bond") {
-        var bond = (this.Match(/^\{.*?\}/)||"");
-        bond = bond.substr(1,bond.length-2);
-        this.tex += "{"+(this.Bonds[bond]||"\\text{??}")+"}";
+      this.i++;
+      var match = this.Match(/^([a-z]+|.)/i) || " ";
+      if (match === "sbond") {
+        this.tex += "{-}";
+      } else if (match === "dbond") {
+        this.tex += "{=}";
+      } else if (match === "tbond") {
+        this.tex += "{\\equiv}";
+      } else if (match === "bond") {
+        var bond = this.Match(/^\{.*?\}/) || "";
+        bond = bond.substr(1, bond.length - 2);
+        this.tex += "{" + (this.Bonds[bond] || "\\text{??}") + "}";
+      } else if (match === "{") {
+        this.tex += "{\\{";
+      } else if (match === "}") {
+        this.tex += "\\}}";
+        this.atom = true;
+      } else {
+        this.tex += c + match;
       }
-      else if (match === "{") {this.tex += "{\\{"}
-      else if (match === "}") {this.tex += "\\}}"; this.atom = true}
-      else {this.tex += c+match}
     },
     
     //
     //  Ignore spaces
     //
-    ParseSpace: function (c) {this.FinishAtom(); this.i++},
+    ParseSpace: function(c) {
+      this.FinishAtom();
+      this.i++;
+    },
     
     //
     //  Pass anything else on verbatim
     //
-    ParseOther: function (c) {this.FinishAtom(); this.tex += c; this.i++},
+    ParseOther: function(c) {
+      this.FinishAtom();
+      this.tex += c;
+      this.i++;
+    },
 
     //
     //  Process an arrow (looking for brackets for above and below)
     //
     AddArrow: function (arrow) {
       var c = this.Match(/^[CT]\[/);
-      if (c) {this.i--; c = c.charAt(0)}
-      var above = this.GetBracket(c), below = this.GetBracket(c);
+      if (c) {
+        this.i--;
+        c = c.charAt(0);
+      }
+      var above = this.GetBracket(c),
+        below = this.GetBracket(c);
       arrow = this.Arrows[arrow];
       if (above || below) {
-        if (below) {arrow += "["+below+"]"}
-        arrow += "{"+above+"}";
-        arrow = "\\mathrel{\\x"+arrow+"}";
+        if (below) {
+          arrow += "[" + below + "]";
+        }
+        arrow += "{" + above + "}";
+        arrow = "\\mathrel{\\x" + arrow + "}";
       } else {
-        arrow = "\\long"+arrow+" ";
+        arrow = "\\long" + arrow + " ";
       }
       this.tex += arrow;
     },
@@ -331,16 +412,24 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
           if (this.tex === "" && !this.sup && !this.sub) return;
           if (!this.presup && !this.presub &&
                 (this.tex === "" || this.tex === "{" ||
-                (this.tex === "}" && this.TEX.substr(-1) === "{"))) {
-            this.presup = this.sup, this.presub = this.sub;  // save for later
+                (this.tex === "}" && this.TEX.substr(-1) === "{"))
+          ) {
+            this.presup = this.sup;  // save for later
+            this.presub = this.sub;  // save for later
             this.sub = this.sup = "";
-            this.TEX += this.tex; this.tex = "";
+            this.TEX += this.tex; 
+            this.tex = "";
             return;
           }
         }
-        if (this.sub && !this.sup) {this.sup = "\\Space{0pt}{0pt}{.2em}"} // forces subscripts to align properly
+        if (this.sub && !this.sup) {
+          // forces subscripts to align properly
+          this.sup = "\\Space{0pt}{0pt}{.2em}";
+        } 
         if ((this.presup || this.presub) && this.tex !== "{") {
-          if (!this.presup && !this.sup) {this.presup = "\\Space{0pt}{0pt}{.2em}"}
+          if (!this.presup && !this.sup) {
+            this.presup = "\\Space{0pt}{0pt}{.2em}";
+          }
           this.tex = "\\CEprescripts{"+(this.presub||"\\CEnone")+"}{"+(this.presup||"\\CEnone")+"}"
                    + "{"+(this.tex !== "}" ? this.tex : "")+"}"
                    + "{"+(this.sub||"\\CEnone")+"}{"+(this.sup||"\\CEnone")+"}"
@@ -352,7 +441,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
         }
         this.sup = this.sub = "";
       }
-      this.TEX += this.tex; this.tex = "";
+      this.TEX += this.tex; 
+      this.tex = "";
       this.atom = false;
     },
     
@@ -360,11 +450,17 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     //  Find a bracket group and handle C and T prefixes
     //
     GetBracket: function (c) {
-      if (this.string.charAt(this.i) !== "[") {return ""}
-      this.i++; var bracket = this.Find("]");
-      if (c === "C") {bracket = "\\ce{"+bracket+"}"} else
-      if (c === "T") {
-        if (!bracket.match(/^\{.*\}$/)) {bracket = "{"+bracket+"}"}
+      if (this.string.charAt(this.i) !== "[") {
+        return "";
+      }
+      this.i++;
+      var bracket = this.Find("]");
+      if (c === "C") {
+        bracket = "\\ce{" + bracket + "}";
+      } else if (c === "T") {
+        if (!bracket.match(/^\{.*\}$/)) {
+          bracket = "{" + bracket + "}";
+        }
         bracket = "\\text"+bracket;
       }
       return bracket;
@@ -376,7 +472,10 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     //
     Match: function (regex) {
       var match = regex.exec(this.string.substr(this.i));
-      if (match) {match = match[0]; this.i += match.length}
+      if (match) {
+        match = match[0];
+        this.i += match.length;
+      }
       return match;
     },
     
@@ -384,19 +483,27 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     //  Find a particular character, skipping over braced groups
     //
     Find: function (c) {
-      var m = this.string.length, i = this.i, braces = 0;
+      var m = this.string.length;
+      var i = this.i;
+      var braces = 0;
       while (this.i < m) {
         var C = this.string.charAt(this.i++);
-        if (C === c && braces === 0) {return this.string.substr(i,this.i-i-1)}
-        if (C === "{") {braces++} else
-        if (C === "}") {
-          if (braces) {braces--}
-          else {
-            TEX.Error(["ExtraCloseMissingOpen","Extra close brace or missing open brace"])
+        if (C === c && braces === 0) {
+          return this.string.substr(i,this.i-i-1);
+        }
+        if (C === "{") {
+          braces++;
+        } else if (C === "}") {
+          if (braces) {
+            braces--;
+          } else {
+            TEX.Error(["ExtraCloseMissingOpen","Extra close brace or missing open brace"]);
           }
         }
       }
-      if (braces) {TEX.Error(["MissingCloseBrace","Missing close brace"])}
+      if (braces) {
+        TEX.Error(["MissingCloseBrace", "Missing close brace"]);
+      }
       TEX.Error(["NoClosingChar","Can't find closing %1",c]);
     }
     
@@ -487,7 +594,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     CE: function (name) {
       var arg = this.GetArgument(name);
       var tex = CE(arg).Parse();
-      this.string = tex + this.string.substr(this.i); this.i = 0;
+      this.string = tex + this.string.substr(this.i); 
+      this.i = 0;
     },
     
     //

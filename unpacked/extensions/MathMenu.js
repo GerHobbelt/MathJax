@@ -45,7 +45,9 @@
   
   var isArray = MathJax.Object.isArray;
 
-  var isPC = HUB.Browser.isPC, isMSIE = HUB.Browser.isMSIE, isIE9 = ((document.documentMode||0) > 8);
+  var isPC = HUB.Browser.isPC;
+  var isMSIE = HUB.Browser.isMSIE;
+  var isIE9 = ((document.documentMode||0) > 8);
   var ROUND = (isPC ? null : "5px");
 
   var CONFIG = HUB.CombineConfig("MathMenu",{
@@ -67,22 +69,45 @@
       "OpenMath": ["OpenMath"]
     },
 
-    windowSettings: {                              // for source window
-      status: "no", toolbar: "no", locationbar: "no", menubar: "no",
-      directories: "no", personalbar: "no", resizable: "yes", scrollbars: "yes",
-      width: 400, height: 300,
-      left: Math.round((screen.width - 400)/2),
-      top:  Math.round((screen.height - 300)/3)
+    windowSettings: {
+      // for source window
+      status: "no",
+      toolbar: "no",
+      locationbar: "no",
+      menubar: "no",
+      directories: "no",
+      personalbar: "no",
+      resizable: "yes",
+      scrollbars: "yes",
+      width: 400,
+      height: 300,
+      left: Math.round((screen.width - 400) / 2),
+      top: Math.round((screen.height - 300) / 3)
     },
 
     styles: {
       "#MathJax_About": {
-        position:"fixed", left:"50%", width:"auto", "text-align":"center",
-        border:"3px outset", padding:"1em 2em", "background-color":"#DDDDDD", color:"black",
-        cursor: "default", "font-family":"message-box", "font-size":"120%",
-        "font-style":"normal", "text-indent":0, "text-transform":"none",
-        "line-height":"normal", "letter-spacing":"normal", "word-spacing":"normal",
-        "word-wrap":"normal", "white-space":"nowrap", "float":"none", "z-index":201,
+        position: "fixed",
+        left: "50%",
+        width: "auto",
+        "text-align": "center",
+        border: "3px outset",
+        padding: "1em 2em",
+        "background-color": "#DDDDDD",
+        color: "black",
+        cursor: "default",
+        "font-family": "message-box",
+        "font-size": "120%",
+        "font-style": "normal",
+        "text-indent": 0,
+        "text-transform": "none",
+        "line-height": "normal",
+        "letter-spacing": "normal",
+        "word-spacing": "normal",
+        "word-wrap": "normal",
+        "white-space": "nowrap",
+        float: "none",
+        "z-index": 201,
 
         "border-radius": "15px",                     // Opera 10.5 and IE9
         "-webkit-border-radius": "15px",             // Safari and Chrome
@@ -100,12 +125,25 @@
       },
 
       ".MathJax_Menu": {
-        position:"absolute", "background-color":"white", color:"black",
-        width:"auto", padding:(isPC ? "2px" : "5px 0px"),
-        border:"1px solid #CCCCCC", margin:0, cursor:"default",
-        font: "menu", "text-align":"left", "text-indent":0, "text-transform":"none",
-        "line-height":"normal", "letter-spacing":"normal", "word-spacing":"normal",
-        "word-wrap":"normal", "white-space":"nowrap", "float":"none", "z-index":201,
+        position: "absolute",
+        "background-color": "white",
+        color: "black",
+        width: "auto",
+        padding: isPC ? "2px" : "5px 0px",
+        border: "1px solid #CCCCCC",
+        margin: 0,
+        cursor: "default",
+        font: "menu",
+        "text-align": "left",
+        "text-indent": 0,
+        "text-transform": "none",
+        "line-height": "normal",
+        "letter-spacing": "normal",
+        "word-spacing": "normal",
+        "word-wrap": "normal",
+        "white-space": "nowrap",
+        float: "none",
+        "z-index": 201,
 
         "border-radius": ROUND,                     // Opera 10.5 and IE9
         "-webkit-border-radius": ROUND,             // Safari and Chrome
@@ -125,28 +163,35 @@
       },
 
       ".MathJax_MenuArrow": {
-        position:"absolute", right:".5em", "padding-top":".25em", color:"#666666",
-        "font-family": (isMSIE ? "'Arial unicode MS'" : null), "font-size": ".75em"
+        position: "absolute",
+        right: ".5em",
+        "padding-top": ".25em",
+        color: "#666666",
+        "font-family": (isMSIE ? "'Arial unicode MS'" : null), 
+        "font-size": ".75em"
       },
-      ".MathJax_MenuActive .MathJax_MenuArrow": {color:"white"},
-      ".MathJax_MenuArrow.RTL": {left:".5em", right:"auto"},
+      ".MathJax_MenuActive .MathJax_MenuArrow": { color: "white" },
+      ".MathJax_MenuArrow.RTL": { left: ".5em", right: "auto" },
 
       ".MathJax_MenuCheck": {
-        position:"absolute", left:".7em",
+        position: "absolute",
+        left: ".7em",
         "font-family": (isMSIE ? "'Arial unicode MS'" : null)
       },
-      ".MathJax_MenuCheck.RTL": {right:".7em", left:"auto"},
+      ".MathJax_MenuCheck.RTL": { right: ".7em", left: "auto" },
 
       ".MathJax_MenuRadioCheck": {
-        position:"absolute", left: (isPC ? "1em" : ".7em")
+        position: "absolute",
+        left: (isPC ? "1em" : ".7em")
       },
       ".MathJax_MenuRadioCheck.RTL": {
-        right: (isPC ? "1em" : ".7em"), left:"auto"
+        right: (isPC ? "1em" : ".7em"), 
+        left: "auto"
       },
 
       ".MathJax_MenuLabel": {
         padding: (isPC ? "2px 2em 4px 1.33em" : "1px 2em 3px 1.33em"),
-        "font-style":"italic"
+        "font-style": "italic"
       },
 
       ".MathJax_MenuRule": {
@@ -155,7 +200,7 @@
       },
 
       ".MathJax_MenuDisabled": {
-        color:"GrayText"
+        color: "GrayText"
       },
       ".MathJax_MenuActive": {
         "background-color": (isPC ? "Highlight" : "#606872"),
@@ -173,43 +218,47 @@
       },
 
       "#MathJax_AboutClose": {
-        top:".2em", right:".2em"
+        top: ".2em",
+        right: ".2em"
       },
       ".MathJax_Menu .MathJax_MenuClose": {
-        top:"-10px", left:"-10px"
+        top: "-10px",
+        left: "-10px"
       },
 
       ".MathJax_MenuClose": {
-        position:"absolute",
-        cursor:"pointer",
-        display:"inline-block",
-        border:"2px solid #AAA",
-        "border-radius":"18px",
+        position: "absolute",
+        cursor: "pointer",
+        display: "inline-block",
+        border: "2px solid #AAA",
+        "border-radius": "18px",
         "-webkit-border-radius": "18px",             // Safari and Chrome
         "-moz-border-radius": "18px",                // Firefox
         "-khtml-border-radius": "18px",              // Konqueror
-        "font-family":"'Courier New',Courier",
-        "font-size":"24px",
-        color:"#F0F0F0"
+        "font-family": "'Courier New',Courier",
+        "font-size": "24px",
+        color: "#F0F0F0"
       },
       ".MathJax_MenuClose span": {
-        display:"block", "background-color":"#AAA", border:"1.5px solid",
-        "border-radius":"18px",
+        display: "block",
+        "background-color": "#AAA",
+        border: "1.5px solid",
+        "border-radius": "18px",
         "-webkit-border-radius": "18px",             // Safari and Chrome
         "-moz-border-radius": "18px",                // Firefox
         "-khtml-border-radius": "18px",              // Konqueror
-        "line-height":0,
+        "line-height": 0,
         padding:"8px 0 6px"     // may need to be browser-specific
       },
       ".MathJax_MenuClose:hover": {
-        color:"white!important",
-        border:"2px solid #CCC!important"
+        color: "white!important",
+        border: "2px solid #CCC!important"
       },
       ".MathJax_MenuClose:hover span": {
-        "background-color":"#CCC!important"
+        "background-color": "#CCC!important"
       },
       ".MathJax_MenuClose:hover:focus": {
-        outline:"none"
+        outline: "none"
       }
     }
   });
@@ -276,44 +325,68 @@
     title: null,
     margin: 5,
 
-    Init: function (def) {this.items = [].slice.call(arguments,0);},
-    With: function (def) {if (def) {HUB.Insert(this,def);} return this;},
+      Init: function(def) {
+        this.items = [].slice.call(arguments, 0);
+      },
+      With: function(def) {
+        if (def) {
+          HUB.Insert(this, def);
+        }
+        return this;
+      },
 
     /*
      *  Display the menu
      */
     Post: function (event,parent,forceLTR) {
-      if (!event) {event = window.event||{}}
+        if (!event) {
+          event = window.event || {};
+        }
       var div = document.getElementById("MathJax_MenuFrame");
       if (!div) {
         div = MENU.Background(this);
-        delete ITEM.lastItem; delete ITEM.lastMenu;
+        delete ITEM.lastItem;
+        delete ITEM.lastMenu;
         delete MENU.skipUp;
         SIGNAL.Post(["post",MENU.jax]);
         MENU.isRTL = (MathJax.Localization.fontDirection() === "rtl");
       }
       var menu = HTML.Element("div",{
-        onmouseup: MENU.Mouseup, ondblclick: FALSE,
-        ondragstart: FALSE, onselectstart: FALSE, oncontextmenu: FALSE,
-        menuItem: this, className: "MathJax_Menu", onkeydown: MENU.Keydown,
+        onmouseup: MENU.Mouseup,
+        ondblclick: FALSE,
+        ondragstart: FALSE,
+        onselectstart: FALSE,
+        oncontextmenu: FALSE,
+        menuItem: this,
+        className: "MathJax_Menu",
+        onkeydown: MENU.Keydown,
         role: "menu"
       });
       if (event.type === "contextmenu" || event.type === "mouseover")
         menu.className += " MathJax_ContextMenu";
-      if (!forceLTR) {MathJax.Localization.setCSS(menu)}
+      if (!forceLTR) {
+        MathJax.Localization.setCSS(menu);
+      }
 
-      for (var i = 0, m = this.items.length; i < m; i++) {this.items[i].Create(menu)}
+      for (var i = 0, m = this.items.length; i < m; i++) {
+        this.items[i].Create(menu);
+      }
       if (MENU.isMobile) {
         HTML.addElement(menu,"span",{
-          className: "MathJax_MenuClose", menu: parent,
-          ontouchstart: MENU.Close, ontouchend: FALSE, onmousedown: MENU.Close, onmouseup: FALSE
+          className: "MathJax_MenuClose", 
+          menu: parent,
+          ontouchstart: MENU.Close, 
+          ontouchend: FALSE, 
+          onmousedown: MENU.Close, 
+          onmouseup: FALSE
         },[["span",{},"\u00D7"]]);
       }
 
       div.appendChild(menu);
       this.posted = true;
       if (menu.offsetWidth) menu.style.width = (menu.offsetWidth+2) + "px";
-      var x = event.pageX, y = event.pageY;
+      var x = event.pageX;
+      var y = event.pageY;
       var bbox = document.body.getBoundingClientRect();
       var styles = (window.getComputedStyle ? window.getComputedStyle(document.body) : {marginLeft: "0px"});
       var bodyRight = bbox.right - Math.min(0,bbox.left) + parseFloat(styles.marginLeft);
@@ -330,21 +403,31 @@
           x = (rect.right + rect.left) / 2 + offsetX;
           y = (rect.bottom + rect.top) / 2 + offsetY;
         }
-        if (x + menu.offsetWidth > bodyRight - this.margin)
-          {x = bodyRight - menu.offsetWidth - this.margin}
-        if (MENU.isMobile) {x = Math.max(5,x-Math.floor(menu.offsetWidth/2)); y -= 20}
+        if (x + menu.offsetWidth > bodyRight - this.margin) {
+          x = bodyRight - menu.offsetWidth - this.margin;
+        }
+        if (MENU.isMobile) {
+          x = Math.max(5, x - Math.floor(menu.offsetWidth / 2));
+          y -= 20;
+        }
         MENU.skipUp = event.isContextMenu;
       } else {
-        var side = "left", mw = parent.offsetWidth;
-        x = (MENU.isMobile ? 30 : mw - 2); y = 0;
+        var side = "left";
+        var mw = parent.offsetWidth;
+        x = (MENU.isMobile ? 30 : mw - 2); 
+        y = 0;
         while (parent && parent !== div) {
-          x += parent.offsetLeft; y += parent.offsetTop;
+          x += parent.offsetLeft; 
+          y += parent.offsetTop;
           parent = parent.parentNode;
         }
         if (!MENU.isMobile) {
           if ((MENU.isRTL && x - mw - menu.offsetWidth > this.margin) ||
-              (!MENU.isRTL && x + menu.offsetWidth > bodyRight - this.margin))
-            {side = "right"; x = Math.max(this.margin,x - mw - menu.offsetWidth + 6)}
+              (!MENU.isRTL && x + menu.offsetWidth > bodyRight - this.margin)
+          ) {
+            side = "right"; 
+            x = Math.max(this.margin, x - mw - menu.offsetWidth + 6);
+          }
         }
         if (!isPC) {
           // in case these ever get implemented
@@ -355,8 +438,11 @@
         }
       }
 
-      menu.style.left = x+"px"; menu.style.top = y+"px";
-      if (document.selection && document.selection.empty) {document.selection.empty()}
+      menu.style.left = x+"px"; 
+      menu.style.top = y+"px";
+      if (document.selection && document.selection.empty) {
+        document.selection.empty();
+      }
 
       // Focusing while keeping the scroll position.
       var oldX = window.pageXOffset || document.documentElement.scrollLeft;
@@ -380,7 +466,9 @@
       var div = document.getElementById("MathJax_MenuFrame");
       if (div) {
         div.parentNode.removeChild(div);
-        if (this.msieFixedPositionBug) {window.detachEvent("onresize",MENU.Resize)}
+        if (this.msieFixedPositionBug) {
+          window.detachEvent("onresize", MENU.Resize);
+        }
       }
       if (MENU.jax.hover) {
         delete MENU.jax.hover.nofade;
@@ -395,13 +483,19 @@
      *  Find an item in a menu (or submenu) by name (Find) or ID (FindID).
      *  A list of names or IDs means descend into submenus.
      */
-    Find: function (name) {return this.FindN(1,name,[].slice.call(arguments,1))},
-    FindId: function (name) {return this.FindN(0,name,[].slice.call(arguments,1))},
+    Find: function(name) {
+      return this.FindN(1, name, [].slice.call(arguments, 1));
+    },
+    FindId: function(name) {
+      return this.FindN(0, name, [].slice.call(arguments, 1));
+    },
     FindN: function (n,name,names) {
       for (var i = 0, m = this.items.length; i < m; i++) {
         if (this.items[i].name[n] === name) {
           if (names.length) {
-            if (!this.items[i].submenu) {return null}
+            if (!this.items[i].submenu) {
+              return null;
+            }
             return this.items[i].submenu.FindN(n,names[0],names.slice(1));
           }
           return this.items[i];
@@ -413,11 +507,18 @@
     /*
      *  Find the index of a menu item (so we can insert before or after it)
      */
-    IndexOf: function (name) {return this.IndexOfN(1,name)},
-    IndexOfId: function (name) {return this.IndexOfN(0,name)},
+    IndexOf: function(name) {
+      return this.IndexOfN(1, name);
+    },
+    IndexOfId: function(name) {
+      return this.IndexOfN(0, name);
+    },
     IndexOfN: function (n,name) {
-      for (var i = 0, m = this.items.length; i < m; i++)
-        {if (this.items[i].name[n] === name) {return i}}
+      for (var i = 0, m = this.items.length; i < m; i++) {
+        if (this.items[i].name[n] === name) {
+          return i;
+        }
+      }
       return null;
     },
 
@@ -442,42 +543,75 @@
 
     config: CONFIG,
 
-    Remove:     function (event) {return MENU.Event(event,this,"Remove")},
-    Mouseover:  function (event) {return MENU.Event(event,this,"Mouseover")},
-    Mouseout:   function (event) {return MENU.Event(event,this,"Mouseout")},
-    Mousedown:  function (event) {return MENU.Event(event,this,"Mousedown")},
-    Mouseup:    function (event) {return MENU.Event(event,this,"Mouseup")},
-    Keydown:    function (event) {return MENU.Event(event,this,"Keydown")},
+    Remove: function(event) {
+      return MENU.Event(event, this, "Remove");
+    },
+    Mouseover: function(event) {
+      return MENU.Event(event, this, "Mouseover");
+    },
+    Mouseout: function(event) {
+      return MENU.Event(event, this, "Mouseout");
+    },
+    Mousedown: function(event) {
+      return MENU.Event(event, this, "Mousedown");
+    },
+    Mouseup: function(event) {
+      return MENU.Event(event, this, "Mouseup");
+    },
+    Keydown: function(event) {
+      return MENU.Event(event, this, "Keydown");
+    },
     /*
      *  Events for mobile devices.
      */
-    Touchstart: function (event) {return MENU.Event(event,this,"Touchstart")},
-    Touchend:   function (event) {return MENU.Event(event,this,"Touchend")},
+    Touchstart: function(event) {
+      return MENU.Event(event, this, "Touchstart");
+    },
+    Touchend: function(event) {
+      return MENU.Event(event, this, "Touchend");
+    },
     Close:      function (event) {
       return MENU.Event(event,this.menu||this.parentNode,(this.menu?"Touchend":"Remove"));
     },
     Event: function (event,menu,type,force) {
-      if (MENU.skipMouseover && type === "Mouseover" && !force) {return FALSE(event)}
+      if (MENU.skipMouseover && type === "Mouseover" && !force) {
+        return FALSE(event);
+      }
       if (MENU.skipMouseoverFromKey && type === "Mouseover") {
         delete MENU.skipMouseoverFromKey;
         return FALSE(event);
       }
       if (MENU.skipUp) {
-        if (type.match(/Mouseup|Touchend/)) {delete MENU.skipUp; return FALSE(event)}
-        if (type === "Touchstart" ||
-           (type === "Mousedown" && !MENU.skipMousedown)) {delete MENU.skipUp}
+        if (type.match(/Mouseup|Touchend/)) {
+          delete MENU.skipUp;
+          return FALSE(event);
+        }
+        if (type === "Touchstart" || (type === "Mousedown" && !MENU.skipMousedown)) {
+          delete MENU.skipUp;
+        }
       }
-      if (!event) {event = window.event}
+      if (!event) {
+        event = window.event;
+      }
       var item = menu.menuItem;
-      if (item && item[type]) {return item[type](event,menu)}
+      if (item && item[type]) {
+        return item[type](event, menu);
+      }
       return null;
     },
     /*
      *  Style for the background DIV
      */
     BGSTYLE: {
-      position:"absolute", left:0, top:0, "z-index":200,
-      width:"100%", height:"100%", border:0, padding:0, margin:0
+      position: "absolute",
+      left: 0,
+      top: 0,
+      "z-index": 200,
+      width: "100%",
+      height: "100%",
+      border: 0,
+      padding: 0,
+      margin: 0
     },
 
     Background: function (menu) {
@@ -488,12 +622,14 @@
       if (MENU.msieBackgroundBug) {
         //  MSIE doesn't allow transparent background to be hit boxes, so
         //  fake it using opacity with solid background color
-        bg.style.backgroundColor = "white"; bg.style.filter = "alpha(opacity=0)";
+        bg.style.backgroundColor = "white"; 
+        bg.style.filter = "alpha(opacity=0)";
       }
       if (MENU.msieFixedPositionBug) {
         //  MSIE can't do fixed position, so use a full-sized background
         //  and an onresize handler to update it (stupid, but necessary)
-        div.width = div.height = 0; this.Resize();
+        div.width = div.height = 0; 
+        this.Resize();
         window.attachEvent("onresize",this.Resize);
       } else {
         // otherwise, use a fixed position DIV to cover the viewport
@@ -531,7 +667,7 @@
     AllNodes: function() {
       var jaxs = MathJax.Hub.getAllJax();
       var nodes = [];
-      for (var i = 0, jax; jax = jaxs[i]; i++) {
+      for (var i = 0, jax; ((jax = jaxs[i])); i++) {
         nodes.push(MENU.GetNode(jax));
       }
       return nodes;
@@ -574,14 +710,18 @@
       MENU.menu.Post(null);
     },
     Right: function(event, menu) {
-      MENU.MoveHorizontal(event, menu, function(x) {return x + 1;});
+      MENU.MoveHorizontal(event, menu, function (x) {
+        return x + 1;
+      });
     },
     Left: function(event, menu) {
-      MENU.MoveHorizontal(event, menu, function(x) {return x - 1;});
+      MENU.MoveHorizontal(event, menu, function (x) {
+        return x - 1;
+      });
     },
     UnsetTabIndex: function () {
       var jaxs = MENU.AllNodes();
-      for (var j = 0, jax; jax = jaxs[j]; j++) {
+      for (var j = 0, jax; ((jax = jaxs[j])); j++) {
         if (jax.tabIndex > 0) {
           jax.oldTabIndex = jax.tabIndex;
         }
@@ -590,9 +730,9 @@
     },
     SetTabIndex: function () {
       var jaxs = MENU.AllNodes();
-      for (var j = 0, jax; jax = jaxs[j]; j++) {
+      for (var j = 0, jax; ((jax = jaxs[j])); j++) {
         if (jax.oldTabIndex !== undefined) {
-          jax.tabIndex = jax.oldTabIndex
+          jax.tabIndex = jax.oldTabIndex;
           delete jax.oldTabIndex;
         } else {
           jax.tabIndex = HUB.getTabOrder(jax);
@@ -606,7 +746,9 @@
       return ((a % n) + n) % n;
     },
     IndexOf: (Array.prototype.indexOf ?
-              function (A, item, start) {return A.indexOf(item, start);} :
+              function (A, item, start) {
+                return A.indexOf(item, start);
+              } :
               function (A, item, start) {
                 for (var i = (start || 0), j = A.length; i < j; i++) {
                   if (item === A[i]) return i;
@@ -614,9 +756,12 @@
                 return -1;
               }),
 
-    saveCookie: function () {HTML.Cookie.Set("menu",this.cookie)},
-    getCookie: function () {this.cookie = HTML.Cookie.Get("menu")}
-
+    saveCookie: function() {
+      HTML.Cookie.Set("menu", this.cookie);
+    },
+    getCookie: function() {
+      this.cookie = HTML.Cookie.Get("menu");
+    }
   });
 
   MathJax.Menu.NAV = NAV;
@@ -634,9 +779,13 @@
     Attributes: function(def) {
       return HUB.Insert(
         {onmouseup: MENU.Mouseup,
-         ondragstart: FALSE, onselectstart: FALSE, onselectend: FALSE,
-         ontouchstart: MENU.Touchstart, ontouchend: MENU.Touchend,
-         className: "MathJax_MenuItem", role: this.role,
+         ondragstart: FALSE, 
+         onselectstart: FALSE, 
+         onselectend: FALSE,
+         ontouchstart: MENU.Touchstart, 
+         ontouchend: MENU.Touchend,
+         className: "MathJax_MenuItem", 
+         role: this.role,
          menuItem: this},
         def);
     },
@@ -648,7 +797,9 @@
         HTML.addElement(menu, "div", def, label);
       }
     },
-    Name: function () {return _(this.name[0],this.name[1])},
+    Name: function() {
+      return _(this.name[0], this.name[1]);
+    },
 
     Mouseover: function (event,menu) {
       if (menu.parentNode === MENU.ActiveNode().parentNode) {
@@ -659,8 +810,9 @@
     Mouseout: function (event,menu) {
       this.Deactivate(menu);
     },
-    Mouseup: function (event,menu) {return this.Remove(event,menu)},
-
+    Mouseup: function(event, menu) {
+      return this.Remove(event, menu);
+    },
 
     DeactivateSubmenus: function(menu) {
       var menus = document.getElementById("MathJax_MenuFrame").childNodes,
@@ -669,7 +821,8 @@
         var item = items[i].menuItem;
         // Deactivates submenu items.
         if (item && item.submenu && item.submenu.posted &&
-            item !== menu.menuItem) {
+            item !== menu.menuItem
+        ) {
           item.Deactivate(items[i]);
         }
       }
@@ -685,15 +838,24 @@
       }
     },
 
-    Touchstart: function (event,menu) {return this.TouchEvent(event,menu,"Mousedown")},
-    Touchend: function (event,menu)   {return this.TouchEvent(event,menu,"Mouseup")},
+    Touchstart: function(event, menu) {
+      return this.TouchEvent(event, menu, "Mousedown");
+    },
+    Touchend: function(event, menu) {
+      return this.TouchEvent(event, menu, "Mouseup");
+    },
     TouchEvent: function (event,menu,type) {
       if (this !== ITEM.lastItem) {
-        if (ITEM.lastMenu) {MENU.Event(event,ITEM.lastMenu,"Mouseout")}
+        if (ITEM.lastMenu) {
+          MENU.Event(event, ITEM.lastMenu, "Mouseout");
+        }
         MENU.Event(event,menu,"Mouseover",true);
-        ITEM.lastItem = this; ITEM.lastMenu = menu;
+        ITEM.lastItem = this;
+        ITEM.lastMenu = menu;
       }
-      if (this.nativeTouch) {return null}
+      if (this.nativeTouch) {
+        return null;
+      }
       MENU.Event(event,menu,type);
       return false;
     },
@@ -703,10 +865,19 @@
       return menu.Remove(event,menu);
     },
 
-    With: function (def) {if (def) {HUB.Insert(this,def);} return this;},
+    With: function(def) {
+      if (def) {
+        HUB.Insert(this, def);
+      }
+      return this;
+    },
 
-    isRTL: function () {return MENU.isRTL},
-    rtlClass: function () {return (this.isRTL() ? " RTL" : "")}
+    isRTL: function() {
+      return MENU.isRTL;
+    },
+    rtlClass: function() {
+      return this.isRTL() ? " RTL" : "";
+    }
   }, {
     GetMenuNode: function(item) {
       return item.parentNode;
@@ -722,8 +893,10 @@
 
     Attributes: function(def) {
       def = HUB.Insert(
-        {onmouseover: MENU.Mouseover, onmouseout: MENU.Mouseout,
-         onmousedown: MENU.Mousedown, onkeydown: MENU.Keydown,
+        {onmouseover: MENU.Mouseover, 
+         onmouseout: MENU.Mouseout,
+         onmousedown: MENU.Mousedown, 
+         onkeydown: MENU.Keydown,
          "aria-disabled": !!this.disabled},
         def);
       def = this.SUPER(arguments).Attributes.call(this, def);
@@ -753,10 +926,14 @@
       items[index].Activate(event, children[index]);
     },
     Up: function(event, item) {
-      this.MoveVertical(event, item, function(x) { return x - 1; });
+      this.MoveVertical(event, item, function(x) {
+        return x - 1;
+      });
     },
     Down: function(event, item) {
-      this.MoveVertical(event, item, function(x) { return x + 1; });
+      this.MoveVertical(event, item, function(x) {
+        return x + 1;
+      });
     },
     Right: function(event, item) {
       this.MoveHorizontal(event, item, MENU.Right, !this.isRTL());
@@ -811,12 +988,18 @@
     action: function () {},
 
     Init: function (name,action,def) {
-      if (!isArray(name)) {name = [name,name]}  // make [id,label] pair
-      this.name = name; this.action = action;
+      if (!isArray(name)) {
+        // make [id,label] pair
+        name = [name, name];
+      } 
+      this.name = name;
+      this.action = action;
       this.With(def);
     },
 
-    Label: function (def,menu) {return [this.Name()]},
+    Label: function(def, menu) {
+      return [this.Name()];
+    },
     Mouseup: function (event,menu) {
       if (!this.disabled) {
         this.Remove(event,menu);
@@ -842,9 +1025,15 @@
       return def;
     },
     Init: function (name,def) {
-      if (!isArray(name)) {name = [name,name]}  // make [id,label] pair
-      this.name = name; var i = 1;
-      if (!(def instanceof MENU.ITEM)) {this.With(def), i++}
+      if (!isArray(name)) {
+        // make [id,label] pair
+        name = [name, name];
+      } 
+      this.name = name;
+      var i = 1;
+      if (!(def instanceof MENU.ITEM)) {
+        this.With(def), i++;
+      }
       this.submenu = MENU.apply(MENU,[].slice.call(arguments,i));
     },
     Label: function (def,menu) {
@@ -856,7 +1045,8 @@
     Timer: function (event,menu) {
       this.ClearTimer();
       event = {type: event.type,
-               clientX: event.clientX, clientY: event.clientY}; // MSIE can't pass the event below
+               clientX: event.clientX, 
+               clientY: event.clientY}; // MSIE can't pass the event below
       this.timer = setTimeout(CALLBACK(["Mouseup",this,event,menu]),CONFIG.delay);
     },
     ClearTimer: function() {
@@ -867,7 +1057,11 @@
     Touchend: function (event,menu) {
       var forceout = this.submenu.posted;
       var result = this.SUPER(arguments).Touchend.apply(this,arguments);
-      if (forceout) {this.Deactivate(menu); delete ITEM.lastItem; delete ITEM.lastMenu}
+      if (forceout) {
+        this.Deactivate(menu);
+        delete ITEM.lastItem;
+        delete ITEM.lastMenu;
+      }
       return result;
     },
     Mouseout: function(event, menu) {
@@ -941,9 +1135,16 @@
       return def;
     },
     Init: function (name,variable,def) {
-      if (!isArray(name)) {name = [name,name]}  // make [id,label] pair
-      this.name = name; this.variable = variable; this.With(def);
-      if (this.value == null) {this.value = this.name[0]}
+      if (!isArray(name)) {
+        // make [id,label] pair
+        name = [name, name];
+      } 
+      this.name = name;
+      this.variable = variable;
+      this.With(def);
+      if (this.value == null) {
+        this.value = this.name[0];
+      }
     },
     Label: function (def,menu) {
       var span = {className:"MathJax_MenuRadioCheck" + this.rtlClass()};
@@ -963,11 +1164,14 @@
         }
         menu.firstChild.display = "";
         CONFIG.settings[this.variable] = this.value;
-        MENU.cookie[this.variable] = CONFIG.settings[this.variable]; MENU.saveCookie();
+        MENU.cookie[this.variable] = CONFIG.settings[this.variable];
+        MENU.saveCookie();
         SIGNAL.Post(["radio button",this]);
       }
       this.Remove(event,menu);
-      if (this.action && !this.disabled) {this.action.call(MENU,this)}
+      if (this.action && !this.disabled) {
+        this.action.call(MENU, this);
+      }
       return FALSE(event);
     }
   });
@@ -988,23 +1192,33 @@
       return def;
     },
     Init: function (name,variable,def) {
-      if (!isArray(name)) {name = [name,name]}  // make [id,label] pair
-      this.name = name; this.variable = variable; this.With(def);
+      if (!isArray(name)) {
+        // make [id,label] pair
+        name = [name, name];
+      } 
+      this.name = name;
+      this.variable = variable;
+      this.With(def);
     },
     Label: function (def,menu) {
       var span = {className:"MathJax_MenuCheck" + this.rtlClass()};
-      if (!CONFIG.settings[this.variable]) {span = {style:{display:"none"}}}
+      if (!CONFIG.settings[this.variable]) {
+        span = { style: { display: "none" } };
+      }
       return [["span",span,[this.marker]]," "+this.Name()];
     },
     Mouseup: function (event,menu) {
       if (!this.disabled) {
         menu.firstChild.display = (CONFIG.settings[this.variable] ? "none" : "");
         CONFIG.settings[this.variable] = !CONFIG.settings[this.variable];
-        MENU.cookie[this.variable] = CONFIG.settings[this.variable]; MENU.saveCookie();
+        MENU.cookie[this.variable] = CONFIG.settings[this.variable];
+        MENU.saveCookie();
         SIGNAL.Post(["checkbox",this]);
       }
       this.Remove(event,menu);
-      if (this.action && !this.disabled) {this.action.call(MENU,this)}
+      if (this.action && !this.disabled) {
+        this.action.call(MENU, this);
+      }
       return FALSE(event);
     }
   });
@@ -1017,8 +1231,12 @@
     role: "menuitem",  // Aria role.
 
     Init: function (name,def) {
-      if (!isArray(name)) {name = [name,name]}  // make [id,label] pair
-      this.name = name; this.With(def);
+      if (!isArray(name)) {
+        // make [id,label] pair
+        name = [name, name];
+      } 
+      this.name = name;
+      this.With(def);
     },
     Label: function (def,menu) {
       def.className += " MathJax_MenuLabel";
@@ -1093,7 +1311,8 @@
     var doc = (document.documentElement||{});
     var H = window.innerHeight || doc.clientHeight || doc.scrollHeight || 0;
     if (MENU.prototype.msieAboutBug) {
-      about.style.width = "20em"; about.style.position = "absolute";
+      about.style.width = "20em"; 
+      about.style.position = "absolute";
       about.style.left = Math.floor((document.documentElement.scrollWidth - about.offsetWidth)/2)+"px";
       about.style.top = (Math.floor((H-about.offsetHeight)/3)+document.body.scrollTop)+"px";
     } else {
@@ -1102,12 +1321,16 @@
     }
   };
   MENU.About.Remove = function (event) {
-    if (MENU.About.div) {document.body.removeChild(MENU.About.div); delete MENU.About.div}
+    if (MENU.About.div) {
+      document.body.removeChild(MENU.About.div);
+      delete MENU.About.div;
+    }
   };
   MENU.About.Keydown = function(event) {
     if (event.keyCode === KEY.ESCAPE ||
         (this.id === "MathJax_AboutClose" &&
-         (event.keyCode === KEY.SPACE || event.keyCode === KEY.RETURN))) {
+         (event.keyCode === KEY.SPACE || event.keyCode === KEY.RETURN))
+    ) {
       MENU.About.Remove(event);
       MENU.CurrentNode().focus();
       FALSE(event);
@@ -1115,12 +1338,17 @@
   },
   MENU.About.GetJax = function (jax,JAX,type,noTypeCheck) {
     var info = [];
-    for (var id in JAX) {if (JAX.hasOwnProperty(id) && JAX[id]) {
-      if ((noTypeCheck && JAX[id].version) || (JAX[id].isa && JAX[id].isa(JAX)))
-        {info.push(_(type[0],type[1],(JAX[id].id||id),JAX[id].version))}
-    }}
+    for (var id in JAX) {
+      if (JAX.hasOwnProperty(id) && JAX[id]) {
+        if ((noTypeCheck && JAX[id].version) || (JAX[id].isa && JAX[id].isa(JAX))) {
+          info.push(_(type[0], type[1], JAX[id].id || id, JAX[id].version));
+        }
+      }
+    }
     info.sort();
-    for (var i = 0, m = info.length; i < m; i++) {jax.push(info[i],["br"])}
+    for (var i = 0, m = info.length; i < m; i++) {
+      jax.push(info[i], ["br"]);
+    }
     return jax;
   };
   MENU.About.GetFont = function () {
@@ -1144,22 +1372,30 @@
    */
   MENU.Help = function (event) {
     AJAX.Require("[MathJax]/extensions/HelpDialog.js",
-                 function () {MathJax.Extension.Help.Dialog({type:event.type})});
+                 function () {
+                   MathJax.Extension.Help.Dialog({type:event.type});
+                 });
   };
 
   /*
    *  Handle showing of element's source
    */
   MENU.ShowSource = function (event) {
-    if (!event) {event = window.event}
+    if (!event) {
+      event = window.event;
+    }
     var EVENT = {screenX:event.screenX, screenY:event.screenY};
     if (!MENU.jax) return;
     if (this.format === "MathML") {
       var MML = MathJax.ElementJax.mml;
-      if (MML && typeof(MML.mbase.prototype.toMathML) !== "undefined") {
+      if (MML && typeof MML.mbase.prototype.toMathML !== "undefined") {
         // toMathML() can call MathJax.Hub.RestartAfter, so trap errors and check
-        try {MENU.ShowSource.Text(MENU.jax.root.toMathML("",MENU.jax),event)} catch (err) {
-          if (!err.restart) {throw err}
+        try {
+          MENU.ShowSource.Text(MENU.jax.root.toMathML("", MENU.jax), event);
+        } catch (err) {
+          if (!err.restart) {
+            throw err;
+          }
           CALLBACK.After([this,MENU.ShowSource,EVENT],err.restart);
         }
       } else if (!AJAX.loadingToMathML) {
@@ -1169,7 +1405,9 @@
           AJAX.Require("[MathJax]/extensions/toMathML.js"),
           function () {
             delete AJAX.loadingToMathML;
-            if (!MML.mbase.prototype.toMathML) {MML.mbase.prototype.toMathML = function () {}}
+            if (!MML.mbase.prototype.toMathML) {
+              MML.mbase.prototype.toMathML = function() {};
+            }
           },
           [this,MENU.ShowSource,EVENT]  // call this function again
         );
@@ -1190,14 +1428,20 @@
   };
   MENU.ShowSource.Window = function (event) {
     if (!MENU.ShowSource.w) {
-      var def = [], DEF = CONFIG.windowSettings;
-      for (var id in DEF) {if (DEF.hasOwnProperty(id)) {def.push(id+"="+DEF[id])}}
+      var def = [];
+      var DEF = CONFIG.windowSettings;
+      for (var id in DEF) {
+        if (DEF.hasOwnProperty(id)) {
+          def.push(id + "=" + DEF[id]);
+        }
+      }
       MENU.ShowSource.w = window.open("","_blank",def.join(","));
     }
     return MENU.ShowSource.w;
   };
   MENU.ShowSource.Text = function (text,event) {
-    var w = MENU.ShowSource.Window(event); delete MENU.ShowSource.w;
+    var w = MENU.ShowSource.Window(event);
+    delete MENU.ShowSource.w;
     text = text.replace(/^\s*/,"").replace(/\s*$/,"");
     text = text.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
     var title = _("EqSource","MathJax Equation Source");
@@ -1216,12 +1460,21 @@
       w.document.close();
       var table = w.document.body.firstChild;
       setTimeout(function () {
-        var H = (w.outerHeight-w.innerHeight)||30, W = (w.outerWidth-w.innerWidth)||30, x, y;
-        W = Math.max(140,Math.min(Math.floor(.5*screen.width),table.offsetWidth+W+25));
-        H = Math.max(40,Math.min(Math.floor(.5*screen.height),table.offsetHeight+H+25));
-        if (MENU.prototype.msieHeightBug) {H += 35;} // for title bar in XP
+        var H = (w.outerHeight-w.innerHeight)||30;
+        var W = (w.outerWidth-w.innerWidth)||30;
+        var x, y;
+        W = Math.max(140, Math.min(Math.floor(0.5 * screen.width), table.offsetWidth + W + 25));
+        H = Math.max(40, Math.min(Math.floor(0.5 * screen.height), table.offsetHeight + H + 25));
+        if (MENU.prototype.msieHeightBug) {
+          // for title bar in XP
+          H += 35;
+        } 
         w.resizeTo(W,H);
-        var X; try {X = event.screenX;} catch (e) {} // IE8 throws an error accessing screenX
+        var X;
+        try {
+          // IE8 throws an error accessing screenX
+          X = event.screenX;
+        } catch (e) {} 
         if (event && X != null) {
           x = Math.max(0,Math.min(event.screenX-Math.floor(W/2), screen.width-W-20));
           y = Math.max(0,Math.min(event.screenY-Math.floor(H/2), screen.height-H-20));
@@ -1235,11 +1488,16 @@
    *  Handle rescaling all the math
    */
   MENU.Scale = function () {
-    var JAX = ["CommonHTML","HTML-CSS","SVG","NativeMML","PreviewHTML"], m = JAX.length,
-        SCALE = 100, i, jax;
+    var JAX = ["CommonHTML","HTML-CSS","SVG","NativeMML","PreviewHTML"];
+    var m = JAX.length;
+    var SCALE = 100;
+    var i, jax;
     for (i = 0; i < m; i++) {
       jax = OUTPUT[JAX[i]];
-      if (jax) {SCALE = jax.config.scale; break}
+      if (jax) {
+        SCALE = jax.config.scale;
+        break;
+      }
     }
     var scale = prompt(_("ScaleMath","Scale all mathematics (compared to surrounding text) by"),SCALE+"%");
     if (scale) {
@@ -1255,9 +1513,12 @@
             MENU.saveCookie(); 
             HUB.Queue(["Rerender",HUB]);
           }
-        } else {alert(_("NonZeroScale","The scale should not be zero"))}
-      } else {alert(_("PercentScale",
-                      "The scale should be a percentage (e.g., 120%%)"))}
+        } else {
+          alert(_("NonZeroScale", "The scale should not be zero"));
+        }
+      } else {
+        alert(_("PercentScale", "The scale should be a percentage (e.g., 120%%)"));
+      }
     }
   };
 
@@ -1265,7 +1526,9 @@
    *  Handle loading the zoom code
    */
   MENU.Zoom = function () {
-    if (!MathJax.Extension.MathZoom) {AJAX.Require("[MathJax]/extensions/MathZoom.js")}
+    if (!MathJax.Extension.MathZoom) {
+      AJAX.Require("[MathJax]/extensions/MathZoom.js");
+    }
   };
 
   /*
@@ -1274,25 +1537,38 @@
   MENU.Renderer = function () {
     var jax = HUB.outputJax["jax/mml"];
     if (jax[0] !== CONFIG.settings.renderer) {
-      var BROWSER = HUB.Browser, message, MESSAGE = MENU.Renderer.Messages, warned;
+      var BROWSER = HUB.Browser;
+      var message;
+      var MESSAGE = MENU.Renderer.Messages;
+      var warned;
       //
       //  Check that the new renderer is appropriate for the browser
       //
       switch (CONFIG.settings.renderer) {
         case "NativeMML":
           if (!CONFIG.settings.warnedMML) {
-            if (BROWSER.isChrome && BROWSER.version.substr(0,3) !== "24.") {message = MESSAGE.MML.WebKit}
-            else if (BROWSER.isSafari && !BROWSER.versionAtLeast("5.0")) {message = MESSAGE.MML.WebKit}
-            else if (BROWSER.isMSIE) {if (!BROWSER.hasMathPlayer) {message = MESSAGE.MML.MSIE}}
-            else if (BROWSER.isEdge) {message = MESSAGE.MML.WebKit}
-            else {message = MESSAGE.MML[BROWSER]}
+            if (BROWSER.isChrome && BROWSER.version.substr(0, 3) !== "24.") {
+              message = MESSAGE.MML.WebKit;
+            } else if (BROWSER.isSafari && !BROWSER.versionAtLeast("5.0")) {
+              message = MESSAGE.MML.WebKit;
+            } else if (BROWSER.isMSIE) {
+              if (!BROWSER.hasMathPlayer) {
+                message = MESSAGE.MML.MSIE;
+              }
+            } else if (BROWSER.isEdge) {
+              message = MESSAGE.MML.WebKit;
+            } else {
+              message = MESSAGE.MML[BROWSER];
+            }
             warned = "warnedMML";
           }
           break;
 
         case "SVG":
           if (!CONFIG.settings.warnedSVG) {
-            if (BROWSER.isMSIE && !isIE9) {message = MESSAGE.SVG.MSIE}
+            if (BROWSER.isMSIE && !isIE9) {
+              message = MESSAGE.SVG.MSIE;
+            }
           }
           break;
       }
@@ -1302,14 +1578,18 @@
         message += _("SwitchAnyway",
                      "Switch the renderer anyway?\n\n" +
                      "(Press OK to switch, CANCEL to continue with the current renderer)");
-        MENU.cookie.renderer = jax[0].id; MENU.saveCookie();
+        MENU.cookie.renderer = jax[0].id;
+        MENU.saveCookie();
         if (!confirm(message)) {
           MENU.cookie.renderer = CONFIG.settings.renderer = HTML.Cookie.Get("menu").renderer;
           MENU.saveCookie();
           return;
         }
-        if (warned) {MENU.cookie.warned  = CONFIG.settings.warned = true}
-        MENU.cookie.renderer = CONFIG.settings.renderer; MENU.saveCookie();
+        if (warned) {
+          MENU.cookie.warned = CONFIG.settings.warned = true;
+        }
+        MENU.cookie.renderer = CONFIG.settings.renderer;
+        MENU.saveCookie();
       }
       HUB.Queue(
         ["setRenderer",HUB,CONFIG.settings.renderer,"jax/mml"],
@@ -1368,7 +1648,8 @@
    *  Handle setting the HTMLCSS fonts
    */
   MENU.Font = function () {
-    var HTMLCSS = OUTPUT["HTML-CSS"]; if (!HTMLCSS) return;
+    var HTMLCSS = OUTPUT["HTML-CSS"];
+    if (!HTMLCSS) return;
     document.location.reload();
   };
 
@@ -1389,7 +1670,9 @@
         ));
       }
       AJAX.Require(url,function (status) {
-        if (status != AJAX.STATUS.OK) {alert(_("BadData","Failed to load translation data from %1",url))}
+        if (status != AJAX.STATUS.OK) {
+          alert(_("BadData", "Failed to load translation data from %1", url));
+        }
       });
     }
   };
@@ -1402,15 +1685,17 @@
         MESSAGE = MENU.MPEvents.Messages;
     if (!isIE9) {
       if (CONFIG.settings.mpMouse && !confirm(_.apply(_,MESSAGE.IE8warning))) {
-        delete MENU.cookie.mpContext; delete CONFIG.settings.mpContext;
-        delete MENU.cookie.mpMouse; delete CONFIG.settings.mpMouse;
+        delete MENU.cookie.mpContext;
+        delete CONFIG.settings.mpContext;
+        delete MENU.cookie.mpMouse;
+        delete CONFIG.settings.mpMouse;
         MENU.saveCookie();
         return;
       }
       CONFIG.settings.mpContext = CONFIG.settings.mpMouse;
       MENU.cookie.mpContext = MENU.cookie.mpMouse = CONFIG.settings.mpMouse;
       MENU.saveCookie();
-      MathJax.Hub.Queue(["Rerender",MathJax.Hub])
+      MathJax.Hub.Queue(["Rerender", MathJax.Hub]);
     } else if (!discoverable && item.name[1] === "Menu Events" && CONFIG.settings.mpContext) {
       alert(_.apply(_,MESSAGE.IE9warning));
     }
@@ -1462,19 +1747,30 @@
   //
   MENU.CreateLocaleMenu = function () {
     if (!MENU.menu) return;
-    var menu = MENU.menu.Find("Language").submenu, items = menu.items;
+    var menu = MENU.menu.Find("Language").submenu;
+    var items = menu.items;
     //
     //  Get the names of the languages and sort them
     //
-    var locales = [], LOCALE = MathJax.Localization.strings;
-    for (var id in LOCALE) {if (LOCALE.hasOwnProperty(id)) {locales.push(id)}}
-    locales = locales.sort(); menu.items = [];
+    var locales = [];
+    var LOCALE = MathJax.Localization.strings;
+    for (var id in LOCALE) {
+      if (LOCALE.hasOwnProperty(id)) {
+        locales.push(id);
+      }
+    }
+    locales = locales.sort();
+    menu.items = [];
     //
     //  Add a menu item for each
     //
     for (var i = 0, m = locales.length; i < m; i++) {
       var title = LOCALE[locales[i]].menuTitle;
-      if (title) {title += " ("+locales[i]+")"} else {title = locales[i]}
+      if (title) {
+        title += " (" + locales[i] + ")";
+      } else {
+        title = locales[i];
+      }
       menu.items.push(ITEM.RADIO([locales[i],title],"locale",{action:MENU.Locale}));
     }
     //
@@ -1507,9 +1803,15 @@
      *  it wasn't set in the cookie.
      */
     CONFIG.settings = HUB.config.menuSettings;
-    if (typeof(CONFIG.settings.showRenderer) !== "undefined") {CONFIG.showRenderer = CONFIG.settings.showRenderer}
-    if (typeof(CONFIG.settings.showFontMenu) !== "undefined") {CONFIG.showFontMenu = CONFIG.settings.showFontMenu}
-    if (typeof(CONFIG.settings.showContext)  !== "undefined") {CONFIG.showContext  = CONFIG.settings.showContext}
+    if (typeof CONFIG.settings.showRenderer !== "undefined") {
+      CONFIG.showRenderer = CONFIG.settings.showRenderer;
+    }
+    if (typeof CONFIG.settings.showFontMenu !== "undefined") {
+      CONFIG.showFontMenu = CONFIG.settings.showFontMenu;
+    }
+    if (typeof CONFIG.settings.showContext !== "undefined") {
+      CONFIG.showContext = CONFIG.settings.showContext;
+    }
     MENU.getCookie();
 
     /*
@@ -1611,8 +1913,10 @@
         var settings = CONFIG.settings;
         var trigger = MENU.menu.Find("Math Settings","Zoom Trigger").submenu;
         trigger.items[0].disabled = trigger.items[1].disabled = true;
-        if (settings.zoom === "Hover" || settings.zoom == "Click") {settings.zoom = "None"}
-        trigger.items = trigger.items.slice(0,4);
+        if (settings.zoom === "Hover" || settings.zoom == "Click") {
+          settings.zoom = "None";
+        }
+        trigger.items = trigger.items.slice(0, 4);
 
         if (navigator.appVersion.match(/[ (]Android[) ]/)) {
           MENU.ITEM.SUBMENU.Augment({marker: "\u00BB"});
@@ -1625,34 +1929,41 @@
   });
 
   MENU.showRenderer = function (show) {
-    MENU.cookie.showRenderer = CONFIG.showRenderer = show; MENU.saveCookie();
+    MENU.cookie.showRenderer = CONFIG.showRenderer = show;
+    MENU.saveCookie();
     MENU.menu.Find("Math Settings","Math Renderer").hidden = !show;
   };
   MENU.showMathPlayer = function (show) {
-    MENU.cookie.showMathPlayer = CONFIG.showMathPlayer = show; MENU.saveCookie();
+    MENU.cookie.showMathPlayer = CONFIG.showMathPlayer = show;
+    MENU.saveCookie();
     MENU.menu.Find("Math Settings","MathPlayer").hidden = !show;
   };
   MENU.showFontMenu = function (show) {
-    MENU.cookie.showFontMenu = CONFIG.showFontMenu = show; MENU.saveCookie();
+    MENU.cookie.showFontMenu = CONFIG.showFontMenu = show;
+    MENU.saveCookie();
     MENU.menu.Find("Math Settings","Font Preference").hidden = !show;
   };
   MENU.showContext = function (show) {
-    MENU.cookie.showContext = CONFIG.showContext = show; MENU.saveCookie();
+    MENU.cookie.showContext = CONFIG.showContext = show;
+    MENU.saveCookie();
     MENU.menu.Find("Math Settings","Contextual Menu").hidden = !show;
   };
   MENU.showDiscoverable = function (show) {
-    MENU.cookie.showDiscoverable = CONFIG.showDiscoverable = show; MENU.saveCookie();
+    MENU.cookie.showDiscoverable = CONFIG.showDiscoverable = show;
+    MENU.saveCookie();
     MENU.menu.Find("Math Settings","Highlight on Hover").hidden = !show;
     MENU.menu.Find("Math Settings","discover_rule").hidden = !show;
   };
   MENU.showLocale = function (show) {
-    MENU.cookie.showLocale = CONFIG.showLocale = show; MENU.saveCookie();
+    MENU.cookie.showLocale = CONFIG.showLocale = show;
+    MENU.saveCookie();
     MENU.menu.Find("Language").hidden = !show;
   };
 
   MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
-    if (!MathJax.OutputJax["HTML-CSS"].config.imageFont)
-      {MENU.menu.Find("Math Settings","Font Preference","TeX (image)").disabled = true}
+    if (!MathJax.OutputJax["HTML-CSS"].config.imageFont) {
+      MENU.menu.Find("Math Settings", "Font Preference", "TeX (image)").disabled = true;
+    }
   });
 
   /*************************************************************/

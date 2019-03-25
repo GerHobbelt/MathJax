@@ -8,7 +8,7 @@
  *  This file implements the \bbox macro, which creates an box that
  *  can be styled (for background colors, and so on).  You can include
  *  an optional dimension that tells how much extra padding to include
- *  around the bounding box for the mathematics, or a color specification 
+ *  around the bounding box for the mathematics, or a color specification
  *  for the background color to use, or both.  E.g.,
  *  
  *    \bbox[2pt]{x+y}        %  an invisible box around x+y with 2pt of extra space
@@ -60,22 +60,26 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     BBox: function (name) {
       var bbox = this.GetBrackets(name,""),
           math = this.ParseArg(name);
-      var parts = bbox.split(/,/), def, background, style;
+      var parts = bbox.split(/,/);
+      var def, background, style;
       for (var i = 0, m = parts.length; i < m; i++) {
         var part = parts[i].replace(/^\s+/,'').replace(/\s+$/,'');
         var match = part.match(/^(\.\d+|\d+(\.\d*)?)(pt|em|ex|mu|px|in|cm|mm)$/);
         if (match) {
-          if (def)
-            {TEX.Error(["MultipleBBoxProperty","%1 specified twice in %2","Padding",name])}
+          if (def) {
+            TEX.Error(["MultipleBBoxProperty", "%1 specified twice in %2", "Padding", name]);
+          }
           var pad = this.BBoxPadding(match[1]+match[3]);
           if (pad) def = {height:"+"+pad, depth:"+"+pad, lspace:pad, width:"+"+(2*match[1])+match[3]};
         } else if (part.match(/^([a-z0-9]+|\#[0-9a-f]{6}|\#[0-9a-f]{3})$/i)) {
-          if (background)
-            {TEX.Error(["MultipleBBoxProperty","%1 specified twice in %2","Background",name])}
+          if (background) {
+            TEX.Error(["MultipleBBoxProperty", "%1 specified twice in %2", "Background", name]);
+          }
           background = part;
         } else if (part.match(/^[-a-z]+:/i)) {
-          if (style)
-            {TEX.Error(["MultipleBBoxProperty","%1 specified twice in %2", "Style",name])}
+          if (style) {
+            TEX.Error(["MultipleBBoxProperty", "%1 specified twice in %2", "Style", name]);
+          }
           style = this.BBoxStyle(part);
         } else if (part !== "") {
           TEX.Error(
@@ -85,14 +89,20 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
           );
         }
       }
-      if (def) {math = MML.mpadded(math).With(def)}
+      if (def) {
+        math = MML.mpadded(math).With(def);
+      }
       if (background || style) {
         math = MML.mstyle(math).With({mathbackground:background, style:style});
       }
       this.Push(math);
     },
-    BBoxStyle: function (styles) {return styles},
-    BBoxPadding: function (pad) {return pad}
+    BBoxStyle: function(styles) {
+      return styles;
+    },
+    BBoxPadding: function(pad) {
+      return pad;
+    }
   });
 
   MathJax.Hub.Startup.signal.Post("TeX bbox Ready");

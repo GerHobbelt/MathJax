@@ -348,8 +348,8 @@ MathJax.Extension.mml2jax = {
   },
 
   PushMathElements: function(array, element, name, namespace) {
-    var math,
-      preview = MathJax.Hub.config.preRemoveClass;
+    var math;
+    var preview = MathJax.Hub.config.preRemoveClass;
     if (namespace) {
       if (!element.getElementsByTagNameNS) return;
       math = element.getElementsByTagNameNS(namespace, name);
@@ -364,8 +364,8 @@ MathJax.Extension.mml2jax = {
   },
 
   ProcessMathArray: function(math) {
-    var i,
-      m = math.length;
+    var i;
+    var m = math.length;
     if (m) {
       if (this.MathTagBug) {
         for (i = 0; i < m; i++) {
@@ -413,9 +413,9 @@ MathJax.Extension.mml2jax = {
     var script = document.createElement("script");
     script.type = "math/mml";
     parent.insertBefore(script, math);
-    var mml = "",
-      node,
-      MATH = math;
+    var mml = "";
+    var node;
+    var MATH = math;
     while (math && math.nodeName !== "/MATH") {
       node = math;
       math = math.nextSibling;
@@ -607,16 +607,16 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
   var CONFIG = {
     hover: 500, // time required to be considered a hover
     frame: {
-      x: 3.5,
-      y: 5, // frame padding and
+      x: 3.5, // frame padding
+      y: 5, // frame padding
       bwidth: 1, // frame border width (in pixels)
       bcolor: "#A6D", // frame border color
       hwidth: "15px", // haze width
       hcolor: "#83A" // haze color
     },
     button: {
-      x: -6,
-      y: -3, // menu button offsets
+      x: -6, // menu button offset
+      y: -3, // menu button offset
       wx: -2 // button offset for full-width equations
     },
     fadeinInc: 0.2, // increment for fade-in
@@ -778,8 +778,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
       //
       //  Check if we are showing menus
       //
-      var JAX = OUTPUT[math.jaxID],
-        jax = JAX.getJaxFromMath(math);
+      var JAX = OUTPUT[math.jaxID];
+      var jax = JAX.getJaxFromMath(math);
       var show = (JAX.config.showMathMenu != null ? JAX : HUB).config.showMathMenu;
       if (!show || (SETTINGS.context !== "MathJax" && !force)) return;
 
@@ -906,9 +906,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
 
     getBBox: function(span) {
       span.appendChild(ME.topImg);
-      var h = ME.topImg.offsetTop,
-        d = span.offsetHeight - h,
-        w = span.offsetWidth;
+      var h = ME.topImg.offsetTop;
+      var d = span.offsetHeight - h;
+      var w = span.offsetWidth;
       span.removeChild(ME.topImg);
       return { w: w, h: h, d: d };
     }
@@ -949,8 +949,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
     //
     Mouseout: function(event, math) {
       if (SETTINGS.discoverable || SETTINGS.zoom === "Hover") {
-        var from = event.fromElement || event.relatedTarget,
-          to = event.toElement || event.target;
+        var from = event.fromElement || event.relatedTarget;
+        var to = event.toElement || event.target;
         if (
           from &&
           to &&
@@ -1006,13 +1006,16 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
       //
       //  Get the hover data
       //
-      var JAX = OUTPUT[jax.outputJax],
-        span = JAX.getHoverSpan(jax, math),
-        bbox = JAX.getHoverBBox(jax, span, math),
-        show = (JAX.config.showMathMenu != null ? JAX : HUB).config.showMathMenu;
-      var dx = CONFIG.frame.x,
-        dy = CONFIG.frame.y,
-        dd = CONFIG.frame.bwidth; // frame size
+      var JAX = OUTPUT[jax.outputJax];
+      var span = JAX.getHoverSpan(jax, math);
+      var bbox = JAX.getHoverBBox(jax, span, math);
+      var show = (JAX.config.showMathMenu != null ? JAX : HUB).config.showMathMenu;
+
+      // frame size
+      var dx = CONFIG.frame.x;
+      var dy = CONFIG.frame.y;
+      var dd = CONFIG.frame.bwidth;
+
       if (ME.msieBorderWidthBug) {
         dd = 0;
       }
@@ -1090,8 +1093,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
         span.parentNode.insertBefore(button, span);
       }
       if (span.style) {
+        // so math is on top of hover frame
         span.style.position = "relative";
-      } // so math is on top of hover frame
+      }
       //
       //  Start the hover fade-in
       //
@@ -1280,8 +1284,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
       ME.msieEventBug = browser.isIE9; // must get event from window even though event is passed
       ME.msieAlignBug = !isIE8 || mode < 8; // inline-block spans don't rest on baseline
       if (mode < 9) {
+        // IE < 9 has wrong event.button values
         EVENT.LEFTBUTTON = 1;
-      } // IE < 9 has wrong event.button values
+      }
     },
     Safari: function(browser) {
       ME.safariContextMenuBug = true; // selection can be started by contextmenu event
@@ -1522,8 +1527,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
       //  Create the DOM elements for the zoom box
       //
       var container = this.findContainer(math);
-      var Mw = Math.floor(0.85 * container.clientWidth),
-        Mh = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+      var Mw = Math.floor(0.85 * container.clientWidth);
+      var Mh = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
       if (this.getOverflow(container) !== "visible") {
         Mh = Math.min(container.clientHeight, Mh);
       }
@@ -1540,11 +1545,14 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
           [["span", { style: { display: "inline-block", "white-space": "nowrap" } }]]
         ]
       ]);
-      var zoom = div.lastChild,
-        span = zoom.firstChild,
-        overlay = div.firstChild;
+      var zoom = div.lastChild;
+      var span = zoom.firstChild;
+      var overlay = div.firstChild;
+
+      // put div after math
       math.parentNode.insertBefore(div, math);
-      math.parentNode.insertBefore(math, div); // put div after math
+      math.parentNode.insertBefore(math, div);
+
       if (span.addEventListener) {
         span.addEventListener("mousedown", this.Remove, true);
       }
@@ -1584,24 +1592,28 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
       //
       if (this.msiePositionBug) {
         if (this.msieSizeBug) {
+          // IE8 gets the dimensions completely wrong
           zoom.style.height = bbox.zH + "px";
           zoom.style.width = bbox.zW + "px";
-        } // IE8 gets the dimensions completely wrong
+        }
         if (zoom.offsetHeight > Mh) {
+          // IE doesn't do max-height?
           zoom.style.height = Mh + "px";
           zoom.style.width = bbox.zW + this.scrollSize + "px";
-        } // IE doesn't do max-height?
+        }
         if (zoom.offsetWidth > Mw) {
           zoom.style.width = Mw + "px";
           zoom.style.height = bbox.zH + this.scrollSize + "px";
         }
       }
       if (this.operaPositionBug) {
+        // Opera gets width as 0?
         zoom.style.width = Math.min(Mw, bbox.zW) + "px";
-      } // Opera gets width as 0?
+      }
       if (zoom.offsetWidth > eW && zoom.offsetWidth - eW < Mw && zoom.offsetHeight - eW < Mh) {
+        // don't show scroll bars if we don't need to
         zoom.style.overflow = "visible";
-      } // don't show scroll bars if we don't need to
+      }
       this.Position(zoom, bbox);
       if (this.msieTrapEventBug) {
         trap.style.height = zoom.clientHeight + "px";
@@ -1642,18 +1654,19 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
     //
     Position: function(zoom, bbox) {
       zoom.style.display = "none"; // avoids getting excessive width in Resize()
-      var XY = this.Resize(),
-        x = XY.x,
-        y = XY.y,
-        W = bbox.mW;
+      var XY = this.Resize();
+      var x = XY.x;
+      var y = XY.y;
+      var W = bbox.mW;
       zoom.style.display = "";
-      var dx = -W - Math.floor((zoom.offsetWidth - W) / 2),
-        dy = bbox.Y;
+      var dx = -W - Math.floor((zoom.offsetWidth - W) / 2);
+      var dy = bbox.Y;
       zoom.style.left = Math.max(dx, 10 - x) + "px";
       zoom.style.top = Math.max(dy, 10 - y) + "px";
       if (!ZOOM.msiePositionBug) {
+        // refigure overlay width/height
         ZOOM.SetWH();
-      } // refigure overlay width/height
+      }
     },
 
     //
@@ -1663,10 +1676,10 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
       if (ZOOM.onresize) {
         ZOOM.onresize(event);
       }
-      var div = document.getElementById("MathJax_ZoomFrame"),
-        overlay = document.getElementById("MathJax_ZoomOverlay");
-      var xy = ZOOM.getXY(div),
-        obj = ZOOM.findContainer(div);
+      var div = document.getElementById("MathJax_ZoomFrame");
+      var overlay = document.getElementById("MathJax_ZoomOverlay");
+      var xy = ZOOM.getXY(div);
+      var obj = ZOOM.findContainer(div);
       if (ZOOM.getOverflow(obj) !== "visible") {
         overlay.scroll_parent = obj; // Save this for future reference.
         var XY = ZOOM.getXY(obj); // Remove container position
@@ -1716,8 +1729,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
       var style = window.getComputedStyle
         ? window.getComputedStyle(obj)
         : obj.currentStyle || { borderLeftWidth: 0, borderTopWidth: 0 };
-      var x = style.borderLeftWidth,
-        y = style.borderTopWidth;
+      var x = style.borderLeftWidth;
+      var y = style.borderTopWidth;
       if (size[x]) {
         x = size[x];
       } else {
@@ -1734,17 +1747,18 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
     //  Get the position of an element on the page
     //
     getXY: function(div) {
-      var x = 0,
-        y = 0,
-        obj;
+      var x = 0;
+      var y = 0;
+      var obj;
       obj = div;
       while (obj.offsetParent) {
         x += obj.offsetLeft;
         obj = obj.offsetParent;
       }
       if (ZOOM.operaPositionBug) {
+        // to get vertical position right
         div.style.border = "1px solid";
-      } // to get vertical position right
+      }
       obj = div;
       while (obj.offsetParent) {
         y += obj.offsetTop;
@@ -1812,8 +1826,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
       ZOOM.msieInlineBlockAlignBug = mode <= 7;
       ZOOM.msieTrapEventBug = !window.addEventListener;
       if (document.compatMode === "BackCompat") {
+        // don't know why this is so far off
         ZOOM.scrollSize = 52;
-      } // don't know why this is so far off
+      }
       if (isIE9) {
         delete CONFIG.styles["#MathJax_Zoom"].filter;
       }
@@ -1886,9 +1901,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
 
   var isArray = MathJax.Object.isArray;
 
-  var isPC = HUB.Browser.isPC,
-    isMSIE = HUB.Browser.isMSIE,
-    isIE9 = (document.documentMode || 0) > 8;
+  var isPC = HUB.Browser.isPC;
+  var isMSIE = HUB.Browser.isMSIE;
+  var isIE9 = (document.documentMode || 0) > 8;
   var ROUND = isPC ? null : "5px";
 
   var CONFIG = HUB.CombineConfig("MathMenu", {
@@ -2232,8 +2247,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
         div.appendChild(menu);
         this.posted = true;
         if (menu.offsetWidth) menu.style.width = menu.offsetWidth + 2 + "px";
-        var x = event.pageX,
-          y = event.pageY;
+        var x = event.pageX;
+        var y = event.pageY;
         var bbox = document.body.getBoundingClientRect();
         var styles = window.getComputedStyle ? window.getComputedStyle(document.body) : { marginLeft: "0px" };
         var bodyRight = bbox.right - Math.min(0, bbox.left) + parseFloat(styles.marginLeft);
@@ -2259,8 +2274,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
           }
           MENU.skipUp = event.isContextMenu;
         } else {
-          var side = "left",
-            mw = parent.offsetWidth;
+          var side = "left";
+          var mw = parent.offsetWidth;
           x = MENU.isMobile ? 30 : mw - 2;
           y = 0;
           while (parent && parent !== div) {
@@ -2840,8 +2855,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
 
     Init: function(name, action, def) {
       if (!isArray(name)) {
+        // make [id,label] pair
         name = [name, name];
-      } // make [id,label] pair
+      }
       this.name = name;
       this.action = action;
       this.With(def);
@@ -2876,8 +2892,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
     },
     Init: function(name, def) {
       if (!isArray(name)) {
+        // make [id,label] pair
         name = [name, name];
-      } // make [id,label] pair
+      }
       this.name = name;
       var i = 1;
       if (!(def instanceof MENU.ITEM)) {
@@ -2994,8 +3011,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
     },
     Init: function(name, variable, def) {
       if (!isArray(name)) {
+        // make [id,label] pair
         name = [name, name];
-      } // make [id,label] pair
+      }
       this.name = name;
       this.variable = variable;
       this.With(def);
@@ -3050,8 +3068,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
     },
     Init: function(name, variable, def) {
       if (!isArray(name)) {
+        // make [id,label] pair
         name = [name, name];
-      } // make [id,label] pair
+      }
       this.name = name;
       this.variable = variable;
       this.With(def);
@@ -3088,8 +3107,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
 
     Init: function(name, def) {
       if (!isArray(name)) {
+        // make [id,label] pair
         name = [name, name];
-      } // make [id,label] pair
+      }
       this.name = name;
       this.With(def);
     },
@@ -3319,8 +3339,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
   };
   MENU.ShowSource.Window = function(event) {
     if (!MENU.ShowSource.w) {
-      var def = [],
-        DEF = CONFIG.windowSettings;
+      var def = [];
+      var DEF = CONFIG.windowSettings;
       for (var id in DEF) {
         if (DEF.hasOwnProperty(id)) {
           def.push(id + "=" + DEF[id]);
@@ -3358,20 +3378,21 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
       w.document.close();
       var table = w.document.body.firstChild;
       setTimeout(function() {
-        var H = w.outerHeight - w.innerHeight || 30,
-          W = w.outerWidth - w.innerWidth || 30,
-          x,
-          y;
+        var H = w.outerHeight - w.innerHeight || 30;
+        var W = w.outerWidth - w.innerWidth || 30;
+        var x, y;
         W = Math.max(140, Math.min(Math.floor(0.5 * screen.width), table.offsetWidth + W + 25));
         H = Math.max(40, Math.min(Math.floor(0.5 * screen.height), table.offsetHeight + H + 25));
         if (MENU.prototype.msieHeightBug) {
+          // for title bar in XP
           H += 35;
-        } // for title bar in XP
+        }
         w.resizeTo(W, H);
         var X;
         try {
+          // IE8 throws an error accessing screenX
           X = event.screenX;
-        } catch (e) {} // IE8 throws an error accessing screenX
+        } catch (e) {}
         if (event && X != null) {
           x = Math.max(0, Math.min(event.screenX - Math.floor(W / 2), screen.width - W - 20));
           y = Math.max(0, Math.min(event.screenY - Math.floor(H / 2), screen.height - H - 20));
@@ -3385,11 +3406,10 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
    *  Handle rescaling all the math
    */
   MENU.Scale = function() {
-    var JAX = ["CommonHTML", "HTML-CSS", "SVG", "NativeMML", "PreviewHTML"],
-      m = JAX.length,
-      SCALE = 100,
-      i,
-      jax;
+    var JAX = ["CommonHTML", "HTML-CSS", "SVG", "NativeMML", "PreviewHTML"];
+    var m = JAX.length;
+    var SCALE = 100;
+    var i, jax;
     for (i = 0; i < m; i++) {
       jax = OUTPUT[JAX[i]];
       if (jax) {
@@ -3435,10 +3455,10 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
   MENU.Renderer = function() {
     var jax = HUB.outputJax["jax/mml"];
     if (jax[0] !== CONFIG.settings.renderer) {
-      var BROWSER = HUB.Browser,
-        message,
-        MESSAGE = MENU.Renderer.Messages,
-        warned;
+      var BROWSER = HUB.Browser;
+      var message;
+      var MESSAGE = MENU.Renderer.Messages;
+      var warned;
       //
       //  Check that the new renderer is appropriate for the browser
       //
@@ -3660,13 +3680,13 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/mml2jax.js");
   //
   MENU.CreateLocaleMenu = function() {
     if (!MENU.menu) return;
-    var menu = MENU.menu.Find("Language").submenu,
-      items = menu.items;
+    var menu = MENU.menu.Find("Language").submenu;
+    var items = menu.items;
     //
     //  Get the names of the languages and sort them
     //
-    var locales = [],
-      LOCALE = MathJax.Localization.strings;
+    var locales = [];
+    var LOCALE = MathJax.Localization.strings;
     for (var id in LOCALE) {
       if (LOCALE.hasOwnProperty(id)) {
         locales.push(id);
@@ -6164,13 +6184,13 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js", function() {
       if (space == null) {
         space = "";
       }
-      var tag = this.type,
-        attr = this.toMathMLattributes();
+      var tag = this.type;
+      var attr = this.toMathMLattributes();
       if (tag === "mspace") {
         return space + "<" + tag + attr + " />";
       }
-      var data = [],
-        SPACE = this.isToken ? "" : space + (inferred ? "" : "  ");
+      var data = [];
+      var SPACE = this.isToken ? "" : space + (inferred ? "" : "  ");
       for (var i = 0, m = this.data.length; i < m; i++) {
         if (this.data[i]) {
           data.push(this.data[i].toMathML(SPACE));
@@ -6192,9 +6212,9 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js", function() {
 
     toMathMLattributes: function() {
       var defaults = this.type === "mstyle" ? MML.math.prototype.defaults : this.defaults;
-      var names = this.attrNames || MML.copyAttributeNames,
-        skip = MML.skipAttributes,
-        copy = MML.copyAttributes;
+      var names = this.attrNames || MML.copyAttributeNames;
+      var skip = MML.skipAttributes;
+      var copy = MML.copyAttributes;
       var attr = [];
 
       if (this.type === "math" && (!this.attr || !("xmlns" in this.attr))) {
@@ -6313,10 +6333,10 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js", function() {
         annotation = MathJax.InputJax[jax.inputJax].annotationEncoding;
       }
       var nested = this.data[0] && this.data[0].data.length > 1;
-      var tag = this.type,
-        attr = this.toMathMLattributes();
-      var data = [],
-        SPACE = space + (annotation ? "  " + (nested ? "  " : "") : "") + "  ";
+      var tag = this.type;
+      var attr = this.toMathMLattributes();
+      var data = [];
+      var SPACE = space + (annotation ? "  " + (nested ? "  " : "") : "") + "  ";
       for (var i = 0, m = this.data.length; i < m; i++) {
         if (this.data[i]) {
           data.push(this.data[i].toMathML(SPACE));
@@ -8176,6 +8196,14 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/toMathML.js");
         variant = this.FONTDATA.VARIANT[MML.VARIANT.NORMAL];
       }
       var txtmatch = /[\w\d\s=+%,.:;'"_~…∞∂εα-φ±-]+/.test(text);
+      console.log("HandleVariant: ", {
+        variant,
+        italic: variant.italic,
+        scale,
+        text,
+        txtmatch,
+        fullTxtMatch: /[^\w\d\s=+%,.:;'"_~…∞∂εα-φ±-]+$/.test(text)
+      });
       if (variant.forceFamily || txtmatch) {
         text = BBOX.TEXT(scale, text, variant.font);
         if (variant.h != null) {
@@ -12795,8 +12823,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/fast-preview.js");
     //  all the jax.
     //
     RemoveAssistiveMathML: function(node) {
-      var jax = HUB.getAllJax(node),
-        frame;
+      var jax = HUB.getAllJax(node);
+      var frame;
       for (var i = 0, m = jax.length; i < m; i++) {
         frame = document.getElementById(jax[i].inputID + "-Frame");
         if (frame && frame.getAttribute("data-mathml")) {
@@ -12817,11 +12845,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/fast-preview.js");
     //  When all the jax are processed, call the callback.
     //
     HandleMML: function(state) {
-      var m = state.jax.length,
-        jax,
-        mml,
-        frame,
-        span;
+      var m = state.jax.length;
+      var jax, mml, frame, span;
       while (state.i < m) {
         jax = state.jax[state.i];
         frame = document.getElementById(jax.inputID + "-Frame");

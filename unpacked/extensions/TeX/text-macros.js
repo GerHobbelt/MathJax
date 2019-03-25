@@ -49,7 +49,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
     //  Correctly skip newline as well as comment
     //
     Comment: function (c) {
-      while (this.i < this.string.length && this.string.charAt(this.i) != "\n") {this.i++}
+      while (this.i < this.string.length && this.string.charAt(this.i) != "\n") {
+        this.i++;
+      }
       this.i++;
     },
 
@@ -58,9 +60,14 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
     //
     GetCS: function () {
       var CS = this.string.slice(this.i).match(/^([a-z]+|.) ?/i);
-      if (CS) {this.i += CS[0].length; return CS[1]} else {this.i++; return " "}
+      if (CS) {
+        this.i += CS[0].length;
+        return CS[1];
+      } else {
+        this.i++;
+        return " ";
+      }
     }
-
   });
 
   //
@@ -233,7 +240,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
     //    Run the macro (with arguments if given)
     //
     ControlSequence: function (c) {
-      var cs = this.GetCS(), name = c + cs, cmd;
+      var cs = this.GetCS();
+      var name = c + cs;
+      var cmd;
       if (this.textMacros.hasOwnProperty(cs)) {
         cmd = this.textMacros[cs];
       } else {
@@ -242,7 +251,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
           this.Error(["UndefinedControlSequence","Undefined control sequence %1",name]);
         }
         if ((!(cmd instanceof Array) || cmd[0] !== 'Macro') &&
-             !this.useMathMacros.hasOwnProperty(cs)) {
+             !this.useMathMacros.hasOwnProperty(cs)
+        ) {
           this.Error(["MathMacro","'%1' is only supported in math mode",name]);
         }
       }
@@ -273,7 +283,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
     //
     Math: function (open) {
       this.SaveText();
-      var i = this.i, j, c;
+      var i = this.i;
+      var j, c;
       var braces = 0;
       while ((c = this.GetNext())) {
         j = this.i++;
@@ -344,7 +355,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
         this.text += "\u201C";
         this.i++;
       } else {
-        this.text += "\u2018"
+        this.text += "\u2018";
       }
     },
     CloseQuote: function (c) {
@@ -352,7 +363,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
         this.text += "\u201D";
         this.i++;
       } else {
-        this.text += "\u2019"
+        this.text += "\u2019";
       }
     },
 

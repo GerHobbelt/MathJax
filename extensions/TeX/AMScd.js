@@ -129,8 +129,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
           //
           mml = MML.mo(arrow).With(hdef);
           if (!a) {
+            // minsize needs work
             a = "\\kern " + top.minw;
-          } // minsize needs work
+          }
           if (a || b) {
             var pad = { width: "+11mu", lspace: "6mu" };
             mml = MML.munderover(this.mmlToken(mml));

@@ -41,8 +41,8 @@
   if (!PATH.a11y) PATH.a11y = HUB.config.root + "/extensions/a11y";
 
   var Accessibility = EXTENSIONS["accessibility-menu"] = {
-    version: '1.5.0',
-    prefix: '', //'Accessibility-',
+    version: "1.5.0",
+    prefix: "", //'Accessibility-',
     defaults: {},
     modules: [],
     MakeOption: function(name) {
@@ -55,7 +55,7 @@
       var keys = KEYS(Accessibility.defaults);
       for (var i = 0, key; ((key = keys[i])); i++) {
         var option = Accessibility.MakeOption(key);
-        if (typeof(SETTINGS[option]) === 'undefined') {
+        if (typeof SETTINGS[option] === "undefined") {
           SETTINGS[option] = Accessibility.defaults[key];
         }
       }
@@ -64,7 +64,7 @@
     AddMenu: function() {
       var items = Array(this.modules.length);
       for (var i = 0, module; ((module = this.modules[i])); i++) items[i] = module.placeHolder;
-      var menu = MENU.FindId('Accessibility');
+      var menu = MENU.FindId("Accessibility");
       if (menu) {
         items.unshift(ITEM.RULE());
         menu.submenu.items.push.apply(menu.submenu.items,items);
@@ -78,7 +78,7 @@
         }
         items.unshift("Accessibility");
         menu = ITEM.SUBMENU.apply(ITEM.SUBMENU,items);
-        var locale = MENU.IndexOfId('Locale');
+        var locale = MENU.IndexOfId("Locale");
         if (locale) {
           MENU.items.splice(locale,0,menu);
         } else {
@@ -106,15 +106,15 @@
   };
 
   var ModuleLoader = MathJax.Extension.ModuleLoader = MathJax.Object.Subclass({
-    option: '',
-    name: ['',''],
-    module: '',
+    option: "",
+    name: ["", ""],
+    module: "",
     placeHolder: null,
     submenu: false,
     extension: null,
     Init: function(option, name, module, extension, submenu) {
       this.option = option;
-      this.name = [name.replace(/ /g,''),name];
+      this.name = [name.replace(/ /g, ""), name];
       this.module = module;
       this.extension = extension;
       this.submenu = (submenu || false);

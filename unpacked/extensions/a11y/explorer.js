@@ -61,8 +61,8 @@ MathJax.Hub.Register.StartupHook('Sre Ready', function() {
     addDefaults: function() {
       var defaults = MathJax.Hub.CombineConfig('explorer', Assistive.defaults);
       var keys = Object.keys(defaults);
-      for (var i = 0, key; (key = keys[i]); i++) {
-        if (typeof(SETTINGS[Assistive.prefix + key]) === 'undefined') {
+      for (var i = 0, key; ((key = keys[i])); i++) {
+        if (typeof SETTINGS[Assistive.prefix + key] === "undefined") {
           Assistive.addMenuOption(key, defaults[key]);
         }
       }
@@ -162,7 +162,7 @@ MathJax.Hub.Register.StartupHook('Sre Ready', function() {
         if (menu) {
           menu = menu.submenu;
           var items = menu.items;
-          for (var i = 2, item; (item = items[i]); i++) item.disabled = state;
+          for (var i = 2, item; ((item = items[i])); i++) item.disabled = state;
           if (!state && menu.FindId('SpeechOutput') && !SETTINGS[Assistive.prefix + 'speech']) {
             menu.FindId('Subtitles').disabled = true;
           }
@@ -470,8 +470,7 @@ MathJax.Hub.Register.StartupHook('Sre Ready', function() {
       setTimeout(function() {
         var speechGenerator = new constructor();
         var math = document.getElementById(id);
-        var dummy = new sre.DummyWalker(
-            math, speechGenerator, Explorer.highlighter, mathml);
+        var dummy = new sre.DummyWalker(math, speechGenerator, Explorer.highlighter, mathml);
         var speech = dummy.speech();
         if (speech) {
           onSpeech(math, speech);
@@ -589,7 +588,7 @@ MathJax.Hub.Register.StartupHook('Sre Ready', function() {
     },
     FlameEnriched: function() {
       Explorer.UnFlame();
-      for (var i = 0, all = MathJax.Hub.getAllJax(), jax; (jax = all[i]); i++) {
+      for (var i = 0, all = MathJax.Hub.getAllJax(), jax; ((jax = all[i])); i++) {
         Explorer.Flame(jax.SourceElement().previousSibling);
       }
     },
@@ -607,8 +606,9 @@ MathJax.Hub.Register.StartupHook('Sre Ready', function() {
       var constructor = Assistive.getOption('walker') ?
             Explorer.Walkers[MathJax.Hub.config.explorer.walker] :
             Explorer.Walkers['none'];
-      var speechGenerator = speechOn ? new sre.DirectSpeechGenerator() :
-          new sre.DummySpeechGenerator();
+      var speechGenerator = (speechOn ? 
+          new sre.DirectSpeechGenerator() :
+          new sre.DummySpeechGenerator());
       Explorer.GetHighlighter(.2);
       Explorer.walker = new constructor(
           math, speechGenerator, Explorer.highlighter, jax.root.toMathML());
@@ -625,7 +625,9 @@ MathJax.Hub.Register.StartupHook('Sre Ready', function() {
       Explorer.Highlight();
       // A fix for Edge.
       if (Explorer.ignoreFocusOut) {
-        setTimeout(function() {Explorer.ignoreFocusOut = false;}, 500);
+        setTimeout(function() {
+          Explorer.ignoreFocusOut = false;
+        }, 500);
       }
     },
     //
@@ -681,7 +683,7 @@ MathJax.Hub.Register.StartupHook('Sre Ready', function() {
     //
     RemoveSpeech: function() {
       Assistive.setSpeechOption();
-      for (var i = 0, all = MathJax.Hub.getAllJax(), jax; (jax = all[i]); i++) {
+      for (var i = 0, all = MathJax.Hub.getAllJax(), jax; ((jax = all[i])); i++) {
         var math = document.getElementById(jax.inputID + '-Frame');
         if (math) {
           math.removeAttribute('hasspeech');
@@ -693,7 +695,7 @@ MathJax.Hub.Register.StartupHook('Sre Ready', function() {
     // Regenerates speech.
     //
     Regenerate: function() {
-      for (var i = 0, all = MathJax.Hub.getAllJax(), jax; (jax = all[i]); i++) {
+      for (var i = 0, all = MathJax.Hub.getAllJax(), jax; ((jax = all[i])); i++) {
         var math = document.getElementById(jax.inputID + '-Frame');
         if (math) {
           math.removeAttribute('hasspeech');

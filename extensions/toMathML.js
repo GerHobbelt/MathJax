@@ -55,13 +55,13 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js", function() {
       if (space == null) {
         space = "";
       }
-      var tag = this.type,
-        attr = this.toMathMLattributes();
+      var tag = this.type;
+      var attr = this.toMathMLattributes();
       if (tag === "mspace") {
         return space + "<" + tag + attr + " />";
       }
-      var data = [],
-        SPACE = this.isToken ? "" : space + (inferred ? "" : "  ");
+      var data = [];
+      var SPACE = this.isToken ? "" : space + (inferred ? "" : "  ");
       for (var i = 0, m = this.data.length; i < m; i++) {
         if (this.data[i]) {
           data.push(this.data[i].toMathML(SPACE));
@@ -83,9 +83,9 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js", function() {
 
     toMathMLattributes: function() {
       var defaults = this.type === "mstyle" ? MML.math.prototype.defaults : this.defaults;
-      var names = this.attrNames || MML.copyAttributeNames,
-        skip = MML.skipAttributes,
-        copy = MML.copyAttributes;
+      var names = this.attrNames || MML.copyAttributeNames;
+      var skip = MML.skipAttributes;
+      var copy = MML.copyAttributes;
       var attr = [];
 
       if (this.type === "math" && (!this.attr || !("xmlns" in this.attr))) {
@@ -204,10 +204,10 @@ MathJax.Hub.Register.LoadHook("[MathJax]/jax/element/mml/jax.js", function() {
         annotation = MathJax.InputJax[jax.inputJax].annotationEncoding;
       }
       var nested = this.data[0] && this.data[0].data.length > 1;
-      var tag = this.type,
-        attr = this.toMathMLattributes();
-      var data = [],
-        SPACE = space + (annotation ? "  " + (nested ? "  " : "") : "") + "  ";
+      var tag = this.type;
+      var attr = this.toMathMLattributes();
+      var data = [];
+      var SPACE = space + (annotation ? "  " + (nested ? "  " : "") : "") + "  ";
       for (var i = 0, m = this.data.length; i < m; i++) {
         if (this.data[i]) {
           data.push(this.data[i].toMathML(SPACE));

@@ -60,7 +60,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
 
   MathJax.InputJax.TeX.Parse.Augment({
     csUndefined: function (name) {
-      if (CONFIG.disabled) {return UNDEFINED.apply(this,arguments)}
+      if (CONFIG.disabled) {
+        return UNDEFINED.apply(this, arguments);
+      }
       MathJax.Hub.signal.Post(["TeX Jax - undefined control sequence",name]);
       this.Push(MML.mtext(name).With(CONFIG.attributes));
     }

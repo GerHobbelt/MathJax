@@ -48,8 +48,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       
   var COLS = function (W) {
     var WW = [];
-    for (var i = 0, m = W.length; i < m; i++) 
-      {WW[i] = TEX.Parse.prototype.Em(W[i])}
+    for (var i = 0, m = W.length; i < m; i++) {
+      WW[i] = TEX.Parse.prototype.Em(W[i]);
+    }
     return WW.join(" ");
   };
   
@@ -183,11 +184,15 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
                    name,global.notags]
         );
       }
-      if (global.tag) {TEX.Error(["MultipleCommand","Multiple %1",name])}
+      if (global.tag) {
+        TEX.Error(["MultipleCommand", "Multiple %1", name]);
+      }
       global.tag = MML.mtd.apply(MML,this.InternalMath(arg)).With({id:CONFIG.formatID(tag)});
     },
     HandleNoTag: function (name) {
-      if (this.stack.global.tag) {delete this.stack.global.tag}
+      if (this.stack.global.tag) {
+        delete this.stack.global.tag;
+      }
       this.stack.global.notag = true;  // prevent auto-tagging
     },
     
@@ -195,13 +200,17 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
      *  Record a label name for a tag
      */
     HandleLabel: function (name) {
-      var global = this.stack.global, label = this.GetArgument(name);
+      var global = this.stack.global;
+      var label = this.GetArgument(name);
       if (label === "") return;
       if (!AMS.refUpdate) {
-        if (global.label) {TEX.Error(["MultipleCommand","Multiple %1",name])}
+        if (global.label) {
+          TEX.Error(["MultipleCommand", "Multiple %1", name]);
+        }
         global.label = label;
-        if (AMS.labels[label] || AMS.eqlabels[label])
-          {TEX.Error(["MultipleLabel","Label '%1' multiply defined",label])}
+        if (AMS.labels[label] || AMS.eqlabels[label]) {
+          TEX.Error(["MultipleLabel", "Label '%1' multiply defined", label]);
+        }
         AMS.eqlabels[label] = {tag:"???", id:""}; // will be replaced by tag value later
       }
     },
@@ -212,8 +221,14 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     HandleRef: function (name,eqref) {
       var label = this.GetArgument(name);
       var ref = AMS.labels[label] || AMS.eqlabels[label];
-      if (!ref) {ref = {tag:"???",id:""}; AMS.badref = !AMS.refUpdate}
-      var tag = ref.tag; if (eqref) {tag = CONFIG.formatTag(tag)}
+      if (!ref) {
+        ref = { tag: "???", id: "" };
+        AMS.badref = !AMS.refUpdate;
+      }
+      var tag = ref.tag;
+      if (eqref) {
+        tag = CONFIG.formatTag(tag);
+      }
       this.Push(MML.mrow.apply(MML,this.InternalMath(tag)).With({
         href:CONFIG.formatURL(ref.id,baseURL), 
         attr: CONFIG.outputLabels ? {"data-target": label} : {},
@@ -243,7 +258,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     },
     
     SkipLimits: function (name) {
-      var c = this.GetNext(), i = this.i;
+      var c = this.GetNext();
+      var i = this.i;
       if (c === "\\" && ++this.i && this.GetCS() !== "limits") this.i = i;
     },
 
@@ -273,9 +289,12 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       var frac = MML.mfrac(TEX.Parse('\\strut\\textstyle{'+num+'}',this.stack.env).mml(),
                            TEX.Parse('\\strut\\textstyle{'+den+'}',this.stack.env).mml());
       lr = ({l:MML.ALIGN.LEFT, r:MML.ALIGN.RIGHT,"":""})[lr];
-      if (lr == null)
-        {TEX.Error(["IllegalAlign","Illegal alignment specified in %1",name])}
-      if (lr) {frac.numalign = frac.denomalign = lr}
+      if (lr == null) {
+        TEX.Error(["IllegalAlign", "Illegal alignment specified in %1", name]);
+      }
+      if (lr) {
+        frac.numalign = frac.denomalign = lr;
+      }
       this.Push(frac);
     },
     
@@ -294,11 +313,17 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       if (left || right) {frac = TEX.fixedFence(left,frac.With({texWithDelims:true}),right)}
       if (style !== "") {
         var STYLE = (["D","T","S","SS"])[style];
-        if (STYLE == null)
-          {TEX.Error(["BadMathStyleFor","Bad math style for %1",name])}
+        if (STYLE == null) {
+          TEX.Error(["BadMathStyleFor", "Bad math style for %1", name]);
+        }
         frac = MML.mstyle(frac);
-        if (STYLE === "D") {frac.displaystyle = true; frac.scriptlevel = 0}
-          else {frac.displaystyle = false; frac.scriptlevel = style - 1}
+        if (STYLE === "D") {
+          frac.displaystyle = true;
+          frac.scriptlevel = 0;
+        } else {
+          frac.displaystyle = false;
+          frac.scriptlevel = style - 1;
+        }
       }
       this.Push(frac);
     },
@@ -307,12 +332,14 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
      *  Implements multline environment (mostly handled through STACKITEM below)
      */
     Multline: function (begin,numbered) {
-      this.Push(begin); this.checkEqnEnv();
+      this.Push(begin);
+      this.checkEqnEnv();
       return STACKITEM.multline(numbered,this.stack).With({
         arraydef: {
           displaystyle: true,
           rowspacing: ".5em",
-          width: TEX.config.MultLineWidth, columnwidth:"100%",
+          width: TEX.config.MultLineWidth,
+          columnwidth: "100%",
           side: TEX.config.TagSide,
           minlabelspacing: TEX.config.TagIndent
         }
@@ -322,16 +349,25 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     /*
      *  Handle AMS aligned environments
      */
-    AMSarray: function (begin,numbered,taggable,align,spacing) {
-      this.Push(begin); if (taggable) {this.checkEqnEnv()}
-      align = align.replace(/[^clr]/g,'').split('').join(' ');
-      align = align.replace(/l/g,'left').replace(/r/g,'right').replace(/c/g,'center');
-      return STACKITEM.AMSarray(begin.name,numbered,taggable,this.stack).With({
+    AMSarray: function(begin, numbered, taggable, align, spacing) {
+      this.Push(begin);
+      if (taggable) {
+        this.checkEqnEnv();
+      }
+      align = align
+        .replace(/[^clr]/g, "")
+        .split("")
+        .join(" ");
+      align = align
+        .replace(/l/g, "left")
+        .replace(/r/g, "right")
+        .replace(/c/g, "center");
+      return STACKITEM.AMSarray(begin.name, numbered, taggable, this.stack).With({
         arraydef: {
           displaystyle: true,
           rowspacing: ".5em",
           columnalign: align,
-          columnspacing: (spacing||"1em"),
+          columnspacing: (spacing || "1em"),
           //rowspacing: "3pt",
           side: TEX.config.TagSide,
           minlabelspacing: TEX.config.TagIndent
@@ -348,16 +384,27 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
      *  Handle alignat environments
      */
     AlignAt: function (begin,numbered,taggable) {
-      var n, valign, align = "", spacing = [];
-      if (!taggable) {valign = this.GetBrackets("\\begin{"+begin.name+"}")}
+      var n;
+      var valign;
+      var align = "";
+      var spacing = [];
+      if (!taggable) {
+        valign = this.GetBrackets("\\begin{" + begin.name + "}");
+      }
       n = this.GetArgument("\\begin{"+begin.name+"}");
       if (n.match(/[^0-9]/)) {
         TEX.Error(["PositiveIntegerArg","Argument to %1 must me a positive integer",
                   "\\begin{"+begin.name+"}"]);
       }
-      while (n > 0) {align += "rl"; spacing.push("0em 0em"); n--}
+      while (n > 0) {
+        align += "rl";
+        spacing.push("0em 0em");
+        n--;
+      }
       spacing = spacing.join(" ");
-      if (taggable) {return this.AMSarray(begin,numbered,taggable,align,spacing)}
+      if (taggable) {
+        return this.AMSarray(begin, numbered, taggable, align, spacing);
+      }
       var array = this.AMSarray(begin,numbered,taggable,align,spacing);
       return this.setArrayAlign(array,valign);
     },
@@ -379,8 +426,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
      *  Check for bad nesting of equation environments
      */
     checkEqnEnv: function () {
-      if (this.stack.global.eqnenv)
-        {TEX.Error(["ErroneousNestingEq","Erroneous nesting of equation structures"])}
+      if (this.stack.global.eqnenv) {
+        TEX.Error(["ErroneousNestingEq", "Erroneous nesting of equation structures"]);
+      }
       this.stack.global.eqnenv = true;
     },
     
@@ -390,10 +438,15 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     MultiIntegral: function (name,integral) {
       var next = this.GetNext();
       if (next === "\\") {
-        var i = this.i; next = this.GetArgument(name); this.i = i;
+        var i = this.i;
+        next = this.GetArgument(name);
+        this.i = i;
         if (next === "\\limits") {
-          if (name === "\\idotsint") {integral = "\\!\\!\\mathop{\\,\\,"+integral+"}"}
-                           else {integral = "\\!\\!\\!\\mathop{\\,\\,\\,"+integral+"}"}
+          if (name === "\\idotsint") {
+            integral = "\\!\\!\\mathop{\\,\\," + integral + "}";
+          } else {
+            integral = "\\!\\!\\!\\mathop{\\,\\,\\," + integral + "}";
+          }
         }
       }
       this.string = integral + " " + this.string.slice(this.i);
@@ -408,7 +461,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       var bot = this.GetBrackets(name),
           top = this.ParseArg(name);
       var arrow = MML.mo(MML.chars(String.fromCharCode(chr))).With({
-        stretchy: true, texClass: MML.TEXCLASS.REL
+        stretchy: true,
+        texClass: MML.TEXCLASS.REL
       });
       var mml = MML.munderover(arrow);
       mml.SetData(mml.over,MML.mpadded(top).With(def).With({voffset:".15em"}));
@@ -434,7 +488,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
      */
     GetStar: function () {
       var star = (this.GetNext() === "*");
-      if (star) {this.i++}
+      if (star) {
+        this.i++;
+      }
       return star;
     }
     
@@ -470,7 +526,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
           tag.attrNames.push("data-autonumber");
       }
       if (global.label) {
-        if (CONFIG.useLabelIds) {tag.id = CONFIG.formatID(global.label)}
+        if (CONFIG.useLabelIds) {
+          tag.id = CONFIG.formatID(global.label);
+        }
         AMS.eqlabels[global.label] = {tag:global.tagID, id:tag.id};
         if (CONFIG.outputLabels) {
           tag.attr["data-label"] = global.label;
@@ -482,7 +540,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       //  a previous tag) and find a unique related one. (#240)
       //
       if (document.getElementById(tag.id) || AMS.IDs[tag.id] || AMS.eqIDs[tag.id]) {
-        var i = 0, ID;
+        var i = 0;
+        var ID;
         do {
           i++; 
           ID = tag.id+"_"+i;
@@ -498,7 +557,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     },
     clearTag: function () {
       var global = this.global;
-      delete global.tag; delete global.tagID; delete global.label;
+      delete global.tag;
+      delete global.tagID;
+      delete global.label;
     },
 
     /*
@@ -530,9 +591,13 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       stack.global.tagged = !numbered && !stack.global.forcetag; // prevent automatic tagging in starred environments
     },
     EndEntry: function () {
-      if (this.table.length) {this.fixInitialMO(this.data)}
-      var mtd = MML.mtd.apply(MML,this.data);
-      if (this.data.shove) {mtd.columnalign = this.data.shove}
+      if (this.table.length) {
+        this.fixInitialMO(this.data);
+      }
+      var mtd = MML.mtd.apply(MML, this.data);
+      if (this.data.shove) {
+        mtd.columnalign = this.data.shove;
+      }
       this.row.push(mtd);
       this.data = [];
     },
@@ -542,15 +607,24 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
                    "The rows within the %1 environment must have exactly one column",
                    "multline"]);
       }
-      this.table.push(this.row); this.row = [];
+      this.table.push(this.row);
+      this.row = [];
     },
     EndTable: function () {
       this.SUPER(arguments).EndTable.call(this);
       if (this.table.length) {
-        var m = this.table.length-1, i, label = -1;
-        if (!this.table[0][0].columnalign) {this.table[0][0].columnalign = MML.ALIGN.LEFT}
-        if (!this.table[m][0].columnalign) {this.table[m][0].columnalign = MML.ALIGN.RIGHT}
-        if (!this.global.tag && this.numbered) {this.autoTag()}
+        var m = this.table.length - 1;
+        var i;
+        var label = -1;
+        if (!this.table[0][0].columnalign) {
+          this.table[0][0].columnalign = MML.ALIGN.LEFT;
+        }
+        if (!this.table[m][0].columnalign) {
+          this.table[m][0].columnalign = MML.ALIGN.RIGHT;
+        }
+        if (!this.global.tag && this.numbered) {
+          this.autoTag();
+        }
         if (this.global.tag && !this.global.notags) {
           label = (this.arraydef.side === "left" ? 0 : this.table.length - 1);
           this.table[label] = [this.getTag()].concat(this.table[label]);
@@ -560,7 +634,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
           this.table[i] = mtr.apply(MML,this.table[i]);
         }
       }
-      this.global.notag  = this.save.notag;
+      this.global.notag = this.save.notag;
     }
   });
   
@@ -578,19 +652,28 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       stack.global.tagged = !numbered && !stack.global.forcetag; // prevent automatic tagging in starred environments
     },
     EndEntry: function () {
-      if (this.row.length % 2 === 1) {this.fixInitialMO(this.data)}
+      if (this.row.length % 2 === 1) {
+        this.fixInitialMO(this.data);
+      }
       this.row.push(MML.mtd.apply(MML,this.data));
       this.data = [];
     },
     EndRow: function () {
       var mtr = MML.mtr;
-      if (!this.global.tag && this.numbered) {this.autoTag()}
+      if (!this.global.tag && this.numbered) {
+        this.autoTag();
+      }
       if (this.global.tag && !this.global.notags) {
         this.row = [this.getTag()].concat(this.row);
         mtr = MML.mlabeledtr;
-      } else {this.clearTag()}
-      if (this.numbered) {delete this.global.notag}
-      this.table.push(mtr.apply(MML,this.row)); this.row = [];
+      } else {
+        this.clearTag();
+      }
+      if (this.numbered) {
+        delete this.global.notag;
+      }
+      this.table.push(mtr.apply(MML, this.row));
+      this.row = [];
     },
     EndTable: function () {
       this.SUPER(arguments).EndTable.call(this);
@@ -606,11 +689,15 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     oldCheckItem: STACKITEM.start.prototype.checkItem,
     checkItem: function (item) {
       if (item.type === "stop") {
-        var mml = this.mmlData(), global = this.global;
+        var mml = this.mmlData();
+        var global = this.global;
         if (AMS.display && !global.tag && !global.tagged && !global.isInner &&
-            (CONFIG.autoNumber === "all" || global.forcetag)) {this.autoTag()}
+            (CONFIG.autoNumber === "all" || global.forcetag)
+        ) {
+          this.autoTag();
+        }
         if (global.tag) {
-          var row = [this.getTag(),MML.mtd(mml)];
+          var row = [this.getTag(), MML.mtd(mml)];
           var def = {
             side: TEX.config.TagSide,
             minlabelspacing: TEX.config.TagIndent,
@@ -635,14 +722,19 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     AMS.eqlabels = {};
     AMS.eqIDs = {}; 
     AMS.badref = false;
-    if (AMS.refUpdate) {AMS.number = data.script.MathJax.startNumber}
+    if (AMS.refUpdate) {
+      AMS.number = data.script.MathJax.startNumber;
+    }
   });
   TEX.postfilterHooks.Add(function (data) {
     data.script.MathJax.startNumber = AMS.startNumber;
     AMS.startNumber = AMS.number;                // equation numbers for next equation
     MathJax.Hub.Insert(AMS.IDs,AMS.eqIDs);       // save IDs from this equation
     MathJax.Hub.Insert(AMS.labels,AMS.eqlabels); // save labels from this equation
-    if (AMS.badref && !data.math.texError) {AMS.refs.push(data.script)}  // reprocess later
+    if (AMS.badref && !data.math.texError) {
+      // reprocess later
+      AMS.refs.push(data.script);
+    } 
   },100);
   
   MathJax.Hub.Register.MessageHook("Begin Math Input",function () {
@@ -652,12 +744,16 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
   MathJax.Hub.Register.MessageHook("End Math Input",function (message) {
     if (AMS.refs.length) {
       AMS.refUpdate = true;
-      for (var i = 0, m = AMS.refs.length; i < m; i++)
-        {AMS.refs[i].MathJax.state = MathJax.ElementJax.STATE.UPDATE}
+      for (var i = 0, m = AMS.refs.length; i < m; i++) {
+        AMS.refs[i].MathJax.state = MathJax.ElementJax.STATE.UPDATE;
+      }
       return MathJax.Hub.processInput({
-        scripts:AMS.refs,
+        scripts: AMS.refs,
         start: new Date().getTime(),
-        i:0, j:0, jax:{}, jaxIDs:[]
+        i: 0,
+        j: 0,
+        jax: {},
+        jaxIDs: []
       });
     }
     return null;
@@ -672,7 +768,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       AMS.labels = {};
       AMS.IDs = {};
     }
-  }
+  };
 
   /******************************************************************************/
 

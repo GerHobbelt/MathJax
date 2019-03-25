@@ -54,16 +54,16 @@
   var CONFIG = {
     hover: 500, // time required to be considered a hover
     frame: {
-      x: 3.5,
-      y: 5, // frame padding and
+      x: 3.5, // frame padding
+      y: 5, // frame padding
       bwidth: 1, // frame border width (in pixels)
       bcolor: "#A6D", // frame border color
       hwidth: "15px", // haze width
       hcolor: "#83A" // haze color
     },
     button: {
-      x: -6,
-      y: -3, // menu button offsets
+      x: -6, // menu button offset
+      y: -3, // menu button offset
       wx: -2 // button offset for full-width equations
     },
     fadeinInc: 0.2, // increment for fade-in
@@ -225,8 +225,8 @@
       //
       //  Check if we are showing menus
       //
-      var JAX = OUTPUT[math.jaxID],
-        jax = JAX.getJaxFromMath(math);
+      var JAX = OUTPUT[math.jaxID];
+      var jax = JAX.getJaxFromMath(math);
       var show = (JAX.config.showMathMenu != null ? JAX : HUB).config.showMathMenu;
       if (!show || (SETTINGS.context !== "MathJax" && !force)) return;
 
@@ -353,9 +353,9 @@
 
     getBBox: function(span) {
       span.appendChild(ME.topImg);
-      var h = ME.topImg.offsetTop,
-        d = span.offsetHeight - h,
-        w = span.offsetWidth;
+      var h = ME.topImg.offsetTop;
+      var d = span.offsetHeight - h;
+      var w = span.offsetWidth;
       span.removeChild(ME.topImg);
       return { w: w, h: h, d: d };
     }
@@ -396,8 +396,8 @@
     //
     Mouseout: function(event, math) {
       if (SETTINGS.discoverable || SETTINGS.zoom === "Hover") {
-        var from = event.fromElement || event.relatedTarget,
-          to = event.toElement || event.target;
+        var from = event.fromElement || event.relatedTarget;
+        var to = event.toElement || event.target;
         if (
           from &&
           to &&
@@ -453,13 +453,16 @@
       //
       //  Get the hover data
       //
-      var JAX = OUTPUT[jax.outputJax],
-        span = JAX.getHoverSpan(jax, math),
-        bbox = JAX.getHoverBBox(jax, span, math),
-        show = (JAX.config.showMathMenu != null ? JAX : HUB).config.showMathMenu;
-      var dx = CONFIG.frame.x,
-        dy = CONFIG.frame.y,
-        dd = CONFIG.frame.bwidth; // frame size
+      var JAX = OUTPUT[jax.outputJax];
+      var span = JAX.getHoverSpan(jax, math);
+      var bbox = JAX.getHoverBBox(jax, span, math);
+      var show = (JAX.config.showMathMenu != null ? JAX : HUB).config.showMathMenu;
+
+      // frame size
+      var dx = CONFIG.frame.x;
+      var dy = CONFIG.frame.y;
+      var dd = CONFIG.frame.bwidth;
+
       if (ME.msieBorderWidthBug) {
         dd = 0;
       }
@@ -537,8 +540,9 @@
         span.parentNode.insertBefore(button, span);
       }
       if (span.style) {
+        // so math is on top of hover frame
         span.style.position = "relative";
-      } // so math is on top of hover frame
+      }
       //
       //  Start the hover fade-in
       //
@@ -727,8 +731,9 @@
       ME.msieEventBug = browser.isIE9; // must get event from window even though event is passed
       ME.msieAlignBug = !isIE8 || mode < 8; // inline-block spans don't rest on baseline
       if (mode < 9) {
+        // IE < 9 has wrong event.button values
         EVENT.LEFTBUTTON = 1;
-      } // IE < 9 has wrong event.button values
+      }
     },
     Safari: function(browser) {
       ME.safariContextMenuBug = true; // selection can be started by contextmenu event

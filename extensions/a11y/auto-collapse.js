@@ -203,9 +203,9 @@
     //  the equation to be expanded or collapsed further.
     //
     collapseActions: function(SRE, state) {
-      var w = SRE.width,
-        m = w,
-        M = 1000000;
+      var w = SRE.width;
+      var m = w;
+      var M = 1000000;
       for (var j = SRE.action.length - 1; j >= 0; j--) {
         var action = SRE.action[j],
           selection = action.selection;
@@ -250,10 +250,10 @@
     //  and recording the width of the complete equation.
     //
     computeActionWidths: function(jax) {
-      var SRE = jax.root.SRE,
-        actions = SRE.action,
-        j,
-        state = {};
+      var SRE = jax.root.SRE;
+      var actions = SRE.action;
+      var j;
+      var state = {};
       SRE.width = jax.sreGetRootWidth(state);
       for (j = actions.length - 1; j >= 0; j--) actions[j].selection = 2;
       for (j = actions.length - 1; j >= 0; j--) {
@@ -273,14 +273,10 @@
     //
     GetContainerWidths: function(element) {
       var JAX = HUB.getAllJax(element);
-      var i,
-        m,
-        script,
-        span = MathJax.HTML.Element("span", { style: { display: "block" } });
-      var math = [],
-        jax,
-        root,
-        SRE;
+      var i, m, script;
+      var span = MathJax.HTML.Element("span", { style: { display: "block" } });
+      var math = [];
+      var jax, root, SRE;
       for (i = 0, m = JAX.length; i < m; i++) {
         jax = JAX[i];
         root = jax.root;
@@ -298,12 +294,14 @@
         }
       }
       for (i = 0, m = math.length; i < m; i++) {
-        (jax = math[i][0]), (script = math[i][1]);
+        jax = math[i][0];
+        script = math[i][1];
         if (script.previousSibling.offsetWidth)
           jax.root.SRE.cwidth = script.previousSibling.offsetWidth * jax.root.SRE.em;
       }
       for (i = 0, m = math.length; i < m; i++) {
-        (jax = math[i][0]), (script = math[i][1]);
+        jax = math[i][0];
+        script = math[i][1];
         script.parentNode.removeChild(script.previousSibling);
         script.previousSibling.style.display = "";
       }
@@ -374,8 +372,8 @@
           var ITEM = MathJax.Menu.ITEM,
             MENU = MathJax.Menu.menu;
           var menu = ITEM.CHECKBOX(["AutoCollapse", "Auto Collapse"], "autocollapse", { action: Switch });
-          var submenu = (MENU.FindId("Accessibility") || {}).submenu,
-            index;
+          var submenu = (MENU.FindId("Accessibility") || {}).submenu;
+          var index;
           if (submenu) {
             index = submenu.IndexOfId("AutoCollapse");
             if (index !== null) {
@@ -480,12 +478,13 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready", function() {
       return jax.root.SVGdata.w / 1000;
     },
     sreGetActionWidth: function(jax, state, action) {
+      var error;
       this.mathDiv = state.span;
       state.span.appendChild(this.textSVG);
       try {
         var svg = jax.root.data[0].toSVG();
       } catch (err) {
-        var error = err;
+        error = err;
       }
       state.span.removeChild(this.textSVG);
       if (error) throw error; // can happen when a restart is needed
@@ -510,12 +509,13 @@ MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready", function() {
       return jax.root.CHTML.w / jax.CHTML.scale;
     },
     sreGetActionWidth: function(jax, state, action) {
+      var error;
       state.span.parentNode.replaceChild(state.tmp, state.span);
       MathJax.OutputJax.CommonHTML.CHTMLnode = state.tmp;
       try {
         jax.root.data[0].toCommonHTML(state.tmp);
       } catch (err) {
-        var error = err;
+        error = err;
       }
       state.tmp.parentNode.replaceChild(state.span, state.tmp);
       if (error) throw error; // can happen when a restart is needed

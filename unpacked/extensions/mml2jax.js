@@ -43,12 +43,18 @@ MathJax.Extension.mml2jax = {
   PreProcess: function (element) {
     if (!this.configured) {
       this.config = MathJax.Hub.CombineConfig("mml2jax",this.config);
-      if (this.config.Augment) {MathJax.Hub.Insert(this,this.config.Augment)}
+      if (this.config.Augment) {
+        MathJax.Hub.Insert(this, this.config.Augment);
+      }
       this.InitBrowser();
       this.configured = true;
     }
-    if (typeof(element) === "string") {element = document.getElementById(element)}
-    if (!element) {element = document.body}
+    if (typeof element === "string") {
+      element = document.getElementById(element);
+    }
+    if (!element) {
+      element = document.body;
+    }
     var mathArray = [];
     //
     //  Handle all math tags with no namespaces
@@ -62,15 +68,16 @@ MathJax.Extension.mml2jax = {
     //  Handle math with namespaces in HTML
     //
     var i, m;
-    if (typeof(document.namespaces) !== "undefined") {
+    if (typeof document.namespaces !== "undefined") {
       //
       // IE namespaces are listed in document.namespaces
       //
       try {
         for (i = 0, m = document.namespaces.length; i < m; i++) {
           var ns = document.namespaces[i];
-          if (ns.urn === this.MMLnamespace)
-            {this.PushMathElements(mathArray,element,ns.name+":math")}
+          if (ns.urn === this.MMLnamespace) {
+            this.PushMathElements(mathArray, element, ns.name + ":math");
+          }
         }
       } catch (err) {}
     } else {
@@ -81,8 +88,9 @@ MathJax.Extension.mml2jax = {
       if (html) {
         for (i = 0, m = html.attributes.length; i < m; i++) {
           var attr = html.attributes[i];
-          if (attr.nodeName.substr(0,6) === "xmlns:" && attr.nodeValue === this.MMLnamespace)
-            {this.PushMathElements(mathArray,element,attr.nodeName.substr(6)+":math")}
+          if (attr.nodeName.substr(0, 6) === "xmlns:" && attr.nodeValue === this.MMLnamespace) {
+            this.PushMathElements(mathArray, element, attr.nodeName.substr(6) + ":math");
+          }
         }
       }
     }
@@ -90,7 +98,8 @@ MathJax.Extension.mml2jax = {
   },
   
   PushMathElements: function (array,element,name,namespace) {
-    var math, preview = MathJax.Hub.config.preRemoveClass;
+    var math;
+    var preview = MathJax.Hub.config.preRemoveClass;
     if (namespace) {
       if (!element.getElementsByTagNameNS) return;
       math = element.getElementsByTagNameNS(namespace,name);
@@ -105,15 +114,21 @@ MathJax.Extension.mml2jax = {
   },
   
   ProcessMathArray: function (math) {
-    var i, m = math.length;
+    var i;
+    var m = math.length;
     if (m) {
       if (this.MathTagBug) {
         for (i = 0; i < m; i++) {
-          if (math[i].nodeName === "MATH") {this.ProcessMathFlattened(math[i])}
-                                      else {this.ProcessMath(math[i])}
+          if (math[i].nodeName === "MATH") {
+            this.ProcessMathFlattened(math[i]);
+          } else {
+            this.ProcessMath(math[i]);
+          }
         }
       } else {
-        for (i = 0; i < m; i++) {this.ProcessMath(math[i])}
+        for (i = 0; i < m; i++) {
+          this.ProcessMath(math[i]);
+        }
       }
     }
   },
@@ -130,12 +145,16 @@ MathJax.Extension.mml2jax = {
         html = html.replace(/<\?import .*?>/i,"").replace(/<\?xml:namespace .*?\/>/i,"");
         html = html.replace(/&nbsp;/g,"&#xA0;");
       }
-      MathJax.HTML.setScript(script,html); parent.removeChild(math);
+      MathJax.HTML.setScript(script, html);
+      parent.removeChild(math);
     } else {
-      var span = MathJax.HTML.Element("span"); span.appendChild(math);
+      var span = MathJax.HTML.Element("span");
+      span.appendChild(math);
       MathJax.HTML.setScript(script,span.innerHTML);
     }
-    if (this.config.preview !== "none") {this.createPreview(math,script)}
+    if (this.config.preview !== "none") {
+      this.createPreview(math, script);
+    }
   },
   
   ProcessMathFlattened: function (math) {
@@ -144,15 +163,22 @@ MathJax.Extension.mml2jax = {
     var script = document.createElement("script");
     script.type = "math/mml";
     parent.insertBefore(script,math);
-    var mml = "", node, MATH = math;
+    var mml = "";
+    var node;
+    var MATH = math;
     while (math && math.nodeName !== "/MATH") {
-      node = math; math = math.nextSibling;
+      node = math;
+      math = math.nextSibling;
       mml += this.NodeHTML(node);
       node.parentNode.removeChild(node);
     }
-    if (math && math.nodeName === "/MATH") {math.parentNode.removeChild(math)}
+    if (math && math.nodeName === "/MATH") {
+      math.parentNode.removeChild(math);
+    }
     script.text = mml + "</math>";
-    if (this.config.preview !== "none") {this.createPreview(MATH,script)}
+    if (this.config.preview !== "none") {
+      this.createPreview(MATH, script);
+    }
   },
   
   NodeHTML: function (node) {
@@ -160,7 +186,7 @@ MathJax.Extension.mml2jax = {
     if (node.nodeName === "#text") {
       html = this.quoteHTML(node.nodeValue);
     } else if (node.nodeName === "#comment") {
-      html = "<!--" + node.nodeValue + "-->"
+      html = "<!--" + node.nodeValue + "-->";
     } else {
       // In IE, outerHTML doesn't properly quote attributes, so quote them by hand
       // In Opera, HTML special characters aren't quoted in attributes, so quote them
@@ -171,31 +197,41 @@ MathJax.Extension.mml2jax = {
           // Opera 11.5 beta turns xmlns into xmlns:xmlns, so put it back (*** check after 11.5 is out ***)
           html += " "+attribute.nodeName.toLowerCase().replace(/xmlns:xmlns/,"xmlns")+"=";
           var value = attribute.nodeValue; // IE < 8 doesn't properly set style by setAttributes
-          if (value == null && attribute.nodeName === "style" && node.style) {value = node.style.cssText}
+          if (value == null && attribute.nodeName === "style" && node.style) {
+            value = node.style.cssText;
+          }
           html += '"'+this.quoteHTML(value)+'"';
         }
       }
       html += ">";
       // Handle internal HTML (possibly due to <semantics> annotation or missing </math>)
       if (node.outerHTML != null && node.outerHTML.match(/(.<\/[A-Z]+>|\/>)$/)) {
-        for (i = 0, m = node.childNodes.length; i < m; i++)
-          {html += this.OuterHTML(node.childNodes[i])}
+        for (i = 0, m = node.childNodes.length; i < m; i++) {
+          html += this.OuterHTML(node.childNodes[i]);
+        }
         html += "</"+node.nodeName.toLowerCase()+">";
       }
     }
     return html;
   },
   OuterHTML: function (node) {
-    if (node.nodeName.charAt(0) === "#") {return this.NodeHTML(node)}
-    if (!this.AttributeBug) {return node.outerHTML}
+    if (node.nodeName.charAt(0) === "#") {
+      return this.NodeHTML(node);
+    }
+    if (!this.AttributeBug) {
+      return node.outerHTML;
+    }
     var html = this.NodeHTML(node);
-    for (var i = 0, m = node.childNodes.length; i < m; i++)
-      {html += this.OuterHTML(node.childNodes[i]);}
+    for (var i = 0, m = node.childNodes.length; i < m; i++) {
+      html += this.OuterHTML(node.childNodes[i]);
+    }
     html += "</"+node.nodeName.toLowerCase()+">";
     return html;
   },
   quoteHTML: function (string) {
-    if (string == null) {string = ""}
+    if (string == null) {
+      string = "";
+    }
     return string.replace(/&/g,"&#x26;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;");
   },
   
@@ -208,20 +244,30 @@ MathJax.Extension.mml2jax = {
     if (preview === "mathml") {
       isNodePreview = true;
       // mathml preview does not work with IE < 9, so fallback to alttext.
-      if (this.MathTagBug) {preview = "alttext"} else {preview = math.cloneNode(true)}
+      if (this.MathTagBug) {
+        preview = "alttext";
+      } else {
+        preview = math.cloneNode(true);
+      }
     }
     if (preview === "alttext" || preview === "altimg") {
       isNodePreview = true;
       var alttext = this.filterPreview(math.getAttribute("alttext"));
       if (preview === "alttext") {
-        if (alttext != null) {preview = MathJax.HTML.TextNode(alttext)} else {preview = null}
+        if (alttext != null) {
+          preview = MathJax.HTML.TextNode(alttext);
+        } else {
+          preview = null;
+        }
       } else {
         var src = math.getAttribute("altimg");
         if (src != null) {
           // FIXME: use altimg-valign when display="inline"?
           var style = {width: math.getAttribute("altimg-width"), height: math.getAttribute("altimg-height")};
           preview = MathJax.HTML.Element("img",{src:src,alt:alttext,style:style});
-        } else {preview = null}
+        } else {
+          preview = null;
+        }
       }
     }
     if (preview) {
@@ -236,7 +282,9 @@ MathJax.Extension.mml2jax = {
     }
   },
   
-  filterPreview: function (text) {return text},
+  filterPreview: function(text) {
+    return text;
+  },
   
   InitBrowser: function () {
     var test = MathJax.HTML.Element("span",{id:"<", className: "mathjax", innerHTML: "<math><mi>x</mi><mspace /></math>"});

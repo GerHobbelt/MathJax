@@ -257,9 +257,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
     //    Run the macro (with arguments if given)
     //
     ControlSequence: function(c) {
-      var cs = this.GetCS(),
-        name = c + cs,
-        cmd;
+      var cs = this.GetCS();
+      var name = c + cs;
+      var cmd;
       if (this.textMacros.hasOwnProperty(cs)) {
         cmd = this.textMacros[cs];
       } else {
@@ -298,9 +298,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
     //
     Math: function(open) {
       this.SaveText();
-      var i = this.i,
-        j,
-        c;
+      var i = this.i;
+      var j, c;
       var braces = 0;
       while ((c = this.GetNext())) {
         j = this.i++;

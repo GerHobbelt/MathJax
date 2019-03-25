@@ -71,10 +71,10 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
      *  Implement \newcommand{\name}[n][default]{...}
      */
     NewCommand: function(name) {
-      var cs = this.trimSpaces(this.GetArgument(name)),
-        n = this.GetBrackets(name),
-        opt = this.GetBrackets(name),
-        def = this.GetArgument(name);
+      var cs = this.trimSpaces(this.GetArgument(name));
+      var n = this.GetBrackets(name);
+      var opt = this.GetBrackets(name);
+      var def = this.GetArgument(name);
       if (cs.charAt(0) === "\\") {
         cs = cs.substr(1);
       }
@@ -126,8 +126,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
      *  Implements the \let command
      */
     Let: function(name) {
-      var cs = this.GetCSname(name),
-        macro;
+      var cs = this.GetCSname(name);
+      var macro;
       var c = this.GetNext();
       if (c === "=") {
         this.i++;
@@ -180,9 +180,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
      *  Get a \def parameter template
      */
     GetTemplate: function(cmd, cs) {
-      var c,
-        params = [],
-        n = 0;
+      var c;
+      var params = [];
+      var n = 0;
       c = this.GetNext();
       var i = this.i;
       while (this.i < this.string.length) {
@@ -273,9 +273,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
       if (param == null) {
         return this.GetArgument(name);
       }
-      var i = this.i,
-        j = 0,
-        hasBraces = 0;
+      var i = this.i;
+      var j = 0;
+      var hasBraces = 0;
       while (this.i < this.string.length) {
         var c = this.string.charAt(this.i);
         if (c === "{") {

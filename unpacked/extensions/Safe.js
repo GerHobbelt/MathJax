@@ -41,7 +41,7 @@
       fontsize: "all",   // safe are between sizeMin and sizeMax em's
       require: "safe"    // safe are in safeRequire below
     },
-    sizeMin: .7,        // \scriptsize
+    sizeMin: 0.7,       // \scriptsize
     sizeMax: 1.44,      // \large
     lengthMax: 3,       // largest padding/border/margin, etc. in em's
     safeProtocols: {
@@ -120,12 +120,14 @@
       outlineRight: true,
       outlineBottom: true,
       outlineLeft: true,
-      fontSize: [.7,1.44]
+      fontSize: [0.7, 1.44]
     }
   });
   
   var ALLOW = CONFIG.allow;
-  if (ALLOW.fontsize !== "all") {CONFIG.safeStyles.fontSize = false}
+  if (ALLOW.fontsize !== "all") {
+    CONFIG.safeStyles.fontSize = false;
+  }
 
   var SAFE = MathJax.Extension.Safe = {
     version: VERSION,
@@ -156,7 +158,10 @@
     filterURL: function (url) {
       var protocol = (url.match(/^\s*([a-z]+):/i)||[null,""])[1].toLowerCase();
       if (ALLOW.URLs === "none" ||
-         (ALLOW.URLs !== "all" && !CONFIG.safeProtocols[protocol])) {url = null}
+         (ALLOW.URLs !== "all" && !CONFIG.safeProtocols[protocol])
+      ) {
+        url = null;
+      }
       return url;
     },
     
@@ -165,12 +170,18 @@
     //
     filterClass: function (CLASS) {
       if (ALLOW.classes === "none" ||
-         (ALLOW.classes !== "all" && !CLASS.match(/^MJX-[-a-zA-Z0-9_.]+$/))) {CLASS = null}
+         (ALLOW.classes !== "all" && !CLASS.match(/^MJX-[-a-zA-Z0-9_.]+$/))
+      ) {
+        CLASS = null;
+      }
       return CLASS;
     },
     filterID: function (id) {
       if (ALLOW.cssIDs === "none" ||
-         (ALLOW.cssIDs !== "all" && !id.match(/^MJX-[-a-zA-Z0-9_.]+$/))) {id = null}
+         (ALLOW.cssIDs !== "all" && !id.match(/^MJX-[-a-zA-Z0-9_.]+$/))
+      ) {
+        id = null;
+      }
       return id;
     },
     
@@ -178,35 +189,50 @@
     //  Filter style strings
     //
     filterStyles: function (styles) {
-      if (ALLOW.styles === "all") {return styles}
-      if (ALLOW.styles === "none") {return null}
+      if (ALLOW.styles === "all") {
+        return styles;
+      }
+      if (ALLOW.styles === "none") {
+        return null;
+      }
       try {
         //
         //  Set the div1 styles to the given styles, and clear div2
         //  
-        var STYLE1 = this.div1.style, STYLE2 = this.div2.style, value;
-        STYLE1.cssText = styles; STYLE2.cssText = "";
+        var STYLE1 = this.div1.style;
+        var STYLE2 = this.div2.style;
+        var value;
+        STYLE1.cssText = styles; 
+        STYLE2.cssText = "";
         //
         //  Check each allowed style and transfer OK ones to div2
         //  If the style has Top/Right/Bottom/Left, look at all four separately
         //
-        for (var name in CONFIG.safeStyles) {if (CONFIG.safeStyles.hasOwnProperty(name)) {
-          if (CONFIG.styleParts[name]) {
-            for (var i = 0; i < 4; i++) {
-              var NAME = name+["Top","Right","Bottom","Left"][i]
-              value = this.filterStyle(NAME,STYLE1);
-              if (value) {STYLE2[NAME] = value}
+        for (var name in CONFIG.safeStyles) {
+          if (CONFIG.safeStyles.hasOwnProperty(name)) {
+            if (CONFIG.styleParts[name]) {
+              for (var i = 0; i < 4; i++) {
+                var NAME = name + ["Top", "Right", "Bottom", "Left"][i];
+                value = this.filterStyle(NAME, STYLE1);
+                if (value) {
+                  STYLE2[NAME] = value;
+                }
+              }
+            } else {
+              value = this.filterStyle(name, STYLE1);
+              if (value) {
+                STYLE2[name] = value;
+              }
             }
-          } else {
-            value = this.filterStyle(name,STYLE1);
-            if (value) {STYLE2[name] = value}
           }
-        }}
+        }
         //
         //  Return the div2 style string
         //
         styles = STYLE2.cssText;
-      } catch (e) {styles = null}
+      } catch (e) {
+        styles = null;
+      }
       return styles;
     },
     //
@@ -214,12 +240,22 @@
     //
     filterStyle: function (name,styles) {
       var value = styles[name];
-      if (typeof value !== "string" || value === "") {return null}
-      if (value.match(/^\s*expression/)) {return null}
-      if (value.match(/javascript:/)) {return null}
-      var NAME = name.replace(/Top|Right|Left|Bottom/,"");
-      if (!CONFIG.safeStyles[name] && !CONFIG.safeStyles[NAME]) {return null}
-      if (!CONFIG.styleLengths[name]) {return value}
+      if (typeof value !== "string" || value === "") {
+        return null;
+      }
+      if (value.match(/^\s*expression/)) {
+        return null;
+      }
+      if (value.match(/javascript:/)) {
+        return null;
+      }
+      var NAME = name.replace(/Top|Right|Left|Bottom/, "");
+      if (!CONFIG.safeStyles[name] && !CONFIG.safeStyles[NAME]) {
+        return null;
+      }
+      if (!CONFIG.styleLengths[name]) {
+        return value;
+      }
       return (this.filterStyleLength(name,value,styles) ? value : null);
     },
     filterStyleLength: function (name,value,styles) {
@@ -235,8 +271,8 @@
     //
     unit2em: {
       em: 1,
-      ex: .5,         // assume 1ex = .5em
-      ch: .5,         // assume 1ch = .5em
+      ex: 0.5,        // assume 1ex = .5em
+      ch: 0.5,        // assume 1ch = .5em
       rem: 1,         // assume 1rem = 1em
       px: 1/16,       // assume 1em = 16px
       mm: 96/25.4/16, // 25.4mm = 96px
@@ -255,9 +291,12 @@
     //  Filter TeX font size values (in em's)
     //
     filterSize: function (size) {
-      if (ALLOW.fontsize === "none") {return null}
-      if (ALLOW.fontsize !== "all")
-        {size = Math.min(Math.max(size,CONFIG.sizeMin),CONFIG.sizeMax)}
+      if (ALLOW.fontsize === "none") {
+        return null;
+      }
+      if (ALLOW.fontsize !== "all") {
+        size = Math.min(Math.max(size, CONFIG.sizeMin), CONFIG.sizeMax);
+      }
       return size;
     },
     filterFontSize: function (size) {
@@ -268,16 +307,22 @@
     //  Filter scriptsizemultiplier
     //
     filterSizeMultiplier: function (size) {
-      if (ALLOW.fontsize === "none") {size = null}
-      else if (ALLOW.fontsize !== "all") {size = Math.min(1,Math.max(.6,size)).toString()}
+      if (ALLOW.fontsize === "none") {
+        size = null;
+      } else if (ALLOW.fontsize !== "all") {
+        size = Math.min(1, Math.max(0.6, size)).toString();
+      }
       return size;
     },
     //
     //  Filter scriptLevel
     //
     filterScriptLevel: function (level) {
-      if (ALLOW.fontsize === "none") {level = null}
-      else if (ALLOW.fontsize !== "all") {level = Math.max(0,level).toString()}
+      if (ALLOW.fontsize === "none") {
+        level = null;
+      } else if (ALLOW.fontsize !== "all") {
+        level = Math.max(0, level).toString();
+      }
       return level;
     },
     
@@ -286,8 +331,10 @@
     //
     filterRequire: function (name) {
       if (ALLOW.require === "none" ||
-         (ALLOW.require !== "all" && !CONFIG.safeRequire[name.toLowerCase()]))
-           {name = null}
+         (ALLOW.require !== "all" && !CONFIG.safeRequire[name.toLowerCase()])
+      ) {
+        name = null;
+      }
       return name;
     }
     
@@ -304,7 +351,9 @@
       HREF_attribute: function (name) {
         var url = SAFE.filterURL(this.GetArgument(name)),
             arg = this.GetArgumentMML(name);
-        if (url) {arg.With({href:url})}
+        if (url) {
+          arg.With({ href: url });
+        }
         this.Push(arg);
       },
 
@@ -315,7 +364,9 @@
         var CLASS = SAFE.filterClass(this.GetArgument(name)),
             arg   = this.GetArgumentMML(name);
         if (CLASS) {
-          if (arg["class"] != null) {CLASS = arg["class"] + " " + CLASS}
+          if (arg["class"] != null) {
+            CLASS = arg["class"] + " " + CLASS;
+          }
           arg.With({"class":CLASS});
         }
         this.Push(arg);
@@ -329,7 +380,9 @@
             arg   = this.GetArgumentMML(name);
         if (style) {
           if (arg.style != null) {
-            if (style.charAt(style.length-1) !== ";") {style += ";"}
+            if (style.charAt(style.length - 1) !== ";") {
+              style += ";";
+            }
             style = arg.style + " " + style;
           }
           arg.With({style: style});
@@ -343,7 +396,9 @@
       ID_attribute: function (name) {
         var ID  = SAFE.filterID(this.GetArgument(name)),
             arg = this.GetArgumentMML(name);
-        if (ID) {arg.With({id:ID})}
+        if (ID) {
+          arg.With({ id: ID });
+        }
         this.Push(arg);
       }
 
@@ -352,8 +407,9 @@
   });
   
   HUB.Register.StartupHook("TeX Jax Ready",function () {
-    var TEX = MathJax.InputJax.TeX,
-        PARSE = TEX.Parse, METHOD = SAFE.filter;
+    var TEX = MathJax.InputJax.TeX;
+    var PARSE = TEX.Parse;
+    var METHOD = SAFE.filter;
     
     PARSE.Augment({
       
@@ -363,14 +419,18 @@
       Require: function (name) {
         var file = this.GetArgument(name).replace(/.*\//,"").replace(/[^a-z0-9_.-]/ig,"");
         file = SAFE.filterRequire(file);
-        if (file) {this.Extension(null,file)}
+        if (file) {
+          this.Extension(null, file);
+        }
       },
       
       //
       //  Controls \mmlToken attributes
       //
       MmlFilterAttribute: function (name,value) {
-        if (METHOD[name]) {value = SAFE[METHOD[name]](value)}
+        if (METHOD[name]) {
+          value = SAFE[METHOD[name]](value);
+        }
         return value;
       },
       
@@ -395,7 +455,9 @@
     //  Filter the styles for \bbox
     //
     TEX.Parse.Augment({
-      BBoxStyle: function (styles) {return SAFE.filterStyles(styles)},
+      BBoxStyle: function (styles) {
+        return SAFE.filterStyles(styles);
+      },
       BBoxPadding: function (pad) {
         var styles = SAFE.filterStyles("padding: "+pad);
         return (styles ? pad : 0);
@@ -413,7 +475,9 @@
     //
     PARSE.Augment({
       filterAttribute: function (name,value) {
-        if (METHOD[name]) {value = SAFE[METHOD[name]](value)}
+        if (METHOD[name]) {
+          value = SAFE[METHOD[name]](value);
+        }
         return value;
       }
     });

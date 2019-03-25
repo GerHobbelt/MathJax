@@ -106,13 +106,21 @@
       //  multi-line TeX, make spaces non-breakable (to get formatting right)
       //
       formatError: function (err,math,displaystyle,script) {
-        if (CONFIG.disabled) {return FORMAT.apply(this,arguments)}
+        if (CONFIG.disabled) {
+          return FORMAT.apply(this, arguments);
+        }
         var message = err.message.replace(/\n.*/,"");
         HUB.signal.Post(["TeX Jax - parse error",message,math,displaystyle,script]);
         var delim = CONFIG.inlineDelimiters;
         var multiLine = (displaystyle || CONFIG.multiLine);
-        if (!displaystyle) {math = delim[0] + math + delim[1]}
-        if (multiLine) {math = math.replace(/ /g,NBSP)} else {math = math.replace(/\n/g," ")}
+        if (!displaystyle) {
+          math = delim[0] + math + delim[1];
+        }
+        if (multiLine) {
+          math = math.replace(/ /g, NBSP);
+        } else {
+          math = math.replace(/\n/g, " ");
+        }
         return MathJax.ElementJax.mml.merror(math).With({isError:true, multiLine: multiLine});
       }
     });
@@ -166,19 +174,29 @@
     //
     MML.merror.Augment({
       toHTML: function (span) {
-        if (!this.isError) {return MERROR.apply(this,arguments)}
-        span = this.HTMLcreateSpan(span); span.className = "noError";
-        if (this.multiLine) {span.style.display = "inline-block"}
+        if (!this.isError) {
+          return MERROR.apply(this, arguments);
+        }
+        span = this.HTMLcreateSpan(span);
+        span.className = "noError";
+        if (this.multiLine) {
+          span.style.display = "inline-block";
+        }
         var text = this.data[0].data[0].data.join("").split(/\n/);
         for (var i = 0, m = text.length; i < m; i++) {
           HTMLCSS.addText(span,text[i]);
-          if (i !== m-1) {HTMLCSS.addElement(span,"br",{isMathJax:true})}
+          if (i !== m - 1) {
+            HTMLCSS.addElement(span, "br", { isMathJax: true });
+          }
         }
-        var HD = HTMLCSS.getHD(span.parentNode), W = HTMLCSS.getW(span.parentNode);
+        var HD = HTMLCSS.getHD(span.parentNode);
+        var W = HTMLCSS.getW(span.parentNode);
         if (m > 1) {
-          var H = (HD.h + HD.d)/2, x = HTMLCSS.TeX.x_height/2;
-          span.parentNode.style.verticalAlign = HTMLCSS.Em(HD.d+(x-H));
-          HD.h = x + H; HD.d = H - x;
+          var H = (HD.h + HD.d)/2;
+          var x = HTMLCSS.TeX.x_height/2;
+          span.parentNode.style.verticalAlign = HTMLCSS.Em(HD.d + (x - H));
+          HD.h = x + H;
+          HD.d = H - x;
         }
         span.bbox = {h: HD.h, d: HD.d, w: W, lw: 0, rw: W};
         return span;
@@ -232,17 +250,23 @@
     //
     MML.merror.Augment({
       toSVG: function (span) {
-        if (!this.isError || this.Parent().type !== "math") {return MERROR.apply(this,arguments)}
+        if (!this.isError || this.Parent().type !== "math") {
+          return MERROR.apply(this, arguments);
+        }
         span = HTML.addElement(span,"span",{className: "noError", isMathJax:true});
-        if (this.multiLine) {span.style.display = "inline-block"}
+        if (this.multiLine) {
+          span.style.display = "inline-block";
+        }
         var text = this.data[0].data[0].data.join("").split(/\n/);
         for (var i = 0, m = text.length; i < m; i++) {
           HTML.addText(span,text[i]);
-          if (i !== m-1) {HTML.addElement(span,"br",{isMathJax:true})}
+          if (i !== m - 1) {
+            HTML.addElement(span, "br", { isMathJax: true });
+          }
         }
         if (m > 1) {
           var H = span.offsetHeight/2;
-          span.style.verticalAlign = (-H+(H/m))+"px";
+          span.style.verticalAlign = (-H + (H / m)) + "px";
         }
         return span;
       }
@@ -269,8 +293,11 @@
     MML.math.Augment({
       toNativeMML: function (span) {
         var data = this.data[0];
-        if (data && data.data[0] && data.data[0].isError)
-          {span = data.data[0].toNativeMML(span)} else {span = MATH.apply(this,arguments)}
+        if (data && data.data[0] && data.data[0].isError) {
+          span = data.data[0].toNativeMML(span);
+        } else {
+          span = MATH.apply(this, arguments);
+        }
         return span;
       }
     });
@@ -281,21 +308,31 @@
     //
     MML.merror.Augment({
       toNativeMML: function (span) {
-        if (!this.isError) {return MERROR.apply(this,arguments)}
+        if (!this.isError) {
+          return MERROR.apply(this, arguments);
+        }
         span = span.appendChild(document.createElement("span"));
         var text = this.data[0].data[0].data.join("").split(/\n/);
         for (var i = 0, m = text.length; i < m; i++) {
           span.appendChild(document.createTextNode(text[i]));
-          if (i !== m-1) {span.appendChild(document.createElement("br"))}
+          if (i !== m - 1) {
+            span.appendChild(document.createElement("br"));
+          }
         }
         if (this.multiLine) {
           span.style.display = "inline-block";
-          if (m > 1) {span.style.verticalAlign = "middle"}
+          if (m > 1) {
+            span.style.verticalAlign = "middle";
+          }
         }
-        for (var id in CONFIG.style) {if (CONFIG.style.hasOwnProperty(id)) {
-          var ID = id.replace(/-./g,function (c) {return c.charAt(1).toUpperCase()});
-          span.style[ID] = CONFIG.style[id];
-        }}
+        for (var id in CONFIG.style) {
+          if (CONFIG.style.hasOwnProperty(id)) {
+            var ID = id.replace(/-./g, function(c) {
+              return c.charAt(1).toUpperCase();
+            });
+            span.style[ID] = CONFIG.style[id];
+          }
+        }
         return span;
       }
     });
@@ -331,13 +368,16 @@
     //
     MML.merror.Augment({
       toPreviewHTML: function (span) {
-        if (!this.isError) return MERROR.apply(this,arguments);
-        span = this.PHTMLcreateSpan(span); span.className = "noError"
+        if (!this.isError) return MERROR.apply(this, arguments);
+        span = this.PHTMLcreateSpan(span);
+        span.className = "noError";
         if (this.multiLine) span.style.display = "inline-block";
         var text = this.data[0].data[0].data.join("").split(/\n/);
         for (var i = 0, m = text.length; i < m; i++) {
-          HTML.addText(span,text[i]);
-          if (i !== m-1) {HTML.addElement(span,"br",{isMathJax:true})}
+          HTML.addText(span, text[i]);
+          if (i !== m - 1) {
+            HTML.addElement(span, "br", { isMathJax: true });
+          }
         }
         return span;
       }
@@ -381,16 +421,20 @@
         var text = this.data[0].data[0].data.join("").split(/\n/);
         for (var i = 0, m = text.length; i < m; i++) {
           HTML.addText(node,text[i]);
-          if (i !== m-1) {CHTML.addElement(node,"br",{isMathJax:true})}
+          if (i !== m - 1) {
+            CHTML.addElement(node, "br", { isMathJax: true });
+          }
         }
         var bbox = this.CHTML = CHTML.BBOX.zero();
-        bbox.w = (node.offsetWidth)/CHTML.em;
+        bbox.w = node.offsetWidth / CHTML.em;
         if (m > 1) {
-          var H2 = 1.2*m/2;
-          bbox.h = H2+.25; bbox.d = H2-.25;
-          node.style.verticalAlign = CHTML.Em(.45-H2);
+          var H2 = (1.2 * m) / 2;
+          bbox.h = H2 + 0.25;
+          bbox.d = H2 - 0.25;
+          node.style.verticalAlign = CHTML.Em(0.45 - H2);
         } else {
-          bbox.h = 1; bbox.d = .2 + 2/CHTML.em;
+          bbox.h = 1;
+          bbox.d = 0.2 + 2 / CHTML.em;
         }
         return node;
       }

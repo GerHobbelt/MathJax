@@ -210,11 +210,11 @@
             HTMLCSS.addElement(span, "br", { isMathJax: true });
           }
         }
-        var HD = HTMLCSS.getHD(span.parentNode),
-          W = HTMLCSS.getW(span.parentNode);
+        var HD = HTMLCSS.getHD(span.parentNode);
+        var W = HTMLCSS.getW(span.parentNode);
         if (m > 1) {
-          var H = (HD.h + HD.d) / 2,
-            x = HTMLCSS.TeX.x_height / 2;
+          var H = (HD.h + HD.d) / 2;
+          var x = HTMLCSS.TeX.x_height / 2;
           span.parentNode.style.verticalAlign = HTMLCSS.Em(HD.d + (x - H));
           HD.h = x + H;
           HD.d = H - x;

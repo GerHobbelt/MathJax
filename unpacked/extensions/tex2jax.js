@@ -80,18 +80,31 @@ MathJax.Extension.tex2jax = {
   PreProcess: function (element) {
     if (!this.configured) {
       this.config = MathJax.Hub.CombineConfig("tex2jax",this.config);
-      if (this.config.Augment) {MathJax.Hub.Insert(this,this.config.Augment)}
-      if (typeof(this.config.previewTeX) !== "undefined" && !this.config.previewTeX)
-        {this.config.preview = "none"} // backward compatibility for previewTeX parameter
+      if (this.config.Augment) {
+        MathJax.Hub.Insert(this, this.config.Augment);
+      }
+      if (typeof this.config.previewTeX !== "undefined" && !this.config.previewTeX) {
+        // backward compatibility for previewTeX parameter
+        this.config.preview = "none";
+      } 
       this.configured = true;
     }
-    if (typeof(element) === "string") {element = document.getElementById(element)}
-    if (!element) {element = document.body}
-    if (this.createPatterns()) {this.scanElement(element,element.nextSibling)}
+    if (typeof element === "string") {
+      element = document.getElementById(element);
+    }
+    if (!element) {
+      element = document.body;
+    }
+    if (this.createPatterns()) {
+      this.scanElement(element, element.nextSibling);
+    }
   },
   
   createPatterns: function () {
-    var starts = [], parts = [], i, m, config = this.config;
+    var starts = [];
+    var parts = [];
+    var i, m;
+    var config = this.config;
     this.match = {};
     for (i = 0, m = config.inlineMath.length; i < m; i++) {
       starts.push(this.patternQuote(config.inlineMath[i][0]));
@@ -109,28 +122,38 @@ MathJax.Extension.tex2jax = {
         pattern: this.endPattern(config.displayMath[i][1])
       };
     }
-    if (starts.length) {parts.push(starts.sort(this.sortLength).join("|"))}
+    if (starts.length) {
+      parts.push(starts.sort(this.sortLength).join("|"));
+    }
     if (config.processEnvironments) {parts.push("\\\\begin\\{([^}]*)\\}")}
     if (config.processEscapes)      {parts.push("\\\\*\\\\\\\$")}
     if (config.processRefs)         {parts.push("\\\\(eq)?ref\\{[^}]*\\}")}
     this.start = new RegExp(parts.join("|"),"g");
     this.skipTags = new RegExp("^("+config.skipTags.join("|")+")$","i");
     var ignore = [];
-    if (MathJax.Hub.config.preRemoveClass) {ignore.push(MathJax.Hub.config.preRemoveClass);}
-    if (config.ignoreClass) {ignore.push(config.ignoreClass);}
+    if (MathJax.Hub.config.preRemoveClass) {
+      ignore.push(MathJax.Hub.config.preRemoveClass);
+    }
+    if (config.ignoreClass) {
+      ignore.push(config.ignoreClass);
+    }
     this.ignoreClass = (ignore.length ? new RegExp("(^| )("+ignore.join("|")+")( |$)") : /^$/);
     this.processClass = new RegExp("(^| )("+config.processClass+")( |$)");
     return (parts.length > 0);
   },
   
-  patternQuote: function (s) {return s.replace(/([\^$(){}+*?\-|\[\]\:\\])/g,'\\$1')},
+  patternQuote: function(s) {
+    return s.replace(/([\^$(){}+*?\-|\[\]\:\\])/g, "\\$1");
+  },
   
   endPattern: function (end) {
     return new RegExp(this.patternQuote(end)+"|\\\\.|[{}]","g");
   },
   
   sortLength: function (a,b) {
-    if (a.length !== b.length) {return b.length - a.length}
+    if (a.length !== b.length) {
+      return b.length - a.length;
+    }
     return (a == b ? 0 : (a < b ? -1 : 1));
   },
   
@@ -138,41 +161,57 @@ MathJax.Extension.tex2jax = {
     var cname, tname, ignoreChild, process;
     while (element && element != stop) {
       if (element.nodeName.toLowerCase() === '#text') {
-        if (!ignore) {element = this.scanText(element)}
+        if (!ignore) {
+          element = this.scanText(element);
+        }
       } else {
-        cname = (typeof(element.className) === "undefined" ? "" : element.className);
-        tname = (typeof(element.tagName)   === "undefined" ? "" : element.tagName);
-        if (typeof(cname) !== "string") {cname = String(cname)} // jsxgraph uses non-string class names!
+        cname = (typeof element.className === "undefined" ? "" : element.className);
+        tname = (typeof element.tagName   === "undefined" ? "" : element.tagName);
+        if (typeof cname !== "string") {
+          // jsxgraph uses non-string class names!
+          cname = String(cname);
+        } 
         process = this.processClass.exec(cname);
         if (element.firstChild && !cname.match(/(^| )MathJax/) &&
-             (process || !this.skipTags.exec(tname))) {
+             (process || !this.skipTags.exec(tname))
+        ) {
           ignoreChild = (ignore || this.ignoreClass.exec(cname)) && !process;
           this.scanElement(element.firstChild,stop,ignoreChild);
         }
       }
-      if (element) {element = element.nextSibling}
+      if (element) {
+        element = element.nextSibling;
+      }
     }
   },
   
   scanText: function (element) {
-    if (element.nodeValue.replace(/\s+/,'') == '') {return element}
-    var match, prev, pos = 0, rescan;
+    if (element.nodeValue.replace(/\s+/, "") == "") {
+      return element;
+    }
+    var match, prev;
+    var pos = 0;
+    var rescan;
     this.search = {start: true};
     this.pattern = this.start;
     while (element) {
       rescan = null;
-      this.pattern.lastIndex = pos; pos = 0;
+      this.pattern.lastIndex = pos;
+      pos = 0;
       while (element && element.nodeName.toLowerCase() === '#text' &&
-            (match = this.pattern.exec(element.nodeValue))) {
+            (match = this.pattern.exec(element.nodeValue))
+      ) {
         if (this.search.start) {element = this.startMatch(match,element)}
                           else {element = this.endMatch(match,element)}
       }
       if (this.search.matched) element = this.encloseMath(element);
-        else if (!this.search.start && !this.search.close) rescan = this.search;
+      else if (!this.search.start && !this.search.close) rescan = this.search;
       if (element) {
-        do {prev = element; element = element.nextSibling}
-          while (element && this.ignoreTags[element.nodeName.toLowerCase()] != null);
-        if (!element || element.nodeName !== '#text') {
+        do {
+          prev = element;
+          element = element.nextSibling;
+        } while (element && this.ignoreTags[element.nodeName.toLowerCase()] != null);
+        if (!element || element.nodeName !== "#text") {
           if (!rescan) return (this.search.close ? this.prevEndMatch() : prev);
           element = rescan.open;
           pos = rescan.opos + rescan.olen + (rescan.blen || 0);
@@ -188,29 +227,48 @@ MathJax.Extension.tex2jax = {
     var delim = this.match[match[0]];
     if (delim != null) {                              // a start delimiter
       this.search = {
-        end: delim.end, mode: delim.mode, pcount: 0,
-        open: element, olen: match[0].length, opos: this.pattern.lastIndex - match[0].length
+        end: delim.end,
+        mode: delim.mode,
+        pcount: 0,
+        open: element,
+        olen: match[0].length,
+        opos: this.pattern.lastIndex - match[0].length
       };
       this.switchPattern(delim.pattern);
     } else if (match[0].substr(0,6) === "\\begin") {  // \begin{...}
       this.search = {
-        end: "\\end{"+match[1]+"}", mode: "; mode=display", pcount: 0,
-        open: element, olen: 0, opos: this.pattern.lastIndex - match[0].length,
-        blen: match[1].length + 3, isBeginEnd: true
+        end: "\\end{" + match[1] + "}",
+        mode: "; mode=display",
+        pcount: 0,
+        open: element,
+        olen: 0,
+        opos: this.pattern.lastIndex - match[0].length,
+        blen: match[1].length + 3,
+        isBeginEnd: true
       };
       this.switchPattern(this.endPattern(this.search.end));
     } else if (match[0].substr(0,4) === "\\ref" || match[0].substr(0,6) === "\\eqref") {
       this.search = {
-        mode: "", end: "", open: element, pcount: 0,
-        olen: 0, opos: this.pattern.lastIndex - match[0].length
-      }
+        mode: "",
+        end: "",
+        open: element,
+        pcount: 0,
+        olen: 0,
+        opos: this.pattern.lastIndex - match[0].length
+      };
       return this.endMatch([""],element);
     } else {                                         // escaped dollar signs
       // put $ in a span so it doesn't get processed again
       // split off backslashes so they don't get removed later
-      var slashes = match[0].substr(0,match[0].length-1), n, span;
-      if (slashes.length % 2 === 0) {span = [slashes.replace(/\\\\/g,"\\")]; n = 1}
-        else {span = [slashes.substr(1).replace(/\\\\/g,"\\"),"$"]; n = 0}
+      var slashes = match[0].substr(0,match[0].length-1);
+      var n, span;
+      if (slashes.length % 2 === 0) {
+        span = [slashes.replace(/\\\\/g, "\\")];
+        n = 1;
+      } else {
+        span = [slashes.substr(1).replace(/\\\\/g, "\\"), "$"];
+        n = 0;
+      }
       span = MathJax.HTML.Element("span",null,span);
       var text = MathJax.HTML.TextNode(element.nodeValue.substr(0,match.index));
       element.nodeValue = element.nodeValue.substr(match.index + match[0].length - n);
@@ -234,9 +292,11 @@ MathJax.Extension.tex2jax = {
         element = this.encloseMath(element);
         this.switchPattern(this.start);
       }
+    } else if (match[0] === "{") {
+      search.pcount++;
+    } else if (match[0] === "}" && search.pcount) {
+      search.pcount--;
     }
-    else if (match[0] === "{") {search.pcount++}
-    else if (match[0] === "}" && search.pcount) {search.pcount--}
     return element;
   },
   prevEndMatch: function () {
@@ -253,10 +313,17 @@ MathJax.Extension.tex2jax = {
   },
   
   encloseMath: function (element) {
-    var search = this.search, close = search.close, CLOSE, math, next;
-    if (search.cpos === close.length) {close = close.nextSibling}
-       else {close = close.splitText(search.cpos)}
-    if (!close) {CLOSE = close = MathJax.HTML.addText(search.close.parentNode,"")}
+    var search = this.search;
+    var close = search.close;
+    var CLOSE, math, next;
+    if (search.cpos === close.length) {
+      close = close.nextSibling;
+    } else {
+      close = close.splitText(search.cpos);
+    }
+    if (!close) {
+      CLOSE = close = MathJax.HTML.addText(search.close.parentNode, "");
+    }
     search.close = close;
     math = (search.opos ? search.open.splitText(search.opos) : search.open);
     while ((next = math.nextSibling) && next !== close) {
@@ -274,10 +341,15 @@ MathJax.Extension.tex2jax = {
     }
     var TeX = math.nodeValue.substr(search.olen,math.nodeValue.length-search.olen-search.clen);
     math.parentNode.removeChild(math);
-    if (this.config.preview !== "none") {this.createPreview(search.mode,TeX)}
+    if (this.config.preview !== "none") {
+      this.createPreview(search.mode, TeX);
+    }
     math = this.createMathTag(search.mode,TeX);
-    this.search = {}; this.pattern.lastIndex = 0;
-    if (CLOSE) {CLOSE.parentNode.removeChild(CLOSE)}
+    this.search = {};
+    this.pattern.lastIndex = 0;
+    if (CLOSE) {
+      CLOSE.parentNode.removeChild(CLOSE);
+    }
     return math;
   },
   
@@ -291,7 +363,9 @@ MathJax.Extension.tex2jax = {
     var preview = this.config.preview;
     if (preview === "none") return;
     if ((this.search.close.previousSibling||{}).className === previewClass) return;
-    if (preview === "TeX") {preview = [this.filterPreview(tex)]}
+    if (preview === "TeX") {
+      preview = [this.filterPreview(tex)];
+    }
     if (preview) {
       preview = MathJax.HTML.Element("span",{className:previewClass},preview);
       this.insertNode(preview);
@@ -305,9 +379,10 @@ MathJax.Extension.tex2jax = {
     this.insertNode(script);
     return script;
   },
-  
-  filterPreview: function (tex) {return tex}
 
+  filterPreview: function(tex) {
+    return tex;
+  }
 };
 
 // We register the preprocessors with the following priorities:

@@ -873,6 +873,14 @@
         variant = this.FONTDATA.VARIANT[MML.VARIANT.NORMAL];
       }
       var txtmatch = /[\w\d\s=+%,.:;'"_~…∞∂εα-φ±-]+/.test(text);
+      console.log("HandleVariant: ", {
+        variant,
+        italic: variant.italic,
+        scale,
+        text,
+        txtmatch,
+        fullTxtMatch: /[^\w\d\s=+%,.:;'"_~…∞∂εα-φ±-]+$/.test(text)
+      });
       if (variant.forceFamily || txtmatch) {
         text = BBOX.TEXT(scale, text, variant.font);
         if (variant.h != null) {

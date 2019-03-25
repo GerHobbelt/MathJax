@@ -77,8 +77,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
     },
 
     Boldsymbol: function(name) {
-      var boldsymbol = this.stack.env.boldsymbol,
-        font = this.stack.env.font;
+      var boldsymbol = this.stack.env.boldsymbol;
+      var font = this.stack.env.font;
       this.stack.env.boldsymbol = true;
       this.stack.env.font = null;
       var mml = this.ParseArg(name);

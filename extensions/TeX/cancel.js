@@ -66,9 +66,9 @@ MathJax.Extension["TeX/cancel"] = {
 };
 
 MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
-  var TEX = MathJax.InputJax.TeX,
-    MML = MathJax.ElementJax.mml,
-    CANCEL = MathJax.Extension["TeX/cancel"];
+  var TEX = MathJax.InputJax.TeX;
+  var MML = MathJax.ElementJax.mml;
+  var CANCEL = MathJax.Extension["TeX/cancel"];
 
   CANCEL.setAttributes = function(def, attr) {
     if (attr !== "") {
@@ -112,8 +112,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
     //            \xcancel[attributes]{math}
     //
     Cancel: function(name, notation) {
-      var attr = this.GetBrackets(name, ""),
-        math = this.ParseArg(name);
+      var attr = this.GetBrackets(name, "");
+      var math = this.ParseArg(name);
       var def = CANCEL.setAttributes({ notation: notation }, attr);
       this.Push(MML.menclose(math).With(def));
     },
@@ -122,9 +122,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
     //  Implement \cancelto{value}[attributes]{math}
     //
     CancelTo: function(name, notation) {
-      var value = this.ParseArg(name),
-        attr = this.GetBrackets(name, ""),
-        math = this.ParseArg(name);
+      var value = this.ParseArg(name);
+      var attr = this.GetBrackets(name, "");
+      var math = this.ParseArg(name);
       var def = CANCEL.setAttributes(
         { notation: MML.NOTATION.UPDIAGONALSTRIKE + " " + MML.NOTATION.UPDIAGONALARROW },
         attr

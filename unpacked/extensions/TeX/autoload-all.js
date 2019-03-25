@@ -53,24 +53,31 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     AMScd:      ["CD"]
   };
 
-  var name, i, m, defs = {macros:{}, environment:{}};
+  var name, i, m;
+  var defs = {macros:{}, environment:{}};
 
-  for (name in EXTENSIONS) {if (EXTENSIONS.hasOwnProperty(name)) {
-    if (!MathJax.Extension["TeX/"+name]) {
-      var macros = EXTENSIONS[name];
-      for (i = 0, m = macros.length; i < m; i++)
-        {defs.macros[macros[i]] = ["Extension",name]}
+  for (name in EXTENSIONS) {
+    if (EXTENSIONS.hasOwnProperty(name)) {
+      if (!MathJax.Extension["TeX/" + name]) {
+        var macros = EXTENSIONS[name];
+        for (i = 0, m = macros.length; i < m; i++) {
+          defs.macros[macros[i]] = ["Extension", name];
+        }
+      }
     }
-  }}
-  
-  for (name in ENVIRONMENTS) {if (ENVIRONMENTS.hasOwnProperty(name)) {
-    if (!MathJax.Extension["TeX/"+name]) {
-      var envs = ENVIRONMENTS[name];
-      for (i = 0, m = envs.length; i < m; i++)
-        {defs.environment[envs[i]] = ["ExtensionEnv",null,name]}
+  }
+
+  for (name in ENVIRONMENTS) {
+    if (ENVIRONMENTS.hasOwnProperty(name)) {
+      if (!MathJax.Extension["TeX/" + name]) {
+        var envs = ENVIRONMENTS[name];
+        for (i = 0, m = envs.length; i < m; i++) {
+          defs.environment[envs[i]] = ["ExtensionEnv", null, name];
+        }
+      }
     }
-  }}
-  
+  }
+
   MathJax.InputJax.TeX.Definitions.Add(defs);
 
   MathJax.Hub.Startup.signal.Post("TeX autoload-all Ready");

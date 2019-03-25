@@ -36,18 +36,20 @@
   var CONFIG = {
     hover: 500,              // time required to be considered a hover
     frame: {
-      x: 3.5, y: 5,          // frame padding and
+      x: 3.5,                // frame padding 
+      y: 5,                  // frame padding 
       bwidth: 1,             // frame border width (in pixels)
       bcolor: "#A6D",        // frame border color
       hwidth: "15px",        // haze width
       hcolor: "#83A"         // haze color
     },
     button: {
-      x: -6, y: -3,          // menu button offsets
+      x: -6,                 // menu button offset
+      y: -3,                 // menu button offset
       wx: -2                 // button offset for full-width equations
     },
-    fadeinInc: .2,           // increment for fade-in
-    fadeoutInc: .05,         // increment for fade-out
+    fadeinInc: 0.2,          // increment for fade-in
+    fadeoutInc: 0.05,        // increment for fade-out
     fadeDelay: 50,           // delay between fade-in or fade-out steps
     fadeoutStart: 400,       // delay before fade-out after mouseout
     fadeoutDelay: 15*1000,   // delay before automatic fade-out
@@ -65,36 +67,37 @@
         "-khtml-box-shadow": "0px 0px 15px #83A",   // Konqueror
 
         border: "1px solid #A6D ! important",
-        display: "inline-block", position:"absolute"
+        display: "inline-block",
+        position: "absolute"
       },
 
       ".MathJax_Menu_Button .MathJax_Hover_Arrow": {
-        position:"absolute",
-        cursor:"pointer",
-        display:"inline-block",
-        border:"2px solid #AAA",
-        "border-radius":"4px",
+        position: "absolute",
+        cursor: "pointer",
+        display: "inline-block",
+        border: "2px solid #AAA",
+        "border-radius": "4px",
         "-webkit-border-radius": "4px",           // Safari and Chrome
         "-moz-border-radius": "4px",              // Firefox
         "-khtml-border-radius": "4px",            // Konqueror
-        "font-family":"'Courier New',Courier",
-        "font-size":"9px",
-        color:"#F0F0F0"
+        "font-family": "'Courier New',Courier",
+        "font-size": "9px",
+        color: "#F0F0F0"
       },
       ".MathJax_Menu_Button .MathJax_Hover_Arrow span": {
-        display:"block",
-        "background-color":"#AAA",
-        border:"1px solid",
-        "border-radius":"3px",
-        "line-height":0,
-        padding:"4px"
+        display: "block",
+        "background-color": "#AAA",
+        border: "1px solid",
+        "border-radius": "3px",
+        "line-height": 0,
+        padding: "4px"
       },
       ".MathJax_Hover_Arrow:hover": {
-        color:"white!important",
-        border:"2px solid #CCC!important"
+        color: "white!important",
+        border: "2px solid #CCC!important"
       },
       ".MathJax_Hover_Arrow:hover span": {
-        "background-color":"#CCC!important"
+        "background-color": "#CCC!important"
       }
     }
   };
@@ -123,35 +126,67 @@
       DOWN: 40
     },
 
-    Mousedown: function (event) {return EVENT.Handler(event,"Mousedown",this)},
-    Mouseup:   function (event) {return EVENT.Handler(event,"Mouseup",this)},
-    Mousemove: function (event) {return EVENT.Handler(event,"Mousemove",this)},
-    Mouseover: function (event) {return EVENT.Handler(event,"Mouseover",this)},
-    Mouseout:  function (event) {return EVENT.Handler(event,"Mouseout",this)},
-    Click:     function (event) {return EVENT.Handler(event,"Click",this)},
-    DblClick:  function (event) {return EVENT.Handler(event,"DblClick",this)},
-    Menu:      function (event) {return EVENT.Handler(event,"ContextMenu",this)},
+    Mousedown: function(event) {
+      return EVENT.Handler(event, "Mousedown", this);
+    },
+    Mouseup: function(event) {
+      return EVENT.Handler(event, "Mouseup", this);
+    },
+    Mousemove: function(event) {
+      return EVENT.Handler(event, "Mousemove", this);
+    },
+    Mouseover: function(event) {
+      return EVENT.Handler(event, "Mouseover", this);
+    },
+    Mouseout: function(event) {
+      return EVENT.Handler(event, "Mouseout", this);
+    },
+    Click: function(event) {
+      return EVENT.Handler(event, "Click", this);
+    },
+    DblClick: function(event) {
+      return EVENT.Handler(event, "DblClick", this);
+    },
+    Menu: function(event) {
+      return EVENT.Handler(event, "ContextMenu", this);
+    },
 
     //
     //  Call the output jax's event handler or the zoom handler
     //
     Handler: function (event,type,math) {
-      if (AJAX.loadingMathMenu) {return EVENT.False(event)}
+      if (AJAX.loadingMathMenu) {
+        return EVENT.False(event);
+      }
       var jax = OUTPUT[math.jaxID];
-      if (!event) {event = window.event}
-      event.isContextMenu = (type === "ContextMenu");
-      if (jax[type]) {return jax[type](event,math)}
-      if (EXTENSION.MathZoom) {return EXTENSION.MathZoom.HandleEvent(event,type,math)}
+      if (!event) {
+        event = window.event;
+      }
+      event.isContextMenu = type === "ContextMenu";
+      if (jax[type]) {
+        return jax[type](event, math);
+      }
+      if (EXTENSION.MathZoom) {
+        return EXTENSION.MathZoom.HandleEvent(event, type, math);
+      }
     },
 
     //
     //  Try to cancel the event in every way we can
     //
     False: function (event) {
-      if (!event) {event = window.event}
+      if (!event) {
+        event = window.event;
+      }
       if (event) {
-        if (event.preventDefault) {event.preventDefault()} else {event.returnValue = false}
-        if (event.stopPropagation) {event.stopPropagation()}
+        if (event.preventDefault) {
+          event.preventDefault();
+        } else {
+          event.returnValue = false;
+        }
+        if (event.stopPropagation) {
+          event.stopPropagation();
+        }
         event.cancelBubble = true;
       }
       return false;
@@ -174,17 +209,24 @@
       //
       //  Check if we are showing menus
       //
-      var JAX = OUTPUT[math.jaxID], jax = JAX.getJaxFromMath(math);
+      var JAX = OUTPUT[math.jaxID];
+      var jax = JAX.getJaxFromMath(math);
       var show = (JAX.config.showMathMenu != null ? JAX : HUB).config.showMathMenu;
       if (!show || (SETTINGS.context !== "MathJax" && !force)) return;
 
       //
       //  Remove selections, remove hover fades
       //
-      if (ME.msieEventBug) {event = window.event || event}
-      EVENT.ClearSelection(); HOVER.ClearHoverTimer();
+      if (ME.msieEventBug) {
+        event = window.event || event;
+      }
+      EVENT.ClearSelection();
+      HOVER.ClearHoverTimer();
       if (jax.hover) {
-        if (jax.hover.remove) {clearTimeout(jax.hover.remove); delete jax.hover.remove}
+        if (jax.hover.remove) {
+          clearTimeout(jax.hover.remove);
+          delete jax.hover.remove;
+        }
         jax.hover.nofade = true;
       }
 
@@ -196,15 +238,18 @@
       //  Otherwse load the menu code.
       //  Try again after the file is loaded.
       //
-      var MENU = MathJax.Menu; var load, fn;
+      var MENU = MathJax.Menu;
+      var load, fn;
       if (MENU) {
-        if (MENU.loadingDomain) {return EVENT.False(event)}
+        if (MENU.loadingDomain) {
+          return EVENT.False(event);
+        }
         load = LOCALE.loadDomain("MathMenu");
         if (!load) {
           MENU.jax = jax;
           var source = MENU.menu.Find("Show Math As").submenu;
           source.items[0].name = jax.sourceMenuTitle;
-          source.items[0].format = (jax.sourceMenuFormat||"MathML");
+          source.items[0].format = (jax.sourceMenuFormat || "MathML");
           source.items[1].name = INPUT[jax.inputJax].sourceMenuTitle;
           source.items[5].disabled = !INPUT[jax.inputJax].annotationEncoding;
 
@@ -212,10 +257,11 @@
           // Try and find each known annotation format and enable the menu
           // items accordingly.
           //
-          var annotations = source.items[2]; annotations.disabled = true;
+          var annotations = source.items[2];
+          annotations.disabled = true;
           var annotationItems = annotations.submenu.items;
           for (var i = 0, m = annotationItems.length; i < m; i++) {
-            var name = annotationItems[i].name[1]
+            var name = annotationItems[i].name[1];
             if (jax.root && jax.root.getAnnotation(name) !== null) {
               annotations.disabled = false;
               annotationItems[i].hidden = false;
@@ -224,24 +270,32 @@
             }
           }
 
-          var MathPlayer = MENU.menu.Find("Math Settings","MathPlayer");
+          var MathPlayer = MENU.menu.Find("Math Settings", "MathPlayer");
           MathPlayer.hidden = !(jax.outputJax === "NativeMML" && HUB.Browser.hasMathPlayer);
           return MENU.menu.Post(event);
         }
         MENU.loadingDomain = true;
-        fn = function () {delete MENU.loadingDomain};
+        fn = function () {
+          delete MENU.loadingDomain;
+        };
       } else {
-        if (AJAX.loadingMathMenu) {return EVENT.False(event)}
+        if (AJAX.loadingMathMenu) {
+          return EVENT.False(event);
+        }
         AJAX.loadingMathMenu = true;
         load = AJAX.Require("[MathJax]/extensions/MathMenu.js");
         fn = function () {
           delete AJAX.loadingMathMenu;
-          if (!MathJax.Menu) {MathJax.Menu = {}}
-        }
+          if (!MathJax.Menu) {
+            MathJax.Menu = {};
+          }
+        };
       }
       var ev = {
-        pageX:event.pageX, pageY:event.pageY,
-        clientX:event.clientX, clientY:event.clientY
+        pageX: event.pageX,
+        pageY: event.pageY,
+        clientX: event.clientX,
+        clientY: event.clientY
       };
       CALLBACK.Queue(
         load, fn, // load the file and delete the marker when done
@@ -282,7 +336,9 @@
 
     getBBox: function (span) {
       span.appendChild(ME.topImg);
-      var h = ME.topImg.offsetTop, d = span.offsetHeight-h, w = span.offsetWidth;
+      var h = ME.topImg.offsetTop;
+      var d = span.offsetHeight - h;
+      var w = span.offsetWidth;
       span.removeChild(ME.topImg);
       return {w:w, h:h, d:d};
     }
@@ -304,9 +360,14 @@
         var from = event.fromElement || event.relatedTarget,
             to   = event.toElement   || event.target;
         if (from && to && (HUB.isMathJaxNode(from) !== HUB.isMathJaxNode(to) ||
-                           HUB.getJaxFor(from) !== HUB.getJaxFor(to))) {
+                           HUB.getJaxFor(from) !== HUB.getJaxFor(to))
+        ) {
           var jax = this.getJaxFromMath(math);
-          if (jax.hover) {HOVER.ReHover(jax)} else {HOVER.HoverTimer(jax,math)}
+          if (jax.hover) {
+            HOVER.ReHover(jax);
+          } else {
+            HOVER.HoverTimer(jax, math);
+          }
           return EVENT.False(event);
         }
       }
@@ -318,12 +379,17 @@
     //
     Mouseout: function (event,math) {
       if (SETTINGS.discoverable || SETTINGS.zoom === "Hover") {
-        var from = event.fromElement || event.relatedTarget,
-            to   = event.toElement   || event.target;
+        var from = event.fromElement || event.relatedTarget;
+        var to   = event.toElement   || event.target;
         if (from && to && (HUB.isMathJaxNode(from) !== HUB.isMathJaxNode(to) ||
-                           HUB.getJaxFor(from) !== HUB.getJaxFor(to))) {
+                           HUB.getJaxFor(from) !== HUB.getJaxFor(to))
+        ) {
           var jax = this.getJaxFromMath(math);
-          if (jax.hover) {HOVER.UnHover(jax)} else {HOVER.ClearHoverTimer()}
+          if (jax.hover) {
+            HOVER.UnHover(jax);
+          } else {
+            HOVER.ClearHoverTimer();
+          }
           return EVENT.False(event);
         }
       }
@@ -333,10 +399,12 @@
     //
     Mousemove: function (event,math) {
       if (SETTINGS.discoverable || SETTINGS.zoom === "Hover") {
-        var jax = this.getJaxFromMath(math); if (jax.hover) return;
+        var jax = this.getJaxFromMath(math);
+        if (jax.hover) return;
         if (HOVER.lastX == event.clientX && HOVER.lastY == event.clientY) return;
-        HOVER.lastX = event.clientX; HOVER.lastY = event.clientY;
-        HOVER.HoverTimer(jax,math);
+        HOVER.lastX = event.clientX;
+        HOVER.lastY = event.clientY;
+        HOVER.HoverTimer(jax, math);
         return EVENT.False(event);
       }
     },
@@ -366,39 +434,58 @@
       //
       //  Get the hover data
       //
-      var JAX = OUTPUT[jax.outputJax],
-          span = JAX.getHoverSpan(jax,math),
-          bbox = JAX.getHoverBBox(jax,span,math),
-          show = (JAX.config.showMathMenu != null ? JAX : HUB).config.showMathMenu;
-      var dx = CONFIG.frame.x, dy = CONFIG.frame.y, dd = CONFIG.frame.bwidth;  // frame size
-      if (ME.msieBorderWidthBug) {dd = 0}
+      var JAX = OUTPUT[jax.outputJax];
+      var span = JAX.getHoverSpan(jax,math);
+      var bbox = JAX.getHoverBBox(jax,span,math);
+      var show = (JAX.config.showMathMenu != null ? JAX : HUB).config.showMathMenu;
+
+      // frame size
+      var dx = CONFIG.frame.x;
+      var dy = CONFIG.frame.y;
+      var dd = CONFIG.frame.bwidth;
+      
+      if (ME.msieBorderWidthBug) {
+        dd = 0;
+      }
       jax.hover = {opacity:0, id:jax.inputID+"-Hover"};
       //
       //  The frame and menu button
       //
       var frame = HTML.Element("span",{
-         id:jax.hover.id, isMathJax: true,
-         style:{display:"inline-block", width:0, height:0, position:"relative"}
+         id:jax.hover.id, 
+         isMathJax: true,
+         style: {display: "inline-block", width: 0, height: 0, position: "relative"}
         },[["span",{
-          className:"MathJax_Hover_Frame", isMathJax: true,
+          className:"MathJax_Hover_Frame", 
+          isMathJax: true,
           style:{
-            display:"inline-block", position:"absolute",
-            top:this.Px(-bbox.h-dy-dd-(bbox.y||0)), left:this.Px(-dx-dd+(bbox.x||0)),
-            width:this.Px(bbox.w+2*dx), height:this.Px(bbox.h+bbox.d+2*dy),
-            opacity:0, filter:"alpha(opacity=0)"
+            display:"inline-block", 
+            position:"absolute",
+            top:this.Px(-bbox.h-dy-dd-(bbox.y||0)), 
+            left:this.Px(-dx-dd+(bbox.x||0)),
+            width:this.Px(bbox.w+2*dx), 
+            height:this.Px(bbox.h+bbox.d+2*dy),
+            opacity:0, 
+            filter:"alpha(opacity=0)"
           }}
         ]]
       );
       var button = HTML.Element("span",{
-         isMathJax: true, id:jax.hover.id+"Menu", className:"MathJax_Menu_Button",
+         isMathJax: true, 
+         id:jax.hover.id+"Menu", 
+         className:"MathJax_Menu_Button",
          style:{display:"inline-block", "z-index": 1, width:0, height:0, position:"relative"}
         },[["span",{
-            className: "MathJax_Hover_Arrow", isMathJax: true, math: math,
-            onclick: this.HoverMenu, jax:JAX.id,
+            className: "MathJax_Hover_Arrow", 
+            isMathJax: true, 
+            math: math,
+            onclick: this.HoverMenu, 
+            jax:JAX.id,
             style: {
               left:this.Px(bbox.w+dx+dd+(bbox.x||0)+CONFIG.button.x),
               top:this.Px(-bbox.h-dy-dd-(bbox.y||0)-CONFIG.button.y),
-              opacity:0, filter:"alpha(opacity=0)"
+              opacity:0, 
+              filter:"alpha(opacity=0)"
             }
           },[["span",{isMathJax:true},"\u25BC"]]]]
       );
@@ -412,9 +499,14 @@
       //
       //  Add the frame and button
       //
-      span.parentNode.insertBefore(frame,span);
-      if (show) {span.parentNode.insertBefore(button,span)}
-      if (span.style) {span.style.position = "relative"} // so math is on top of hover frame
+      span.parentNode.insertBefore(frame, span);
+      if (show) {
+        span.parentNode.insertBefore(button, span);
+      }
+      if (span.style) {
+        // so math is on top of hover frame
+        span.style.position = "relative";
+      } 
       //
       //  Start the hover fade-in
       //
@@ -434,7 +526,9 @@
     //  Start the fade-out
     //
     UnHover: function (jax) {
-      if (!jax.hover.nofade) {this.HoverFadeTimer(jax,-CONFIG.fadeoutInc,CONFIG.fadeoutStart)}
+      if (!jax.hover.nofade) {
+        this.HoverFadeTimer(jax, -CONFIG.fadeoutInc, CONFIG.fadeoutStart);
+      }
     },
     //
     //  Handle the fade-in and fade-out
@@ -451,11 +545,20 @@
         button.firstChild.style.opacity = jax.hover.opacity;
         button.firstChild.style.filter = frame.style.filter;
       }
-      if (jax.hover.opacity === 1) {return}
-      if (jax.hover.opacity > 0) {this.HoverFadeTimer(jax,jax.hover.inc); return}
+      if (jax.hover.opacity === 1) {
+        return;
+      }
+      if (jax.hover.opacity > 0) {
+        this.HoverFadeTimer(jax, jax.hover.inc);
+        return;
+      }
       frame.parentNode.removeChild(frame);
-      if (button) {button.parentNode.removeChild(button)}
-      if (jax.hover.remove) {clearTimeout(jax.hover.remove)}
+      if (button) {
+        button.parentNode.removeChild(button);
+      }
+      if (jax.hover.remove) {
+        clearTimeout(jax.hover.remove);
+      }
       delete jax.hover;
     },
     //
@@ -464,7 +567,7 @@
     HoverFadeTimer: function (jax,inc,delay) {
       jax.hover.inc = inc;
       if (!jax.hover.timer) {
-        jax.hover.timer = setTimeout(CALLBACK(["HoverFade",this,jax]),(delay||CONFIG.fadeDelay));
+        jax.hover.timer = setTimeout(CALLBACK(["HoverFade", this, jax]), (delay || CONFIG.fadeDelay));
       }
     },
 
@@ -472,7 +575,9 @@
     //  Handle a click on the menu button
     //
     HoverMenu: function (event) {
-      if (!event) {event = window.event}
+      if (!event) {
+        event = window.event;
+      }
       return OUTPUT[this.jax].ContextMenu(event,this.math,true);
     },
 
@@ -494,7 +599,9 @@
     //  Make a measurement in pixels
     //
     Px: function (m) {
-      if (Math.abs(m) < .006) {return "0px"}
+      if (Math.abs(m) < 0.006) {
+        return "0px";
+      }
       return m.toFixed(2).replace(/\.?0+$/,"") + "px";
     },
 
@@ -528,7 +635,8 @@
     start: function (event) {
       var now = new Date().getTime();
       var dblTap = (now - TOUCH.last < TOUCH.delay && TOUCH.up);
-      TOUCH.last = now; TOUCH.up = false;
+      TOUCH.last = now;
+      TOUCH.up = false;
       if (dblTap) {
         TOUCH.timeout = setTimeout(TOUCH.menu,TOUCH.delay,event,this);
         event.preventDefault();
@@ -547,7 +655,9 @@
       TOUCH.up = (now - TOUCH.last < TOUCH.delay);
       if (TOUCH.timeout) {
         clearTimeout(TOUCH.timeout);
-        delete TOUCH.timeout; TOUCH.last = 0; TOUCH.up = false;
+        delete TOUCH.timeout;
+        TOUCH.last = 0;
+        TOUCH.up = false;
         event.preventDefault();
         return EVENT.Handler((event.touches[0]||event.touch),"DblClick",this);
       }
@@ -558,7 +668,9 @@
     //  the contextual menu event.
     //
     menu: function (event,math) {
-      delete TOUCH.timeout; TOUCH.last = 0; TOUCH.up = false;
+      delete TOUCH.timeout;
+      TOUCH.last = 0;
+      TOUCH.up = false;
       return EVENT.Handler((event.touches[0]||event.touch),"ContextMenu",math);
     }
 
@@ -585,7 +697,10 @@
       ME.msieBorderWidthBug = (document.compatMode === "BackCompat");  // borders are inside offsetWidth/Height
       ME.msieEventBug = browser.isIE9;           // must get event from window even though event is passed
       ME.msieAlignBug = (!isIE8 || mode < 8);    // inline-block spans don't rest on baseline
-      if (mode < 9) {EVENT.LEFTBUTTON = 1}       // IE < 9 has wrong event.button values
+      if (mode < 9) {
+        // IE < 9 has wrong event.button values
+        EVENT.LEFTBUTTON = 1;
+      } 
     },
     Safari: function (browser) {
       ME.safariContextMenuBug = true;  // selection can be started by contextmenu event
@@ -605,7 +720,9 @@
     HTML.Element("img",{style:{width:0,height:0,position:"relative"},src:"about:blank"}) :
     HTML.Element("span",{style:{width:0,height:0,display:"inline-block"}})
   );
-  if (ME.operaPositionBug) {ME.topImg.style.border="1px solid"}
+  if (ME.operaPositionBug) {
+    ME.topImg.style.border = "1px solid";
+  }
 
   //
   //  Get configuration from user
@@ -616,7 +733,7 @@
     haze.border = CONFIG.frame.bwidth+"px solid "+CONFIG.frame.bcolor+" ! important";
     haze["box-shadow"] = haze["-webkit-box-shadow"] =
       haze["-moz-box-shadow"] = haze["-khtml-box-shadow"] =
-        "0px 0px "+CONFIG.frame.hwidth+" "+CONFIG.frame.hcolor;
+        "0px 0px " + CONFIG.frame.hwidth + " " + CONFIG.frame.hcolor;
   };
 
   //

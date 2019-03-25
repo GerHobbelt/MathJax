@@ -115,8 +115,8 @@ MathJax.Extension.mml2jax = {
   },
 
   PushMathElements: function(array, element, name, namespace) {
-    var math,
-      preview = MathJax.Hub.config.preRemoveClass;
+    var math;
+    var preview = MathJax.Hub.config.preRemoveClass;
     if (namespace) {
       if (!element.getElementsByTagNameNS) return;
       math = element.getElementsByTagNameNS(namespace, name);
@@ -131,8 +131,8 @@ MathJax.Extension.mml2jax = {
   },
 
   ProcessMathArray: function(math) {
-    var i,
-      m = math.length;
+    var i;
+    var m = math.length;
     if (m) {
       if (this.MathTagBug) {
         for (i = 0; i < m; i++) {
@@ -180,9 +180,9 @@ MathJax.Extension.mml2jax = {
     var script = document.createElement("script");
     script.type = "math/mml";
     parent.insertBefore(script, math);
-    var mml = "",
-      node,
-      MATH = math;
+    var mml = "";
+    var node;
+    var MATH = math;
     while (math && math.nodeName !== "/MATH") {
       node = math;
       math = math.nextSibling;

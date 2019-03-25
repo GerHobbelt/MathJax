@@ -54,13 +54,15 @@ MathJax.Hub.Register.StartupHook("MathML Jax Ready",function () {
     if (!MATHML.mml3XSLT) return;
 
     // Parse the <math> but use MATHML.Parse's preProcessMath to apply the normal preprocessing.
-    if (!MATHML.ParseXML) {MATHML.ParseXML = MATHML.createParser()}
+    if (!MATHML.ParseXML) {
+      MATHML.ParseXML = MATHML.createParser();
+    }
     var doc = MATHML.ParseXML(PARSE.preProcessMath(data.math));
 
     // Now transform the <math> using the mml3 stylesheet.
     var newdoc = MATHML.mml3XSLT.transformToDocument(doc);
 
-    if ((typeof newdoc) === "string") {
+    if (typeof newdoc === "string") {
       // Internet Explorer returns a string, so just use it.
       data.math = newdoc;
     } else if (window.XMLSerializer) {
@@ -730,12 +732,14 @@ MathJax.Hub.Register.StartupHook("MathML Jax Ready",function () {
   var mml3;
   if (window.XSLTProcessor) {
     // standard method: just use an XSLTProcessor and parse the stylesheet
-    if (!MATHML.ParseXML) {MATHML.ParseXML = MATHML.createParser()}
+    if (!MATHML.ParseXML) {
+      MATHML.ParseXML = MATHML.createParser();
+    }
     MATHML.mml3XSLT = new XSLTProcessor();
     MATHML.mml3XSLT.importStylesheet(MATHML.ParseXML(mml3Stylesheet));
   } else if (MathJax.Hub.Browser.isMSIE) {
     // nonstandard methods for Internet Explorer
-    if (MathJax.Hub.Browser.versionAtLeast("9.0") || (document.documentMode||0) >= 9) {
+    if (MathJax.Hub.Browser.versionAtLeast("9.0") || (document.documentMode || 0) >= 9) {
       // For Internet Explorer >= 9, use createProcessor
       mml3 = new ActiveXObject("Msxml2.FreeThreadedDOMDocument");
       mml3.loadXML(mml3Stylesheet);
@@ -748,7 +752,7 @@ MathJax.Hub.Register.StartupHook("MathML Jax Ready",function () {
           this.mml3.transform();
           return this.mml3.output;
         }
-      }
+      };
     } else {
       // For Internet Explorer <= 8, use transformNode
       mml3 = MATHML.createMSParser();
@@ -759,7 +763,7 @@ MathJax.Hub.Register.StartupHook("MathML Jax Ready",function () {
         transformToDocument: function(doc) {
           return doc.documentElement.transformNode(this.mml3);
         }
-      }
+      };
     }
   } else {
     // No XSLT support. Do not change the <math> content.

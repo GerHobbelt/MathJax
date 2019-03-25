@@ -91,7 +91,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
            name]
         );
       }
-      cs = cs.substr(1); space = space.split(","); chr = parseInt(chr);
+      cs = cs.substr(1);
+      space = space.split(",");
+      chr = parseInt(chr);
       this.setDef(cs, ['xArrow', chr, parseInt(space[0]), parseInt(space[1])]);
     }
   });

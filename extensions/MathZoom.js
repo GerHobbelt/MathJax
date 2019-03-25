@@ -202,8 +202,8 @@
       //  Create the DOM elements for the zoom box
       //
       var container = this.findContainer(math);
-      var Mw = Math.floor(0.85 * container.clientWidth),
-        Mh = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+      var Mw = Math.floor(0.85 * container.clientWidth);
+      var Mh = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
       if (this.getOverflow(container) !== "visible") {
         Mh = Math.min(container.clientHeight, Mh);
       }
@@ -220,11 +220,14 @@
           [["span", { style: { display: "inline-block", "white-space": "nowrap" } }]]
         ]
       ]);
-      var zoom = div.lastChild,
-        span = zoom.firstChild,
-        overlay = div.firstChild;
+      var zoom = div.lastChild;
+      var span = zoom.firstChild;
+      var overlay = div.firstChild;
+
+      // put div after math
       math.parentNode.insertBefore(div, math);
-      math.parentNode.insertBefore(math, div); // put div after math
+      math.parentNode.insertBefore(math, div);
+
       if (span.addEventListener) {
         span.addEventListener("mousedown", this.Remove, true);
       }
@@ -264,24 +267,28 @@
       //
       if (this.msiePositionBug) {
         if (this.msieSizeBug) {
+          // IE8 gets the dimensions completely wrong
           zoom.style.height = bbox.zH + "px";
           zoom.style.width = bbox.zW + "px";
-        } // IE8 gets the dimensions completely wrong
+        }
         if (zoom.offsetHeight > Mh) {
+          // IE doesn't do max-height?
           zoom.style.height = Mh + "px";
           zoom.style.width = bbox.zW + this.scrollSize + "px";
-        } // IE doesn't do max-height?
+        }
         if (zoom.offsetWidth > Mw) {
           zoom.style.width = Mw + "px";
           zoom.style.height = bbox.zH + this.scrollSize + "px";
         }
       }
       if (this.operaPositionBug) {
+        // Opera gets width as 0?
         zoom.style.width = Math.min(Mw, bbox.zW) + "px";
-      } // Opera gets width as 0?
+      }
       if (zoom.offsetWidth > eW && zoom.offsetWidth - eW < Mw && zoom.offsetHeight - eW < Mh) {
+        // don't show scroll bars if we don't need to
         zoom.style.overflow = "visible";
-      } // don't show scroll bars if we don't need to
+      }
       this.Position(zoom, bbox);
       if (this.msieTrapEventBug) {
         trap.style.height = zoom.clientHeight + "px";
@@ -322,18 +329,19 @@
     //
     Position: function(zoom, bbox) {
       zoom.style.display = "none"; // avoids getting excessive width in Resize()
-      var XY = this.Resize(),
-        x = XY.x,
-        y = XY.y,
-        W = bbox.mW;
+      var XY = this.Resize();
+      var x = XY.x;
+      var y = XY.y;
+      var W = bbox.mW;
       zoom.style.display = "";
-      var dx = -W - Math.floor((zoom.offsetWidth - W) / 2),
-        dy = bbox.Y;
+      var dx = -W - Math.floor((zoom.offsetWidth - W) / 2);
+      var dy = bbox.Y;
       zoom.style.left = Math.max(dx, 10 - x) + "px";
       zoom.style.top = Math.max(dy, 10 - y) + "px";
       if (!ZOOM.msiePositionBug) {
+        // refigure overlay width/height
         ZOOM.SetWH();
-      } // refigure overlay width/height
+      }
     },
 
     //
@@ -343,10 +351,10 @@
       if (ZOOM.onresize) {
         ZOOM.onresize(event);
       }
-      var div = document.getElementById("MathJax_ZoomFrame"),
-        overlay = document.getElementById("MathJax_ZoomOverlay");
-      var xy = ZOOM.getXY(div),
-        obj = ZOOM.findContainer(div);
+      var div = document.getElementById("MathJax_ZoomFrame");
+      var overlay = document.getElementById("MathJax_ZoomOverlay");
+      var xy = ZOOM.getXY(div);
+      var obj = ZOOM.findContainer(div);
       if (ZOOM.getOverflow(obj) !== "visible") {
         overlay.scroll_parent = obj; // Save this for future reference.
         var XY = ZOOM.getXY(obj); // Remove container position
@@ -396,8 +404,8 @@
       var style = window.getComputedStyle
         ? window.getComputedStyle(obj)
         : obj.currentStyle || { borderLeftWidth: 0, borderTopWidth: 0 };
-      var x = style.borderLeftWidth,
-        y = style.borderTopWidth;
+      var x = style.borderLeftWidth;
+      var y = style.borderTopWidth;
       if (size[x]) {
         x = size[x];
       } else {
@@ -414,17 +422,18 @@
     //  Get the position of an element on the page
     //
     getXY: function(div) {
-      var x = 0,
-        y = 0,
-        obj;
+      var x = 0;
+      var y = 0;
+      var obj;
       obj = div;
       while (obj.offsetParent) {
         x += obj.offsetLeft;
         obj = obj.offsetParent;
       }
       if (ZOOM.operaPositionBug) {
+        // to get vertical position right
         div.style.border = "1px solid";
-      } // to get vertical position right
+      }
       obj = div;
       while (obj.offsetParent) {
         y += obj.offsetTop;
@@ -492,8 +501,9 @@
       ZOOM.msieInlineBlockAlignBug = mode <= 7;
       ZOOM.msieTrapEventBug = !window.addEventListener;
       if (document.compatMode === "BackCompat") {
+        // don't know why this is so far off
         ZOOM.scrollSize = 52;
-      } // don't know why this is so far off
+      }
       if (isIE9) {
         delete CONFIG.styles["#MathJax_Zoom"].filter;
       }

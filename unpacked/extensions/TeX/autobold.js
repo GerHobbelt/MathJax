@@ -39,7 +39,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     span.appendChild(document.createTextNode("ABCXYZabcxyz"));
     var W = span.offsetWidth;
     span.style.fontWeight = "bold";
-    if (W && span.offsetWidth === W) {data.math = "\\boldsymbol{"+data.math+"}"}
+    if (W && span.offsetWidth === W) {
+      data.math = "\\boldsymbol{" + data.math + "}";
+    }
     span.parentNode.removeChild(span);
   });
   

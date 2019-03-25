@@ -337,14 +337,12 @@ asciimath = asciimath || {};
 if (asciimath.config) {
   // special callback: this is invoked before any ASCIImath data is set up;
   // not even the configuration settings have been initialized!
-  if (typeof asciimath.config.preInit === "function") {
+  if (typeof asciimath.config.preInitConfig === "function") {
     var data = {
       defaultConfig: config,
-      AMsymbols: AMsymbols,
       asciimath: asciimath,
     };
-    asciimath.config.preInit(data);      
-    AMsymbols = data.AMsymbols;   // this table may have been patched by the preInit() callback.
+    asciimath.config.preInitConfig(data);      
   }
     
   // also track which options the user specified which we don't know about:
@@ -538,7 +536,7 @@ function createElementXHTML(t) {
   } else {
     return document.createElementNS("http://www.w3.org/1999/xhtml", t);
   }
-};
+}
 
 /////////////////////////////////////////////////////
 // === END ASCIIMATH->MATHJAX COMMENTED SECTION 1 ===
@@ -1154,9 +1152,20 @@ function compareNames(s1, s2) {
 var AMnames = []; // list of input symbols
 
 function initSymbols() {
-  var i;
+  // special callback: this is invoked before ASCIImath symbol data is set up
+  // but AFTER the ASCIImath configuration has been initialized completely.
+  // This is the time where userland code gets to edit the symbol tables...
+  if (typeof asciimath.config.preInitSymbols === "function") {
+    var data = {
+      AMsymbols: AMsymbols,
+      asciimath: asciimath,
+    };
+    asciimath.config.preInitSymbols(data);      
+    AMsymbols = data.AMsymbols;   // this table may have been patched by the preInitSymbols() callback.
+  }
+
   var symlen = AMsymbols.length;
-  for (i = 0; i < symlen; i++) {
+  for (var i = 0; i < symlen; i++) {
     if (
       AMsymbols[i].tex &&
       !AMsymbols[i].notexcopy
@@ -2175,7 +2184,7 @@ function processNodeR(n, linebreaks) {
         // this is a problem ************
         for (i = 0; i < arr.length; i++) {
           if (config.AMusedelimiter2) {
-            arr[i] = arr[i].replace(/AMescape2/g, config.AMdelimiter2)
+            arr[i] = arr[i].replace(/AMescape2/g, config.AMdelimiter2);
           }
           arr[i] = arr[i].replace(/AMescape1/g, config.AMdelimiter1);
         }
@@ -2312,21 +2321,7 @@ ASCIIMATH.Augment({
 
       var am = {
         config: {
-          preInit: function MathJaxPreInitASCIImathData(data) {
-            var AMsymbols = data.AMsymbols;
-            //
-            //  Remove remapping of mathvariants to plane1 (MathJax handles that)
-            //  Change functions to mi rather than mo (to get spacing right)
-            //
-            for (var i = 0, m = AMsymbols.length; i < m; i++) {
-              if (AMsymbols[i].codes) {
-                delete AMsymbols[i].codes;
-              }
-              if (AMsymbols[i].func) {
-                AMsymbols[i].tag = "mi";
-              }
-            }
-
+          preInitConfig: function MathJaxPreInitASCIImathConfig(data) {
             // set up default config settings for baseline MathJax:
             var dst = am.config;
             dst.showasciiformulaonhover = false;
@@ -2341,6 +2336,21 @@ ASCIIMATH.Augment({
               //if (key in refcfg) {
                 dst[key] = incfg[key];
               //}
+            }
+          },
+          preInitSymbols: function MathJaxPreInitASCIImathData(data) {
+            var AMsymbols = data.AMsymbols;
+            //
+            //  Remove remapping of mathvariants to plane1 (MathJax handles that)
+            //  Change functions to mi rather than mo (to get spacing right)
+            //
+            for (var i = 0, m = AMsymbols.length; i < m; i++) {
+              if (AMsymbols[i].codes) {
+                delete AMsymbols[i].codes;
+              }
+              if (AMsymbols[i].func) {
+                AMsymbols[i].tag = "mi";
+              }
             }
           },
         }

@@ -68,8 +68,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
       if (this.selection != null) return this.selection;
       if (this.choosing) return 2; // prevent infinite loops:  see issue #1151
       this.choosing = true;
-      var selection = 0,
-        values = this.getValues("displaystyle", "scriptlevel");
+      var selection = 0;
+      var values = this.getValues("displaystyle", "scriptlevel");
       if (values.scriptlevel > 0) {
         selection = Math.min(3, values.scriptlevel + 1);
       } else {

@@ -56,7 +56,9 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
   var isMSIE = HUB.Browser.isMSIE;
 
   if (isMSIE) {
-    try {document.namespaces.add("m","http://www.w3.org/1998/Math/MathML")} catch (err) {}
+    try {
+      document.namespaces.add("m", "http://www.w3.org/1998/Math/MathML");
+    } catch (err) {}
   }
 
   var CONFIG = HUB.CombineConfig("MathML.content-mathml",{
@@ -103,7 +105,11 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
     },
 
     getTextContent: function(element) {
-      return element.text !== undefined ? element.text : element.innerText !== undefined ? element.innerText : element.textContent;
+      return element.text !== undefined
+        ? element.text
+        : element.innerText !== undefined
+          ? element.innerText
+          : element.textContent;
     },
 
     setTextContent: function(element,textContent) {
@@ -160,10 +166,13 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
     /* Classify node's children as argumentss, variable bindings, or qualifiers
     */
     classifyChildren: function(contentMMLNode) {
-      var args = [], bvars = [], qualifiers = [];
-      for (var j = 0, l = contentMMLNode.childNodes.length; j<l; j++ ) {
+      var args = [];
+      var bvars = [];
+      var qualifiers = [];
+      for (var j = 0, l = contentMMLNode.childNodes.length; j < l; j++ ) {
         if (contentMMLNode.childNodes[j].nodeType === 1) {
-          var childNode = contentMMLNode.childNodes[j], name = childNode.nodeName;
+          var childNode = contentMMLNode.childNodes[j];
+          var name = childNode.nodeName;
           if (name === 'bvar') {
             bvars.push(childNode);
           } else if (name === 'condition'||
@@ -181,9 +190,9 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
         }
       }
       return {
-        args:args, 
-          bvars:bvars, 
-          qualifiers:qualifiers
+        args: args,
+        bvars: bvars,
+        qualifiers: qualifiers
       };
     },
 
@@ -269,7 +278,9 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
         return function(parentNode,contentMMLNode) {
           var children = CToP.classifyChildren(contentMMLNode);
 
-          var args = children.args, bvars = children.bvars, qualifiers = children.qualifiers;
+          var args = children.args;
+          var bvars = children.bvars;
+          var qualifiers = children.qualifiers;
           if (bvars.length) {
             var firstArg = children.args[0];
             args = args.slice(1);
@@ -281,7 +292,7 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
           } else {
             parentNode.appendChild(CToP.createmfenced(args,open,close));
           }
-        }
+        };
       },
 
       /* Transform a content token to a presentation token
@@ -306,7 +317,7 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
               parentNode.appendChild(mrow);
             }
           }
-        }
+        };
       },
 
       /* Transform a binary operation
@@ -325,14 +336,14 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
           }
           CToP.appendToken(mrow,'mo',name);
           if (args.length>0) {
-            var z = args[(args.length === 1)?0:1];
+            var z = args[(args.length === 1) ? 0 : 1];
             CToP.applyTransform(mrow,z,tokenPrecedence);
           }	
           if (needsBrackets) {
             CToP.appendToken(mrow,'mo',')');
           }
           parentNode.appendChild(mrow);
-        }
+        };
       },
 
       /* Transform an infix operator
@@ -356,7 +367,7 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
             CToP.appendToken(mrow,'mo',')');
           }
           parentNode.appendChild(mrow);
-        }
+        };
       },
 
       /* Transform an iterated operation, e.g. summation
@@ -429,7 +440,7 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
           }
 
           parentNode.appendChild(mrow);
-        }
+        };
       },
 
       /* Transform something which binds a variable, e.g. forall or lambda
@@ -485,7 +496,7 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
             CToP.applyTransform(mrow,args[i],0);
           }
           parentNode.appendChild(mrow);
-        }
+        };
       },
 
       /** Transform a function application
@@ -505,7 +516,7 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
           CToP.appendToken(mrow,'mo','\u2061');
           mrow.appendChild(CToP.createmfenced(args,'(',')'));
           parentNode.appendChild(mrow);
-        }
+        };
       },
 
       /** Transform a min/max operation
@@ -533,7 +544,7 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
           CToP.appendToken(mrow2,'mo','}');
           mrow.appendChild(mrow2);
           parentNode.appendChild(mrow);
-        }
+        };
       }
     }
   }
@@ -617,7 +628,9 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
       var children = CToP.classifyChildren(contentMMLNode);
 
       var firstArg = children.args[0];
-      var args = children.args.slice(1), bvars = children.bvars, qualifiers = children.qualifiers;
+      var args = children.args.slice(1);
+      var bvars = children.bvars;
+      var qualifiers = children.qualifiers;
 
       if (firstArg) {
         var name = firstArg.nodeName;
@@ -739,7 +752,9 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
 
     matrix: function(parentNode,contentMMLNode,precedence) {
       var children = CToP.classifyChildren(contentMMLNode);
-      var args = children.args, bvars = children.bvars, qualifiers = children.qualifiers;
+      var args = children.args;
+      var bvars = children.bvars;
+      var qualifiers = children.qualifiers;
 
       if (bvars.length || qualifiers.length) {
         var mrow = CToP.createElement('mrow');
@@ -808,7 +823,9 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
     lambda: function(parentNode,contentMMLNode,precedence) {
       var firstArg = CToP.createElement('lambda');
       var children = CToP.classifyChildren(contentMMLNode);
-      var args = children.args, bvars = children.bvars, qualifiers = children.qualifiers;
+      var args = children.args;
+      var bvars = children.bvars;
+      var qualifiers = children.qualifiers;
       var i, l, num_qualifiers;
       
       if (bvars.length) {
@@ -1200,8 +1217,8 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
         type = CToP.getTextContent(args[0]);
         args = args.slice(1);
       }
-      var name = (type === 'above')? '\u2198' :
-        (type === 'below') ? '\u2197' : '\u2192' ;
+      var name = ((type === 'above') ? '\u2198' :
+        (type === 'below') ? '\u2197' : '\u2192');
       CToP.transforms.binary(name,2)(parentNode,contentMMLNode,firstArg,args,bvars,qualifiers,precedence);
     },
 
@@ -1445,7 +1462,7 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
 
     inverse: function(parentNode,contentMMLNode,firstArg,args,bvars,qualifiers,precedence)  {
       var msup = CToP.createElement('msup');
-      var arg = (args.length) ? args[0] : CToP.createElement('mrow');
+      var arg = (args.length ? args[0] : CToP.createElement('mrow'));
       CToP.applyTransform(msup,arg,precedence);
       var mfenced = CToP.createElement('mfenced');
       CToP.appendToken(mfenced,'mn','-1');
@@ -1729,7 +1746,6 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
 
 
 MathJax.Hub.Register.StartupHook("MathML Jax Ready",function () {
-
   var MATHML = MathJax.InputJax.MathML;
 
   var CToP = MathJax.Extension["MathML/content-mathml"];

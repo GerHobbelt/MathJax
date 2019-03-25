@@ -43,7 +43,8 @@
     config: HUB.CombineConfig("fast-preview",{
       Chunks: {EqnChunk: 10000, EqnChunkFactor: 1, EqnChunkDelay: 0},
       color: "inherit!important",
-      updateTime: 30, updateDelay: 6,
+      updateTime: 30,
+      updateDelay: 6,
       messageStyle: "none",
       disabled: BROWSER.isMSIE && !BROWSER.versionAtLeast("8.0")
     }),
@@ -65,7 +66,8 @@
       }
       HUB.Register.MessageHook("Begin Math Output",function () {
         if (!done && FastPreview.Active()) {
-          update = HUB.processUpdateTime; delay = HUB.processUpdateDelay;
+          update = HUB.processUpdateTime;
+          delay = HUB.processUpdateDelay;
           style = HUB.config.messageStyle;
           HUB.processUpdateTime = config.updateTime;
           HUB.processUpdateDelay = config.updateDelay;
@@ -87,9 +89,13 @@
     //
     //  Allow page to override user settings (for things like editor previews)
     //
-    Disable: function () {this.enabled = false},
-    Enable: function () {this.enabled = true},
-    
+    Disable: function() {
+      this.enabled = false;
+    },
+    Enable: function() {
+      this.enabled = true;
+    },
+
     Active: function () {
       return SETTINGS.FastPreview && this.enabled &&
              !(JAX[SETTINGS.renderer]||{}).noFastPreview;

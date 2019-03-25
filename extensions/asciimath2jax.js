@@ -100,10 +100,9 @@ MathJax.Extension.asciimath2jax = {
   },
 
   createPatterns: function() {
-    var starts = [],
-      i,
-      m,
-      config = this.config;
+    var starts = [];
+    var i, m;
+    var config = this.config;
     this.match = {};
     if (config.delimiters.length === 0) {
       return false;
@@ -156,8 +155,9 @@ MathJax.Extension.asciimath2jax = {
         cname = typeof element.className === "undefined" ? "" : element.className;
         tname = typeof element.tagName === "undefined" ? "" : element.tagName;
         if (typeof cname !== "string") {
+          // jsxgraph uses non-string class names!
           cname = String(cname);
-        } // jsxgraph uses non-string class names!
+        }
         process = this.processClass.exec(cname);
         if (element.firstChild && !cname.match(/(^| )MathJax/) && (process || !this.skipTags.exec(tname))) {
           ignoreChild = (ignore || this.ignoreClass.exec(cname)) && !process;
@@ -174,10 +174,9 @@ MathJax.Extension.asciimath2jax = {
     if (element.nodeValue.replace(/\s+/, "") == "") {
       return element;
     }
-    var match,
-      prev,
-      pos = 0,
-      rescan;
+    var match, prev;
+    var pos = 0;
+    var rescan;
     this.search = { start: true };
     this.pattern = this.start;
     while (element) {
@@ -244,11 +243,9 @@ MathJax.Extension.asciimath2jax = {
   },
 
   encloseMath: function(element) {
-    var search = this.search,
-      close = search.close,
-      CLOSE,
-      math,
-      next;
+    var search = this.search;
+    var close = search.close;
+    var CLOSE, math, next;
     if (search.cpos === close.length) {
       close = close.nextSibling;
     } else {

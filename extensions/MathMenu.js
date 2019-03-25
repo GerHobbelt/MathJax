@@ -60,9 +60,9 @@
 
   var isArray = MathJax.Object.isArray;
 
-  var isPC = HUB.Browser.isPC,
-    isMSIE = HUB.Browser.isMSIE,
-    isIE9 = (document.documentMode || 0) > 8;
+  var isPC = HUB.Browser.isPC;
+  var isMSIE = HUB.Browser.isMSIE;
+  var isIE9 = (document.documentMode || 0) > 8;
   var ROUND = isPC ? null : "5px";
 
   var CONFIG = HUB.CombineConfig("MathMenu", {
@@ -406,8 +406,8 @@
         div.appendChild(menu);
         this.posted = true;
         if (menu.offsetWidth) menu.style.width = menu.offsetWidth + 2 + "px";
-        var x = event.pageX,
-          y = event.pageY;
+        var x = event.pageX;
+        var y = event.pageY;
         var bbox = document.body.getBoundingClientRect();
         var styles = window.getComputedStyle ? window.getComputedStyle(document.body) : { marginLeft: "0px" };
         var bodyRight = bbox.right - Math.min(0, bbox.left) + parseFloat(styles.marginLeft);
@@ -433,8 +433,8 @@
           }
           MENU.skipUp = event.isContextMenu;
         } else {
-          var side = "left",
-            mw = parent.offsetWidth;
+          var side = "left";
+          var mw = parent.offsetWidth;
           x = MENU.isMobile ? 30 : mw - 2;
           y = 0;
           while (parent && parent !== div) {
@@ -1014,8 +1014,9 @@
 
     Init: function(name, action, def) {
       if (!isArray(name)) {
+        // make [id,label] pair
         name = [name, name];
-      } // make [id,label] pair
+      }
       this.name = name;
       this.action = action;
       this.With(def);
@@ -1050,8 +1051,9 @@
     },
     Init: function(name, def) {
       if (!isArray(name)) {
+        // make [id,label] pair
         name = [name, name];
-      } // make [id,label] pair
+      }
       this.name = name;
       var i = 1;
       if (!(def instanceof MENU.ITEM)) {
@@ -1168,8 +1170,9 @@
     },
     Init: function(name, variable, def) {
       if (!isArray(name)) {
+        // make [id,label] pair
         name = [name, name];
-      } // make [id,label] pair
+      }
       this.name = name;
       this.variable = variable;
       this.With(def);
@@ -1224,8 +1227,9 @@
     },
     Init: function(name, variable, def) {
       if (!isArray(name)) {
+        // make [id,label] pair
         name = [name, name];
-      } // make [id,label] pair
+      }
       this.name = name;
       this.variable = variable;
       this.With(def);
@@ -1262,8 +1266,9 @@
 
     Init: function(name, def) {
       if (!isArray(name)) {
+        // make [id,label] pair
         name = [name, name];
-      } // make [id,label] pair
+      }
       this.name = name;
       this.With(def);
     },
@@ -1493,8 +1498,8 @@
   };
   MENU.ShowSource.Window = function(event) {
     if (!MENU.ShowSource.w) {
-      var def = [],
-        DEF = CONFIG.windowSettings;
+      var def = [];
+      var DEF = CONFIG.windowSettings;
       for (var id in DEF) {
         if (DEF.hasOwnProperty(id)) {
           def.push(id + "=" + DEF[id]);
@@ -1532,20 +1537,21 @@
       w.document.close();
       var table = w.document.body.firstChild;
       setTimeout(function() {
-        var H = w.outerHeight - w.innerHeight || 30,
-          W = w.outerWidth - w.innerWidth || 30,
-          x,
-          y;
+        var H = w.outerHeight - w.innerHeight || 30;
+        var W = w.outerWidth - w.innerWidth || 30;
+        var x, y;
         W = Math.max(140, Math.min(Math.floor(0.5 * screen.width), table.offsetWidth + W + 25));
         H = Math.max(40, Math.min(Math.floor(0.5 * screen.height), table.offsetHeight + H + 25));
         if (MENU.prototype.msieHeightBug) {
+          // for title bar in XP
           H += 35;
-        } // for title bar in XP
+        }
         w.resizeTo(W, H);
         var X;
         try {
+          // IE8 throws an error accessing screenX
           X = event.screenX;
-        } catch (e) {} // IE8 throws an error accessing screenX
+        } catch (e) {}
         if (event && X != null) {
           x = Math.max(0, Math.min(event.screenX - Math.floor(W / 2), screen.width - W - 20));
           y = Math.max(0, Math.min(event.screenY - Math.floor(H / 2), screen.height - H - 20));
@@ -1559,11 +1565,10 @@
    *  Handle rescaling all the math
    */
   MENU.Scale = function() {
-    var JAX = ["CommonHTML", "HTML-CSS", "SVG", "NativeMML", "PreviewHTML"],
-      m = JAX.length,
-      SCALE = 100,
-      i,
-      jax;
+    var JAX = ["CommonHTML", "HTML-CSS", "SVG", "NativeMML", "PreviewHTML"];
+    var m = JAX.length;
+    var SCALE = 100;
+    var i, jax;
     for (i = 0; i < m; i++) {
       jax = OUTPUT[JAX[i]];
       if (jax) {
@@ -1609,10 +1614,10 @@
   MENU.Renderer = function() {
     var jax = HUB.outputJax["jax/mml"];
     if (jax[0] !== CONFIG.settings.renderer) {
-      var BROWSER = HUB.Browser,
-        message,
-        MESSAGE = MENU.Renderer.Messages,
-        warned;
+      var BROWSER = HUB.Browser;
+      var message;
+      var MESSAGE = MENU.Renderer.Messages;
+      var warned;
       //
       //  Check that the new renderer is appropriate for the browser
       //
@@ -1834,13 +1839,13 @@
   //
   MENU.CreateLocaleMenu = function() {
     if (!MENU.menu) return;
-    var menu = MENU.menu.Find("Language").submenu,
-      items = menu.items;
+    var menu = MENU.menu.Find("Language").submenu;
+    var items = menu.items;
     //
     //  Get the names of the languages and sort them
     //
-    var locales = [],
-      LOCALE = MathJax.Localization.strings;
+    var locales = [];
+    var LOCALE = MathJax.Localization.strings;
     for (var id in LOCALE) {
       if (LOCALE.hasOwnProperty(id)) {
         locales.push(id);

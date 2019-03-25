@@ -52,7 +52,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
     //
     //  Store the string when a CE object is created
     //
-    Init: function (string) { this.string = string; },
+    Init: function(string) {
+      this.string = string;
+    },
 
     //
     //  This converts the CE string to a TeX string.
@@ -77,10 +79,14 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
     // Call like
     //   go("H2O");
     //
-    go: function (input, stateMachine) {
-      if (!input) { return []; }
-      if (stateMachine === undefined) { stateMachine = 'ce'; }
-      var state = '0';
+    go: function(input, stateMachine) {
+      if (!input) {
+        return [];
+      }
+      if (stateMachine === undefined) {
+        stateMachine = "ce";
+      }
+      var state = "0";
 
       //
       // String buffers for parsing:
@@ -144,14 +150,14 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function () {
         var machine = mhchemParser.stateMachines[stateMachine];
         var t = machine.transitions[state] || machine.transitions['*'];
 iterateTransitions:
-        for (var i=0; i<t.length; i++) {
+        for (var i = 0; i < t.length; i++) {
           var matches = mhchemParser.patterns.match_(t[i].pattern, input);
           if (matches) {
             //
             // Execute actions
             //
             var task = t[i].task;
-            for (var iA=0; iA<task.action_.length; iA++) {
+            for (var iA = 0; iA < task.action_.length; iA++) {
               var o;
               //
               // Find and execute action
@@ -198,7 +204,7 @@ iterateTransitions:
     concatArray: function (a, b) {
       if (b) {
         if (Array.isArray(b)) {
-          for (var iB=0; iB<b.length; iB++) {
+          for (var iB = 0; iB < b.length; iB++) {
             a.push(b[iB]);
           }
         } else {
@@ -506,7 +512,7 @@ iterateTransitions:
         for (state in o[pattern]) {
           stateArray = state.split("|");
           o[pattern][state].stateArray = stateArray;
-          for (i=0; i<stateArray.length; i++) {
+          for (i = 0; i < stateArray.length; i++) {
             transitions[stateArray[i]] = [];
           }
         }
@@ -517,7 +523,7 @@ iterateTransitions:
       for (pattern in o) {
         for (state in o[pattern]) {
           stateArray = o[pattern][state].stateArray || [];
-          for (i=0; i<stateArray.length; i++) {
+          for (i = 0; i < stateArray.length; i++) {
             //
             // 2a. Normalize actions into array:  'text=' ==> [{type_:'text='}]
             // (Note to myself: Resolving the function here would be problematic. It would need .bind (for *this*) and currying (for *option*).)
@@ -526,7 +532,7 @@ iterateTransitions:
             var p = o[pattern][state];
             if (p.action_) {
               p.action_ = [].concat(p.action_);
-              for (var k=0; k<p.action_.length; k++) {
+              for (var k = 0; k < p.action_.length; k++) {
                 if (typeof p.action_[k] === "string") {
                   p.action_[k] = { type_: p.action_[k] };
                 }
@@ -1313,7 +1319,7 @@ iterateTransitions:
           if (buffer.text_.length > 4) {
             var a = buffer.text_.length % 3;
             if (a === 0) { a = 3; }
-            for (var i=buffer.text_.length-3; i>0; i-=3) {
+            for (var i = buffer.text_.length - 3; i > 0; i -= 3) {
               ret.push(buffer.text_.substr(i, 3));
               ret.push({ type_: '1000 separator' });
             }
@@ -1331,7 +1337,7 @@ iterateTransitions:
           buffer.text_ = buffer.text_ || "";
           if (buffer.text_.length > 4) {
             var a = buffer.text_.length - 3;
-            for (var i=0; i<a; i+=3) {
+            for (var i = 0; i < a; i += 3) {
               ret.push(buffer.text_.substr(i, 3));
               ret.push({ type_: '1000 separator' });
             }
@@ -1356,7 +1362,7 @@ iterateTransitions:
       if (!input) { return ""; }
       var res = "";
       var cee = false;
-      for (var i=0; i < input.length; i++) {
+      for (var i = 0; i < input.length; i++) {
         var inputi = input[i];
         if (typeof inputi === "string") {
           res += inputi;
@@ -1749,13 +1755,15 @@ iterateTransitions:
     CE: function (name) {
       var arg = this.GetArgument(name);
       var tex = CE(arg).Parse();
-      this.string = tex + this.string.substr(this.i); this.i = 0;
+      this.string = tex + this.string.substr(this.i);
+      this.i = 0;
     },
 
     PU: function (name) {
       var arg = this.GetArgument(name);
-      var tex = CE(arg).Parse('pu');
-      this.string = tex + this.string.substr(this.i); this.i = 0;
+      var tex = CE(arg).Parse("pu");
+      this.string = tex + this.string.substr(this.i);
+      this.i = 0;
     }
 
   });

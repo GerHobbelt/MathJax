@@ -429,7 +429,8 @@ if (MathJax.Extension["TeX/mhchem"]) {
                 !this.presub &&
                 (this.tex === "" || this.tex === "{" || (this.tex === "}" && this.TEX.substr(-1) === "{"))
               ) {
-                (this.presup = this.sup), (this.presub = this.sub); // save for later
+                this.presup = this.sup; // save for later
+                this.presub = this.sub; // save for later
                 this.sub = this.sup = "";
                 this.TEX += this.tex;
                 this.tex = "";
@@ -437,8 +438,9 @@ if (MathJax.Extension["TeX/mhchem"]) {
               }
             }
             if (this.sub && !this.sup) {
+              // forces subscripts to align properly
               this.sup = "\\Space{0pt}{0pt}{.2em}";
-            } // forces subscripts to align properly
+            }
             if ((this.presup || this.presub) && this.tex !== "{") {
               if (!this.presup && !this.sup) {
                 this.presup = "\\Space{0pt}{0pt}{.2em}";
@@ -507,9 +509,9 @@ if (MathJax.Extension["TeX/mhchem"]) {
         //  Find a particular character, skipping over braced groups
         //
         Find: function(c) {
-          var m = this.string.length,
-            i = this.i,
-            braces = 0;
+          var m = this.string.length;
+          var i = this.i;
+          var braces = 0;
           while (this.i < m) {
             var C = this.string.charAt(this.i++);
             if (C === c && braces === 0) {

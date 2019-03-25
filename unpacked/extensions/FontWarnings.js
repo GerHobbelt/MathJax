@@ -96,9 +96,16 @@
     // The CSS for the message window
     //
     messageStyle: {
-      position:"fixed", bottom:"4em", left:"3em", width:"40em",
-      border: "3px solid #880000", "background-color": "#E0E0E0", color: "black",
-      padding: "1em", "font-size":"small", "white-space":"normal",
+      position: "fixed",
+      bottom: "4em",
+      left: "3em",
+      width: "40em",
+      border: "3px solid #880000",
+      "background-color": "#E0E0E0",
+      color: "black",
+      padding: "1em",
+      "font-size": "small",
+      "white-space": "normal",
       
       "border-radius": ".75em",                     // Opera 10.5 and IE9
       "-webkit-border-radius": ".75em",             // Safari and Chrome
@@ -160,10 +167,17 @@
       closeBox: [[
         "div",{
           style: {
-            position:"absolute", overflow:"hidden", top:".1em", right:".1em",
-            border: "1px outset", width:"1em", height:"1em",
-            "text-align": "center", cursor: "pointer",
-            "background-color": "#EEEEEE", color:"#606060",
+            position: "absolute",
+            overflow: "hidden",
+            top: ".1em",
+            right: ".1em",
+            border: "1px outset",
+            width: "1em",
+            height: "1em",
+            "text-align": "center",
+            cursor: "pointer",
+            "background-color": "#EEEEEE",
+            color: "#606060",
 
             "border-radius": ".5em",           // Opera 10.5
             "-webkit-border-radius": ".5em",   // Safari and Chrome
@@ -171,8 +185,12 @@
             "-khtml-border-radius": ".5em"     // Konqueror
           },
           onclick: function () {
-            if (DATA.div && DATA.fade === 0)
-              {if (DATA.timer) {clearTimeout(DATA.timer);} DATA.div.style.display = "none";}
+            if (DATA.div && DATA.fade === 0) {
+              if (DATA.timer) {
+                clearTimeout(DATA.timer);
+              }
+              DATA.div.style.display = "none";
+            }
           }
         },
         [["span",{style:{position:"relative", bottom:".2em"}},["x"]]]
@@ -192,7 +210,8 @@
         ["fonts",
           "MathJax can use either the [STIX fonts](%1) or the [MathJax TeX fonts](%2).  " +
            "Download and install one of those fonts to improve your MathJax experience.",
-           STIXURL,MATHJAXURL
+          STIXURL,
+          MATHJAXURL
         ]
       ],
  
@@ -221,8 +240,9 @@
     fadeoutTime: 1.5*1000  // fadeout over this amount of time (in ms)
 
   });
-  if (MathJax.Hub.Browser.isIE9 && document.documentMode >= 9)
-    {delete CONFIG.messageStyle.filter}
+  if (MathJax.Hub.Browser.isIE9 && document.documentMode >= 9) {
+    delete CONFIG.messageStyle.filter;
+  }
 
   //
   //  Data for the window
@@ -237,33 +257,44 @@
   //
   var CREATEMESSAGE = function (data) {
     if (DATA.div) return;
-    var HTMLCSS = MathJax.OutputJax["HTML-CSS"], frame = document.body;
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var frame = document.body;
     if (HUB.Browser.isMSIE) {
       if (CONFIG.messageStyle.position === "fixed") {
         MathJax.Message.Init();  // make sure MathJax_MSIE_frame exists
         frame = document.getElementById("MathJax_MSIE_Frame") || frame;
-        if (frame !== document.body) {CONFIG.messageStyle.position = "absolute"}
+        if (frame !== document.body) {
+          CONFIG.messageStyle.position = "absolute";
+        }
       }
-    } else {delete CONFIG.messageStyle.filter}
+    } else {
+      delete CONFIG.messageStyle.filter;
+    }
     CONFIG.messageStyle.maxWidth = (document.body.clientWidth-75) + "px";
-    var i = 0; while (i < data.length) {
+    var i = 0;
+    while (i < data.length) {
       if (MathJax.Object.isArray(data[i])) {
         if (data[i].length === 1 && CONFIG.HTML[data[i][0]]) {
-          data.splice.apply(data,[i,1].concat(CONFIG.HTML[data[i][0]]));
+          data.splice.apply(data, [i, 1].concat(CONFIG.HTML[data[i][0]]));
         } else if (typeof data[i][1] === "string") {
-          var message = MathJax.Localization.lookupPhrase(["FontWarnings",data[i][0]],data[i][1]);
-          message = MathJax.Localization.processMarkdown(message,data[i].slice(2),"FontWarnings");
-          data.splice.apply(data,[i,1].concat(message));
+          var message = MathJax.Localization.lookupPhrase(["FontWarnings", data[i][0]], data[i][1]);
+          message = MathJax.Localization.processMarkdown(message, data[i].slice(2), "FontWarnings");
+          data.splice.apply(data, [i, 1].concat(message));
           i += message.length;
-        } else {i++}
-      } else {i++}
+        } else {
+          i++;
+        }
+      } else {
+        i++;
+      }
     }
     DATA.div = HTMLCSS.addElement(frame,"div",
       {id:"MathJax_FontWarning",style:CONFIG.messageStyle},data);
     MathJax.Localization.setCSS(DATA.div);
     if (CONFIG.removeAfter) {
-      HUB.Register.StartupHook("End",function () 
-         {DATA.timer = setTimeout(FADEOUT,CONFIG.removeAfter)});
+      HUB.Register.StartupHook("End", function() {
+        DATA.timer = setTimeout(FADEOUT, CONFIG.removeAfter);
+      });
     }
     HTML.Cookie.Set("fontWarn",{warned:true});
   };
@@ -273,7 +304,10 @@
   //  and remove the window when it gets to 0
   //
   var FADEOUT = function () {
-    DATA.fade++; if (DATA.timer) {delete DATA.timer}
+    DATA.fade++;
+    if (DATA.timer) {
+      delete DATA.timer;
+    }
     if (DATA.fade < CONFIG.fadeoutSteps) {
       var opacity = 1 - DATA.fade/CONFIG.fadeoutSteps;
       DATA.div.style.opacity = opacity;
@@ -294,11 +328,14 @@
     //
     HUB.Startup.signal.Interest(function (message) {
       if (message.match(/HTML-CSS Jax - /) && !DATA.div) {
-        var HTMLCSS = MathJax.OutputJax["HTML-CSS"], FONTS = HTMLCSS.config.availableFonts, MSG;
+        var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+        var FONTS = HTMLCSS.config.availableFonts;
+        var MSG;
         var localFonts = (FONTS && FONTS.length);
-        if (!localFonts) {CONFIG.HTML.fonts = [""]}
-        else if (FONTS.length === 1) {
-          CONFIG.HTML.fonts = CONFIG.HTML[FONTS[0]+"fonts"];
+        if (!localFonts) {
+          CONFIG.HTML.fonts = [""];
+        } else if (FONTS.length === 1) {
+          CONFIG.HTML.fonts = CONFIG.HTML[FONTS[0] + "fonts"];
         }
         if (HTMLCSS.allowWebFonts) {
           CONFIG.HTML.webfonts = [""];

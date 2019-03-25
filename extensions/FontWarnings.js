@@ -285,8 +285,8 @@
   //
   var CREATEMESSAGE = function(data) {
     if (DATA.div) return;
-    var HTMLCSS = MathJax.OutputJax["HTML-CSS"],
-      frame = document.body;
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    var frame = document.body;
     if (HUB.Browser.isMSIE) {
       if (CONFIG.messageStyle.position === "fixed") {
         MathJax.Message.Init(); // make sure MathJax_MSIE_frame exists
@@ -355,9 +355,9 @@
     //
     HUB.Startup.signal.Interest(function(message) {
       if (message.match(/HTML-CSS Jax - /) && !DATA.div) {
-        var HTMLCSS = MathJax.OutputJax["HTML-CSS"],
-          FONTS = HTMLCSS.config.availableFonts,
-          MSG;
+        var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+        var FONTS = HTMLCSS.config.availableFonts;
+        var MSG;
         var localFonts = FONTS && FONTS.length;
         if (!localFonts) {
           CONFIG.HTML.fonts = [""];

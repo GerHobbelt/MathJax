@@ -158,12 +158,12 @@ MathJax.Callback.Queue(
     MML.mbase.Augment({
       toMathMLattributes: function() {
         var defaults = this.type === "mstyle" ? MML.math.prototype.defaults : this.defaults;
-        var names = this.attrNames || MML.copyAttributeNames,
-          skip = MML.skipAttributes,
-          copy = MML.copyAttributes,
-          lookup = ENRICH.running ? ENRICH.mstyleLookup[this.type] || [] : [];
-        var attr = [],
-          ATTR = this.attr || {};
+        var names = this.attrNames || MML.copyAttributeNames;
+        var skip = MML.skipAttributes;
+        var copy = MML.copyAttributes;
+        var lookup = ENRICH.running ? ENRICH.mstyleLookup[this.type] || [] : [];
+        var attr = [];
+        var ATTR = this.attr || {};
         var value;
 
         if (this.type === "math" && (!this.attr || !("xmlns" in this.attr)))

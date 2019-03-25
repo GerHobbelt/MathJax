@@ -101,8 +101,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
   //
   TEX.Parse.Augment({
     Unicode: function(name) {
-      var HD = this.GetBrackets(name),
-        font;
+      var HD = this.GetBrackets(name);
+      var font;
       if (HD) {
         if (HD.replace(/ /g, "").match(/^(\d+(\.\d*)?|\.\d+),(\d+(\.\d*)?|\.\d+)$/)) {
           HD = HD.replace(/ /g, "").split(/,/);
@@ -126,8 +126,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
         UNICODE[N][0] = Math.floor(HD[0] * 1000);
         UNICODE[N][1] = Math.floor(HD[1] * 1000);
       }
-      var variant = this.stack.env.font,
-        def = {};
+      var variant = this.stack.env.font;
+      var def = {};
       if (font) {
         UNICODE[N][2] = def.fontfamily = font.replace(/"/g, "'");
         if (variant) {
@@ -161,15 +161,17 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready", function() {
     HTMLgetVariant: function() {
       var variant = GETVARIANT.apply(this, arguments);
       if (variant.unicode) {
+        // clear font cache in case of restart
         delete variant.unicode;
         delete variant.FONTS;
-      } // clear font cache in case of restart
+      }
       if (!this.unicode) {
         return variant;
       }
       variant.unicode = true;
       if (!variant.defaultFont) {
-        variant = MathJax.Hub.Insert({}, variant); // make a copy
+        // make a copy
+        variant = MathJax.Hub.Insert({}, variant);
         variant.defaultFont = { family: FONTS };
       }
       var family = this.unicode[2];
@@ -203,16 +205,18 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready", function() {
     SVGgetVariant: function() {
       var variant = GETVARIANT.call(this);
       if (variant.unicode) {
+        // clear font cache in case of restart
         delete variant.unicode;
         delete variant.FONTS;
-      } // clear font cache in case of restart
+      }
       if (!this.unicode) {
         return variant;
       }
       variant.unicode = true;
       if (!variant.forceFamily) {
+        // make a copy
         variant = MathJax.Hub.Insert({}, variant);
-      } // make a copy
+      }
       variant.defaultFamily = FONTS;
       variant.noRemap = true;
       variant.h = this.unicode[0];

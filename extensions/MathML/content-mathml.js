@@ -181,13 +181,13 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
     /* Classify node's children as argumentss, variable bindings, or qualifiers
     */
     classifyChildren: function(contentMMLNode) {
-      var args = [],
-        bvars = [],
-        qualifiers = [];
+      var args = [];
+      var bvars = [];
+      var qualifiers = [];
       for (var j = 0, l = contentMMLNode.childNodes.length; j < l; j++) {
         if (contentMMLNode.childNodes[j].nodeType === 1) {
-          var childNode = contentMMLNode.childNodes[j],
-            name = childNode.nodeName;
+          var childNode = contentMMLNode.childNodes[j];
+          var name = childNode.nodeName;
           if (name === "bvar") {
             bvars.push(childNode);
           } else if (
@@ -294,9 +294,9 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
         return function(parentNode, contentMMLNode) {
           var children = CToP.classifyChildren(contentMMLNode);
 
-          var args = children.args,
-            bvars = children.bvars,
-            qualifiers = children.qualifiers;
+          var args = children.args;
+          var bvars = children.bvars;
+          var qualifiers = children.qualifiers;
           if (bvars.length) {
             var firstArg = children.args[0];
             args = args.slice(1);
@@ -644,9 +644,9 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
       var children = CToP.classifyChildren(contentMMLNode);
 
       var firstArg = children.args[0];
-      var args = children.args.slice(1),
-        bvars = children.bvars,
-        qualifiers = children.qualifiers;
+      var args = children.args.slice(1);
+      var bvars = children.bvars;
+      var qualifiers = children.qualifiers;
 
       if (firstArg) {
         var name = firstArg.nodeName;
@@ -768,9 +768,9 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
 
     matrix: function(parentNode, contentMMLNode, precedence) {
       var children = CToP.classifyChildren(contentMMLNode);
-      var args = children.args,
-        bvars = children.bvars,
-        qualifiers = children.qualifiers;
+      var args = children.args;
+      var bvars = children.bvars;
+      var qualifiers = children.qualifiers;
 
       if (bvars.length || qualifiers.length) {
         var mrow = CToP.createElement("mrow");
@@ -839,9 +839,9 @@ MathJax.Extension["MathML/content-mathml"] = (function(HUB) {
     lambda: function(parentNode, contentMMLNode, precedence) {
       var firstArg = CToP.createElement("lambda");
       var children = CToP.classifyChildren(contentMMLNode);
-      var args = children.args,
-        bvars = children.bvars,
-        qualifiers = children.qualifiers;
+      var args = children.args;
+      var bvars = children.bvars;
+      var qualifiers = children.qualifiers;
       var i, l, num_qualifiers;
 
       if (bvars.length) {

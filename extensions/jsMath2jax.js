@@ -67,8 +67,9 @@ MathJax.Extension.jsMath2jax = {
         MathJax.Hub.Insert(this, this.config.Augment);
       }
       if (typeof this.config.previewTeX !== "undefined" && !this.config.previewTeX) {
+        // backward compatibility for previewTeX parameter
         this.config.preview = "none";
-      } // backward compatibility for previewTeX parameter
+      }
       this.previewClass = MathJax.Hub.config.preRemoveClass;
       this.configured = true;
     }
@@ -78,8 +79,8 @@ MathJax.Extension.jsMath2jax = {
     if (!element) {
       element = document.body;
     }
-    var span = element.getElementsByTagName("span"),
-      i;
+    var span = element.getElementsByTagName("span");
+    var i;
     for (i = span.length - 1; i >= 0; i--) {
       if (String(span[i].className).match(/(^| )math( |$)/)) {
         this.ConvertMath(span[i], "");
@@ -95,8 +96,8 @@ MathJax.Extension.jsMath2jax = {
 
   ConvertMath: function(node, mode) {
     if (node.getElementsByTagName("script").length === 0) {
-      var parent = node.parentNode,
-        script = this.createMathTag(mode, node.innerHTML);
+      var parent = node.parentNode;
+      var script = this.createMathTag(mode, node.innerHTML);
       if (node.nextSibling) {
         parent.insertBefore(script, node.nextSibling);
       } else {

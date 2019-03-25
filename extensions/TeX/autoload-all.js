@@ -96,10 +96,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
     AMScd: ["CD"]
   };
 
-  var name,
-    i,
-    m,
-    defs = { macros: {}, environment: {} };
+  var name, i, m;
+  var defs = { macros: {}, environment: {} };
 
   for (name in EXTENSIONS) {
     if (EXTENSIONS.hasOwnProperty(name)) {

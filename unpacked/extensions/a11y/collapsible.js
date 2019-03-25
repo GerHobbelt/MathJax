@@ -54,11 +54,11 @@
     //  Complexity values to use for different structures
     //
     COMPLEXITY: {
-      TEXT: .5,           // each character of a token element adds this to complexity
-      TOKEN: .5,          // each toekn element gets this additional complexity
+      TEXT: 0.5,          // each character of a token element adds this to complexity
+      TOKEN: 0.5,         // each toekn element gets this additional complexity
       CHILD: 1,           // child nodes add this to their parent node's complexity
 
-      SCRIPT: .8,         // script elements reduce their complexity by this factor
+      SCRIPT: 0.8,        // script elements reduce their complexity by this factor
       SQRT: 2,            // sqrt adds this extra complexity
       SUBSUP: 2,          // sub-sup adds this extra complexity
       UNDEROVER: 2,       // under-over adds this extra complexity
@@ -115,7 +115,7 @@
       root: "\u221A",
       superscript: "\u25FD\u02D9",
       subscript: "\u25FD.",
-      subsup:"\u25FD:",
+      subsup: "\u25FD:",
       vector: {
         binomial: "(:)",
         determinant: "|:|",
@@ -217,19 +217,24 @@
     //
     MakeAction: function (collapse,mml) {
       var maction = MML.maction(collapse).With({
-        id:this.getActionID(), actiontype:"toggle",
-        complexity:collapse.getComplexity(), collapsible:true,
-        attrNames:["id","actiontype","selection",COMPLEXATTR], attr:{}, selection:2
+        id: this.getActionID(),
+        actiontype: "toggle",
+        complexity: collapse.getComplexity(),
+        collapsible: true,
+        attrNames: ["id", "actiontype", "selection", COMPLEXATTR],
+        attr: {},
+        selection: 2
       });
       maction.attr[COMPLEXATTR] = maction.complexity;
       if (mml.type === "math") {
         var mrow = MML.mrow().With({
           complexity: mml.complexity,
-          attrNames: [], attr: {}
+          attrNames: [],
+          attr: {}
         });
         mrow.Append.apply(mrow,mml.data);
-        for (var i = mml.attrNames.length-1, name; (name = mml.attrNames[i]); i--) {
-          if (name.substr(0,14) === "data-semantic-") {
+        for (var i = mml.attrNames.length - 1, name; ((name = mml.attrNames[i])); i--) {
+          if (name.substr(0, 14) === "data-semantic-") {
             mrow.attr[name] = mml.attr[name];
             mrow.attrNames.push(name);
             delete mml.attr[name];
@@ -237,8 +242,11 @@
           }
         }
         mrow.complexity = mml.complexity;
-        maction.Append(mrow); mml.data = []; mml.Append(maction);
-        mml.complexity = maction.complexity; maction = mml;
+        maction.Append(mrow);
+        mml.data = [];
+        mml.Append(maction);
+        mml.complexity = maction.complexity;
+        maction = mml;
       } else {
         maction.Append(mml);
       }
@@ -246,7 +254,9 @@
     },
     
     actionID: 1,
-    getActionID: function () {return "MJX-Collapse-"+this.actionID++},
+    getActionID: function() {
+      return "MJX-Collapse-" + this.actionID++;
+    },
 
     /*****************************************************************/
 
@@ -265,11 +275,11 @@
         else if (this.COLLAPSE[type] && this.MARKER[type]) {
           var role = mml.attr["data-semantic-role"];
           var complexity = this.COLLAPSE[type];
-          if (typeof(complexity) !== "number") complexity = complexity[role] || complexity.value;
+          if (typeof complexity !== "number") complexity = complexity[role] || complexity.value;
           if (mml.complexity > complexity) {
             var marker = this.MARKER[type];
-            if (typeof(marker) !== "string") marker = marker[role] || marker.value;
-            mml = this.MakeAction(this.Marker(marker),mml);
+            if (typeof marker !== "string") marker = marker[role] || marker.value;
+            mml = this.MakeAction(this.Marker(marker), mml);
           }
         }
       }
@@ -286,8 +296,9 @@
       if (this.SplitAttribute(mml,"children").length === m) {
         var child = (mml.data.length === 1 && mml.data[0].inferred ? mml.data[0] : mml);
         if (child && child.data[n] && child.data[n].collapsible) {
-          child.SetData(n,child.data[n].data[1]);
-          mml.complexity = child.complexity = null; mml.getComplexity();
+          child.SetData(n, child.data[n].data[1]);
+          mml.complexity = child.complexity = null;
+          mml.getComplexity();
           return 1;
         }
       }
@@ -471,16 +482,17 @@
       var menu = ITEM.CHECKBOX(
         ['CollapsibleMath','Collapsible Math'], 'collapsible', {action: Switch}
       );
-      var submenu = (MENU.FindId('Accessibility')||{}).submenu, index;
+      var submenu = (MENU.FindId('Accessibility')||{}).submenu;
+      var index;
       if (submenu) {
-        index = submenu.IndexOfId('CollapsibleMath');
+        index = submenu.IndexOfId("CollapsibleMath");
         if (index !== null) {
           submenu.items[index] = menu;
         } else {
           submenu.items.push(ITEM.RULE(),menu);
         }
       } else {
-        index = MENU.IndexOfId('About');
+        index = MENU.IndexOfId("About");
         MENU.items.splice(index,0,menu,ITEM.RULE());
       }
     },15);  // before explorer extension

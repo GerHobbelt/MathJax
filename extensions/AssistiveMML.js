@@ -111,8 +111,8 @@
     //  all the jax.
     //
     RemoveAssistiveMathML: function(node) {
-      var jax = HUB.getAllJax(node),
-        frame;
+      var jax = HUB.getAllJax(node);
+      var frame;
       for (var i = 0, m = jax.length; i < m; i++) {
         frame = document.getElementById(jax[i].inputID + "-Frame");
         if (frame && frame.getAttribute("data-mathml")) {
@@ -133,11 +133,8 @@
     //  When all the jax are processed, call the callback.
     //
     HandleMML: function(state) {
-      var m = state.jax.length,
-        jax,
-        mml,
-        frame,
-        span;
+      var m = state.jax.length;
+      var jax, mml, frame, span;
       while (state.i < m) {
         jax = state.jax[state.i];
         frame = document.getElementById(jax.inputID + "-Frame");

@@ -211,9 +211,9 @@
         //
         //  Set the div1 styles to the given styles, and clear div2
         //
-        var STYLE1 = this.div1.style,
-          STYLE2 = this.div2.style,
-          value;
+        var STYLE1 = this.div1.style;
+        var STYLE2 = this.div2.style;
+        var value;
         STYLE1.cssText = styles;
         STYLE2.cssText = "";
         //
@@ -413,9 +413,9 @@
   });
 
   HUB.Register.StartupHook("TeX Jax Ready", function() {
-    var TEX = MathJax.InputJax.TeX,
-      PARSE = TEX.Parse,
-      METHOD = SAFE.filter;
+    var TEX = MathJax.InputJax.TeX;
+    var PARSE = TEX.Parse;
+    var METHOD = SAFE.filter;
 
     PARSE.Augment({
       //

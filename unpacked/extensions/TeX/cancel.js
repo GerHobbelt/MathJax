@@ -38,33 +38,39 @@ MathJax.Extension["TeX/cancel"] = {
   //  The attributes allowed in \enclose{notation}[attributes]{math}
   //
   ALLOWED: {
-    color: 1, mathcolor: 1,
-    background: 1, mathbackground: 1,
+    color: 1,
+    mathcolor: 1,
+    background: 1,
+    mathbackground: 1,
     padding: 1,
     thickness: 1
   }
 };
 
 MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
-  var TEX = MathJax.InputJax.TeX,
-      MML = MathJax.ElementJax.mml,
-      CANCEL = MathJax.Extension["TeX/cancel"];
-      
-      CANCEL.setAttributes = function (def,attr) {
-        if (attr !== "") {
-          attr = attr.replace(/ /g,"").split(/,/);
-          for (var i = 0, m = attr.length; i < m; i++) {
-            var keyvalue = attr[i].split(/[:=]/);
-            if (CANCEL.ALLOWED[keyvalue[0]]) {
-              if (keyvalue[1] === "true") {keyvalue[1] = true}
-              if (keyvalue[1] === "false") {keyvalue[1] = false}
-              def[keyvalue[0]] = keyvalue[1];
-            }
+  var TEX = MathJax.InputJax.TeX;
+  var MML = MathJax.ElementJax.mml;
+  var CANCEL = MathJax.Extension["TeX/cancel"];
+
+  CANCEL.setAttributes = function(def, attr) {
+    if (attr !== "") {
+      attr = attr.replace(/ /g, "").split(/,/);
+      for (var i = 0, m = attr.length; i < m; i++) {
+        var keyvalue = attr[i].split(/[:=]/);
+        if (CANCEL.ALLOWED[keyvalue[0]]) {
+          if (keyvalue[1] === "true") {
+            keyvalue[1] = true;
           }
+          if (keyvalue[1] === "false") {
+            keyvalue[1] = false;
+          }
+          def[keyvalue[0]] = keyvalue[1];
         }
-        return def;
-      };
-  
+      }
+    }
+    return def;
+  };
+
   //
   //  Set up macros
   //
@@ -84,7 +90,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     //            \xcancel[attributes]{math}
     //
     Cancel: function(name,notation) {
-      var attr = this.GetBrackets(name,""), math = this.ParseArg(name);
+      var attr = this.GetBrackets(name,"");
+      var math = this.ParseArg(name);
       var def = CANCEL.setAttributes({notation: notation},attr);
       this.Push(MML.menclose(math).With(def));
     },
@@ -93,9 +100,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     //  Implement \cancelto{value}[attributes]{math}
     //
     CancelTo: function(name,notation) {
-      var value = this.ParseArg(name),
-          attr = this.GetBrackets(name,""),
-          math = this.ParseArg(name);
+      var value = this.ParseArg(name);
+      var attr = this.GetBrackets(name,"");
+      var math = this.ParseArg(name);
       var def = CANCEL.setAttributes({notation: MML.NOTATION.UPDIAGONALSTRIKE+" "+MML.NOTATION.UPDIAGONALARROW},attr);
       value = MML.mpadded(value).With({depth:"-.1em",height:"+.1em",voffset:".1em"});
       this.Push(MML.msup(MML.menclose(math).With(def),value));

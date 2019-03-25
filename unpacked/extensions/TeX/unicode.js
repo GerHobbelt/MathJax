@@ -83,31 +83,46 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
   //
   TEX.Parse.Augment({
     Unicode: function(name) {
-      var HD = this.GetBrackets(name), font;
+      var HD = this.GetBrackets(name);
+      var font;
       if (HD) {
-        if (HD.replace(/ /g,"").match(/^(\d+(\.\d*)?|\.\d+),(\d+(\.\d*)?|\.\d+)$/))
-          {HD = HD.replace(/ /g,"").split(/,/); font = this.GetBrackets(name)}
-            else {font = HD; HD = null}
+        if (HD.replace(/ /g, "").match(/^(\d+(\.\d*)?|\.\d+),(\d+(\.\d*)?|\.\d+)$/)) {
+          HD = HD.replace(/ /g, "").split(/,/);
+          font = this.GetBrackets(name);
+        } else {
+          font = HD;
+          HD = null;
+        }
       }
       var n = this.trimSpaces(this.GetArgument(name)).replace(/^0x/,"x");
       if (!n.match(/^(x[0-9A-Fa-f]+|[0-9]+)$/)) {
         TEX.Error(["BadUnicode","Argument to \\unicode must be a number"]);
       }
       var N = parseInt(n.match(/^x/) ? "0"+n : n);
-      if (!UNICODE[N]) {UNICODE[N] = [800,200,font,N]}
-      else if (!font) {font = UNICODE[N][2]}
+      if (!UNICODE[N]) {
+        UNICODE[N] = [800, 200, font, N];
+      } else if (!font) {
+        font = UNICODE[N][2];
+      }
       if (HD) {
         UNICODE[N][0] = Math.floor(HD[0]*1000);
         UNICODE[N][1] = Math.floor(HD[1]*1000);
       }
-      var variant = this.stack.env.font, def = {};
+      var variant = this.stack.env.font;
+      var def = {};
       if (font) {
         UNICODE[N][2] = def.fontfamily = font.replace(/"/g,"'");
         if (variant) {
-          if (variant.match(/bold/)) {def.fontweight = "bold"}
-          if (variant.match(/italic|-mathit/)) {def.fontstyle = "italic"}
+          if (variant.match(/bold/)) {
+            def.fontweight = "bold";
+          }
+          if (variant.match(/italic|-mathit/)) {
+            def.fontstyle = "italic";
+          }
         }
-      } else if (variant) {def.mathvariant = variant}
+      } else if (variant) {
+        def.mathvariant = variant;
+      }
       def.unicode = [].concat(UNICODE[N]); // make a copy
       this.Push(MML.mtext(MML.entity("#"+n)).With(def));
     }
@@ -128,17 +143,33 @@ MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
   MML.mbase.Augment({
     HTMLgetVariant: function () {
       var variant = GETVARIANT.apply(this,arguments);
-      if (variant.unicode) {delete variant.unicode; delete variant.FONTS} // clear font cache in case of restart
-      if (!this.unicode) {return variant}
+      if (variant.unicode) {
+        // clear font cache in case of restart
+        delete variant.unicode;
+        delete variant.FONTS;
+      } 
+      if (!this.unicode) {
+        return variant;
+      }
       variant.unicode = true;
       if (!variant.defaultFont) {
-        variant = MathJax.Hub.Insert({},variant); // make a copy
+        // make a copy
+        variant = MathJax.Hub.Insert({},variant); 
         variant.defaultFont = {family:FONTS};
       }
-      var family = this.unicode[2]; if (family) {family += ","+FONTS} else {family = FONTS}
+      var family = this.unicode[2];
+      if (family) {
+        family += "," + FONTS;
+      } else {
+        family = FONTS;
+      }
       variant.defaultFont[this.unicode[3]] = [
-        this.unicode[0],this.unicode[1],500,0,500,
-        {isUnknown:true, isUnicode:true, font:family}
+        this.unicode[0],
+        this.unicode[1],
+        500,
+        0,
+        500,
+        { isUnknown: true, isUnicode: true, font: family }
       ];
       return variant;
     }
@@ -156,12 +187,23 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
   MML.mbase.Augment({
     SVGgetVariant: function () {
       var variant = GETVARIANT.call(this);
-      if (variant.unicode) {delete variant.unicode; delete variant.FONTS} // clear font cache in case of restart
-      if (!this.unicode) {return variant}
+      if (variant.unicode) {
+        // clear font cache in case of restart
+        delete variant.unicode;
+        delete variant.FONTS;
+      } 
+      if (!this.unicode) {
+        return variant;
+      }
       variant.unicode = true;
-      if (!variant.forceFamily) {variant = MathJax.Hub.Insert({},variant)} // make a copy
-      variant.defaultFamily = FONTS; variant.noRemap = true;
-      variant.h = this.unicode[0]; variant.d = this.unicode[1];
+      if (!variant.forceFamily) {
+        // make a copy
+        variant = MathJax.Hub.Insert({}, variant);
+      } 
+      variant.defaultFamily = FONTS;
+      variant.noRemap = true;
+      variant.h = this.unicode[0];
+      variant.d = this.unicode[1];
       return variant;
     }
   });

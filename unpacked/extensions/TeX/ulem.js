@@ -21,7 +21,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     UWAVE_style: function (name) {
       var text = this.ParseArg(name);
       var CLASS = "uwave";
-      if (text["class"] != null) {CLASS = text["class"] + " " + CLASS}
+      if (text["class"] != null) {
+        CLASS = text["class"] + " " + CLASS;
+      }
       this.Push(text.With({"class":CLASS}));
     },
 
@@ -31,7 +33,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     ULINE_style: function (name) {
       var text = this.ParseArg(name);
       var CLASS = "uline";
-      if (text["class"] != null) {CLASS = text["class"] + " " + CLASS}
+      if (text["class"] != null) {
+        CLASS = text["class"] + " " + CLASS;
+      }
       this.Push(text.With({"class":CLASS}));
     },
 
@@ -41,7 +45,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     UULINE_attribute: function (name) {
       var text = this.ParseArg(name);
       var CLASS = "uuline";
-      if (text["class"] != null) {CLASS = text["class"] + " " + CLASS}
+      if (text["class"] != null) {
+        CLASS = text["class"] + " " + CLASS;
+      }
       this.Push(text.With({"class":CLASS}));
     },
 
@@ -51,7 +57,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     DOTULINE_attribute: function (name) {
       var text = this.ParseArg(name);
       var CLASS = "dotuline";
-      if (text["class"] != null) {CLASS = text["class"] + " " + CLASS}
+      if (text["class"] != null) {
+        CLASS = text["class"] + " " + CLASS;
+      }
       this.Push(text.With({"class":CLASS}));
     },
 

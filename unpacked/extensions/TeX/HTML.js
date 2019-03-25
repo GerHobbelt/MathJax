@@ -59,7 +59,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     CLASS_attribute: function (name) {
       var CLASS = this.GetArgument(name),
           arg   = this.GetArgumentMML(name);
-      if (arg["class"] != null) {CLASS = arg["class"] + " " + CLASS}
+      if (arg["class"] != null) {
+        CLASS = arg["class"] + " " + CLASS;
+      }
       this.Push(arg.With({"class":CLASS}));
     },
 
@@ -71,7 +73,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
           arg   = this.GetArgumentMML(name);
       // check that it looks like a style string
       if (arg.style != null) {
-        if (style.charAt(style.length-1) !== ";") {style += ";"}
+        if (style.charAt(style.length - 1) !== ";") {
+          style += ";";
+        }
         style = arg.style + " " + style;
       }
       this.Push(arg.With({style: style}));
@@ -92,8 +96,11 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     //
     GetArgumentMML: function (name) {
       var arg = this.ParseArg(name);
-      if (arg.inferred && arg.data.length == 1)
-        {arg = arg.data[0]} else {delete arg.inferred}
+      if (arg.inferred && arg.data.length == 1) {
+        arg = arg.data[0];
+      } else {
+        delete arg.inferred;
+      }
       return arg;
     }
 

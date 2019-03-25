@@ -271,8 +271,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
     },
 
     TextColor: function(name) {
-      var model = this.GetBrackets(name),
-        color = this.GetArgument(name);
+      var model = this.GetBrackets(name);
+      var color = this.GetArgument(name);
       color = COLOR.getColor(model, color);
       var old = this.stack.env.color;
       this.stack.env.color = color;
@@ -289,9 +289,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
     //  Define the \definecolor macro
     //
     DefineColor: function(name) {
-      var cname = this.GetArgument(name),
-        model = this.GetArgument(name),
-        def = this.GetArgument(name);
+      var cname = this.GetArgument(name);
+      var model = this.GetArgument(name);
+      var def = this.GetArgument(name);
       COLOR.colors[cname] = COLOR.getColor(model, def);
     },
 
@@ -299,8 +299,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
     //  Produce a text box with a colored background
     //
     ColorBox: function(name) {
-      var cname = this.GetArgument(name),
-        arg = this.InternalMath(this.GetArgument(name));
+      var cname = this.GetArgument(name);
+      var arg = this.InternalMath(this.GetArgument(name));
       this.Push(
         MML.mpadded
           .apply(MML, arg)

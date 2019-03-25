@@ -81,8 +81,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
     //    (as an <maction actiontype="toggle">)
     //
     Toggle: function(name) {
-      var data = [],
-        arg;
+      var data = [];
+      var arg;
       while ((arg = this.GetArgument(name)) !== "\\endtoggle") {
         data.push(TEX.Parse(arg, this.stack.env).mml());
       }
@@ -94,8 +94,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
     //    (an an <maction actiontype="tooltip">)
     //
     Mathtip: function(name) {
-      var arg = this.ParseArg(name),
-        tip = this.ParseArg(name);
+      var arg = this.ParseArg(name);
+      var tip = this.ParseArg(name);
       this.Push(MML.maction(arg, tip).With({ actiontype: MML.ACTIONTYPE.TOOLTIP }));
     }
   });

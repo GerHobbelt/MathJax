@@ -497,8 +497,8 @@
           var ITEM = MathJax.Menu.ITEM,
             MENU = MathJax.Menu.menu;
           var menu = ITEM.CHECKBOX(["CollapsibleMath", "Collapsible Math"], "collapsible", { action: Switch });
-          var submenu = (MENU.FindId("Accessibility") || {}).submenu,
-            index;
+          var submenu = (MENU.FindId("Accessibility") || {}).submenu;
+          var index;
           if (submenu) {
             index = submenu.IndexOfId("CollapsibleMath");
             if (index !== null) {

@@ -51,11 +51,13 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
      *  Implement \newcommand{\name}[n][default]{...}
      */
     NewCommand: function (name) {
-      var cs = this.trimSpaces(this.GetArgument(name)),
-          n  = this.GetBrackets(name),
-          opt = this.GetBrackets(name),
-          def = this.GetArgument(name);
-      if (cs.charAt(0) === "\\") {cs = cs.substr(1)}
+      var cs = this.trimSpaces(this.GetArgument(name));
+      var n  = this.GetBrackets(name);
+      var opt = this.GetBrackets(name);
+      var def = this.GetArgument(name);
+      if (cs.charAt(0) === "\\") {
+        cs = cs.substr(1);
+      }
       if (!cs.match(/^(.|[a-z]+)$/i)) {
         TEX.Error(["IllegalControlSequenceName",
                    "Illegal control sequence name for %1",name]);
@@ -96,16 +98,24 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
       var cs     = this.GetCSname(name),
           params = this.GetTemplate(name,"\\"+cs),
           def    = this.GetArgument(name);
-      if (!(params instanceof Array)) {this.setDef(cs,['Macro',def,params])}
-        else {this.setDef(cs,['MacroWithTemplate',def].concat(params))}
+      if (!(params instanceof Array)) {
+        this.setDef(cs, ["Macro", def, params]);
+      } else {
+        this.setDef(cs, ["MacroWithTemplate", def].concat(params));
+      }
     },
     
     /*
      *  Implements the \let command
      */
     Let: function (name) {
-      var cs = this.GetCSname(name), macro;
-      var c = this.GetNext(); if (c === "=") {this.i++; c = this.GetNext()}
+      var cs = this.GetCSname(name);
+      var macro;
+      var c = this.GetNext();
+      if (c === "=") {
+        this.i++;
+        c = this.GetNext();
+      }
       //
       //  All \let commands create entries in the macros array, but we
       //  have to look in the various mathchar and delimiter arrays if
@@ -126,7 +136,10 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
           if (TEXDEF.delimiter.hasOwnProperty("\\"+name)) {macro = ["csDelimiter",TEXDEF.delimiter["\\"+name]]} else
           return;
         }
-      } else {macro = ["Macro",c]; this.i++}
+      } else {
+        macro = ["Macro", c];
+        this.i++;
+      }
       this.setDef(cs,macro);
     },
     
@@ -147,12 +160,17 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
      *  Get a \def parameter template
      */
     GetTemplate: function (cmd,cs) {
-      var c, params = [], n = 0;
-      c = this.GetNext(); var i = this.i;
+      var c;
+      var params = [];
+      var n = 0;
+      c = this.GetNext(); 
+      var i = this.i;
       while (this.i < this.string.length) {
         c = this.GetNext();
-        if (c === '#') {
-          if (i !== this.i) {params[n] = this.string.substr(i,this.i-i)}
+        if (c === "#") {
+          if (i !== this.i) {
+            params[n] = this.string.substr(i, this.i - i);
+          }
           c = this.string.charAt(++this.i);
           if (!c.match(/^[1-9]$/)) {
             TEX.Error(["CantUseHash2",
@@ -162,10 +180,16 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
             TEX.Error(["SequentialParam",
                        "Parameters for %1 must be numbered sequentially",cs]);
           }
-          i = this.i+1;
-        } else if (c === '{') {
-          if (i !== this.i) {params[n] = this.string.substr(i,this.i-i)}
-          if (params.length > 0) {return [n,params]} else {return n}
+          i = this.i + 1;
+        } else if (c === "{") {
+          if (i !== this.i) {
+            params[n] = this.string.substr(i, this.i - i);
+          }
+          if (params.length > 0) {
+            return [n, params];
+          } else {
+            return n;
+          }
         }
         this.i++;
       }
@@ -178,15 +202,18 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
      */
     MacroWithTemplate: function (name,text,n,params) {
       if (n) {
-        var args = []; this.GetNext();
+        var args = [];
+        this.GetNext();
         if (params[0] && !this.MatchParam(params[0])) {
           TEX.Error(["MismatchUseDef",
                      "Use of %1 doesn't match its definition",name]);
         }
-        for (var i = 0; i < n; i++) {args.push(this.GetParameter(name,params[i+1]))}
-        text = this.SubstituteArgs(args,text);
+        for (var i = 0; i < n; i++) {
+          args.push(this.GetParameter(name, params[i + 1]));
+        }
+        text = this.SubstituteArgs(args, text);
       }
-      this.string = this.AddArgs(text,this.string.slice(this.i));
+      this.string = this.AddArgs(text, this.string.slice(this.i));
       this.i = 0;
       if (++this.macroCount > TEX.config.MAXMACROS) {
         TEX.Error(["MaxMacroSub1",
@@ -205,16 +232,20 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
           var optional = this.GetBrackets("\\begin{"+name+"}");
           args.push(optional == null ? def : optional);
         }
-        for (var i = args.length; i < n; i++) {args.push(this.GetArgument("\\begin{"+name+"}"))}
-        bdef = this.SubstituteArgs(args,bdef);
-        edef = this.SubstituteArgs([],edef); // no args, but get errors for #n in edef
+        for (var i = args.length; i < n; i++) {
+          args.push(this.GetArgument("\\begin{" + name + "}"));
+        }
+        bdef = this.SubstituteArgs(args, bdef);
+        edef = this.SubstituteArgs([], edef); // no args, but get errors for #n in edef
       }
-      this.string = this.AddArgs(bdef,this.string.slice(this.i)); this.i = 0;
+      this.string = this.AddArgs(bdef, this.string.slice(this.i));
+      this.i = 0;
       return begin;
     },
     EndEnv: function (begin,bdef,edef,n) {
       var end = "\\end{\\end\\"+begin.name+"}"; // special version of \end for after edef
-      this.string = this.AddArgs(edef,end+this.string.slice(this.i)); this.i = 0;
+      this.string = this.AddArgs(edef, end + this.string.slice(this.i));
+      this.i = 0;
       return null;
     },
     
@@ -222,22 +253,39 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
      *  Find a single parameter delimited by a trailing template
      */
     GetParameter: function (name,param) {
-      if (param == null) {return this.GetArgument(name)}
-      var i = this.i, j = 0, hasBraces = 0;
+      if (param == null) {
+        return this.GetArgument(name);
+      }
+      var i = this.i;
+      var j = 0;
+      var hasBraces = 0;
       while (this.i < this.string.length) {
         var c = this.string.charAt(this.i);
-        if (c === '{') {
-          if (this.i === i) {hasBraces = 1}
-          this.GetArgument(name); j = this.i - i;
+        if (c === "{") {
+          if (this.i === i) {
+            hasBraces = 1;
+          }
+          this.GetArgument(name);
+          j = this.i - i;
         } else if (this.MatchParam(param)) {
-          if (hasBraces) {i++; j -= 2}
-          return this.string.substr(i,j);
-  } else if (c === "\\") {
-    this.i++; j++; hasBraces = 0;
-    var match = this.string.substr(this.i).match(/[a-z]+|./i);
-    if (match) {this.i += match[0].length; j = this.i - i}
+          if (hasBraces) {
+            i++;
+            j -= 2;
+          }
+          return this.string.substr(i, j);
+        } else if (c === "\\") {
+          this.i++;
+          j++;
+          hasBraces = 0;
+          var match = this.string.substr(this.i).match(/[a-z]+|./i);
+          if (match) {
+            this.i += match[0].length;
+            j = this.i - i;
+          }
         } else {
-          this.i++; j++; hasBraces = 0;
+          this.i++;
+          j++;
+          hasBraces = 0;
         }
       }
       TEX.Error(["RunawayArgument","Runaway argument for %1?",name]);
@@ -249,9 +297,14 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
      *   a little more forgiving than this about spaces after macro names)
      */
     MatchParam: function (param) {
-      if (this.string.substr(this.i,param.length) !== param) {return 0}
+      if (this.string.substr(this.i,param.length) !== param) {
+        return 0;
+      }
       if (param.match(/\\[a-z]+$/i) &&
-          this.string.charAt(this.i+param.length).match(/[a-z]/i)) {return 0}
+          this.string.charAt(this.i+param.length).match(/[a-z]/i)
+      ) {
+        return 0;
+      }
       this.i += param.length;
       return 1;
     }
@@ -261,7 +314,7 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
   TEX.Environment = function (name) {
     TEXDEF.environment[name] = ['BeginEnv',[null,'EndEnv']].concat([].slice.call(arguments,1));
     TEXDEF.environment[name].isUser = true;
-  }
+  };
 
   MathJax.Hub.Startup.signal.Post("TeX newcommand Ready");
 

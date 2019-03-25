@@ -116,7 +116,13 @@ $jscomp.polyfill = function(a, b, c, d) {
     a = a[a.length - 1];
     d = c[a];
     b = b(d);
-    b != d && null != b && $jscomp.defineProperty(c, a, { configurable: !0, writable: !0, value: b });
+    b != d &&
+      null != b &&
+      $jscomp.defineProperty(c, a, {
+        configurable: !0,
+        writable: !0,
+        value: b
+      });
   }
 };
 $jscomp.checkStringArgs = function(a, b, c) {
@@ -343,7 +349,12 @@ goog.workaroundSafari10EvalBug = function(a) {
 goog.loadModule = function(a, b) {
   var c = goog.moduleLoaderState_;
   try {
-    goog.moduleLoaderState_ = { moduleName: "", declareLegacyNamespace: !1, type: goog.ModuleType.GOOG, path: b };
+    goog.moduleLoaderState_ = {
+      moduleName: "",
+      declareLegacyNamespace: !1,
+      type: goog.ModuleType.GOOG,
+      path: b
+    };
     if (goog.isFunction(a)) var d = a.call(void 0, {});
     else if (goog.isString(a))
       goog.useSafari10Workaround() && (a = goog.workaroundSafari10EvalBug(a)),
@@ -354,7 +365,11 @@ goog.loadModule = function(a, b) {
       goog.moduleLoaderState_.declareLegacyNamespace
         ? goog.constructNamespace_(e, d)
         : goog.SEAL_MODULE_EXPORTS && Object.seal && "object" == typeof d && null != d && Object.seal(d);
-      var f = { exports: d, type: goog.ModuleType.GOOG, moduleId: goog.moduleLoaderState_.moduleName };
+      var f = {
+        exports: d,
+        type: goog.ModuleType.GOOG,
+        moduleId: goog.moduleLoaderState_.moduleName
+      };
       goog.loadedModules_[e] = f;
       b && (goog.loadedModules_[b] = f);
     } else throw Error('Invalid module name "' + e + '"');
@@ -859,7 +874,12 @@ goog.UNSEALABLE_CONSTRUCTOR_PROPERTY_ = "goog_defineClass_legacy_unsealable";
             return b;
           },
           setModuleState: function(a, b) {
-            goog.moduleLoaderState_ = { path: a, type: b, moduleName: "", declareLegacyNamespace: !1 };
+            goog.moduleLoaderState_ = {
+              path: a,
+              type: b,
+              moduleName: "",
+              declareLegacyNamespace: !1
+            };
           },
           registerEs6ModuleExports: function(a, b) {
             goog.loadedModules_[a] = {
@@ -869,7 +889,11 @@ goog.UNSEALABLE_CONSTRUCTOR_PROPERTY_ = "goog_defineClass_legacy_unsealable";
             };
           },
           registerGoogModuleExports: function(a, b) {
-            goog.loadedModules_[a] = { exports: b, type: goog.ModuleType.GOOG, moduleId: a };
+            goog.loadedModules_[a] = {
+              exports: b,
+              type: goog.ModuleType.GOOG,
+              moduleId: a
+            };
           },
           clearModuleState: function() {
             goog.moduleLoaderState_ = null;
@@ -1377,7 +1401,13 @@ sre.DynamicCstr.prototype.equal = function(a) {
   }
   return !0;
 };
-sre.DynamicCstr.Axis = { DOMAIN: "domain", STYLE: "style", LOCALE: "locale", TOPIC: "topic", MODALITY: "modality" };
+sre.DynamicCstr.Axis = {
+  DOMAIN: "domain",
+  STYLE: "style",
+  LOCALE: "locale",
+  TOPIC: "topic",
+  MODALITY: "modality"
+};
 sre.DynamicCstr.Values_ = function() {
   this.axisToValues = sre.DynamicCstr.Values_.makeAxisValueObject_();
 };
@@ -1540,10 +1570,21 @@ sre.Engine = function() {
   this.setupTests_ = [];
 };
 goog.addSingletonGetter(sre.Engine);
-sre.Engine.personalityProps = { PITCH: "pitch", RATE: "rate", VOLUME: "volume", PAUSE: "pause" };
+sre.Engine.personalityProps = {
+  PITCH: "pitch",
+  RATE: "rate",
+  VOLUME: "volume",
+  PAUSE: "pause"
+};
 sre.Engine.Mode = { SYNC: "sync", ASYNC: "async", HTTP: "http" };
 sre.Engine.Speech = { NONE: "none", SHALLOW: "shallow", DEEP: "deep" };
-sre.Engine.Markup = { NONE: "none", SSML: "ssml", ACSS: "acss", SABLE: "sable", VOICEXML: "voicexml" };
+sre.Engine.Markup = {
+  NONE: "none",
+  SSML: "ssml",
+  ACSS: "acss",
+  SABLE: "sable",
+  VOICEXML: "voicexml"
+};
 sre.Engine.registerTest = function(a) {
   sre.Engine.getInstance().setupTests_.push(a);
 };
@@ -2006,7 +2047,13 @@ sre.DomUtil.trimInput_ = function(a) {
   a = a.replace(/&nbsp;/g, " ");
   return a.replace(/>\s+</g, "><").trim();
 };
-sre.DomUtil.XML_ENTITIES = { "&lt;": !0, "&gt;": !0, "&amp;": !0, "&quot;": !0, "&apos;": !0 };
+sre.DomUtil.XML_ENTITIES = {
+  "&lt;": !0,
+  "&gt;": !0,
+  "&amp;": !0,
+  "&quot;": !0,
+  "&apos;": !0
+};
 sre.DomUtil.parseInput = function(a, b) {
   b = b || Error;
   var c = new sre.SystemExternal.xmldom.DOMParser();
@@ -2528,21 +2575,61 @@ sre.SemanticAttr = function() {
   this.limitFunctions = "inf lim liminf limsup max min sup injlim projlim".split(" ");
   this.infixFunctions = ["mod", "rem"];
   this.symbolSetToSemantic_ = [
-    { set: this.generalPunctuations, type: sre.SemanticAttr.Type.PUNCTUATION, role: sre.SemanticAttr.Role.UNKNOWN },
-    { set: this.commas, type: sre.SemanticAttr.Type.PUNCTUATION, role: sre.SemanticAttr.Role.COMMA },
-    { set: this.ellipses, type: sre.SemanticAttr.Type.PUNCTUATION, role: sre.SemanticAttr.Role.ELLIPSIS },
-    { set: this.fullStops, type: sre.SemanticAttr.Type.PUNCTUATION, role: sre.SemanticAttr.Role.FULLSTOP },
-    { set: this.dashes, type: sre.SemanticAttr.Type.PUNCTUATION, role: sre.SemanticAttr.Role.DASH },
-    { set: this.primes, type: sre.SemanticAttr.Type.PUNCTUATION, role: sre.SemanticAttr.Role.PRIME },
+    {
+      set: this.generalPunctuations,
+      type: sre.SemanticAttr.Type.PUNCTUATION,
+      role: sre.SemanticAttr.Role.UNKNOWN
+    },
+    {
+      set: this.commas,
+      type: sre.SemanticAttr.Type.PUNCTUATION,
+      role: sre.SemanticAttr.Role.COMMA
+    },
+    {
+      set: this.ellipses,
+      type: sre.SemanticAttr.Type.PUNCTUATION,
+      role: sre.SemanticAttr.Role.ELLIPSIS
+    },
+    {
+      set: this.fullStops,
+      type: sre.SemanticAttr.Type.PUNCTUATION,
+      role: sre.SemanticAttr.Role.FULLSTOP
+    },
+    {
+      set: this.dashes,
+      type: sre.SemanticAttr.Type.PUNCTUATION,
+      role: sre.SemanticAttr.Role.DASH
+    },
+    {
+      set: this.primes,
+      type: sre.SemanticAttr.Type.PUNCTUATION,
+      role: sre.SemanticAttr.Role.PRIME
+    },
     {
       set: this.leftFences,
       type: sre.SemanticAttr.Type.FENCE,
       role: sre.SemanticAttr.Role.OPEN
     },
-    { set: this.rightFences, type: sre.SemanticAttr.Type.FENCE, role: sre.SemanticAttr.Role.CLOSE },
-    { set: this.topFences, type: sre.SemanticAttr.Type.FENCE, role: sre.SemanticAttr.Role.TOP },
-    { set: this.bottomFences, type: sre.SemanticAttr.Type.FENCE, role: sre.SemanticAttr.Role.BOTTOM },
-    { set: this.neutralFences, type: sre.SemanticAttr.Type.FENCE, role: sre.SemanticAttr.Role.NEUTRAL },
+    {
+      set: this.rightFences,
+      type: sre.SemanticAttr.Type.FENCE,
+      role: sre.SemanticAttr.Role.CLOSE
+    },
+    {
+      set: this.topFences,
+      type: sre.SemanticAttr.Type.FENCE,
+      role: sre.SemanticAttr.Role.TOP
+    },
+    {
+      set: this.bottomFences,
+      type: sre.SemanticAttr.Type.FENCE,
+      role: sre.SemanticAttr.Role.BOTTOM
+    },
+    {
+      set: this.neutralFences,
+      type: sre.SemanticAttr.Type.FENCE,
+      role: sre.SemanticAttr.Role.NEUTRAL
+    },
     {
       set: this.smallLatin,
       type: sre.SemanticAttr.Type.IDENTIFIER,
@@ -2831,12 +2918,36 @@ sre.SemanticAttr = function() {
       role: sre.SemanticAttr.Role.INTEGER,
       font: sre.SemanticAttr.Font.MONOSPACE
     },
-    { set: this.numbers, type: sre.SemanticAttr.Type.NUMBER, role: sre.SemanticAttr.Role.FLOAT },
-    { set: this.additions, type: sre.SemanticAttr.Type.OPERATOR, role: sre.SemanticAttr.Role.ADDITION },
-    { set: this.multiplications, type: sre.SemanticAttr.Type.OPERATOR, role: sre.SemanticAttr.Role.MULTIPLICATION },
-    { set: this.subtractions, type: sre.SemanticAttr.Type.OPERATOR, role: sre.SemanticAttr.Role.SUBTRACTION },
-    { set: this.divisions, type: sre.SemanticAttr.Type.OPERATOR, role: sre.SemanticAttr.Role.DIVISION },
-    { set: this.prefixOps, type: sre.SemanticAttr.Type.PREFIXOP, role: sre.SemanticAttr.Role.PREFIXFUNC },
+    {
+      set: this.numbers,
+      type: sre.SemanticAttr.Type.NUMBER,
+      role: sre.SemanticAttr.Role.FLOAT
+    },
+    {
+      set: this.additions,
+      type: sre.SemanticAttr.Type.OPERATOR,
+      role: sre.SemanticAttr.Role.ADDITION
+    },
+    {
+      set: this.multiplications,
+      type: sre.SemanticAttr.Type.OPERATOR,
+      role: sre.SemanticAttr.Role.MULTIPLICATION
+    },
+    {
+      set: this.subtractions,
+      type: sre.SemanticAttr.Type.OPERATOR,
+      role: sre.SemanticAttr.Role.SUBTRACTION
+    },
+    {
+      set: this.divisions,
+      type: sre.SemanticAttr.Type.OPERATOR,
+      role: sre.SemanticAttr.Role.DIVISION
+    },
+    {
+      set: this.prefixOps,
+      type: sre.SemanticAttr.Type.PREFIXOP,
+      role: sre.SemanticAttr.Role.PREFIXFUNC
+    },
     {
       set: this.prefixOpsBold,
       type: sre.SemanticAttr.Type.PREFIXOP,
@@ -2855,19 +2966,51 @@ sre.SemanticAttr = function() {
       role: sre.SemanticAttr.Role.PREFIXFUNC,
       font: sre.SemanticAttr.Font.SANSSERIFBOLD
     },
-    { set: this.equalities, type: sre.SemanticAttr.Type.RELATION, role: sre.SemanticAttr.Role.EQUALITY },
+    {
+      set: this.equalities,
+      type: sre.SemanticAttr.Type.RELATION,
+      role: sre.SemanticAttr.Role.EQUALITY
+    },
     {
       set: this.inequalities,
       type: sre.SemanticAttr.Type.RELATION,
       role: sre.SemanticAttr.Role.INEQUALITY
     },
-    { set: this.relations, type: sre.SemanticAttr.Type.RELATION, role: sre.SemanticAttr.Role.UNKNOWN },
-    { set: this.arrows, type: sre.SemanticAttr.Type.RELATION, role: sre.SemanticAttr.Role.ARROW },
-    { set: this.sumOps, type: sre.SemanticAttr.Type.LARGEOP, role: sre.SemanticAttr.Role.SUM },
-    { set: this.intOps, type: sre.SemanticAttr.Type.LARGEOP, role: sre.SemanticAttr.Role.INTEGRAL },
-    { set: this.limitFunctions, type: sre.SemanticAttr.Type.FUNCTION, role: sre.SemanticAttr.Role.LIMFUNC },
-    { set: this.prefixFunctions, type: sre.SemanticAttr.Type.FUNCTION, role: sre.SemanticAttr.Role.PREFIXFUNC },
-    { set: this.infixFunctions, type: sre.SemanticAttr.Type.OPERATOR, role: sre.SemanticAttr.Role.MULTIPLICATION }
+    {
+      set: this.relations,
+      type: sre.SemanticAttr.Type.RELATION,
+      role: sre.SemanticAttr.Role.UNKNOWN
+    },
+    {
+      set: this.arrows,
+      type: sre.SemanticAttr.Type.RELATION,
+      role: sre.SemanticAttr.Role.ARROW
+    },
+    {
+      set: this.sumOps,
+      type: sre.SemanticAttr.Type.LARGEOP,
+      role: sre.SemanticAttr.Role.SUM
+    },
+    {
+      set: this.intOps,
+      type: sre.SemanticAttr.Type.LARGEOP,
+      role: sre.SemanticAttr.Role.INTEGRAL
+    },
+    {
+      set: this.limitFunctions,
+      type: sre.SemanticAttr.Type.FUNCTION,
+      role: sre.SemanticAttr.Role.LIMFUNC
+    },
+    {
+      set: this.prefixFunctions,
+      type: sre.SemanticAttr.Type.FUNCTION,
+      role: sre.SemanticAttr.Role.PREFIXFUNC
+    },
+    {
+      set: this.infixFunctions,
+      type: sre.SemanticAttr.Type.OPERATOR,
+      role: sre.SemanticAttr.Role.MULTIPLICATION
+    }
   ];
   this.meaning_ = this.initMeaning_();
 };
@@ -4964,7 +5107,11 @@ sre.EnrichMathml.functionApplication_ = function(a, b) {
     ? (sre.DomUtil.replaceNode(a, b), !0)
     : !1;
 };
-sre.EnrichMathml.lcaType = { VALID: "valid", INVALID: "invalid", PRUNED: "pruned" };
+sre.EnrichMathml.lcaType = {
+  VALID: "valid",
+  INVALID: "invalid",
+  PRUNED: "pruned"
+};
 sre.EnrichMathml.mathmlLca_ = function(a) {
   var b = sre.EnrichMathml.attachedElement_(a);
   if (!b) return { type: sre.EnrichMathml.lcaType.INVALID, node: null };
@@ -5687,7 +5834,11 @@ sre.CssHighlighter = function() {
 };
 goog.inherits(sre.CssHighlighter, sre.AbstractHighlighter);
 sre.CssHighlighter.prototype.highlightNode = function(a) {
-  var b = { node: a, background: a.style.backgroundColor, foreground: a.style.color },
+  var b = {
+      node: a,
+      background: a.style.backgroundColor,
+      foreground: a.style.color
+    },
     c = this.colorString();
   a.style.backgroundColor = c.background;
   a.style.color = c.foreground;
@@ -5779,7 +5930,11 @@ sre.SvgHighlighter = function() {
 goog.inherits(sre.SvgHighlighter, sre.AbstractHighlighter);
 sre.SvgHighlighter.prototype.highlightNode = function(a) {
   if ("svg" === a.tagName) {
-    var b = { node: a, background: a.style.backgroundColor, foreground: a.style.color };
+    var b = {
+      node: a,
+      background: a.style.backgroundColor,
+      foreground: a.style.color
+    };
     a.style.backgroundColor = this.colorString().background;
     a.style.color = this.colorString().foreground;
     return b;
@@ -6272,7 +6427,10 @@ sre.MathspeakUtil.convertVulgarFraction_ = function(a) {
   var c = Number(b),
     d = Number(a);
   return isNaN(c) || isNaN(d)
-    ? { convertible: !1, content: a + " " + sre.Messages.MS.FRAC_OVER + " " + b }
+    ? {
+        convertible: !1,
+        content: a + " " + sre.Messages.MS.FRAC_OVER + " " + b
+      }
     : { convertible: !0, enumerator: d, denominator: c };
 };
 sre.MathspeakUtil.vulgarFraction = function(a) {
@@ -6338,7 +6496,10 @@ sre.MathspeakUtil.superscriptBrief = function(a) {
   });
 };
 sre.MathspeakUtil.baselineVerbose = function(a) {
-  return (a = sre.MathspeakUtil.nestedSubSuper(a, "", { sup: sre.Messages.MS.SUPER, sub: sre.Messages.MS.SUB }))
+  return (a = sre.MathspeakUtil.nestedSubSuper(a, "", {
+    sup: sre.Messages.MS.SUPER,
+    sub: sre.Messages.MS.SUB
+  }))
     ? a
         .replace(new RegExp(sre.Messages.MS.SUB + "$"), sre.Messages.MS.SUBSCRIPT)
         .replace(new RegExp(sre.Messages.MS.SUPER + "$"), sre.Messages.MS.SUPERSCRIPT)
@@ -6346,8 +6507,10 @@ sre.MathspeakUtil.baselineVerbose = function(a) {
 };
 sre.MathspeakUtil.baselineBrief = function(a) {
   return (
-    sre.MathspeakUtil.nestedSubSuper(a, "", { sup: sre.Messages.MS.SUP, sub: sre.Messages.MS.SUB }) ||
-    sre.Messages.MS.BASE
+    sre.MathspeakUtil.nestedSubSuper(a, "", {
+      sup: sre.Messages.MS.SUP,
+      sub: sre.Messages.MS.SUB
+    }) || sre.Messages.MS.BASE
   );
 };
 sre.MathspeakUtil.radicalNestingDepth = function(a) {
@@ -6767,7 +6930,12 @@ sre.SpeechRule.prototype.toString = function() {
     this.action.toString()
   );
 };
-sre.SpeechRule.Type = { NODE: "NODE", MULTI: "MULTI", TEXT: "TEXT", PERSONALITY: "PERSONALITY" };
+sre.SpeechRule.Type = {
+  NODE: "NODE",
+  MULTI: "MULTI",
+  TEXT: "TEXT",
+  PERSONALITY: "PERSONALITY"
+};
 sre.SpeechRule.Type.fromString = function(a) {
   switch (a) {
     case "[n]":
@@ -6986,7 +7154,13 @@ sre.TrieNode.prototype.addChild = function(a) {};
 sre.TrieNode.prototype.getChild = function(a) {};
 sre.TrieNode.prototype.getChildren = function() {};
 sre.TrieNode.prototype.findChildren = function(a) {};
-sre.TrieNode.Kind = { ROOT: "root", DYNAMIC: "dynamic", QUERY: "query", BOOLEAN: "boolean", STATIC: "static" };
+sre.TrieNode.Kind = {
+  ROOT: "root",
+  DYNAMIC: "dynamic",
+  QUERY: "query",
+  BOOLEAN: "boolean",
+  STATIC: "static"
+};
 sre.AbstractTrieNode = function(a, b) {
   this.constraint = a;
   this.test = b;
@@ -11664,7 +11838,11 @@ sre.MathspeakRules.initMathspeakRules_ = function() {
     '@role="unit"'
   );
 };
-sre.MathspeakRules.componentString_ = { 2: "CSFbaseline", 1: "CSFsubscript", 0: "CSFsuperscript" };
+sre.MathspeakRules.componentString_ = {
+  2: "CSFbaseline",
+  1: "CSFsubscript",
+  0: "CSFsuperscript"
+};
 sre.MathspeakRules.childNumber_ = { 4: 2, 3: 3, 2: 1, 1: 4, 0: 5 };
 sre.MathspeakRules.generateTensorRuleStrings_ = function(a) {
   var b = [],
@@ -13144,7 +13322,11 @@ sre.MathspeakSpanish.initMathspeakSpanish_ = function() {
     '@role="unit"'
   );
 };
-sre.MathspeakSpanish.componentString_ = { 2: "CSFbaseline", 1: "CSFsubscript", 0: "CSFsuperscript" };
+sre.MathspeakSpanish.componentString_ = {
+  2: "CSFbaseline",
+  1: "CSFsubscript",
+  0: "CSFsuperscript"
+};
 sre.MathspeakSpanish.childNumber_ = { 4: 2, 3: 3, 2: 1, 1: 4, 0: 5 };
 sre.MathspeakSpanish.generateTensorRuleStrings_ = function(a) {
   var b = [],
@@ -14928,7 +15110,10 @@ sre.AbstractWalker.prototype.depth_ = function() {
     [];
   var c = [
       sre.AuralRendering.getInstance().markup([
-        new sre.AuditoryDescription({ text: sre.Messages.NAVIGATE.LEVEL + " " + this.getDepth(), personality: {} })
+        new sre.AuditoryDescription({
+          text: sre.Messages.NAVIGATE.LEVEL + " " + this.getDepth(),
+          personality: {}
+        })
       ])
     ],
     d = this.focus_.getSemanticNodes();
@@ -15057,7 +15242,11 @@ sre.AbstractWalker.prototype.specialMove = function() {
   return null;
 };
 sre.AbstractWalker.prototype.virtualize = function(a) {
-  this.cursors.push({ focus: this.focus_, levels: this.levels, undo: a || !this.cursors.length });
+  this.cursors.push({
+    focus: this.focus_,
+    levels: this.levels,
+    undo: a || !this.cursors.length
+  });
   this.levels = this.levels.clone();
   return this.focus_.clone();
 };

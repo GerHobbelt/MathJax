@@ -35,8 +35,9 @@
       disabled: false,
       styles: {
         ".MJX_Assistive_MathML": {
-          position:"absolute!important",
-          top: 0, left: 0,
+          position: "absolute!important",
+          top: 0,
+          left: 0,
           clip: (HUB.Browser.isMSIE && (document.documentMode||0) < 8 ?
                  "rect(1px 1px 1px 1px)" : "rect(1px, 1px, 1px, 1px)"),
           padding: "1px 0 0 0!important",
@@ -44,7 +45,7 @@
           height: "1px!important",
           width: "1px!important",
           overflow: "hidden!important",
-          display:"block!important",
+          display: "block!important",
           //
           //  Don't allow the assistive MathML become part of the selection
           //
@@ -66,7 +67,7 @@
         HUB.Config({menuSettings:{assistiveMML:true}});
       AJAX.Styles(this.config.styles);
       HUB.Register.MessageHook("End Math",function (msg) {
-        if (SETTINGS.assistiveMML) return AssistiveMML.AddAssistiveMathML(msg[1])
+        if (SETTINGS.assistiveMML) return AssistiveMML.AddAssistiveMathML(msg[1]);
       });
     },
     
@@ -78,7 +79,8 @@
     //
     AddAssistiveMathML: function (node) {
       var state = {
-        jax: HUB.getAllJax(node), i: 0,
+        jax: HUB.getAllJax(node),
+        i: 0,
         callback: MathJax.Callback({})
       };
       this.HandleMML(state);
@@ -90,7 +92,8 @@
     //  all the jax.
     //
     RemoveAssistiveMathML: function (node) {
-      var jax = HUB.getAllJax(node), frame;
+      var jax = HUB.getAllJax(node);
+      var frame;
       for (var i = 0, m = jax.length; i < m; i++) {
         frame = document.getElementById(jax[i].inputID+"-Frame");
         if (frame && frame.getAttribute("data-mathml")) {
@@ -111,12 +114,14 @@
     //  When all the jax are processed, call the callback.
     //
     HandleMML: function (state) {
-      var m = state.jax.length, jax, mml, frame, span;
+      var m = state.jax.length;
+      var jax, mml, frame, span;
       while (state.i < m) {
         jax = state.jax[state.i];
         frame = document.getElementById(jax.inputID+"-Frame");
         if (jax.outputJax !== "NativeMML" && jax.outputJax !== "PlainSource" &&
-            frame && !frame.getAttribute("data-mathml")) {
+            frame && !frame.getAttribute("data-mathml")
+        ) {
           try {
             mml = jax.root.toMathML("").replace(/\n */g,"").replace(/<!--.*?-->/g,"");
           } catch (err) {
@@ -125,15 +130,18 @@
           }
           frame.setAttribute("data-mathml",mml);
           span = HTML.addElement(frame,"span",{
-            isMathJax: true, unselectable: "on",
+            isMathJax: true, 
+            unselectable: "on",
             className: "MJX_Assistive_MathML"
               + (jax.root.Get("display") === "block" ? " MJX_Assistive_MathML_Block" : "")
           });
-          try {span.innerHTML = mml} catch (err) {}
+          try {
+            span.innerHTML = mml;
+          } catch (err) {}
           frame.style.position = "relative";
-          frame.setAttribute("role","presentation");
-          frame.firstChild.setAttribute("aria-hidden","true");
-          span.setAttribute("role","presentation");
+          frame.setAttribute("role", "presentation");
+          frame.firstChild.setAttribute("aria-hidden", "true");
+          span.setAttribute("role", "presentation");
         }
         state.i++;
       }

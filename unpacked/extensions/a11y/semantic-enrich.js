@@ -140,24 +140,29 @@ MathJax.Callback.Queue(
     MML.mbase.Augment({
       toMathMLattributes: function () {
         var defaults = (this.type === "mstyle" ? MML.math.prototype.defaults : this.defaults);
-        var names = (this.attrNames||MML.copyAttributeNames),
-            skip = MML.skipAttributes, copy = MML.copyAttributes,
-            lookup = (ENRICH.running ? ENRICH.mstyleLookup[this.type]||[] : []);
-        var attr = [], ATTR = (this.attr||{});
+        var names = (this.attrNames||MML.copyAttributeNames);
+        var skip = MML.skipAttributes;
+        var copy = MML.copyAttributes;
+        var lookup = (ENRICH.running ? ENRICH.mstyleLookup[this.type]||[] : []);
+        var attr = [];
+        var ATTR = (this.attr||{});
         var value;
 
         if (this.type === "math" && (!this.attr || !('xmlns' in this.attr)))
           attr.push('xmlns="http://www.w3.org/1998/Math/MathML"');
         if (!this.attrNames) {
-          for (var id in defaults) {if (!skip[id] && !copy[id] && defaults.hasOwnProperty(id)) {
-            if (this[id] != null && this[id] !== defaults[id]) {
-              if (this.Get(id,null,1) !== this[id]) this.toMathMLaddAttr(attr,id,this[id]);
+          for (var id in defaults) {
+            if (!skip[id] && !copy[id] && defaults.hasOwnProperty(id)) {
+              if (this[id] != null && this[id] !== defaults[id]) {
+                if (this.Get(id,null,1) !== this[id]) this.toMathMLaddAttr(attr,id,this[id]);
+              }
             }
-          }}
+          }
         }
         for (var i = 0, m = names.length; i < m; i++) {
           if (copy[names[i]] === 1 && !defaults.hasOwnProperty(names[i])) continue;
-          value = ATTR[names[i]]; if (value == null) value = this[names[i]];
+          value = ATTR[names[i]]; 
+          if (value == null) value = this[names[i]];
           if (value != null) this.toMathMLaddAttr(attr,names[i],value);
         }
         for (i = 0, m = lookup.length; i < m; i++) {
@@ -168,7 +173,8 @@ MathJax.Callback.Queue(
           }
         }
         this.toMathMLclass(attr);
-        if (attr.length) return " "+attr.join(" "); else return "";
+        if (attr.length) return " "+attr.join(" "); 
+        else return "";
       },
       toMathMLaddAttr: function (attr,id,value) {
         attr.push(id+'="'+this.toMathMLquote(value)+'"');

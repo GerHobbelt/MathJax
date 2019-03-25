@@ -39,8 +39,10 @@ MathJax.Extension["TeX/enclose"] = {
   //
   ALLOWED: {
     arrow: 1,
-    color: 1, mathcolor: 1,
-    background: 1, mathbackground: 1,
+    color: 1,
+    mathcolor: 1,
+    background: 1,
+    mathbackground: 1,
     padding: 1,
     thickness: 1
   }
@@ -72,11 +74,17 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
           var keyvalue = attr[i].split(/[:=]/);
           if (ALLOW[keyvalue[0]]) {
             keyvalue[1] = keyvalue[1].replace(/^"(.*)"$/,"$1");
-            if (keyvalue[1] === "true") {keyvalue[1] = true}
-            if (keyvalue[1] === "false") {keyvalue[1] = false}
-            if (keyvalue[0] === "arrow" && keyvalue[1])
-              {def.notation = def.notation + " updiagonalarrow"} else
-              {def[keyvalue[0]] = keyvalue[1]}
+            if (keyvalue[1] === "true") {
+              keyvalue[1] = true;
+            }
+            if (keyvalue[1] === "false") {
+              keyvalue[1] = false;
+            }
+            if (keyvalue[0] === "arrow" && keyvalue[1]) {
+              def.notation = def.notation + " updiagonalarrow";
+            } else {
+              def[keyvalue[0]] = keyvalue[1];
+            }
           }
         }
       }

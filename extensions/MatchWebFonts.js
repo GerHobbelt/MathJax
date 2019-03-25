@@ -76,10 +76,18 @@
           //  size for math elements.  This is a periodic check that goes on
           //  until a timeout is reached.
           //
-          state.checkFontsCount |= 0;   // make sure the attribute is set to zero
+          state.checkFontsCount |= 0; // make sure the attribute is set to zero
           state.checkFontsCount++;
-          console.warn("TIMER START HTMLCSS: Check for changes in the web fonts that might affect the font size for math elements.", {
-            state, partial, self: this, HTMLCSSdelay: state.HTMLCSSdelay, checkFontsCount: state.checkFontsCount});
+          console.warn(
+            "TIMER START HTMLCSS: Check for changes in the web fonts that might affect the font size for math elements.",
+            {
+              state,
+              partial,
+              self: this,
+              HTMLCSSdelay: state.HTMLCSSdelay,
+              checkFontsCount: state.checkFontsCount
+            }
+          );
           AJAX.timer.start(
             AJAX,
             ["checkFonts", this, state.jax[this.id]],
@@ -100,13 +108,14 @@
       //  element jax so that we can check for them here.
       //
       checkFonts: function(check, scripts) {
-        if (check.time(function(status) {
-          console.warn("checkFonts CALLBACK:", status);
-        })) return;
-        var size = [],
-          i,
-          m,
-          script;
+        if (
+          check.time(function(status) {
+            console.warn("checkFonts CALLBACK:", status);
+          })
+        )
+          return;
+        var size = [];
+        var i, m, script;
         // debugger;
         //
         //  Add the elements used for testing ex and em sizes
@@ -143,6 +152,13 @@
             if (scale / 100 !== jax.scale) {
               size.push(script);
             }
+            console.log({
+              i,
+              scale,
+              jaxScale: jax.scale,
+              ex,
+              em
+            });
             jax.scale = scale / 100; // jax.ex = ex; jax.mex = mex;
           }
         }
@@ -183,10 +199,18 @@
           //  size for math elements.  This is a periodic check that goes on
           //  until a timeout is reached.
           //
-          state.checkFontsCount |= 0;   // make sure the attribute is set to zero
+          state.checkFontsCount |= 0; // make sure the attribute is set to zero
           state.checkFontsCount++;
-          console.warn("TIMER START SVG: Check for changes in the web fonts that might affect the font size for math elements.", {
-            state, partial, self: this, HTMLCSSdelay: state.HTMLCSSdelay, checkFontsCount: state.checkFontsCount});
+          console.warn(
+            "TIMER START SVG: Check for changes in the web fonts that might affect the font size for math elements.",
+            {
+              state,
+              partial,
+              self: this,
+              HTMLCSSdelay: state.HTMLCSSdelay,
+              checkFontsCount: state.checkFontsCount
+            }
+          );
           AJAX.timer.start(
             AJAX,
             ["checkFonts", this, state.jax[this.id]],
@@ -208,10 +232,8 @@
       //
       checkFonts: function(check, scripts) {
         if (check.time(function() {})) return;
-        var size = [],
-          i,
-          m,
-          script;
+        var size = [];
+        var i, m, script;
         // debugger;
         //
         //  Add the elements used for testing ex and em sizes
@@ -279,10 +301,18 @@
           //  size for math elements.  This is a periodic check that goes on
           //  until a timeout is reached.
           //
-          state.checkFontsCount |= 0;   // make sure the attribute is set to zero
+          state.checkFontsCount |= 0; // make sure the attribute is set to zero
           state.checkFontsCount++;
-          console.warn("TIMER START MML: Check for changes in the web fonts that might affect the font size for math elements.", {
-            state, partial, self: this, HTMLCSSdelay: state.HTMLCSSdelay, checkFontsCount: state.checkFontsCount});
+          console.warn(
+            "TIMER START MML: Check for changes in the web fonts that might affect the font size for math elements.",
+            {
+              state,
+              partial,
+              self: this,
+              HTMLCSSdelay: state.HTMLCSSdelay,
+              checkFontsCount: state.checkFontsCount
+            }
+          );
           AJAX.timer.start(
             AJAX,
             ["checkFonts", this, state.jax[this.id]],
@@ -304,12 +334,10 @@
       //
       checkFonts: function(check, scripts) {
         if (check.time(function() {})) return;
-        var adjust = [],
-          mtd = [],
-          size = [],
-          i,
-          m,
-          script;
+        var adjust = [];
+        var mtd = [];
+        var size = [];
+        var i, m, script;
         // debugger;
         //
         //  Add the elements used for testing ex and em sizes

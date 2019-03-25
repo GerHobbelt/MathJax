@@ -102,8 +102,9 @@ MathJax.Extension.tex2jax = {
         MathJax.Hub.Insert(this, this.config.Augment);
       }
       if (typeof this.config.previewTeX !== "undefined" && !this.config.previewTeX) {
+        // backward compatibility for previewTeX parameter
         this.config.preview = "none";
-      } // backward compatibility for previewTeX parameter
+      }
       this.configured = true;
     }
     if (typeof element === "string") {
@@ -118,11 +119,10 @@ MathJax.Extension.tex2jax = {
   },
 
   createPatterns: function() {
-    var starts = [],
-      parts = [],
-      i,
-      m,
-      config = this.config;
+    var starts = [];
+    var parts = [];
+    var i, m;
+    var config = this.config;
     this.match = {};
     for (i = 0, m = config.inlineMath.length; i < m; i++) {
       starts.push(this.patternQuote(config.inlineMath[i][0]));
@@ -192,8 +192,9 @@ MathJax.Extension.tex2jax = {
         cname = typeof element.className === "undefined" ? "" : element.className;
         tname = typeof element.tagName === "undefined" ? "" : element.tagName;
         if (typeof cname !== "string") {
+          // jsxgraph uses non-string class names!
           cname = String(cname);
-        } // jsxgraph uses non-string class names!
+        }
         process = this.processClass.exec(cname);
         if (element.firstChild && !cname.match(/(^| )MathJax/) && (process || !this.skipTags.exec(tname))) {
           ignoreChild = (ignore || this.ignoreClass.exec(cname)) && !process;
@@ -210,10 +211,9 @@ MathJax.Extension.tex2jax = {
     if (element.nodeValue.replace(/\s+/, "") == "") {
       return element;
     }
-    var match,
-      prev,
-      pos = 0,
-      rescan;
+    var match, prev;
+    var pos = 0;
+    var rescan;
     this.search = { start: true };
     this.pattern = this.start;
     while (element) {
@@ -286,9 +286,8 @@ MathJax.Extension.tex2jax = {
       // escaped dollar signs
       // put $ in a span so it doesn't get processed again
       // split off backslashes so they don't get removed later
-      var slashes = match[0].substr(0, match[0].length - 1),
-        n,
-        span;
+      var slashes = match[0].substr(0, match[0].length - 1);
+      var n, span;
       if (slashes.length % 2 === 0) {
         span = [slashes.replace(/\\\\/g, "\\")];
         n = 1;
@@ -340,11 +339,9 @@ MathJax.Extension.tex2jax = {
   },
 
   encloseMath: function(element) {
-    var search = this.search,
-      close = search.close,
-      CLOSE,
-      math,
-      next;
+    var search = this.search;
+    var close = search.close;
+    var CLOSE, math, next;
     if (search.cpos === close.length) {
       close = close.nextSibling;
     } else {

@@ -77,10 +77,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
     BBox: function(name) {
       var bbox = this.GetBrackets(name, ""),
         math = this.ParseArg(name);
-      var parts = bbox.split(/,/),
-        def,
-        background,
-        style;
+      var parts = bbox.split(/,/);
+      var def, background, style;
       for (var i = 0, m = parts.length; i < m; i++) {
         var part = parts[i].replace(/^\s+/, "").replace(/\s+$/, "");
         var match = part.match(/^(\.\d+|\d+(\.\d*)?)(pt|em|ex|mu|px|in|cm|mm)$/);

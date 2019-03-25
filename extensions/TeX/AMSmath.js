@@ -223,8 +223,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
      *  Record a label name for a tag
      */
     HandleLabel: function(name) {
-      var global = this.stack.global,
-        label = this.GetArgument(name);
+      var global = this.stack.global;
+      var label = this.GetArgument(name);
       if (label === "") return;
       if (!AMS.refUpdate) {
         if (global.label) {
@@ -285,8 +285,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
     },
 
     SkipLimits: function(name) {
-      var c = this.GetNext(),
-        i = this.i;
+      var c = this.GetNext();
+      var i = this.i;
       if (c === "\\" && ++this.i && this.GetCS() !== "limits") this.i = i;
     },
 
@@ -423,10 +423,10 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
      *  Handle alignat environments
      */
     AlignAt: function(begin, numbered, taggable) {
-      var n,
-        valign,
-        align = "",
-        spacing = [];
+      var n;
+      var valign;
+      var align = "";
+      var spacing = [];
       if (!taggable) {
         valign = this.GetBrackets("\\begin{" + begin.name + "}");
       }
@@ -587,8 +587,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
       //  a previous tag) and find a unique related one. (#240)
       //
       if (document.getElementById(tag.id) || AMS.IDs[tag.id] || AMS.eqIDs[tag.id]) {
-        var i = 0,
-          ID;
+        var i = 0;
+        var ID;
         do {
           i++;
           ID = tag.id + "_" + i;
@@ -665,9 +665,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
     EndTable: function() {
       this.SUPER(arguments).EndTable.call(this);
       if (this.table.length) {
-        var m = this.table.length - 1,
-          i,
-          label = -1;
+        var m = this.table.length - 1;
+        var i;
+        var label = -1;
         if (!this.table[0][0].columnalign) {
           this.table[0][0].columnalign = MML.ALIGN.LEFT;
         }
@@ -741,8 +741,8 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
     oldCheckItem: STACKITEM.start.prototype.checkItem,
     checkItem: function(item) {
       if (item.type === "stop") {
-        var mml = this.mmlData(),
-          global = this.global;
+        var mml = this.mmlData();
+        var global = this.global;
         if (
           AMS.display &&
           !global.tag &&
@@ -788,8 +788,9 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
     MathJax.Hub.Insert(AMS.IDs, AMS.eqIDs); // save IDs from this equation
     MathJax.Hub.Insert(AMS.labels, AMS.eqlabels); // save labels from this equation
     if (AMS.badref && !data.math.texError) {
+      // reprocess later
       AMS.refs.push(data.script);
-    } // reprocess later
+    }
   }, 100);
 
   MathJax.Hub.Register.MessageHook("Begin Math Input", function() {

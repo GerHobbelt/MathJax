@@ -50,15 +50,18 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     mmlToken: function (token) {
       if (this.stack.env.boldsymbol) {
         var variant = token.Get("mathvariant");
-        if (variant == null) {token.mathvariant = MML.VARIANT.BOLD}
-        else {token.mathvariant = (BOLDVARIANT[variant]||variant)}
+        if (variant == null) {
+          token.mathvariant = MML.VARIANT.BOLD;
+        } else {
+          token.mathvariant = BOLDVARIANT[variant] || variant;
+        }
       }
       return token;
     },
     
     Boldsymbol: function (name) {
-      var boldsymbol = this.stack.env.boldsymbol,
-          font = this.stack.env.font;
+      var boldsymbol = this.stack.env.boldsymbol;
+      var font = this.stack.env.font;
       this.stack.env.boldsymbol = true;
       this.stack.env.font = null;
       var mml = this.ParseArg(name);
