@@ -37,7 +37,7 @@
   "devDependencies": {
     "@gerhobbelt/mathjax-dev": "1.0.1-17",
     "@gerhobbelt/mathjax-third-party-extensions": "1.0.0-6",
-    "eslint": "5.13.0",
+    "eslint": "5.15.3",
     "usus": "1.6.0"
   }
 }

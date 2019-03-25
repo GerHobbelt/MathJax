@@ -394,6 +394,8 @@ if (document.getElementById && document.childNodes && document.createElement) {
                 head = document.body;
               }
               var script = document.createElement("script");
+              //script.setAttribute("charset", "utf-8");
+              script.charset = "utf-8";
               script.appendChild(document.createTextNode(code));
               head.appendChild(script);
               head.removeChild(script);
@@ -1094,8 +1096,17 @@ if (document.getElementById && document.childNodes && document.createElement) {
           JS: function(file, callback) {
             var name = this.fileName(file);
             var script = document.createElement("script");
-            // debugger;
+            //script.setAttribute("charset", "utf-8");
+            script.charset = "utf-8";
             var timeout = BASE.Callback(["loadTimeout", this, file]);
+            console.error("JS loader:", {
+              file,
+              loading: this.loading[file],
+              loaded: this.loaded[file],
+              name,
+              timeout: this.timeout
+            });
+            // debugger;
             this.loading[file] = {
               callback: callback,
               timeout: setTimeout(timeout, this.timeout),
@@ -1210,6 +1221,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
               loaded: this.loaded[file],
               status
             });
+            // debugger;
             if (status < 0) {
               debugger;
               BASE.Ajax.loadTimeout(file);
@@ -1380,9 +1392,8 @@ if (document.getElementById && document.childNodes && document.createElement) {
           if (typeof styles === "string") {
             return styles;
           }
-          var string = "",
-            id,
-            style;
+          var string = "";
+          var id, style;
           for (id in styles) {
             if (styles.hasOwnProperty(id)) {
               if (typeof styles[id] === "string") {
@@ -1430,8 +1441,8 @@ if (document.getElementById && document.childNodes && document.createElement) {
       //        " for more details.)"]);
       //
       Element: function(type, def, contents) {
-        var obj = document.createElement(type),
-          id;
+        var obj = document.createElement(type);
+        var id;
         if (def) {
           if (def.hasOwnProperty("style")) {
             var style = def.style;
@@ -1522,7 +1533,9 @@ if (document.getElementById && document.childNodes && document.createElement) {
           }
           try {
             document.cookie = cookie + "; path=/";
-          } catch (err) {} // ignore errors saving cookies
+          } catch (err) {
+            // ignore errors saving cookies
+          }
         },
 
         //
@@ -1537,7 +1550,9 @@ if (document.getElementById && document.childNodes && document.createElement) {
           var match;
           try {
             match = pattern.exec(document.cookie);
-          } catch (err) {} // ignore errors reading cookies
+          } catch (err) {
+            // ignore errors reading cookies
+          }
           if (match && match[1] !== "") {
             var keys = unescape(match[1]).split("&;");
             for (var i = 0, m = keys.length; i < m; i++) {
@@ -1636,9 +1651,9 @@ if (document.getElementById && document.childNodes && document.createElement) {
             //    So implement it by hand here.
             //
             function(string, regex) {
-              var result = [],
-                match,
-                last = 0;
+              var result = [];
+              var match;
+              var last = 0;
               regex.lastIndex = 0;
               while ((match = regex.exec(string))) {
                 result.push(string.substr(last, match.index - last));
@@ -1662,9 +1677,8 @@ if (document.getElementById && document.childNodes && document.createElement) {
         //    If the argument is a snippet (and we are processing snippets) do so,
         //    Otherwise, if it is a number, convert it for the lacale
         //
-        var i,
-          m,
-          isArray = MathJax.Object.isArray;
+        var i, m;
+        var isArray = MathJax.Object.isArray;
         for (i = 0, m = args.length; i < m; i++) {
           if (domain && isArray(args[i])) {
             args[i] = this.processSnippet(domain, args[i]);
@@ -1705,8 +1719,9 @@ if (document.getElementById && document.childNodes && document.createElement) {
                     }
                   }
                 } else {
+                  // not "plural", put back the % and leave unchanged
                   parts[i] = "%" + parts[i];
-                } // not "plural", put back the % and leave unchanged
+                }
               }
             }
           }
@@ -1724,11 +1739,13 @@ if (document.getElementById && document.childNodes && document.createElement) {
         //  We need to return an HTML snippet, so buld it from the
         //  broken up string with inserted parts (that could be snippets)
         //
-        var snippet = [],
-          part = "";
+        var snippet = [];
+        var part = "";
         for (i = 0; i < m; i++) {
+          // add the string and move on to substitution result
           part += parts[i];
-          i++; // add the string and move on to substitution result
+          i++;
+
           if (i < m) {
             if (isArray(parts[i])) {
               // substitution was a snippet
@@ -1742,8 +1759,9 @@ if (document.getElementById && document.childNodes && document.createElement) {
           }
         }
         if (part !== "") {
+          // add final string
           snippet.push(part);
-        } // add final string
+        }
         return snippet;
       },
 
@@ -1791,8 +1809,8 @@ if (document.getElementById && document.childNodes && document.createElement) {
       //   %c or *bold*, **italics**, ***bold-italics***, or `code`, or [link](url)
 
       processMarkdown: function(phrase, args, domain) {
-        var result = [],
-          data;
+        var result = [];
+        var data;
         //
         //  Split the string by the Markdown pattern
         //    (the text blocks are separated by
@@ -1816,8 +1834,9 @@ if (document.getElementById && document.childNodes && document.createElement) {
             }
             data = [["b", "i", "i"][parts[i + 1].length - 1], {}, data]; // number of stars determines type
             if (parts[i + 1].length === 3) {
+              // bold-italic
               data = ["b", {}, data];
-            } // bold-italic
+            }
           } else if (parts[i + 3]) {
             //  backtics (for code)
             //
@@ -1931,8 +1950,9 @@ if (document.getElementById && document.childNodes && document.createElement) {
         callback = MathJax.Callback(callback);
         file = data.file || file; // the data's file name or the default name
         if (!file.match(/\.js$/)) {
+          // add .js if needed
           file += ".js";
-        } // add .js if needed
+        }
         //
         //  Add the directory if the file doesn't
         //  contain a full URL already.
@@ -1967,8 +1987,8 @@ if (document.getElementById && document.childNodes && document.createElement) {
       //  Otherwise return null (data are loaded).
       //
       loadDomain: function(domain, callback) {
-        var load,
-          localeData = this.strings[this.locale];
+        var load;
+        var localeData = this.strings[this.locale];
         if (localeData) {
           if (!localeData.isLoaded) {
             load = this.loadFile(this.locale, localeData);
@@ -2050,8 +2070,8 @@ if (document.getElementById && document.childNodes && document.createElement) {
       //  Add or update a language or domain
       //
       addTranslation: function(locale, domain, definition) {
-        var data = this.strings[locale],
-          isNew = false;
+        var data = this.strings[locale];
+        var isNew = false;
         if (!data) {
           data = this.strings[locale] = {};
           isNew = true;
@@ -2108,12 +2128,13 @@ if (document.getElementById && document.childNodes && document.createElement) {
       plural: function(n) {
         var locale = this.strings[this.locale];
         if (locale && locale.plural) {
+          // default
           return locale.plural(n);
         }
-        // default
         if (n == 1) {
+          // one
           return 1;
-        } // one
+        }
         return 2; // other
       },
 
@@ -2194,7 +2215,6 @@ if (document.getElementById && document.childNodes && document.createElement) {
         //  so check that this.div is still part of the page, otherwise look up
         //  the copy and use that.
         //
-        //  
         //  Also detects whether the web page author has already provided a (custom)
         //  MathJax Message DIV area.
         //
@@ -2346,7 +2366,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
           this.current = n;
         }
         //
-        //  Show the message if it is the currently active one.
+        // Show the message if it is the currently active one.
         //
         if (this.current === n && MathJax.Hub.config.messageStyle !== "none") {
           if (this.Init()) {
@@ -2382,7 +2402,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
         //
         if (clearDelay) {
           setTimeout(MathJax.Callback(["Clear", this, n]), clearDelay);
-        } else if (clearDelay == 0) {
+        } else {
           this.Clear(n, 0);
         }
         //
@@ -2408,8 +2428,9 @@ if (document.getElementById && document.childNodes && document.createElement) {
           this.current = this.log[n].next;
           if (this.text) {
             if (this.div.parentNode == null) {
+              // see ASCIIMathML comments above
               this.Init();
-            } // see ASCIIMathML comments above
+            }
             if (this.current == null) {
               //
               //  If there are no more messages, remove the message box.
@@ -2560,9 +2581,8 @@ if (document.getElementById && document.childNodes && document.createElement) {
         }
       },
       CombineConfig: function(name, def) {
-        var config = this.config,
-          id,
-          parent;
+        var config = this.config;
+        var id, parent;
         name = name.split(/\./);
         for (var i = 0, m = name.length; i < m; i++) {
           id = name[i];
@@ -2606,8 +2626,8 @@ if (document.getElementById && document.childNodes && document.createElement) {
       },
 
       getAllJax: function(element) {
-        var jax = [],
-          scripts = this.elementScripts(element);
+        var jax = [];
+        var scripts = this.elementScripts(element);
         for (var i = 0, m = scripts.length; i < m; i++) {
           if (scripts[i].MathJax && scripts[i].MathJax.elementJax) {
             jax.push(scripts[i].MathJax.elementJax);
@@ -2617,8 +2637,8 @@ if (document.getElementById && document.childNodes && document.createElement) {
       },
 
       getJaxByType: function(type, element) {
-        var jax = [],
-          scripts = this.elementScripts(element);
+        var jax = [];
+        var scripts = this.elementScripts(element);
         for (var i = 0, m = scripts.length; i < m; i++) {
           if (scripts[i].MathJax && scripts[i].MathJax.elementJax && scripts[i].MathJax.elementJax.mimeType === type) {
             jax.push(scripts[i].MathJax.elementJax);
@@ -2628,8 +2648,8 @@ if (document.getElementById && document.childNodes && document.createElement) {
       },
 
       getJaxByInputType: function(type, element) {
-        var jax = [],
-          scripts = this.elementScripts(element);
+        var jax = [];
+        var scripts = this.elementScripts(element);
         for (var i = 0, m = scripts.length; i < m; i++) {
           if (
             scripts[i].MathJax &&
@@ -2652,8 +2672,9 @@ if (document.getElementById && document.childNodes && document.createElement) {
         }
         if (this.isMathJaxNode(element)) {
           if (!element.isMathJax) {
+            // for NativeMML output
             element = element.firstChild;
-          } // for NativeMML output
+          }
           while (element && !element.jaxID) {
             element = element.parentNode;
           }
@@ -2760,8 +2781,8 @@ if (document.getElementById && document.childNodes && document.createElement) {
         var state = {
           scripts: [], // filled in by prepareScripts
           start: new Date().getTime(), // timer for processing messages
-          i: 0,
-          j: 0, // current script, current jax
+          i: 0, // current script
+          j: 0, // current jax
           jax: {}, // scripts grouped by output jax
           jaxIDs: [] // id's of jax used
         };
@@ -2852,12 +2873,11 @@ if (document.getElementById && document.childNodes && document.createElement) {
 
       checkScriptSiblings: function(script) {
         if (script.MathJax.checked) return;
-        var config = this.config,
-          pre = script.previousSibling;
+        var config = this.config;
+        var pre = script.previousSibling;
         if (pre && pre.nodeName === "#text") {
-          var preJax,
-            postJax,
-            post = script.nextSibling;
+          var preJax, postJax;
+          var post = script.nextSibling;
           if (post && post.nodeName !== "#text") {
             post = null;
           }
@@ -2892,11 +2912,10 @@ if (document.getElementById && document.childNodes && document.createElement) {
 
       processInput: function(state) {
         state.start = state.start || new Date().getTime();
-        var jax,
-          STATE = MathJax.ElementJax.STATE;
-        var script,
-          prev,
-          m = state.scripts.length;
+        var jax;
+        var STATE = MathJax.ElementJax.STATE;
+        var script, prev;
+        var m = state.scripts.length;
         try {
           //
           //  Loop through the scripts
@@ -3004,8 +3023,8 @@ if (document.getElementById && document.childNodes && document.createElement) {
       //
       prepareOutput: function(state, method) {
         while (state.j < state.jaxIDs.length) {
-          var id = state.jaxIDs[state.j],
-            JAX = MathJax.OutputJax[id];
+          var id = state.jaxIDs[state.j];
+          var JAX = MathJax.OutputJax[id];
           if (JAX[method]) {
             try {
               var result = JAX[method](state);
@@ -3029,11 +3048,10 @@ if (document.getElementById && document.childNodes && document.createElement) {
 
       processOutput: function(state) {
         state.start = state.start || new Date().getTime();
-        var result,
-          STATE = MathJax.ElementJax.STATE,
-          script,
-          delta,
-          m = state.scripts.length;
+        var result;
+        var STATE = MathJax.ElementJax.STATE;
+        var script;
+        var m = state.scripts.length;
         try {
           //
           //  Loop through the scripts
@@ -3078,7 +3096,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
             //  Update the processing message, if needed
             //
             var now = new Date().getTime();
-            delta = now - state.start;
+            var delta = now - state.start;
             if (delta > this.processUpdateTime && state.i < state.scripts.length) {
               state.start = 0;
               this.RestartAfter(MathJax.Callback.Delay(this.processUpdateDelay));
@@ -3421,6 +3439,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
           console.log("ConfigBlocks:check script:", {
             i: i,
             type: type,
+            charset: scripts[i].charset,
             node: scripts[i],
             text: scripts[i].innerText
           });
@@ -3448,8 +3467,8 @@ if (document.getElementById && document.childNodes && document.createElement) {
             function(config) {
               var SETTINGS = config.menuSettings;
               if (SETTINGS.locale) MathJax.Localization.resetLocale(SETTINGS.locale);
-              var renderer = config.menuSettings.renderer,
-                jax = config.jax;
+              var renderer = config.menuSettings.renderer;
+              var jax = config.jax;
               if (renderer) {
                 var name = "output/" + renderer;
                 jax.sort();
@@ -3498,8 +3517,8 @@ if (document.getElementById && document.childNodes && document.createElement) {
       //  Load the input and output jax
       //
       Jax: function() {
-        var config = MathJax.Hub.config,
-          jax = MathJax.Hub.outputJax;
+        var config = MathJax.Hub.config;
+        var jax = MathJax.Hub.outputJax;
         //  Save the order of the output jax since they are loading asynchronously
         for (var i = 0, m = config.jax.length, k = 0; i < m; i++) {
           var name = config.jax[i].substr(7);
@@ -3539,9 +3558,9 @@ if (document.getElementById && document.childNodes && document.createElement) {
       //  (this must come after the jax are loaded)
       //
       Menu: function() {
-        var menu = MathJax.Hub.config.menuSettings,
-          jax = MathJax.Hub.outputJax,
-          registered;
+        var menu = MathJax.Hub.config.menuSettings;
+        jax = MathJax.Hub.outputJax;
+        var registered;
         for (var id in jax) {
           if (jax.hasOwnProperty(id)) {
             if (jax[id].length) {
@@ -3689,9 +3708,9 @@ if (document.getElementById && document.childNodes && document.createElement) {
             files = [files];
           }
           if (files.length) {
-            var queue = MathJax.Callback.Queue(),
-              callback = {},
-              file;
+            var queue = MathJax.Callback.Queue();
+            var callback = {};
+            var file;
             for (var i = 0, m = files.length; i < m; i++) {
               file = this.URL(dir, files[i]);
               if (name) {
@@ -3713,11 +3732,11 @@ if (document.getElementById && document.childNodes && document.createElement) {
     /**********************************************************/
 
     (function(BASENAME) {
-      var BASE = window[BASENAME],
-        ROOT = "[" + BASENAME + "]";
-      var HUB = BASE.Hub,
-        AJAX = BASE.Ajax,
-        CALLBACK = BASE.Callback;
+      var BASE = window[BASENAME];
+      var ROOT = "[" + BASENAME + "]";
+      var HUB = BASE.Hub;
+      var AJAX = BASE.Ajax;
+      var CALLBACK = BASE.Callback;
 
       var JAX = MathJax.Object.Subclass(
         {
@@ -3739,8 +3758,8 @@ if (document.getElementById && document.childNodes && document.createElement) {
           //  Augment by merging with class definition (not replacing)
           //
           Augment: function(def, cdef) {
-            var cObject = this.constructor,
-              ndef = {};
+            var cObject = this.constructor;
+            var ndef = {};
             if (def != null) {
               for (var id in def) {
                 if (def.hasOwnProperty(id)) {
@@ -3830,8 +3849,8 @@ if (document.getElementById && document.childNodes && document.createElement) {
           sourceMenuTitle: /*_(MathMenu)*/ ["Original", "Original Form"],
           copyTranslate: true,
           Process: function(script, state) {
-            var queue = CALLBACK.Queue(),
-              file;
+            var queue = CALLBACK.Queue();
+            var file;
             // Load any needed element jax
             var jax = this.elementJax;
             if (!BASE.Object.isArray(jax)) {
@@ -3896,8 +3915,8 @@ if (document.getElementById && document.childNodes && document.createElement) {
         {
           copyTranslate: true,
           preProcess: function(state) {
-            var load,
-              file = this.directory + "/" + this.JAXFILE;
+            var load;
+            var file = this.directory + "/" + this.JAXFILE;
             this.constructor.prototype.preProcess = function(state) {
               if (!load.called) {
                 return load;
