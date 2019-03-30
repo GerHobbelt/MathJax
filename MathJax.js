@@ -1118,9 +1118,13 @@ if (document.getElementById && document.childNodes && document.createElement) {
             //  when loading the initial localization file (before loading message is available)
             //
             this.loading[file].message = BASE.Message.File(name);
-            script.onerror = function MathJaxOnError(message, source, lineno, colno, error) { 
+            script.onerror = function MathJaxOnError(message, source, lineno, colno, error) {
               console.error("OnError:", {
-                message, source, lineno, colno, error,
+                message,
+                source,
+                lineno,
+                colno,
+                error,
                 args: arguments,
                 file
               });
@@ -3167,7 +3171,9 @@ if (document.getElementById && document.childNodes && document.createElement) {
             "'MathJax.Hub.lastError'"
           );
         script.MathJax.error = MathJax.OutputJax.Error.Jax(message, script);
-        if (script.MathJax.elementJax) script.MathJax.error.inputID = script.MathJax.elementJax.inputID;
+        if (script.MathJax.elementJax) {
+          script.MathJax.error.inputID = script.MathJax.elementJax.inputID;
+        }
         //
         //  Create the [Math Processing Error] span
         //
@@ -3209,7 +3215,7 @@ if (document.getElementById && document.childNodes && document.createElement) {
         //  Report the error as a signal
         //
         this.lastError = err;
-        console.warn("formatError:", {message, script, err});
+        console.warn("formatError:", { message, script, err });
         this.signal.Post(["Math Processing Error", script, err]);
       },
 
@@ -3368,7 +3374,9 @@ if (document.getElementById && document.childNodes && document.createElement) {
         //
         //  Make sure root is set before loading any files
         //
-        if (MathJax.AuthorConfig && MathJax.AuthorConfig.root) MathJax.Ajax.config.root = MathJax.AuthorConfig.root;
+        if (MathJax.AuthorConfig && MathJax.AuthorConfig.root) {
+          MathJax.Ajax.config.root = MathJax.AuthorConfig.root;
+        }
         //
         //  If a locale is given as a parameter,
         //    set the locale and the default menu value for the locale
@@ -4147,8 +4155,9 @@ if (document.getElementById && document.childNodes && document.createElement) {
         HEAD = document.childNodes[0];
       }
       var scripts = (document.documentElement || document).getElementsByTagName("script");
-      if (scripts.length === 0 && HEAD.namespaceURI)
+      if (scripts.length === 0 && HEAD.namespaceURI) {
         scripts = document.getElementsByTagNameNS(HEAD.namespaceURI, "script");
+      }
       var namePattern = new RegExp("(^|/)" + BASENAME + "\\.js(\\?.*)?$");
       for (var i = scripts.length - 1; i >= 0; i--) {
         if ((scripts[i].src || "").match(namePattern)) {

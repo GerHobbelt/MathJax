@@ -324,7 +324,7 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
   };
   var ISCALLBACK = function (f) {
     return (typeof f === "function" && f.isCallback);
-  }
+  };
 
   //
   //  Evaluate a string in global context
@@ -388,8 +388,11 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
   //
   var USING = function (args,i) {
     if (arguments.length > 1) {
-      if (arguments.length === 2 && !(typeof arguments[0] === 'function') &&
-          arguments[0] instanceof Object && typeof arguments[1] === 'number'
+      if (
+        arguments.length === 2 &&
+        !(typeof arguments[0] === "function") &&
+        arguments[0] instanceof Object &&
+        typeof arguments[1] === "number"
       ) {
         args = [].slice.call(args,i);
       } else {
@@ -871,7 +874,7 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
 
   var PATH = {};
   PATH[BASENAME] = "";                                        // empty path gets the root URL
-  PATH.a11y = '[MathJax]/extensions/a11y';                    // a11y extensions
+  PATH.a11y = "[MathJax]/extensions/a11y";                    // a11y extensions
   PATH.Contrib = "https://cdn.mathjax.org/mathjax/contrib";   // the third-party extensions
 
   BASE.Ajax = {
@@ -1089,7 +1092,19 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
         //  when loading the initial localization file (before loading message is available)
         //
         this.loading[file].message = BASE.Message.File(name);
-        script.onerror = timeout;  // doesn't work in IE and no apparent substitute
+        script.onerror = function MathJaxOnError(message, source, lineno, colno, error) { 
+          console.error("OnError:", {
+            message,
+            source,
+            lineno,
+            colno,
+            error,
+            args: arguments,
+            file
+          });
+          debugger;
+          timeout.apply(this, arguments); // doesn't work in IE and no apparent substitute
+        };
         script.type = "text/javascript";
         script.src = file+this.fileRev(name);
         this.head.appendChild(script);
@@ -1123,6 +1138,7 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
       //  to be processed.
       //
       create: function (callback,node) {
+        console.warn("create timer:", callback, node);
         callback = BASE.Callback(callback);
         if (node.nodeName === "STYLE" && node.styleSheet &&
             typeof(node.styleSheet.cssText) !== "undefined"
@@ -1142,12 +1158,14 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
       //  Start the timer for the given callback checker
       //
       start: function (AJAX,check,delay,timeout) {
+        console.warn("start timer:", check, this, delay, timeout);
         check = BASE.Callback(check);
         check.execute = this.execute;
         check.time = this.time;
         check.STATUS = AJAX.STATUS;
         check.timeout = timeout || AJAX.timeout;
         check.delay = check.total = delay || 0;
+        check.timestamp = Date.now();
         if (delay) {
           setTimeout(check,delay);
         } else {
@@ -1159,9 +1177,15 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
       //  and test if we are past the timeout time.
       //
       time: function (callback) {
-        this.total += this.delay;
+        var timestamp = Date.now();
+        var delta = (timestamp - this.timestamp) - this.delay;
+        console.warn("time extra delta:", delta);
+        this.total += this.delay + Math.max(0, delta);    // account for extra time spent until now in rendering/execution/elsewhere...
         this.delay = Math.floor(this.delay * 1.05 + 5);
+        this.timestamp = timestamp;
+        console.warn("timer increment:", this, this.total, this.timeoutdelay, this.delay, delta);
         if (this.total >= this.timeout) {
+          debugger;
           callback(this.STATUS.ERROR);
           return 1;
         }
@@ -1179,6 +1203,7 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
         });
 // debugger;
         if (status < 0) {
+          debugger;
           BASE.Ajax.loadTimeout(file);
         } else {
           BASE.Ajax.loadComplete(file);
@@ -1196,9 +1221,10 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
       //
       checkSafari2: function (check,length,callback) {
         if (check.time(callback)) return;
-        if (document.styleSheets.length > length &&
-            document.styleSheets[length].cssRules &&
-            document.styleSheets[length].cssRules.length
+        if (
+          document.styleSheets.length > length &&
+          document.styleSheets[length].cssRules &&
+          document.styleSheets[length].cssRules.length
         ) {
           callback(check.STATUS.OK);
         } else {
@@ -1254,7 +1280,7 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
           }
           SCRIPTS.push(loading.script);
         }
-        console.error("JS loadComplete:", {
+        console.warn("JS loadComplete:", {
           file,
           loading: this.loading[file],
           loaded: this.loaded[file],
@@ -1274,7 +1300,7 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
           delete this.loading[file];
         }
         this.loaded[file] = this.STATUS.OK;
-        loading = {status: this.STATUS.OK}
+        loading = { status: this.STATUS.OK };
       }
       if (!this.loadHooks[file]) {
         return null;
@@ -1287,13 +1313,13 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
     //  is called), this routine runs to signal the error condition.
     //
     loadTimeout: function (file) {
-      if (!this.loading[file]) {
+      if (true || !this.loading[file]) {
+        debugger;
         console.error("loadTimeout:", {
           file,
           loading: this.loading[file],
           loaded: this.loaded[file] 
         });
-        debugger;
       }
       if (this.loading[file] && this.loading[file].timeout) {
         clearTimeout(this.loading[file].timeout);
@@ -1309,6 +1335,7 @@ MathJax.cdnFileVersions = {};  // can be used to specify revisions for individua
     //  The default error hook for file load failures
     //
     loadError: function (file) {
+      debugger;
       BASE.Message.Set(["LoadFailed","File failed to load: %1",file],null,2000);
       BASE.Hub.signal.Post(["file load error",file]);
     },
@@ -1926,6 +1953,7 @@ MathJax.Localization = {
     //
     var load = MathJax.Ajax.Require(file, function() {
       data.isLoaded = true;
+      console.warn("loadFile: loaded callback:", file, data);
       return callback();
     });
     //
@@ -2114,7 +2142,8 @@ MathJax.Message = {
   current: null,
   textNodeBug: (navigator.vendor === "Apple Computer, Inc." &&
                 typeof navigator.vendorSub === "undefined") ||
-               (window.hasOwnProperty && window.hasOwnProperty("konqueror")), // Konqueror displays some gibberish with text.nodeValue = "..."
+               // Konqueror displays some gibberish with text.nodeValue = "..."
+               (window.hasOwnProperty && window.hasOwnProperty("konqueror")), 
 
   styles: {
     "#MathJax_Message": {
@@ -2469,9 +2498,9 @@ MathJax.Hub = {
     extensions: [],  // list of extensions to load
     preJax: null,    // pattern to remove from before math script tag
     postJax: null,   // pattern to remove from after math script tag
-    displayAlign: 'center',       // how to align displayed equations (left, center, right)
-    displayIndent: '0',           // indentation for displayed equations (when not centered)
-    preRemoveClass: 'MathJax_Preview', // class of objects to remove preceding math script
+    displayAlign: "center",       // how to align displayed equations (left, center, right)
+    displayIndent: "0",           // indentation for displayed equations (when not centered)
+    preRemoveClass: "MathJax_Preview", // class of objects to remove preceding math script
     showProcessingMessages: true, // display "Processing math: nn%" messages or not
     messageStyle: "normal",       // set to "none" or "simple" (for "Loading..." and "Processing...")
     delayStartupUntil: "none",    // set to "onload" to delay setup until the onload handler runs
@@ -2608,8 +2637,11 @@ MathJax.Hub = {
     var jax = [];
     var scripts = this.elementScripts(element);
     for (var i = 0, m = scripts.length; i < m; i++) {
-      if (scripts[i].MathJax && scripts[i].MathJax.elementJax &&
-          scripts[i].type && scripts[i].type.replace(/ *;(.|\s)*/,"") === type
+      if (
+        scripts[i].MathJax &&
+        scripts[i].MathJax.elementJax &&
+        scripts[i].type &&
+        scripts[i].type.replace(/ *;(.|\s)*/, "") === type
       ) {
         jax.push(scripts[i].MathJax.elementJax);
       }
@@ -3060,6 +3092,14 @@ MathJax.Hub = {
         }
       }
     } catch (err) {
+      console.warn("processOutput EXCEPTION:", {
+        err,
+        state_index: state.i,
+        state_count: state.scripts.length,
+        m,
+        delta,
+        upTime: this.processUpdateTime
+      });
       return this.processError(err, state, "Output");
     }
     //
@@ -3068,6 +3108,7 @@ MathJax.Hub = {
     if (state.scripts.length && this.config.showProcessingMessages) {
       MathJax.Message.Set(["TypesetMath","Typesetting math: %1%%",100],0);
       MathJax.Message.Clear(0);
+      console.warn("processOutput: ALL math has been typeset. DONE.", state);
     }
     state.i = state.j = 0;
     return null;
@@ -3155,6 +3196,7 @@ MathJax.Hub = {
     //  Report the error as a signal
     //
     this.lastError = err;
+    console.warn("formatError:", {message, script, err});
     this.signal.Post(["Math Processing Error",script,err]);
   },
 
@@ -3520,8 +3562,11 @@ MathJax.Hub.Startup = {
   //  Set the location to the designated hash position
   //
   Hash: function () {
-    if (MathJax.Hub.config.positionToHash && document.location.hash &&
-        document.body && document.body.scrollIntoView
+    if (
+      MathJax.Hub.config.positionToHash &&
+      document.location.hash &&
+      document.body &&
+      document.body.scrollIntoView
     ) {
       var name = decodeURIComponent(document.location.hash.substr(1));
       var target = document.getElementById(name);
@@ -3698,7 +3743,7 @@ MathJax.Hub.Startup = {
       if (arguments.length === 0) {
         return this;
       }
-      return (this.constructor.Subclass(def,cdef))();
+      return (this.constructor.Subclass(def, cdef))();
     },
     //
     //  Augment by merging with class definition (not replacing)
@@ -3874,8 +3919,11 @@ MathJax.Hub.Startup = {
         jax[mimetype] = [];
       }
       //  If the output jax is earlier in the original configuration list, put it first here
-      if (jax[mimetype].length && (this.id === HUB.config.menuSettings.renderer ||
-            (jax.order[this.id]||0) < (jax.order[jax[mimetype][0].id]||0))
+      if (
+        jax[mimetype].length &&
+        (this.id === HUB.config.menuSettings.renderer ||
+          (jax.order[this.id] || 0) < (jax.order[jax[mimetype][0].id] || 0)
+        )
       ) {
         jax[mimetype].unshift(this);
       } else {

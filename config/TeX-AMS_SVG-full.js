@@ -11517,9 +11517,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
 
     Config: function() {
       this.SUPER(arguments).Config.apply(this, arguments);
-      var settings = HUB.config.menuSettings,
-        config = this.config,
-        font = settings.font;
+      var settings = HUB.config.menuSettings;
+      var config = this.config;
+      var font = settings.font;
       if (settings.scale) {
         config.scale = settings.scale;
       }
@@ -11618,23 +11618,15 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
     },
 
     preTranslate: function(state) {
-      var scripts = state.jax[this.id],
-        i,
-        m = scripts.length,
-        n,
-        script,
-        prev,
-        span,
-        div,
-        test,
-        jax,
-        ex,
-        em,
-        maxwidth,
-        relwidth = false,
-        cwidth,
-        linebreak = this.config.linebreaks.automatic,
-        width = this.config.linebreaks.width;
+      var scripts = state.jax[this.id];
+      var i;
+      var m = scripts.length;
+      var n;
+      var script, prev, span, div, test, jax, ex, em, maxwidth;
+      var relwidth = false;
+      var cwidth;
+      var linebreak = this.config.linebreaks.automatic;
+      var width = this.config.linebreaks.width;
       if (linebreak) {
         relwidth = width.match(/^\s*(\d+(\.\d*)?%\s*)?container\s*$/) != null;
         if (relwidth) {
@@ -11646,8 +11638,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
           width = "100%";
         }
       } else {
+        // a big width, so no implicit line breaks
         maxwidth = 100000;
-      } // a big width, so no implicit line breaks
+      }
       //
       //  Loop through the scripts
       //
@@ -11766,6 +11759,7 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
       state.SVGi = -1;
       state.SVGchunk = this.config.EqnChunk;
       state.SVGdelay = false;
+      state.SVGstart = new Date().getTime();
     },
 
     Translate: function(script, state) {
@@ -11782,11 +11776,10 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
       //
       //  Get the data about the math
       //
-      var jax = script.MathJax.elementJax,
-        math = jax.root,
-        div,
-        span,
-        localCache = SVG.config.useFontCache && !SVG.config.useGlobalCache;
+      var jax = script.MathJax.elementJax;
+      var math = jax.root;
+      var div, span;
+      var localCache = SVG.config.useFontCache && !SVG.config.useGlobalCache;
       if (jax.SVG.isHidden) {
         span = document.getElementById(jax.inputID + "-Frame");
         div = jax.SVG.display ? span.parentElement : span;
@@ -11850,10 +11843,16 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
         //
         state.SVGeqn += state.i - state.SVGi;
         state.SVGi = state.i;
-        if (state.SVGeqn >= state.SVGlast + state.SVGchunk) {
+        var now = new Date().getTime();
+        var delta = now - state.SVGstart;
+        var trigger = delta > MathJax.Hub.processUpdateTime;
+        // debugger;
+        if (trigger || state.SVGeqn >= state.SVGlast + state.SVGchunk) {
+          // debugger;
           this.postTranslate(state, true);
           state.SVGchunk = Math.floor(state.SVGchunk * this.config.EqnChunkFactor);
           state.SVGdelay = true; // delay if there are more scripts
+          state.SVGstart = now;
         }
       }
     },
@@ -11933,8 +11932,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
     },
     getHoverBBox: function(jax, span, math) {
       var bbox = EVENT.getBBox(span.parentNode);
+      // bbox seems to be a bit off, so compensate (FIXME)
       bbox.h += 2;
-      bbox.d -= 2; // bbox seems to be a bit off, so compensate (FIXME)
+      bbox.d -= 2;
       return bbox;
     },
 
@@ -11971,7 +11971,9 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
       //
       var svg = span.getElementsByTagName("svg")[0].style;
       svg.marginTop = svg.marginRight = svg.marginLeft = 0;
-      if (svg.marginBottom.charAt(0) === "-") span.style.marginBottom = svg.marginBottom.substr(1);
+      if (svg.marginBottom.charAt(0) === "-") {
+        span.style.marginBottom = svg.marginBottom.substr(1);
+      }
 
       if (this.operaZoomRefresh) {
         setTimeout(function() {
@@ -11989,10 +11991,10 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
       //  Get height and width of zoomed math and original math
       //
       span.style.position = math.style.position = "absolute";
-      var zW = span.offsetWidth,
-        zH = span.offsetHeight,
-        mH = math.offsetHeight,
-        mW = math.offsetWidth;
+      var zW = span.offsetWidth;
+      var zH = span.offsetHeight;
+      var mH = math.offsetHeight;
+      var mW = math.offsetWidth;
       span.style.position = math.style.position = "";
       //
       return { Y: -EVENT.getBBox(span).h, mW: mW, mH: mH, zW: zW, zH: zH };
@@ -12051,8 +12053,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
       }
       var emFactor = (this.zoomScale || 1) / SVG.em;
       var match = length.match(/^\s*([-+]?(?:\.\d+|\d+(?:\.\d*)?))?(pt|em|ex|mu|px|pc|in|mm|cm|%)?/);
-      var m = parseFloat(match[1] || "1") * 1000,
-        unit = match[2];
+      var m = parseFloat(match[1] || "1") * 1000;
+      var unit = match[2];
       if (size == null) {
         size = 1000;
       }
@@ -12072,20 +12074,24 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
         return m * emFactor;
       }
       if (unit === "pt") {
+        // 10 pt to an em
         return m / 10;
-      } // 10 pt to an em
+      }
       if (unit === "pc") {
+        // 12 pt to a pc
         return m * 1.2;
-      } // 12 pt to a pc
+      }
       if (unit === "in") {
         return m * this.pxPerInch * emFactor;
       }
       if (unit === "cm") {
+        // 2.54 cm to an inch
         return (m * this.pxPerInch * emFactor) / 2.54;
-      } // 2.54 cm to an inch
+      }
       if (unit === "mm") {
+        // 10 mm to a cm
         return (m * this.pxPerInch * emFactor) / 25.4;
-      } // 10 mm to a cm
+      }
       if (unit === "mu") {
         return (m / 18) * mu;
       }
@@ -12118,8 +12124,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
     },
 
     getPadding: function(styles) {
-      var padding = { top: 0, right: 0, bottom: 0, left: 0 },
-        has = false;
+      var padding = { top: 0, right: 0, bottom: 0, left: 0 };
+      var has = false;
       for (var id in padding) {
         if (padding.hasOwnProperty(id)) {
           var pad = styles["padding" + id.charAt(0).toUpperCase() + id.substr(1)];
@@ -12132,8 +12138,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
       return has ? padding : false;
     },
     getBorders: function(styles) {
-      var border = { top: 0, right: 0, bottom: 0, left: 0 },
-        has = false;
+      var border = { top: 0, right: 0, bottom: 0, left: 0 };
+      var has = false;
       for (var id in border) {
         if (border.hasOwnProperty(id)) {
           var ID = "border" + id.charAt(0).toUpperCase() + id.substr(1);
@@ -13543,17 +13549,17 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
         //
         //  Get character translation for superscript and accents
         //
-        var parent = this.CoreParent(),
-          isScript = parent && parent.isa(MML.msubsup) && this !== parent.data[0],
-          mapchars = isScript ? this.remapChars : null;
+        var parent = this.CoreParent();
+        var isScript = parent && parent.isa(MML.msubsup) && this !== parent.data[0];
+        var mapchars = isScript ? this.remapChars : null;
         if (
           SVG.isChar(this.data.join("")) &&
           parent &&
           parent.isa(MML.munderover) &&
           SVG.isChar(this.CoreText(parent.data[parent.base]))
         ) {
-          var over = parent.data[parent.over],
-            under = parent.data[parent.under];
+          var over = parent.data[parent.over];
+          var under = parent.data[parent.under];
           if (over && this === over.CoreMO() && parent.Get("accent")) {
             mapchars = SVG.FONTDATA.REMAPACCENT;
           } else if (under && this === under.CoreMO() && parent.Get("accentunder")) {
@@ -13571,11 +13577,12 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
         //
         for (var i = 0, m = this.data.length; i < m; i++) {
           if (this.data[i]) {
-            var text = this.data[i].toSVG(variant, scale, this.remap, mapchars),
-              x = svg.w;
+            var text = this.data[i].toSVG(variant, scale, this.remap, mapchars);
+            var x = svg.w;
             if (x === 0 && -text.l > 10 * text.w) {
+              // initial combining character doesn't combine
               x += -text.l;
-            } // initial combining character doesn't combine
+            }
             svg.Add(text, x, 0, true);
             if (text.skew) {
               svg.skew = text.skew;
@@ -13613,8 +13620,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
         }
         var parent = this.CoreParent();
         if (parent && parent.isa(MML.munderover) && SVG.isChar(this.CoreText(parent.data[parent.base]))) {
-          var over = parent.data[parent.over],
-            under = parent.data[parent.under];
+          var over = parent.data[parent.over];
+          var under = parent.data[parent.under];
           if (over && this === over.CoreMO() && parent.Get("accent")) {
             c = SVG.FONTDATA.REMAPACCENT[c] || c;
           } else if (under && this === under.CoreMO() && parent.Get("accentunder")) {
@@ -13661,8 +13668,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
         return svg;
       },
       SVGstretchH: function(w) {
-        var svg = this.svg || this.toSVG(),
-          mu = this.SVGgetMu(svg);
+        var svg = this.svg || this.toSVG();
+        var mu = this.SVGgetMu(svg);
         var values = this.getValues("maxsize", "minsize", "mathvariant", "fontweight");
         // FIXME:  should take style="font-weight:bold" into account as well
         if ((values.fontweight === "bold" || parseInt(values.fontweight) >= 600) && !this.Get("mathvariant", true)) {
@@ -13719,11 +13726,11 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
         toSVG: function() {
           if (SVG.config.mtextFontInherit || this.Parent().type === "merror") {
             this.SVGgetStyles();
-            var svg = this.SVG(),
-              scale = this.SVGgetScale(svg);
+            var svg = this.SVG();
+            var scale = this.SVGgetScale(svg);
             this.SVGhandleSpace(svg);
-            var variant = this.SVGgetVariant(),
-              def = { direction: this.Get("dir") };
+            var variant = this.SVGgetVariant();
+            var def = { direction: this.Get("dir") };
             if (variant.bold) {
               def["font-weight"] = "bold";
             }
@@ -13843,21 +13850,24 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
         if (this.data[0] != null) {
           this.SVGgetScale(svg);
           this.SVGhandleSpace(svg);
-          var pad = this.SVGdataStretched(0, HW, D),
-            mu = this.SVGgetMu(svg);
-          var values = this.getValues("height", "depth", "width", "lspace", "voffset"),
-            X = 0,
-            Y = 0;
+          var pad = this.SVGdataStretched(0, HW, D);
+          var mu = this.SVGgetMu(svg);
+          var values = this.getValues("height", "depth", "width", "lspace", "voffset");
+          var X = 0;
+          var Y = 0;
           if (values.lspace) {
             X = this.SVGlength2em(pad, values.lspace, mu);
           }
           if (values.voffset) {
             Y = this.SVGlength2em(pad, values.voffset, mu);
           }
-          var h = pad.h,
-            d = pad.d,
-            w = pad.w,
-            y = pad.y; // these can change during the Add()
+
+          // these can change during the Add()
+          var h = pad.h;
+          var d = pad.d;
+          var w = pad.w;
+          var y = pad.y;
+
           svg.Add(pad, X, Y);
           svg.Clean();
           svg.h = h + y;
@@ -13978,13 +13988,13 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
     MML.mfrac.Augment({
       toSVG: function() {
         this.SVGgetStyles();
-        var svg = this.SVG(),
-          scale = this.SVGgetScale(svg);
+        var svg = this.SVG();
+        var scale = this.SVGgetScale(svg);
         var frac = BBOX();
         frac.scale = svg.scale;
         this.SVGhandleSpace(frac);
-        var num = this.SVGchildSVG(0),
-          den = this.SVGchildSVG(1);
+        var num = this.SVGchildSVG(0);
+        var den = this.SVGchildSVG(1);
         var values = this.getValues("displaystyle", "linethickness", "numalign", "denomalign", "bevelled");
         var isDisplay = values.displaystyle;
         var a = SVG.TeX.axis_height * scale;
@@ -13997,11 +14007,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
           frac.Add(den, num.w + bevel.w - delta, (den.d - den.h) / 2 + a - delta);
         } else {
           var W = Math.max(num.w, den.w);
-          var t = SVG.thickness2em(values.linethickness, this.scale) * this.mscale,
-            p,
-            q,
-            u,
-            v;
+          var t = SVG.thickness2em(values.linethickness, this.scale) * this.mscale;
+          var p, q, u, v;
           var mt = (SVG.TeX.min_rule_thickness / SVG.em) * 1000;
           if (isDisplay) {
             u = SVG.TeX.num1;
@@ -14063,17 +14070,14 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
     MML.msqrt.Augment({
       toSVG: function() {
         this.SVGgetStyles();
-        var svg = this.SVG(),
-          scale = this.SVGgetScale(svg);
+        var svg = this.SVG();
+        var scale = this.SVGgetScale(svg);
         this.SVGhandleSpace(svg);
-        var base = this.SVGchildSVG(0),
-          rule,
-          surd;
-        var t = SVG.TeX.rule_thickness * scale,
-          p,
-          q,
-          H,
-          x = 0;
+        var base = this.SVGchildSVG(0);
+        var rule, surd;
+        var t = SVG.TeX.rule_thickness * scale;
+        var p, q, H;
+        var x = 0;
         if (this.Get("displaystyle")) {
           p = SVG.TeX.x_height * scale;
         } else {
@@ -14188,17 +14192,15 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
         if (!values.displaystyle && base != null && (base.movablelimits || base.CoreMO().Get("movablelimits"))) {
           return MML.msubsup.prototype.toSVG.call(this);
         }
-        var svg = this.SVG(),
-          scale = this.SVGgetScale(svg);
+        var svg = this.SVG();
+        var scale = this.SVGgetScale(svg);
         this.SVGhandleSpace(svg);
-        var boxes = [],
-          stretch = [],
-          box,
-          i,
-          m,
-          W = -SVG.BIGDIMEN,
-          WW = W,
-          ww;
+        var boxes = [];
+        var stretch = [];
+        var box, i, m;
+        var W = -SVG.BIGDIMEN;
+        var WW = W;
+        var ww;
         for (i = 0, m = this.data.length; i < m; i++) {
           if (this.data[i] != null) {
             if (i == this.base) {
@@ -14545,8 +14547,8 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMSsymbols.js");
         var svg = this.SVG();
         this.SVGhandleSpace(svg);
         if (this.data[0] != null) {
-          var box = this.SVGdataStretched(0, HW, D),
-            y = 0;
+          var box = this.SVGdataStretched(0, HW, D);
+          var y = 0;
           if (this.texClass === MML.TEXCLASS.VCENTER) {
             y = SVG.TeX.axis_height - (box.h + box.d) / 2 + box.d;
           }
