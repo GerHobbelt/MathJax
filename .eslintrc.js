@@ -53,17 +53,20 @@ module.exports = {
         "eqeqeq": ["warn", "always", {"null": "ignore"}],
     
         // disallow use of comma operator
-        'no-sequences': 'error',
+        'no-sequences': "warn",
 
         "max-statements-per-line": ["warn", { "max": 1 }],
         // "one-var-declaration-per-line": ["warn", "always"],
-        "one-var": ["error", { 
+        "one-var": ["warn", { 
             var: "never", 
             let: "never", 
             const: "never" 
         }],    // break up var decls into multiple stmts: one per var.
-        "nonblock-statement-body-position": ["error", "below"],
+        "nonblock-statement-body-position": ["warn", "below"],
+
         "no-console": "off",
+        "no-debugger": "warn",
+
         "no-useless-escape": "off",
         "no-empty": "off",
         "no-unused-vars": "off",
@@ -71,8 +74,16 @@ module.exports = {
         "no-mixed-spaces-and-tabs": ["warn", true], 
         "no-func-assign": 1,
         "no-undef": 1,
+        
+        // https://eslint.org/docs/rules/no-cond-assign
+        "no-cond-assign": ["warn", "except-parens"],
+
         // "no-extra-parens": 1,
-        "no-extra-parens": ["warn", "all", { "nestedBinaryExpressions": false }],
+        "no-extra-parens": ["warn", "all", { 
+            "nestedBinaryExpressions": false,
+            "returnAssign": false,
+            "conditionalAssign": false,
+        }],
         // ["warn", "all",
         //     { 
         //         "conditionalAssign": false,
@@ -103,7 +114,5 @@ module.exports = {
             "exports": "never",
             "functions": "never"
         }],
-
-        "no-debugger": 2,
     },
 };
